@@ -1,0 +1,652 @@
+// The stage: one chapter's world drawn on a canvas and posed by a page position s (2.5 is halfway from page 2 to
+// page 3), with everything the reader does to the figure itself: hover lights a thing, a click or tap breaks it down,
+// drag turns the camera, shift-drag pans. The book (book.js) puts pages, text and controls around it; a textbook's
+// widget (adapters/kym-live.js) mounts it alone. The caller owns time: it calls step() once per frame.
+import { createEngine } from './render.js';
+import { themeScene } from './parts.js';
+import {
+  TAU, clamp01, clamp, lerp, fract, mod, smooth, smoothstep, ease,
+  phase, win, warpTime, spring, settleShake, squashStretch, eases,
+  hash, rand, rrange, loopNoise,
+} from './motion.js';
+
+export {
+  TAU, clamp01, clamp, lerp, fract, mod, smooth, smoothstep, ease,
+  phase, win, warpTime, spring, settleShake, squashStretch, eases,
+  hash, rand, rrange, loopNoise,
+};
+
+export function mountShareButton(anchorEl, shareUrl, cls = 'again sharebtn', syncUrl = null) {
+  if (!anchorEl) return null;
+  const shareB = document.createElement('button');
+  shareB.type = 'button';
+  shareB.className = cls;
+  shareB.id = 'share';
+  shareB.textContent = 'Copy link';
+  anchorEl.after(shareB);
+  shareB.onclick = () => {
+    const url = shareUrl();
+    if (syncUrl) syncUrl();
+    else history.replaceState(null, '', url);
+    navigator.clipboard?.writeText(url).catch(() => {});
+    shareB.textContent = 'Copied link';
+    setTimeout(() => { shareB.textContent = 'Copy link'; }, 1400);
+  };
+  return shareB;
+}
+
+export function mountCutBar(anchorEl, figure, getStage, { initialMode = null, place = 'after', onChange = null } = {}) {
+  if (!figure.cuts?.length || !anchorEl) return null;
+  let cutMode = initialMode || 'solid';
+  let userOverrode = initialMode !== null;
+  const cutBar = document.createElement('div');
+  cutBar.className = 'mode cutbar';
+  cutBar.id = 'cuts';
+  cutBar.setAttribute('role', 'group');
+  cutBar.setAttribute('aria-label', 'Cutaway mode');
+  const labels = { solid: 'Solid', xray: 'X-ray', section: 'Section' };
+  cutBar.innerHTML = figure.cuts.map(c => `<button type="button" data-cut="${c}" aria-pressed="${c === cutMode}">${labels[c] || c}</button>`).join('');
+  if (place === 'before') anchorEl.before(cutBar);
+  else anchorEl.after(cutBar);
+  const syncButtons = m => {
+    cutMode = m;
+    cutBar.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.cut === cutMode)));
+  };
+  const apply = (c, fromUser = true) => {
+    userOverrode = fromUser;
+    syncButtons(c);
+    const S = getStage();
+    if (S) {
+      S.cutOverride = userOverrode ? cutMode : null;
+      S.E.setXray(cutMode === 'xray' ? 1 : 0, figure.xrayKeys || null);
+      S.E.setCutaway(cutMode === 'section' ? (figure.cutPlane || [0, 0, -1, 0]) : null, figure.cutKeys || null);
+    }
+    if (onChange) onChange(cutMode, userOverrode);
+  };
+  cutBar.addEventListener('click', e => {
+    const b = e.target.closest('[data-cut]'); if (!b) return;
+    apply(b.dataset.cut, true);
+  });
+  return {
+    el: cutBar,
+    apply,
+    syncFromLook(look) {
+      if (userOverrode) return;
+      const next = look.section > 0.5 ? 'section' : look.xray > 0.5 ? 'xray' : 'solid';
+      if (next !== cutMode) syncButtons(next);
+    },
+    reset() {
+      userOverrode = false;
+      const S = getStage();
+      if (S) S.cutOverride = null;
+    },
+    get mode() { return cutMode; },
+    get overridden() { return userOverrode; },
+  };
+}
+
+// draggable(target, { axes?, plane?, constrain?, onDrag?, onStart?, onEnd?, onReset?, anchor?, pad?, autoMove? })
+// Makes any 3D mesh, vector, arrow or group directly grabbable on the canvas.
+// - axes: optional prims.axes instance; when given, constrain/onDrag work in data coordinates [x, y, z].
+// - plane: 'xy' (default), 'xz', 'yz', 'camera', [nx, ny, nz] normal, or THREE.Plane.
+// - constrain(pt): maps raw [x, y, z] to constrained [x, y, z] (e.g. snapping to a curve y = f(x)).
+// - onDrag(pt, worldPt): called as the reader drags the handle in 3D.
+export function draggable(target, opts = {}) {
+  const obj = target?.object || target;
+  if (!obj) throw new Error('draggable: missing target mesh or object');
+  const spec = {
+    obj,
+    target,
+    axes: opts.axes || null,
+    plane: opts.plane || null,
+    constrain: opts.constrain || null,
+    onDrag: opts.onDrag || null,
+    onStart: opts.onStart || null,
+    onEnd: opts.onEnd || null,
+    onReset: opts.onReset || null,
+    anchor: opts.anchor || null,
+    pad: opts.pad ?? 28,
+    autoMove: opts.autoMove ?? true,
+    active: false,
+    value: null,
+    get() {
+      return spec.value;
+    },
+    set(pt) {
+      return spec.project(pt);
+    },
+    project(pt, worldPt = null) {
+      let p = Array.isArray(pt) ? [...pt] : pt?.isVector3 ? [pt.x, pt.y, pt.z] : pt;
+      if (spec.constrain) p = spec.constrain(p);
+      spec.value = p;
+      if (spec.autoMove && !obj.userData?.arrow && Array.isArray(p)) {
+        if (spec.axes?.to) {
+          const lp = spec.axes.to(p[0], p[1], p[2] ?? 0);
+          obj.position?.copy(lp);
+          if (obj.userData?.home) obj.userData.home.copy(lp);
+        } else if (obj.position) {
+          obj.position.set(p[0], p[1], p[2] ?? 0);
+          if (obj.userData?.home) obj.userData.home.copy(obj.position);
+        }
+      }
+      if (spec.onDrag) spec.onDrag(p, worldPt);
+      return p;
+    },
+    reset() {
+      spec.value = null;
+      spec.active = false;
+      if (spec.onReset) spec.onReset();
+    },
+  };
+  obj.userData = obj.userData || {};
+  obj.userData.draggable = spec;
+  return spec;
+}
+
+// chapter: { PAGES, buildWorld(E), lookKeys, state(clock, reduced), forceLook?(selected, look), clock0? }
+// opts: { reduced, touch, theme (see parts.js applyTheme), dprCap }
+// hooks (assign after creating): onHover(key | null), onSelect(key | null), onPointerDown(), onDrag(spec, pt)
+export function createStage(canvas, labelsEl, chapter, { reduced = false, touch = false, theme = null, dprCap } = {}) {
+  const { PAGES } = chapter;
+  const N = PAGES.length;
+  const E = createEngine(canvas, { fov: 18, near: 0.2, far: 300, theme });
+  E.draggable = draggable;
+  const W = chapter.buildWorld(E);
+  themeScene(E.scene, E.theme);                 // a host theme: the chapter's greys become this paper's ink
+  const hooks = { onHover() {}, onSelect() {}, onPointerDown() {}, onDrag() {} };
+  const off = [];                                // listeners to remove on destroy
+  const on = (el, ev, fn, opt) => { el.addEventListener(ev, fn, opt); off.push(() => el.removeEventListener(ev, fn, opt)); };
+
+  // the canvas's box, read once per resize: reading it every frame forced a layout after each DOM write.
+  // Its size is the layout size, so the book zooming open (cover.js) cannot shrink the canvas; cover.js refits after.
+  let rect;
+  const fit = () => { const b = canvas.getBoundingClientRect(); rect = { left: b.left, top: b.top, width: canvas.clientWidth || 1, height: canvas.clientHeight || 1 }; E.resize(rect.width, rect.height); };
+  on(window, 'resize', fit);
+  const ro = new ResizeObserver(fit); ro.observe(canvas); fit();
+  // the box moves when the page around it scrolls (a textbook widget): re-read it, once, after a scroll
+  let moved = false;
+  on(window, 'scroll', () => { moved = true; }, { passive: true, capture: true });
+  const box = () => { if (moved) { moved = false; const b = canvas.getBoundingClientRect(); rect.left = b.left; rect.top = b.top; } return rect; };
+  if (dprCap) E.setDprCap(dprCap);
+
+  // ---------- labels anchored to the scene (with optional SVG leader lines) ----------
+  const leaderSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  leaderSvg.setAttribute('class', 'leaders');
+  leaderSvg.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible';
+  labelsEl.appendChild(leaderSvg);
+
+  const labels = (W.labels || []).map(L => {
+    const initHtml = L.html ?? (typeof L.text === 'string' ? L.text : '');
+    const textFn = typeof L.text === 'function' ? L.text : null;
+    const el = document.createElement('div'); el.className = 'lbl ' + L.cls; el.innerHTML = initHtml; labelsEl.appendChild(el);
+    let line = null, dot = null;
+    if (L.leader) {
+      line = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+      line.setAttribute('fill', 'none');
+      line.setAttribute('stroke', 'var(--muted, #86868c)');
+      line.setAttribute('stroke-width', '1');
+      leaderSvg.appendChild(line);
+      dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      dot.setAttribute('r', '2.5');
+      dot.setAttribute('fill', 'var(--muted, #86868c)');
+      leaderSvg.appendChild(dot);
+    }
+    return { el, line, dot, leader: L.leader || null, anchor: L.anchor || null, at: L.at, text: textFn, last: initHtml };   // text: optional () => html for live values
+  });
+  function placeLabels(w, h) {
+    const shown = [];
+    for (const L of labels) {
+      const p = L.at();
+      if (!p) { L.el.style.opacity = 0; if (L.line) L.line.style.opacity = 0; if (L.dot) L.dot.style.opacity = 0; continue; }
+      const [px, py, front] = E.toScreen(p, w, h);
+      const off = typeof L.leader === 'function' ? L.leader() : L.leader;
+      let ax = px, ay = py, x = px, y = py;
+      if (Array.isArray(off)) {
+        x = ax + off[0]; y = ay + off[1];
+      } else if (L.anchor) {
+        const ap = L.anchor();
+        if (ap) [ax, ay] = E.toScreen(ap, w, h);
+      }
+      const on = front && x > 8 && x < w - 8 && y > 8 && y < h - 8;
+      L.el.style.opacity = on ? 1 : 0;
+      L.el.style.left = `${x}px`; L.el.style.top = `${y}px`;
+      if (L.line) {
+        L.line.style.opacity = on ? 0.78 : 0;
+        L.dot.style.opacity = on ? 0.85 : 0;
+        if (on) {
+          const elbowX = ax + (x - ax) * 0.65;
+          L.line.setAttribute('points', `${ax.toFixed(1)},${ay.toFixed(1)} ${elbowX.toFixed(1)},${y.toFixed(1)} ${x.toFixed(1)},${y.toFixed(1)}`);
+          L.dot.setAttribute('cx', ax.toFixed(1));
+          L.dot.setAttribute('cy', ay.toFixed(1));
+        }
+      }
+      if (L.text) { const h = L.text(); if (h !== L.last) { L.el.innerHTML = h; L.last = h; } }
+      if (on) shown.push([L, x]);
+    }
+    // a label whose anchor is near an edge slides in, so its words stay inside the figure (one layout read for all)
+    if (!shown.length) return;
+    const left = labelsEl.getBoundingClientRect().left, boxes = shown.map(([L]) => L.el.getBoundingClientRect());
+    shown.forEach(([L, x], i) => {
+      const over = boxes[i].right - left - (w - 6), under = 6 - (boxes[i].left - left);
+      if (over > 0) L.el.style.left = `${x - over}px`; else if (under > 0) L.el.style.left = `${x + under}px`;
+    });
+  }
+
+  // ---------- hover / click / direct 3D drag ----------
+  let hovered = null, hoveredDrag = null, selected = null, pageLit = PAGES[0].lit;
+  const relight = () => E.setLit(hovered || selected || pageLit);
+  const dRay = new E.THREE.Raycaster(), dNdc = new E.THREE.Vector2(), dHit = new E.THREE.Vector3();
+  function liveDraggables() {
+    const out = [];
+    E.scene.traverseVisible(o => { if (o.userData?.draggable) out.push(o.userData.draggable); });
+    return out;
+  }
+  function handleWorldPos(d) {
+    if (d.anchor) return d.anchor();
+    E.scene.updateMatrixWorld(true);
+    if (d.obj.userData?.arrow?.tip) return d.obj.userData.arrow.tip.getWorldPosition(new E.THREE.Vector3());
+    return d.obj.getWorldPosition(new E.THREE.Vector3());
+  }
+  function pickDraggable(clientX, clientY) {
+    const r = box(), x = clientX - r.left, y = clientY - r.top, w = r.width, h = r.height;
+    let best = null, bestDist = Infinity;
+    for (const d of liveDraggables()) {
+      const wp = handleWorldPos(d);
+      if (!wp) continue;
+      const [sx, sy, front] = E.toScreen(wp, w, h);
+      if (!front || sx < -32 || sx > w + 32 || sy < -32 || sy > h + 32) continue;
+      const dist = Math.hypot(x - sx, y - sy);
+      if (dist <= d.pad && dist < bestDist) { best = d; bestDist = dist; }
+    }
+    return best;
+  }
+  function makeDragPlane(d, wp0) {
+    if (d.plane?.isPlane) return d.plane.clone();
+    let n;
+    if (d.plane === 'xz') n = new E.THREE.Vector3(0, 1, 0);
+    else if (d.plane === 'yz') n = new E.THREE.Vector3(1, 0, 0);
+    else if (d.plane === 'camera') n = E.camera.getWorldDirection(new E.THREE.Vector3()).negate();
+    else if (Array.isArray(d.plane)) n = new E.THREE.Vector3(...d.plane).normalize();
+    else if (d.axes?.z && d.plane !== 'xy') n = new E.THREE.Vector3(0, 1, 0);
+    else n = new E.THREE.Vector3(0, 0, 1);
+    return new E.THREE.Plane().setFromNormalAndCoplanarPoint(n, wp0);
+  }
+  function rayToPlane(clientX, clientY, plane) {
+    const r = box(), x = clientX - r.left, y = clientY - r.top;
+    dNdc.set((x / r.width) * 2 - 1, -(y / r.height) * 2 + 1);
+    dRay.setFromCamera(dNdc, E.camera);
+    return dRay.ray.intersectPlane(plane, dHit) ? dHit.clone() : null;
+  }
+
+  // hover is re-checked every frame at the pointer's last spot, so moving things light up as they
+  // pass under a still cursor and a click lands on whatever is lit at that moment
+  // Hover is latched: once something lights up it stays lit (and time stays stopped) until the
+  // pointer moves LATCH px from where it caught it, so a moving thing can't slip out from under it.
+  let pointer = null, anchor = null, timeRate = 1;
+  const LATCH = 40;
+  function hoverAt(fromMove) {
+    if (!pointer || (drag && drag.moved)) return;
+    const dHit = pickDraggable(pointer.x, pointer.y);
+    if (dHit !== hoveredDrag) {
+      hoveredDrag = dHit;
+      canvas.classList.toggle('draggable-hover', !!dHit);
+      if (dHit) timeRate = 0;
+    }
+    if (hovered && anchor && Math.hypot(pointer.x - anchor.x, pointer.y - anchor.y) < LATCH) return;
+    if (!fromMove && hovered) return;            // per-frame checks only catch new things passing under
+    const r = box();
+    const k = E.pick(pointer.x - r.left, pointer.y - r.top, r.width, r.height);
+    if (k) anchor = { ...pointer };
+    if (k !== hovered) {
+      hovered = k; relight();
+      if (k) timeRate = 0;                       // stop at once, so it stays where it was caught
+      canvas.classList.toggle('pointing', !!(k || hoveredDrag));
+      hooks.onHover(k);
+    } else {
+      canvas.classList.toggle('pointing', !!(hovered || hoveredDrag));
+    }
+  }
+  function select(k) {
+    if (k && !E.ASM[k]) return;
+    selected = k;
+    for (const [key, g] of Object.entries(E.ASM)) g.userData.target = key === k ? 1 : 0;
+    relight();
+    hooks.onSelect(k);
+  }
+  // drag turns the camera around the subject; shift- or right-drag pans; a still click selects; grabbing a handle drags it in 3D
+  const orbit = { az: 0, el: 0, pan: new E.THREE.Vector3() };
+  const lookAt = new E.THREE.Vector3();
+  let drag = null;
+  on(canvas, 'contextmenu', e => e.preventDefault());
+  on(canvas, 'pointerdown', e => {
+    hooks.onPointerDown();
+    const pan = e.shiftKey || e.button === 2, scrub = e.altKey;
+    const item = !pan && !scrub && e.button === 0 ? pickDraggable(e.clientX, e.clientY) : null;
+    drag = { x: e.clientX, y: e.clientY, x0: e.clientX, y0: e.clientY, pan, scrub, item, moved: false };
+    canvas.setPointerCapture(e.pointerId);
+  });
+  on(canvas, 'pointerup', e => {
+    if (drag?.item && drag.moved) {
+      drag.item.active = false;
+      drag.item.onEnd?.(drag.item.value);
+    } else if (drag && !drag.moved && e.button === 0) {
+      // a finger has no hover: a tap picks whatever is under it
+      const r = box();
+      const k = e.pointerType === 'mouse' ? hovered : E.pick(e.clientX - r.left, e.clientY - r.top, r.width, r.height);
+      select(k && k !== selected ? k : null);
+    }
+    drag = null; canvas.classList.remove('dragging');
+  });
+  on(canvas, 'dblclick', () => {
+    orbit.az = 0; orbit.el = 0; orbit.pan.set(0, 0, 0);
+    for (const d of liveDraggables()) d.reset();
+  });
+  on(canvas, 'pointermove', e => {
+    if (drag) {
+      const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+      if (!drag.moved && Math.hypot(dx, dy) < 4) return;
+      if (!drag.moved && drag.item) {
+        const wp0 = handleWorldPos(drag.item);
+        drag.plane = makeDragPlane(drag.item, wp0);
+        const hit0 = rayToPlane(drag.x0, drag.y0, drag.plane);
+        drag.offset = hit0 ? wp0.clone().sub(hit0) : new E.THREE.Vector3();
+        drag.item.active = true;
+        drag.item.onStart?.();
+      }
+      drag.moved = true; drag.x = e.clientX; drag.y = e.clientY;
+      canvas.classList.add('dragging');
+      if (drag.item) {
+        timeRate = 0;
+        const hit = rayToPlane(e.clientX, e.clientY, drag.plane);
+        if (hit) {
+          const worldPt = hit.add(drag.offset);
+          let pt;
+          if (drag.item.axes?.fromWorld) pt = drag.item.axes.fromWorld(worldPt);
+          else if (drag.item.obj.parent) {
+            drag.item.obj.parent.updateWorldMatrix(true, false);
+            pt = drag.item.obj.parent.worldToLocal(worldPt.clone()).toArray();
+          } else pt = worldPt.toArray();
+          const val = drag.item.project(pt, worldPt);
+          hooks.onDrag(drag.item, val);
+        }
+      } else if (drag.scrub) {
+        clock = Math.max(0, clock + dx * 0.025);
+        scrubbed = clock;
+        timeRate = 0;
+      } else if (drag.pan) {
+        // world units per screen pixel at the target's depth, so the scene follows the cursor
+        const cam = E.camera, k = 2 * Math.tan(E.THREE.MathUtils.degToRad(cam.fov / 2)) * cam.position.distanceTo(lookAt) / rect.height;
+        const right = new E.THREE.Vector3().setFromMatrixColumn(cam.matrixWorld, 0), up = new E.THREE.Vector3().setFromMatrixColumn(cam.matrixWorld, 1);
+        orbit.pan.addScaledVector(right, -dx * k).addScaledVector(up, dy * k);
+      } else { orbit.az -= dx * 0.35; orbit.el += dy * 0.25; }
+      return;
+    }
+    pointer = { x: e.clientX, y: e.clientY };
+    hoverAt(true);
+  });
+  on(canvas, 'pointerleave', () => { pointer = null; anchor = null; hoveredDrag = null; if (hovered) { hovered = null; relight(); hooks.onHover(null); } canvas.classList.remove('pointing', 'draggable-hover'); });
+
+  // a breakdown's camera: the assembly's own view, or a sphere around its visible parts
+  function focusOf(k) {
+    const g = E.ASM[k];
+    // an assembly may name its own breakdown view: userData.focus = () => ({ target: [x, y, z], radius })
+    if (g.userData.focus) { const f = g.userData.focus(); return { target: f.target, dist: Math.max(E.distFor(f.radius), g.userData.minDist ?? 2) }; }
+    const bb = new E.THREE.Box3();
+    g.updateMatrixWorld(true);
+    const shown = o => { for (let p = o; p; p = p.parent) if (!p.visible) return false; return true; };   // hidden parents too
+    g.traverse(o => { if (o.isMesh && o.userData.part !== undefined && shown(o)) bb.expandByObject(o); });
+    const s = bb.getBoundingSphere(new E.THREE.Sphere());
+    return { target: s.center.toArray(), dist: Math.max(E.distFor(Math.max(s.radius, g.userData.minRadius ?? 1.2)), g.userData.minDist ?? 8) };   // a scene may allow a closer zoom
+  }
+
+  // ---------- one frame ----------
+  // s: the page position; litPage: whose lit thing is lit (the page whose text shows); running: time may advance
+  // (false while paused or still); clockAt: set the clock outright (a recorded tour) instead of advancing it.
+  let clock = chapter.clock0 || 0, scrubbed = null, lastClockAt, focusAmt = 0, lastFocus = null, orbitPage = 0, orbitHome = false, cutOverride = null, lastLook = {};
+  // blend: 'turn' eases each page's camera and look in over the second part of the scroll (a book's page turn);
+  // 'linear' follows s as it is, for a caller that already eases s (a machine's step).
+  function step({ now, dt, s, litPage = Math.round(s), running = true, narrow = false, narrowZoom = 1, clockAt, blend = 'turn' }) {
+    s = Math.min(Math.max(s, 0), N - 1);
+    const i = Math.min(Math.floor(s), N - 1), f = s - i, j = Math.min(i + 1, N - 1);
+    if (PAGES[litPage].lit !== pageLit) { pageLit = PAGES[litPage].lit; relight(); }
+
+    // camera: the scroll path, blended toward the opened thing (shortest-way azimuth + mid-swing pull-back on wide turns)
+    const u = blend === 'linear' ? f : ease(smooth(0.3, 1, f));
+    const A = PAGES[i].cam, B = PAGES[j].cam;
+    const dAz = ((((B.az - A.az) % 360) + 540) % 360) - 180;
+    const swing = Math.max(0, (Math.abs(dAz) - 65) / 115);
+    const pullBack = 1 + 0.18 * swing * Math.sin(Math.PI * u);
+    let cam = { target: A.target.map((v, k) => lerp(v, B.target[k], u)), az: A.az + dAz * u, el: lerp(A.el, B.el, u), dist: lerp(A.dist, B.dist, u) * pullBack };
+    // a canvas narrower than the cameras were framed for pulls back; a page may say its own (a close-up in a wide figure)
+    const fa = k => PAGES[k].frameAspect ?? chapter.frameAspect ?? 1.25;
+    cam.dist *= Math.max(1, lerp(fa(i), fa(j), u) / E.camera.aspect);
+    if (narrow) cam.dist *= narrowZoom;
+    if (!reduced && !drag && running) cam.az += Math.sin(now / 5200) * 1.2;
+    const page = Math.round(s);
+    if (page !== orbitPage) { orbitPage = page; orbitHome = true; }
+    if (drag && drag.moved) orbitHome = false;
+    if (orbitHome) { const k = Math.exp(-dt * 3); orbit.az *= k; orbit.el *= k; orbit.pan.multiplyScalar(k); }
+    focusAmt += ((selected ? 1 : 0) - focusAmt) * (1 - Math.exp(-dt * 4));
+    if (selected) lastFocus = focusOf(selected);
+    if (focusAmt > 0.001 && lastFocus) {
+      const F = lastFocus;
+      cam = { target: cam.target.map((v, k) => lerp(v, F.target[k], focusAmt)), az: cam.az, el: lerp(cam.el, Math.max(cam.el, 6), focusAmt), dist: lerp(cam.dist, F.dist, focusAmt) };
+    }
+    cam.az += orbit.az;
+    cam.el = Math.min(Math.max(cam.el + orbit.el, -4), 85);
+    cam.target = cam.target.map((v, k) => v + orbit.pan.getComponent(k));
+    lookAt.fromArray(cam.target);
+    E.placeCamera(cam);
+
+    // time eases to a stop while something is pointed at, open, or being scrubbed/dragged, so moving things can be caught and read
+    timeRate = selected || hovered || hoveredDrag || !running || drag?.scrub || drag?.item ? 0 : timeRate + (1 - timeRate) * (1 - Math.exp(-dt * 4));
+    if (clockAt !== undefined) {
+      if (clockAt !== lastClockAt) { lastClockAt = clockAt; if (!drag?.scrub) scrubbed = null; }
+      clock = scrubbed ?? clockAt;
+    } else if (!reduced) clock += dt * timeRate;
+    const state = chapter.state(clock, reduced);
+    const LA = PAGES[i].look || {}, LB = PAGES[j].look || {}, look = {};
+    for (const key of chapter.lookKeys || []) {
+      if (key === 'isolate') continue;
+      look[key] = lerp(LA[key] || 0, LB[key] || 0, u);
+    }
+    for (const key of ['xray', 'section', 'ex']) {
+      if (look[key] === undefined && (LA[key] !== undefined || LB[key] !== undefined)) {
+        look[key] = lerp(LA[key] || 0, LB[key] || 0, u);
+      }
+    }
+    if (LA.isolate !== undefined || LB.isolate !== undefined) {
+      look.isolate = (u < 0.5 ? LA.isolate : LB.isolate) ?? null;
+    }
+    if (chapter.forceLook) chapter.forceLook(selected, look);
+    if (!cutOverride) {
+      if (look.xray !== undefined || look.section !== undefined) {
+        E.setXray(look.xray || 0, chapter.xrayKeys || null);
+        E.setCutaway((look.section || 0) > 0.5 ? (chapter.cutPlane || [0, 0, -1, 0]) : null, chapter.cutKeys || null);
+      }
+    }
+    if (look.isolate !== undefined) E.setIsolate(look.isolate);
+    if (look.ex !== undefined && !selected) E.setExplode(look.ex, null, true);
+    lastLook = look;
+    W.update(state, look);
+    E.stepExplode(dt);
+
+    hoverAt(false);
+    E.render();
+    placeLabels(rect.width, rect.height);
+    return state;
+  }
+
+  // for tools/labels.mjs: every label on screen, its box, and whether a solid stands between it and the camera
+  const ray = new E.THREE.Raycaster(), anchorV = new E.THREE.Vector3();
+  function labelReport() {
+    const solids = [];
+    // arrows draw over solids and glass shows through: neither hides a label
+    E.scene.traverse(o => { if (o.isMesh && o.visible && o.userData.part !== undefined && o.material.depthTest !== false && !o.material.transparent) solids.push(o); });
+    const cb = canvas.getBoundingClientRect();
+    // a vector's label rides its arrow, which is drawn over the solids as in a free-body diagram: never hidden
+    return labels.filter(L => +L.el.style.opacity > 0).map(L => {
+      const p = L.at(), r = L.el.getBoundingClientRect();
+      anchorV.copy(p); const d = E.camera.position.distanceTo(anchorV);
+      ray.set(E.camera.position, anchorV.clone().sub(E.camera.position).normalize()); ray.far = d * 0.97;
+      const hit = ray.intersectObjects(solids, false).find(h => { for (let o = h.object; o; o = o.parent) if (!o.visible) return false; return true; });
+      return { text: L.el.textContent, box: [r.left - cb.left, r.top - cb.top, r.width, r.height], hiddenBy: hit && !L.el.classList.contains('vec') && !L.leader ? (hit.object.userData.part || 'a solid') : null };
+    });
+  }
+
+  // for cli/scene.mjs: framing of the active lit assembly (or scene), occlusion of the lit assembly by opaque solids,
+  // and optional 3D bounding-box interpenetration between assemblies.
+  function sceneReport({ margin = 0.02, checkIntersections = false, intersectionTol = 0.025 } = {}) {
+    E.scene.updateMatrixWorld(true);
+    const shown = o => { for (let p = o; p; p = p.parent) if (!p.visible) return false; return true; };
+    const w = rect.width || canvas.clientWidth || 1, h = rect.height || canvas.clientHeight || 1;
+    const litGroup = pageLit && E.ASM[pageLit] && shown(E.ASM[pageLit]) ? E.ASM[pageLit] : null;
+    const litMeshes = [];
+    if (litGroup) litGroup.traverse(o => { if (o.isMesh && shown(o) && o.userData.part !== undefined) litMeshes.push(o); });
+    const allMeshes = [];
+    E.scene.traverse(o => { if (o.isMesh && shown(o)) allMeshes.push(o); });
+    const targetMeshes = litMeshes.length ? litMeshes : allMeshes;
+
+    const subjectBox = new E.THREE.Box3();
+    for (const m of targetMeshes) subjectBox.expandByObject(m);
+
+    let framing = { subject: litMeshes.length ? pageLit : 'scene', inFrame: true, center: [0.5, 0.5], empty: subjectBox.isEmpty() };
+    if (!subjectBox.isEmpty()) {
+      const center3 = subjectBox.getCenter(new E.THREE.Vector3());
+      const [cx, cy, cFront] = E.toScreen(center3, w, h);
+      const cu = cx / w, cv = cy / h;
+      let uMin = Infinity, vMin = Infinity, uMax = -Infinity, vMax = -Infinity, anyFront = false;
+      const corner = new E.THREE.Vector3();
+      for (let i = 0; i < 8; i++) {
+        corner.set(
+          i & 1 ? subjectBox.max.x : subjectBox.min.x,
+          i & 2 ? subjectBox.max.y : subjectBox.min.y,
+          i & 4 ? subjectBox.max.z : subjectBox.min.z,
+        );
+        const [sx, sy, front] = E.toScreen(corner, w, h);
+        if (front) {
+          anyFront = true;
+          uMin = Math.min(uMin, sx / w); uMax = Math.max(uMax, sx / w);
+          vMin = Math.min(vMin, sy / h); vMax = Math.max(vMax, sy / h);
+        }
+      }
+      const centerIn = cFront && cu >= margin && cu <= 1 - margin && cv >= margin && cv <= 1 - margin;
+      const boxOverlaps = anyFront && uMax >= margin + 0.04 && uMin <= 1 - margin - 0.04 && vMax >= margin + 0.04 && vMin <= 1 - margin - 0.04;
+      framing = {
+        subject: litMeshes.length ? pageLit : 'scene',
+        inFrame: centerIn || boxOverlaps,
+        centerInFrame: centerIn,
+        center: [+cu.toFixed(3), +cv.toFixed(3)],
+        bounds: anyFront ? [+uMin.toFixed(3), +vMin.toFixed(3), +uMax.toFixed(3), +vMax.toFixed(3)] : null,
+      };
+    }
+
+    // Occlusion: when a page highlights a specific assembly (pageLit), verify it is not 100% hidden behind
+    // an opaque, unclipped solid from another assembly.
+    let occlusion = { subject: litMeshes.length ? pageLit : null, blocked: false, occludedBy: null };
+    if (litMeshes.length) {
+      const ownSet = new Set(litMeshes);
+      const otherSolids = [];
+      E.scene.traverse(o => {
+        if (!o.isMesh || !shown(o) || ownSet.has(o) || o.userData.part === undefined) return;
+        const mat = o.material;
+        if (!mat || mat.transparent || mat.depthTest === false || mat.clipping) return;
+        const op = mat.uniforms?.uOpacity ? mat.uniforms.uOpacity.value : (mat.opacity ?? 1);
+        if (op <= 0.5) return;
+        otherSolids.push(o);
+      });
+      if (otherSolids.length) {
+        const samples = [subjectBox.getCenter(new E.THREE.Vector3())];
+        const topPt = subjectBox.getCenter(new E.THREE.Vector3());
+        topPt.y = lerp(subjectBox.min.y, subjectBox.max.y, 0.88);
+        samples.push(topPt);
+        for (const m of litMeshes.slice(0, 6)) {
+          const mb = new E.THREE.Box3().setFromObject(m);
+          if (!mb.isEmpty()) samples.push(mb.getCenter(new E.THREE.Vector3()));
+        }
+        let blockedCount = 0, firstBlocker = null;
+        for (const pt of samples) {
+          const d = E.camera.position.distanceTo(pt);
+          if (d < 1e-4) continue;
+          ray.set(E.camera.position, pt.clone().sub(E.camera.position).normalize());
+          ray.far = d * 0.96;
+          const hit = ray.intersectObjects(otherSolids, false)[0];
+          if (hit) {
+            blockedCount++;
+            if (!firstBlocker) {
+              let p = hit.object;
+              while (p && !p.userData?.asm) p = p.parent;
+              firstBlocker = p?.userData?.asm || hit.object.userData.part || 'a solid';
+            }
+          }
+        }
+        if (blockedCount === samples.length && samples.length > 0) {
+          occlusion = { subject: pageLit, blocked: true, occludedBy: firstBlocker };
+        }
+      }
+    }
+
+    // Optional interpenetration audit between distinct assemblies (skips cutaway housings/xray shells and plot/curve tubes that cross at axes)
+    const intersections = [];
+    const wantInter = checkIntersections || Object.values(E.ASM).some(g => g.userData?.auditIntersections);
+    if (wantInter) {
+      const onlyOptIn = !checkIntersections && Object.values(E.ASM).some(g => g.userData?.auditIntersections);
+      const cutSet = new Set([...(chapter.xrayKeys || []), ...(chapter.cutKeys || [])]);
+      const isSolidPart = o => {
+        if (!o.isMesh || !shown(o) || o.userData.part === undefined) return false;
+        const mat = o.material;
+        if (!mat || mat.transparent || mat.depthTest === false || mat.clipping) return false;
+        const op = mat.uniforms?.uOpacity ? mat.uniforms.uOpacity.value : (mat.opacity ?? 1);
+        return op > 0.5 && o.geometry?.type !== 'TubeGeometry' && !o.isInstancedMesh;
+      };
+      const entries = [];
+      for (const [k, g] of Object.entries(E.ASM)) {
+        if (!shown(g) || cutSet.has(k) || g.userData?.xray || g.userData?.housing || g.userData?.noPick) continue;
+        if (onlyOptIn && !g.userData?.auditIntersections) continue;
+        const boxes = [];
+        g.traverse(o => {
+          if (isSolidPart(o)) {
+            const mb = new E.THREE.Box3().setFromObject(o);
+            if (!mb.isEmpty()) boxes.push(mb);
+          }
+        });
+        if (boxes.length) entries.push([k, boxes]);
+      }
+      for (let i = 0; i < entries.length; i++) {
+        for (let j = i + 1; j < entries.length; j++) {
+          const [ka, boxesA] = entries[i], [kb, boxesB] = entries[j];
+          let maxMinO = 0;
+          for (const ba of boxesA) {
+            for (const bb of boxesB) {
+              if (ba.containsBox(bb) || bb.containsBox(ba)) continue;
+              const ox = Math.min(ba.max.x, bb.max.x) - Math.max(ba.min.x, bb.min.x);
+              const oy = Math.min(ba.max.y, bb.max.y) - Math.max(ba.min.y, bb.min.y);
+              const oz = Math.min(ba.max.z, bb.max.z) - Math.max(ba.min.z, bb.min.z);
+              const minO = Math.min(ox, oy, oz);
+              if (minO > maxMinO) maxMinO = minO;
+            }
+          }
+          if (maxMinO > intersectionTol) intersections.push({ pair: [ka, kb], overlap: +maxMinO.toFixed(4) });
+        }
+      }
+    }
+
+    return { framing, occlusion, intersections };
+  }
+
+  function destroy() {
+    for (const f of off) f();
+    ro.disconnect();
+    for (const L of labels) L.el.remove();
+    leaderSvg.remove();
+    E.dispose();
+  }
+
+  return {
+    E, W, N, hooks, step, select, relight, labelReport, sceneReport, destroy, fit, draggable,
+    get cutOverride() { return cutOverride; }, set cutOverride(v) { cutOverride = v; },
+    get lastLook() { return lastLook; },
+    get selected() { return selected; }, get hovered() { return hovered; }, get dragging() { return !!drag; },
+    get clock() { return clock; }, set clock(c) { clock = c; },
+  };
+}

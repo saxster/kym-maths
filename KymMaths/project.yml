@@ -1,0 +1,154 @@
+name: KymMaths
+options:
+  bundleIdPrefix: com.kymaia
+  deploymentTarget:
+    macOS: "14.0"
+    iOS: "17.0"
+  xcodeVersion: "16.0"
+  createIntermediateGroups: true
+  defaultConfig: Debug
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    GENERATE_INFOPLIST_FILE: YES
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+
+packages:
+  GRDB:
+    url: https://github.com/groue/GRDB.swift.git
+    from: "6.24.0"
+
+targets:
+  KymMaths:
+    type: application
+    platform: macOS
+    sources:
+      - path: KymMaths
+        excludes:
+          - "**/*.md"
+          - "**/Resources/**"
+      - path: KymMaths/Resources/ContentPacks
+        type: folder
+        buildPhase: resources
+      - path: KymMaths/Resources/PatternedWorldBook
+        type: folder
+        buildPhase: resources
+    dependencies:
+      - package: GRDB
+        product: GRDB
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.kymaia.maths
+        INFOPLIST_KEY_CFBundleDisplayName: "KymMaths"
+        INFOPLIST_KEY_LSApplicationCategoryType: "public.app-category.education"
+        INFOPLIST_KEY_NSMicrophoneUsageDescription: "KymMaths uses the microphone for mathematical voice study and Socratic Coach sessions."
+        INFOPLIST_KEY_NSSpeechRecognitionUsageDescription: "KymMaths transcribes your spoken reasoning on device for Mathematics practice."
+        INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription: "KymMaths reads your school calendar to plan revision around Mathematics tests and creates study blocks when you ask."
+        INFOPLIST_KEY_NSCalendarsWriteOnlyAccessUsageDescription: "KymMaths creates Mathematics study blocks on your calendar."
+        CODE_SIGN_ENTITLEMENTS: KymMaths/KymMaths.entitlements
+        CODE_SIGN_IDENTITY: "-"
+        CODE_SIGN_STYLE: Manual
+        ENABLE_HARDENED_RUNTIME: YES
+    entitlements:
+      path: KymMaths/KymMaths.entitlements
+      properties:
+        com.apple.security.app-sandbox: false
+        com.apple.security.network.client: true
+        com.apple.security.device.audio-input: true
+        com.apple.security.personal-information.calendars: true
+
+  KymMaths-iPad:
+    type: application
+    platform: iOS
+    sources:
+      - path: KymMaths
+        excludes:
+          - "**/*.md"
+          - "**/Resources/**"
+      - path: KymMaths/Resources/ContentPacks
+        type: folder
+        buildPhase: resources
+      - path: KymMaths/Resources/PatternedWorldBook
+        type: folder
+        buildPhase: resources
+    dependencies:
+      - package: GRDB
+        product: GRDB
+    info:
+      path: KymMaths/Info-iPad.plist
+      properties:
+        CFBundleURLTypes:
+          - CFBundleURLName: com.kymaia.maths.deeplink
+            CFBundleURLSchemes:
+              - kymmaths
+        LSApplicationQueriesSchemes:
+          - kymmaths
+          - kymbio
+          - kymchem
+          - kymphysics
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.kymaia.maths.ipad
+        PRODUCT_NAME: KymMaths
+        TARGETED_DEVICE_FAMILY: "1,2"
+        SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
+        INFOPLIST_KEY_CFBundleDisplayName: "KymMaths"
+        INFOPLIST_KEY_LSApplicationCategoryType: "public.app-category.education"
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        INFOPLIST_KEY_UIRequiresFullScreen: NO
+        INFOPLIST_KEY_NSSupportsLiveActivities: YES
+        INFOPLIST_KEY_NSMicrophoneUsageDescription: "KymMaths uses the microphone for mathematical voice study and Socratic Coach sessions."
+        INFOPLIST_KEY_NSSpeechRecognitionUsageDescription: "KymMaths transcribes your spoken reasoning on device for Mathematics practice."
+        INFOPLIST_KEY_NSCameraUsageDescription: "KymMaths uses the camera to scan pages from your OUP Complete Mathematics 8 textbook and handwritten workings."
+        INFOPLIST_KEY_NSPhotoLibraryUsageDescription: "KymMaths imports textbook pages and geometric diagrams from your library."
+        INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription: "KymMaths reads your school calendar to plan revision around Mathematics tests and creates study blocks when you ask."
+        INFOPLIST_KEY_NSCalendarsWriteOnlyAccessUsageDescription: "KymMaths creates Mathematics study blocks on your calendar."
+        CODE_SIGN_ENTITLEMENTS: KymMaths/KymMaths-iPad.entitlements
+        CODE_SIGN_STYLE: Automatic
+    entitlements:
+      path: KymMaths/KymMaths-iPad.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.kymaia.science
+          - group.com.kymaia.maths
+
+  KymMathsTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: Tests
+    dependencies:
+      - target: KymMaths
+      - package: GRDB
+        product: GRDB
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.kymaia.maths.tests
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/KymMaths.app/Contents/MacOS/KymMaths"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+        CODE_SIGN_IDENTITY: "-"
+        CODE_SIGN_STYLE: Manual
+
+schemes:
+  KymMaths:
+    build:
+      targets:
+        KymMaths: all
+        KymMathsTests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - KymMathsTests
+  KymMaths-iPad:
+    build:
+      targets:
+        KymMaths-iPad: all
+    run:
+      config: Debug

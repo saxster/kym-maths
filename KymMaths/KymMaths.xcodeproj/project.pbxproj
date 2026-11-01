@@ -1,0 +1,1219 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0031566AB12B9039C9B7CCA0 /* KymaiaMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B533539BC7476D841B2FCEB7 /* KymaiaMotion.swift */; };
+		01D23B864B841308DD9FF108 /* JournalPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8354EF0023AF306FE6783B6E /* JournalPaper.swift */; };
+		035F3553E20B86D77D526FE7 /* LiveMentorVoiceEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CFAB6A642E6B4183DB6DEA /* LiveMentorVoiceEngine.swift */; };
+		07360B6D3E9DF8422DB87A79 /* KymMathsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA0C47C2C0178C8A4F1E115 /* KymMathsTests.swift */; };
+		07371895019D3209CE34008F /* MathsJournalHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C90BAC6ED11793D40FD3EC /* MathsJournalHomeView.swift */; };
+		0822FD3BA476CAF876B823AD /* TutorCanvasEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DB198D93D535056F0BC2E0 /* TutorCanvasEngine.swift */; };
+		0BCBD3E279702D5CBEA2905F /* KymMathsAppIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE18E8E73216B45DE7361C45 /* KymMathsAppIntents.swift */; };
+		0C91B10336CF7DE503103958 /* PointerHighlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7397857C9513AD941B2554D1 /* PointerHighlight.swift */; };
+		1077F2DDC1476B3227161FE1 /* KymMathsWidgetViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02B9F0D1042BC7376621ADA /* KymMathsWidgetViews.swift */; };
+		11AAD67FD9418B435D5654F1 /* TodayHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B8B5B1FBF210293D430BBA /* TodayHomeView.swift */; };
+		11C348B355266984EAA4857A /* ViewTransitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC4A9288D4750C976AFB994 /* ViewTransitions.swift */; };
+		163F1E7654EE6EE6105844E0 /* KeyboardShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE55C7809ED0C3A87BC4C3D /* KeyboardShortcuts.swift */; };
+		18CCF15314B4DED27125FFE5 /* JournalSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411A1277A1AF6DA6B53BC1EE /* JournalSection.swift */; };
+		1B9B8E7EB5409C36BD9B4BEA /* HandwritingRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D566FAB183D306F9292CF9F5 /* HandwritingRecognition.swift */; };
+		1D273B22BDAAE654E5EBBFA1 /* SemanticStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98BA9A23593CA5FD7D3747 /* SemanticStyles.swift */; };
+		1DD89161C4ACBE6C4AE98340 /* STEMVerificationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472088539BE760CF1692992B /* STEMVerificationEngine.swift */; };
+		1E9AEA08B87CF0480057E9F2 /* ThemeTokensBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920C41CD9368662D11681A6B /* ThemeTokensBridge.swift */; };
+		1EC25236CD7B9365EB4635D6 /* CalendarHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D2F885D939D4AF1E09D412 /* CalendarHomeView.swift */; };
+		23B0CD4FFEF78BB7056294FC /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C53EB16B46F825B1999FFE4 /* ColorExtensions.swift */; };
+		25DF2B87CDC094A1F6D5F047 /* WritingPageFocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CD9B51F638A143D73FBE44 /* WritingPageFocus.swift */; };
+		2707C83371BD6CDFB3F442E9 /* JournalRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B19A7C85527ADEBAD024F0 /* JournalRow.swift */; };
+		27AE2BA3796D1A835D293477 /* CalendarHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D2F885D939D4AF1E09D412 /* CalendarHomeView.swift */; };
+		2811CC26497A3252B28B3FDA /* MathsMentorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD4442D2F7FB6CD77CDEF53 /* MathsMentorService.swift */; };
+		298D6E7606C80115514F4656 /* QuantitativeMathsEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAA5E7C075A07F21C66A716 /* QuantitativeMathsEngine.swift */; };
+		2D266C6028C080E01894A26F /* JournalForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B8D21192A2112AE6C7A6F3 /* JournalForm.swift */; };
+		2E0977BC7F08E666197C76D7 /* SeedPackModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDD75ED6882912482DEE178 /* SeedPackModels.swift */; };
+		3363DB9B3628E1E70B30ECB8 /* JournalReaderPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7DBB9E668414C828B68E60 /* JournalReaderPage.swift */; };
+		3C3AFB2742372D4C2C7608F3 /* JournalCardParts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5036835CEA79609FFD85EA33 /* JournalCardParts.swift */; };
+		3E7A4F376BD0EBC174960203 /* PatternedWorldBook in Resources */ = {isa = PBXBuildFile; fileRef = 2A38D288E5A8D98776CA488B /* PatternedWorldBook */; };
+		45362E8F74E742A702D7AE9F /* CuratedColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0DBF14DFE3846749A8047 /* CuratedColorScheme.swift */; };
+		46351C89C5E8540550A6CC84 /* JournalFocusPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BDA93D11DB4474F982CC46E /* JournalFocusPage.swift */; };
+		480F7A752FB414977F4A1584 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 0F91866900AE7816866A10E4 /* GRDB */; };
+		482C9F55DB77F8C08F4E9957 /* SchoolMathsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA29A7C3025EB034F6E598F8 /* SchoolMathsHomeView.swift */; };
+		4876E47F1D1A4E2D4C5910BF /* ContentPacks in Resources */ = {isa = PBXBuildFile; fileRef = FC5E968CEEE19955E9CB2DAE /* ContentPacks */; };
+		4A0C84F20E5EDFA55C526D86 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C0F139D8533197BF15DD61 /* Animations.swift */; };
+		4AB82175FAEB83765E311532 /* ThemePickerMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DC34314CA4FF06E66CD3E4 /* ThemePickerMenu.swift */; };
+		4CF17D977F236F18A8949B23 /* PatternedWorldBook in Resources */ = {isa = PBXBuildFile; fileRef = 2A38D288E5A8D98776CA488B /* PatternedWorldBook */; };
+		4D6562E368EF353768BB0F43 /* SystemSurfaceSnapshotStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73763B9E1D3039C1E9C4AB5B /* SystemSurfaceSnapshotStore.swift */; };
+		5018D3091A0606A9483E2A9E /* DocumentScannerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A62EF9DFF862C3929C4A16 /* DocumentScannerSheet.swift */; };
+		5322DFABB61BBEE496ADD305 /* PolicyDrivenAIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C78793C33CEEB8AEFDB87C5 /* PolicyDrivenAIProvider.swift */; };
+		55312FC5D41716C8A48C8F3F /* AgentSoulDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFF11E613DA5975AB669E8 /* AgentSoulDocument.swift */; };
+		5793B7EEE658F57FF0842556 /* PatternedWorldHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C1F14EF6D94BCEE33EDF90 /* PatternedWorldHomeView.swift */; };
+		57F3B95C58378EE3651286B4 /* JournalPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B32A0CA05B54F7C1A6E2BA /* JournalPage.swift */; };
+		593A8E220E8D95AC575E2617 /* KymaiaGlanceTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFC03EF3B1EC3083C5A298A /* KymaiaGlanceTokens.swift */; };
+		5A0AB9D856268F80AA51EB02 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C0F139D8533197BF15DD61 /* Animations.swift */; };
+		6464BDD5A8775D320604185D /* DocumentScannerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A62EF9DFF862C3929C4A16 /* DocumentScannerSheet.swift */; };
+		65EEDB427D6516E3073E66D9 /* TutorConstitution.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFFF0B132A9BB15C54DA50D /* TutorConstitution.swift */; };
+		668ADE1D120716922CAA64CA /* AdaptiveOptionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EE8110939870D3AE5B437 /* AdaptiveOptionPicker.swift */; };
+		6ABF5B29A853A98D7C281672 /* JournalForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B8D21192A2112AE6C7A6F3 /* JournalForm.swift */; };
+		6B7CFCC1D574EB5F003849E6 /* CuratedColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0DBF14DFE3846749A8047 /* CuratedColorScheme.swift */; };
+		6C2D0E3D46D5B89186EF44F1 /* JournalEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4173B76AB64277E0CBD69473 /* JournalEmptyState.swift */; };
+		6FB4703E7D7E61AA7759ECF4 /* PatternedWorldWebStageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DD6A6AE6D9FB5B8A7419FE /* PatternedWorldWebStageView.swift */; };
+		6FC26D320079820F00A4EBE5 /* ThemePickerMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DC34314CA4FF06E66CD3E4 /* ThemePickerMenu.swift */; };
+		71BE22A65B722A54D83008B0 /* PolyaFluencyHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9427F05150134B15A68F66 /* PolyaFluencyHomeView.swift */; };
+		73BD847F416077C839A18854 /* AgentSoulDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFF11E613DA5975AB669E8 /* AgentSoulDocument.swift */; };
+		74D213FC88CEAAB2222D8B92 /* WritingTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD95778E7160615044AEB9AF /* WritingTextEditor.swift */; };
+		760F8CA88B87279B3A09297E /* QuestionProofPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B46C98F303914A0F5C6D18 /* QuestionProofPracticeView.swift */; };
+		77BEEE5E27ED35962A4DD410 /* AdaptiveOptionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EE8110939870D3AE5B437 /* AdaptiveOptionPicker.swift */; };
+		7B81DF9C601DFFBF8D107513 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = B7521A0BF0C2B56E435CC884 /* GRDB */; };
+		7CB78DE01B0C060FF7E574DA /* QuantitativeMathsEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAA5E7C075A07F21C66A716 /* QuantitativeMathsEngine.swift */; };
+		7CFCF7E5291681E327466097 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156FB0647550A01C48704221 /* DatabaseManager.swift */; };
+		7D55691C31DABE5476516B1A /* SafetyEscalationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CF4B28A493F33B091494BF /* SafetyEscalationService.swift */; };
+		7F2A3FAEE66F8B3519606D58 /* AccessibilityHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAB6BAA2BFE67C6F4D3C758 /* AccessibilityHelpers.swift */; };
+		7FDDDD7AC91C636A3E63C274 /* JournalReaderPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7DBB9E668414C828B68E60 /* JournalReaderPage.swift */; };
+		80DBC3DBF94F009AFBB610F5 /* TutorCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122B93E0119F72B029B814CF /* TutorCanvasView.swift */; };
+		81AD8252D70070D6DC5FDEC9 /* TutorCanvasEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DB198D93D535056F0BC2E0 /* TutorCanvasEngine.swift */; };
+		8219E12C6D7D6490E892756D /* MathsScratchpadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFAE40635495E5AD63003F9 /* MathsScratchpadView.swift */; };
+		822B2B692B82FDAF59DDF9A3 /* KymaiaMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B533539BC7476D841B2FCEB7 /* KymaiaMotion.swift */; };
+		82324321574F44554C8B6BB5 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0AE6B878BB47F8B598188D /* Theme.swift */; };
+		82A14B1594B0631C6172F891 /* MissingDesignElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41CF12BC90D33476C80DA5F /* MissingDesignElements.swift */; };
+		84EF816333C81E9EC8188A89 /* LearnerTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828A12FB4545354319C4BF97 /* LearnerTextInput.swift */; };
+		868E5B6B6EF2FB5089AC0CA6 /* QuizAnswerOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A0EF5B7135F992682C3EF1 /* QuizAnswerOption.swift */; };
+		8712DD24F5ECF7D128EFCF62 /* JournalPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8354EF0023AF306FE6783B6E /* JournalPaper.swift */; };
+		873EB4C8ACC7F7222FF14B8D /* ViewTransitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC4A9288D4750C976AFB994 /* ViewTransitions.swift */; };
+		8BF72DEF1A548F9497CA8976 /* SeedPackModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDD75ED6882912482DEE178 /* SeedPackModels.swift */; };
+		8D9F86FE08ED3043E8071D76 /* JournalPageChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F7A19F726EE304D3A8FEDA /* JournalPageChrome.swift */; };
+		962F9AE3A1C72277DE3EDBB7 /* MathsSettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DED304239C5F1518DC70AD1 /* MathsSettingsSheet.swift */; };
+		978058813915E442EC74C7A7 /* Info-iPad.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1CF684174A9170E85BB5ACB4 /* Info-iPad.plist */; };
+		98F96414E9395FE4393E29A4 /* PatternedWorldWebStageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DD6A6AE6D9FB5B8A7419FE /* PatternedWorldWebStageView.swift */; };
+		99AA481B5FB05313F797A596 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156FB0647550A01C48704221 /* DatabaseManager.swift */; };
+		9AF922EE8CA158E7098B005D /* PolyaFluencyHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9427F05150134B15A68F66 /* PolyaFluencyHomeView.swift */; };
+		9B2625630462F31106907B43 /* ThemeTokensBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920C41CD9368662D11681A6B /* ThemeTokensBridge.swift */; };
+		9CE65E1492B0CEAD7B6C1030 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = DEA986FEFFC75AD4311FBEAC /* GRDB */; };
+		9F1B44F4C49009EB1049CD4D /* WritingPageFocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CD9B51F638A143D73FBE44 /* WritingPageFocus.swift */; };
+		A00F8E2E02C2253670C70EC9 /* JournalGlanceTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1216EAD24D47A201FCC48881 /* JournalGlanceTile.swift */; };
+		A09C9B1D9A7A6B0FA1194C47 /* KymMathsAppIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE18E8E73216B45DE7361C45 /* KymMathsAppIntents.swift */; };
+		A1859B76E5A579DBD77E6E6A /* PointerHighlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7397857C9513AD941B2554D1 /* PointerHighlight.swift */; };
+		A4F609CDA38764EAD22FC501 /* STEMVerificationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472088539BE760CF1692992B /* STEMVerificationEngine.swift */; };
+		A63D38559B02C7891F364911 /* MissingDesignElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41CF12BC90D33476C80DA5F /* MissingDesignElements.swift */; };
+		A66FB087EA63DBC55C0DAE81 /* PolicyDrivenAIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C78793C33CEEB8AEFDB87C5 /* PolicyDrivenAIProvider.swift */; };
+		A7A1EF79E694A8844F415CEA /* PlatformAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA2C9EDC75D1B35ECFAC99D /* PlatformAdaptive.swift */; };
+		A8828885F3EB84A78CBA3ADE /* MathsJournalHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C90BAC6ED11793D40FD3EC /* MathsJournalHomeView.swift */; };
+		A99C84FF4C58231E30FC8D17 /* QuestionProofPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B46C98F303914A0F5C6D18 /* QuestionProofPracticeView.swift */; };
+		AA8D6F3913BD922370A41CB4 /* JournalCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1F5752D44BE7EF4D8BE9D1 /* JournalCard.swift */; };
+		AADBB57C817AEC421460E8E5 /* ContentPacks in Resources */ = {isa = PBXBuildFile; fileRef = FC5E968CEEE19955E9CB2DAE /* ContentPacks */; };
+		AB147378E39BD93BBE0B4D33 /* TutorCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122B93E0119F72B029B814CF /* TutorCanvasView.swift */; };
+		AE418FACA3CAC65982B02F4D /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C53EB16B46F825B1999FFE4 /* ColorExtensions.swift */; };
+		AE6EBE3D0B4C0E2077286811 /* AdvancedAIPedagogyEngines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF8CBF631D51D7A89E2B7 /* AdvancedAIPedagogyEngines.swift */; };
+		AFA8B4106D99CF4EC0468A0A /* KymMathsWidgetViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02B9F0D1042BC7376621ADA /* KymMathsWidgetViews.swift */; };
+		B0E95E0708D8F6CEC11D390F /* JournalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D11FD01C7E9DD79F3D4EF8 /* JournalLayout.swift */; };
+		B3470CFFFD9729B2EDB9862C /* MathsSettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DED304239C5F1518DC70AD1 /* MathsSettingsSheet.swift */; };
+		B4920E3C41BE7CF365B8B3F0 /* JournalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D11FD01C7E9DD79F3D4EF8 /* JournalLayout.swift */; };
+		B6DEC981910CB72FEF0EA6F4 /* JournalCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1F5752D44BE7EF4D8BE9D1 /* JournalCard.swift */; };
+		B73D75E85ED1321CD13264F2 /* MathsCoachView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAE38307D0B53EB5B3CE05F /* MathsCoachView.swift */; };
+		B91F3B6108E77B316921C730 /* MathsScratchpadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFAE40635495E5AD63003F9 /* MathsScratchpadView.swift */; };
+		B953C95F5286F9C928201841 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DA3B0D277115D6FA1B1AE9 /* AppStore.swift */; };
+		B97ACEC220E84852DD28D682 /* WritingTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD95778E7160615044AEB9AF /* WritingTextEditor.swift */; };
+		BA884C6049430CEAE51CF7F1 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DA3B0D277115D6FA1B1AE9 /* AppStore.swift */; };
+		BFB6B565DFFB1D7281AD9F2C /* HandwritingRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D566FAB183D306F9292CF9F5 /* HandwritingRecognition.swift */; };
+		C01DC741491AA49BCCC249BE /* DrawingCanvasBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C96A18C9D9B72513ABD0EE /* DrawingCanvasBackground.swift */; };
+		C01FEEBDDA26232D9473FF0C /* JournalPageChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F7A19F726EE304D3A8FEDA /* JournalPageChrome.swift */; };
+		C0A78E071C471C29A0724665 /* LearnerTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828A12FB4545354319C4BF97 /* LearnerTextInput.swift */; };
+		C0FC88A8141BCD7AFD65757D /* KymMathsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48816A9525967912876C42A /* KymMathsApp.swift */; };
+		C8C6DC9D0118F5965D8291FC /* SchoolMathsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA29A7C3025EB034F6E598F8 /* SchoolMathsHomeView.swift */; };
+		C9604B98F3781B62710EDCD3 /* JournalGlanceTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1216EAD24D47A201FCC48881 /* JournalGlanceTile.swift */; };
+		CCFDB4CC80F01B8DC8740514 /* LiveMentorVoiceEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CFAB6A642E6B4183DB6DEA /* LiveMentorVoiceEngine.swift */; };
+		CDABC512B8534489E0390C0A /* JournalEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4173B76AB64277E0CBD69473 /* JournalEmptyState.swift */; };
+		D2BC7F559FC255D2A9111CDC /* TextbookPageScannerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE35C047793940C45E3ED616 /* TextbookPageScannerSheet.swift */; };
+		D51FB463A751D331670CBFB5 /* MathsMentorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD4442D2F7FB6CD77CDEF53 /* MathsMentorService.swift */; };
+		D625F5B4ECD806D40E3DB13C /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0AE6B878BB47F8B598188D /* Theme.swift */; };
+		D69569E13B756595D8BDBA4E /* LearningEngines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BD99A8624A92C5BD4B8DF8 /* LearningEngines.swift */; };
+		D8DF41E617CE9CC3B93DA9E8 /* DrawingCanvasBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C96A18C9D9B72513ABD0EE /* DrawingCanvasBackground.swift */; };
+		DBDE25C92F8F55F016FC2138 /* TextbookPageScannerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE35C047793940C45E3ED616 /* TextbookPageScannerSheet.swift */; };
+		DC2A596472599EF4219F3140 /* TutorConstitution.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFFF0B132A9BB15C54DA50D /* TutorConstitution.swift */; };
+		DF8944F6DC11990ED5C7EDAD /* LabsAtlasHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E587ED43C4F9E158A98BFEC8 /* LabsAtlasHomeView.swift */; };
+		E039B4AFFE3D21F205FCD1E6 /* MathsCoachView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAE38307D0B53EB5B3CE05F /* MathsCoachView.swift */; };
+		E0B664859D176245D7B5AFD1 /* AccessibilityHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAB6BAA2BFE67C6F4D3C758 /* AccessibilityHelpers.swift */; };
+		E0EE6FC48E6CCD96D31FDA61 /* JournalPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B32A0CA05B54F7C1A6E2BA /* JournalPage.swift */; };
+		E2108FF08844AAAFD9A48AF9 /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1540F2ABB6759E197F6E87B6 /* FlowLayout.swift */; };
+		E22F453C6E6E8A9A8601A2B9 /* JournalSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411A1277A1AF6DA6B53BC1EE /* JournalSection.swift */; };
+		E26074FFD68B1C57BD1FD889 /* SafetyEscalationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CF4B28A493F33B091494BF /* SafetyEscalationService.swift */; };
+		E2DDC0AA994AE829E800AD17 /* SemanticStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98BA9A23593CA5FD7D3747 /* SemanticStyles.swift */; };
+		E51A0F206697211EB0E188A5 /* KeyboardShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE55C7809ED0C3A87BC4C3D /* KeyboardShortcuts.swift */; };
+		E58C9AA80E04CD6398CB3CD2 /* PatternedWorldHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C1F14EF6D94BCEE33EDF90 /* PatternedWorldHomeView.swift */; };
+		E7BA35733AB30231B41CC297 /* QuizAnswerOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A0EF5B7135F992682C3EF1 /* QuizAnswerOption.swift */; };
+		EA015C0F92FC8E918BBA8C1D /* LearningEngines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BD99A8624A92C5BD4B8DF8 /* LearningEngines.swift */; };
+		EA0464E419B3910E178C4A1B /* JournalRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B19A7C85527ADEBAD024F0 /* JournalRow.swift */; };
+		EFE8934C41BC1AD03D64874A /* AdvancedAIPedagogyEngines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF8CBF631D51D7A89E2B7 /* AdvancedAIPedagogyEngines.swift */; };
+		F103CB51BE1A8EFF5B4BA30A /* TodayHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B8B5B1FBF210293D430BBA /* TodayHomeView.swift */; };
+		F71B175942293D5753FC0699 /* JournalFocusPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BDA93D11DB4474F982CC46E /* JournalFocusPage.swift */; };
+		FC46CE2406A6F4289EB77D75 /* KymaiaGlanceTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFC03EF3B1EC3083C5A298A /* KymaiaGlanceTokens.swift */; };
+		FCE30A1F117BC3F4DF809FAF /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1540F2ABB6759E197F6E87B6 /* FlowLayout.swift */; };
+		FD116EBF392C6AA54FD115F4 /* KymMathsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48816A9525967912876C42A /* KymMathsApp.swift */; };
+		FD606F497BB8598C6EE25879 /* PlatformAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA2C9EDC75D1B35ECFAC99D /* PlatformAdaptive.swift */; };
+		FD6CB4D33209250ABB441938 /* JournalCardParts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5036835CEA79609FFD85EA33 /* JournalCardParts.swift */; };
+		FF165C37C861FBFCB7CD0C69 /* SystemSurfaceSnapshotStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73763B9E1D3039C1E9C4AB5B /* SystemSurfaceSnapshotStore.swift */; };
+		FF31FB4D1348FF1E7D336E4F /* LabsAtlasHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E587ED43C4F9E158A98BFEC8 /* LabsAtlasHomeView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		73442165A4D3725B5B97954D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 79A4BDE93586F0837DB32F7E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5144869E398E989729E6F28F;
+			remoteInfo = KymMaths;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		02F7A19F726EE304D3A8FEDA /* JournalPageChrome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalPageChrome.swift; sourceTree = "<group>"; };
+		0AFAE40635495E5AD63003F9 /* MathsScratchpadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathsScratchpadView.swift; sourceTree = "<group>"; };
+		1216EAD24D47A201FCC48881 /* JournalGlanceTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalGlanceTile.swift; sourceTree = "<group>"; };
+		122B93E0119F72B029B814CF /* TutorCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorCanvasView.swift; sourceTree = "<group>"; };
+		1540F2ABB6759E197F6E87B6 /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
+		156FB0647550A01C48704221 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		1BDD75ED6882912482DEE178 /* SeedPackModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPackModels.swift; sourceTree = "<group>"; };
+		1CF684174A9170E85BB5ACB4 /* Info-iPad.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Info-iPad.plist"; sourceTree = "<group>"; };
+		28DD6A6AE6D9FB5B8A7419FE /* PatternedWorldWebStageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternedWorldWebStageView.swift; sourceTree = "<group>"; };
+		2A38D288E5A8D98776CA488B /* PatternedWorldBook */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PatternedWorldBook; path = KymMaths/Resources/PatternedWorldBook; sourceTree = SOURCE_ROOT; };
+		2A9427F05150134B15A68F66 /* PolyaFluencyHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyaFluencyHomeView.swift; sourceTree = "<group>"; };
+		2BDA93D11DB4474F982CC46E /* JournalFocusPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalFocusPage.swift; sourceTree = "<group>"; };
+		31DB198D93D535056F0BC2E0 /* TutorCanvasEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorCanvasEngine.swift; sourceTree = "<group>"; };
+		35B19A7C85527ADEBAD024F0 /* JournalRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalRow.swift; sourceTree = "<group>"; };
+		37DC34314CA4FF06E66CD3E4 /* ThemePickerMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePickerMenu.swift; sourceTree = "<group>"; };
+		37F7F8FE6E96AA2585376DA5 /* KymMaths.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KymMaths.entitlements; sourceTree = "<group>"; };
+		3FEC0C3948CDDBBDF844FFBD /* KymMathsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KymMathsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		411A1277A1AF6DA6B53BC1EE /* JournalSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalSection.swift; sourceTree = "<group>"; };
+		4173B76AB64277E0CBD69473 /* JournalEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEmptyState.swift; sourceTree = "<group>"; };
+		41BD99A8624A92C5BD4B8DF8 /* LearningEngines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningEngines.swift; sourceTree = "<group>"; };
+		44C96A18C9D9B72513ABD0EE /* DrawingCanvasBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingCanvasBackground.swift; sourceTree = "<group>"; };
+		472088539BE760CF1692992B /* STEMVerificationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STEMVerificationEngine.swift; sourceTree = "<group>"; };
+		4EAE38307D0B53EB5B3CE05F /* MathsCoachView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathsCoachView.swift; sourceTree = "<group>"; };
+		5036835CEA79609FFD85EA33 /* JournalCardParts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalCardParts.swift; sourceTree = "<group>"; };
+		51C1F14EF6D94BCEE33EDF90 /* PatternedWorldHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternedWorldHomeView.swift; sourceTree = "<group>"; };
+		533BF8CBF631D51D7A89E2B7 /* AdvancedAIPedagogyEngines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedAIPedagogyEngines.swift; sourceTree = "<group>"; };
+		53BFF11E613DA5975AB669E8 /* AgentSoulDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentSoulDocument.swift; sourceTree = "<group>"; };
+		54D11FD01C7E9DD79F3D4EF8 /* JournalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalLayout.swift; sourceTree = "<group>"; };
+		5C53EB16B46F825B1999FFE4 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
+		5FE0DBF14DFE3846749A8047 /* CuratedColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuratedColorScheme.swift; sourceTree = "<group>"; };
+		67B8D21192A2112AE6C7A6F3 /* JournalForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalForm.swift; sourceTree = "<group>"; };
+		68CF4B28A493F33B091494BF /* SafetyEscalationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyEscalationService.swift; sourceTree = "<group>"; };
+		6C78793C33CEEB8AEFDB87C5 /* PolicyDrivenAIProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyDrivenAIProvider.swift; sourceTree = "<group>"; };
+		6D0AE6B878BB47F8B598188D /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		73763B9E1D3039C1E9C4AB5B /* SystemSurfaceSnapshotStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemSurfaceSnapshotStore.swift; sourceTree = "<group>"; };
+		7397857C9513AD941B2554D1 /* PointerHighlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerHighlight.swift; sourceTree = "<group>"; };
+		77DA3B0D277115D6FA1B1AE9 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
+		798EE8110939870D3AE5B437 /* AdaptiveOptionPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveOptionPicker.swift; sourceTree = "<group>"; };
+		7DD4442D2F7FB6CD77CDEF53 /* MathsMentorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathsMentorService.swift; sourceTree = "<group>"; };
+		828A12FB4545354319C4BF97 /* LearnerTextInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnerTextInput.swift; sourceTree = "<group>"; };
+		8354EF0023AF306FE6783B6E /* JournalPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalPaper.swift; sourceTree = "<group>"; };
+		83C0F139D8533197BF15DD61 /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
+		86A0EF5B7135F992682C3EF1 /* QuizAnswerOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizAnswerOption.swift; sourceTree = "<group>"; };
+		86B46C98F303914A0F5C6D18 /* QuestionProofPracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionProofPracticeView.swift; sourceTree = "<group>"; };
+		8D7DBB9E668414C828B68E60 /* JournalReaderPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalReaderPage.swift; sourceTree = "<group>"; };
+		8EC928AAB1B02C225627B926 /* KymMaths-iPad.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "KymMaths-iPad.entitlements"; sourceTree = "<group>"; };
+		90D2F885D939D4AF1E09D412 /* CalendarHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHomeView.swift; sourceTree = "<group>"; };
+		920C41CD9368662D11681A6B /* ThemeTokensBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTokensBridge.swift; sourceTree = "<group>"; };
+		9D22B0CB8F90E5F10BF12F8C /* KymMaths.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KymMaths.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9DED304239C5F1518DC70AD1 /* MathsSettingsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathsSettingsSheet.swift; sourceTree = "<group>"; };
+		A3B8B5B1FBF210293D430BBA /* TodayHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayHomeView.swift; sourceTree = "<group>"; };
+		A9C90BAC6ED11793D40FD3EC /* MathsJournalHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathsJournalHomeView.swift; sourceTree = "<group>"; };
+		ABA2C9EDC75D1B35ECFAC99D /* PlatformAdaptive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformAdaptive.swift; sourceTree = "<group>"; };
+		AE18E8E73216B45DE7361C45 /* KymMathsAppIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KymMathsAppIntents.swift; sourceTree = "<group>"; };
+		B533539BC7476D841B2FCEB7 /* KymaiaMotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KymaiaMotion.swift; sourceTree = "<group>"; };
+		BA29A7C3025EB034F6E598F8 /* SchoolMathsHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolMathsHomeView.swift; sourceTree = "<group>"; };
+		BAE55C7809ED0C3A87BC4C3D /* KeyboardShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardShortcuts.swift; sourceTree = "<group>"; };
+		BE1F5752D44BE7EF4D8BE9D1 /* JournalCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalCard.swift; sourceTree = "<group>"; };
+		BEAA5E7C075A07F21C66A716 /* QuantitativeMathsEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantitativeMathsEngine.swift; sourceTree = "<group>"; };
+		BEFC03EF3B1EC3083C5A298A /* KymaiaGlanceTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KymaiaGlanceTokens.swift; sourceTree = "<group>"; };
+		C02B9F0D1042BC7376621ADA /* KymMathsWidgetViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KymMathsWidgetViews.swift; sourceTree = "<group>"; };
+		C0B32A0CA05B54F7C1A6E2BA /* JournalPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalPage.swift; sourceTree = "<group>"; };
+		C20E2798CF589C928229BBE1 /* KymMaths-iPad.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "KymMaths-iPad.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C48816A9525967912876C42A /* KymMathsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KymMathsApp.swift; sourceTree = "<group>"; };
+		C4CD9B51F638A143D73FBE44 /* WritingPageFocus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingPageFocus.swift; sourceTree = "<group>"; };
+		C9CFAB6A642E6B4183DB6DEA /* LiveMentorVoiceEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMentorVoiceEngine.swift; sourceTree = "<group>"; };
+		D566FAB183D306F9292CF9F5 /* HandwritingRecognition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandwritingRecognition.swift; sourceTree = "<group>"; };
+		DB98BA9A23593CA5FD7D3747 /* SemanticStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticStyles.swift; sourceTree = "<group>"; };
+		DFC4A9288D4750C976AFB994 /* ViewTransitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTransitions.swift; sourceTree = "<group>"; };
+		E587ED43C4F9E158A98BFEC8 /* LabsAtlasHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabsAtlasHomeView.swift; sourceTree = "<group>"; };
+		EBFFF0B132A9BB15C54DA50D /* TutorConstitution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorConstitution.swift; sourceTree = "<group>"; };
+		ECA0C47C2C0178C8A4F1E115 /* KymMathsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KymMathsTests.swift; sourceTree = "<group>"; };
+		EE35C047793940C45E3ED616 /* TextbookPageScannerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextbookPageScannerSheet.swift; sourceTree = "<group>"; };
+		F2A62EF9DFF862C3929C4A16 /* DocumentScannerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentScannerSheet.swift; sourceTree = "<group>"; };
+		F41CF12BC90D33476C80DA5F /* MissingDesignElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingDesignElements.swift; sourceTree = "<group>"; };
+		FAAB6BAA2BFE67C6F4D3C758 /* AccessibilityHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityHelpers.swift; sourceTree = "<group>"; };
+		FC5E968CEEE19955E9CB2DAE /* ContentPacks */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ContentPacks; path = KymMaths/Resources/ContentPacks; sourceTree = SOURCE_ROOT; };
+		FD95778E7160615044AEB9AF /* WritingTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingTextEditor.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		583390DAD45DCB601A224029 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9CE65E1492B0CEAD7B6C1030 /* GRDB in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8CB5E4C8D50769E048C6BA85 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				480F7A752FB414977F4A1584 /* GRDB in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A46C65C55C69EEA28705EB24 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B81DF9C601DFFBF8D107513 /* GRDB in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0216273130EBAACB84BD7E7A /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				5C53EB16B46F825B1999FFE4 /* ColorExtensions.swift */,
+				5FE0DBF14DFE3846749A8047 /* CuratedColorScheme.swift */,
+				BEFC03EF3B1EC3083C5A298A /* KymaiaGlanceTokens.swift */,
+				F41CF12BC90D33476C80DA5F /* MissingDesignElements.swift */,
+				ABA2C9EDC75D1B35ECFAC99D /* PlatformAdaptive.swift */,
+				DB98BA9A23593CA5FD7D3747 /* SemanticStyles.swift */,
+				6D0AE6B878BB47F8B598188D /* Theme.swift */,
+				920C41CD9368662D11681A6B /* ThemeTokensBridge.swift */,
+				3FFE6C4B6A079951A300C7DC /* Components */,
+				17D567DC614E4BDA80EFBA6B /* Journal */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+		06298FC14BB1E16C394A27E0 /* Today */ = {
+			isa = PBXGroup;
+			children = (
+				A3B8B5B1FBF210293D430BBA /* TodayHomeView.swift */,
+			);
+			path = Today;
+			sourceTree = "<group>";
+		};
+		09599CE08E0AEB5542D2FE74 = {
+			isa = PBXGroup;
+			children = (
+				9D20C592883674D418BE05FA /* KymMaths */,
+				5E6C4B5BBE2684EECB38906D /* Tests */,
+				8405B7A88ED6896A52DD5243 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0CA42C18A3ECB6621E4D1D05 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				157C2BCC9AFE66751306B638 /* AI */,
+				829B7B033EE865944254B151 /* Database */,
+				ED9F9216DFF66E46157F5135 /* Learning */,
+				8D2F5AC0CDF5C4512D0ED1E0 /* Models */,
+				85480B3B0E6A177A9282B6C9 /* Quantitative */,
+				D8CD4F7C7B08934398F7BD9D /* State */,
+				1D33FC46BB3502772A0E3637 /* SystemSurfaces */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		157C2BCC9AFE66751306B638 /* AI */ = {
+			isa = PBXGroup;
+			children = (
+				533BF8CBF631D51D7A89E2B7 /* AdvancedAIPedagogyEngines.swift */,
+				53BFF11E613DA5975AB669E8 /* AgentSoulDocument.swift */,
+				C9CFAB6A642E6B4183DB6DEA /* LiveMentorVoiceEngine.swift */,
+				7DD4442D2F7FB6CD77CDEF53 /* MathsMentorService.swift */,
+				6C78793C33CEEB8AEFDB87C5 /* PolicyDrivenAIProvider.swift */,
+				68CF4B28A493F33B091494BF /* SafetyEscalationService.swift */,
+				31DB198D93D535056F0BC2E0 /* TutorCanvasEngine.swift */,
+				EBFFF0B132A9BB15C54DA50D /* TutorConstitution.swift */,
+			);
+			path = AI;
+			sourceTree = "<group>";
+		};
+		17D567DC614E4BDA80EFBA6B /* Journal */ = {
+			isa = PBXGroup;
+			children = (
+				BE1F5752D44BE7EF4D8BE9D1 /* JournalCard.swift */,
+				5036835CEA79609FFD85EA33 /* JournalCardParts.swift */,
+				4173B76AB64277E0CBD69473 /* JournalEmptyState.swift */,
+				2BDA93D11DB4474F982CC46E /* JournalFocusPage.swift */,
+				67B8D21192A2112AE6C7A6F3 /* JournalForm.swift */,
+				1216EAD24D47A201FCC48881 /* JournalGlanceTile.swift */,
+				54D11FD01C7E9DD79F3D4EF8 /* JournalLayout.swift */,
+				C0B32A0CA05B54F7C1A6E2BA /* JournalPage.swift */,
+				02F7A19F726EE304D3A8FEDA /* JournalPageChrome.swift */,
+				8354EF0023AF306FE6783B6E /* JournalPaper.swift */,
+				8D7DBB9E668414C828B68E60 /* JournalReaderPage.swift */,
+				35B19A7C85527ADEBAD024F0 /* JournalRow.swift */,
+				411A1277A1AF6DA6B53BC1EE /* JournalSection.swift */,
+			);
+			path = Journal;
+			sourceTree = "<group>";
+		};
+		1D33FC46BB3502772A0E3637 /* SystemSurfaces */ = {
+			isa = PBXGroup;
+			children = (
+				AE18E8E73216B45DE7361C45 /* KymMathsAppIntents.swift */,
+				C02B9F0D1042BC7376621ADA /* KymMathsWidgetViews.swift */,
+				73763B9E1D3039C1E9C4AB5B /* SystemSurfaceSnapshotStore.swift */,
+			);
+			path = SystemSurfaces;
+			sourceTree = "<group>";
+		};
+		3B450BAEFF0E98E7CFDB840F /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				90D2F885D939D4AF1E09D412 /* CalendarHomeView.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		3FFE6C4B6A079951A300C7DC /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				FAAB6BAA2BFE67C6F4D3C758 /* AccessibilityHelpers.swift */,
+				798EE8110939870D3AE5B437 /* AdaptiveOptionPicker.swift */,
+				83C0F139D8533197BF15DD61 /* Animations.swift */,
+				F2A62EF9DFF862C3929C4A16 /* DocumentScannerSheet.swift */,
+				44C96A18C9D9B72513ABD0EE /* DrawingCanvasBackground.swift */,
+				1540F2ABB6759E197F6E87B6 /* FlowLayout.swift */,
+				D566FAB183D306F9292CF9F5 /* HandwritingRecognition.swift */,
+				BAE55C7809ED0C3A87BC4C3D /* KeyboardShortcuts.swift */,
+				B533539BC7476D841B2FCEB7 /* KymaiaMotion.swift */,
+				828A12FB4545354319C4BF97 /* LearnerTextInput.swift */,
+				7397857C9513AD941B2554D1 /* PointerHighlight.swift */,
+				86A0EF5B7135F992682C3EF1 /* QuizAnswerOption.swift */,
+				37DC34314CA4FF06E66CD3E4 /* ThemePickerMenu.swift */,
+				DFC4A9288D4750C976AFB994 /* ViewTransitions.swift */,
+				C4CD9B51F638A143D73FBE44 /* WritingPageFocus.swift */,
+				FD95778E7160615044AEB9AF /* WritingTextEditor.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		48ACACEE609A3AD05C7769B1 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				9DED304239C5F1518DC70AD1 /* MathsSettingsSheet.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		5E6C4B5BBE2684EECB38906D /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				ECA0C47C2C0178C8A4F1E115 /* KymMathsTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		723F4FD4EC16DA66C4A8006E /* LabsAtlas */ = {
+			isa = PBXGroup;
+			children = (
+				E587ED43C4F9E158A98BFEC8 /* LabsAtlasHomeView.swift */,
+			);
+			path = LabsAtlas;
+			sourceTree = "<group>";
+		};
+		74005C65B05911E747B7D647 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FC5E968CEEE19955E9CB2DAE /* ContentPacks */,
+				2A38D288E5A8D98776CA488B /* PatternedWorldBook */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		829B7B033EE865944254B151 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				156FB0647550A01C48704221 /* DatabaseManager.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		8405B7A88ED6896A52DD5243 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C20E2798CF589C928229BBE1 /* KymMaths-iPad.app */,
+				9D22B0CB8F90E5F10BF12F8C /* KymMaths.app */,
+				3FEC0C3948CDDBBDF844FFBD /* KymMathsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		85480B3B0E6A177A9282B6C9 /* Quantitative */ = {
+			isa = PBXGroup;
+			children = (
+				BEAA5E7C075A07F21C66A716 /* QuantitativeMathsEngine.swift */,
+				472088539BE760CF1692992B /* STEMVerificationEngine.swift */,
+			);
+			path = Quantitative;
+			sourceTree = "<group>";
+		};
+		8D2F5AC0CDF5C4512D0ED1E0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1BDD75ED6882912482DEE178 /* SeedPackModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9245EF3A5742A14A1234266E /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				3B450BAEFF0E98E7CFDB840F /* Calendar */,
+				D69E0D59439026398167A743 /* Coach */,
+				723F4FD4EC16DA66C4A8006E /* LabsAtlas */,
+				AD638BB6A2CBA4D894332B3B /* MathsJournal */,
+				F1355865BB14EFC5DDFBF0D6 /* PatternedWorld */,
+				DB5E9F2C311271D60F4CABC2 /* PolyaFluency */,
+				F916D88146FD4D2CDCE403C2 /* SchoolTextbook */,
+				48ACACEE609A3AD05C7769B1 /* Settings */,
+				06298FC14BB1E16C394A27E0 /* Today */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		9D20C592883674D418BE05FA /* KymMaths */ = {
+			isa = PBXGroup;
+			children = (
+				1CF684174A9170E85BB5ACB4 /* Info-iPad.plist */,
+				8EC928AAB1B02C225627B926 /* KymMaths-iPad.entitlements */,
+				37F7F8FE6E96AA2585376DA5 /* KymMaths.entitlements */,
+				D87C85A44A724883206FD3ED /* App */,
+				0CA42C18A3ECB6621E4D1D05 /* Core */,
+				0216273130EBAACB84BD7E7A /* Design */,
+				9245EF3A5742A14A1234266E /* Features */,
+				74005C65B05911E747B7D647 /* Resources */,
+			);
+			path = KymMaths;
+			sourceTree = "<group>";
+		};
+		AD638BB6A2CBA4D894332B3B /* MathsJournal */ = {
+			isa = PBXGroup;
+			children = (
+				A9C90BAC6ED11793D40FD3EC /* MathsJournalHomeView.swift */,
+			);
+			path = MathsJournal;
+			sourceTree = "<group>";
+		};
+		D69E0D59439026398167A743 /* Coach */ = {
+			isa = PBXGroup;
+			children = (
+				4EAE38307D0B53EB5B3CE05F /* MathsCoachView.swift */,
+				122B93E0119F72B029B814CF /* TutorCanvasView.swift */,
+			);
+			path = Coach;
+			sourceTree = "<group>";
+		};
+		D87C85A44A724883206FD3ED /* App */ = {
+			isa = PBXGroup;
+			children = (
+				C48816A9525967912876C42A /* KymMathsApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		D8CD4F7C7B08934398F7BD9D /* State */ = {
+			isa = PBXGroup;
+			children = (
+				77DA3B0D277115D6FA1B1AE9 /* AppStore.swift */,
+			);
+			path = State;
+			sourceTree = "<group>";
+		};
+		DB5E9F2C311271D60F4CABC2 /* PolyaFluency */ = {
+			isa = PBXGroup;
+			children = (
+				2A9427F05150134B15A68F66 /* PolyaFluencyHomeView.swift */,
+			);
+			path = PolyaFluency;
+			sourceTree = "<group>";
+		};
+		ED9F9216DFF66E46157F5135 /* Learning */ = {
+			isa = PBXGroup;
+			children = (
+				41BD99A8624A92C5BD4B8DF8 /* LearningEngines.swift */,
+			);
+			path = Learning;
+			sourceTree = "<group>";
+		};
+		F1355865BB14EFC5DDFBF0D6 /* PatternedWorld */ = {
+			isa = PBXGroup;
+			children = (
+				51C1F14EF6D94BCEE33EDF90 /* PatternedWorldHomeView.swift */,
+				28DD6A6AE6D9FB5B8A7419FE /* PatternedWorldWebStageView.swift */,
+			);
+			path = PatternedWorld;
+			sourceTree = "<group>";
+		};
+		F916D88146FD4D2CDCE403C2 /* SchoolTextbook */ = {
+			isa = PBXGroup;
+			children = (
+				0AFAE40635495E5AD63003F9 /* MathsScratchpadView.swift */,
+				86B46C98F303914A0F5C6D18 /* QuestionProofPracticeView.swift */,
+				BA29A7C3025EB034F6E598F8 /* SchoolMathsHomeView.swift */,
+				EE35C047793940C45E3ED616 /* TextbookPageScannerSheet.swift */,
+			);
+			path = SchoolTextbook;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		047DEB92E154CAB155267121 /* KymMaths-iPad */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 487F90FB1072AFFC41BA94F8 /* Build configuration list for PBXNativeTarget "KymMaths-iPad" */;
+			buildPhases = (
+				CADCC5D224C2E13446FCF8B0 /* Sources */,
+				38D0E9D1F7DA8E4AF7C72306 /* Resources */,
+				8CB5E4C8D50769E048C6BA85 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "KymMaths-iPad";
+			packageProductDependencies = (
+				0F91866900AE7816866A10E4 /* GRDB */,
+			);
+			productName = "KymMaths-iPad";
+			productReference = C20E2798CF589C928229BBE1 /* KymMaths-iPad.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5144869E398E989729E6F28F /* KymMaths */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 281B6636F6E62AA47EBAADB0 /* Build configuration list for PBXNativeTarget "KymMaths" */;
+			buildPhases = (
+				08A1D40B8341DE19D3C3F5C2 /* Sources */,
+				416685B662712B3E7EF48415 /* Resources */,
+				A46C65C55C69EEA28705EB24 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KymMaths;
+			packageProductDependencies = (
+				B7521A0BF0C2B56E435CC884 /* GRDB */,
+			);
+			productName = KymMaths;
+			productReference = 9D22B0CB8F90E5F10BF12F8C /* KymMaths.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EA55DCBCA24381DA841C08F8 /* KymMathsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9F33DA6EB8B95A06C222BCE2 /* Build configuration list for PBXNativeTarget "KymMathsTests" */;
+			buildPhases = (
+				67F76F1190A061E341E41D0E /* Sources */,
+				583390DAD45DCB601A224029 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3CB724E8266EF3D993A88BF3 /* PBXTargetDependency */,
+			);
+			name = KymMathsTests;
+			packageProductDependencies = (
+				DEA986FEFFC75AD4311FBEAC /* GRDB */,
+			);
+			productName = KymMathsTests;
+			productReference = 3FEC0C3948CDDBBDF844FFBD /* KymMathsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		79A4BDE93586F0837DB32F7E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					047DEB92E154CAB155267121 = {
+						ProvisioningStyle = Automatic;
+					};
+					5144869E398E989729E6F28F = {
+						ProvisioningStyle = Manual;
+					};
+					EA55DCBCA24381DA841C08F8 = {
+						ProvisioningStyle = Manual;
+					};
+				};
+			};
+			buildConfigurationList = 877AD90CDA5FB8C0402E74AE /* Build configuration list for PBXProject "KymMaths" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 09599CE08E0AEB5542D2FE74;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A1FDF51F128EECE36EA5D99D /* XCRemoteSwiftPackageReference "GRDB.swift" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 8405B7A88ED6896A52DD5243 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5144869E398E989729E6F28F /* KymMaths */,
+				047DEB92E154CAB155267121 /* KymMaths-iPad */,
+				EA55DCBCA24381DA841C08F8 /* KymMathsTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		38D0E9D1F7DA8E4AF7C72306 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4876E47F1D1A4E2D4C5910BF /* ContentPacks in Resources */,
+				4CF17D977F236F18A8949B23 /* PatternedWorldBook in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		416685B662712B3E7EF48415 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AADBB57C817AEC421460E8E5 /* ContentPacks in Resources */,
+				978058813915E442EC74C7A7 /* Info-iPad.plist in Resources */,
+				3E7A4F376BD0EBC174960203 /* PatternedWorldBook in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		08A1D40B8341DE19D3C3F5C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F2A3FAEE66F8B3519606D58 /* AccessibilityHelpers.swift in Sources */,
+				668ADE1D120716922CAA64CA /* AdaptiveOptionPicker.swift in Sources */,
+				EFE8934C41BC1AD03D64874A /* AdvancedAIPedagogyEngines.swift in Sources */,
+				73BD847F416077C839A18854 /* AgentSoulDocument.swift in Sources */,
+				5A0AB9D856268F80AA51EB02 /* Animations.swift in Sources */,
+				B953C95F5286F9C928201841 /* AppStore.swift in Sources */,
+				27AE2BA3796D1A835D293477 /* CalendarHomeView.swift in Sources */,
+				23B0CD4FFEF78BB7056294FC /* ColorExtensions.swift in Sources */,
+				6B7CFCC1D574EB5F003849E6 /* CuratedColorScheme.swift in Sources */,
+				99AA481B5FB05313F797A596 /* DatabaseManager.swift in Sources */,
+				6464BDD5A8775D320604185D /* DocumentScannerSheet.swift in Sources */,
+				D8DF41E617CE9CC3B93DA9E8 /* DrawingCanvasBackground.swift in Sources */,
+				E2108FF08844AAAFD9A48AF9 /* FlowLayout.swift in Sources */,
+				BFB6B565DFFB1D7281AD9F2C /* HandwritingRecognition.swift in Sources */,
+				B6DEC981910CB72FEF0EA6F4 /* JournalCard.swift in Sources */,
+				FD6CB4D33209250ABB441938 /* JournalCardParts.swift in Sources */,
+				CDABC512B8534489E0390C0A /* JournalEmptyState.swift in Sources */,
+				F71B175942293D5753FC0699 /* JournalFocusPage.swift in Sources */,
+				6ABF5B29A853A98D7C281672 /* JournalForm.swift in Sources */,
+				A00F8E2E02C2253670C70EC9 /* JournalGlanceTile.swift in Sources */,
+				B0E95E0708D8F6CEC11D390F /* JournalLayout.swift in Sources */,
+				E0EE6FC48E6CCD96D31FDA61 /* JournalPage.swift in Sources */,
+				C01FEEBDDA26232D9473FF0C /* JournalPageChrome.swift in Sources */,
+				01D23B864B841308DD9FF108 /* JournalPaper.swift in Sources */,
+				7FDDDD7AC91C636A3E63C274 /* JournalReaderPage.swift in Sources */,
+				EA0464E419B3910E178C4A1B /* JournalRow.swift in Sources */,
+				18CCF15314B4DED27125FFE5 /* JournalSection.swift in Sources */,
+				E51A0F206697211EB0E188A5 /* KeyboardShortcuts.swift in Sources */,
+				C0FC88A8141BCD7AFD65757D /* KymMathsApp.swift in Sources */,
+				A09C9B1D9A7A6B0FA1194C47 /* KymMathsAppIntents.swift in Sources */,
+				AFA8B4106D99CF4EC0468A0A /* KymMathsWidgetViews.swift in Sources */,
+				FC46CE2406A6F4289EB77D75 /* KymaiaGlanceTokens.swift in Sources */,
+				0031566AB12B9039C9B7CCA0 /* KymaiaMotion.swift in Sources */,
+				FF31FB4D1348FF1E7D336E4F /* LabsAtlasHomeView.swift in Sources */,
+				C0A78E071C471C29A0724665 /* LearnerTextInput.swift in Sources */,
+				D69569E13B756595D8BDBA4E /* LearningEngines.swift in Sources */,
+				CCFDB4CC80F01B8DC8740514 /* LiveMentorVoiceEngine.swift in Sources */,
+				E039B4AFFE3D21F205FCD1E6 /* MathsCoachView.swift in Sources */,
+				A8828885F3EB84A78CBA3ADE /* MathsJournalHomeView.swift in Sources */,
+				2811CC26497A3252B28B3FDA /* MathsMentorService.swift in Sources */,
+				8219E12C6D7D6490E892756D /* MathsScratchpadView.swift in Sources */,
+				962F9AE3A1C72277DE3EDBB7 /* MathsSettingsSheet.swift in Sources */,
+				82A14B1594B0631C6172F891 /* MissingDesignElements.swift in Sources */,
+				5793B7EEE658F57FF0842556 /* PatternedWorldHomeView.swift in Sources */,
+				6FB4703E7D7E61AA7759ECF4 /* PatternedWorldWebStageView.swift in Sources */,
+				FD606F497BB8598C6EE25879 /* PlatformAdaptive.swift in Sources */,
+				A1859B76E5A579DBD77E6E6A /* PointerHighlight.swift in Sources */,
+				A66FB087EA63DBC55C0DAE81 /* PolicyDrivenAIProvider.swift in Sources */,
+				9AF922EE8CA158E7098B005D /* PolyaFluencyHomeView.swift in Sources */,
+				7CB78DE01B0C060FF7E574DA /* QuantitativeMathsEngine.swift in Sources */,
+				760F8CA88B87279B3A09297E /* QuestionProofPracticeView.swift in Sources */,
+				E7BA35733AB30231B41CC297 /* QuizAnswerOption.swift in Sources */,
+				1DD89161C4ACBE6C4AE98340 /* STEMVerificationEngine.swift in Sources */,
+				E26074FFD68B1C57BD1FD889 /* SafetyEscalationService.swift in Sources */,
+				C8C6DC9D0118F5965D8291FC /* SchoolMathsHomeView.swift in Sources */,
+				8BF72DEF1A548F9497CA8976 /* SeedPackModels.swift in Sources */,
+				E2DDC0AA994AE829E800AD17 /* SemanticStyles.swift in Sources */,
+				4D6562E368EF353768BB0F43 /* SystemSurfaceSnapshotStore.swift in Sources */,
+				DBDE25C92F8F55F016FC2138 /* TextbookPageScannerSheet.swift in Sources */,
+				D625F5B4ECD806D40E3DB13C /* Theme.swift in Sources */,
+				6FC26D320079820F00A4EBE5 /* ThemePickerMenu.swift in Sources */,
+				1E9AEA08B87CF0480057E9F2 /* ThemeTokensBridge.swift in Sources */,
+				F103CB51BE1A8EFF5B4BA30A /* TodayHomeView.swift in Sources */,
+				81AD8252D70070D6DC5FDEC9 /* TutorCanvasEngine.swift in Sources */,
+				AB147378E39BD93BBE0B4D33 /* TutorCanvasView.swift in Sources */,
+				DC2A596472599EF4219F3140 /* TutorConstitution.swift in Sources */,
+				11C348B355266984EAA4857A /* ViewTransitions.swift in Sources */,
+				25DF2B87CDC094A1F6D5F047 /* WritingPageFocus.swift in Sources */,
+				B97ACEC220E84852DD28D682 /* WritingTextEditor.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67F76F1190A061E341E41D0E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07360B6D3E9DF8422DB87A79 /* KymMathsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CADCC5D224C2E13446FCF8B0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E0B664859D176245D7B5AFD1 /* AccessibilityHelpers.swift in Sources */,
+				77BEEE5E27ED35962A4DD410 /* AdaptiveOptionPicker.swift in Sources */,
+				AE6EBE3D0B4C0E2077286811 /* AdvancedAIPedagogyEngines.swift in Sources */,
+				55312FC5D41716C8A48C8F3F /* AgentSoulDocument.swift in Sources */,
+				4A0C84F20E5EDFA55C526D86 /* Animations.swift in Sources */,
+				BA884C6049430CEAE51CF7F1 /* AppStore.swift in Sources */,
+				1EC25236CD7B9365EB4635D6 /* CalendarHomeView.swift in Sources */,
+				AE418FACA3CAC65982B02F4D /* ColorExtensions.swift in Sources */,
+				45362E8F74E742A702D7AE9F /* CuratedColorScheme.swift in Sources */,
+				7CFCF7E5291681E327466097 /* DatabaseManager.swift in Sources */,
+				5018D3091A0606A9483E2A9E /* DocumentScannerSheet.swift in Sources */,
+				C01DC741491AA49BCCC249BE /* DrawingCanvasBackground.swift in Sources */,
+				FCE30A1F117BC3F4DF809FAF /* FlowLayout.swift in Sources */,
+				1B9B8E7EB5409C36BD9B4BEA /* HandwritingRecognition.swift in Sources */,
+				AA8D6F3913BD922370A41CB4 /* JournalCard.swift in Sources */,
+				3C3AFB2742372D4C2C7608F3 /* JournalCardParts.swift in Sources */,
+				6C2D0E3D46D5B89186EF44F1 /* JournalEmptyState.swift in Sources */,
+				46351C89C5E8540550A6CC84 /* JournalFocusPage.swift in Sources */,
+				2D266C6028C080E01894A26F /* JournalForm.swift in Sources */,
+				C9604B98F3781B62710EDCD3 /* JournalGlanceTile.swift in Sources */,
+				B4920E3C41BE7CF365B8B3F0 /* JournalLayout.swift in Sources */,
+				57F3B95C58378EE3651286B4 /* JournalPage.swift in Sources */,
+				8D9F86FE08ED3043E8071D76 /* JournalPageChrome.swift in Sources */,
+				8712DD24F5ECF7D128EFCF62 /* JournalPaper.swift in Sources */,
+				3363DB9B3628E1E70B30ECB8 /* JournalReaderPage.swift in Sources */,
+				2707C83371BD6CDFB3F442E9 /* JournalRow.swift in Sources */,
+				E22F453C6E6E8A9A8601A2B9 /* JournalSection.swift in Sources */,
+				163F1E7654EE6EE6105844E0 /* KeyboardShortcuts.swift in Sources */,
+				FD116EBF392C6AA54FD115F4 /* KymMathsApp.swift in Sources */,
+				0BCBD3E279702D5CBEA2905F /* KymMathsAppIntents.swift in Sources */,
+				1077F2DDC1476B3227161FE1 /* KymMathsWidgetViews.swift in Sources */,
+				593A8E220E8D95AC575E2617 /* KymaiaGlanceTokens.swift in Sources */,
+				822B2B692B82FDAF59DDF9A3 /* KymaiaMotion.swift in Sources */,
+				DF8944F6DC11990ED5C7EDAD /* LabsAtlasHomeView.swift in Sources */,
+				84EF816333C81E9EC8188A89 /* LearnerTextInput.swift in Sources */,
+				EA015C0F92FC8E918BBA8C1D /* LearningEngines.swift in Sources */,
+				035F3553E20B86D77D526FE7 /* LiveMentorVoiceEngine.swift in Sources */,
+				B73D75E85ED1321CD13264F2 /* MathsCoachView.swift in Sources */,
+				07371895019D3209CE34008F /* MathsJournalHomeView.swift in Sources */,
+				D51FB463A751D331670CBFB5 /* MathsMentorService.swift in Sources */,
+				B91F3B6108E77B316921C730 /* MathsScratchpadView.swift in Sources */,
+				B3470CFFFD9729B2EDB9862C /* MathsSettingsSheet.swift in Sources */,
+				A63D38559B02C7891F364911 /* MissingDesignElements.swift in Sources */,
+				E58C9AA80E04CD6398CB3CD2 /* PatternedWorldHomeView.swift in Sources */,
+				98F96414E9395FE4393E29A4 /* PatternedWorldWebStageView.swift in Sources */,
+				A7A1EF79E694A8844F415CEA /* PlatformAdaptive.swift in Sources */,
+				0C91B10336CF7DE503103958 /* PointerHighlight.swift in Sources */,
+				5322DFABB61BBEE496ADD305 /* PolicyDrivenAIProvider.swift in Sources */,
+				71BE22A65B722A54D83008B0 /* PolyaFluencyHomeView.swift in Sources */,
+				298D6E7606C80115514F4656 /* QuantitativeMathsEngine.swift in Sources */,
+				A99C84FF4C58231E30FC8D17 /* QuestionProofPracticeView.swift in Sources */,
+				868E5B6B6EF2FB5089AC0CA6 /* QuizAnswerOption.swift in Sources */,
+				A4F609CDA38764EAD22FC501 /* STEMVerificationEngine.swift in Sources */,
+				7D55691C31DABE5476516B1A /* SafetyEscalationService.swift in Sources */,
+				482C9F55DB77F8C08F4E9957 /* SchoolMathsHomeView.swift in Sources */,
+				2E0977BC7F08E666197C76D7 /* SeedPackModels.swift in Sources */,
+				1D273B22BDAAE654E5EBBFA1 /* SemanticStyles.swift in Sources */,
+				FF165C37C861FBFCB7CD0C69 /* SystemSurfaceSnapshotStore.swift in Sources */,
+				D2BC7F559FC255D2A9111CDC /* TextbookPageScannerSheet.swift in Sources */,
+				82324321574F44554C8B6BB5 /* Theme.swift in Sources */,
+				4AB82175FAEB83765E311532 /* ThemePickerMenu.swift in Sources */,
+				9B2625630462F31106907B43 /* ThemeTokensBridge.swift in Sources */,
+				11AAD67FD9418B435D5654F1 /* TodayHomeView.swift in Sources */,
+				0822FD3BA476CAF876B823AD /* TutorCanvasEngine.swift in Sources */,
+				80DBC3DBF94F009AFBB610F5 /* TutorCanvasView.swift in Sources */,
+				65EEDB427D6516E3073E66D9 /* TutorConstitution.swift in Sources */,
+				873EB4C8ACC7F7222FF14B8D /* ViewTransitions.swift in Sources */,
+				9F1B44F4C49009EB1049CD4D /* WritingPageFocus.swift in Sources */,
+				74D213FC88CEAAB2222D8B92 /* WritingTextEditor.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3CB724E8266EF3D993A88BF3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5144869E398E989729E6F28F /* KymMaths */;
+			targetProxy = 73442165A4D3725B5B97954D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		154152D0EE7498A4B4D0A63E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = KymMaths/KymMaths.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = KymMaths;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription = "KymMaths reads your school calendar to plan revision around Mathematics tests and creates study blocks when you ask.";
+				INFOPLIST_KEY_NSCalendarsWriteOnlyAccessUsageDescription = "KymMaths creates Mathematics study blocks on your calendar.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "KymMaths uses the microphone for mathematical voice study and Socratic Coach sessions.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "KymMaths transcribes your spoken reasoning on device for Mathematics practice.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.kymaia.maths;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		63E5B55993AED67BC3CBAAFF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.kymaia.maths.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KymMaths.app/Contents/MacOS/KymMaths";
+			};
+			name = Release;
+		};
+		6CFAB4E67EABA5BF2CAD9186 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		886C87FC621DAED4B605F00B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = KymMaths/KymMaths.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = KymMaths;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription = "KymMaths reads your school calendar to plan revision around Mathematics tests and creates study blocks when you ask.";
+				INFOPLIST_KEY_NSCalendarsWriteOnlyAccessUsageDescription = "KymMaths creates Mathematics study blocks on your calendar.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "KymMaths uses the microphone for mathematical voice study and Socratic Coach sessions.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "KymMaths transcribes your spoken reasoning on device for Mathematics practice.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.kymaia.maths;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		89433E9F66B8CA529AE48DB2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.kymaia.maths.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KymMaths.app/Contents/MacOS/KymMaths";
+			};
+			name = Debug;
+		};
+		8E92A4CE1EB64BACE2833D7D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "KymMaths/KymMaths-iPad.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "KymMaths/Info-iPad.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = KymMaths;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription = "KymMaths reads your school calendar to plan revision around Mathematics tests and creates study blocks when you ask.";
+				INFOPLIST_KEY_NSCalendarsWriteOnlyAccessUsageDescription = "KymMaths creates Mathematics study blocks on your calendar.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "KymMaths uses the camera to scan pages from your OUP Complete Mathematics 8 textbook and handwritten workings.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "KymMaths uses the microphone for mathematical voice study and Socratic Coach sessions.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "KymMaths imports textbook pages and geometric diagrams from your library.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "KymMaths transcribes your spoken reasoning on device for Mathematics practice.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.kymaia.maths.ipad;
+				PRODUCT_NAME = KymMaths;
+				SDKROOT = iphoneos;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		92F2881A699DC3A7200224E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		ACAD7A8112781A1A06E1E89F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "KymMaths/KymMaths-iPad.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "KymMaths/Info-iPad.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = KymMaths;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription = "KymMaths reads your school calendar to plan revision around Mathematics tests and creates study blocks when you ask.";
+				INFOPLIST_KEY_NSCalendarsWriteOnlyAccessUsageDescription = "KymMaths creates Mathematics study blocks on your calendar.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "KymMaths uses the camera to scan pages from your OUP Complete Mathematics 8 textbook and handwritten workings.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "KymMaths uses the microphone for mathematical voice study and Socratic Coach sessions.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "KymMaths imports textbook pages and geometric diagrams from your library.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "KymMaths transcribes your spoken reasoning on device for Mathematics practice.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.kymaia.maths.ipad;
+				PRODUCT_NAME = KymMaths;
+				SDKROOT = iphoneos;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		281B6636F6E62AA47EBAADB0 /* Build configuration list for PBXNativeTarget "KymMaths" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				154152D0EE7498A4B4D0A63E /* Debug */,
+				886C87FC621DAED4B605F00B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		487F90FB1072AFFC41BA94F8 /* Build configuration list for PBXNativeTarget "KymMaths-iPad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ACAD7A8112781A1A06E1E89F /* Debug */,
+				8E92A4CE1EB64BACE2833D7D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		877AD90CDA5FB8C0402E74AE /* Build configuration list for PBXProject "KymMaths" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				92F2881A699DC3A7200224E4 /* Debug */,
+				6CFAB4E67EABA5BF2CAD9186 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		9F33DA6EB8B95A06C222BCE2 /* Build configuration list for PBXNativeTarget "KymMathsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89433E9F66B8CA529AE48DB2 /* Debug */,
+				63E5B55993AED67BC3CBAAFF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A1FDF51F128EECE36EA5D99D /* XCRemoteSwiftPackageReference "GRDB.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/groue/GRDB.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.24.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0F91866900AE7816866A10E4 /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1FDF51F128EECE36EA5D99D /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			productName = GRDB;
+		};
+		B7521A0BF0C2B56E435CC884 /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1FDF51F128EECE36EA5D99D /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			productName = GRDB;
+		};
+		DEA986FEFFC75AD4311FBEAC /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1FDF51F128EECE36EA5D99D /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			productName = GRDB;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 79A4BDE93586F0837DB32F7E /* Project object */;
+}
