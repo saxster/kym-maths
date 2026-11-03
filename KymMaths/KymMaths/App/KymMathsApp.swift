@@ -8,6 +8,7 @@ struct KymMathsApp: App {
 
     init() {
         CuratedColorScheme.registerAsKymaiaTheme()
+        TutorConstitution.register(.kymMaths)
         _store = State(initialValue: AppStore())
     }
 

@@ -155,9 +155,9 @@ struct KymMathsTests {
         #expect(!results.chapters.isEmpty)
     }
 
-    @Test("TutorConstitution v2026-07-16.v1, MotivationalDialoguePolicy opt-outs, and DevelopmentalResponseValidator guardrails")
+    @Test("TutorConstitution v2026-11-03.v2, MotivationalDialoguePolicy opt-outs, and DevelopmentalResponseValidator guardrails")
     func testTutorConstitutionAndDevelopmentalValidator() {
-        #expect(TutorConstitution.version == "2026-07-16.v1")
+        #expect(TutorConstitution.version == "2026-11-03.v2")
         #expect(TutorConstitution.policyHash.count == 64)
 
         // Immediate respect for "just explain" / "stop asking" opt-out

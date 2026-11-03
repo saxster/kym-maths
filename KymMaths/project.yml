@@ -43,6 +43,8 @@ targets:
         product: KymDesign
       - package: TeachingKit
         product: KymLearning
+      - package: TeachingKit
+        product: KymTutorAI
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.kymaia.maths
@@ -85,6 +87,8 @@ targets:
         product: KymDesign
       - package: TeachingKit
         product: KymLearning
+      - package: TeachingKit
+        product: KymTutorAI
     info:
       path: KymMaths/Info-iPad.plist
       properties:

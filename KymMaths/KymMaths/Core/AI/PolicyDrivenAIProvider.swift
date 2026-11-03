@@ -561,7 +561,7 @@ public actor PolicyDrivenAIProvider: AIProviderProtocol {
             let latency = Int(Date().timeIntervalSince(startedAt) * 1000)
             provenanceLog.append(
                 AIProviderProvenance(
-                    featureKey: requestContext.feature,
+                    featureKey: AIFeatureKey(requestContext.feature),
                     requestedProvider: provider,
                     requestedPolicy: policy,
                     actualProvider: actualProvider,
@@ -585,7 +585,7 @@ public actor PolicyDrivenAIProvider: AIProviderProtocol {
             let latency = Int(Date().timeIntervalSince(startedAt) * 1000)
             provenanceLog.append(
                 AIProviderProvenance(
-                    featureKey: requestContext.feature,
+                    featureKey: AIFeatureKey(requestContext.feature),
                     requestedProvider: provider,
                     requestedPolicy: policy,
                     actualProvider: selection.provider,
