@@ -395,7 +395,7 @@ final class AppStore {
     }
 
     func reviewFSRSCard(_ card: FSRSCardRecord, rating: FSRSRating) {
-        let updated = IntervalReviewScheduler.schedule(card: card, rating: rating)
+        let updated = FSRSScheduler.app.schedule(card: card, rating: rating)
         try? db.saveFSRSCard(updated)
         refreshState()
     }
