@@ -67,7 +67,7 @@ def build_chapters():
                 {"symbol": "− n(A ∩ B)", "visualPart": "Amber centre lens overlap", "colorRole": "amber", "meaning": "Removes the duplicate count of the intersection"},
                 {"symbol": "(A ∪ B)′ = A′ ∩ B′", "visualPart": "Green exterior courtyard", "colorRole": "green", "meaning": "Outside both circles equals outside A AND outside B (De Morgan)"}
             ],
-            "concepts/index.html#maths",
+            "maths/ch00-sets-logic/index.html",
             ["Set", "Subset ⊆", "Union ∪", "Intersection ∩", "Complement A′", "Power Set P(A)", "Implication p ⇒ q", "Contrapositive ¬q ⇒ ¬p", "De Morgan's Laws"],
             ["w_venn_inclusion_exclusion", "w_truth_table_logic_gates", "w_quantifier_counterexample"]
         ),
@@ -83,7 +83,7 @@ def build_chapters():
                 {"symbol": "HCF(a,b)", "visualPart": "Blue shared prime-factor overlap A ∩ B", "colorRole": "blue", "meaning": "Product of lowest shared prime powers"},
                 {"symbol": "LCM(a,b)", "visualPart": "Amber full prime-factor union A ∪ B", "colorRole": "amber", "meaning": "Product of highest prime powers across both numbers"}
             ],
-            "concepts/index.html#exponential",
+            "maths/ch01-number-primes/index.html",
             ["Integer", "Directed Number", "Prime Factorisation", "HCF", "LCM", "Index Laws", "Zero & Negative Indices", "Rational vs Irrational (√2)"],
             ["w_negative_rotation_line", "w_prime_venn_hcf_lcm", "w_index_staircase_surds"]
         ),
@@ -99,7 +99,7 @@ def build_chapters():
                 {"symbol": "− x", "visualPart": "Blue original infinite tail", "colorRole": "blue", "meaning": "Identical infinite tail after the decimal point cancels to 0"},
                 {"symbol": "10ᵏ − 1", "visualPart": "Green denominator of k nines (9, 99, 999)", "colorRole": "green", "meaning": "Exact rational denominator"}
             ],
-            "concepts/index.html#maths",
+            "maths/ch02-fractions-decimals/index.html",
             ["Recurring Decimal", "Terminating Decimal", "Significant Figures", "Reciprocal", "Mixed Numbers", "Area Fraction Model"],
             ["w_recurring_decimal_tail_canceller", "w_fraction_area_division"]
         ),
@@ -115,7 +115,7 @@ def build_chapters():
                 {"symbol": "(1 + r)ⁿ", "visualPart": "Red & Amber compounding stack columns", "colorRole": "amber", "meaning": "Exponential multiplier over n periods"},
                 {"symbol": "wᵢ / ∑ wⱼ", "visualPart": "Green unitary bar-model box", "colorRole": "green", "meaning": "Value of 1 equal unit × k parts"}
             ],
-            "economics/compound/index.html",
+            "maths/ch03-ratios-compounding/index.html",
             ["Unitary Method", "Ratio Partition", "Percentage Multiplier", "Reverse Percentage", "Compound Growth", "Rule of 72"],
             ["w_singapore_ratio_bar_model", "w_compound_multiplier_machine"]
         ),
@@ -131,7 +131,7 @@ def build_chapters():
                 {"symbol": "(a + b)x", "visualPart": "Blue flanking rectangles ax and bx", "colorRole": "blue", "meaning": "Linear cross-terms (why (x+a)² ≠ x² + a²!)"},
                 {"symbol": "ab", "visualPart": "Amber corner rectangle (a by b)", "colorRole": "amber", "meaning": "Constant product corner"}
             ],
-            "concepts/index.html#maths",
+            "maths/ch04-algebra-tiles/index.html",
             ["Expression", "Term", "Coefficient", "Distributive Law", "Expanding", "Factorising", "Difference of Two Squares"],
             ["w_algebra_area_tiles", "w_difference_of_squares_slicer"]
         ),
@@ -147,7 +147,7 @@ def build_chapters():
                 {"symbol": "d − b", "visualPart": "Blue constant weights on right pan", "colorRole": "blue", "meaning": "Net constant value"},
                 {"symbol": "a < b ⇒ −a > −b", "visualPart": "Amber mirror reflection across 0", "colorRole": "amber", "meaning": "Order reverses under negative reflection"}
             ],
-            "concepts/index.html#balance",
+            "maths/ch05-balance-equations/index.html",
             ["Equation", "Formula", "Subject of a Formula", "Inverse Operation", "Open vs Closed Circle", "Inequality Flip"],
             ["w_balance_beam_equations", "w_formula_subject_transposer", "w_inequality_mirror_line"]
         ),
@@ -163,7 +163,7 @@ def build_chapters():
                 {"symbol": "a₁ + aₙ", "visualPart": "Blue combined height of flipped Gauss staircase", "colorRole": "blue", "meaning": "First term plus last term in every column"},
                 {"symbol": "½ n", "visualPart": "Green half-rectangle area factor", "colorRole": "green", "meaning": "n columns divided by 2 identical staircases"}
             ],
-            "concepts/index.html#maths",
+            "maths/ch06-sequences-gauss/index.html",
             ["Sequence", "Term-to-Term", "nth Term Tₙ", "First Difference", "Second Difference", "Arithmetic Series", "Fibonacci & Golden Ratio"],
             ["w_gauss_staircase_sum", "w_sequence_difference_engine"]
         ),
@@ -179,7 +179,7 @@ def build_chapters():
                 {"symbol": "Δx = x₂ − x₁", "visualPart": "Blue horizontal run segment", "colorRole": "blue", "meaning": "Signed horizontal step"},
                 {"symbol": "c", "visualPart": "Green y-axis crossing (0, c)", "colorRole": "green", "meaning": "Starting value when x = 0"}
             ],
-            "concepts/index.html#slope",
+            "maths/ch07-functions-graphs/index.html",
             ["Function f(x)", "Gradient m", "y-Intercept c", "x-Intercept", "Parallel Lines", "Perpendicular Gradient −1/m", "Travel Graphs"],
             ["w_linear_graph_slope_explorer", "w_kinematics_travel_graph"]
         ),
@@ -195,7 +195,7 @@ def build_chapters():
                 {"symbol": "(n − 2) × 180°", "visualPart": "Amber fan of (n − 2) non-overlapping triangles from one vertex", "colorRole": "amber", "meaning": "Every n-gon triangulates into n − 2 triangles"},
                 {"symbol": "((x₁+x₂)/2, (y₁+y₂)/2)", "visualPart": "Green midpoint of the bounding coordinate box", "colorRole": "green", "meaning": "Average of endpoints on each axis"}
             ],
-            "concepts/index.html#maths",
+            "maths/ch08-angles-parallel/index.html",
             ["Alternate (Z) Angles", "Corresponding (F) Angles", "Co-interior (C) Angles", "Exterior Angle Theorem", "Polygon Triangulation", "Midpoint"],
             ["w_parallel_transversal_proof", "w_exterior_angle_tear_proof"]
         ),
@@ -211,7 +211,7 @@ def build_chapters():
                 {"symbol": "000°–360°", "visualPart": "Amber clockwise bearing arc from North", "colorRole": "amber", "meaning": "Back-bearing differs by ±180°"},
                 {"symbol": "V − E + F = 2", "visualPart": "Green 3D polyhedron net topology", "colorRole": "green", "meaning": "Euler characteristic of any convex polyhedron"}
             ],
-            "concepts/index.html#maths",
+            "maths/ch09-loci-constructions/index.html",
             ["Locus", "Perpendicular Bisector", "Angle Bisector", "SSS / SAS / ASA Triangle Construction", "3-Figure Bearing", "Plan & Elevation", "Euler's Formula"],
             ["w_euclid_compass_locus", "w_bearings_back_bearing_radar", "w_polyhedron_net_folder"]
         ),
@@ -227,7 +227,7 @@ def build_chapters():
                 {"symbol": "r", "visualPart": "Red upright sector radius", "colorRole": "red", "meaning": "Height of the rearranged rectangle"},
                 {"symbol": "½(a + b)h", "visualPart": "Green doubled-trapezium parallelogram of base (a + b)", "colorRole": "green", "meaning": "Two identical trapeziums form a parallelogram of base a + b"}
             ],
-            "concepts/index.html#circle",
+            "maths/ch10-circles-mensuration/index.html",
             ["Circumference", "Pi (π)", "Sector Rearrangement", "Cavalieri's Shear Principle", "Trapezium", "Triangular Prism Volume", "Surface Area Net"],
             ["w_circle_sector_rearranger", "w_trapezium_prism_slicer"]
         ),
@@ -243,7 +243,7 @@ def build_chapters():
                 {"symbol": "k²", "visualPart": "Amber tiled sub-triangles inside enlarged shape", "colorRole": "amber", "meaning": "2D area scales as the square of linear factor k"},
                 {"symbol": "k < 0", "visualPart": "Blue inverted ray through centre C", "colorRole": "blue", "meaning": "Negative scale factor enlarges and rotates by 180°"}
             ],
-            "maths/linear-algebra/index.html#1",
+            "maths/ch13-indices-standard-form/index.html#1",
             ["Isometry", "Translation Vector", "Reflection Line", "Centre of Rotation", "Centre of Enlargement", "Fractional & Negative Scale Factor", "Area Scale k²"],
             ["w_transformation_isometry_stage", "w_enlargement_ray_scaler"]
         ),
@@ -259,7 +259,7 @@ def build_chapters():
                 {"symbol": "cos θ", "visualPart": "Blue horizontal shadow bar cast by top light", "colorRole": "blue", "meaning": "x-coordinate of P on unit circle (Adjacent / Hypotenuse)"},
                 {"symbol": "sin²θ + cos²θ = 1", "visualPart": "Red square + Blue square folding onto Grey radius square", "colorRole": "amber", "meaning": "Pythagorean identity on the unit circle"}
             ],
-            "maths/unit-circle/index.html",
+            "maths/ch16-trigonometry-unit-circle/index.html#1",
             ["Pythagoras' Theorem", "Unit Circle", "Sine (sin θ)", "Cosine (cos θ)", "Tangent (tan θ)", "Radian (s = rθ)", "Pythagorean Identity", "Sine & Cosine Rules"],
             ["w_atlas_unit_circle", "w_pythagoras_garfield_proof", "w_cosine_rule_generaliser"]
         ),
@@ -291,7 +291,7 @@ def build_chapters():
                 {"symbol": "FD × Δx = f", "visualPart": "Blue bar area", "colorRole": "blue", "meaning": "Area of rectangle equals exact count f"},
                 {"symbol": "σ", "visualPart": "Amber root-mean-square deviation arms from balance fulcrum μ", "colorRole": "amber", "meaning": "Typical distance of data points from the mean"}
             ],
-            "statistics/hypothesis/index.html",
+            "maths/ch11-data-histograms/index.html",
             ["Time Series", "Moving Average", "Back-to-Back Stem-and-Leaf", "Frequency Density", "Interquartile Range (IQR)", "Variance & Standard Deviation σ"],
             ["w_histogram_frequency_density", "w_mean_fulcrum_std_dev"]
         ),
@@ -323,7 +323,7 @@ def build_chapters():
                 {"symbol": "P(+ | ¬D) P(¬D)", "visualPart": "Amber False-Positive rectangle (49 of 1,000)", "colorRole": "amber", "meaning": "Healthy people falsely flagged positive"},
                 {"symbol": "Red / (Red + Amber)", "visualPart": "Isolated posterior bar on the right of the 3D board", "colorRole": "green", "meaning": "Share of all positive tests that are genuinely sick"}
             ],
-            "statistics/bayes/index.html",
+            "maths/ch17-bayes-probability/index.html",
             ["Prior Probability P(D)", "Sensitivity P(+|D)", "Specificity", "False Positive P(+|¬D)", "Posterior Probability P(D|+)", "Base-Rate Fallacy", "Likelihood Ratio"],
             ["w_atlas_bayes_square", "w_bayes_natural_frequency_tree"]
         ),
@@ -339,7 +339,7 @@ def build_chapters():
                 {"symbol": "h", "visualPart": "Blue horizontal run step", "colorRole": "blue", "meaning": "Step width shrinking toward 0"},
                 {"symbol": "f′(x) = 0", "visualPart": "Green level tangent at cubic peak (0, 2) and trough (2, ⅔)", "colorRole": "green", "meaning": "Stationary points (maxima and minima)"}
             ],
-            "maths/calculus/index.html",
+            "maths/ch18-differential-calculus/index.html",
             ["Limit", "Secant Line", "Tangent Line", "Derivative dy/dx", "Power Rule nxⁿ⁻¹", "Stationary Point f′(x)=0", "Local Maximum & Minimum"],
             ["w_atlas_calculus_derivative", "w_power_rule_square_growth"]
         ),
@@ -355,7 +355,7 @@ def build_chapters():
                 {"symbol": "∫₀ˣ f′(t) dt", "visualPart": "Blue shaded triangle under slope graph f′(t) = t", "colorRole": "blue", "meaning": "Accumulated area under rate curve"},
                 {"symbol": "f(x) − f(0)", "visualPart": "Red vertical height bar on antiderivative parabola ½x²", "colorRole": "red", "meaning": "Total net change in height"}
             ],
-            "maths/calculus/index.html#3",
+            "maths/ch19-integral-calculus/index.html",
             ["Riemann Sum", "Midpoint Rule", "Definite Integral", "Antiderivative", "Fundamental Theorem of Calculus", "Signed Area"],
             ["w_atlas_calculus_integral", "w_ftc_area_slope_duality"]
         ),
@@ -371,7 +371,7 @@ def build_chapters():
                 {"symbol": "½(b − a)", "visualPart": "Green midsegment vector MN parallel to base AB", "colorRole": "green", "meaning": "Simultaneously proves parallel direction and ½ length"},
                 {"symbol": "u · v = 0", "visualPart": "Amber 90° perpendicular shadow (zero projection)", "colorRole": "amber", "meaning": "Perpendicular vectors have zero dot product"}
             ],
-            "maths/multivariable/index.html#2",
+            "maths/ch15-linear-graphs-inequalities/index.html",
             ["Column Vector", "Position Vector", "Triangle Law", "Zero Vector", "Magnitude |v|", "Collinear Vectors", "Dot Product u·v", "Vector Midsegment Proof"],
             ["w_vector_tip_to_tail_lab", "w_vector_geometric_proof_studio"]
         ),
@@ -388,7 +388,7 @@ def build_chapters():
                 {"symbol": "det(A) = ad − bc", "visualPart": "Amber parallelogram spanned by Aî and Aĵ", "colorRole": "amber", "meaning": "Signed area scale factor for any shape in the plane"},
                 {"symbol": "A v = λ v", "visualPart": "Green invariant eigenvector axes", "colorRole": "green", "meaning": "Directions stretched by factor λ without rotating"}
             ],
-            "maths/matrix-sandbox/index.html",
+            "maths/ch20-matrices-eigen/index.html",
             ["Linear Transformation", "Basis Vectors î, ĵ", "2×2 Matrix", "Determinant ad − bc", "Singular Matrix (det = 0)", "Matrix Composition RS ≠ SR", "Eigenvector & Eigenvalue λ"],
             ["w_atlas_linear_algebra", "w_atlas_matrix_sandbox"]
         ),
@@ -1752,12 +1752,16 @@ iframe.atlas-frame {{
 <section class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
     <div>
-      <div class="kicker">3 · EMBEDDED @SAXSTER/ATLAS 3D/2D TEACHING FIGURE (../visualisations/atlas)</div>
+      <div class="kicker">3 · EMBEDDED @SAXSTER/ATLAS 3D/2D TEACHING STAGE (../visualisations/atlas)</div>
       <div style="font-size:13px;color:var(--muted);" id="atlas-caption">Interactive Three.js paper-and-ink stage</div>
     </div>
-    <button class="btn secondary" id="btn-reload-atlas">Reset 3D Camera</button>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn secondary" id="btn-stage-primary">3D Chapter Apparatus</button>
+      <button class="btn secondary" id="btn-stage-companion">Companion Deep-Dive Book</button>
+      <button class="btn secondary" id="btn-reload-atlas">Reset 3D Camera</button>
+    </div>
   </div>
-  <iframe class="atlas-frame" id="atlas-iframe" title="Atlas 3D Figure" src="./atlas/examples/maths/unit-circle/index.html"></iframe>
+  <iframe class="atlas-frame" id="atlas-iframe" title="Atlas 3D Figure" src="./atlas/examples/maths/ch00-sets-logic/index.html"></iframe>
 </section>
 
 <script>
@@ -1765,12 +1769,81 @@ const CHAPTERS = {chapters_json};
 const EXPLORERS = {explorers_json};
 let currentChapter = 0;
 
+const COMPANION_BOOKS = {{
+  0: 'concepts/index.html#maths',
+  1: 'concepts/index.html#exponential',
+  2: 'concepts/index.html#maths',
+  3: 'economics/compound/index.html',
+  4: 'maths/linear-algebra/index.html',
+  5: 'concepts/index.html#balance',
+  6: 'concepts/index.html#maths',
+  7: 'concepts/index.html#slope',
+  8: 'maths/unit-circle/index.html',
+  9: 'maths/cross-sections/index.html',
+  10: 'maths/cross-sections/index.html',
+  11: 'maths/linear-algebra/index.html#1',
+  12: 'maths/unit-circle/index.html',
+  13: 'statistics/error/index.html',
+  14: 'statistics/hypothesis/index.html',
+  15: 'statistics/galton/index.html',
+  16: 'statistics/bayes/index.html',
+  17: 'maths/calculus/index.html',
+  18: 'maths/calculus/index.html#3',
+  19: 'maths/multivariable/index.html#2',
+  20: 'maths/matrix-sandbox/index.html',
+}};
+
+const CH_SLIDERS = {{
+  0:  [{{lbl:'|A| count:',min:8,max:22,step:1,val:16,u:''}}, {{lbl:'|B| count:',min:6,max:20,step:1,val:14,u:''}}, {{lbl:'Overlap |A∩B|:',min:1,max:10,step:1,val:6,u:''}}],
+  1:  [{{lbl:'Integer a:',min:6,max:48,step:6,val:24,u:''}}, {{lbl:'Integer b:',min:6,max:60,step:6,val:36,u:''}}, {{lbl:'180° −1 Flips:',min:0,max:2,step:1,val:2,u:'×180°'}}],
+  2:  [{{lbl:'Repeating block:',min:9,max:81,step:9,val:36,u:''}}, {{lbl:'Whole units N:',min:1,max:5,step:1,val:3,u:''}}, {{lbl:'Denominator b:',min:2,max:6,step:1,val:4,u:''}}],
+  3:  [{{lbl:'Ratio parts A:',min:1,max:6,step:1,val:3,u:'u'}}, {{lbl:'Ratio parts B:',min:2,max:8,step:1,val:5,u:'u'}}, {{lbl:'Compound rate r:',min:4,max:15,step:1,val:8,u:'%'}}],
+  4:  [{{lbl:'Square side x:',min:2,max:6,step:0.5,val:4,u:''}}, {{lbl:'Strip width a:',min:1,max:4,step:0.5,val:2,u:''}}, {{lbl:'Strip height b:',min:1,max:4,step:0.5,val:3,u:''}}],
+  5:  [{{lbl:'Left x-coeff a:',min:2,max:6,step:1,val:4,u:'x'}}, {{lbl:'Left const b:',min:1,max:10,step:1,val:3,u:''}}, {{lbl:'Right const d:',min:7,max:25,step:3,val:15,u:''}}],
+  6:  [{{lbl:'Stair steps n:',min:3,max:8,step:1,val:6,u:''}}, {{lbl:'First term a₁:',min:1,max:4,step:1,val:1,u:''}}, {{lbl:'Step diff d:',min:1,max:3,step:1,val:1,u:''}}],
+  7:  [{{lbl:'Gradient m:',min:-2,max:2.5,step:0.5,val:1.5,u:''}}, {{lbl:'y-Intercept c:',min:-1.5,max:2,step:0.5,val:0.5,u:''}}, {{lbl:'Run step Δx:',min:0.5,max:2,step:0.5,val:1.5,u:''}}],
+  8:  [{{lbl:'Angle α:',min:30,max:75,step:5,val:50,u:'°'}}, {{lbl:'Angle β:',min:30,max:75,step:5,val:60,u:'°'}}, {{lbl:'Polygon sides n:',min:3,max:8,step:1,val:6,u:''}}],
+  9:  [{{lbl:'Segment AB:',min:4,max:8,step:0.5,val:6,u:'cm'}}, {{lbl:'Compass r/AB:',min:0.6,max:1.0,step:0.05,val:0.8,u:'×'}}, {{lbl:'Bearing from N:',min:20,max:160,step:5,val:65,u:'°'}}],
+  10: [{{lbl:'Circle radius r:',min:2,max:6,step:0.5,val:4,u:'cm'}}, {{lbl:'Trap top a:',min:2,max:6,step:0.5,val:3,u:'cm'}}, {{lbl:'Trap base b:',min:4,max:9,step:0.5,val:6,u:'cm'}}],
+  11: [{{lbl:'Scale factor k:',min:1,max:3,step:0.5,val:2,u:'×'}}, {{lbl:'Base triangle b:',min:2,max:5,step:0.5,val:3,u:'cm'}}, {{lbl:'Height h:',min:2,max:4,step:0.5,val:2,u:'cm'}}],
+  12: [{{lbl:'Leg a:',min:3,max:8,step:1,val:3,u:''}}, {{lbl:'Leg b:',min:3,max:8,step:1,val:4,u:''}}, {{lbl:'Angle θ:',min:0,max:360,step:15,val:50,u:'°'}}],
+  13: [{{lbl:'Pop SD σ:',min:6,max:24,step:2,val:12,u:''}}, {{lbl:'Sample size n:',min:4,max:64,step:4,val:16,u:''}}, {{lbl:'Engine hits:',min:0,max:5,step:1,val:1,u:''}}],
+  14: [{{lbl:'Wide bin Δx₃:',min:10,max:40,step:5,val:25,u:'min'}}, {{lbl:'Wide bin freq f₃:',min:15,max:60,step:5,val:30,u:''}}, {{lbl:'IQR Q₃ − Q₁:',min:10,max:30,step:2,val:18,u:''}}],
+  15: [{{lbl:'Galton rows n:',min:4,max:10,step:1,val:6,u:''}}, {{lbl:'Successes k:',min:0,max:6,step:1,val:3,u:''}}, {{lbl:'Drop prob p:',min:30,max:70,step:10,val:50,u:'%'}}],
+  16: [{{lbl:'Prevalence p:',min:1,max:20,step:1,val:2,u:'%'}}, {{lbl:'Sensitivity:',min:80,max:99,step:1,val:95,u:'%'}}, {{lbl:'False-pos rate:',min:1,max:20,step:1,val:5,u:'%'}}],
+  17: [{{lbl:'Anchor x₀:',min:0.5,max:2.5,step:0.25,val:1.25,u:''}}, {{lbl:'Step h = Δx:',min:0.05,max:1.0,step:0.05,val:0.45,u:''}}, {{lbl:'Square side x:',min:1,max:4,step:0.5,val:2,u:''}}],
+  18: [{{lbl:'Upper bound x:',min:1.0,max:3.0,step:0.2,val:2.4,u:''}}, {{lbl:'Riemann slabs N:',min:4,max:20,step:2,val:8,u:''}}, {{lbl:'Slope rate k:',min:0.5,max:1.5,step:0.25,val:1.0,u:''}}],
+  19: [{{lbl:'Vector a_x:',min:1,max:5,step:0.5,val:3.5,u:''}}, {{lbl:'Vector b_x:',min:1,max:4,step:0.5,val:2.0,u:''}}, {{lbl:'Angle between:',min:0,max:120,step:15,val:60,u:'°'}}],
+  20: [{{lbl:'Col 1 x (a):',min:0.5,max:2.5,step:0.25,val:2.0,u:''}}, {{lbl:'Off-diag (b=c):',min:-1.5,max:1.5,step:0.25,val:1.0,u:''}}, {{lbl:'Col 2 y (d):',min:0.5,max:2.5,step:0.25,val:2.0,u:''}}],
+}};
+
+function applyChapterSliders(chNum) {{
+  const specs = CH_SLIDERS[chNum] || CH_SLIDERS[0];
+  ['a', 'b', 'c'].forEach((k, idx) => {{
+    const s = specs[idx];
+    const inp = document.getElementById(`param-${{k}}`);
+    document.getElementById(`lbl-${{k}}`).textContent = s.lbl;
+    inp.min = s.min; inp.max = s.max; inp.step = s.step; inp.value = s.val;
+    inp.dataset.unit = s.u || '';
+  }});
+}}
+
 function parseHash() {{
   const h = (window.location.hash || '').replace('#', '');
   if (h.startsWith('ch')) {{
     const n = parseInt(h.slice(2), 10);
     if (!isNaN(n) && n >= 0 && n < CHAPTERS.length) currentChapter = n;
   }}
+}}
+
+function setAtlasRoute(relPath) {{
+  const iframe = document.getElementById('atlas-iframe');
+  const targetSrc = `./atlas/examples/${{relPath}}`;
+  if (iframe.getAttribute('data-src') !== targetSrc) {{
+    iframe.setAttribute('data-src', targetSrc);
+    iframe.src = targetSrc;
+  }}
+  document.getElementById('atlas-caption').textContent = `Atlas route: ${{relPath}} · Drag to orbit in 3D, click parts to explode & inspect PLATES.`;
 }}
 
 function renderChapter() {{
@@ -1789,29 +1862,69 @@ function renderChapter() {{
     `<div class="term-pill ${{tm.colorRole}}"><b>${{tm.symbol}}</b> → ${{tm.visualPart}}: ${{tm.meaning}}</div>`
   ).join('');
 
-  const iframe = document.getElementById('atlas-iframe');
-  const targetSrc = `./atlas/examples/${{br.atlasFigureRef}}`;
-  if (iframe.getAttribute('data-src') !== targetSrc) {{
-    iframe.setAttribute('data-src', targetSrc);
-    iframe.src = targetSrc;
-  }}
-  document.getElementById('atlas-caption').textContent = `Atlas route: ${{br.atlasFigureRef}} · Drag to orbit in 3D, click parts to explode & inspect PLATES.`;
+  applyChapterSliders(ch.number);
+  setAtlasRoute(br.atlasFigureRef);
   drawSandbox();
+}}
+
+window.selectChapter = function(n) {{
+  const idx = Math.max(0, Math.min(CHAPTERS.length - 1, parseInt(n, 10) || 0));
+  if (currentChapter !== idx) {{
+    currentChapter = idx;
+    renderChapter();
+  }}
+}};
+
+function gcd(x, y) {{
+  let a = Math.abs(Math.round(x)), b = Math.abs(Math.round(y));
+  while (b !== 0) {{ const t = b; b = a % b; a = t; }}
+  return Math.max(1, a);
+}}
+
+function comb(n, k) {{
+  if (k < 0 || k > n) return 0;
+  let res = 1;
+  for (let i = 1; i <= k; i++) res = (res * (n - i + 1)) / i;
+  return Math.round(res);
+}}
+
+function drawArrow(ctx, x1, y1, x2, y2, color, lw = 2.5) {{
+  const dx = x2 - x1, dy = y2 - y1, ang = Math.atan2(dy, dx);
+  ctx.save();
+  ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = lw;
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(x2, y2);
+  ctx.lineTo(x2 - 9 * Math.cos(ang - 0.42), y2 - 9 * Math.sin(ang - 0.42));
+  ctx.lineTo(x2 - 9 * Math.cos(ang + 0.42), y2 - 9 * Math.sin(ang + 0.42));
+  ctx.closePath(); ctx.fill();
+  ctx.restore();
 }}
 
 function drawSandbox() {{
   const ch = CHAPTERS[currentChapter] || CHAPTERS[0];
-  const a = parseFloat(document.getElementById('param-a').value);
-  const b = parseFloat(document.getElementById('param-b').value);
-  const deg = parseFloat(document.getElementById('param-c').value);
-  const rad = deg * Math.PI / 180;
-  document.getElementById('val-a').textContent = a;
-  document.getElementById('val-b').textContent = b;
-  document.getElementById('val-c').textContent = deg + '°';
+  const inpA = document.getElementById('param-a');
+  const inpB = document.getElementById('param-b');
+  const inpC = document.getElementById('param-c');
+  const a = parseFloat(inpA.value);
+  const b = parseFloat(inpB.value);
+  const c = parseFloat(inpC.value);
+  document.getElementById('val-a').textContent = a + (inpA.dataset.unit || '');
+  document.getElementById('val-b').textContent = b + (inpB.dataset.unit || '');
+  document.getElementById('val-c').textContent = c + (inpC.dataset.unit || '');
 
   const canvas = document.getElementById('sim-canvas');
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const cssW = canvas.clientWidth || 560;
+  const cssH = canvas.clientHeight || 290;
+  if (canvas.width !== Math.round(cssW * dpr) || canvas.height !== Math.round(cssH * dpr)) {{
+    canvas.width = Math.round(cssW * dpr);
+    canvas.height = Math.round(cssH * dpr);
+  }}
   const ctx = canvas.getContext('2d');
-  const w = canvas.width, h = canvas.height;
+  ctx.save();
+  ctx.scale(dpr, dpr);
+  const w = cssW, h = cssH;
   ctx.clearRect(0, 0, w, h);
 
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
@@ -1820,98 +1933,464 @@ function drawSandbox() {{
   const amber = isDark ? '#F5B945' : '#C88A1E';
   const green = isDark ? '#4ADE9B' : '#1E7A50';
   const ink = isDark ? '#F5F2FC' : '#1C1726';
+  const muted = isDark ? '#A6A0BE' : '#5D566B';
 
-  ctx.font = '600 13px -apple-system, sans-serif';
+  ctx.font = '600 12.5px -apple-system, BlinkMacSystemFont, sans-serif';
   let readoutHtml = '';
 
-  if (ch.number === 0 || ch.number === 1) {{
-    // Venn Inclusion-Exclusion & Prime HCF/LCM
-    const onlyA = Math.round(a * 2), onlyB = Math.round(b * 2), inter = Math.max(1, Math.round(deg / 15));
-    const nA = onlyA + inter, nB = onlyB + inter, union = onlyA + onlyB + inter;
-    ctx.strokeStyle = red; ctx.lineWidth = 3;
-    ctx.beginPath(); ctx.arc(w*0.38, h*0.52, 74, 0, Math.PI*2); ctx.stroke();
-    ctx.strokeStyle = blue;
-    ctx.beginPath(); ctx.arc(w*0.60, h*0.52, 74, 0, Math.PI*2); ctx.stroke();
-    ctx.fillStyle = ink;
-    ctx.fillText(`Only A: ${{onlyA}}`, w*0.26, h*0.52);
-    ctx.fillStyle = amber;
-    ctx.fillText(`A ∩ B: ${{inter}}`, w*0.45, h*0.52);
-    ctx.fillStyle = ink;
-    ctx.fillText(`Only B: ${{onlyB}}`, w*0.64, h*0.52);
-    readoutHtml = `n(A) = ${{nA}}, n(B) = ${{nB}}, n(A ∩ B) = ${{inter}}<br><b>n(A ∪ B) = ${{nA}} + ${{nB}} − ${{inter}} = ${{union}}</b>`;
-  }} else if (ch.number <= 7) {{
-    // Singapore Bar Model / Area Tiles / Gauss Staircase
-    const scale = 14;
-    const rw = Math.min(200, a * scale), bw = Math.min(160, b * scale);
-    ctx.fillStyle = red + '33'; ctx.strokeStyle = red; ctx.lineWidth = 2.5;
-    ctx.fillRect(60, 60, rw, 80); ctx.strokeRect(60, 60, rw, 80);
-    ctx.fillStyle = blue + '33'; ctx.strokeStyle = blue;
-    ctx.fillRect(60 + rw, 60, bw, 80); ctx.strokeRect(60 + rw, 60, bw, 80);
-    ctx.fillStyle = ink;
-    ctx.fillText(`a = ${{a}}`, 60 + rw/2 - 18, 105);
-    ctx.fillText(`b = ${{b}}`, 60 + rw + bw/2 - 18, 105);
-    ctx.fillStyle = green;
-    ctx.fillText(`Total Bar (a + b) = ${{(a + b).toFixed(1)}}   |   Area (a+b)² = ${{((a+b)*(a+b)).toFixed(1)}}`, 60, 185);
-    ctx.fillStyle = amber;
-    ctx.fillText(`Cross-terms 2ab = ${{(2*a*b).toFixed(1)}} (why (a+b)² ≠ a² + b²!)`, 60, 215);
-    readoutHtml = `a² = ${{(a*a).toFixed(1)}}, 2ab = ${{(2*a*b).toFixed(1)}}, b² = ${{(b*b).toFixed(1)}}<br><b>(a + b)² = ${{(a*a).toFixed(1)}} + ${{(2*a*b).toFixed(1)}} + ${{(b*b).toFixed(1)}} = ${{((a+b)**2).toFixed(1)}}</b>`;
-  }} else if (ch.number <= 12) {{
-    // Unit Circle Shadows & Euclid Geometry
-    const cx = 165, cy = 148, r = 92;
-    ctx.strokeStyle = ink + '55'; ctx.lineWidth = 1.5;
-    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.stroke();
-    const px = cx + r * Math.cos(rad), py = cy - r * Math.sin(rad);
-    ctx.strokeStyle = blue; ctx.lineWidth = 3.5;
-    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(px, cy); ctx.stroke();
-    ctx.strokeStyle = red;
-    ctx.beginPath(); ctx.moveTo(px, cy); ctx.lineTo(px, py); ctx.stroke();
-    ctx.strokeStyle = green;
-    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(px, py); ctx.stroke();
-    ctx.fillStyle = blue; ctx.fillText(`cos θ = ${{Math.cos(rad).toFixed(3)}}`, 305, 95);
-    ctx.fillStyle = red; ctx.fillText(`sin θ = ${{Math.sin(rad).toFixed(3)}}`, 305, 125);
-    ctx.fillStyle = amber; ctx.fillText(`sin²θ + cos²θ = 1.000`, 305, 155);
-    ctx.fillStyle = green; ctx.fillText(`Circle Area πr² (r=${{a}}) = ${{(Math.PI*a*a).toFixed(1)}}`, 305, 190);
-    readoutHtml = `θ = ${{deg}}° (${{rad.toFixed(3)}} rad)<br><b>cos²θ (${{(Math.cos(rad)**2).toFixed(3)}}) + sin²θ (${{(Math.sin(rad)**2).toFixed(3)}}) = 1.000</b>`;
-  }} else if (ch.number <= 16) {{
-    // Bayes 1,000-Person Square & Frequency Density
-    const prev = Math.max(0.01, a / 100);
-    const sens = 0.95;
-    const fpRate = Math.max(0.01, b / 100);
-    const sick = Math.round(1000 * prev);
-    const healthy = 1000 - sick;
-    const tp = +(sick * sens).toFixed(1);
-    const fp = +(healthy * fpRate).toFixed(1);
-    const ppv = (tp / (tp + fp)) * 100;
-    ctx.fillStyle = red; ctx.fillRect(60, 60, Math.max(18, prev * 600), 150);
-    ctx.fillStyle = amber; ctx.fillRect(140, 120, Math.max(28, fpRate * 600), 90);
-    ctx.fillStyle = ink;
-    ctx.fillText(`True Positives (Red): ${{tp}}`, 280, 95);
-    ctx.fillText(`False Positives (Amber): ${{fp}}`, 280, 125);
-    ctx.fillStyle = green;
-    ctx.fillText(`Posterior P(D | +) = ${{ppv.toFixed(1)}}%`, 280, 165);
-    readoutHtml = `Base rate p = ${{(prev*100).toFixed(1)}}%, FP rate = ${{(fpRate*100).toFixed(1)}}%<br><b>P(D | +) = ${{tp}} / (${{tp}} + ${{fp}}) = ${{ppv.toFixed(1)}}%</b>`;
-  }} else {{
-    // Calculus Slope/Area & 2×2 Matrix Determinant
-    const hStep = Math.max(0.05, b / 10);
-    const secSlope = a + 0.5 * hStep;
-    const det = a * b - 1.5;
-    ctx.strokeStyle = blue; ctx.lineWidth = 2.5;
-    ctx.beginPath();
-    for (let i = 0; i <= 60; i++) {{
-      const u = i / 20;
-      const sx = 50 + u * 75, sy = 230 - 0.5 * u * u * 36;
-      if (i === 0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
+  switch (ch.number) {{
+    case 0: {{
+      // Ch 0: Venn Inclusion-Exclusion & De Morgan Courtyard
+      const inter = Math.min(a, b, Math.round(c));
+      const onlyA = Math.max(0, Math.round(a) - inter);
+      const onlyB = Math.max(0, Math.round(b) - inter);
+      const union = onlyA + onlyB + inter;
+      const outside = Math.max(0, 30 - union);
+      ctx.strokeStyle = green; ctx.fillStyle = green + '14'; ctx.lineWidth = 2;
+      ctx.fillRect(24, 22, w - 48, h - 44); ctx.strokeRect(24, 22, w - 48, h - 44);
+      ctx.fillStyle = green; ctx.fillText(`ξ = 30 · Exterior (A ∪ B)′ = A′ ∩ B′ = ${{outside}}`, 36, 44);
+      const cxA = w * 0.39, cxB = w * 0.59, cy = h * 0.56, r = 74;
+      ctx.fillStyle = red + '28'; ctx.strokeStyle = red; ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.arc(cxA, cy, r, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = blue + '28'; ctx.strokeStyle = blue;
+      ctx.beginPath(); ctx.arc(cxB, cy, r, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = red; ctx.fillText(`Only A: ${{onlyA}}`, cxA - 54, cy + 4);
+      ctx.fillStyle = amber; ctx.fillText(`A∩B: ${{inter}}`, (cxA + cxB) / 2 - 24, cy + 4);
+      ctx.fillStyle = blue; ctx.fillText(`Only B: ${{onlyB}}`, cxB + 14, cy + 4);
+      readoutHtml = `n(A) = ${{onlyA + inter}}, n(B) = ${{onlyB + inter}}, Overlap n(A ∩ B) = ${{inter}}<br><b>n(A ∪ B) = ${{onlyA + inter}} + ${{onlyB + inter}} − ${{inter}} = ${{union}}</b> · Exterior (A ∪ B)′ = <b>${{outside}}</b>`;
+      break;
     }}
-    ctx.stroke();
-    ctx.fillStyle = red;
-    ctx.fillText(`Secant Δy/h = ${{secSlope.toFixed(3)}} → Tangent f′(x) = ${{a.toFixed(2)}}`, 255, 95);
-    ctx.fillStyle = blue;
-    ctx.fillText(`Integral ∫₀ᵃ t dt = ½a² = ${{(0.5*a*a).toFixed(2)}}`, 255, 130);
-    ctx.fillStyle = amber;
-    ctx.fillText(`2×2 Parallelogram Area det(A) = ${{det.toFixed(2)}}`, 255, 165);
-    readoutHtml = `At x = ${{a}}, step h = ${{hStep.toFixed(2)}}:<br><b>f′(x) = ${{a.toFixed(2)}} · Area ∫₀ˣ t dt = ${{(0.5*a*a).toFixed(2)}} · det(A) = ${{det.toFixed(2)}}</b>`;
+    case 1: {{
+      // Ch 1: 180° Negative Rotation & HCF × LCM = a × b
+      const A = Math.round(a), B = Math.round(b), flips = Math.round(c);
+      const hcf = gcd(A, B), lcm = (A * B) / hcf;
+      const yLine = 88, cx = w * 0.5;
+      drawArrow(ctx, 40, yLine, w - 40, yLine, muted, 1.8);
+      ctx.fillStyle = ink; ctx.fillText('0', cx - 4, yLine + 18);
+      const dir = flips % 2 === 0 ? 1 : -1;
+      drawArrow(ctx, cx, yLine, cx + dir * 120, yLine, dir > 0 ? green : red, 3.2);
+      for (let f = 0; f < flips; f++) {{
+        ctx.strokeStyle = amber; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(cx, yLine, 42 + f * 18, f * Math.PI, (f + 1) * Math.PI, true); ctx.stroke();
+      }}
+      ctx.fillStyle = amber; ctx.fillText(`${{flips}} × 180° = ${{flips * 180}}° (${{dir > 0 ? '+Positive' : '−Negative'}})`, 36, 34);
+      // HCF & LCM bars
+      ctx.fillStyle = blue + '33'; ctx.strokeStyle = blue; ctx.lineWidth = 2;
+      ctx.fillRect(48, 155, 190, 44); ctx.strokeRect(48, 155, 190, 44);
+      ctx.fillStyle = blue; ctx.fillText(`HCF(${{A}}, ${{B}}) = ${{hcf}}`, 64, 182);
+      ctx.fillStyle = amber + '33'; ctx.strokeStyle = amber;
+      ctx.fillRect(260, 155, 240, 44); ctx.strokeRect(260, 155, 240, 44);
+      ctx.fillStyle = amber; ctx.fillText(`LCM(${{A}}, ${{B}}) = ${{lcm}}`, 276, 182);
+      ctx.fillStyle = green; ctx.fillText(`Invariant Check: HCF × LCM = ${{hcf}} × ${{lcm}} = ${{hcf * lcm}} = a × b`, 48, 232);
+      readoutHtml = `Rotation: (−1)^${{flips}} = <b>${{dir > 0 ? '+1' : '−1'}}</b> · Prime Invariant: <b>HCF(${{A}},${{B}}) × LCM(${{A}},${{B}}) = ${{hcf}} × ${{lcm}} = ${{A * B}}</b>`;
+      break;
+    }}
+    case 2: {{
+      // Ch 2: 100x - x Recurring Decimal Tail Canceller & Reciprocal Division
+      const blk = Math.round(a), g = gcd(blk, 99), sNum = blk / g, sDen = 99 / g;
+      const bStr = String(blk).padStart(2, '0');
+      ctx.fillStyle = red + '28'; ctx.strokeStyle = red; ctx.lineWidth = 2;
+      ctx.fillRect(42, 42, w - 84, 42); ctx.strokeRect(42, 42, w - 84, 42);
+      ctx.fillStyle = red; ctx.fillText(`100x = ${{bStr}} . ${{bStr}} ${{bStr}} ${{bStr}} … (infinite tail)`, 56, 68);
+      ctx.fillStyle = blue + '28'; ctx.strokeStyle = blue;
+      ctx.fillRect(118, 96, w - 160, 42); ctx.strokeRect(118, 96, w - 160, 42);
+      ctx.fillStyle = blue; ctx.fillText(`−   x =  0 . ${{bStr}} ${{bStr}} ${{bStr}} … (aligned tail cancels!)`, 128, 122);
+      ctx.fillStyle = green + '28'; ctx.strokeStyle = green;
+      ctx.fillRect(42, 154, 260, 44); ctx.strokeRect(42, 154, 260, 44);
+      ctx.fillStyle = green; ctx.fillText(`99x = ${{blk}}  ⇒  x = ${{blk}}/99 = ${{sNum}}/${{sDen}}`, 56, 181);
+      const q = (b * c) / 2;
+      ctx.fillStyle = amber; ctx.fillText(`Reciprocal Division: ${{b}} ÷ (2/${{c}}) = ${{b}} × (${{c}}/2) = ${{q.toFixed(1)}}`, 42, 235);
+      readoutHtml = `Tail Subtraction: 100x − x = 99x = ${{blk}} ⇒ <b>0.${{bStr}}${{bStr}}… = ${{sNum}}/${{sDen}}</b> · Division: <b>${{b}} ÷ (2/${{c}}) = ${{q.toFixed(2)}}</b>`;
+      break;
+    }}
+    case 3: {{
+      // Ch 3: Singapore Ratio Bar Model & 20-Year Compound Growth
+      const pA = Math.round(a), pB = Math.round(b), rate = c / 100;
+      const uW = 34, yA = 42, yB = 92;
+      for (let i = 0; i < pA; i++) {{
+        ctx.fillStyle = red + '30'; ctx.strokeStyle = red; ctx.lineWidth = 2;
+        ctx.fillRect(46 + i * (uW + 4), yA, uW, 34); ctx.strokeRect(46 + i * (uW + 4), yA, uW, 34);
+      }}
+      ctx.fillStyle = red; ctx.fillText(`A (${{pA}}u = ₹${{pA * 40}})`, 54 + pA * (uW + 4), yA + 22);
+      for (let i = 0; i < pB; i++) {{
+        ctx.fillStyle = blue + '30'; ctx.strokeStyle = blue; ctx.lineWidth = 2;
+        ctx.fillRect(46 + i * (uW + 4), yB, uW, 34); ctx.strokeRect(46 + i * (uW + 4), yB, uW, 34);
+      }}
+      ctx.fillStyle = blue; ctx.fillText(`B (${{pB}}u = ₹${{pB * 40}})`, 54 + pB * (uW + 4), yB + 22);
+      // Mini compound bars on bottom
+      const simp20 = 1000 * (1 + 20 * rate), comp20 = 1000 * Math.pow(1 + rate, 20);
+      ctx.fillStyle = amber; ctx.fillText(`20 yrs @ ${{c}}%: Simple = ₹${{simp20.toFixed(0)}} vs Compound P(1+r)²⁰ = ₹${{comp20.toFixed(0)}}`, 46, 175);
+      ctx.fillStyle = green; ctx.fillText(`+20% then −20% trap: 1.20 × 0.80 = 0.96 (4% net loss!)`, 46, 208);
+      readoutHtml = `Singapore Bar (${{pA}}:${{pB}}, 1u=₹40): A=<b>₹${{pA*40}}</b>, B=<b>₹${{pB*40}}</b> · 20-yr Compound @ ${{c}}%: <b>₹${{comp20.toFixed(0)}}</b>`;
+      break;
+    }}
+    case 4: {{
+      // Ch 4: Area-Array Expansion (x + a)(x + b) = x^2 + (a+b)x + ab
+      const sc = 22, wx = a * sc, wa = b * sc, hb = c * sc, x0 = 56, y0 = 36;
+      ctx.fillStyle = red + '32'; ctx.strokeStyle = red; ctx.lineWidth = 2.2;
+      ctx.fillRect(x0, y0, wx, wx); ctx.strokeRect(x0, y0, wx, wx);
+      ctx.fillStyle = blue + '32'; ctx.strokeStyle = blue;
+      ctx.fillRect(x0 + wx, y0, wa, wx); ctx.strokeRect(x0 + wx, y0, wa, wx);
+      ctx.fillRect(x0, y0 + wx, wx, hb); ctx.strokeRect(x0, y0 + wx, wx, hb);
+      ctx.fillStyle = amber + '38'; ctx.strokeStyle = amber;
+      ctx.fillRect(x0 + wx, y0 + wx, wa, hb); ctx.strokeRect(x0 + wx, y0 + wx, wa, hb);
+      ctx.fillStyle = red; ctx.fillText(`x²=${{(a*a).toFixed(1)}}`, x0 + 10, y0 + wx/2);
+      ctx.fillStyle = blue; ctx.fillText(`ax=${{(a*b).toFixed(1)}}`, x0 + wx + 6, y0 + wx/2);
+      ctx.fillText(`bx=${{(a*c).toFixed(1)}}`, x0 + 10, y0 + wx + hb/2 + 4);
+      ctx.fillStyle = amber; ctx.fillText(`ab=${{(b*c).toFixed(1)}}`, x0 + wx + 6, y0 + wx + hb/2 + 4);
+      const tot = (a + b) * (a + c);
+      ctx.fillStyle = green; ctx.fillText(`(${{a}}+${{b}})(${{a}}+${{c}}) = ${{(a*a).toFixed(1)}} + ${{(a*(b+c)).toFixed(1)}} + ${{(b*c).toFixed(1)}} = ${{tot.toFixed(1)}}`, 285, 110);
+      ctx.fillStyle = ink; ctx.fillText(`Diff of Squares: ${{a}}² − ${{b}}² = (${{a}}−${{b}})(${{a}}+${{b}}) = ${{(a*a - b*b).toFixed(1)}}`, 285, 148);
+      readoutHtml = `(x + a)(x + b) = <b style="color:${{red}}">x² (${{(a*a).toFixed(1)}})</b> + <b style="color:${{blue}}">(a+b)x (${{(a*(b+c)).toFixed(1)}})</b> + <b style="color:${{amber}}">ab (${{(b*c).toFixed(1)}})</b> = <b>${{tot.toFixed(1)}}</b>`;
+      break;
+    }}
+    case 5: {{
+      // Ch 5: Twin-Pan Balance Equation ax + b = x + d & Inequality Mirror
+      const netA = Math.max(1, a - 1), netD = c - b, xSol = netD / netA;
+      const cx = w * 0.5, by = 128;
+      ctx.strokeStyle = ink; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(cx - 150, by); ctx.lineTo(cx + 150, by); ctx.stroke();
+      ctx.fillStyle = amber;
+      ctx.beginPath(); ctx.moveTo(cx, by); ctx.lineTo(cx - 22, by + 38); ctx.lineTo(cx + 22, by + 38); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = red + '33'; ctx.strokeStyle = red; ctx.lineWidth = 2;
+      ctx.fillRect(cx - 175, by - 54, 120, 48); ctx.strokeRect(cx - 175, by - 54, 120, 48);
+      ctx.fillStyle = red; ctx.fillText(`${{a}}x + ${{b}}`, cx - 140, by - 25);
+      ctx.fillStyle = blue + '33'; ctx.strokeStyle = blue;
+      ctx.fillRect(cx + 55, by - 54, 120, 48); ctx.strokeRect(cx + 55, by - 54, 120, 48);
+      ctx.fillStyle = blue; ctx.fillText(`1x + ${{c}}`, cx + 90, by - 25);
+      ctx.fillStyle = green; ctx.fillText(`Subtract x and ${{b}} from both pans ⇒ ${{netA}}x = ${{netD}} ⇒ x = ${{xSol.toFixed(2)}}`, 52, 208);
+      ctx.fillStyle = amber; ctx.fillText(`Inequality ×(−1) Mirror: 2 < 5 reflects across 0 to −2 > −5`, 52, 238);
+      readoutHtml = `${{a}}x + ${{b}} = x + ${{c}} ⇒ <b>${{netA}}x = ${{netD}} ⇒ x = ${{xSol.toFixed(2)}}</b> (Both pans balance at <b>${{(a*xSol + b).toFixed(1)}}</b>)`;
+      break;
+    }}
+    case 6: {{
+      // Ch 6: Gauss's 180°-Rotated Interlocking Staircase
+      const n = Math.round(a), a1 = Math.round(b), d = Math.round(c);
+      const an = a1 + (n - 1) * d, pairH = a1 + an, sum = (n * pairH) / 2;
+      const bw = Math.min(38, 260 / n), uH = Math.min(18, 170 / pairH), x0 = 54, yBase = 225;
+      for (let i = 0; i < n; i++) {{
+        const term = a1 + i * d, comp = pairH - term;
+        const h1 = term * uH, h2 = comp * uH;
+        ctx.fillStyle = red + '38'; ctx.strokeStyle = red; ctx.lineWidth = 1.8;
+        ctx.fillRect(x0 + i * bw, yBase - h1, bw - 2, h1); ctx.strokeRect(x0 + i * bw, yBase - h1, bw - 2, h1);
+        ctx.fillStyle = blue + '38'; ctx.strokeStyle = blue;
+        ctx.fillRect(x0 + i * bw, yBase - h1 - h2 - 3, bw - 2, h2); ctx.strokeRect(x0 + i * bw, yBase - h1 - h2 - 3, bw - 2, h2);
+      }}
+      ctx.fillStyle = ink; ctx.fillText(`n = ${{n}} columns`, x0, 248);
+      ctx.fillStyle = blue; ctx.fillText(`Uniform height a₁ + aₙ = ${{a1}} + ${{an}} = ${{pairH}}`, 310, 95);
+      ctx.fillStyle = green; ctx.fillText(`Rectangle = ${{n}} × ${{pairH}} = ${{n * pairH}}`, 310, 130);
+      ctx.fillStyle = red; ctx.fillText(`One Staircase Sₙ = ½(${{n * pairH}}) = ${{sum}}`, 310, 165);
+      readoutHtml = `a₁ = ${{a1}}, aₙ = ${{an}}, Pair height = <b>${{pairH}}</b> · <b>Sₙ = ½ × ${{n}} × ${{pairH}} = ${{sum}}</b>`;
+      break;
+    }}
+    case 7: {{
+      // Ch 7: Linear Graph y = mx + c & Rise/Run Triangle
+      const m = a, cInt = b, dx = c, dy = m * dx;
+      const ox = 165, oy = 155, sc = 36;
+      drawArrow(ctx, 30, oy, 310, oy, muted, 1.5);
+      drawArrow(ctx, ox, 255, ox, 25, muted, 1.5);
+      ctx.strokeStyle = blue; ctx.lineWidth = 2.8;
+      ctx.beginPath();
+      ctx.moveTo(ox - 3 * sc, oy - (-3 * m + cInt) * sc);
+      ctx.lineTo(ox + 3 * sc, oy - (3 * m + cInt) * sc);
+      ctx.stroke();
+      const x1 = ox, y1 = oy - cInt * sc, x2 = ox + dx * sc, y2 = y1 - dy * sc;
+      ctx.strokeStyle = amber; ctx.lineWidth = 2.2;
+      ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y1); ctx.lineTo(x2, y2); ctx.stroke();
+      ctx.fillStyle = green; ctx.beginPath(); ctx.arc(x1, y1, 5, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = ink; ctx.fillText(`(0, ${{cInt}})`, x1 - 44, y1 - 6);
+      ctx.fillStyle = blue; ctx.fillText(`Run Δx = ${{dx}}`, 325, 88);
+      ctx.fillStyle = red; ctx.fillText(`Rise Δy = m·Δx = ${{dy.toFixed(2)}}`, 325, 118);
+      ctx.fillStyle = green; ctx.fillText(`Gradient m = Δy/Δx = ${{m.toFixed(2)}}`, 325, 148);
+      const mPerp = Math.abs(m) > 0.05 ? (-1 / m).toFixed(2) : '∞';
+      ctx.fillStyle = amber; ctx.fillText(`Perpendicular m₂ = −1/m = ${{mPerp}}`, 325, 178);
+      readoutHtml = `Line <b>y = ${{m}}x + ${{cInt}}</b> · Over Δx = ${{dx}}, Δy = <b>${{dy.toFixed(2)}}</b> ·Perp gradient <b>m₂ = ${{mPerp}}</b>`;
+      break;
+    }}
+    case 8: {{
+      // Ch 8: Parallel Transversal & Exterior Angle θ_ext = α + β
+      const alpha = a, beta = b, ext = alpha + beta, gamma = 180 - ext, nSides = Math.round(c);
+      const xA = 75, yA = 195, xB = 225, yB = 195, xC = 145, yC = 75;
+      ctx.strokeStyle = ink; ctx.lineWidth = 2.4;
+      ctx.beginPath(); ctx.moveTo(xA, yA); ctx.lineTo(310, yB); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(xA, yA); ctx.lineTo(xC, yC); ctx.lineTo(xB, yB); ctx.stroke();
+      // Auxiliary parallel line at B
+      ctx.setLineDash([5, 4]); ctx.strokeStyle = green;
+      ctx.beginPath(); ctx.moveTo(xB, yB); ctx.lineTo(xB + (xC - xA), yC); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = red; ctx.fillText(`α=${{alpha}}°`, xA + 22, yA - 10);
+      ctx.fillStyle = blue; ctx.fillText(`β=${{beta}}°`, xC - 14, yC + 34);
+      ctx.fillStyle = amber; ctx.fillText(`θ_ext = α + β = ${{ext}}°`, xB + 14, yB - 14);
+      ctx.fillStyle = green; ctx.fillText(`${{nSides}}-gon splits into (${{nSides}}−2) = ${{nSides-2}} triangles = ${{(nSides-2)*180}}°`, 315, 125);
+      readoutHtml = `Exterior Angle: <b>θ_ext = α (${{alpha}}°) + β (${{beta}}°) = ${{ext}}°</b> (γ = ${{gamma}}°) · ${{nSides}}-gon sum = <b>${{(nSides-2)*180}}°</b>`;
+      break;
+    }}
+    case 9: {{
+      // Ch 9: Compass Perpendicular Bisector Rhombus & 3-Figure Bearings
+      const ab = a, rRatio = b, rPx = ab * rRatio * 22;
+      const xA = 115, xB = 225, yM = 145, xm = (xA + xB) / 2;
+      const halfAB = (xB - xA) / 2, hPQ = Math.sqrt(Math.max(100, rPx * rPx - halfAB * halfAB));
+      ctx.strokeStyle = blue + '88'; ctx.lineWidth = 1.8;
+      ctx.beginPath(); ctx.arc(xA, yM, rPx, -1.1, 1.1); ctx.stroke();
+      ctx.beginPath(); ctx.arc(xB, yM, rPx, Math.PI - 1.1, Math.PI + 1.1); ctx.stroke();
+      ctx.strokeStyle = ink; ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.moveTo(xA, yM); ctx.lineTo(xB, yM); ctx.stroke();
+      ctx.strokeStyle = red; ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.moveTo(xm, yM - hPQ); ctx.lineTo(xm, yM + hPQ); ctx.stroke();
+      ctx.strokeRect(xm, yM - 10, 10, 10);
+      ctx.fillStyle = ink; ctx.fillText('A', xA - 16, yM + 5); ctx.fillText('B', xB + 8, yM + 5);
+      ctx.fillStyle = red; ctx.fillText('P (|PA|=|PB|)', xm - 34, yM - hPQ - 8);
+      const backB = (c + 180) % 360;
+      ctx.fillStyle = amber; ctx.fillText(`Fwd Bearing: ${{String(c).padStart(3,'0')}}°`, 320, 105);
+      ctx.fillStyle = green; ctx.fillText(`Back-Bearing: ${{String(backB).padStart(3,'0')}}°`, 320, 138);
+      ctx.fillStyle = ink; ctx.fillText(`Euler Polyhedra: V − E + F = 2`, 320, 172);
+      readoutHtml = `Rhombus APBQ diagonals meet at <b>90°</b> · Bearing <b>${{String(c).padStart(3,'0')}}°</b> ↔ Back-bearing <b>${{String(backB).padStart(3,'0')}}°</b>`;
+      break;
+    }}
+    case 10: {{
+      // Ch 10: Circle Sector Comb Rearrangement (A = pi * r^2) & Trapezium
+      const r = a, cx = 105, cy = 140, radPx = r * 14;
+      for (let i = 0; i < 16; i++) {{
+        const a0 = (i / 16) * Math.PI * 2, a1 = ((i + 1) / 16) * Math.PI * 2;
+        ctx.fillStyle = (i % 2 === 0 ? red : blue) + '44';
+        ctx.strokeStyle = i % 2 === 0 ? red : blue; ctx.lineWidth = 1.4;
+        ctx.beginPath(); ctx.moveTo(cx, cy); ctx.arc(cx, cy, radPx, a0, a1); ctx.closePath(); ctx.fill(); ctx.stroke();
+      }}
+      // Comb rectangle on right
+      const rx = 225, ry = cy - radPx / 2, rw = Math.PI * radPx, rh = radPx;
+      ctx.fillStyle = amber + '22'; ctx.strokeStyle = red; ctx.lineWidth = 2.2;
+      ctx.fillRect(rx, ry, rw, rh); ctx.strokeRect(rx, ry, rw, rh);
+      ctx.fillStyle = blue; ctx.fillText(`Base = πr = ${{(Math.PI * r).toFixed(2)}} cm`, rx + 12, ry + rh + 20);
+      ctx.fillStyle = red; ctx.fillText(`Height = r = ${{r}} cm`, rx + 12, ry - 8);
+      const trapArea = 0.5 * (b + c) * r;
+      ctx.fillStyle = green; ctx.fillText(`Circle πr² = ${{(Math.PI*r*r).toFixed(2)}} cm² · Trap ½(${{b}}+${{c}})×${{r}} = ${{trapArea.toFixed(1)}} cm²`, 40, 255);
+      readoutHtml = `Circle Comb: Base <b>πr (${{(Math.PI*r).toFixed(2)}})</b> × Height <b>r (${{r}})</b> = <b>πr² = ${{(Math.PI*r*r).toFixed(2)}} cm²</b> · Trapezium = <b>${{trapArea.toFixed(1)}} cm²</b>`;
+      break;
+    }}
+    case 11: {{
+      // Ch 11: Enlargement Ray Scaler (k, k^2, k^3)
+      const k = a, baseB = b, hTri = c, area0 = 0.5 * baseB * hTri, areaImg = k * k * area0;
+      const cx = 48, cy = 225;
+      ctx.fillStyle = amber; ctx.beginPath(); ctx.arc(cx, cy, 5, 0, Math.PI * 2); ctx.fill();
+      ctx.fillText('Centre C', cx - 10, cy + 20);
+      const p1 = [cx + 70, cy - 25], p2 = [cx + 120, cy - 25], p3 = [cx + 70, cy - 75];
+      const q1 = [cx + 70 * k, cy - 25 * k], q2 = [cx + 120 * k, cy - 25 * k], q3 = [cx + 70 * k, cy - 75 * k];
+      ctx.setLineDash([4, 4]); ctx.strokeStyle = muted;
+      [q1, q2, q3].forEach(q => {{ ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(q[0], q[1]); ctx.stroke(); }});
+      ctx.setLineDash([]);
+      ctx.fillStyle = blue + '38'; ctx.strokeStyle = blue; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(...p1); ctx.lineTo(...p2); ctx.lineTo(...p3); ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = red + '30'; ctx.strokeStyle = red; ctx.lineWidth = 2.4;
+      ctx.beginPath(); ctx.moveTo(...q1); ctx.lineTo(...q2); ctx.lineTo(...q3); ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = green; ctx.fillText(`Scale k = ${{k}}× ⇒ Area scales by k² = ${{(k*k).toFixed(2)}}× (Volume by k³ = ${{(k*k*k).toFixed(2)}}×)`, 190, 248);
+      readoutHtml = `Linear Scale <b>k = ${{k}}×</b> · Object Area = ${{area0.toFixed(1)}} cm² → Image Area = <b>k²·A = ${{(k*k).toFixed(2)}} × ${{area0.toFixed(1)}} = ${{areaImg.toFixed(2)}} cm²</b>`;
+      break;
+    }}
+    case 12: {{
+      // Ch 12: Unit Circle Shadows (cos, sin, tan) & Sine Wave Unrolling
+      const rad = (c * Math.PI) / 180, cosV = Math.cos(rad), sinV = Math.sin(rad);
+      const cx = 135, cy = 145, r = 84;
+      ctx.strokeStyle = muted; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
+      const px = cx + r * cosV, py = cy - r * sinV;
+      ctx.strokeStyle = blue; ctx.lineWidth = 3.2;
+      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(px, cy); ctx.stroke();
+      ctx.strokeStyle = red;
+      ctx.beginPath(); ctx.moveTo(px, cy); ctx.lineTo(px, py); ctx.stroke();
+      ctx.strokeStyle = green;
+      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(px, py); ctx.stroke();
+      // Unrolled sine wave on right
+      const wx0 = 255, ww = 250;
+      ctx.strokeStyle = muted + '66'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(wx0, cy); ctx.lineTo(wx0 + ww, cy); ctx.stroke();
+      ctx.strokeStyle = red; ctx.lineWidth = 2.2;
+      ctx.beginPath();
+      for (let d = 0; d <= 360; d += 4) {{
+        const sx = wx0 + (d / 360) * ww, sy = cy - r * Math.sin((d * Math.PI) / 180);
+        if (d === 0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
+      }}
+      ctx.stroke();
+      const curWx = wx0 + (c / 360) * ww;
+      ctx.setLineDash([4, 3]); ctx.strokeStyle = amber;
+      ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(curWx, py); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = red; ctx.beginPath(); ctx.arc(curWx, py, 5, 0, Math.PI * 2); ctx.fill();
+      const hyp = Math.hypot(a, b);
+      ctx.fillStyle = ink; ctx.fillText(`Pythagoras: √(${{a}}²+${{b}}²) = ${{hyp.toFixed(2)}} · sin²θ + cos²θ = 1.000`, 42, 258);
+      readoutHtml = `θ = ${{c}}° · <b style="color:${{blue}}">cos θ = ${{cosV.toFixed(3)}}</b> · <b style="color:${{red}}">sin θ = ${{sinV.toFixed(3)}}</b> · <b>cos²θ + sin²θ = 1.000</b>`;
+      break;
+    }}
+    case 13: {{
+      // Ch 13: Standard Error sigma/sqrt(n) & Wald Survivorship Bias
+      const sigma = a, n = b, se = sigma / Math.sqrt(n);
+      const cx = 175, baseY = 215, scX = 16;
+      ctx.strokeStyle = muted; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(35, baseY); ctx.lineTo(315, baseY); ctx.stroke();
+      ctx.strokeStyle = red; ctx.lineWidth = 2.6;
+      ctx.beginPath();
+      for (let x = -130; x <= 130; x += 3) {{
+        const z = x / (se * scX);
+        const y = baseY - 135 * Math.exp(-0.5 * z * z);
+        if (x === -130) ctx.moveTo(cx + x, y); else ctx.lineTo(cx + x, y);
+      }}
+      ctx.stroke();
+      ctx.fillStyle = red; ctx.fillText(`±SE = ±${{se.toFixed(2)}}`, cx - 32, baseY + 22);
+      // Wald aircraft schematic on right
+      ctx.strokeStyle = blue; ctx.lineWidth = 2;
+      ctx.strokeRect(360, 75, 140, 28); ctx.strokeRect(415, 42, 30, 95);
+      ctx.fillStyle = amber; ctx.fillText(`Wald Bomber: Armour the`, 348, 165);
+      ctx.fillText(`MISSING engine hits (${{c}})!`, 348, 185);
+      readoutHtml = `Population σ = ${{sigma}}, Sample n = ${{n}} ⇒ <b>Standard Error SE = σ / √n = ${{sigma}} / ${{Math.sqrt(n).toFixed(2)}} = ${{se.toFixed(2)}}</b>`;
+      break;
+    }}
+    case 14: {{
+      // Ch 14: Frequency Density Histogram (Area = Frequency)
+      const w3 = a, f3 = b, fd3 = f3 / w3;
+      const bins = [{{l:'0–10',w:10,f:18,fd:1.8,c:blue}}, {{l:'10–20',w:10,f:24,fd:2.4,c:green}}, {{l:`20–${{20+w3}}`,w:w3,f:f3,fd:fd3,c:red}}];
+      let xCur = 54; const yBase = 225, scW = 4.8, scH = 58;
+      bins.forEach(bn => {{
+        const bw = bn.w * scW, bh = bn.fd * scH;
+        ctx.fillStyle = bn.c + '35'; ctx.strokeStyle = bn.c; ctx.lineWidth = 2.2;
+        ctx.fillRect(xCur, yBase - bh, bw, bh); ctx.strokeRect(xCur, yBase - bh, bw, bh);
+        ctx.fillStyle = ink; ctx.fillText(`f=${{bn.f}}`, xCur + 6, yBase - bh - 6);
+        ctx.fillStyle = muted; ctx.fillText(bn.l, xCur + 4, yBase + 18);
+        xCur += bw;
+      }});
+      ctx.fillStyle = red; ctx.fillText(`Wide bin FD = ${{f3}} ÷ ${{w3}} = ${{fd3.toFixed(2)}}`, 320, 92);
+      ctx.fillStyle = amber; ctx.fillText(`Area = FD × Δx = ${{fd3.toFixed(2)}} × ${{w3}} = ${{f3}}`, 320, 122);
+      readoutHtml = `Wide Class (Δx = ${{w3}}, f = ${{f3}}): <b>Frequency Density = f / Δx = ${{fd3.toFixed(2)}}</b> (Bar Area = ${{f3}})`;
+      break;
+    }}
+    case 15: {{
+      // Ch 15: Galton Pegboard & Binomial C(n, k)
+      const n = Math.round(a), k = Math.min(n, Math.round(b)), p = c / 100;
+      const ways = comb(n, k), prob = ways * Math.pow(p, k) * Math.pow(1 - p, n - k);
+      const yBase = 225, bw = Math.min(36, 260 / (n + 1)), x0 = 54;
+      let maxP = 0;
+      for (let i = 0; i <= n; i++) maxP = Math.max(maxP, comb(n, i) * Math.pow(p, i) * Math.pow(1 - p, n - i));
+      for (let i = 0; i <= n; i++) {{
+        const pr = comb(n, i) * Math.pow(p, i) * Math.pow(1 - p, n - i);
+        const bh = (pr / Math.max(0.01, maxP)) * 145;
+        const col = i === k ? red : blue;
+        ctx.fillStyle = col + (i === k ? '55' : '28'); ctx.strokeStyle = col; ctx.lineWidth = 2;
+        ctx.fillRect(x0 + i * bw, yBase - bh, bw - 3, bh); ctx.strokeRect(x0 + i * bw, yBase - bh, bw - 3, bh);
+        ctx.fillStyle = ink; ctx.fillText(comb(n, i), x0 + i * bw + 4, yBase - bh - 6);
+      }}
+      ctx.fillStyle = red; ctx.fillText(`C(${{n}}, ${{k}}) = ${{ways}} distinct peg paths`, 315, 95);
+      ctx.fillStyle = green; ctx.fillText(`P(X = ${{k}}) = ${{(prob * 100).toFixed(1)}}%`, 315, 128);
+      readoutHtml = `Galton Board (n = ${{n}}, k = ${{k}}): <b>ⁿCₖ = ${{ways}} paths</b> · Binomial probability <b>P(X = ${{k}}) = ${{(prob * 100).toFixed(2)}}%</b>`;
+      break;
+    }}
+    case 16: {{
+      // Ch 16: Bayes 1,000-Person Unit Square Eikosogram
+      const prev = a / 100, sens = b / 100, fpr = c / 100;
+      const sick = 1000 * prev, healthy = 1000 - sick;
+      const tp = sick * sens, fp = healthy * fpr, ppv = (tp / (tp + fp)) * 100;
+      const sqX = 48, sqY = 38, sqW = 210, sqH = 185;
+      const wD = Math.max(18, prev * sqW * 2.2);
+      const hTP = sens * sqH, hFP = Math.max(14, fpr * sqH * 1.8);
+      ctx.strokeStyle = ink; ctx.lineWidth = 2; ctx.strokeRect(sqX, sqY, sqW, sqH);
+      ctx.fillStyle = red + '66'; ctx.fillRect(sqX, sqY + sqH - hTP, wD, hTP);
+      ctx.fillStyle = amber + '66'; ctx.fillRect(sqX + wD, sqY + sqH - hFP, sqW - wD, hFP);
+      ctx.fillStyle = red; ctx.fillText(`True Pos (Red): ${{tp.toFixed(1)}}`, 285, 82);
+      ctx.fillStyle = amber; ctx.fillText(`False Pos (Amber): ${{fp.toFixed(1)}}`, 285, 112);
+      ctx.fillStyle = green; ctx.fillText(`Posterior P(D | +) = ${{ppv.toFixed(1)}}%`, 285, 148);
+      // Isolated posterior bar
+      const totH = 140, tpBarH = (tp / (tp + fp)) * totH;
+      ctx.fillStyle = red; ctx.fillRect(495, 60, 28, tpBarH);
+      ctx.fillStyle = amber; ctx.fillRect(495, 60 + tpBarH, 28, totH - tpBarH);
+      readoutHtml = `Of 1,000 people: <b>${{tp.toFixed(1)}} True Positives</b> vs <b>${{fp.toFixed(1)}} False Positives</b> ⇒ <b>P(D | +) = ${{ppv.toFixed(1)}}%</b>`;
+      break;
+    }}
+    case 17: {{
+      // Ch 17: Differential Calculus — Secant to Tangent & d(x^2) = 2x dx
+      const x0 = a, hStep = b, f = x => 0.5 * x * x;
+      const y0 = f(x0), y1 = f(x0 + hStep), secSlope = (y1 - y0) / hStep, tanSlope = x0;
+      const ox = 54, oy = 235, scX = 72, scY = 42;
+      ctx.strokeStyle = blue; ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      for (let u = 0; u <= 3.2; u += 0.08) {{
+        const sx = ox + u * scX, sy = oy - f(u) * scY;
+        if (u === 0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
+      }}
+      ctx.stroke();
+      const px = ox + x0 * scX, py = oy - y0 * scY, qx = ox + (x0 + hStep) * scX, qy = oy - y1 * scY;
+      ctx.strokeStyle = amber; ctx.lineWidth = 2.2;
+      ctx.beginPath(); ctx.moveTo(px - 35, py + 35 * (secSlope * scY / scX)); ctx.lineTo(qx + 25, qy - 25 * (secSlope * scY / scX)); ctx.stroke();
+      ctx.strokeStyle = red; ctx.lineWidth = 2.4;
+      ctx.beginPath(); ctx.moveTo(px - 45, py + 45 * (tanSlope * scY / scX)); ctx.lineTo(px + 55, py - 55 * (tanSlope * scY / scX)); ctx.stroke();
+      ctx.fillStyle = red; ctx.beginPath(); ctx.arc(px, py, 5, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = amber; ctx.beginPath(); ctx.arc(qx, qy, 5, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = red; ctx.fillText(`Tangent f′(${{x0}}) = ${{tanSlope.toFixed(2)}}`, 305, 85);
+      ctx.fillStyle = amber; ctx.fillText(`Secant Δy/h = ${{secSlope.toFixed(3)}}`, 305, 115);
+      ctx.fillStyle = green; ctx.fillText(`d(x²)/dx = 2x + h = ${{(2*c + hStep).toFixed(2)}} → ${{2*c}}`, 305, 148);
+      readoutHtml = `At x₀ = ${{x0}}, step h = ${{hStep}}: Secant = <b>${{secSlope.toFixed(3)}}</b> → Exact Derivative <b>f′(x₀) = ${{tanSlope.toFixed(2)}}</b>`;
+      break;
+    }}
+    case 18: {{
+      // Ch 18: Integral Calculus — Midpoint Riemann Bars & FTC Area = Antiderivative
+      const upperX = a, N = Math.round(b), kSlope = c, dx = upperX / N;
+      const ox = 54, oy = 232, scX = 76, scY = 48;
+      let rSum = 0;
+      for (let i = 0; i < N; i++) {{
+        const xm = (i + 0.5) * dx, ym = kSlope * xm;
+        rSum += ym * dx;
+        const bx = ox + i * dx * scX, bw = dx * scX, bh = ym * scY;
+        ctx.fillStyle = (i === N - 1 ? red : blue) + '38';
+        ctx.strokeStyle = i === N - 1 ? red : blue; ctx.lineWidth = 1.6;
+        ctx.fillRect(bx, oy - bh, bw, bh); ctx.strokeRect(bx, oy - bh, bw, bh);
+      }}
+      ctx.strokeStyle = green; ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox + 3 * scX, oy - kSlope * 3 * scY); ctx.stroke();
+      const exact = 0.5 * kSlope * upperX * upperX;
+      ctx.fillStyle = blue; ctx.fillText(`Riemann Sum (${{N}} slabs) = ${{rSum.toFixed(3)}}`, 305, 92);
+      ctx.fillStyle = green; ctx.fillText(`Exact ∫₀ˣ kt dt = ½kx² = ${{exact.toFixed(3)}}`, 305, 124);
+      ctx.fillStyle = red; ctx.fillText(`FTC: dA/dx = f(x) = ${{(kSlope*upperX).toFixed(2)}}`, 305, 156);
+      readoutHtml = `Midpoint Riemann (${{N}} slabs) = <b>${{rSum.toFixed(4)}}</b> · Exact Antiderivative <b>F(${{upperX}}) − F(0) = ${{exact.toFixed(4)}}</b>`;
+      break;
+    }}
+    case 19: {{
+      // Ch 19: Vectors Tip-to-Tail Triangle Law & Dot Product
+      const ax = a, ay = 1.2, bx = b, by = 2.0, angRad = (c * Math.PI) / 180;
+      const ox = 64, oy = 225, sc = 36;
+      const p1x = ox + ax * sc, p1y = oy - ay * sc;
+      const p2x = p1x + bx * sc, p2y = p1y - by * sc;
+      drawArrow(ctx, ox, oy, p1x, p1y, red, 3);
+      drawArrow(ctx, p1x, p1y, p2x, p2y, blue, 3);
+      drawArrow(ctx, ox, oy, p2x, p2y, green, 3.2);
+      ctx.fillStyle = red; ctx.fillText(`a = (${{ax}}, ${{ay}})`, ox + 28, oy - 12);
+      ctx.fillStyle = blue; ctx.fillText(`b = (${{bx}}, ${{by}})`, p1x + 14, p1y - 18);
+      ctx.fillStyle = green; ctx.fillText(`a + b = (${{(ax+bx).toFixed(1)}}, ${{(ay+by).toFixed(1)}})`, ox + 15, oy - 95);
+      const magA = Math.hypot(ax, ay), magB = Math.hypot(bx, by), dot = magA * magB * Math.cos(angRad);
+      ctx.fillStyle = amber; ctx.fillText(`Dot Product |a||b|cos(${{c}}°) = ${{dot.toFixed(2)}}`, 305, 175);
+      readoutHtml = `Resultant <b>a + b = (${{(ax+bx).toFixed(1)}}, ${{(ay+by).toFixed(1)}})</b> · |a+b| = <b>${{Math.hypot(ax+bx, ay+by).toFixed(2)}}</b> · Dot product = <b>${{dot.toFixed(2)}}</b>`;
+      break;
+    }}
+    default: {{
+      // Ch 20: 2x2 Matrix Basis Grid, Determinant Parallelogram & Eigenvectors
+      const mA = a, mB = b, mD = c, det = mA * mD - mB * mB;
+      const ox = 95, oy = 215, sc = 42;
+      const iX = ox + mA * sc, iY = oy - mB * sc;
+      const jX = ox + mB * sc, jY = oy - mD * sc;
+      const sumX = iX + (jX - ox), sumY = iY + (jY - oy);
+      ctx.fillStyle = amber + '38'; ctx.strokeStyle = amber; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(iX, iY); ctx.lineTo(sumX, sumY); ctx.lineTo(jX, jY); ctx.closePath();
+      ctx.fill(); ctx.stroke();
+      drawArrow(ctx, ox, oy, iX, iY, red, 3.2);
+      drawArrow(ctx, ox, oy, jX, jY, blue, 3.2);
+      ctx.fillStyle = red; ctx.fillText(`Aî = (${{mA}}, ${{mB}})`, iX + 8, iY);
+      ctx.fillStyle = blue; ctx.fillText(`Aĵ = (${{mB}}, ${{mD}})`, jX - 24, jY - 10);
+      ctx.fillStyle = amber; ctx.fillText(`Area det(A) = ad − bc = ${{det.toFixed(2)}}`, 305, 95);
+      const tr = mA + mD, disc = Math.max(0, tr * tr - 4 * det);
+      const l1 = 0.5 * (tr + Math.sqrt(disc)), l2 = 0.5 * (tr - Math.sqrt(disc));
+      ctx.fillStyle = green; ctx.fillText(`Eigenvalues λ₁ = ${{l1.toFixed(2)}}, λ₂ = ${{l2.toFixed(2)}}`, 305, 128);
+      ctx.fillStyle = ink; ctx.fillText(`Check: λ₁ × λ₂ = ${{(l1 * l2).toFixed(2)}} = det(A)`, 305, 160);
+      readoutHtml = `Matrix [[${{mA}}, ${{mB}}], [${{mB}}, ${{mD}}]] · <b>det(A) = ${{det.toFixed(2)}}</b> · Eigenvalues <b>λ₁ = ${{l1.toFixed(2)}}, λ₂ = ${{l2.toFixed(2)}}</b>`;
+      break;
+    }}
   }}
 
+  ctx.restore();
   document.getElementById('live-readout').innerHTML = readoutHtml;
 }}
 
@@ -1926,6 +2405,14 @@ document.getElementById('btn-prev').addEventListener('click', () => {{
 document.getElementById('btn-next').addEventListener('click', () => {{
   currentChapter = (currentChapter + 1) % CHAPTERS.length;
   window.location.hash = `#ch${{String(currentChapter).padStart(2, '0')}}`;
+}});
+document.getElementById('btn-stage-primary').addEventListener('click', () => {{
+  const ch = CHAPTERS[currentChapter] || CHAPTERS[0];
+  setAtlasRoute(ch.intuitionToFormula.atlasFigureRef);
+}});
+document.getElementById('btn-stage-companion').addEventListener('click', () => {{
+  const ch = CHAPTERS[currentChapter] || CHAPTERS[0];
+  setAtlasRoute(COMPANION_BOOKS[ch.number] || ch.intuitionToFormula.atlasFigureRef);
 }});
 document.getElementById('btn-reload-atlas').addEventListener('click', () => {{
   const iframe = document.getElementById('atlas-iframe');
@@ -1945,6 +2432,7 @@ window.addEventListener('hashchange', () => {{
   parseHash();
   renderChapter();
 }});
+window.addEventListener('resize', drawSandbox);
 
 parseHash();
 renderChapter();

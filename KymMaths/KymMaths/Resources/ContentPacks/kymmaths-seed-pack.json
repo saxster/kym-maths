@@ -93,7 +93,7 @@
             "meaning": "Outside both circles equals outside A AND outside B (De Morgan)"
           }
         ],
-        "atlasFigureRef": "concepts/index.html#maths"
+        "atlasFigureRef": "maths/ch00-sets-logic/index.html"
       },
       "sections": [
         {
@@ -181,7 +181,7 @@
             "meaning": "Product of highest prime powers across both numbers"
           }
         ],
-        "atlasFigureRef": "concepts/index.html#exponential"
+        "atlasFigureRef": "maths/ch01-number-primes/index.html"
       },
       "sections": [
         {
@@ -268,7 +268,7 @@
             "meaning": "Exact rational denominator"
           }
         ],
-        "atlasFigureRef": "concepts/index.html#maths"
+        "atlasFigureRef": "maths/ch02-fractions-decimals/index.html"
       },
       "sections": [
         {
@@ -352,7 +352,7 @@
             "meaning": "Value of 1 equal unit × k parts"
           }
         ],
-        "atlasFigureRef": "economics/compound/index.html"
+        "atlasFigureRef": "maths/ch03-ratios-compounding/index.html"
       },
       "sections": [
         {
@@ -436,7 +436,7 @@
             "meaning": "Constant product corner"
           }
         ],
-        "atlasFigureRef": "concepts/index.html#maths"
+        "atlasFigureRef": "maths/ch04-algebra-tiles/index.html"
       },
       "sections": [
         {
@@ -521,7 +521,7 @@
             "meaning": "Order reverses under negative reflection"
           }
         ],
-        "atlasFigureRef": "concepts/index.html#balance"
+        "atlasFigureRef": "maths/ch05-balance-equations/index.html"
       },
       "sections": [
         {
@@ -606,7 +606,7 @@
             "meaning": "n columns divided by 2 identical staircases"
           }
         ],
-        "atlasFigureRef": "concepts/index.html#maths"
+        "atlasFigureRef": "maths/ch06-sequences-gauss/index.html"
       },
       "sections": [
         {
@@ -691,7 +691,7 @@
             "meaning": "Starting value when x = 0"
           }
         ],
-        "atlasFigureRef": "concepts/index.html#slope"
+        "atlasFigureRef": "maths/ch07-functions-graphs/index.html"
       },
       "sections": [
         {
@@ -776,7 +776,7 @@
             "meaning": "Average of endpoints on each axis"
           }
         ],
-        "atlasFigureRef": "concepts/index.html#maths"
+        "atlasFigureRef": "maths/ch08-angles-parallel/index.html"
       },
       "sections": [
         {
@@ -860,7 +860,7 @@
             "meaning": "Euler characteristic of any convex polyhedron"
           }
         ],
-        "atlasFigureRef": "concepts/index.html#maths"
+        "atlasFigureRef": "maths/ch09-loci-constructions/index.html"
       },
       "sections": [
         {
@@ -946,7 +946,7 @@
             "meaning": "Two identical trapeziums form a parallelogram of base a + b"
           }
         ],
-        "atlasFigureRef": "concepts/index.html#circle"
+        "atlasFigureRef": "maths/ch10-circles-mensuration/index.html"
       },
       "sections": [
         {
@@ -1031,7 +1031,7 @@
             "meaning": "Negative scale factor enlarges and rotates by 180°"
           }
         ],
-        "atlasFigureRef": "maths/linear-algebra/index.html#1"
+        "atlasFigureRef": "maths/ch13-indices-standard-form/index.html#1"
       },
       "sections": [
         {
@@ -1116,7 +1116,7 @@
             "meaning": "Pythagorean identity on the unit circle"
           }
         ],
-        "atlasFigureRef": "maths/unit-circle/index.html"
+        "atlasFigureRef": "maths/ch16-trigonometry-unit-circle/index.html#1"
       },
       "sections": [
         {
@@ -1287,7 +1287,7 @@
             "meaning": "Typical distance of data points from the mean"
           }
         ],
-        "atlasFigureRef": "statistics/hypothesis/index.html"
+        "atlasFigureRef": "maths/ch11-data-histograms/index.html"
       },
       "sections": [
         {
@@ -1457,7 +1457,7 @@
             "meaning": "Share of all positive tests that are genuinely sick"
           }
         ],
-        "atlasFigureRef": "statistics/bayes/index.html"
+        "atlasFigureRef": "maths/ch17-bayes-probability/index.html"
       },
       "sections": [
         {
@@ -1542,7 +1542,7 @@
             "meaning": "Stationary points (maxima and minima)"
           }
         ],
-        "atlasFigureRef": "maths/calculus/index.html"
+        "atlasFigureRef": "maths/ch18-differential-calculus/index.html"
       },
       "sections": [
         {
@@ -1627,7 +1627,7 @@
             "meaning": "Total net change in height"
           }
         ],
-        "atlasFigureRef": "maths/calculus/index.html#3"
+        "atlasFigureRef": "maths/ch19-integral-calculus/index.html"
       },
       "sections": [
         {
@@ -1711,7 +1711,7 @@
             "meaning": "Perpendicular vectors have zero dot product"
           }
         ],
-        "atlasFigureRef": "maths/multivariable/index.html#2"
+        "atlasFigureRef": "maths/ch15-linear-graphs-inequalities/index.html"
       },
       "sections": [
         {
@@ -1803,7 +1803,7 @@
             "meaning": "Directions stretched by factor λ without rotating"
           }
         ],
-        "atlasFigureRef": "maths/matrix-sandbox/index.html"
+        "atlasFigureRef": "maths/ch20-matrices-eigen/index.html"
       },
       "sections": [
         {
@@ -1923,7 +1923,7 @@
       "widget": "w_venn_inclusion_exclusion",
       "title": "Ch 0.1 · Sets, Venn Regions & The Laws of Thought (Concrete Manipulation)",
       "chapter": 0,
-      "figure": "concepts/index.html#maths",
+      "figure": "maths/ch00-sets-logic/index.html",
       "question": "How does touching the geometry of Sets, Venn Regions & The Laws of Thought reveal its structure?",
       "explanation": "Drag two overlapping circles A and B across a universal set ξ of 30 Mumbai students.",
       "limits": "Formula: n(A ∪ B) = n(A) + n(B) − n(A ∩ B)   and   (A ∪ B)′ = A′ ∩ B′",
@@ -1940,7 +1940,7 @@
       "widget": "w_venn_inclusion_exclusion",
       "title": "Ch 0.2 · Sets, Venn Regions & The Laws of Thought (The Visual 'Aha!' Invariant)",
       "chapter": 0,
-      "figure": "concepts/index.html#maths",
+      "figure": "maths/ch00-sets-logic/index.html",
       "question": "What stays constant in Sets, Venn Regions & The Laws of Thought when you deform or slice the figure?",
       "explanation": "The overlap A ∩ B gets counted once inside |A| and a second time inside |B| — subtracting |A ∩ B| once restores the exact union count!",
       "limits": "Formula: n(A ∪ B) = n(A) + n(B) − n(A ∩ B)   and   (A ∪ B)′ = A′ ∩ B′",
@@ -1957,9 +1957,9 @@
       "widget": "w_venn_inclusion_exclusion",
       "title": "Ch 0.3 · Sets, Venn Regions & The Laws of Thought (Symbolic Formula Lockstep)",
       "chapter": 0,
-      "figure": "concepts/index.html#maths",
+      "figure": "maths/ch00-sets-logic/index.html",
       "question": "How does the picture translate term-by-term into n(A ∪ B) = n(A) + n(B) − n(A ∩ B)   and   (A ∪ B)′ = A′ ∩ B′?",
-      "explanation": "Every term in n(A ∪ B) = n(A) + n(B) − n(A ∩ B)   and   (A ∪ B)′ = A′ ∩ B′ corresponds to a colour-coded geometric part in concepts/index.html#maths.",
+      "explanation": "Every term in n(A ∪ B) = n(A) + n(B) − n(A ∩ B)   and   (A ∪ B)′ = A′ ∩ B′ corresponds to a colour-coded geometric part in maths/ch00-sets-logic/index.html.",
       "limits": "Formula: n(A ∪ B) = n(A) + n(B) − n(A ∩ B)   and   (A ∪ B)′ = A′ ∩ B′",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
@@ -1974,7 +1974,7 @@
       "widget": "w_negative_rotation_line",
       "title": "Ch 1.1 · The Directed Number Line, Primes & The Laws of Indices (Concrete Manipulation)",
       "chapter": 1,
-      "figure": "concepts/index.html#exponential",
+      "figure": "maths/ch01-number-primes/index.html",
       "question": "How does touching the geometry of The Directed Number Line, Primes & The Laws of Indices reveal its structure?",
       "explanation": "Rotate a vector on the number line by 180° for each negative sign, and stack prime-exponent bars for HCF and LCM.",
       "limits": "Formula: (−a)(−b) = +ab,   aᵐ · aⁿ = aᵐ⁺ⁿ,   HCF(a, b) × LCM(a, b) = a × b",
@@ -1991,7 +1991,7 @@
       "widget": "w_negative_rotation_line",
       "title": "Ch 1.2 · The Directed Number Line, Primes & The Laws of Indices (The Visual 'Aha!' Invariant)",
       "chapter": 1,
-      "figure": "concepts/index.html#exponential",
+      "figure": "maths/ch01-number-primes/index.html",
       "question": "What stays constant in The Directed Number Line, Primes & The Laws of Indices when you deform or slice the figure?",
       "explanation": "Two 180° rotations equal 360° (+1), and for any two integers a and b, taking min(exponents) for HCF and max(exponents) for LCM guarantees min + max = total!",
       "limits": "Formula: (−a)(−b) = +ab,   aᵐ · aⁿ = aᵐ⁺ⁿ,   HCF(a, b) × LCM(a, b) = a × b",
@@ -2008,9 +2008,9 @@
       "widget": "w_negative_rotation_line",
       "title": "Ch 1.3 · The Directed Number Line, Primes & The Laws of Indices (Symbolic Formula Lockstep)",
       "chapter": 1,
-      "figure": "concepts/index.html#exponential",
+      "figure": "maths/ch01-number-primes/index.html",
       "question": "How does the picture translate term-by-term into (−a)(−b) = +ab,   aᵐ · aⁿ = aᵐ⁺ⁿ,   HCF(a, b) × LCM(a, b) = a × b?",
-      "explanation": "Every term in (−a)(−b) = +ab,   aᵐ · aⁿ = aᵐ⁺ⁿ,   HCF(a, b) × LCM(a, b) = a × b corresponds to a colour-coded geometric part in concepts/index.html#exponential.",
+      "explanation": "Every term in (−a)(−b) = +ab,   aᵐ · aⁿ = aᵐ⁺ⁿ,   HCF(a, b) × LCM(a, b) = a × b corresponds to a colour-coded geometric part in maths/ch01-number-primes/index.html.",
       "limits": "Formula: (−a)(−b) = +ab,   aᵐ · aⁿ = aᵐ⁺ⁿ,   HCF(a, b) × LCM(a, b) = a × b",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
@@ -2025,7 +2025,7 @@
       "widget": "w_recurring_decimal_tail_canceller",
       "title": "Ch 2.1 · Fractions, Recurring Decimals & The Scaling Engine (Concrete Manipulation)",
       "chapter": 2,
-      "figure": "concepts/index.html#maths",
+      "figure": "maths/ch02-fractions-decimals/index.html",
       "question": "How does touching the geometry of Fractions, Recurring Decimals & The Scaling Engine reveal its structure?",
       "explanation": "Slide a 10ᵏ multiplier bar against a repeating decimal tail 0.ababab… and watch the infinite tails align.",
       "limits": "Formula: x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1)",
@@ -2042,7 +2042,7 @@
       "widget": "w_recurring_decimal_tail_canceller",
       "title": "Ch 2.2 · Fractions, Recurring Decimals & The Scaling Engine (The Visual 'Aha!' Invariant)",
       "chapter": 2,
-      "figure": "concepts/index.html#maths",
+      "figure": "maths/ch02-fractions-decimals/index.html",
       "question": "What stays constant in Fractions, Recurring Decimals & The Scaling Engine when you deform or slice the figure?",
       "explanation": "Multiplying x = 0.abab… by 10ᵏ shifts the decimal point by one full period k, so subtracting x cancels the entire infinite tail in one stroke!",
       "limits": "Formula: x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1)",
@@ -2059,9 +2059,9 @@
       "widget": "w_recurring_decimal_tail_canceller",
       "title": "Ch 2.3 · Fractions, Recurring Decimals & The Scaling Engine (Symbolic Formula Lockstep)",
       "chapter": 2,
-      "figure": "concepts/index.html#maths",
+      "figure": "maths/ch02-fractions-decimals/index.html",
       "question": "How does the picture translate term-by-term into x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1)?",
-      "explanation": "Every term in x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1) corresponds to a colour-coded geometric part in concepts/index.html#maths.",
+      "explanation": "Every term in x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1) corresponds to a colour-coded geometric part in maths/ch02-fractions-decimals/index.html.",
       "limits": "Formula: x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
@@ -2076,7 +2076,7 @@
       "widget": "w_singapore_ratio_bar_model",
       "title": "Ch 3.1 · Ratios, Percentages & Exponential Compounding (Concrete Manipulation)",
       "chapter": 3,
-      "figure": "economics/compound/index.html",
+      "figure": "maths/ch03-ratios-compounding/index.html",
       "question": "How does touching the geometry of Ratios, Percentages & Exponential Compounding reveal its structure?",
       "explanation": "Run the @saxster/atlas ₹1,000/month at 8% machine over 20 years and compare white savings, red simple interest, and amber compound interest.",
       "limits": "Formula: A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ)",
@@ -2093,7 +2093,7 @@
       "widget": "w_singapore_ratio_bar_model",
       "title": "Ch 3.2 · Ratios, Percentages & Exponential Compounding (The Visual 'Aha!' Invariant)",
       "chapter": 3,
-      "figure": "economics/compound/index.html",
+      "figure": "maths/ch03-ratios-compounding/index.html",
       "question": "What stays constant in Ratios, Percentages & Exponential Compounding when you deform or slice the figure?",
       "explanation": "A +20% rise followed by a −20% drop lands at 1.2 × 0.8 = 0.96 (a 4% loss!), while compounding multiplies by (1 + r)ⁿ so interest itself earns interest!",
       "limits": "Formula: A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ)",
@@ -2110,9 +2110,9 @@
       "widget": "w_singapore_ratio_bar_model",
       "title": "Ch 3.3 · Ratios, Percentages & Exponential Compounding (Symbolic Formula Lockstep)",
       "chapter": 3,
-      "figure": "economics/compound/index.html",
+      "figure": "maths/ch03-ratios-compounding/index.html",
       "question": "How does the picture translate term-by-term into A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ)?",
-      "explanation": "Every term in A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ) corresponds to a colour-coded geometric part in economics/compound/index.html.",
+      "explanation": "Every term in A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ) corresponds to a colour-coded geometric part in maths/ch03-ratios-compounding/index.html.",
       "limits": "Formula: A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
@@ -2127,7 +2127,7 @@
       "widget": "w_algebra_area_tiles",
       "title": "Ch 4.1 · From Bar Models to Algebraic Expressions (Concrete Manipulation)",
       "chapter": 4,
-      "figure": "concepts/index.html#maths",
+      "figure": "maths/ch04-algebra-tiles/index.html",
       "question": "How does touching the geometry of From Bar Models to Algebraic Expressions reveal its structure?",
       "explanation": "Tile a partitioned rectangle of sides (x + a) and (x + b), or snip the corner b² from a square a².",
       "limits": "Formula: a(b + c) = ab + ac,   (x + a)(x + b) = x² + (a + b)x + ab,   a² − b² = (a − b)(a + b)",
@@ -2144,7 +2144,7 @@
       "widget": "w_algebra_area_tiles",
       "title": "Ch 4.2 · From Bar Models to Algebraic Expressions (The Visual 'Aha!' Invariant)",
       "chapter": 4,
-      "figure": "concepts/index.html#maths",
+      "figure": "maths/ch04-algebra-tiles/index.html",
       "question": "What stays constant in From Bar Models to Algebraic Expressions when you deform or slice the figure?",
       "explanation": "When you cut a corner square b² from a² and rotate the remaining strip, it forms a single rectangle of length (a + b) and height (a − b)!",
       "limits": "Formula: a(b + c) = ab + ac,   (x + a)(x + b) = x² + (a + b)x + ab,   a² − b² = (a − b)(a + b)",
@@ -2161,9 +2161,9 @@
       "widget": "w_algebra_area_tiles",
       "title": "Ch 4.3 · From Bar Models to Algebraic Expressions (Symbolic Formula Lockstep)",
       "chapter": 4,
-      "figure": "concepts/index.html#maths",
+      "figure": "maths/ch04-algebra-tiles/index.html",
       "question": "How does the picture translate term-by-term into a(b + c) = ab + ac,   (x + a)(x + b) = x² + (a + b)x + ab,   a² − b² = (a − b)(a + b)?",
-      "explanation": "Every term in a(b + c) = ab + ac,   (x + a)(x + b) = x² + (a + b)x + ab,   a² − b² = (a − b)(a + b) corresponds to a colour-coded geometric part in concepts/index.html#maths.",
+      "explanation": "Every term in a(b + c) = ab + ac,   (x + a)(x + b) = x² + (a + b)x + ab,   a² − b² = (a − b)(a + b) corresponds to a colour-coded geometric part in maths/ch04-algebra-tiles/index.html.",
       "limits": "Formula: a(b + c) = ab + ac,   (x + a)(x + b) = x² + (a + b)x + ab,   a² − b² = (a − b)(a + b)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
@@ -2178,7 +2178,7 @@
       "widget": "w_balance_beam_equations",
       "title": "Ch 5.1 · The Balance Beam: Equations, Formulae & Inequalities (Concrete Manipulation)",
       "chapter": 5,
-      "figure": "concepts/index.html#balance",
+      "figure": "maths/ch05-balance-equations/index.html",
       "question": "How does touching the geometry of The Balance Beam: Equations, Formulae & Inequalities reveal its structure?",
       "explanation": "Drag weights off a twin-pan balance and flip an inequality interval across 0 by multiplying by −1.",
       "limits": "Formula: ax + b = cx + d  ⇒  x = (d − b) / (a − c),   and   a < b  ⇒  −a > −b",
@@ -2195,7 +2195,7 @@
       "widget": "w_balance_beam_equations",
       "title": "Ch 5.2 · The Balance Beam: Equations, Formulae & Inequalities (The Visual 'Aha!' Invariant)",
       "chapter": 5,
-      "figure": "concepts/index.html#balance",
+      "figure": "maths/ch05-balance-equations/index.html",
       "question": "What stays constant in The Balance Beam: Equations, Formulae & Inequalities when you deform or slice the figure?",
       "explanation": "Multiplying a number line by −1 reflects every point across 0 like a mirror — what was further right (>) becomes further left (<)!",
       "limits": "Formula: ax + b = cx + d  ⇒  x = (d − b) / (a − c),   and   a < b  ⇒  −a > −b",
@@ -2212,9 +2212,9 @@
       "widget": "w_balance_beam_equations",
       "title": "Ch 5.3 · The Balance Beam: Equations, Formulae & Inequalities (Symbolic Formula Lockstep)",
       "chapter": 5,
-      "figure": "concepts/index.html#balance",
+      "figure": "maths/ch05-balance-equations/index.html",
       "question": "How does the picture translate term-by-term into ax + b = cx + d  ⇒  x = (d − b) / (a − c),   and   a < b  ⇒  −a > −b?",
-      "explanation": "Every term in ax + b = cx + d  ⇒  x = (d − b) / (a − c),   and   a < b  ⇒  −a > −b corresponds to a colour-coded geometric part in concepts/index.html#balance.",
+      "explanation": "Every term in ax + b = cx + d  ⇒  x = (d − b) / (a − c),   and   a < b  ⇒  −a > −b corresponds to a colour-coded geometric part in maths/ch05-balance-equations/index.html.",
       "limits": "Formula: ax + b = cx + d  ⇒  x = (d − b) / (a − c),   and   a < b  ⇒  −a > −b",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
@@ -2229,7 +2229,7 @@
       "widget": "w_gauss_staircase_sum",
       "title": "Ch 6.1 · Patterns in Time: Sequences, nth Terms & Gauss's Sum (Concrete Manipulation)",
       "chapter": 6,
-      "figure": "concepts/index.html#maths",
+      "figure": "maths/ch06-sequences-gauss/index.html",
       "question": "How does touching the geometry of Patterns in Time: Sequences, nth Terms & Gauss's Sum reveal its structure?",
       "explanation": "Duplicate an n-step staircase 1 + 2 + … + n, rotate the copy by 180°, and snap it on top of the original.",
       "limits": "Formula: Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a",
@@ -2246,7 +2246,7 @@
       "widget": "w_gauss_staircase_sum",
       "title": "Ch 6.2 · Patterns in Time: Sequences, nth Terms & Gauss's Sum (The Visual 'Aha!' Invariant)",
       "chapter": 6,
-      "figure": "concepts/index.html#maths",
+      "figure": "maths/ch06-sequences-gauss/index.html",
       "question": "What stays constant in Patterns in Time: Sequences, nth Terms & Gauss's Sum when you deform or slice the figure?",
       "explanation": "The two staircases lock together into a solid rectangle of width n and uniform height (n + 1) — so one staircase is exactly half the rectangle!",
       "limits": "Formula: Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a",
@@ -2263,9 +2263,9 @@
       "widget": "w_gauss_staircase_sum",
       "title": "Ch 6.3 · Patterns in Time: Sequences, nth Terms & Gauss's Sum (Symbolic Formula Lockstep)",
       "chapter": 6,
-      "figure": "concepts/index.html#maths",
+      "figure": "maths/ch06-sequences-gauss/index.html",
       "question": "How does the picture translate term-by-term into Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a?",
-      "explanation": "Every term in Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a corresponds to a colour-coded geometric part in concepts/index.html#maths.",
+      "explanation": "Every term in Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a corresponds to a colour-coded geometric part in maths/ch06-sequences-gauss/index.html.",
       "limits": "Formula: Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
@@ -2280,7 +2280,7 @@
       "widget": "w_linear_graph_slope_explorer",
       "title": "Ch 7.1 · Functions, Linear Graphs & Kinematics (Concrete Manipulation)",
       "chapter": 7,
-      "figure": "concepts/index.html#slope",
+      "figure": "maths/ch07-functions-graphs/index.html",
       "question": "How does touching the geometry of Functions, Linear Graphs & Kinematics reveal its structure?",
       "explanation": "Slide two points P and Q along a line y = mx + c and inspect the right-angled rise/run staircase.",
       "limits": "Formula: y = mx + c,   m = (y₂ − y₁) / (x₂ − x₁),   m₁ · m₂ = −1 (perpendicular)",
@@ -2297,7 +2297,7 @@
       "widget": "w_linear_graph_slope_explorer",
       "title": "Ch 7.2 · Functions, Linear Graphs & Kinematics (The Visual 'Aha!' Invariant)",
       "chapter": 7,
-      "figure": "concepts/index.html#slope",
+      "figure": "maths/ch07-functions-graphs/index.html",
       "question": "What stays constant in Functions, Linear Graphs & Kinematics when you deform or slice the figure?",
       "explanation": "No matter how wide or narrow you make the horizontal run Δx, the vertical rise Δy scales in the exact same proportion, keeping Δy / Δx = m invariant!",
       "limits": "Formula: y = mx + c,   m = (y₂ − y₁) / (x₂ − x₁),   m₁ · m₂ = −1 (perpendicular)",
@@ -2314,9 +2314,9 @@
       "widget": "w_linear_graph_slope_explorer",
       "title": "Ch 7.3 · Functions, Linear Graphs & Kinematics (Symbolic Formula Lockstep)",
       "chapter": 7,
-      "figure": "concepts/index.html#slope",
+      "figure": "maths/ch07-functions-graphs/index.html",
       "question": "How does the picture translate term-by-term into y = mx + c,   m = (y₂ − y₁) / (x₂ − x₁),   m₁ · m₂ = −1 (perpendicular)?",
-      "explanation": "Every term in y = mx + c,   m = (y₂ − y₁) / (x₂ − x₁),   m₁ · m₂ = −1 (perpendicular) corresponds to a colour-coded geometric part in concepts/index.html#slope.",
+      "explanation": "Every term in y = mx + c,   m = (y₂ − y₁) / (x₂ − x₁),   m₁ · m₂ = −1 (perpendicular) corresponds to a colour-coded geometric part in maths/ch07-functions-graphs/index.html.",
       "limits": "Formula: y = mx + c,   m = (y₂ − y₁) / (x₂ − x₁),   m₁ · m₂ = −1 (perpendicular)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
@@ -2331,7 +2331,7 @@
       "widget": "w_parallel_transversal_proof",
       "title": "Ch 8.1 · Angle Chasing, Parallel Lines & Deductive Proof (Concrete Manipulation)",
       "chapter": 8,
-      "figure": "concepts/index.html#maths",
+      "figure": "maths/ch08-angles-parallel/index.html",
       "question": "How does touching the geometry of Angle Chasing, Parallel Lines & Deductive Proof reveal its structure?",
       "explanation": "Slide the top intersection along a transversal onto the bottom parallel line, and tear the two base angles α, β off a triangle to place them into the exterior angle.",
       "limits": "Formula: θ_ext = α + β,   ∑ interior angles of n-gon = (n − 2) × 180°,   M = ((x₁+x₂)/2, (y₁+y₂)/2)",
@@ -2348,7 +2348,7 @@
       "widget": "w_parallel_transversal_proof",
       "title": "Ch 8.2 · Angle Chasing, Parallel Lines & Deductive Proof (The Visual 'Aha!' Invariant)",
       "chapter": 8,
-      "figure": "concepts/index.html#maths",
+      "figure": "maths/ch08-angles-parallel/index.html",
       "question": "What stays constant in Angle Chasing, Parallel Lines & Deductive Proof when you deform or slice the figure?",
       "explanation": "Because a parallel translation changes no angles, α and β fit flush inside the exterior angle next to γ — proving both α + β + γ = 180° and ext = α + β at once!",
       "limits": "Formula: θ_ext = α + β,   ∑ interior angles of n-gon = (n − 2) × 180°,   M = ((x₁+x₂)/2, (y₁+y₂)/2)",
@@ -2365,9 +2365,9 @@
       "widget": "w_parallel_transversal_proof",
       "title": "Ch 8.3 · Angle Chasing, Parallel Lines & Deductive Proof (Symbolic Formula Lockstep)",
       "chapter": 8,
-      "figure": "concepts/index.html#maths",
+      "figure": "maths/ch08-angles-parallel/index.html",
       "question": "How does the picture translate term-by-term into θ_ext = α + β,   ∑ interior angles of n-gon = (n − 2) × 180°,   M = ((x₁+x₂)/2, (y₁+y₂)/2)?",
-      "explanation": "Every term in θ_ext = α + β,   ∑ interior angles of n-gon = (n − 2) × 180°,   M = ((x₁+x₂)/2, (y₁+y₂)/2) corresponds to a colour-coded geometric part in concepts/index.html#maths.",
+      "explanation": "Every term in θ_ext = α + β,   ∑ interior angles of n-gon = (n − 2) × 180°,   M = ((x₁+x₂)/2, (y₁+y₂)/2) corresponds to a colour-coded geometric part in maths/ch08-angles-parallel/index.html.",
       "limits": "Formula: θ_ext = α + β,   ∑ interior angles of n-gon = (n − 2) × 180°,   M = ((x₁+x₂)/2, (y₁+y₂)/2)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
@@ -2382,7 +2382,7 @@
       "widget": "w_euclid_compass_locus",
       "title": "Ch 9.1 · Compass & Straightedge: Locus, Quadrilaterals & 3D Nets (Concrete Manipulation)",
       "chapter": 9,
-      "figure": "concepts/index.html#maths",
+      "figure": "maths/ch09-loci-constructions/index.html",
       "question": "How does touching the geometry of Compass & Straightedge: Locus, Quadrilaterals & 3D Nets reveal its structure?",
       "explanation": "Sweep two equal-radius compass arcs from endpoints A and B and connect their intersections P and Q.",
       "limits": "Formula: |PA| = |PB|  ⇔  P lies on perpendicular bisector of AB;   Euler: V − E + F = 2",
@@ -2399,7 +2399,7 @@
       "widget": "w_euclid_compass_locus",
       "title": "Ch 9.2 · Compass & Straightedge: Locus, Quadrilaterals & 3D Nets (The Visual 'Aha!' Invariant)",
       "chapter": 9,
-      "figure": "concepts/index.html#maths",
+      "figure": "maths/ch09-loci-constructions/index.html",
       "question": "What stays constant in Compass & Straightedge: Locus, Quadrilaterals & 3D Nets when you deform or slice the figure?",
       "explanation": "Because AP = BP = AQ = BQ = r, the four radii form a rhombus — and the diagonals of a rhombus always bisect each other at 90°!",
       "limits": "Formula: |PA| = |PB|  ⇔  P lies on perpendicular bisector of AB;   Euler: V − E + F = 2",
@@ -2416,9 +2416,9 @@
       "widget": "w_euclid_compass_locus",
       "title": "Ch 9.3 · Compass & Straightedge: Locus, Quadrilaterals & 3D Nets (Symbolic Formula Lockstep)",
       "chapter": 9,
-      "figure": "concepts/index.html#maths",
+      "figure": "maths/ch09-loci-constructions/index.html",
       "question": "How does the picture translate term-by-term into |PA| = |PB|  ⇔  P lies on perpendicular bisector of AB;   Euler: V − E + F = 2?",
-      "explanation": "Every term in |PA| = |PB|  ⇔  P lies on perpendicular bisector of AB;   Euler: V − E + F = 2 corresponds to a colour-coded geometric part in concepts/index.html#maths.",
+      "explanation": "Every term in |PA| = |PB|  ⇔  P lies on perpendicular bisector of AB;   Euler: V − E + F = 2 corresponds to a colour-coded geometric part in maths/ch09-loci-constructions/index.html.",
       "limits": "Formula: |PA| = |PB|  ⇔  P lies on perpendicular bisector of AB;   Euler: V − E + F = 2",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
@@ -2433,7 +2433,7 @@
       "widget": "w_circle_sector_rearranger",
       "title": "Ch 10.1 · Slicing Space: Circles, Prisms, Pyramids & Archimedes' π (Concrete Manipulation)",
       "chapter": 10,
-      "figure": "concepts/index.html#circle",
+      "figure": "maths/ch10-circles-mensuration/index.html",
       "question": "How does touching the geometry of Slicing Space: Circles, Prisms, Pyramids & Archimedes' π reveal its structure?",
       "explanation": "Slice a circle of radius r into 24 sectors and comb-interlock them head-to-tail into a nearly rectangular parallelogram.",
       "limits": "Formula: C = 2πr,   A_circle = πr²,   A_trap = ½(a + b)h,   V_prism = A_cross × L",
@@ -2450,7 +2450,7 @@
       "widget": "w_circle_sector_rearranger",
       "title": "Ch 10.2 · Slicing Space: Circles, Prisms, Pyramids & Archimedes' π (The Visual 'Aha!' Invariant)",
       "chapter": 10,
-      "figure": "concepts/index.html#circle",
+      "figure": "maths/ch10-circles-mensuration/index.html",
       "question": "What stays constant in Slicing Space: Circles, Prisms, Pyramids & Archimedes' π when you deform or slice the figure?",
       "explanation": "Half the circumference (πr) runs along the top and half along the bottom (base = πr), while the radius r stands upright as the height — giving Area = (πr) × r = πr²!",
       "limits": "Formula: C = 2πr,   A_circle = πr²,   A_trap = ½(a + b)h,   V_prism = A_cross × L",
@@ -2467,9 +2467,9 @@
       "widget": "w_circle_sector_rearranger",
       "title": "Ch 10.3 · Slicing Space: Circles, Prisms, Pyramids & Archimedes' π (Symbolic Formula Lockstep)",
       "chapter": 10,
-      "figure": "concepts/index.html#circle",
+      "figure": "maths/ch10-circles-mensuration/index.html",
       "question": "How does the picture translate term-by-term into C = 2πr,   A_circle = πr²,   A_trap = ½(a + b)h,   V_prism = A_cross × L?",
-      "explanation": "Every term in C = 2πr,   A_circle = πr²,   A_trap = ½(a + b)h,   V_prism = A_cross × L corresponds to a colour-coded geometric part in concepts/index.html#circle.",
+      "explanation": "Every term in C = 2πr,   A_circle = πr²,   A_trap = ½(a + b)h,   V_prism = A_cross × L corresponds to a colour-coded geometric part in maths/ch10-circles-mensuration/index.html.",
       "limits": "Formula: C = 2πr,   A_circle = πr²,   A_trap = ½(a + b)h,   V_prism = A_cross × L",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
@@ -2484,7 +2484,7 @@
       "widget": "w_transformation_isometry_stage",
       "title": "Ch 11.1 · Symmetry & Motion: Translations, Reflections, Rotations & Enlargements (Concrete Manipulation)",
       "chapter": 11,
-      "figure": "maths/linear-algebra/index.html#1",
+      "figure": "maths/ch13-indices-standard-form/index.html#1",
       "question": "How does touching the geometry of Symmetry & Motion: Translations, Reflections, Rotations & Enlargements reveal its structure?",
       "explanation": "Drag the centre of enlargement C and scale factor slider k from −2 to +3 on a coordinate grid.",
       "limits": "Formula: OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object)",
@@ -2501,7 +2501,7 @@
       "widget": "w_transformation_isometry_stage",
       "title": "Ch 11.2 · Symmetry & Motion: Translations, Reflections, Rotations & Enlargements (The Visual 'Aha!' Invariant)",
       "chapter": 11,
-      "figure": "maths/linear-algebra/index.html#1",
+      "figure": "maths/ch13-indices-standard-form/index.html#1",
       "question": "What stays constant in Symmetry & Motion: Translations, Reflections, Rotations & Enlargements when you deform or slice the figure?",
       "explanation": "Every vertex P moves along the ray CP so that |CP′| = |k| · |CP| — and doubling every side (k = 2) packs k² = 4 copies of the original triangle inside the image!",
       "limits": "Formula: OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object)",
@@ -2518,9 +2518,9 @@
       "widget": "w_transformation_isometry_stage",
       "title": "Ch 11.3 · Symmetry & Motion: Translations, Reflections, Rotations & Enlargements (Symbolic Formula Lockstep)",
       "chapter": 11,
-      "figure": "maths/linear-algebra/index.html#1",
+      "figure": "maths/ch13-indices-standard-form/index.html#1",
       "question": "How does the picture translate term-by-term into OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object)?",
-      "explanation": "Every term in OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object) corresponds to a colour-coded geometric part in maths/linear-algebra/index.html#1.",
+      "explanation": "Every term in OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object) corresponds to a colour-coded geometric part in maths/ch13-indices-standard-form/index.html#1.",
       "limits": "Formula: OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
@@ -2535,7 +2535,7 @@
       "widget": "w_atlas_unit_circle",
       "title": "Ch 12.1 · Shadows of the Circle: Pythagoras, Sine, Cosine & Radians (Concrete Manipulation)",
       "chapter": 12,
-      "figure": "maths/unit-circle/index.html",
+      "figure": "maths/ch16-trigonometry-unit-circle/index.html#1",
       "question": "How does touching the geometry of Shadows of the Circle: Pythagoras, Sine, Cosine & Radians reveal its structure?",
       "explanation": "Open the @saxster/atlas 3D Unit Circle stage: shine level light from the right for sin θ, top light for cos θ, and unfold the three squares on the right triangle.",
       "limits": "Formula: P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C",
@@ -2552,7 +2552,7 @@
       "widget": "w_atlas_unit_circle",
       "title": "Ch 12.2 · Shadows of the Circle: Pythagoras, Sine, Cosine & Radians (The Visual 'Aha!' Invariant)",
       "chapter": 12,
-      "figure": "maths/unit-circle/index.html",
+      "figure": "maths/ch16-trigonometry-unit-circle/index.html#1",
       "question": "What stays constant in Shadows of the Circle: Pythagoras, Sine, Cosine & Radians when you deform or slice the figure?",
       "explanation": "Because the hypotenuse of the unit-circle triangle is 1, the red vertical shadow is sin θ, the blue horizontal shadow is cos θ, and Pythagoras immediately gives sin²θ + cos²θ = 1² for every angle!",
       "limits": "Formula: P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C",
@@ -2569,9 +2569,9 @@
       "widget": "w_atlas_unit_circle",
       "title": "Ch 12.3 · Shadows of the Circle: Pythagoras, Sine, Cosine & Radians (Symbolic Formula Lockstep)",
       "chapter": 12,
-      "figure": "maths/unit-circle/index.html",
+      "figure": "maths/ch16-trigonometry-unit-circle/index.html#1",
       "question": "How does the picture translate term-by-term into P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C?",
-      "explanation": "Every term in P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C corresponds to a colour-coded geometric part in maths/unit-circle/index.html.",
+      "explanation": "Every term in P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C corresponds to a colour-coded geometric part in maths/ch16-trigonometry-unit-circle/index.html#1.",
       "limits": "Formula: P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
@@ -2637,7 +2637,7 @@
       "widget": "w_histogram_frequency_density",
       "title": "Ch 14.1 · Seeing the Distribution: Histograms, Spread & Standard Deviation (Concrete Manipulation)",
       "chapter": 14,
-      "figure": "statistics/hypothesis/index.html",
+      "figure": "maths/ch11-data-histograms/index.html",
       "question": "How does touching the geometry of Seeing the Distribution: Histograms, Spread & Standard Deviation reveal its structure?",
       "explanation": "Change the width Δx of a histogram class interval and watch the bar height adjust so its area stays equal to frequency f.",
       "limits": "Formula: Frequency Density = f / Δx,   μ = (∑ xᵢ) / n,   σ = √[ (∑(xᵢ − μ)²) / n ]",
@@ -2654,7 +2654,7 @@
       "widget": "w_histogram_frequency_density",
       "title": "Ch 14.2 · Seeing the Distribution: Histograms, Spread & Standard Deviation (The Visual 'Aha!' Invariant)",
       "chapter": 14,
-      "figure": "statistics/hypothesis/index.html",
+      "figure": "maths/ch11-data-histograms/index.html",
       "question": "What stays constant in Seeing the Distribution: Histograms, Spread & Standard Deviation when you deform or slice the figure?",
       "explanation": "If one class interval is twice as wide as another, keeping the bar at raw frequency makes it look twice as big by accident — dividing height by class width (Frequency Density = f / Δx) makes Area = FD × Δx = f exact!",
       "limits": "Formula: Frequency Density = f / Δx,   μ = (∑ xᵢ) / n,   σ = √[ (∑(xᵢ − μ)²) / n ]",
@@ -2671,9 +2671,9 @@
       "widget": "w_histogram_frequency_density",
       "title": "Ch 14.3 · Seeing the Distribution: Histograms, Spread & Standard Deviation (Symbolic Formula Lockstep)",
       "chapter": 14,
-      "figure": "statistics/hypothesis/index.html",
+      "figure": "maths/ch11-data-histograms/index.html",
       "question": "How does the picture translate term-by-term into Frequency Density = f / Δx,   μ = (∑ xᵢ) / n,   σ = √[ (∑(xᵢ − μ)²) / n ]?",
-      "explanation": "Every term in Frequency Density = f / Δx,   μ = (∑ xᵢ) / n,   σ = √[ (∑(xᵢ − μ)²) / n ] corresponds to a colour-coded geometric part in statistics/hypothesis/index.html.",
+      "explanation": "Every term in Frequency Density = f / Δx,   μ = (∑ xᵢ) / n,   σ = √[ (∑(xᵢ − μ)²) / n ] corresponds to a colour-coded geometric part in maths/ch11-data-histograms/index.html.",
       "limits": "Formula: Frequency Density = f / Δx,   μ = (∑ xᵢ) / n,   σ = √[ (∑(xᵢ − μ)²) / n ]",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
@@ -2739,7 +2739,7 @@
       "widget": "w_atlas_bayes_square",
       "title": "Ch 16.1 · Updating Belief: Conditional Probability & Bayes' Theorem (Concrete Manipulation)",
       "chapter": 16,
-      "figure": "statistics/bayes/index.html",
+      "figure": "maths/ch17-bayes-probability/index.html",
       "question": "How does touching the geometry of Updating Belief: Conditional Probability & Bayes' Theorem reveal its structure?",
       "explanation": "Open the @saxster/atlas Bayes Unit-Square Explorer (`statistics/bayes`): set prevalence p = 2%, sensitivity = 95%, false-positive rate = 5%, and screen 1,000 people.",
       "limits": "Formula: P(D | +) = [ P(+ | D) P(D) ] / [ P(+ | D) P(D) + P(+ | ¬D) P(¬D) ]",
@@ -2756,7 +2756,7 @@
       "widget": "w_atlas_bayes_square",
       "title": "Ch 16.2 · Updating Belief: Conditional Probability & Bayes' Theorem (The Visual 'Aha!' Invariant)",
       "chapter": 16,
-      "figure": "statistics/bayes/index.html",
+      "figure": "maths/ch17-bayes-probability/index.html",
       "question": "What stays constant in Updating Belief: Conditional Probability & Bayes' Theorem when you deform or slice the figure?",
       "explanation": "Conditioning on a positive test throws away everyone who tested negative! What remains is just two bars: 19 True Positives (red) from the 20 sick people, and 49 False Positives (amber) from the 980 healthy people — so P(D | +) = 19 / (19 + 49) ≈ 27.9%!",
       "limits": "Formula: P(D | +) = [ P(+ | D) P(D) ] / [ P(+ | D) P(D) + P(+ | ¬D) P(¬D) ]",
@@ -2773,9 +2773,9 @@
       "widget": "w_atlas_bayes_square",
       "title": "Ch 16.3 · Updating Belief: Conditional Probability & Bayes' Theorem (Symbolic Formula Lockstep)",
       "chapter": 16,
-      "figure": "statistics/bayes/index.html",
+      "figure": "maths/ch17-bayes-probability/index.html",
       "question": "How does the picture translate term-by-term into P(D | +) = [ P(+ | D) P(D) ] / [ P(+ | D) P(D) + P(+ | ¬D) P(¬D) ]?",
-      "explanation": "Every term in P(D | +) = [ P(+ | D) P(D) ] / [ P(+ | D) P(D) + P(+ | ¬D) P(¬D) ] corresponds to a colour-coded geometric part in statistics/bayes/index.html.",
+      "explanation": "Every term in P(D | +) = [ P(+ | D) P(D) ] / [ P(+ | D) P(D) + P(+ | ¬D) P(¬D) ] corresponds to a colour-coded geometric part in maths/ch17-bayes-probability/index.html.",
       "limits": "Formula: P(D | +) = [ P(+ | D) P(D) ] / [ P(+ | D) P(D) + P(+ | ¬D) P(¬D) ]",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
@@ -2790,7 +2790,7 @@
       "widget": "w_atlas_calculus_derivative",
       "title": "Ch 17.1 · Zooming In Forever: Limits, Secants & Derivatives (Concrete Manipulation)",
       "chapter": 17,
-      "figure": "maths/calculus/index.html",
+      "figure": "maths/ch18-differential-calculus/index.html",
       "question": "How does touching the geometry of Zooming In Forever: Limits, Secants & Derivatives reveal its structure?",
       "explanation": "Open @saxster/atlas Calculus (`maths/calculus` pp. 0–2) and slide point Q toward P(1, ½) on f(x) = ½x², or expand a square of side x by dx.",
       "limits": "Formula: f′(x) = lim_{h→0} [f(x + h) − f(x)] / h,   d/dx (xⁿ) = n xⁿ⁻¹",
@@ -2807,7 +2807,7 @@
       "widget": "w_atlas_calculus_derivative",
       "title": "Ch 17.2 · Zooming In Forever: Limits, Secants & Derivatives (The Visual 'Aha!' Invariant)",
       "chapter": 17,
-      "figure": "maths/calculus/index.html",
+      "figure": "maths/ch18-differential-calculus/index.html",
       "question": "What stays constant in Zooming In Forever: Limits, Secants & Derivatives when you deform or slice the figure?",
       "explanation": "Expanding a square x² by tiny strip dx adds two long strips of area x·dx and a tiny corner (dx)² — dividing Δ(x²)/dx = 2x + dx and letting dx → 0 leaves the exact derivative 2x!",
       "limits": "Formula: f′(x) = lim_{h→0} [f(x + h) − f(x)] / h,   d/dx (xⁿ) = n xⁿ⁻¹",
@@ -2824,9 +2824,9 @@
       "widget": "w_atlas_calculus_derivative",
       "title": "Ch 17.3 · Zooming In Forever: Limits, Secants & Derivatives (Symbolic Formula Lockstep)",
       "chapter": 17,
-      "figure": "maths/calculus/index.html",
+      "figure": "maths/ch18-differential-calculus/index.html",
       "question": "How does the picture translate term-by-term into f′(x) = lim_{h→0} [f(x + h) − f(x)] / h,   d/dx (xⁿ) = n xⁿ⁻¹?",
-      "explanation": "Every term in f′(x) = lim_{h→0} [f(x + h) − f(x)] / h,   d/dx (xⁿ) = n xⁿ⁻¹ corresponds to a colour-coded geometric part in maths/calculus/index.html.",
+      "explanation": "Every term in f′(x) = lim_{h→0} [f(x + h) − f(x)] / h,   d/dx (xⁿ) = n xⁿ⁻¹ corresponds to a colour-coded geometric part in maths/ch18-differential-calculus/index.html.",
       "limits": "Formula: f′(x) = lim_{h→0} [f(x + h) − f(x)] / h,   d/dx (xⁿ) = n xⁿ⁻¹",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
@@ -2841,7 +2841,7 @@
       "widget": "w_atlas_calculus_integral",
       "title": "Ch 18.1 · Slicing to Infinity: Riemann Sums & The Fundamental Theorem of Calculus (Concrete Manipulation)",
       "chapter": 18,
-      "figure": "maths/calculus/index.html#3",
+      "figure": "maths/ch19-integral-calculus/index.html",
       "question": "How does touching the geometry of Slicing to Infinity: Riemann Sums & The Fundamental Theorem of Calculus reveal its structure?",
       "explanation": "Open @saxster/atlas Calculus (`maths/calculus` pp. 3–5) and compare the blue area under f′(t) = t from 0 to x with the red height of the parabola f(x) = ½x².",
       "limits": "Formula: ∫ₐᵇ f(x) dx = lim_{n→∞} ∑ f(xᵢ) Δx = F(b) − F(a)   where F′(x) = f(x)",
@@ -2858,7 +2858,7 @@
       "widget": "w_atlas_calculus_integral",
       "title": "Ch 18.2 · Slicing to Infinity: Riemann Sums & The Fundamental Theorem of Calculus (The Visual 'Aha!' Invariant)",
       "chapter": 18,
-      "figure": "maths/calculus/index.html#3",
+      "figure": "maths/ch19-integral-calculus/index.html",
       "question": "What stays constant in Slicing to Infinity: Riemann Sums & The Fundamental Theorem of Calculus when you deform or slice the figure?",
       "explanation": "Every tiny step dt adds a ribbon of area f′(t)·dt = df — which is the exact tiny rise in height of the original curve f(x)! That is why the area under the slope curve IS the height change f(b) − f(a)!",
       "limits": "Formula: ∫ₐᵇ f(x) dx = lim_{n→∞} ∑ f(xᵢ) Δx = F(b) − F(a)   where F′(x) = f(x)",
@@ -2875,9 +2875,9 @@
       "widget": "w_atlas_calculus_integral",
       "title": "Ch 18.3 · Slicing to Infinity: Riemann Sums & The Fundamental Theorem of Calculus (Symbolic Formula Lockstep)",
       "chapter": 18,
-      "figure": "maths/calculus/index.html#3",
+      "figure": "maths/ch19-integral-calculus/index.html",
       "question": "How does the picture translate term-by-term into ∫ₐᵇ f(x) dx = lim_{n→∞} ∑ f(xᵢ) Δx = F(b) − F(a)   where F′(x) = f(x)?",
-      "explanation": "Every term in ∫ₐᵇ f(x) dx = lim_{n→∞} ∑ f(xᵢ) Δx = F(b) − F(a)   where F′(x) = f(x) corresponds to a colour-coded geometric part in maths/calculus/index.html#3.",
+      "explanation": "Every term in ∫ₐᵇ f(x) dx = lim_{n→∞} ∑ f(xᵢ) Δx = F(b) − F(a)   where F′(x) = f(x) corresponds to a colour-coded geometric part in maths/ch19-integral-calculus/index.html.",
       "limits": "Formula: ∫ₐᵇ f(x) dx = lim_{n→∞} ∑ f(xᵢ) Δx = F(b) − F(a)   where F′(x) = f(x)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
@@ -2892,7 +2892,7 @@
       "widget": "w_vector_tip_to_tail_lab",
       "title": "Ch 19.1 · Arrows in Space: Vectors, Dot Products & Geometric Proofs (Concrete Manipulation)",
       "chapter": 19,
-      "figure": "maths/multivariable/index.html#2",
+      "figure": "maths/ch15-linear-graphs-inequalities/index.html",
       "question": "How does touching the geometry of Arrows in Space: Vectors, Dot Products & Geometric Proofs reveal its structure?",
       "explanation": "Drag vectors a and b tip-to-tail on the grid, and project vector u onto v to measure their dot product.",
       "limits": "Formula: AB = OB − OA,   |v| = √(x² + y²),   u · v = x₁x₂ + y₁y₂ = |u||v| cos θ",
@@ -2909,7 +2909,7 @@
       "widget": "w_vector_tip_to_tail_lab",
       "title": "Ch 19.2 · Arrows in Space: Vectors, Dot Products & Geometric Proofs (The Visual 'Aha!' Invariant)",
       "chapter": 19,
-      "figure": "maths/multivariable/index.html#2",
+      "figure": "maths/ch15-linear-graphs-inequalities/index.html",
       "question": "What stays constant in Arrows in Space: Vectors, Dot Products & Geometric Proofs when you deform or slice the figure?",
       "explanation": "Because midpoints M of AB and N of AC have position vectors ½b and ½c, the segment MN = ½c − ½b = ½(c − b) = ½BC — proving in one line that the midsegment of ANY triangle is parallel to the base and half its length!",
       "limits": "Formula: AB = OB − OA,   |v| = √(x² + y²),   u · v = x₁x₂ + y₁y₂ = |u||v| cos θ",
@@ -2926,9 +2926,9 @@
       "widget": "w_vector_tip_to_tail_lab",
       "title": "Ch 19.3 · Arrows in Space: Vectors, Dot Products & Geometric Proofs (Symbolic Formula Lockstep)",
       "chapter": 19,
-      "figure": "maths/multivariable/index.html#2",
+      "figure": "maths/ch15-linear-graphs-inequalities/index.html",
       "question": "How does the picture translate term-by-term into AB = OB − OA,   |v| = √(x² + y²),   u · v = x₁x₂ + y₁y₂ = |u||v| cos θ?",
-      "explanation": "Every term in AB = OB − OA,   |v| = √(x² + y²),   u · v = x₁x₂ + y₁y₂ = |u||v| cos θ corresponds to a colour-coded geometric part in maths/multivariable/index.html#2.",
+      "explanation": "Every term in AB = OB − OA,   |v| = √(x² + y²),   u · v = x₁x₂ + y₁y₂ = |u||v| cos θ corresponds to a colour-coded geometric part in maths/ch15-linear-graphs-inequalities/index.html.",
       "limits": "Formula: AB = OB − OA,   |v| = √(x² + y²),   u · v = x₁x₂ + y₁y₂ = |u||v| cos θ",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
@@ -2943,7 +2943,7 @@
       "widget": "w_atlas_linear_algebra",
       "title": "Ch 20.1 · Stretching the Plane: 2×2 Matrices, Determinants & Eigenvectors (Concrete Manipulation)",
       "chapter": 20,
-      "figure": "maths/matrix-sandbox/index.html",
+      "figure": "maths/ch20-matrices-eigen/index.html",
       "question": "How does touching the geometry of Stretching the Plane: 2×2 Matrices, Determinants & Eigenvectors reveal its structure?",
       "explanation": "Open the @saxster/atlas 2×2 Matrix Sandbox (`maths/matrix-sandbox`) and drag the red tip of Aî = (a, c) and blue tip of Aĵ = (b, d) directly in 3D.",
       "limits": "Formula: A[x, y]ᵀ = x Aî + y Aĵ,   det(A) = ad − bc,   A v = λ v  ⇔  det(A − λI) = 0",
@@ -2960,7 +2960,7 @@
       "widget": "w_atlas_linear_algebra",
       "title": "Ch 20.2 · Stretching the Plane: 2×2 Matrices, Determinants & Eigenvectors (The Visual 'Aha!' Invariant)",
       "chapter": 20,
-      "figure": "maths/matrix-sandbox/index.html",
+      "figure": "maths/ch20-matrices-eigen/index.html",
       "question": "What stays constant in Stretching the Plane: 2×2 Matrices, Determinants & Eigenvectors when you deform or slice the figure?",
       "explanation": "The unit square stretches into an amber parallelogram of signed area det(A) = ad − bc; if the two columns line up, the whole 2D plane collapses onto a 1D line (det = 0), while green eigenvector lines stay on their own span (Av = λv)!",
       "limits": "Formula: A[x, y]ᵀ = x Aî + y Aĵ,   det(A) = ad − bc,   A v = λ v  ⇔  det(A − λI) = 0",
@@ -2977,9 +2977,9 @@
       "widget": "w_atlas_linear_algebra",
       "title": "Ch 20.3 · Stretching the Plane: 2×2 Matrices, Determinants & Eigenvectors (Symbolic Formula Lockstep)",
       "chapter": 20,
-      "figure": "maths/matrix-sandbox/index.html",
+      "figure": "maths/ch20-matrices-eigen/index.html",
       "question": "How does the picture translate term-by-term into A[x, y]ᵀ = x Aî + y Aĵ,   det(A) = ad − bc,   A v = λ v  ⇔  det(A − λI) = 0?",
-      "explanation": "Every term in A[x, y]ᵀ = x Aî + y Aĵ,   det(A) = ad − bc,   A v = λ v  ⇔  det(A − λI) = 0 corresponds to a colour-coded geometric part in maths/matrix-sandbox/index.html.",
+      "explanation": "Every term in A[x, y]ᵀ = x Aî + y Aĵ,   det(A) = ad − bc,   A v = λ v  ⇔  det(A − λI) = 0 corresponds to a colour-coded geometric part in maths/ch20-matrices-eigen/index.html.",
       "limits": "Formula: A[x, y]ᵀ = x Aî + y Aĵ,   det(A) = ad − bc,   A v = λ v  ⇔  det(A − λI) = 0",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
@@ -2996,7 +2996,7 @@
       "title": "Venn Inclusion Exclusion",
       "chapter": 0,
       "is3D": false,
-      "atlasRoute": "concepts/index.html#maths",
+      "atlasRoute": "maths/ch00-sets-logic/index.html",
       "challengePrompt": "Manipulate Venn Inclusion Exclusion until the visual invariant locks in, then verify n(A ∪ B) = n(A) + n(B) − n(A ∩ B)   and   (A ∪ B)′ = A′ ∩ B′.",
       "cutaway": "Intuition → Formula Lockstep: The overlap A ∩ B gets counted once inside |A| and a second time inside |B| — subtracting |A ∩ B| once restores the exact union count!",
       "idealised": "Formula Anatomy: n(A ∪ B) = n(A) + n(B) − n(A ∩ B)   and   (A ∪ B)′ = A′ ∩ B′",
@@ -3028,7 +3028,7 @@
       "title": "Truth Table Logic Gates",
       "chapter": 0,
       "is3D": false,
-      "atlasRoute": "concepts/index.html#maths",
+      "atlasRoute": "maths/ch00-sets-logic/index.html",
       "challengePrompt": "Manipulate Truth Table Logic Gates until the visual invariant locks in, then verify n(A ∪ B) = n(A) + n(B) − n(A ∩ B)   and   (A ∪ B)′ = A′ ∩ B′.",
       "cutaway": "Intuition → Formula Lockstep: The overlap A ∩ B gets counted once inside |A| and a second time inside |B| — subtracting |A ∩ B| once restores the exact union count!",
       "idealised": "Formula Anatomy: n(A ∪ B) = n(A) + n(B) − n(A ∩ B)   and   (A ∪ B)′ = A′ ∩ B′",
@@ -3060,7 +3060,7 @@
       "title": "Quantifier Counterexample",
       "chapter": 0,
       "is3D": false,
-      "atlasRoute": "concepts/index.html#maths",
+      "atlasRoute": "maths/ch00-sets-logic/index.html",
       "challengePrompt": "Manipulate Quantifier Counterexample until the visual invariant locks in, then verify n(A ∪ B) = n(A) + n(B) − n(A ∩ B)   and   (A ∪ B)′ = A′ ∩ B′.",
       "cutaway": "Intuition → Formula Lockstep: The overlap A ∩ B gets counted once inside |A| and a second time inside |B| — subtracting |A ∩ B| once restores the exact union count!",
       "idealised": "Formula Anatomy: n(A ∪ B) = n(A) + n(B) − n(A ∩ B)   and   (A ∪ B)′ = A′ ∩ B′",
@@ -3092,7 +3092,7 @@
       "title": "Negative Rotation Line",
       "chapter": 1,
       "is3D": false,
-      "atlasRoute": "concepts/index.html#exponential",
+      "atlasRoute": "maths/ch01-number-primes/index.html",
       "challengePrompt": "Manipulate Negative Rotation Line until the visual invariant locks in, then verify (−a)(−b) = +ab,   aᵐ · aⁿ = aᵐ⁺ⁿ,   HCF(a, b) × LCM(a, b) = a × b.",
       "cutaway": "Intuition → Formula Lockstep: Two 180° rotations equal 360° (+1), and for any two integers a and b, taking min(exponents) for HCF and max(exponents) for LCM guarantees min + max = total!",
       "idealised": "Formula Anatomy: (−a)(−b) = +ab,   aᵐ · aⁿ = aᵐ⁺ⁿ,   HCF(a, b) × LCM(a, b) = a × b",
@@ -3124,7 +3124,7 @@
       "title": "Prime Venn Hcf Lcm",
       "chapter": 1,
       "is3D": false,
-      "atlasRoute": "concepts/index.html#exponential",
+      "atlasRoute": "maths/ch01-number-primes/index.html",
       "challengePrompt": "Manipulate Prime Venn Hcf Lcm until the visual invariant locks in, then verify (−a)(−b) = +ab,   aᵐ · aⁿ = aᵐ⁺ⁿ,   HCF(a, b) × LCM(a, b) = a × b.",
       "cutaway": "Intuition → Formula Lockstep: Two 180° rotations equal 360° (+1), and for any two integers a and b, taking min(exponents) for HCF and max(exponents) for LCM guarantees min + max = total!",
       "idealised": "Formula Anatomy: (−a)(−b) = +ab,   aᵐ · aⁿ = aᵐ⁺ⁿ,   HCF(a, b) × LCM(a, b) = a × b",
@@ -3156,7 +3156,7 @@
       "title": "Index Staircase Surds",
       "chapter": 1,
       "is3D": false,
-      "atlasRoute": "concepts/index.html#exponential",
+      "atlasRoute": "maths/ch01-number-primes/index.html",
       "challengePrompt": "Manipulate Index Staircase Surds until the visual invariant locks in, then verify (−a)(−b) = +ab,   aᵐ · aⁿ = aᵐ⁺ⁿ,   HCF(a, b) × LCM(a, b) = a × b.",
       "cutaway": "Intuition → Formula Lockstep: Two 180° rotations equal 360° (+1), and for any two integers a and b, taking min(exponents) for HCF and max(exponents) for LCM guarantees min + max = total!",
       "idealised": "Formula Anatomy: (−a)(−b) = +ab,   aᵐ · aⁿ = aᵐ⁺ⁿ,   HCF(a, b) × LCM(a, b) = a × b",
@@ -3188,7 +3188,7 @@
       "title": "Recurring Decimal Tail Canceller",
       "chapter": 2,
       "is3D": false,
-      "atlasRoute": "concepts/index.html#maths",
+      "atlasRoute": "maths/ch02-fractions-decimals/index.html",
       "challengePrompt": "Manipulate Recurring Decimal Tail Canceller until the visual invariant locks in, then verify x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1).",
       "cutaway": "Intuition → Formula Lockstep: Multiplying x = 0.abab… by 10ᵏ shifts the decimal point by one full period k, so subtracting x cancels the entire infinite tail in one stroke!",
       "idealised": "Formula Anatomy: x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1)",
@@ -3220,7 +3220,7 @@
       "title": "Fraction Area Division",
       "chapter": 2,
       "is3D": false,
-      "atlasRoute": "concepts/index.html#maths",
+      "atlasRoute": "maths/ch02-fractions-decimals/index.html",
       "challengePrompt": "Manipulate Fraction Area Division until the visual invariant locks in, then verify x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1).",
       "cutaway": "Intuition → Formula Lockstep: Multiplying x = 0.abab… by 10ᵏ shifts the decimal point by one full period k, so subtracting x cancels the entire infinite tail in one stroke!",
       "idealised": "Formula Anatomy: x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1)",
@@ -3252,7 +3252,7 @@
       "title": "Singapore Ratio Bar Model",
       "chapter": 3,
       "is3D": true,
-      "atlasRoute": "economics/compound/index.html",
+      "atlasRoute": "maths/ch03-ratios-compounding/index.html",
       "challengePrompt": "Manipulate Singapore Ratio Bar Model until the visual invariant locks in, then verify A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ).",
       "cutaway": "Intuition → Formula Lockstep: A +20% rise followed by a −20% drop lands at 1.2 × 0.8 = 0.96 (a 4% loss!), while compounding multiplies by (1 + r)ⁿ so interest itself earns interest!",
       "idealised": "Formula Anatomy: A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ)",
@@ -3284,7 +3284,7 @@
       "title": "Compound Multiplier Machine",
       "chapter": 3,
       "is3D": true,
-      "atlasRoute": "economics/compound/index.html",
+      "atlasRoute": "maths/ch03-ratios-compounding/index.html",
       "challengePrompt": "Manipulate Compound Multiplier Machine until the visual invariant locks in, then verify A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ).",
       "cutaway": "Intuition → Formula Lockstep: A +20% rise followed by a −20% drop lands at 1.2 × 0.8 = 0.96 (a 4% loss!), while compounding multiplies by (1 + r)ⁿ so interest itself earns interest!",
       "idealised": "Formula Anatomy: A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ)",
@@ -3316,7 +3316,7 @@
       "title": "Algebra Area Tiles",
       "chapter": 4,
       "is3D": false,
-      "atlasRoute": "concepts/index.html#maths",
+      "atlasRoute": "maths/ch04-algebra-tiles/index.html",
       "challengePrompt": "Manipulate Algebra Area Tiles until the visual invariant locks in, then verify a(b + c) = ab + ac,   (x + a)(x + b) = x² + (a + b)x + ab,   a² − b² = (a − b)(a + b).",
       "cutaway": "Intuition → Formula Lockstep: When you cut a corner square b² from a² and rotate the remaining strip, it forms a single rectangle of length (a + b) and height (a − b)!",
       "idealised": "Formula Anatomy: a(b + c) = ab + ac,   (x + a)(x + b) = x² + (a + b)x + ab,   a² − b² = (a − b)(a + b)",
@@ -3348,7 +3348,7 @@
       "title": "Difference Of Squares Slicer",
       "chapter": 4,
       "is3D": false,
-      "atlasRoute": "concepts/index.html#maths",
+      "atlasRoute": "maths/ch04-algebra-tiles/index.html",
       "challengePrompt": "Manipulate Difference Of Squares Slicer until the visual invariant locks in, then verify a(b + c) = ab + ac,   (x + a)(x + b) = x² + (a + b)x + ab,   a² − b² = (a − b)(a + b).",
       "cutaway": "Intuition → Formula Lockstep: When you cut a corner square b² from a² and rotate the remaining strip, it forms a single rectangle of length (a + b) and height (a − b)!",
       "idealised": "Formula Anatomy: a(b + c) = ab + ac,   (x + a)(x + b) = x² + (a + b)x + ab,   a² − b² = (a − b)(a + b)",
@@ -3380,7 +3380,7 @@
       "title": "Balance Beam Equations",
       "chapter": 5,
       "is3D": false,
-      "atlasRoute": "concepts/index.html#balance",
+      "atlasRoute": "maths/ch05-balance-equations/index.html",
       "challengePrompt": "Manipulate Balance Beam Equations until the visual invariant locks in, then verify ax + b = cx + d  ⇒  x = (d − b) / (a − c),   and   a < b  ⇒  −a > −b.",
       "cutaway": "Intuition → Formula Lockstep: Multiplying a number line by −1 reflects every point across 0 like a mirror — what was further right (>) becomes further left (<)!",
       "idealised": "Formula Anatomy: ax + b = cx + d  ⇒  x = (d − b) / (a − c),   and   a < b  ⇒  −a > −b",
@@ -3412,7 +3412,7 @@
       "title": "Formula Subject Transposer",
       "chapter": 5,
       "is3D": false,
-      "atlasRoute": "concepts/index.html#balance",
+      "atlasRoute": "maths/ch05-balance-equations/index.html",
       "challengePrompt": "Manipulate Formula Subject Transposer until the visual invariant locks in, then verify ax + b = cx + d  ⇒  x = (d − b) / (a − c),   and   a < b  ⇒  −a > −b.",
       "cutaway": "Intuition → Formula Lockstep: Multiplying a number line by −1 reflects every point across 0 like a mirror — what was further right (>) becomes further left (<)!",
       "idealised": "Formula Anatomy: ax + b = cx + d  ⇒  x = (d − b) / (a − c),   and   a < b  ⇒  −a > −b",
@@ -3444,7 +3444,7 @@
       "title": "Inequality Mirror Line",
       "chapter": 5,
       "is3D": false,
-      "atlasRoute": "concepts/index.html#balance",
+      "atlasRoute": "maths/ch05-balance-equations/index.html",
       "challengePrompt": "Manipulate Inequality Mirror Line until the visual invariant locks in, then verify ax + b = cx + d  ⇒  x = (d − b) / (a − c),   and   a < b  ⇒  −a > −b.",
       "cutaway": "Intuition → Formula Lockstep: Multiplying a number line by −1 reflects every point across 0 like a mirror — what was further right (>) becomes further left (<)!",
       "idealised": "Formula Anatomy: ax + b = cx + d  ⇒  x = (d − b) / (a − c),   and   a < b  ⇒  −a > −b",
@@ -3476,7 +3476,7 @@
       "title": "Gauss Staircase Sum",
       "chapter": 6,
       "is3D": false,
-      "atlasRoute": "concepts/index.html#maths",
+      "atlasRoute": "maths/ch06-sequences-gauss/index.html",
       "challengePrompt": "Manipulate Gauss Staircase Sum until the visual invariant locks in, then verify Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a.",
       "cutaway": "Intuition → Formula Lockstep: The two staircases lock together into a solid rectangle of width n and uniform height (n + 1) — so one staircase is exactly half the rectangle!",
       "idealised": "Formula Anatomy: Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a",
@@ -3508,7 +3508,7 @@
       "title": "Sequence Difference Engine",
       "chapter": 6,
       "is3D": false,
-      "atlasRoute": "concepts/index.html#maths",
+      "atlasRoute": "maths/ch06-sequences-gauss/index.html",
       "challengePrompt": "Manipulate Sequence Difference Engine until the visual invariant locks in, then verify Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a.",
       "cutaway": "Intuition → Formula Lockstep: The two staircases lock together into a solid rectangle of width n and uniform height (n + 1) — so one staircase is exactly half the rectangle!",
       "idealised": "Formula Anatomy: Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a",
@@ -3540,7 +3540,7 @@
       "title": "Linear Graph Slope Explorer",
       "chapter": 7,
       "is3D": false,
-      "atlasRoute": "concepts/index.html#slope",
+      "atlasRoute": "maths/ch07-functions-graphs/index.html",
       "challengePrompt": "Manipulate Linear Graph Slope Explorer until the visual invariant locks in, then verify y = mx + c,   m = (y₂ − y₁) / (x₂ − x₁),   m₁ · m₂ = −1 (perpendicular).",
       "cutaway": "Intuition → Formula Lockstep: No matter how wide or narrow you make the horizontal run Δx, the vertical rise Δy scales in the exact same proportion, keeping Δy / Δx = m invariant!",
       "idealised": "Formula Anatomy: y = mx + c,   m = (y₂ − y₁) / (x₂ − x₁),   m₁ · m₂ = −1 (perpendicular)",
@@ -3572,7 +3572,7 @@
       "title": "Kinematics Travel Graph",
       "chapter": 7,
       "is3D": false,
-      "atlasRoute": "concepts/index.html#slope",
+      "atlasRoute": "maths/ch07-functions-graphs/index.html",
       "challengePrompt": "Manipulate Kinematics Travel Graph until the visual invariant locks in, then verify y = mx + c,   m = (y₂ − y₁) / (x₂ − x₁),   m₁ · m₂ = −1 (perpendicular).",
       "cutaway": "Intuition → Formula Lockstep: No matter how wide or narrow you make the horizontal run Δx, the vertical rise Δy scales in the exact same proportion, keeping Δy / Δx = m invariant!",
       "idealised": "Formula Anatomy: y = mx + c,   m = (y₂ − y₁) / (x₂ − x₁),   m₁ · m₂ = −1 (perpendicular)",
@@ -3604,7 +3604,7 @@
       "title": "Parallel Transversal Proof",
       "chapter": 8,
       "is3D": false,
-      "atlasRoute": "concepts/index.html#maths",
+      "atlasRoute": "maths/ch08-angles-parallel/index.html",
       "challengePrompt": "Manipulate Parallel Transversal Proof until the visual invariant locks in, then verify θ_ext = α + β,   ∑ interior angles of n-gon = (n − 2) × 180°,   M = ((x₁+x₂)/2, (y₁+y₂)/2).",
       "cutaway": "Intuition → Formula Lockstep: Because a parallel translation changes no angles, α and β fit flush inside the exterior angle next to γ — proving both α + β + γ = 180° and ext = α + β at once!",
       "idealised": "Formula Anatomy: θ_ext = α + β,   ∑ interior angles of n-gon = (n − 2) × 180°,   M = ((x₁+x₂)/2, (y₁+y₂)/2)",
@@ -3636,7 +3636,7 @@
       "title": "Exterior Angle Tear Proof",
       "chapter": 8,
       "is3D": false,
-      "atlasRoute": "concepts/index.html#maths",
+      "atlasRoute": "maths/ch08-angles-parallel/index.html",
       "challengePrompt": "Manipulate Exterior Angle Tear Proof until the visual invariant locks in, then verify θ_ext = α + β,   ∑ interior angles of n-gon = (n − 2) × 180°,   M = ((x₁+x₂)/2, (y₁+y₂)/2).",
       "cutaway": "Intuition → Formula Lockstep: Because a parallel translation changes no angles, α and β fit flush inside the exterior angle next to γ — proving both α + β + γ = 180° and ext = α + β at once!",
       "idealised": "Formula Anatomy: θ_ext = α + β,   ∑ interior angles of n-gon = (n − 2) × 180°,   M = ((x₁+x₂)/2, (y₁+y₂)/2)",
@@ -3668,7 +3668,7 @@
       "title": "Euclid Compass Locus",
       "chapter": 9,
       "is3D": false,
-      "atlasRoute": "concepts/index.html#maths",
+      "atlasRoute": "maths/ch09-loci-constructions/index.html",
       "challengePrompt": "Manipulate Euclid Compass Locus until the visual invariant locks in, then verify |PA| = |PB|  ⇔  P lies on perpendicular bisector of AB;   Euler: V − E + F = 2.",
       "cutaway": "Intuition → Formula Lockstep: Because AP = BP = AQ = BQ = r, the four radii form a rhombus — and the diagonals of a rhombus always bisect each other at 90°!",
       "idealised": "Formula Anatomy: |PA| = |PB|  ⇔  P lies on perpendicular bisector of AB;   Euler: V − E + F = 2",
@@ -3700,7 +3700,7 @@
       "title": "Bearings Back Bearing Radar",
       "chapter": 9,
       "is3D": false,
-      "atlasRoute": "concepts/index.html#maths",
+      "atlasRoute": "maths/ch09-loci-constructions/index.html",
       "challengePrompt": "Manipulate Bearings Back Bearing Radar until the visual invariant locks in, then verify |PA| = |PB|  ⇔  P lies on perpendicular bisector of AB;   Euler: V − E + F = 2.",
       "cutaway": "Intuition → Formula Lockstep: Because AP = BP = AQ = BQ = r, the four radii form a rhombus — and the diagonals of a rhombus always bisect each other at 90°!",
       "idealised": "Formula Anatomy: |PA| = |PB|  ⇔  P lies on perpendicular bisector of AB;   Euler: V − E + F = 2",
@@ -3732,7 +3732,7 @@
       "title": "Polyhedron Net Folder",
       "chapter": 9,
       "is3D": false,
-      "atlasRoute": "concepts/index.html#maths",
+      "atlasRoute": "maths/ch09-loci-constructions/index.html",
       "challengePrompt": "Manipulate Polyhedron Net Folder until the visual invariant locks in, then verify |PA| = |PB|  ⇔  P lies on perpendicular bisector of AB;   Euler: V − E + F = 2.",
       "cutaway": "Intuition → Formula Lockstep: Because AP = BP = AQ = BQ = r, the four radii form a rhombus — and the diagonals of a rhombus always bisect each other at 90°!",
       "idealised": "Formula Anatomy: |PA| = |PB|  ⇔  P lies on perpendicular bisector of AB;   Euler: V − E + F = 2",
@@ -3764,7 +3764,7 @@
       "title": "Circle Sector Rearranger",
       "chapter": 10,
       "is3D": true,
-      "atlasRoute": "concepts/index.html#circle",
+      "atlasRoute": "maths/ch10-circles-mensuration/index.html",
       "challengePrompt": "Manipulate Circle Sector Rearranger until the visual invariant locks in, then verify C = 2πr,   A_circle = πr²,   A_trap = ½(a + b)h,   V_prism = A_cross × L.",
       "cutaway": "Intuition → Formula Lockstep: Half the circumference (πr) runs along the top and half along the bottom (base = πr), while the radius r stands upright as the height — giving Area = (πr) × r = πr²!",
       "idealised": "Formula Anatomy: C = 2πr,   A_circle = πr²,   A_trap = ½(a + b)h,   V_prism = A_cross × L",
@@ -3796,7 +3796,7 @@
       "title": "Trapezium Prism Slicer",
       "chapter": 10,
       "is3D": true,
-      "atlasRoute": "concepts/index.html#circle",
+      "atlasRoute": "maths/ch10-circles-mensuration/index.html",
       "challengePrompt": "Manipulate Trapezium Prism Slicer until the visual invariant locks in, then verify C = 2πr,   A_circle = πr²,   A_trap = ½(a + b)h,   V_prism = A_cross × L.",
       "cutaway": "Intuition → Formula Lockstep: Half the circumference (πr) runs along the top and half along the bottom (base = πr), while the radius r stands upright as the height — giving Area = (πr) × r = πr²!",
       "idealised": "Formula Anatomy: C = 2πr,   A_circle = πr²,   A_trap = ½(a + b)h,   V_prism = A_cross × L",
@@ -3828,7 +3828,7 @@
       "title": "Transformation Isometry Stage",
       "chapter": 11,
       "is3D": false,
-      "atlasRoute": "maths/linear-algebra/index.html#1",
+      "atlasRoute": "maths/ch13-indices-standard-form/index.html#1",
       "challengePrompt": "Manipulate Transformation Isometry Stage until the visual invariant locks in, then verify OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object).",
       "cutaway": "Intuition → Formula Lockstep: Every vertex P moves along the ray CP so that |CP′| = |k| · |CP| — and doubling every side (k = 2) packs k² = 4 copies of the original triangle inside the image!",
       "idealised": "Formula Anatomy: OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object)",
@@ -3860,7 +3860,7 @@
       "title": "Enlargement Ray Scaler",
       "chapter": 11,
       "is3D": false,
-      "atlasRoute": "maths/linear-algebra/index.html#1",
+      "atlasRoute": "maths/ch13-indices-standard-form/index.html#1",
       "challengePrompt": "Manipulate Enlargement Ray Scaler until the visual invariant locks in, then verify OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object).",
       "cutaway": "Intuition → Formula Lockstep: Every vertex P moves along the ray CP so that |CP′| = |k| · |CP| — and doubling every side (k = 2) packs k² = 4 copies of the original triangle inside the image!",
       "idealised": "Formula Anatomy: OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object)",
@@ -3892,7 +3892,7 @@
       "title": "3D Atlas: Unit Circle",
       "chapter": 12,
       "is3D": true,
-      "atlasRoute": "maths/unit-circle/index.html",
+      "atlasRoute": "maths/ch16-trigonometry-unit-circle/index.html#1",
       "challengePrompt": "Manipulate 3D Atlas: Unit Circle until the visual invariant locks in, then verify P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C.",
       "cutaway": "Intuition → Formula Lockstep: Because the hypotenuse of the unit-circle triangle is 1, the red vertical shadow is sin θ, the blue horizontal shadow is cos θ, and Pythagoras immediately gives sin²θ + cos²θ = 1² for every angle!",
       "idealised": "Formula Anatomy: P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C",
@@ -3924,7 +3924,7 @@
       "title": "Pythagoras Garfield Proof",
       "chapter": 12,
       "is3D": true,
-      "atlasRoute": "maths/unit-circle/index.html",
+      "atlasRoute": "maths/ch16-trigonometry-unit-circle/index.html#1",
       "challengePrompt": "Manipulate Pythagoras Garfield Proof until the visual invariant locks in, then verify P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C.",
       "cutaway": "Intuition → Formula Lockstep: Because the hypotenuse of the unit-circle triangle is 1, the red vertical shadow is sin θ, the blue horizontal shadow is cos θ, and Pythagoras immediately gives sin²θ + cos²θ = 1² for every angle!",
       "idealised": "Formula Anatomy: P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C",
@@ -3956,7 +3956,7 @@
       "title": "Cosine Rule Generaliser",
       "chapter": 12,
       "is3D": true,
-      "atlasRoute": "maths/unit-circle/index.html",
+      "atlasRoute": "maths/ch16-trigonometry-unit-circle/index.html#1",
       "challengePrompt": "Manipulate Cosine Rule Generaliser until the visual invariant locks in, then verify P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C.",
       "cutaway": "Intuition → Formula Lockstep: Because the hypotenuse of the unit-circle triangle is 1, the red vertical shadow is sin θ, the blue horizontal shadow is cos θ, and Pythagoras immediately gives sin²θ + cos²θ = 1² for every angle!",
       "idealised": "Formula Anatomy: P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C",
@@ -4052,7 +4052,7 @@
       "title": "Histogram Frequency Density",
       "chapter": 14,
       "is3D": false,
-      "atlasRoute": "statistics/hypothesis/index.html",
+      "atlasRoute": "maths/ch11-data-histograms/index.html",
       "challengePrompt": "Manipulate Histogram Frequency Density until the visual invariant locks in, then verify Frequency Density = f / Δx,   μ = (∑ xᵢ) / n,   σ = √[ (∑(xᵢ − μ)²) / n ].",
       "cutaway": "Intuition → Formula Lockstep: If one class interval is twice as wide as another, keeping the bar at raw frequency makes it look twice as big by accident — dividing height by class width (Frequency Density = f / Δx) makes Area = FD × Δx = f exact!",
       "idealised": "Formula Anatomy: Frequency Density = f / Δx,   μ = (∑ xᵢ) / n,   σ = √[ (∑(xᵢ − μ)²) / n ]",
@@ -4084,7 +4084,7 @@
       "title": "Mean Fulcrum Std Dev",
       "chapter": 14,
       "is3D": false,
-      "atlasRoute": "statistics/hypothesis/index.html",
+      "atlasRoute": "maths/ch11-data-histograms/index.html",
       "challengePrompt": "Manipulate Mean Fulcrum Std Dev until the visual invariant locks in, then verify Frequency Density = f / Δx,   μ = (∑ xᵢ) / n,   σ = √[ (∑(xᵢ − μ)²) / n ].",
       "cutaway": "Intuition → Formula Lockstep: If one class interval is twice as wide as another, keeping the bar at raw frequency makes it look twice as big by accident — dividing height by class width (Frequency Density = f / Δx) makes Area = FD × Δx = f exact!",
       "idealised": "Formula Anatomy: Frequency Density = f / Δx,   μ = (∑ xᵢ) / n,   σ = √[ (∑(xᵢ − μ)²) / n ]",
@@ -4180,7 +4180,7 @@
       "title": "3D Atlas: Bayes Square",
       "chapter": 16,
       "is3D": true,
-      "atlasRoute": "statistics/bayes/index.html",
+      "atlasRoute": "maths/ch17-bayes-probability/index.html",
       "challengePrompt": "Manipulate 3D Atlas: Bayes Square until the visual invariant locks in, then verify P(D | +) = [ P(+ | D) P(D) ] / [ P(+ | D) P(D) + P(+ | ¬D) P(¬D) ].",
       "cutaway": "Intuition → Formula Lockstep: Conditioning on a positive test throws away everyone who tested negative! What remains is just two bars: 19 True Positives (red) from the 20 sick people, and 49 False Positives (amber) from the 980 healthy people — so P(D | +) = 19 / (19 + 49) ≈ 27.9%!",
       "idealised": "Formula Anatomy: P(D | +) = [ P(+ | D) P(D) ] / [ P(+ | D) P(D) + P(+ | ¬D) P(¬D) ]",
@@ -4212,7 +4212,7 @@
       "title": "Bayes Natural Frequency Tree",
       "chapter": 16,
       "is3D": true,
-      "atlasRoute": "statistics/bayes/index.html",
+      "atlasRoute": "maths/ch17-bayes-probability/index.html",
       "challengePrompt": "Manipulate Bayes Natural Frequency Tree until the visual invariant locks in, then verify P(D | +) = [ P(+ | D) P(D) ] / [ P(+ | D) P(D) + P(+ | ¬D) P(¬D) ].",
       "cutaway": "Intuition → Formula Lockstep: Conditioning on a positive test throws away everyone who tested negative! What remains is just two bars: 19 True Positives (red) from the 20 sick people, and 49 False Positives (amber) from the 980 healthy people — so P(D | +) = 19 / (19 + 49) ≈ 27.9%!",
       "idealised": "Formula Anatomy: P(D | +) = [ P(+ | D) P(D) ] / [ P(+ | D) P(D) + P(+ | ¬D) P(¬D) ]",
@@ -4244,7 +4244,7 @@
       "title": "3D Atlas: Calculus Derivative",
       "chapter": 17,
       "is3D": true,
-      "atlasRoute": "maths/calculus/index.html",
+      "atlasRoute": "maths/ch18-differential-calculus/index.html",
       "challengePrompt": "Manipulate 3D Atlas: Calculus Derivative until the visual invariant locks in, then verify f′(x) = lim_{h→0} [f(x + h) − f(x)] / h,   d/dx (xⁿ) = n xⁿ⁻¹.",
       "cutaway": "Intuition → Formula Lockstep: Expanding a square x² by tiny strip dx adds two long strips of area x·dx and a tiny corner (dx)² — dividing Δ(x²)/dx = 2x + dx and letting dx → 0 leaves the exact derivative 2x!",
       "idealised": "Formula Anatomy: f′(x) = lim_{h→0} [f(x + h) − f(x)] / h,   d/dx (xⁿ) = n xⁿ⁻¹",
@@ -4276,7 +4276,7 @@
       "title": "Power Rule Square Growth",
       "chapter": 17,
       "is3D": true,
-      "atlasRoute": "maths/calculus/index.html",
+      "atlasRoute": "maths/ch18-differential-calculus/index.html",
       "challengePrompt": "Manipulate Power Rule Square Growth until the visual invariant locks in, then verify f′(x) = lim_{h→0} [f(x + h) − f(x)] / h,   d/dx (xⁿ) = n xⁿ⁻¹.",
       "cutaway": "Intuition → Formula Lockstep: Expanding a square x² by tiny strip dx adds two long strips of area x·dx and a tiny corner (dx)² — dividing Δ(x²)/dx = 2x + dx and letting dx → 0 leaves the exact derivative 2x!",
       "idealised": "Formula Anatomy: f′(x) = lim_{h→0} [f(x + h) − f(x)] / h,   d/dx (xⁿ) = n xⁿ⁻¹",
@@ -4308,7 +4308,7 @@
       "title": "3D Atlas: Calculus Integral",
       "chapter": 18,
       "is3D": true,
-      "atlasRoute": "maths/calculus/index.html#3",
+      "atlasRoute": "maths/ch19-integral-calculus/index.html",
       "challengePrompt": "Manipulate 3D Atlas: Calculus Integral until the visual invariant locks in, then verify ∫ₐᵇ f(x) dx = lim_{n→∞} ∑ f(xᵢ) Δx = F(b) − F(a)   where F′(x) = f(x).",
       "cutaway": "Intuition → Formula Lockstep: Every tiny step dt adds a ribbon of area f′(t)·dt = df — which is the exact tiny rise in height of the original curve f(x)! That is why the area under the slope curve IS the height change f(b) − f(a)!",
       "idealised": "Formula Anatomy: ∫ₐᵇ f(x) dx = lim_{n→∞} ∑ f(xᵢ) Δx = F(b) − F(a)   where F′(x) = f(x)",
@@ -4340,7 +4340,7 @@
       "title": "Ftc Area Slope Duality",
       "chapter": 18,
       "is3D": true,
-      "atlasRoute": "maths/calculus/index.html#3",
+      "atlasRoute": "maths/ch19-integral-calculus/index.html",
       "challengePrompt": "Manipulate Ftc Area Slope Duality until the visual invariant locks in, then verify ∫ₐᵇ f(x) dx = lim_{n→∞} ∑ f(xᵢ) Δx = F(b) − F(a)   where F′(x) = f(x).",
       "cutaway": "Intuition → Formula Lockstep: Every tiny step dt adds a ribbon of area f′(t)·dt = df — which is the exact tiny rise in height of the original curve f(x)! That is why the area under the slope curve IS the height change f(b) − f(a)!",
       "idealised": "Formula Anatomy: ∫ₐᵇ f(x) dx = lim_{n→∞} ∑ f(xᵢ) Δx = F(b) − F(a)   where F′(x) = f(x)",
@@ -4372,7 +4372,7 @@
       "title": "Vector Tip To Tail Lab",
       "chapter": 19,
       "is3D": true,
-      "atlasRoute": "maths/multivariable/index.html#2",
+      "atlasRoute": "maths/ch15-linear-graphs-inequalities/index.html",
       "challengePrompt": "Manipulate Vector Tip To Tail Lab until the visual invariant locks in, then verify AB = OB − OA,   |v| = √(x² + y²),   u · v = x₁x₂ + y₁y₂ = |u||v| cos θ.",
       "cutaway": "Intuition → Formula Lockstep: Because midpoints M of AB and N of AC have position vectors ½b and ½c, the segment MN = ½c − ½b = ½(c − b) = ½BC — proving in one line that the midsegment of ANY triangle is parallel to the base and half its length!",
       "idealised": "Formula Anatomy: AB = OB − OA,   |v| = √(x² + y²),   u · v = x₁x₂ + y₁y₂ = |u||v| cos θ",
@@ -4404,7 +4404,7 @@
       "title": "Vector Geometric Proof Studio",
       "chapter": 19,
       "is3D": true,
-      "atlasRoute": "maths/multivariable/index.html#2",
+      "atlasRoute": "maths/ch15-linear-graphs-inequalities/index.html",
       "challengePrompt": "Manipulate Vector Geometric Proof Studio until the visual invariant locks in, then verify AB = OB − OA,   |v| = √(x² + y²),   u · v = x₁x₂ + y₁y₂ = |u||v| cos θ.",
       "cutaway": "Intuition → Formula Lockstep: Because midpoints M of AB and N of AC have position vectors ½b and ½c, the segment MN = ½c − ½b = ½(c − b) = ½BC — proving in one line that the midsegment of ANY triangle is parallel to the base and half its length!",
       "idealised": "Formula Anatomy: AB = OB − OA,   |v| = √(x² + y²),   u · v = x₁x₂ + y₁y₂ = |u||v| cos θ",
@@ -4436,7 +4436,7 @@
       "title": "3D Atlas: Linear Algebra",
       "chapter": 20,
       "is3D": true,
-      "atlasRoute": "maths/matrix-sandbox/index.html",
+      "atlasRoute": "maths/ch20-matrices-eigen/index.html",
       "challengePrompt": "Manipulate 3D Atlas: Linear Algebra until the visual invariant locks in, then verify A[x, y]ᵀ = x Aî + y Aĵ,   det(A) = ad − bc,   A v = λ v  ⇔  det(A − λI) = 0.",
       "cutaway": "Intuition → Formula Lockstep: The unit square stretches into an amber parallelogram of signed area det(A) = ad − bc; if the two columns line up, the whole 2D plane collapses onto a 1D line (det = 0), while green eigenvector lines stay on their own span (Av = λv)!",
       "idealised": "Formula Anatomy: A[x, y]ᵀ = x Aî + y Aĵ,   det(A) = ad − bc,   A v = λ v  ⇔  det(A − λI) = 0",
@@ -4468,7 +4468,7 @@
       "title": "3D Atlas: Matrix Sandbox",
       "chapter": 20,
       "is3D": true,
-      "atlasRoute": "maths/matrix-sandbox/index.html",
+      "atlasRoute": "maths/ch20-matrices-eigen/index.html",
       "challengePrompt": "Manipulate 3D Atlas: Matrix Sandbox until the visual invariant locks in, then verify A[x, y]ᵀ = x Aî + y Aĵ,   det(A) = ad − bc,   A v = λ v  ⇔  det(A − λI) = 0.",
       "cutaway": "Intuition → Formula Lockstep: The unit square stretches into an amber parallelogram of signed area det(A) = ad − bc; if the two columns line up, the whole 2D plane collapses onto a 1D line (det = 0), while green eigenvector lines stay on their own span (Av = λv)!",
       "idealised": "Formula Anatomy: A[x, y]ᵀ = x Aî + y Aĵ,   det(A) = ad − bc,   A v = λ v  ⇔  det(A − λI) = 0",

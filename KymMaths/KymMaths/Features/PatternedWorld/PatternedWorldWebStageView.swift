@@ -36,7 +36,10 @@ struct PatternedWorldWebViewRepresentable: NSViewRepresentable {
     }
 
     func updateNSView(_ webView: WKWebView, context: Context) {
-        let js = "if (window.selectChapter) { window.selectChapter(\(chapterNumber)); }"
+        var js = "if (window.selectChapter) { window.selectChapter(\(chapterNumber)); }"
+        if let route = atlasRoute, !route.isEmpty {
+            js += " if (window.setAtlasRoute) { window.setAtlasRoute('\(route)'); }"
+        }
         webView.evaluateJavaScript(js, completionHandler: nil)
     }
 
@@ -109,7 +112,10 @@ struct PatternedWorldWebViewRepresentable: UIViewRepresentable {
     }
 
     func updateUIView(_ webView: WKWebView, context: Context) {
-        let js = "if (window.selectChapter) { window.selectChapter(\(chapterNumber)); }"
+        var js = "if (window.selectChapter) { window.selectChapter(\(chapterNumber)); }"
+        if let route = atlasRoute, !route.isEmpty {
+            js += " if (window.setAtlasRoute) { window.setAtlasRoute('\(route)'); }"
+        }
         webView.evaluateJavaScript(js, completionHandler: nil)
     }
 

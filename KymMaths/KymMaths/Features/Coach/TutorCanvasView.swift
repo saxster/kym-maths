@@ -465,7 +465,9 @@ public enum LiveMentorChalkboardTemplate: String, CaseIterable, Identifiable, Se
     case singaporeBarModel
     case numberLine
     case coordinatePlane
+    case unitCircleTrig
     case bayesEikosogram
+    case matrixDeterminant
 
     public var id: String { rawValue }
 
@@ -475,7 +477,9 @@ public enum LiveMentorChalkboardTemplate: String, CaseIterable, Identifiable, Se
         case .singaporeBarModel: return "Singapore Bar Model"
         case .numberLine: return "Number Line"
         case .coordinatePlane: return "Coordinate Axes"
+        case .unitCircleTrig: return "Unit Circle Trig"
         case .bayesEikosogram: return "Bayes 1,000-Grid"
+        case .matrixDeterminant: return "2×2 Matrix Area"
         }
     }
 
@@ -485,7 +489,9 @@ public enum LiveMentorChalkboardTemplate: String, CaseIterable, Identifiable, Se
         case .singaporeBarModel: return "rectangle.split.3x1"
         case .numberLine: return "ruler"
         case .coordinatePlane: return "plus.viewfinder"
+        case .unitCircleTrig: return "circle.grid.cross"
         case .bayesEikosogram: return "square.split.2x2"
+        case .matrixDeterminant: return "square.grid.2x2"
         }
     }
 
@@ -546,24 +552,53 @@ public enum LiveMentorChalkboardTemplate: String, CaseIterable, Identifiable, Se
             )
         case .coordinatePlane:
             return TutorCanvas(
-                title: "Coordinate Plane & Vectors",
-                caption: "Plot gradients m = Δy/Δx, transformations, or column vectors.",
+                title: "Coordinate Plane, Slope & Vectors",
+                caption: "Plot gradients m = Δy/Δx, y-intercept (0, c), or column vectors.",
                 showGrid: true,
                 shapes: [
-                    TutorCanvasShape(id: "x_axis", kind: .arrow, x: 100, y: 340, x2: 880, y2: 340, text: "x", color: .ink),
-                    TutorCanvasShape(id: "y_axis", kind: .arrow, x: 480, y: 560, x2: 480, y2: 80, text: "y", color: .ink),
-                    TutorCanvasShape(id: "vec_v", kind: .arrow, x: 480, y: 340, x2: 720, y2: 180, text: "v = (3, 2)", color: .accent)
+                    TutorCanvasShape(id: "x_axis", kind: .arrow, x: 100, y: 360, x2: 880, y2: 360, text: "x-axis", color: .ink),
+                    TutorCanvasShape(id: "y_axis", kind: .arrow, x: 420, y: 560, x2: 420, y2: 70, text: "y-axis", color: .ink),
+                    TutorCanvasShape(id: "run_dx", kind: .line, x: 420, y: 300, x2: 660, y2: 300, text: "Run Δx = 3", color: .secondary),
+                    TutorCanvasShape(id: "rise_dy", kind: .line, x: 660, y: 300, x2: 660, y2: 140, text: "Rise Δy = 2", color: .warning),
+                    TutorCanvasShape(id: "vec_v", kind: .arrow, x: 420, y: 300, x2: 660, y2: 140, text: "y = (2/3)x + c", color: .accent)
+                ]
+            )
+        case .unitCircleTrig:
+            return TutorCanvas(
+                title: "Unit Circle Shadows (cos²θ + sin²θ = 1)",
+                caption: "Radius r = 1 casts horizontal shadow cos θ and vertical shadow sin θ.",
+                showGrid: true,
+                shapes: [
+                    TutorCanvasShape(id: "uc_ring", kind: .ellipse, x: 240, y: 100, width: 400, height: 400, text: "", color: .ink, filled: false),
+                    TutorCanvasShape(id: "cos_leg", kind: .line, x: 440, y: 300, x2: 600, y2: 300, text: "cos θ", color: .secondary),
+                    TutorCanvasShape(id: "sin_leg", kind: .line, x: 600, y: 300, x2: 600, y2: 180, text: "sin θ", color: .accent),
+                    TutorCanvasShape(id: "radius_hyp", kind: .arrow, x: 440, y: 300, x2: 600, y2: 180, text: "r = 1", color: .success)
                 ]
             )
         case .bayesEikosogram:
             return TutorCanvas(
                 title: "Bayes 1,000-Person Natural Frequency Square",
-                caption: "Compare True Positives vs. False Positives by area.",
+                caption: "At 2% prevalence, 95% sensitivity, 5% false-alarm rate: P(D|+) = 19 / (19 + 49) ≈ 27.9%.",
                 showGrid: true,
                 shapes: [
-                    TutorCanvasShape(id: "prior_box", kind: .rect, x: 120, y: 110, width: 180, height: 420, text: "H True (Prior)", color: .accent, filled: true),
-                    TutorCanvasShape(id: "comp_box", kind: .rect, x: 300, y: 110, width: 540, height: 420, text: "¬H (Base Population)", color: .secondary, filled: false),
-                    TutorCanvasShape(id: "false_pos", kind: .rect, x: 300, y: 430, width: 540, height: 100, text: "False Positives P(E|¬H)", color: .warning, filled: true)
+                    TutorCanvasShape(id: "prior_box", kind: .rect, x: 110, y: 100, width: 140, height: 420, text: "Sick D (20)", color: .secondary, filled: false),
+                    TutorCanvasShape(id: "true_pos", kind: .rect, x: 110, y: 120, width: 140, height: 400, text: "TP = 19", color: .accent, filled: true),
+                    TutorCanvasShape(id: "comp_box", kind: .rect, x: 250, y: 100, width: 520, height: 420, text: "Healthy ¬D (980)", color: .secondary, filled: false),
+                    TutorCanvasShape(id: "false_pos", kind: .rect, x: 250, y: 410, width: 520, height: 110, text: "False Positives FP = 49", color: .warning, filled: true),
+                    TutorCanvasShape(id: "post_note", kind: .text, x: 790, y: 260, text: "P(D|+) = 19/68 ≈ 27.9%", color: .success)
+                ]
+            )
+        case .matrixDeterminant:
+            return TutorCanvas(
+                title: "2×2 Matrix Transformation & Determinant Area",
+                caption: "Columns Aî = (a, c) and Aĵ = (b, d) span a parallelogram of area det(A) = ad − bc.",
+                showGrid: true,
+                shapes: [
+                    TutorCanvasShape(id: "unit_sq", kind: .rect, x: 140, y: 340, width: 140, height: 140, text: "Unit 1×1 Square", color: .secondary, filled: true),
+                    TutorCanvasShape(id: "col_1", kind: .arrow, x: 420, y: 460, x2: 740, y2: 380, text: "Aî = (a, c)", color: .accent),
+                    TutorCanvasShape(id: "col_2", kind: .arrow, x: 420, y: 460, x2: 520, y2: 180, text: "Aĵ = (b, d)", color: .secondary),
+                    TutorCanvasShape(id: "top_edge", kind: .line, x: 520, y: 180, x2: 840, y2: 100, text: "Area = det(A) = ad − bc", color: .success),
+                    TutorCanvasShape(id: "right_edge", kind: .line, x: 740, y: 380, x2: 840, y2: 100, text: "", color: .success)
                 ]
             )
         }

@@ -366,14 +366,14 @@ export function particles(parent, count, { radius = 0.05, color = 'red', axes, n
   const m4 = new THREE.Matrix4(), p = V();
   return {
     object, labels: [],
-    set(i, xyz) { point(to, xyz, p); object.setMatrixAt(i, m4.makeTranslation(p.x, p.y, p.z)); object.instanceMatrix.needsUpdate = true; object.boundingSphere = null; },
-    show(n) { object.count = Math.max(0, Math.min(count, n)); },
+    set(i, xyz) { point(to, xyz, p); object.setMatrixAt(i, m4.makeTranslation(p.x, p.y, p.z)); object.instanceMatrix.needsUpdate = true; object.boundingSphere = null; object.boundingBox = null; },
+    show(n) { object.count = Math.max(0, Math.min(count, n)); object.boundingSphere = null; object.boundingBox = null; },
   };
 }
 
 // covalent radii, Å (Cordero et al. 2008)
 const COV = { H: 0.31, B: 0.84, C: 0.76, N: 0.71, O: 0.66, F: 0.57, Si: 1.11, P: 1.07, S: 1.05, Cl: 1.02, Br: 1.2, I: 1.39 };
-const ELEM_PAL = { C: 'ink', H: 'paper', N: 'blue', O: 'red', S: 'ochre' };
+const ELEM_PAL = { C: 'ink', H: 'paper', N: 'blue', O: 'red', P: 'ochre', S: 'ochre' };
 export function parseXYZ(xyz) {
   const rows = xyz.trim().split('\n'), body = /^\s*\d+\s*$/.test(rows[0]) ? rows.slice(2, 2 + +rows[0]) : rows;
   return body.map(l => l.trim().split(/\s+/)).filter(w => w.length >= 4).map(([e, ...c]) => ({ elem: e[0].toUpperCase() + e.slice(1).toLowerCase(), pos: c.slice(0, 3).map(Number) }));
