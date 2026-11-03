@@ -18,6 +18,8 @@ packages:
   GRDB:
     url: https://github.com/groue/GRDB.swift.git
     from: "6.24.0"
+  TeachingKit:
+    path: ../../teaching_kit
 
 targets:
   KymMaths:
@@ -37,6 +39,8 @@ targets:
     dependencies:
       - package: GRDB
         product: GRDB
+      - package: TeachingKit
+        product: KymDesign
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.kymaia.maths
@@ -75,6 +79,8 @@ targets:
     dependencies:
       - package: GRDB
         product: GRDB
+      - package: TeachingKit
+        product: KymDesign
     info:
       path: KymMaths/Info-iPad.plist
       properties:

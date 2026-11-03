@@ -4,7 +4,12 @@ import SwiftUI
 
 @main
 struct KymMathsApp: App {
-    @State private var store = AppStore()
+    @State private var store: AppStore
+
+    init() {
+        CuratedColorScheme.registerAsKymaiaTheme()
+        _store = State(initialValue: AppStore())
+    }
 
     var body: some Scene {
         WindowGroup {

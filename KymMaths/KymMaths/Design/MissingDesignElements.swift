@@ -1,16 +1,5 @@
 import SwiftUI
 
-// MARK: - Corner radii (the one scale)
-public enum CornerRadius {
-    public static let micro: CGFloat = 4
-    public static let small: CGFloat = 8
-    public static let medium: CGFloat = 14
-    public static let large: CGFloat = 18
-    public static let extraLarge: CGFloat = 26
-    /// Every card's corner: set by the chosen theme.
-    public static var card: CGFloat { CuratedColorScheme.current.style.cardRadius }
-}
-
 // MARK: - Missing Colors
 extension Color {
     public static var masteryLearning: Color { Color.kymaiaPrimary }
@@ -55,12 +44,6 @@ extension Font {
     }
     public static var kymaiaCaption2: Font { .caption2 }
     public static var kymaiaMonospaced: Font { .system(.callout, design: .monospaced) }
-}
-
-extension Animation {
-    public static let kymaiaStandard = Animation.spring(response: 0.4, dampingFraction: 0.6)
-    public static let kymaiaFast = Animation.easeOut(duration: 0.2)
-    public static let kymaiaQuick = Animation.easeOut(duration: 0.2)
 }
 
 extension StrokeWidth {
