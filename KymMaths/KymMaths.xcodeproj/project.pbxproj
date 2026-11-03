@@ -56,6 +56,7 @@
 		81AD8252D70070D6DC5FDEC9 /* TutorCanvasEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DB198D93D535056F0BC2E0 /* TutorCanvasEngine.swift */; };
 		8219E12C6D7D6490E892756D /* MathsScratchpadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFAE40635495E5AD63003F9 /* MathsScratchpadView.swift */; };
 		82A14B1594B0631C6172F891 /* MissingDesignElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41CF12BC90D33476C80DA5F /* MissingDesignElements.swift */; };
+		83AD5E5A4B3BD3F201E2BC51 /* KymLearning in Frameworks */ = {isa = PBXBuildFile; productRef = AC0A96A710F6DBCC1DB4D47D /* KymLearning */; };
 		8712DD24F5ECF7D128EFCF62 /* JournalPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8354EF0023AF306FE6783B6E /* JournalPaper.swift */; };
 		8BF72DEF1A548F9497CA8976 /* SeedPackModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDD75ED6882912482DEE178 /* SeedPackModels.swift */; };
 		9043D80D98AC7FD707E345A0 /* KymDesignExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9580C4310B6A226F00755883 /* KymDesignExport.swift */; };
@@ -107,6 +108,7 @@
 		EA0464E419B3910E178C4A1B /* JournalRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B19A7C85527ADEBAD024F0 /* JournalRow.swift */; };
 		EFE8934C41BC1AD03D64874A /* AdvancedAIPedagogyEngines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF8CBF631D51D7A89E2B7 /* AdvancedAIPedagogyEngines.swift */; };
 		F103CB51BE1A8EFF5B4BA30A /* TodayHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B8B5B1FBF210293D430BBA /* TodayHomeView.swift */; };
+		F5184210F98F2F3B92B55DD6 /* KymLearning in Frameworks */ = {isa = PBXBuildFile; productRef = 5C4E115569DF698E731BE8E4 /* KymLearning */; };
 		FC89039DFF1CFA7E3ABC0BE2 /* KymDesign in Frameworks */ = {isa = PBXBuildFile; productRef = A4DCB1779ACDDFED5F6AF76D /* KymDesign */; };
 		FD116EBF392C6AA54FD115F4 /* KymMathsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48816A9525967912876C42A /* KymMathsApp.swift */; };
 		FD6CB4D33209250ABB441938 /* JournalCardParts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5036835CEA79609FFD85EA33 /* JournalCardParts.swift */; };
@@ -201,6 +203,7 @@
 			files = (
 				480F7A752FB414977F4A1584 /* GRDB in Frameworks */,
 				FC89039DFF1CFA7E3ABC0BE2 /* KymDesign in Frameworks */,
+				F5184210F98F2F3B92B55DD6 /* KymLearning in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,6 +213,7 @@
 			files = (
 				7B81DF9C601DFFBF8D107513 /* GRDB in Frameworks */,
 				30D14E317EB3CDC8C094164F /* KymDesign in Frameworks */,
+				83AD5E5A4B3BD3F201E2BC51 /* KymLearning in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -524,6 +528,7 @@
 			packageProductDependencies = (
 				0F91866900AE7816866A10E4 /* GRDB */,
 				A4DCB1779ACDDFED5F6AF76D /* KymDesign */,
+				5C4E115569DF698E731BE8E4 /* KymLearning */,
 			);
 			productName = "KymMaths-iPad";
 			productReference = C20E2798CF589C928229BBE1 /* KymMaths-iPad.app */;
@@ -545,6 +550,7 @@
 			packageProductDependencies = (
 				B7521A0BF0C2B56E435CC884 /* GRDB */,
 				85FA254BF7FA5BEDB125FFAA /* KymDesign */,
+				AC0A96A710F6DBCC1DB4D47D /* KymLearning */,
 			);
 			productName = KymMaths;
 			productReference = 9D22B0CB8F90E5F10BF12F8C /* KymMaths.app */;
@@ -1115,6 +1121,10 @@
 			package = A1FDF51F128EECE36EA5D99D /* XCRemoteSwiftPackageReference "GRDB.swift" */;
 			productName = GRDB;
 		};
+		5C4E115569DF698E731BE8E4 /* KymLearning */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KymLearning;
+		};
 		85FA254BF7FA5BEDB125FFAA /* KymDesign */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = KymDesign;
@@ -1122,6 +1132,10 @@
 		A4DCB1779ACDDFED5F6AF76D /* KymDesign */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = KymDesign;
+		};
+		AC0A96A710F6DBCC1DB4D47D /* KymLearning */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KymLearning;
 		};
 		B7521A0BF0C2B56E435CC884 /* GRDB */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -19,7 +19,8 @@ let package = Package(
             name: "KymMaths",
             dependencies: [
                 .product(name: "GRDB", package: "GRDB.swift"),
-                .product(name: "KymDesign", package: "teaching_kit")
+                .product(name: "KymDesign", package: "teaching_kit"),
+                .product(name: "KymLearning", package: "teaching_kit")
             ],
             path: "KymMaths",
             exclude: [

@@ -41,6 +41,8 @@ targets:
         product: GRDB
       - package: TeachingKit
         product: KymDesign
+      - package: TeachingKit
+        product: KymLearning
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.kymaia.maths
@@ -81,6 +83,8 @@ targets:
         product: GRDB
       - package: TeachingKit
         product: KymDesign
+      - package: TeachingKit
+        product: KymLearning
     info:
       path: KymMaths/Info-iPad.plist
       properties:
