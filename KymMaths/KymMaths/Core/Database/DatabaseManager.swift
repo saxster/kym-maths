@@ -242,9 +242,14 @@ final class DatabaseManager: Sendable {
     }
 
     private static func resolveDatabaseDirectory() -> URL {
+        // Only the iPad build holds the app-group entitlement. macOS returns a group path even without it,
+        // and then refuses the database there (SQLite error 23, authorization denied) unless the app was
+        // started from a terminal, so the Mac build keeps its data in Application Support.
+        #if os(iOS)
         if let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.kymaia.science") {
             return groupURL.appendingPathComponent("KymMathsDB", isDirectory: true)
         }
+        #endif
         let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
         return appSupport.appendingPathComponent("KymMaths", isDirectory: true)
     }

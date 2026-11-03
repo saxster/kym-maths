@@ -93,9 +93,9 @@ struct TodayHomeView: View {
                 }
             }
 
-            // 2. FSRS v4 Spaced Retrieval Queue
+            // 2. FSRS v5 Spaced Retrieval Queue
             JournalSection(
-                title: "Spaced Retrieval Queue (FSRS v4)",
+                title: "Spaced Retrieval Queue (FSRS v5)",
                 eyebrow: "Step 1 · Lock Formulas & Invariants Into Long-Term Memory"
             ) {
                 if let card = store.dueFSRSCards.first {

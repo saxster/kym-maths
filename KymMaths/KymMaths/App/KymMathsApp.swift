@@ -25,11 +25,19 @@ struct KymMathsApp: App {
 struct KymMathsRootView: View {
     @Bindable var store: AppStore
 
+    // iOS lists only take an optional selection; the sidebar never clears the room.
+    private var roomSelection: Binding<AppRoom?> {
+        Binding(
+            get: { store.activeRoom },
+            set: { if let room = $0 { store.activeRoom = room } }
+        )
+    }
+
     var body: some View {
         let tokens = ThemeTokens.tokens(for: store.colorScheme)
 
         NavigationSplitView {
-            List(AppRoom.allCases, selection: $store.activeRoom) { room in
+            List(AppRoom.allCases, selection: roomSelection) { room in
                 Label(room.title, systemImage: room.systemImage)
                     .tag(room)
             }

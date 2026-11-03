@@ -10,6 +10,6 @@ Mathematics from the tally bone and Singapore bar model to Set Theory & Formal L
 2. **`KymMaths/` — Native iPadOS 27 & macOS Application:**
    - **Apple Journal Design System (`Design/Journal/`)** with 9 WCAG-verified themes (defaulting to `.journal` Apple Journal Lavender, plus `.euclid` *Patterned World*, `.monsoon` Marine Drive, and full customisation in Settings).
    - **OUP *Cambridge Lower Secondary Complete Mathematics 8 (2nd Edition)* by Deborah Barton** (`Ch 1–16` + `Reviews A, B, C`, pp. 5–260) paired with a **Built-In 3-Tier Singapore & Checkpoint Companion Workbook** so Kym never lacks structured workbook practice.
-   - **3-Database GRDB Spine (`kb.sqlite`, `state.sqlite`, `mnemosyne.sqlite`)** with FSRS v4 spaced repetition, BKT mastery tracking, and strict assisted-vs-independent `QuestionProofLevel` verification.
+   - **3-Database GRDB Spine (`kb.sqlite`, `state.sqlite`, `mnemosyne.sqlite`)** with FSRS v5 spaced repetition, BKT mastery tracking, and strict assisted-vs-independent `QuestionProofLevel` verification.
    - **Deep Apple Pencil (`PencilKit`) Workflows:** Split-screen working canvas with 8 mathematical stamps (Singapore Bar Model, 3-Set Venn & Logic Grid, Unit Circle, Bayes 1000-Square, Algebra Area Box, 2×2 Matrix Grid, Coordinate Axes, Slope Triangle) and 16 3-tier Visual Proof & Construction Recall Plates.
    - **Pólya *How to Solve It* Studio, SpeedMath Mental Fluency, Visual MathTips, Socratic AI Coach, and 21 Wolfram-Audited Symbolic/Quantitative Templates.**

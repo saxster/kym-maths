@@ -20,9 +20,12 @@ enum SystemSurfaceSnapshotStore {
     static let fileName = "kymmaths-widget-snapshot.json"
 
     static func snapshotURL() -> URL {
+        // The widgets that read this are iPad-only, and only the iPad build may use the app group.
+        #if os(iOS)
         if let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.kymaia.science") {
             return groupURL.appendingPathComponent(fileName)
         }
+        #endif
         let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
         try? FileManager.default.createDirectory(at: appSupport, withIntermediateDirectories: true)
         return appSupport.appendingPathComponent(fileName)
