@@ -22,6 +22,12 @@ struct KymMathsApp: App {
                     }
             }
         }
+        #if os(macOS)
+        Settings {
+            StandardAppearanceSettings(appName: "KymMaths")
+                .standardThemeHost(rebuildsOnThemeChange: false)
+        }
+        #endif
     }
 }
 
