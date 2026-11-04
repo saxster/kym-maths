@@ -18,7 +18,6 @@
 		11AAD67FD9418B435D5654F1 /* TodayHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B8B5B1FBF210293D430BBA /* TodayHomeView.swift */; };
 		1D273B22BDAAE654E5EBBFA1 /* SemanticStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98BA9A23593CA5FD7D3747 /* SemanticStyles.swift */; };
 		1DD89161C4ACBE6C4AE98340 /* STEMVerificationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472088539BE760CF1692992B /* STEMVerificationEngine.swift */; };
-		1E9AEA08B87CF0480057E9F2 /* ThemeTokensBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920C41CD9368662D11681A6B /* ThemeTokensBridge.swift */; };
 		1EC25236CD7B9365EB4635D6 /* CalendarHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D2F885D939D4AF1E09D412 /* CalendarHomeView.swift */; };
 		2312CD00A524EAE72DC10722 /* KymTutorAI in Frameworks */ = {isa = PBXBuildFile; productRef = F7295DAC5D15144FB490B97A /* KymTutorAI */; };
 		23B0CD4FFEF78BB7056294FC /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C53EB16B46F825B1999FFE4 /* ColorExtensions.swift */; };
@@ -29,26 +28,23 @@
 		2E0977BC7F08E666197C76D7 /* SeedPackModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDD75ED6882912482DEE178 /* SeedPackModels.swift */; };
 		2E216AD88A381B7788FBD96B /* AIFeatureKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E298CBDC92B37AD6CCD596 /* AIFeatureKey.swift */; };
 		30D14E317EB3CDC8C094164F /* KymDesign in Frameworks */ = {isa = PBXBuildFile; productRef = 85FA254BF7FA5BEDB125FFAA /* KymDesign */; };
+		3A4A5A39E22E951F70943E36 /* JournalBridges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE1C84C047042A0FE8BE171 /* JournalBridges.swift */; };
 		3A76FA8E1D2EA373E4FEA66D /* KymMathsProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B645FBF7198CDC72BC6F0A6 /* KymMathsProfile.swift */; };
 		3C10D8627475F54CF8F33C5C /* AIFeatureKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E298CBDC92B37AD6CCD596 /* AIFeatureKey.swift */; };
 		3C3AFB2742372D4C2C7608F3 /* JournalCardParts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5036835CEA79609FFD85EA33 /* JournalCardParts.swift */; };
 		3CCC5188306D920A138D77BC /* ThemeCharacterizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A4BC5EF3D4DA66972985A /* ThemeCharacterizationTests.swift */; };
 		3E7A4F376BD0EBC174960203 /* PatternedWorldBook in Resources */ = {isa = PBXBuildFile; fileRef = 2A38D288E5A8D98776CA488B /* PatternedWorldBook */; };
-		45362E8F74E742A702D7AE9F /* CuratedColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0DBF14DFE3846749A8047 /* CuratedColorScheme.swift */; };
 		480F7A752FB414977F4A1584 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 0F91866900AE7816866A10E4 /* GRDB */; };
 		482C9F55DB77F8C08F4E9957 /* SchoolMathsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA29A7C3025EB034F6E598F8 /* SchoolMathsHomeView.swift */; };
 		4876E47F1D1A4E2D4C5910BF /* ContentPacks in Resources */ = {isa = PBXBuildFile; fileRef = FC5E968CEEE19955E9CB2DAE /* ContentPacks */; };
-		4AB82175FAEB83765E311532 /* ThemePickerMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DC34314CA4FF06E66CD3E4 /* ThemePickerMenu.swift */; };
 		4CF17D977F236F18A8949B23 /* PatternedWorldBook in Resources */ = {isa = PBXBuildFile; fileRef = 2A38D288E5A8D98776CA488B /* PatternedWorldBook */; };
 		4D6562E368EF353768BB0F43 /* SystemSurfaceSnapshotStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73763B9E1D3039C1E9C4AB5B /* SystemSurfaceSnapshotStore.swift */; };
 		5322DFABB61BBEE496ADD305 /* PolicyDrivenAIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C78793C33CEEB8AEFDB87C5 /* PolicyDrivenAIProvider.swift */; };
 		55312FC5D41716C8A48C8F3F /* AgentSoulDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFF11E613DA5975AB669E8 /* AgentSoulDocument.swift */; };
 		5793B7EEE658F57FF0842556 /* PatternedWorldHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C1F14EF6D94BCEE33EDF90 /* PatternedWorldHomeView.swift */; };
 		57F3B95C58378EE3651286B4 /* JournalPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B32A0CA05B54F7C1A6E2BA /* JournalPage.swift */; };
-		6B7CFCC1D574EB5F003849E6 /* CuratedColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE0DBF14DFE3846749A8047 /* CuratedColorScheme.swift */; };
 		6C2D0E3D46D5B89186EF44F1 /* JournalEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4173B76AB64277E0CBD69473 /* JournalEmptyState.swift */; };
 		6FB4703E7D7E61AA7759ECF4 /* PatternedWorldWebStageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DD6A6AE6D9FB5B8A7419FE /* PatternedWorldWebStageView.swift */; };
-		6FC26D320079820F00A4EBE5 /* ThemePickerMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DC34314CA4FF06E66CD3E4 /* ThemePickerMenu.swift */; };
 		7110F2B561C6D750677CF9AA /* TutorProfileRegistrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616A5CD3B25E7FB1261CE0D1 /* TutorProfileRegistrationTests.swift */; };
 		71BE22A65B722A54D83008B0 /* PolyaFluencyHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9427F05150134B15A68F66 /* PolyaFluencyHomeView.swift */; };
 		73BD847F416077C839A18854 /* AgentSoulDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFF11E613DA5975AB669E8 /* AgentSoulDocument.swift */; };
@@ -70,7 +66,7 @@
 		98F96414E9395FE4393E29A4 /* PatternedWorldWebStageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DD6A6AE6D9FB5B8A7419FE /* PatternedWorldWebStageView.swift */; };
 		99AA481B5FB05313F797A596 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156FB0647550A01C48704221 /* DatabaseManager.swift */; };
 		9AF922EE8CA158E7098B005D /* PolyaFluencyHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9427F05150134B15A68F66 /* PolyaFluencyHomeView.swift */; };
-		9B2625630462F31106907B43 /* ThemeTokensBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920C41CD9368662D11681A6B /* ThemeTokensBridge.swift */; };
+		9C9C0407BF60CEB78CE71B37 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD45FA29AF8FADF1BF0C51DC /* AppTheme.swift */; };
 		9CE65E1492B0CEAD7B6C1030 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = DEA986FEFFC75AD4311FBEAC /* GRDB */; };
 		A09C9B1D9A7A6B0FA1194C47 /* KymMathsAppIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE18E8E73216B45DE7361C45 /* KymMathsAppIntents.swift */; };
 		A4F609CDA38764EAD22FC501 /* STEMVerificationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472088539BE760CF1692992B /* STEMVerificationEngine.swift */; };
@@ -81,6 +77,7 @@
 		AA8D6F3913BD922370A41CB4 /* JournalCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1F5752D44BE7EF4D8BE9D1 /* JournalCard.swift */; };
 		AADBB57C817AEC421460E8E5 /* ContentPacks in Resources */ = {isa = PBXBuildFile; fileRef = FC5E968CEEE19955E9CB2DAE /* ContentPacks */; };
 		AB147378E39BD93BBE0B4D33 /* TutorCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122B93E0119F72B029B814CF /* TutorCanvasView.swift */; };
+		AD8AE15B3BC609C72E55DCBD /* JournalBridges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE1C84C047042A0FE8BE171 /* JournalBridges.swift */; };
 		AD931726ED23CF29EEF3A99E /* KymDesignExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9580C4310B6A226F00755883 /* KymDesignExport.swift */; };
 		AE418FACA3CAC65982B02F4D /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C53EB16B46F825B1999FFE4 /* ColorExtensions.swift */; };
 		AE6EBE3D0B4C0E2077286811 /* AdvancedAIPedagogyEngines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF8CBF631D51D7A89E2B7 /* AdvancedAIPedagogyEngines.swift */; };
@@ -106,6 +103,7 @@
 		DF8944F6DC11990ED5C7EDAD /* LabsAtlasHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E587ED43C4F9E158A98BFEC8 /* LabsAtlasHomeView.swift */; };
 		E039B4AFFE3D21F205FCD1E6 /* MathsCoachView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAE38307D0B53EB5B3CE05F /* MathsCoachView.swift */; };
 		E0EE6FC48E6CCD96D31FDA61 /* JournalPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B32A0CA05B54F7C1A6E2BA /* JournalPage.swift */; };
+		E18D81EB9D8708C6D63C570C /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD45FA29AF8FADF1BF0C51DC /* AppTheme.swift */; };
 		E2DDC0AA994AE829E800AD17 /* SemanticStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98BA9A23593CA5FD7D3747 /* SemanticStyles.swift */; };
 		E58C9AA80E04CD6398CB3CD2 /* PatternedWorldHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C1F14EF6D94BCEE33EDF90 /* PatternedWorldHomeView.swift */; };
 		EA015C0F92FC8E918BBA8C1D /* LearningEngines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BD99A8624A92C5BD4B8DF8 /* LearningEngines.swift */; };
@@ -144,7 +142,6 @@
 		2A9427F05150134B15A68F66 /* PolyaFluencyHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyaFluencyHomeView.swift; sourceTree = "<group>"; };
 		31DB198D93D535056F0BC2E0 /* TutorCanvasEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorCanvasEngine.swift; sourceTree = "<group>"; };
 		35B19A7C85527ADEBAD024F0 /* JournalRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalRow.swift; sourceTree = "<group>"; };
-		37DC34314CA4FF06E66CD3E4 /* ThemePickerMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePickerMenu.swift; sourceTree = "<group>"; };
 		37F7F8FE6E96AA2585376DA5 /* KymMaths.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KymMaths.entitlements; sourceTree = "<group>"; };
 		3B8233C6B299BC04DD6E561F /* MathsSafetyBindings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathsSafetyBindings.swift; sourceTree = "<group>"; };
 		3FEC0C3948CDDBBDF844FFBD /* KymMathsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KymMathsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -157,7 +154,6 @@
 		533BF8CBF631D51D7A89E2B7 /* AdvancedAIPedagogyEngines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedAIPedagogyEngines.swift; sourceTree = "<group>"; };
 		53BFF11E613DA5975AB669E8 /* AgentSoulDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentSoulDocument.swift; sourceTree = "<group>"; };
 		5C53EB16B46F825B1999FFE4 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
-		5FE0DBF14DFE3846749A8047 /* CuratedColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuratedColorScheme.swift; sourceTree = "<group>"; };
 		616A5CD3B25E7FB1261CE0D1 /* TutorProfileRegistrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorProfileRegistrationTests.swift; sourceTree = "<group>"; };
 		6BC8B11130353FC5CF72FBB3 /* LearningEngineCharacterizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningEngineCharacterizationTests.swift; sourceTree = "<group>"; };
 		6C78793C33CEEB8AEFDB87C5 /* PolicyDrivenAIProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyDrivenAIProvider.swift; sourceTree = "<group>"; };
@@ -166,10 +162,10 @@
 		7DD4442D2F7FB6CD77CDEF53 /* MathsMentorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathsMentorService.swift; sourceTree = "<group>"; };
 		8354EF0023AF306FE6783B6E /* JournalPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalPaper.swift; sourceTree = "<group>"; };
 		86B46C98F303914A0F5C6D18 /* QuestionProofPracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionProofPracticeView.swift; sourceTree = "<group>"; };
+		8AE1C84C047042A0FE8BE171 /* JournalBridges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalBridges.swift; sourceTree = "<group>"; };
 		8B645FBF7198CDC72BC6F0A6 /* KymMathsProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KymMathsProfile.swift; sourceTree = "<group>"; };
 		8EC928AAB1B02C225627B926 /* KymMaths-iPad.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "KymMaths-iPad.entitlements"; sourceTree = "<group>"; };
 		90D2F885D939D4AF1E09D412 /* CalendarHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHomeView.swift; sourceTree = "<group>"; };
-		920C41CD9368662D11681A6B /* ThemeTokensBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTokensBridge.swift; sourceTree = "<group>"; };
 		9580C4310B6A226F00755883 /* KymDesignExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KymDesignExport.swift; sourceTree = "<group>"; };
 		9D22B0CB8F90E5F10BF12F8C /* KymMaths.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KymMaths.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DED304239C5F1518DC70AD1 /* MathsSettingsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathsSettingsSheet.swift; sourceTree = "<group>"; };
@@ -178,6 +174,7 @@
 		AE18E8E73216B45DE7361C45 /* KymMathsAppIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KymMathsAppIntents.swift; sourceTree = "<group>"; };
 		BA29A7C3025EB034F6E598F8 /* SchoolMathsHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolMathsHomeView.swift; sourceTree = "<group>"; };
 		BA3A4BC5EF3D4DA66972985A /* ThemeCharacterizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeCharacterizationTests.swift; sourceTree = "<group>"; };
+		BD45FA29AF8FADF1BF0C51DC /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		BE1F5752D44BE7EF4D8BE9D1 /* JournalCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalCard.swift; sourceTree = "<group>"; };
 		BEAA5E7C075A07F21C66A716 /* QuantitativeMathsEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantitativeMathsEngine.swift; sourceTree = "<group>"; };
 		C02B9F0D1042BC7376621ADA /* KymMathsWidgetViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KymMathsWidgetViews.swift; sourceTree = "<group>"; };
@@ -232,12 +229,11 @@
 		0216273130EBAACB84BD7E7A /* Design */ = {
 			isa = PBXGroup;
 			children = (
+				BD45FA29AF8FADF1BF0C51DC /* AppTheme.swift */,
 				5C53EB16B46F825B1999FFE4 /* ColorExtensions.swift */,
-				5FE0DBF14DFE3846749A8047 /* CuratedColorScheme.swift */,
+				8AE1C84C047042A0FE8BE171 /* JournalBridges.swift */,
 				F41CF12BC90D33476C80DA5F /* MissingDesignElements.swift */,
 				DB98BA9A23593CA5FD7D3747 /* SemanticStyles.swift */,
-				920C41CD9368662D11681A6B /* ThemeTokensBridge.swift */,
-				3FFE6C4B6A079951A300C7DC /* Components */,
 				17D567DC614E4BDA80EFBA6B /* Journal */,
 			);
 			path = Design;
@@ -320,14 +316,6 @@
 				90D2F885D939D4AF1E09D412 /* CalendarHomeView.swift */,
 			);
 			path = Calendar;
-			sourceTree = "<group>";
-		};
-		3FFE6C4B6A079951A300C7DC /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				37DC34314CA4FF06E66CD3E4 /* ThemePickerMenu.swift */,
-			);
-			path = Components;
 			sourceTree = "<group>";
 		};
 		48ACACEE609A3AD05C7769B1 /* Settings */ = {
@@ -675,10 +663,11 @@
 				EFE8934C41BC1AD03D64874A /* AdvancedAIPedagogyEngines.swift in Sources */,
 				73BD847F416077C839A18854 /* AgentSoulDocument.swift in Sources */,
 				B953C95F5286F9C928201841 /* AppStore.swift in Sources */,
+				9C9C0407BF60CEB78CE71B37 /* AppTheme.swift in Sources */,
 				27AE2BA3796D1A835D293477 /* CalendarHomeView.swift in Sources */,
 				23B0CD4FFEF78BB7056294FC /* ColorExtensions.swift in Sources */,
-				6B7CFCC1D574EB5F003849E6 /* CuratedColorScheme.swift in Sources */,
 				99AA481B5FB05313F797A596 /* DatabaseManager.swift in Sources */,
+				AD8AE15B3BC609C72E55DCBD /* JournalBridges.swift in Sources */,
 				B6DEC981910CB72FEF0EA6F4 /* JournalCard.swift in Sources */,
 				FD6CB4D33209250ABB441938 /* JournalCardParts.swift in Sources */,
 				CDABC512B8534489E0390C0A /* JournalEmptyState.swift in Sources */,
@@ -712,8 +701,6 @@
 				E2DDC0AA994AE829E800AD17 /* SemanticStyles.swift in Sources */,
 				4D6562E368EF353768BB0F43 /* SystemSurfaceSnapshotStore.swift in Sources */,
 				DBDE25C92F8F55F016FC2138 /* TextbookPageScannerSheet.swift in Sources */,
-				6FC26D320079820F00A4EBE5 /* ThemePickerMenu.swift in Sources */,
-				1E9AEA08B87CF0480057E9F2 /* ThemeTokensBridge.swift in Sources */,
 				F103CB51BE1A8EFF5B4BA30A /* TodayHomeView.swift in Sources */,
 				81AD8252D70070D6DC5FDEC9 /* TutorCanvasEngine.swift in Sources */,
 				AB147378E39BD93BBE0B4D33 /* TutorCanvasView.swift in Sources */,
@@ -739,10 +726,11 @@
 				AE6EBE3D0B4C0E2077286811 /* AdvancedAIPedagogyEngines.swift in Sources */,
 				55312FC5D41716C8A48C8F3F /* AgentSoulDocument.swift in Sources */,
 				BA884C6049430CEAE51CF7F1 /* AppStore.swift in Sources */,
+				E18D81EB9D8708C6D63C570C /* AppTheme.swift in Sources */,
 				1EC25236CD7B9365EB4635D6 /* CalendarHomeView.swift in Sources */,
 				AE418FACA3CAC65982B02F4D /* ColorExtensions.swift in Sources */,
-				45362E8F74E742A702D7AE9F /* CuratedColorScheme.swift in Sources */,
 				7CFCF7E5291681E327466097 /* DatabaseManager.swift in Sources */,
+				3A4A5A39E22E951F70943E36 /* JournalBridges.swift in Sources */,
 				AA8D6F3913BD922370A41CB4 /* JournalCard.swift in Sources */,
 				3C3AFB2742372D4C2C7608F3 /* JournalCardParts.swift in Sources */,
 				6C2D0E3D46D5B89186EF44F1 /* JournalEmptyState.swift in Sources */,
@@ -776,8 +764,6 @@
 				1D273B22BDAAE654E5EBBFA1 /* SemanticStyles.swift in Sources */,
 				FF165C37C861FBFCB7CD0C69 /* SystemSurfaceSnapshotStore.swift in Sources */,
 				D2BC7F559FC255D2A9111CDC /* TextbookPageScannerSheet.swift in Sources */,
-				4AB82175FAEB83765E311532 /* ThemePickerMenu.swift in Sources */,
-				9B2625630462F31106907B43 /* ThemeTokensBridge.swift in Sources */,
 				11AAD67FD9418B435D5654F1 /* TodayHomeView.swift in Sources */,
 				0822FD3BA476CAF876B823AD /* TutorCanvasEngine.swift in Sources */,
 				80DBC3DBF94F009AFBB610F5 /* TutorCanvasView.swift in Sources */,

@@ -6,7 +6,6 @@ struct TextbookPageScannerSheet: View {
     let topic: SchoolMathsTopic
     @Bindable var store: AppStore
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.themeTokens) private var tokens
 
     @State private var bookType: String = "learners_book"
     @State private var pageNumber: Int = 7
@@ -23,12 +22,12 @@ struct TextbookPageScannerSheet: View {
                         VStack(alignment: .leading, spacing: Spacing.md) {
                             Text("Capture or paste an exercise, teacher note, or worked problem from Kym's physical Oxford Cambridge Lower Secondary Complete Mathematics 8 textbook so it stays indexed beside Topic \(topic.code).")
                                 .font(Typography.callout)
-                                .foregroundStyle(tokens.secondary)
+                                .foregroundStyle(Color.kymaiaMutedInk)
 
                             HStack(spacing: Spacing.md) {
                                 Text("Page Number:")
                                     .font(Typography.subheadline.weight(.semibold))
-                                    .foregroundStyle(tokens.primary)
+                                    .foregroundStyle(Color.kymaiaInk)
                                 Stepper(value: $pageNumber, in: 1...265) {
                                     Text("p. \(pageNumber)")
                                         .font(Typography.mono)
@@ -38,17 +37,17 @@ struct TextbookPageScannerSheet: View {
                             VStack(alignment: .leading, spacing: Spacing.xs) {
                                 Text("Extracted Problem or Margin Note")
                                     .font(Typography.subheadline.weight(.semibold))
-                                    .foregroundStyle(tokens.primary)
+                                    .foregroundStyle(Color.kymaiaInk)
                                 TextEditor(text: $ocrText)
                                     .frame(minHeight: 160)
                                     .padding(Spacing.xs)
                                     .background(
                                         RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                                            .fill(tokens.surfaceElevated)
+                                            .fill(Color.kymaiaElevatedSurface)
                                     )
                                     .overlay(
                                         RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                                            .strokeBorder(tokens.borderSubtle, lineWidth: 1)
+                                            .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
                                     )
                             }
 

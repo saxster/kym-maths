@@ -5,17 +5,30 @@ import Testing
 @Suite("KymMaths Comprehensive Verification Suite")
 struct KymMathsTests {
 
-    @Test("All 9 CuratedColorScheme palettes pass WCAG contrast audit and default is .journal")
-    func testThemeTokensWCAGContrast() {
-        #expect(CuratedColorScheme.defaultScheme == .journal)
-        #expect(CuratedColorScheme.allCases.count == 9)
-
-        for scheme in CuratedColorScheme.allCases {
-            let tokens = ThemeTokens.tokens(for: scheme)
-            #expect(tokens.passesWCAGAudit(), "Palette \(scheme.rawValue) failed WCAG contrast audit")
-            #expect(tokens.primaryContrastRatio >= 7.0)
-            #expect(tokens.secondaryContrastRatio >= 4.5)
+    // Migrates a private defaults suite only: registering the theme runtime here would race the
+    // theme characterization suite, which runs in parallel and reads the global runtime.
+    @Test("Every old theme choice moves to a Standard theme; no choice means Vivid")
+    func testEveryOldThemeChoiceMovesToAStandardTheme() throws {
+        let oldIDs = ["journal", "euclid", "monsoon", "botanical", "sketchbook", "hearth", "scholar", "grove", "dusk", "not-a-theme"]
+        let suite = "KymMathsTests.theme.\(UUID().uuidString)"
+        let defaults = try #require(UserDefaults(suiteName: suite))
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let key = StandardThemeStore.subjectAppStorageKey
+        let expected = ["euclid": "parchment", "hearth": "sepia", "scholar": "sepia", "dusk": "dark-graphite"]
+        for oldID in oldIDs {
+            defaults.set(oldID, forKey: key)
+            StandardThemeStore.migrateLegacyChoice(in: defaults, legacy: AppTheme.legacy)
+            #expect(defaults.string(forKey: key) == (expected[oldID] ?? "vivid"), "\(oldID)")
         }
+        for standardID in [StandardTheme.systemID] + StandardTheme.all.map(\.id) {
+            defaults.set(standardID, forKey: key)
+            StandardThemeStore.migrateLegacyChoice(in: defaults, legacy: AppTheme.legacy)
+            #expect(defaults.string(forKey: key) == standardID, "a Standard choice is left alone: \(standardID)")
+        }
+        defaults.removeObject(forKey: key)
+        StandardThemeStore.migrateLegacyChoice(in: defaults, legacy: AppTheme.legacy)
+        #expect(defaults.string(forKey: key) == nil, "a learner who never chose keeps no stored choice")
+        #expect(StandardThemeStore.storedID(in: defaults) == "vivid", "and gets Vivid, the default")
     }
 
     @Test("SeedPack loads 21 Patterned World chapters with Intuition-to-Formula bridges and 16 OUP chapters")

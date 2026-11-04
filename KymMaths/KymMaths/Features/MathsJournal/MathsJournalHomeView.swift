@@ -4,7 +4,6 @@ import SwiftUI
 
 struct MathsJournalHomeView: View {
     @Bindable var store: AppStore
-    @Environment(\.themeTokens) private var tokens
 
     @State private var selectedEntryId: String?
     @State private var title: String = ""
@@ -35,10 +34,10 @@ struct MathsJournalHomeView: View {
                         VStack(alignment: .leading, spacing: 2) {
                             Text("MATHEMATICAL PROOF & CORNELL JOURNAL")
                                 .font(Typography.eyebrow)
-                                .foregroundStyle(tokens.accent)
+                                .foregroundStyle(Color.kymaiaPrimary)
                             Text("Conjectures, Invariants & Step-by-Step Proofs")
                                 .font(Typography.title2)
-                                .foregroundStyle(tokens.primary)
+                                .foregroundStyle(Color.kymaiaInk)
                         }
                         Spacer()
                         Button {
@@ -107,18 +106,18 @@ struct MathsJournalHomeView: View {
                             VStack(alignment: .leading, spacing: 4) {
                                 Text("KEY DEFINITIONS & AXIOMS")
                                     .font(Typography.eyebrow)
-                                    .foregroundStyle(tokens.accent)
+                                    .foregroundStyle(Color.kymaiaPrimary)
                                 TextEditor(text: $cueText)
                                     .frame(minHeight: 200)
                                     .padding(Spacing.xs)
-                                    .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(tokens.surfaceElevated))
+                                    .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(Color.kymaiaElevatedSurface))
                             }
                             .frame(width: 220)
 
                             VStack(alignment: .leading, spacing: 4) {
                                 Text("STEP-BY-STEP DERIVATION & VISUAL SKETCH NOTES")
                                     .font(Typography.eyebrow)
-                                    .foregroundStyle(tokens.accent)
+                                    .foregroundStyle(Color.kymaiaPrimary)
                                 ZStack {
                                     JournalPaperBackground(style: JournalPaperStyle(rawValue: paperStyle) ?? .grid)
                                         .clipShape(RoundedRectangle(cornerRadius: Spacing.radiusSM))
@@ -128,14 +127,14 @@ struct MathsJournalHomeView: View {
                                         .padding(Spacing.xs)
                                 }
                                 .frame(minHeight: 200)
-                                .overlay(RoundedRectangle(cornerRadius: Spacing.radiusSM).strokeBorder(tokens.borderSubtle, lineWidth: 1))
+                                .overlay(RoundedRectangle(cornerRadius: Spacing.radiusSM).strokeBorder(Color.kymaiaHairline, lineWidth: 1))
                             }
                         }
 
                         VStack(alignment: .leading, spacing: 4) {
                             Text("SUMMARY & GENERALISATION (LOOK BACK)")
                                 .font(Typography.eyebrow)
-                                .foregroundStyle(tokens.positive)
+                                .foregroundStyle(Color.kymaiaSuccess)
                             TextField("Summarise why this invariant holds in 1–2 sentences...", text: $summaryText)
                                 .textFieldStyle(.roundedBorder)
                         }
@@ -173,13 +172,13 @@ struct MathsJournalHomeView: View {
         VStack(alignment: .leading, spacing: 4) {
             Text(label)
                 .font(Typography.caption.weight(.bold))
-                .foregroundStyle(tokens.secondary)
+                .foregroundStyle(Color.kymaiaMutedInk)
             TextField(label, text: text)
                 .textFieldStyle(.roundedBorder)
                 .font(Typography.caption)
         }
         .padding(Spacing.xs)
-        .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(tokens.surfaceElevated))
+        .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(Color.kymaiaElevatedSurface))
     }
 
     private func loadEntry(_ entry: LabJournalEntryRecord) {

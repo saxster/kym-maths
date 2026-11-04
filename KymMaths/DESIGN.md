@@ -1,11 +1,8 @@
 # KymMaths Design System & Architecture Charter
 
-## 1. Visual Direction: Apple Journal for iPad + *The Patterned World*
-`KymMaths` uses the Apple Journal for iPad design kit (`Design/Journal/`) ported from `KymaiaTutor`:
-- **Default Theme (`.journal`):** Soft lavender page (`#F3F1F7` light / `#0E0E12` dark) with lifted pure-white cards (`#FFFFFF` light / `#1C1B22` dark) and iris violet (`#5856D6` / `#7D7AFF`).
-- **Signature Mathematics Theme (`.euclid` — *Patterned World*):** Warm drafting rag paper (`#F7F3E8` light / `#0D141C` dark), deep slate ink (`#1B2A38` / `#EDF3F8`), Byrne's *Euclid* Prussian blue (`#1E567C` / `#64B0E2`), and geometric vermilion (`#8A3B28` / `#E0866E`).
-- **Mumbai Coastal Theme (`.monsoon` — *Marine Drive*):** Coastal mist (`#F1F5F7` light / `#0C1418` dark), Arabian Sea teal (`#125E7A` / `#57B8D9`), and lantern gold (`#7A4A10` / `#E8B268`).
-- **Plus 6 Scholarly Themes:** `Living World`, `Sketchbook`, `Terracotta`, `Scholar`, `Grove`, and `Dusk` — all audited for WCAG AAA (`>= 7.0:1`) body ink and WCAG AA (`>= 4.5:1`) secondary/accent contrast, with full customisation in Settings.
+## 1. Visual Direction: The Standard
+`KymMaths` draws in **The Standard**, the design system it shares with the other subject apps and apple_poem. Tokens, colours, type, spacing, radii, motion and the screen components are defined once in teaching_kit; read [`teaching_kit/docs/STANDARD.md`](../../teaching_kit/docs/STANDARD.md) for the values. Do not restate them here.
+- **Themes:** the six Standard themes plus Follow System, Vivid by default. The choice is stored under `curatedColorScheme`; `Design/AppTheme.swift` moves a choice from the old catalogue to its Standard theme (`euclid` → Paper, `hearth` and `scholar` → Warm, `dusk` → Dusk, every other old id → Vivid). The picker is the kit's `StandardThemeMenu` in the toolbar and `StandardThemeGallery` in Settings.
 
 ## 2. School Spine, Built-In Singapore Companion Workbook & Advanced Horizon
 - Kym's school textbook is **Oxford University Press — Cambridge Lower Secondary Complete Mathematics 8 (Second Edition)** by **Deborah Barton** (`Ch 1–16` + `Reviews A, B, C`, pp. 5–260).

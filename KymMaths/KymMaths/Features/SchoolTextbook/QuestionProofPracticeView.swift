@@ -6,7 +6,6 @@ struct QuestionProofPracticeView: View {
     let question: SchoolMathsQuestion
     @Bindable var store: AppStore
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.themeTokens) private var tokens
 
     @State private var showWorkedExample = false
     @State private var showFadedScaffold = false
@@ -51,15 +50,15 @@ struct QuestionProofPracticeView: View {
 
                         Text(recommendedCPAStage.coachDirective)
                             .font(Typography.caption)
-                            .foregroundStyle(tokens.accent)
+                            .foregroundStyle(Color.kymaiaPrimary)
 
                         Text(question.bookSection)
                             .font(Typography.caption)
-                            .foregroundStyle(tokens.secondary)
+                            .foregroundStyle(Color.kymaiaMutedInk)
 
                         Text(question.prompt)
                             .font(Typography.title3)
-                            .foregroundStyle(tokens.primary)
+                            .foregroundStyle(Color.kymaiaInk)
 
                         // Scaffold controls (opening these marks usedAssistanceInSession = true)
                         HStack(spacing: Spacing.sm) {
@@ -106,10 +105,10 @@ struct QuestionProofPracticeView: View {
                         if usedAssistanceInSession {
                             HStack(spacing: Spacing.xs) {
                                 Image(systemName: "info.circle.fill")
-                                    .foregroundStyle(tokens.warning)
+                                    .foregroundStyle(Color.kymaiaWarning)
                                 Text("Guided mode active: Because you opened a scaffold, this attempt will record as Assisted Practice. Click 'Reset for Unassisted Proof' when ready to prove independently.")
                                     .font(Typography.caption)
-                                    .foregroundStyle(tokens.secondary)
+                                    .foregroundStyle(Color.kymaiaMutedInk)
                             }
                         }
                     }
@@ -125,7 +124,7 @@ struct QuestionProofPracticeView: View {
                             VStack(alignment: .leading, spacing: Spacing.sm) {
                                 Text(question.workedExample)
                                     .font(Typography.body)
-                                    .foregroundStyle(tokens.primary)
+                                    .foregroundStyle(Color.kymaiaInk)
                             }
                         }
                     }
@@ -141,13 +140,13 @@ struct QuestionProofPracticeView: View {
                             VStack(alignment: .leading, spacing: Spacing.sm) {
                                 Text(question.fadedPrompt)
                                     .font(Typography.subheadline)
-                                    .foregroundStyle(tokens.primary)
+                                    .foregroundStyle(Color.kymaiaInk)
                                 HStack {
                                     TextField("Fill in the blank...", text: $fadedInput)
                                         .textFieldStyle(.roundedBorder)
                                     Text("Target: \(question.fadedAnswer)")
                                         .font(Typography.mono)
-                                        .foregroundStyle(tokens.positive)
+                                        .foregroundStyle(Color.kymaiaSuccess)
                                 }
                             }
                         }
@@ -206,10 +205,10 @@ struct QuestionProofPracticeView: View {
                                 VStack(alignment: .leading, spacing: Spacing.sm) {
                                     HStack {
                                         Image(systemName: eval.isPass ? "checkmark.seal.fill" : "exclamationmark.triangle.fill")
-                                            .foregroundStyle(eval.isPass ? tokens.positive : tokens.warning)
+                                            .foregroundStyle(eval.isPass ? Color.kymaiaSuccess : Color.kymaiaWarning)
                                         Text(eval.feedbackSummary)
                                             .font(Typography.subheadline.weight(.semibold))
-                                            .foregroundStyle(tokens.primary)
+                                            .foregroundStyle(Color.kymaiaInk)
                                         if let grad = graduatedFeedback {
                                             Spacer()
                                             JournalBadge(
@@ -223,7 +222,7 @@ struct QuestionProofPracticeView: View {
                                     if let grad = graduatedFeedback {
                                         Text("\(grad.headline) — \(grad.socraticNudge)")
                                             .font(Typography.caption)
-                                            .foregroundStyle(tokens.secondary)
+                                            .foregroundStyle(Color.kymaiaMutedInk)
                                         if let trap = grad.detectedTrap {
                                             JournalBadge(text: "Detected: \(trap)", symbol: "exclamationmark.shield", tone: .warning)
                                         }
@@ -232,12 +231,12 @@ struct QuestionProofPracticeView: View {
                                     if !eval.matchedKeywords.isEmpty {
                                         Text("Matched mark-scheme targets: \(eval.matchedKeywords.joined(separator: ", "))")
                                             .font(Typography.caption)
-                                            .foregroundStyle(tokens.positive)
+                                            .foregroundStyle(Color.kymaiaSuccess)
                                     }
                                     if !eval.missingKeywords.isEmpty {
                                         Text("Missing targets to include: \(eval.missingKeywords.joined(separator: ", "))")
                                             .font(Typography.caption)
-                                            .foregroundStyle(tokens.warning)
+                                            .foregroundStyle(Color.kymaiaWarning)
                                     }
 
                                     if eval.isPass {
@@ -248,13 +247,13 @@ struct QuestionProofPracticeView: View {
                                         Divider()
                                         Text("ELABORATIVE INTERROGATION · \(prompt.bloomLevel.uppercased())")
                                             .font(Typography.eyebrow)
-                                            .foregroundStyle(tokens.accent)
+                                            .foregroundStyle(Color.kymaiaPrimary)
                                         Text(prompt.question)
                                             .font(Typography.subheadline.weight(.semibold))
-                                            .foregroundStyle(tokens.primary)
+                                            .foregroundStyle(Color.kymaiaInk)
                                         Text("Hint: \(prompt.invariantHint)")
                                             .font(Typography.caption)
-                                            .foregroundStyle(tokens.secondary)
+                                            .foregroundStyle(Color.kymaiaMutedInk)
                                         TextField("Explain why this works in 1 sentence...", text: $interrogationResponse)
                                             .textFieldStyle(.roundedBorder)
                                     }
@@ -262,15 +261,15 @@ struct QuestionProofPracticeView: View {
                                     Divider()
                                     Text("CAMBRIDGE & SINGAPORE CPA MODEL SOLUTION")
                                         .font(Typography.eyebrow)
-                                        .foregroundStyle(tokens.accent)
+                                        .foregroundStyle(Color.kymaiaPrimary)
                                     Text(question.workedExample)
                                         .font(Typography.caption)
-                                        .foregroundStyle(tokens.secondary)
+                                        .foregroundStyle(Color.kymaiaMutedInk)
                                 }
                                 .padding(Spacing.md)
                                 .background(
                                     RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                                        .fill(tokens.surfaceElevated)
+                                        .fill(Color.kymaiaElevatedSurface)
                                 )
                             }
                         }

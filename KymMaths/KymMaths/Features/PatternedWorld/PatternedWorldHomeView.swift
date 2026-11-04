@@ -4,7 +4,6 @@ import SwiftUI
 
 struct PatternedWorldHomeView: View {
     @Bindable var store: AppStore
-    @Environment(\.themeTokens) private var tokens
 
     @State private var showEmbeddedWebStage = true
     @State private var calloutDrafts: [String: String] = [:]
@@ -22,13 +21,13 @@ struct PatternedWorldHomeView: View {
                         VStack(alignment: .leading, spacing: Spacing.xxs) {
                             Text("INTERACTIVE STORY-FIRST TEXTBOOK · 5 VOLUMES · 21 CHAPTERS")
                                 .font(Typography.eyebrow)
-                                .foregroundStyle(tokens.accent)
+                                .foregroundStyle(Color.kymaiaPrimary)
                             Text("The Patterned World")
                                 .font(Typography.largeTitle)
-                                .foregroundStyle(tokens.primary)
+                                .foregroundStyle(Color.kymaiaInk)
                             Text("Every chapter moves from Concrete Visual Intuition → The \"Aha!\" Invariant → The Actual Symbolic Formula.")
                                 .font(Typography.subheadline)
-                                .foregroundStyle(tokens.secondary)
+                                .foregroundStyle(Color.kymaiaMutedInk)
                         }
                         Spacer()
                         Button {
@@ -91,50 +90,50 @@ struct PatternedWorldHomeView: View {
 
                         Text(chapter.hookSummary)
                             .font(Typography.body)
-                            .foregroundStyle(tokens.primary)
+                            .foregroundStyle(Color.kymaiaInk)
 
                         // The 3-Step Intuition -> "Aha!" -> Formula Bridge
                         VStack(alignment: .leading, spacing: Spacing.sm) {
                             Text("THE INTUITION → \"AHA!\" → FORMULA BRIDGE")
                                 .font(Typography.eyebrow)
-                                .foregroundStyle(tokens.accent)
+                                .foregroundStyle(Color.kymaiaPrimary)
 
                             HStack(alignment: .top, spacing: Spacing.md) {
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text("1. Concrete Visual Action")
                                         .font(Typography.caption.weight(.bold))
-                                        .foregroundStyle(tokens.accent)
+                                        .foregroundStyle(Color.kymaiaPrimary)
                                     Text(bridge.concreteAction)
                                         .font(Typography.caption)
-                                        .foregroundStyle(tokens.primary)
+                                        .foregroundStyle(Color.kymaiaInk)
                                 }
                                 .padding(Spacing.sm)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(tokens.surfaceElevated))
+                                .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(Color.kymaiaElevatedSurface))
 
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text("2. The \"Aha!\" Invariant")
                                         .font(Typography.caption.weight(.bold))
-                                        .foregroundStyle(tokens.positive)
+                                        .foregroundStyle(Color.kymaiaSuccess)
                                     Text(bridge.ahaInvariant)
                                         .font(Typography.caption)
-                                        .foregroundStyle(tokens.primary)
+                                        .foregroundStyle(Color.kymaiaInk)
                                 }
                                 .padding(Spacing.sm)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(tokens.surfaceElevated))
+                                .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(Color.kymaiaElevatedSurface))
                             }
 
                             VStack(alignment: .leading, spacing: Spacing.xs) {
                                 Text("3. Actual Symbolic Formula & Colour-Locked Anatomy")
                                     .font(Typography.caption.weight(.bold))
-                                    .foregroundStyle(tokens.warning)
+                                    .foregroundStyle(Color.kymaiaWarning)
                                 Text(bridge.formulaDisplay)
                                     .font(Typography.numericFormula)
-                                    .foregroundStyle(tokens.primary)
+                                    .foregroundStyle(Color.kymaiaInk)
                                     .padding(Spacing.sm)
                                     .frame(maxWidth: .infinity, alignment: .leading)
-                                    .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(tokens.surfaceElevated))
+                                    .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(Color.kymaiaElevatedSurface))
 
                                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 200), spacing: Spacing.xs)], spacing: Spacing.xs) {
                                     ForEach(bridge.termMappings) { term in
@@ -146,15 +145,15 @@ struct PatternedWorldHomeView: View {
                                             VStack(alignment: .leading, spacing: 2) {
                                                 Text("\(term.symbol)  ↔  \(term.visualPart)")
                                                     .font(Typography.caption.weight(.bold))
-                                                    .foregroundStyle(tokens.primary)
+                                                    .foregroundStyle(Color.kymaiaInk)
                                                 Text(term.meaning)
                                                     .font(Typography.caption)
-                                                    .foregroundStyle(tokens.secondary)
+                                                    .foregroundStyle(Color.kymaiaMutedInk)
                                             }
                                         }
                                         .padding(Spacing.xs)
                                         .frame(maxWidth: .infinity, alignment: .leading)
-                                        .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(tokens.surfaceElevated))
+                                        .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(Color.kymaiaElevatedSurface))
                                     }
                                 }
                             }
@@ -191,10 +190,10 @@ struct PatternedWorldHomeView: View {
                         VStack(alignment: .leading, spacing: Spacing.sm) {
                             Text(section.heading)
                                 .font(Typography.title3)
-                                .foregroundStyle(tokens.primary)
+                                .foregroundStyle(Color.kymaiaInk)
                             Text(section.excerpt)
                                 .font(Typography.body)
-                                .foregroundStyle(tokens.secondary)
+                                .foregroundStyle(Color.kymaiaMutedInk)
                         }
                     }
                 }
@@ -207,7 +206,7 @@ struct PatternedWorldHomeView: View {
                                 JournalBadge(text: callout.badgeText, symbol: callout.symbolName, tone: .accent)
                                 Text(callout.title)
                                     .font(Typography.headline)
-                                    .foregroundStyle(tokens.primary)
+                                    .foregroundStyle(Color.kymaiaInk)
                                 Spacer()
                                 if saved?.isUnlocked == true {
                                     JournalBadge(text: "Recorded ✓", symbol: "checkmark.circle.fill", tone: .positive)
@@ -215,7 +214,7 @@ struct PatternedWorldHomeView: View {
                             }
                             Text(callout.body)
                                 .font(Typography.body)
-                                .foregroundStyle(tokens.primary)
+                                .foregroundStyle(Color.kymaiaInk)
 
                             if callout.kind == "predict" || callout.kind == "check" {
                                 let binding = Binding<String>(
@@ -250,7 +249,7 @@ struct PatternedWorldHomeView: View {
         case "blue": return Color(red: 0.14, green: 0.36, blue: 0.72)
         case "amber": return Color(red: 0.76, green: 0.48, blue: 0.08)
         case "green": return Color(red: 0.15, green: 0.52, blue: 0.32)
-        default: return tokens.accent
+        default: return Color.kymaiaPrimary
         }
     }
 }

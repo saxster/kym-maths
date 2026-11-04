@@ -4,7 +4,6 @@ import SwiftUI
 
 struct MathsCoachView: View {
     @Bindable var store: AppStore
-    @Environment(\.themeTokens) private var tokens
 
     @State private var queryText: String = ""
     @State private var workingDraftText: String = ""
@@ -47,22 +46,22 @@ struct MathsCoachView: View {
                         Spacer()
                         Text("Policy SHA-256: \(String(TutorConstitution.policyHash.prefix(10)))…")
                             .font(Typography.caption)
-                            .foregroundStyle(tokens.secondary)
+                            .foregroundStyle(Color.kymaiaMutedInk)
                     }
 
                     Text("Constitutional Mathematics Mentor · \(activeSoul.displayName)")
                         .font(Typography.title2)
-                        .foregroundStyle(tokens.primary)
+                        .foregroundStyle(Color.kymaiaInk)
 
                     Text(activeSoul.subtitle + " · " + store.currentUnderstandingPhase.badgeSubtitle)
                         .font(Typography.callout)
-                        .foregroundStyle(tokens.secondary)
+                        .foregroundStyle(Color.kymaiaMutedInk)
 
                     // Soul Persona Selector
                     VStack(alignment: .leading, spacing: Spacing.xs) {
                         Text("CHOOSE YOUR MENTOR SOUL PERSONA")
                             .font(Typography.eyebrow)
-                            .foregroundStyle(tokens.accent)
+                            .foregroundStyle(Color.kymaiaPrimary)
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: Spacing.xs) {
                                 ForEach(AgentSoulCatalog.all) { soul in
@@ -82,7 +81,7 @@ struct MathsCoachView: View {
                     VStack(alignment: .leading, spacing: Spacing.xs) {
                         Text("COACHING & GUIDANCE STYLE (SAY \"JUST EXPLAIN\" ANYTIME TO OPT OUT)")
                             .font(Typography.eyebrow)
-                            .foregroundStyle(tokens.accent)
+                            .foregroundStyle(Color.kymaiaPrimary)
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: Spacing.xs) {
                                 ForEach(TutorGuidanceStyle.allCases) { style in
@@ -151,7 +150,7 @@ struct MathsCoachView: View {
 
                     Text("Epistemic Honesty Rule: Coach conversations help you build intuition, but only the deterministic Question Proof & Exact Polynomial Checker (\(STEMVerification.checker)) certifies mastery.")
                         .font(Typography.caption)
-                        .foregroundStyle(tokens.secondary)
+                        .foregroundStyle(Color.kymaiaMutedInk)
                 }
             }
 
@@ -191,10 +190,10 @@ struct MathsCoachView: View {
                         }
                         Text("Primary Method: \(activeSoul.teachingStyle.primaryMethod)")
                             .font(Typography.subheadline.weight(.semibold))
-                            .foregroundStyle(tokens.primary)
+                            .foregroundStyle(Color.kymaiaInk)
                         Text("Scaffolding: \(activeSoul.teachingStyle.scaffoldingApproach)")
                             .font(Typography.caption)
-                            .foregroundStyle(tokens.secondary)
+                            .foregroundStyle(Color.kymaiaMutedInk)
 
                         if let verdict = latestCouncilVerdict {
                             Divider()
@@ -235,7 +234,7 @@ struct MathsCoachView: View {
                             }
                             Text("Hello \(store.learnerDisplayName)! I am \(activeSoul.displayName). Choose how you'd like us to work above—whether through Socratic questions, a light hint, collaborative practice, or a direct explanation—and ask me about any chapter in Deborah Barton's Oxford Complete Mathematics 8 or The Patterned World.")
                                 .font(Typography.body)
-                                .foregroundStyle(tokens.primary)
+                                .foregroundStyle(Color.kymaiaInk)
                         }
                     }
                 } else {
@@ -268,7 +267,7 @@ struct MathsCoachView: View {
 
                                 Text(turn.text)
                                     .font(Typography.body)
-                                    .foregroundStyle(tokens.primary)
+                                    .foregroundStyle(Color.kymaiaInk)
                             }
                         }
                     }

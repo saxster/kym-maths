@@ -4,7 +4,6 @@ import SwiftUI
 
 struct PolyaFluencyHomeView: View {
     @Bindable var store: AppStore
-    @Environment(\.themeTokens) private var tokens
 
     @State private var currentCardIndex: Int = 0
     @State private var userSpeedAnswer: String = ""
@@ -48,31 +47,31 @@ struct PolyaFluencyHomeView: View {
                             JournalBadge(text: "Stage \(activeStage.stageNumber) of 4", symbol: activeStage.symbol, tone: .accent)
                             Text(activeStage.subtitle)
                                 .font(Typography.subheadline.weight(.semibold))
-                                .foregroundStyle(tokens.secondary)
+                                .foregroundStyle(Color.kymaiaMutedInk)
                         }
 
                         Text(activeStage.title)
                             .font(Typography.title2)
-                            .foregroundStyle(tokens.primary)
+                            .foregroundStyle(Color.kymaiaInk)
 
                         VStack(alignment: .leading, spacing: Spacing.xs) {
                             Text("KEY HEURISTIC QUESTIONS TO ASK YOURSELF")
                                 .font(Typography.eyebrow)
-                                .foregroundStyle(tokens.accent)
+                                .foregroundStyle(Color.kymaiaPrimary)
                             ForEach(activeStage.prompts, id: \.self) { prompt in
                                 HStack(alignment: .top, spacing: Spacing.xs) {
                                     Image(systemName: "checkmark.circle.fill")
-                                        .foregroundStyle(tokens.positive)
+                                        .foregroundStyle(Color.kymaiaSuccess)
                                         .padding(.top, 2)
                                     Text(prompt)
                                         .font(Typography.subheadline)
-                                        .foregroundStyle(tokens.primary)
+                                        .foregroundStyle(Color.kymaiaInk)
                                 }
                             }
                         }
                         .padding(Spacing.sm)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(RoundedRectangle(cornerRadius: Spacing.radiusMD).fill(tokens.surfaceElevated))
+                        .background(RoundedRectangle(cornerRadius: Spacing.radiusMD).fill(Color.kymaiaElevatedSurface))
 
                         // Interactive Singapore Bar-Model Visualiser for Pólya's Train & Platform Example
                         PolyaSingaporeBarIllustrationView(stageNumber: activeStage.stageNumber)
@@ -81,10 +80,10 @@ struct PolyaFluencyHomeView: View {
                         VStack(alignment: .leading, spacing: 4) {
                             Text("SINGAPORE CPA & OLYMPIAD APPLICATION")
                                 .font(Typography.eyebrow)
-                                .foregroundStyle(tokens.info)
+                                .foregroundStyle(Color.kymaiaSecondary)
                             Text(activeStage.singaporeConnection)
                                 .font(Typography.caption)
-                                .foregroundStyle(tokens.secondary)
+                                .foregroundStyle(Color.kymaiaMutedInk)
                         }
                     }
                 }
@@ -121,19 +120,19 @@ struct PolyaFluencyHomeView: View {
                             Spacer()
                             Text("Card \((currentCardIndex % activeDeck.cards.count) + 1) of \(activeDeck.cards.count)")
                                 .font(Typography.caption)
-                                .foregroundStyle(tokens.secondary)
+                                .foregroundStyle(Color.kymaiaMutedInk)
                         }
 
                         Text(activeDeck.subtitle)
                             .font(Typography.caption)
-                            .foregroundStyle(tokens.secondary)
+                            .foregroundStyle(Color.kymaiaMutedInk)
 
                         Text(currentCard.prompt)
                             .font(Typography.largeTitle)
-                            .foregroundStyle(tokens.primary)
+                            .foregroundStyle(Color.kymaiaInk)
                             .padding(Spacing.md)
                             .frame(maxWidth: .infinity, alignment: .center)
-                            .background(RoundedRectangle(cornerRadius: Spacing.radiusMD).fill(tokens.surfaceElevated))
+                            .background(RoundedRectangle(cornerRadius: Spacing.radiusMD).fill(Color.kymaiaElevatedSurface))
 
                         HStack(spacing: Spacing.sm) {
                             TextField("Type mental answer...", text: $userSpeedAnswer)
@@ -160,14 +159,14 @@ struct PolyaFluencyHomeView: View {
                             VStack(alignment: .leading, spacing: 4) {
                                 Text(fb)
                                     .font(Typography.subheadline.weight(.semibold))
-                                    .foregroundStyle(tokens.primary)
+                                    .foregroundStyle(Color.kymaiaInk)
                                 Text("Mental Shortcut: \(currentCard.mentalTip)")
                                     .font(Typography.caption)
-                                    .foregroundStyle(tokens.secondary)
+                                    .foregroundStyle(Color.kymaiaMutedInk)
                             }
                             .padding(Spacing.sm)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(RoundedRectangle(cornerRadius: Spacing.radiusMD).fill(tokens.surfaceElevated))
+                            .background(RoundedRectangle(cornerRadius: Spacing.radiusMD).fill(Color.kymaiaElevatedSurface))
                         }
                     }
                 }
@@ -193,11 +192,11 @@ struct PolyaFluencyHomeView: View {
                                             .font(Typography.caption.weight(.semibold))
                                     }
                                     .buttonStyle(.plain)
-                                    .foregroundStyle(tokens.accent)
+                                    .foregroundStyle(Color.kymaiaPrimary)
                                 }
                                 Text(tip.title)
                                     .font(Typography.headline)
-                                    .foregroundStyle(tokens.primary)
+                                    .foregroundStyle(Color.kymaiaInk)
 
                                 // Bespoke Geometric "Aha!" Diagram for each VisualMathTip
                                 VisualMathTipIllustrationView(tipId: tip.id)
@@ -205,16 +204,16 @@ struct PolyaFluencyHomeView: View {
 
                                 Text(tip.visualIdea)
                                     .font(Typography.caption)
-                                    .foregroundStyle(tokens.secondary)
+                                    .foregroundStyle(Color.kymaiaMutedInk)
                                 Text(tip.algebraicIdentity)
                                     .font(Typography.numericFormula)
-                                    .foregroundStyle(tokens.accent)
+                                    .foregroundStyle(Color.kymaiaPrimary)
                                     .padding(Spacing.xs)
                                     .frame(maxWidth: .infinity, alignment: .leading)
-                                    .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(tokens.accentSubtle))
+                                    .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(Color.kymaiaSelectionFill))
                                 Text("Aha! Invariant: \(tip.example)")
                                     .font(Typography.caption.weight(.semibold))
-                                    .foregroundStyle(tokens.primary)
+                                    .foregroundStyle(Color.kymaiaInk)
                             }
                         }
                     }
@@ -254,11 +253,11 @@ struct PolyaFluencyHomeView: View {
 
                         Text(flawCard.problemStem)
                             .font(Typography.headline)
-                            .foregroundStyle(tokens.primary)
+                            .foregroundStyle(Color.kymaiaInk)
 
                         Text("Tap the ONE step below that contains a mathematical flaw:")
                             .font(Typography.caption)
-                            .foregroundStyle(tokens.secondary)
+                            .foregroundStyle(Color.kymaiaMutedInk)
 
                         ForEach(Array(flawCard.steps.enumerated()), id: \.offset) { idx, stepText in
                             let isChosen = selectedFlawStepIndex == idx
@@ -277,13 +276,13 @@ struct PolyaFluencyHomeView: View {
                                     )
                                     Text(stepText)
                                         .font(Typography.subheadline)
-                                        .foregroundStyle(tokens.primary)
+                                        .foregroundStyle(Color.kymaiaInk)
                                     Spacer()
                                 }
                                 .padding(Spacing.sm)
                                 .background(
                                     RoundedRectangle(cornerRadius: Spacing.radiusMD)
-                                        .fill(isChosen ? tokens.accentSubtle : tokens.surfaceElevated)
+                                        .fill(isChosen ? Color.kymaiaSelectionFill : Color.kymaiaElevatedSurface)
                                 )
                             }
                             .buttonStyle(.plain)
@@ -301,11 +300,11 @@ struct PolyaFluencyHomeView: View {
                                 )
                                 Text(result.feedback)
                                     .font(Typography.subheadline)
-                                    .foregroundStyle(tokens.primary)
+                                    .foregroundStyle(Color.kymaiaInk)
                             }
                             .padding(Spacing.sm)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(RoundedRectangle(cornerRadius: Spacing.radiusMD).fill(tokens.surfaceElevated))
+                            .background(RoundedRectangle(cornerRadius: Spacing.radiusMD).fill(Color.kymaiaElevatedSurface))
                         }
                     }
                 }
@@ -330,7 +329,6 @@ struct PolyaFluencyHomeView: View {
 
 struct PolyaSingaporeBarIllustrationView: View {
     let stageNumber: Int
-    @Environment(\.themeTokens) private var tokens
 
     private let cRed = Color(red: 0.784, green: 0.243, blue: 0.216)
     private let cBlue = Color(red: 0.180, green: 0.400, blue: 0.722)

@@ -5,7 +5,6 @@ import SwiftUI
 struct CalendarHomeView: View {
     @Bindable var store: AppStore
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.themeTokens) private var tokens
 
     @State private var newTitle: String = ""
     @State private var newUnitsCSV: String = "1,2,6,7"
@@ -30,21 +29,21 @@ struct CalendarHomeView: View {
                                     }
                                     Text(deadline.title)
                                         .font(Typography.headline)
-                                        .foregroundStyle(tokens.primary)
+                                        .foregroundStyle(Color.kymaiaInk)
                                     Text(deadline.notes)
                                         .font(Typography.caption)
-                                        .foregroundStyle(tokens.secondary)
+                                        .foregroundStyle(Color.kymaiaMutedInk)
                                 }
                                 Spacer()
                                 VStack(alignment: .trailing, spacing: 6) {
                                     Text(deadline.dueAt, style: .date)
                                         .font(Typography.subheadline.weight(.semibold))
-                                        .foregroundStyle(tokens.accent)
+                                        .foregroundStyle(Color.kymaiaPrimary)
                                     Button("Remove") {
                                         store.deleteDeadline(id: deadline.id)
                                     }
                                     .font(Typography.caption)
-                                    .foregroundStyle(tokens.secondary)
+                                    .foregroundStyle(Color.kymaiaMutedInk)
                                 }
                             }
                         }

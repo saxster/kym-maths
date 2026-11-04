@@ -4,7 +4,6 @@ import SwiftUI
 
 struct SchoolMathsHomeView: View {
     @Bindable var store: AppStore
-    @Environment(\.themeTokens) private var tokens
 
     @State private var tierFilter: CompanionWorkbookTierFilter = .allTiers
     @State private var selectedTemplate: QuantitativeTemplateKind = .primeFactorHCFLCM
@@ -24,13 +23,13 @@ struct SchoolMathsHomeView: View {
                         VStack(alignment: .leading, spacing: Spacing.xxs) {
                             Text("SCHOOL TEXTBOOK SPINE & 3-TIER COMPANION WORKBOOK")
                                 .font(Typography.eyebrow)
-                                .foregroundStyle(tokens.accent)
+                                .foregroundStyle(Color.kymaiaPrimary)
                             Text(store.seedPack.schoolTextbook.title)
                                 .font(Typography.title2)
-                                .foregroundStyle(tokens.primary)
+                                .foregroundStyle(Color.kymaiaInk)
                             Text("By \(store.seedPack.schoolTextbook.authors) · \(store.seedPack.schoolTextbook.publisher) · pp. 5–\(store.seedPack.schoolTextbook.learnersBookTotalPages)")
                                 .font(Typography.subheadline)
-                                .foregroundStyle(tokens.secondary)
+                                .foregroundStyle(Color.kymaiaMutedInk)
                         }
                         Spacer()
                         Button {
@@ -90,12 +89,12 @@ struct SchoolMathsHomeView: View {
                             Spacer()
                             Text("BKT Mastery: \(Int(readiness.averageBKTMastery * 100))%")
                                 .font(Typography.caption.weight(.semibold))
-                                .foregroundStyle(tokens.secondary)
+                                .foregroundStyle(Color.kymaiaMutedInk)
                         }
 
                         Text(unit.scienceInContext)
                             .font(Typography.callout)
-                            .foregroundStyle(tokens.secondary)
+                            .foregroundStyle(Color.kymaiaMutedInk)
 
                         // Topics inside this chapter
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: 270), spacing: Spacing.sm)], spacing: Spacing.sm) {
@@ -105,24 +104,24 @@ struct SchoolMathsHomeView: View {
                                     HStack {
                                         Text("\(topic.code) · \(topic.title)")
                                             .font(Typography.subheadline.weight(.bold))
-                                            .foregroundStyle(tokens.primary)
+                                            .foregroundStyle(Color.kymaiaInk)
                                         Spacer()
                                         Text("p. \(topic.learnersBookPage)")
                                             .font(Typography.mono)
-                                            .foregroundStyle(tokens.accent)
+                                            .foregroundStyle(Color.kymaiaPrimary)
                                     }
                                     Text(topic.summary)
                                         .font(Typography.caption)
-                                        .foregroundStyle(tokens.secondary)
+                                        .foregroundStyle(Color.kymaiaMutedInk)
 
                                     if let watchout = topic.cambridgeWatchouts.first {
                                         HStack(alignment: .top, spacing: 4) {
                                             Image(systemName: "exclamationmark.triangle.fill")
                                                 .font(.caption2)
-                                                .foregroundStyle(tokens.warning)
+                                                .foregroundStyle(Color.kymaiaWarning)
                                             Text(watchout)
                                                 .font(Typography.caption)
-                                                .foregroundStyle(tokens.primary)
+                                                .foregroundStyle(Color.kymaiaInk)
                                         }
                                     }
 
@@ -136,19 +135,19 @@ struct SchoolMathsHomeView: View {
                                                     .font(Typography.caption.weight(.semibold))
                                             }
                                             .buttonStyle(.plain)
-                                            .foregroundStyle(tokens.accent)
+                                            .foregroundStyle(Color.kymaiaPrimary)
                                         }
                                         Spacer()
                                         if let s = skill {
                                             Text("\(Int(s.pLearned * 100))% mastery")
                                                 .font(Typography.caption)
-                                                .foregroundStyle(tokens.positive)
+                                                .foregroundStyle(Color.kymaiaSuccess)
                                         }
                                         Button {
                                             scannerTopic = topic
                                         } label: {
                                             Image(systemName: "doc.viewfinder")
-                                                .foregroundStyle(tokens.secondary)
+                                                .foregroundStyle(Color.kymaiaMutedInk)
                                         }
                                         .buttonStyle(.plain)
                                     }
@@ -156,11 +155,11 @@ struct SchoolMathsHomeView: View {
                                 .padding(Spacing.sm)
                                 .background(
                                     RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                                        .fill(tokens.surfaceElevated)
+                                        .fill(Color.kymaiaElevatedSurface)
                                 )
                                 .overlay(
                                     RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                                        .strokeBorder(tokens.borderSubtle, lineWidth: 1)
+                                        .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
                                 )
                             }
                         }
@@ -199,11 +198,11 @@ struct SchoolMathsHomeView: View {
 
                                 Text(question.bookSection)
                                     .font(Typography.caption)
-                                    .foregroundStyle(tokens.secondary)
+                                    .foregroundStyle(Color.kymaiaMutedInk)
 
                                 Text(question.prompt)
                                     .font(Typography.body)
-                                    .foregroundStyle(tokens.primary)
+                                    .foregroundStyle(Color.kymaiaInk)
 
                                 HStack {
                                     Button {
@@ -219,7 +218,7 @@ struct SchoolMathsHomeView: View {
                             .padding(Spacing.md)
                             .background(
                                 RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                                    .fill(tokens.surfaceElevated)
+                                    .fill(Color.kymaiaElevatedSurface)
                             )
                         }
                     }
@@ -265,28 +264,28 @@ struct SchoolMathsHomeView: View {
 
                         Text(currentProblem.prompt)
                             .font(Typography.title3)
-                            .foregroundStyle(tokens.primary)
+                            .foregroundStyle(Color.kymaiaInk)
 
                         if store.showIntuitionBeforeFormula {
                             VStack(alignment: .leading, spacing: Spacing.xs) {
                                 Text("VISUAL INTUITION → \"AHA!\" INVARIANT → SYMBOLIC FORMULA")
                                     .font(Typography.eyebrow)
-                                    .foregroundStyle(tokens.accent)
+                                    .foregroundStyle(Color.kymaiaPrimary)
                                 Text("• Visual Action: \(currentProblem.visualIntuitionStep)")
                                     .font(Typography.caption)
-                                    .foregroundStyle(tokens.primary)
+                                    .foregroundStyle(Color.kymaiaInk)
                                 Text("• \"Aha!\" Invariant: \(currentProblem.ahaInvariantStep)")
                                     .font(Typography.caption)
-                                    .foregroundStyle(tokens.positive)
+                                    .foregroundStyle(Color.kymaiaSuccess)
                                 Text("• Symbolic Formula: \(currentProblem.formulaStep)")
                                     .font(Typography.mono)
-                                    .foregroundStyle(tokens.accent)
+                                    .foregroundStyle(Color.kymaiaPrimary)
                             }
                             .padding(Spacing.sm)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .background(
                                 RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                                    .fill(tokens.surfaceElevated)
+                                    .fill(Color.kymaiaElevatedSurface)
                             )
                         }
 
@@ -308,21 +307,21 @@ struct SchoolMathsHomeView: View {
                             VStack(alignment: .leading, spacing: Spacing.xs) {
                                 HStack {
                                     Image(systemName: eval.isCorrect ? "checkmark.seal.fill" : "xmark.octagon.fill")
-                                        .foregroundStyle(eval.isCorrect ? tokens.positive : tokens.warning)
+                                        .foregroundStyle(eval.isCorrect ? Color.kymaiaSuccess : Color.kymaiaWarning)
                                     Text(eval.feedback)
                                         .font(Typography.subheadline.weight(.semibold))
-                                        .foregroundStyle(tokens.primary)
+                                        .foregroundStyle(Color.kymaiaInk)
                                 }
                                 ForEach(currentProblem.stepByStepDerivation, id: \.self) { step in
                                     Text(step)
                                         .font(Typography.caption)
-                                        .foregroundStyle(tokens.secondary)
+                                        .foregroundStyle(Color.kymaiaMutedInk)
                                 }
                             }
                             .padding(Spacing.sm)
                             .background(
                                 RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                                    .fill(tokens.surfaceElevated)
+                                    .fill(Color.kymaiaElevatedSurface)
                             )
                         }
                     }

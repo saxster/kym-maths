@@ -4,7 +4,6 @@ import SwiftUI
 
 struct TodayHomeView: View {
     @Bindable var store: AppStore
-    @Environment(\.themeTokens) private var tokens
     @State private var isShowingCardBack = false
     @State private var revealedBridgeIds: Set<String> = []
 
@@ -18,13 +17,13 @@ struct TodayHomeView: View {
                             Text("DAILY MATHEMATICS STUDIO · MUMBAI")
                                 .font(Typography.eyebrow)
                                 .tracking(0.6)
-                                .foregroundStyle(tokens.accent)
+                                .foregroundStyle(Color.kymaiaPrimary)
                             Text("Good day, \(store.learnerDisplayName)")
                                 .font(Typography.largeTitle)
-                                .foregroundStyle(tokens.primary)
+                                .foregroundStyle(Color.kymaiaInk)
                             Text("Oxford Cambridge Lower Secondary Complete Mathematics 8 (Deborah Barton) + Singapore CPA & Horizon Atlas")
                                 .font(Typography.subheadline)
-                                .foregroundStyle(tokens.secondary)
+                                .foregroundStyle(Color.kymaiaMutedInk)
                         }
                         Spacer()
                         HStack(spacing: Spacing.xs) {
@@ -70,24 +69,24 @@ struct TodayHomeView: View {
                     if let deadline = store.nextSchoolDeadline {
                         HStack(spacing: Spacing.sm) {
                             Image(systemName: "flag.checkered")
-                                .foregroundStyle(tokens.accent)
+                                .foregroundStyle(Color.kymaiaPrimary)
                             VStack(alignment: .leading, spacing: 2) {
                                 Text("Upcoming Target: \(deadline.title)")
                                     .font(Typography.subheadline.weight(.semibold))
-                                    .foregroundStyle(tokens.primary)
+                                    .foregroundStyle(Color.kymaiaInk)
                                 Text("Chapters \(deadline.unitNumbersCSV) · \(deadline.notes)")
                                     .font(Typography.caption)
-                                    .foregroundStyle(tokens.secondary)
+                                    .foregroundStyle(Color.kymaiaMutedInk)
                             }
                             Spacer()
                             Text(deadline.dueAt, style: .date)
                                 .font(Typography.caption.weight(.semibold))
-                                .foregroundStyle(tokens.accent)
+                                .foregroundStyle(Color.kymaiaPrimary)
                         }
                         .padding(Spacing.sm)
                         .background(
                             RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                                .fill(tokens.accentSubtle)
+                                .fill(Color.kymaiaSelectionFill)
                         )
                     }
                 }
@@ -107,26 +106,26 @@ struct TodayHomeView: View {
                                 Spacer()
                                 Text("Stability: \(String(format: "%.1f", card.stability))d")
                                     .font(Typography.caption)
-                                    .foregroundStyle(tokens.secondary)
+                                    .foregroundStyle(Color.kymaiaMutedInk)
                             }
 
                             Text(card.frontPrompt)
                                 .font(Typography.title3)
-                                .foregroundStyle(tokens.primary)
+                                .foregroundStyle(Color.kymaiaInk)
 
                             if isShowingCardBack {
                                 VStack(alignment: .leading, spacing: Spacing.sm) {
                                     Text("INVARIANT & FORMULA ANSWER")
                                         .font(Typography.eyebrow)
-                                        .foregroundStyle(tokens.positive)
+                                        .foregroundStyle(Color.kymaiaSuccess)
                                     Text(card.backAnswer)
                                         .font(Typography.body)
-                                        .foregroundStyle(tokens.primary)
+                                        .foregroundStyle(Color.kymaiaInk)
                                         .padding(Spacing.md)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .background(
                                             RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                                                .fill(tokens.surfaceElevated)
+                                                .fill(Color.kymaiaElevatedSurface)
                                         )
 
                                     HStack(spacing: Spacing.sm) {
@@ -154,14 +153,14 @@ struct TodayHomeView: View {
                         HStack(spacing: Spacing.md) {
                             Image(systemName: "checkmark.circle.fill")
                                 .font(.title2)
-                                .foregroundStyle(tokens.positive)
+                                .foregroundStyle(Color.kymaiaSuccess)
                             VStack(alignment: .leading, spacing: 2) {
                                 Text("All FSRS Retrieval Cards Complete for Today")
                                     .font(Typography.headline)
-                                    .foregroundStyle(tokens.primary)
+                                    .foregroundStyle(Color.kymaiaInk)
                                 Text("Every due formula and visual invariant has been reviewed. Proceed to your Intuition → Formula Spotlight or Companion Workbook below.")
                                     .font(Typography.caption)
-                                    .foregroundStyle(tokens.secondary)
+                                    .foregroundStyle(Color.kymaiaMutedInk)
                             }
                         }
                     }
@@ -194,25 +193,25 @@ struct TodayHomeView: View {
                             intuitionStepBox(
                                 stepLabel: "1. CONCRETE ACTION (WHAT YOU MANIPULATE)",
                                 text: bridge.concreteAction,
-                                accentColor: tokens.accent
+                                accentColor: Color.kymaiaPrimary
                             )
                             intuitionStepBox(
                                 stepLabel: "2. THE \"AHA!\" INVARIANT (WHAT NEVER CHANGES)",
                                 text: bridge.ahaInvariant,
-                                accentColor: tokens.positive
+                                accentColor: Color.kymaiaSuccess
                             )
                             VStack(alignment: .leading, spacing: Spacing.xs) {
                                 Text("3. SYMBOLIC FORMULA & COLOUR-LOCKED ANATOMY")
                                     .font(Typography.eyebrow)
-                                    .foregroundStyle(tokens.warning)
+                                    .foregroundStyle(Color.kymaiaWarning)
                                 Text(bridge.formulaDisplay)
                                     .font(Typography.numericFormula)
-                                    .foregroundStyle(tokens.primary)
+                                    .foregroundStyle(Color.kymaiaInk)
                                     .padding(Spacing.sm)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .background(
                                         RoundedRectangle(cornerRadius: Spacing.radiusSM, style: .continuous)
-                                            .fill(tokens.surfaceElevated)
+                                            .fill(Color.kymaiaElevatedSurface)
                                     )
 
                                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 210), spacing: Spacing.xs)], spacing: Spacing.xs) {
@@ -225,17 +224,17 @@ struct TodayHomeView: View {
                                             VStack(alignment: .leading, spacing: 2) {
                                                 Text("\(mapping.symbol)  ←  \(mapping.visualPart)")
                                                     .font(Typography.caption.weight(.bold))
-                                                    .foregroundStyle(tokens.primary)
+                                                    .foregroundStyle(Color.kymaiaInk)
                                                 Text(mapping.meaning)
                                                     .font(Typography.caption)
-                                                    .foregroundStyle(tokens.secondary)
+                                                    .foregroundStyle(Color.kymaiaMutedInk)
                                             }
                                         }
                                         .padding(Spacing.xs)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .background(
                                             RoundedRectangle(cornerRadius: Spacing.radiusSM, style: .continuous)
-                                                .fill(tokens.surfaceElevated)
+                                                .fill(Color.kymaiaElevatedSurface)
                                         )
                                     }
                                 }
@@ -273,10 +272,10 @@ struct TodayHomeView: View {
                             VStack(alignment: .leading, spacing: 2) {
                                 Text("Deborah Barton pp. \(unit.learnersBookStartPage)–\(unit.learnersBookEndPage) · \(unit.statusBadgeLabel)")
                                     .font(Typography.subheadline.weight(.semibold))
-                                    .foregroundStyle(tokens.primary)
+                                    .foregroundStyle(Color.kymaiaInk)
                                 Text("Replaces the missing school workbook with Focus, Singapore CPA Bar-Model Practice, and Olympiad Challenge questions.")
                                     .font(Typography.caption)
-                                    .foregroundStyle(tokens.secondary)
+                                    .foregroundStyle(Color.kymaiaMutedInk)
                             }
                             Spacer()
                             Button {
@@ -298,7 +297,7 @@ struct TodayHomeView: View {
                                     }
                                     Text(question.prompt)
                                         .font(Typography.subheadline)
-                                        .foregroundStyle(tokens.primary)
+                                        .foregroundStyle(Color.kymaiaInk)
                                         .lineLimit(2)
                                 }
                                 Spacer()
@@ -311,7 +310,7 @@ struct TodayHomeView: View {
                             .padding(Spacing.sm)
                             .background(
                                 RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                                    .fill(tokens.surfaceElevated)
+                                    .fill(Color.kymaiaElevatedSurface)
                             )
                         }
                     }
@@ -331,33 +330,33 @@ struct TodayHomeView: View {
                                     JournalBadge(text: bridge.discipline.capitalized, symbol: bridge.badgeSymbol, tone: .info)
                                     Text(bridge.sourceBook)
                                         .font(Typography.caption)
-                                        .foregroundStyle(tokens.secondary)
+                                        .foregroundStyle(Color.kymaiaMutedInk)
                                 }
                                 Text(bridge.title)
                                     .font(Typography.headline)
-                                    .foregroundStyle(tokens.primary)
+                                    .foregroundStyle(Color.kymaiaInk)
                                 Text(bridge.summary)
                                     .font(Typography.caption)
-                                    .foregroundStyle(tokens.secondary)
+                                    .foregroundStyle(Color.kymaiaMutedInk)
                                 Text(bridge.keyEquation)
                                     .font(Typography.numericFormula)
-                                    .foregroundStyle(tokens.accent)
+                                    .foregroundStyle(Color.kymaiaPrimary)
                                     .padding(Spacing.xs)
                                     .background(
                                         RoundedRectangle(cornerRadius: Spacing.radiusSM, style: .continuous)
-                                            .fill(tokens.accentSubtle)
+                                            .fill(Color.kymaiaSelectionFill)
                                     )
 
                                 Divider()
 
                                 Text(bridge.microCheckQuestion)
                                     .font(Typography.caption.weight(.semibold))
-                                    .foregroundStyle(tokens.primary)
+                                    .foregroundStyle(Color.kymaiaInk)
 
                                 if revealedBridgeIds.contains(bridge.id) {
                                     Text(bridge.microCheckAnswer)
                                         .font(Typography.caption)
-                                        .foregroundStyle(tokens.positive)
+                                        .foregroundStyle(Color.kymaiaSuccess)
                                 } else {
                                     Button("Check Bridge Answer") {
                                         revealedBridgeIds.insert(bridge.id)
@@ -388,13 +387,13 @@ struct TodayHomeView: View {
                 .foregroundStyle(accentColor)
             Text(text)
                 .font(Typography.subheadline)
-                .foregroundStyle(tokens.primary)
+                .foregroundStyle(Color.kymaiaInk)
         }
         .padding(Spacing.sm)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(
             RoundedRectangle(cornerRadius: Spacing.radiusSM, style: .continuous)
-                .fill(tokens.surfaceElevated)
+                .fill(Color.kymaiaElevatedSurface)
         )
     }
 
@@ -404,7 +403,7 @@ struct TodayHomeView: View {
         case "blue": return Color(red: 0.14, green: 0.36, blue: 0.72)
         case "amber": return Color(red: 0.76, green: 0.48, blue: 0.08)
         case "green": return Color(red: 0.15, green: 0.52, blue: 0.32)
-        default: return tokens.accent
+        default: return Color.kymaiaPrimary
         }
     }
 }

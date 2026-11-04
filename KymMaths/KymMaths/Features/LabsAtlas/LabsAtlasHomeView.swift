@@ -4,7 +4,6 @@ import SwiftUI
 
 struct LabsAtlasHomeView: View {
     @Bindable var store: AppStore
-    @Environment(\.themeTokens) private var tokens
 
     @State private var challengeNote: String = ""
     @State private var diagramMode: String = "ghost_scaffold"
@@ -25,13 +24,13 @@ struct LabsAtlasHomeView: View {
                 VStack(alignment: .leading, spacing: Spacing.md) {
                     Text("3D MATHEMATICAL ATLAS & DIAGRAM RECALL STUDIO")
                         .font(Typography.eyebrow)
-                        .foregroundStyle(tokens.accent)
+                        .foregroundStyle(Color.kymaiaPrimary)
                     Text("47 Interactive Labs + @saxster/atlas 3D Figures + 16 Diagram Plates")
                         .font(Typography.title2)
-                        .foregroundStyle(tokens.primary)
+                        .foregroundStyle(Color.kymaiaInk)
                     Text("Powered by the pure-model @saxster/atlas engine (21 3D Chapter Apparatuses + Unit Circle, Secant-to-Tangent Calculus, 3D Matrix Sandbox, Galton Board, Bayes' 1,000-Person Unit Square & Compound Cascade).")
                         .font(Typography.subheadline)
-                        .foregroundStyle(tokens.secondary)
+                        .foregroundStyle(Color.kymaiaMutedInk)
 
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: Spacing.xs) {
@@ -89,7 +88,7 @@ struct LabsAtlasHomeView: View {
                             .clipShape(RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous))
                             .overlay(
                                 RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                                    .strokeBorder(tokens.borderSubtle, lineWidth: 1)
+                                    .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
                             )
                         }
 
@@ -97,62 +96,62 @@ struct LabsAtlasHomeView: View {
                         VStack(alignment: .leading, spacing: Spacing.xs) {
                             Text("3-STEP GUIDED OBSERVATION SEQUENCE")
                                 .font(Typography.eyebrow)
-                                .foregroundStyle(tokens.accent)
+                                .foregroundStyle(Color.kymaiaPrimary)
                             ForEach(Array(widget.watchSteps.enumerated()), id: \.offset) { idx, step in
                                 HStack(alignment: .top, spacing: Spacing.sm) {
                                     Text("\(idx + 1).")
                                         .font(Typography.subheadline.weight(.bold))
-                                        .foregroundStyle(tokens.accent)
+                                        .foregroundStyle(Color.kymaiaPrimary)
                                     VStack(alignment: .leading, spacing: 2) {
                                         Text(step.title)
                                             .font(Typography.subheadline.weight(.semibold))
-                                            .foregroundStyle(tokens.primary)
+                                            .foregroundStyle(Color.kymaiaInk)
                                         Text(step.caption)
                                             .font(Typography.caption)
-                                            .foregroundStyle(tokens.secondary)
+                                            .foregroundStyle(Color.kymaiaMutedInk)
                                     }
                                 }
                             }
                         }
                         .padding(Spacing.sm)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(RoundedRectangle(cornerRadius: Spacing.radiusMD).fill(tokens.surfaceElevated))
+                        .background(RoundedRectangle(cornerRadius: Spacing.radiusMD).fill(Color.kymaiaElevatedSurface))
 
                         // Cutaway & Idealised Honesty Drawers
                         HStack(alignment: .top, spacing: Spacing.md) {
                             VStack(alignment: .leading, spacing: 4) {
                                 Text("STRUCTURAL CUTAWAY")
                                     .font(Typography.eyebrow)
-                                    .foregroundStyle(tokens.info)
+                                    .foregroundStyle(Color.kymaiaSecondary)
                                 Text(widget.cutaway)
                                     .font(Typography.caption)
-                                    .foregroundStyle(tokens.secondary)
+                                    .foregroundStyle(Color.kymaiaMutedInk)
                             }
                             .padding(Spacing.sm)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(tokens.surfaceElevated))
+                            .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(Color.kymaiaElevatedSurface))
 
                             VStack(alignment: .leading, spacing: 4) {
                                 Text("MATHEMATICAL IDEALISATION")
                                     .font(Typography.eyebrow)
-                                    .foregroundStyle(tokens.warning)
+                                    .foregroundStyle(Color.kymaiaWarning)
                                 Text(widget.idealised)
                                     .font(Typography.caption)
-                                    .foregroundStyle(tokens.secondary)
+                                    .foregroundStyle(Color.kymaiaMutedInk)
                             }
                             .padding(Spacing.sm)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(tokens.surfaceElevated))
+                            .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(Color.kymaiaElevatedSurface))
                         }
 
                         // Challenge Prompt & Stamp
                         VStack(alignment: .leading, spacing: Spacing.sm) {
                             Text("CHALLENGE STAMP TASK")
                                 .font(Typography.eyebrow)
-                                .foregroundStyle(tokens.positive)
+                                .foregroundStyle(Color.kymaiaSuccess)
                             Text(widget.challengePrompt)
                                 .font(Typography.subheadline.weight(.semibold))
-                                .foregroundStyle(tokens.primary)
+                                .foregroundStyle(Color.kymaiaInk)
 
                             HStack {
                                 TextField("Record your readout or invariant verification...", text: $challengeNote)
@@ -217,10 +216,10 @@ struct LabsAtlasHomeView: View {
 
                         Text(plate.title)
                             .font(Typography.title3)
-                            .foregroundStyle(tokens.primary)
+                            .foregroundStyle(Color.kymaiaInk)
                         Text(plate.subtitle)
                             .font(Typography.caption)
-                            .foregroundStyle(tokens.secondary)
+                            .foregroundStyle(Color.kymaiaMutedInk)
 
                         // Interactive Mathematical Diagram Plate Canvas + Pin Overlay
                         MathematicalDiagramPlateCanvasView(
@@ -239,7 +238,7 @@ struct LabsAtlasHomeView: View {
                                     HStack {
                                         Text("Pin \(idx + 1) · (\(Int(callout.xFraction * 100))%, \(Int(callout.yFraction * 100))%)")
                                             .font(Typography.mono)
-                                            .foregroundStyle(tokens.accent)
+                                            .foregroundStyle(Color.kymaiaPrimary)
                                         Spacer()
                                         Button(isRevealed ? "Hide" : "Reveal") {
                                             if revealedCalloutIds.contains(callout.id) {
@@ -254,13 +253,13 @@ struct LabsAtlasHomeView: View {
                                     if diagramMode != "blank_recall" {
                                         Text("Hint: \(callout.hint)")
                                             .font(Typography.caption)
-                                            .foregroundStyle(tokens.secondary)
+                                            .foregroundStyle(Color.kymaiaMutedInk)
                                     }
 
                                     if isRevealed {
                                         Text(callout.label)
                                             .font(Typography.subheadline.weight(.bold))
-                                            .foregroundStyle(tokens.positive)
+                                            .foregroundStyle(Color.kymaiaSuccess)
                                     } else {
                                         let binding = Binding<String>(
                                             get: { diagramInputs[callout.id] ?? "" },
@@ -271,7 +270,7 @@ struct LabsAtlasHomeView: View {
                                     }
                                 }
                                 .padding(Spacing.sm)
-                                .background(RoundedRectangle(cornerRadius: Spacing.radiusMD).fill(tokens.surfaceElevated))
+                                .background(RoundedRectangle(cornerRadius: Spacing.radiusMD).fill(Color.kymaiaElevatedSurface))
                             }
                         }
 
@@ -289,7 +288,7 @@ struct LabsAtlasHomeView: View {
                             Spacer()
                             Text("Logged attempts: \(store.diagramAttempts.filter { $0.plateId == plate.id }.count)")
                                 .font(Typography.caption)
-                                .foregroundStyle(tokens.secondary)
+                                .foregroundStyle(Color.kymaiaMutedInk)
                         }
                     }
                 }
@@ -306,7 +305,6 @@ struct MathematicalDiagramPlateCanvasView: View {
     @Binding var revealedCalloutIds: Set<String>
     @Binding var strokes: [[CGPoint]]
     @Binding var activeStroke: [CGPoint]
-    @Environment(\.themeTokens) private var tokens
 
     // Colour-locked palette matching @saxster/atlas and Intuition-to-Formula bridges
     private let cRed = Color(red: 0.784, green: 0.243, blue: 0.216)
@@ -323,7 +321,7 @@ struct MathematicalDiagramPlateCanvasView: View {
                     .fill(Color(red: 0.965, green: 0.953, blue: 0.925))
                     .overlay(
                         RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                            .strokeBorder(tokens.borderSubtle, lineWidth: 1)
+                            .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
                     )
 
                 Canvas { context, canvasSize in

@@ -1,61 +1,5 @@
 import SwiftUI
 
-// MARK: - ThemeTokens & WCAG Contrast Audit Bridge
-
-struct ThemeTokens: Equatable, Sendable {
-    let scheme: CuratedColorScheme
-
-    static func tokens(for scheme: CuratedColorScheme) -> ThemeTokens {
-        ThemeTokens(scheme: scheme)
-    }
-
-    var primary: Color { scheme.palette.neutrals.ink.light.color }
-    var secondary: Color { scheme.palette.neutrals.mutedInk.light.color }
-    var accent: Color { scheme.palette.primary.light.color }
-    var accentSubtle: Color { scheme.palette.selectionFill.light.color }
-    var surface: Color { scheme.palette.neutrals.surface.light.color }
-    var surfaceElevated: Color { scheme.palette.neutrals.elevatedSurface.light.color }
-    var borderSubtle: Color { scheme.palette.neutrals.hairline.light.color }
-    var positive: Color { Color.kymaiaSuccess }
-    var warning: Color { Color.kymaiaWarning }
-    var info: Color { scheme.palette.secondary.light.color }
-
-    var primaryContrastRatio: Double {
-        scheme.palette.neutrals.ink.light.contrastRatio(with: scheme.palette.neutrals.surface.light)
-    }
-
-    var secondaryContrastRatio: Double {
-        scheme.palette.neutrals.mutedInk.light.contrastRatio(with: scheme.palette.neutrals.surface.light)
-    }
-
-    func passesWCAGAudit() -> Bool {
-        primaryContrastRatio >= 7.0 && secondaryContrastRatio >= 4.5
-    }
-}
-
-private struct ThemeTokensEnvironmentKey: EnvironmentKey {
-    static let defaultValue = ThemeTokens.tokens(for: .defaultScheme)
-}
-
-extension EnvironmentValues {
-    var themeTokens: ThemeTokens {
-        get { self[ThemeTokensEnvironmentKey.self] }
-        set { self[ThemeTokensEnvironmentKey.self] = newValue }
-    }
-}
-
-extension CuratedColorScheme {
-    var moodSubtitle: String { summary }
-
-    static func loadSaved() -> CuratedColorScheme {
-        current
-    }
-
-    func persist() {
-        UserDefaults.standard.set(rawValue, forKey: Self.storageKey)
-    }
-}
-
 // MARK: - Spacing & Typography Bridges
 
 extension Spacing {
@@ -199,14 +143,6 @@ struct NumericKeypadField: View {
                     .foregroundStyle(Color.kymaiaMutedInk)
             }
         }
-    }
-}
-
-extension ThemePickerMenu {
-    init(selection: Binding<CuratedColorScheme>) {
-        self.init(onThemeChanged: { scheme in
-            selection.wrappedValue = scheme
-        })
     }
 }
 

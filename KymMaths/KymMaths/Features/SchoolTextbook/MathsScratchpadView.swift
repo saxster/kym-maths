@@ -45,7 +45,6 @@ enum MathsScratchpadStamp: String, CaseIterable, Identifiable, Sendable {
 struct MathsScratchpadView: View {
     let questionId: String
     @Bindable var store: AppStore
-    @Environment(\.themeTokens) private var tokens
 
     @State private var paperStyle: String = "grid"
     @State private var selectedStamp: MathsScratchpadStamp? = .singaporeBar
@@ -60,7 +59,7 @@ struct MathsScratchpadView: View {
             HStack {
                 Label("Mathematical Working & Geometric Blueprint Scratchpad", systemImage: "pencil.and.ruler")
                     .font(Typography.subheadline.weight(.semibold))
-                    .foregroundStyle(tokens.primary)
+                    .foregroundStyle(Color.kymaiaInk)
                 Spacer()
                 Button {
                     isSketchMode.toggle()
@@ -111,7 +110,7 @@ struct MathsScratchpadView: View {
                     .clipShape(RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous))
                     .overlay(
                         RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                            .strokeBorder(tokens.borderSubtle, lineWidth: 1)
+                            .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
                     )
 
                 if let stamp = selectedStamp {
@@ -148,7 +147,7 @@ struct MathsScratchpadView: View {
                     TextEditor(text: $textScratchNotes)
                         .scrollContentBackground(.hidden)
                         .font(Typography.mono)
-                        .foregroundStyle(tokens.primary)
+                        .foregroundStyle(Color.kymaiaInk)
                         .padding(.top, 28)
                         .padding(.horizontal, Spacing.sm)
                         .frame(height: 240)
@@ -158,7 +157,7 @@ struct MathsScratchpadView: View {
             HStack {
                 Text("Select a geometric blueprint stamp above and type algebraic steps or sketch directly onto the diagram.")
                     .font(Typography.caption)
-                    .foregroundStyle(tokens.secondary)
+                    .foregroundStyle(Color.kymaiaMutedInk)
                 Spacer()
                 Button("Save Working") {
                     let data = Data(textScratchNotes.utf8)
@@ -193,16 +192,16 @@ struct MathsScratchpadView: View {
     private func stampOverlayView(for stamp: MathsScratchpadStamp) -> some View {
         HStack(spacing: Spacing.xs) {
             Image(systemName: stamp.symbol)
-                .foregroundStyle(tokens.accent.opacity(0.85))
+                .foregroundStyle(Color.kymaiaPrimary.opacity(0.85))
             Text(stampHintText(for: stamp))
                 .font(Typography.caption)
-                .foregroundStyle(tokens.secondary.opacity(0.9))
+                .foregroundStyle(Color.kymaiaMutedInk.opacity(0.9))
         }
         .padding(.horizontal, Spacing.sm)
         .padding(.vertical, 3)
         .background(
             Capsule()
-                .fill(tokens.surfaceElevated.opacity(0.90))
+                .fill(Color.kymaiaElevatedSurface.opacity(0.90))
         )
     }
 

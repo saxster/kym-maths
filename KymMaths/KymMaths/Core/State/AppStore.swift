@@ -62,7 +62,6 @@ final class AppStore {
 
     // Navigation
     var activeRoom: AppRoom = .today
-    var colorScheme: CuratedColorScheme
     var selectedUnitNumber: Int = 1
     var selectedTopicCode: String = "1.1"
     var selectedChapterNumber: Int = 0
@@ -156,7 +155,6 @@ final class AppStore {
     init(db: DatabaseManager = .shared) {
         self.db = db
         self.seedPack = SeedPackLoader.load()
-        self.colorScheme = CuratedColorScheme.loadSaved()
 
         let defaults = UserDefaults.standard
         self.learnerDisplayName = defaults.string(forKey: "kymmaths.pref.learnerName") ?? "Kym"
@@ -223,11 +221,6 @@ final class AppStore {
         AgentSoulCatalog.soul(for: selectedSoulId, overrides: soulParentOverrides)
     }
 
-    func setTheme(_ scheme: CuratedColorScheme) {
-        colorScheme = scheme
-        scheme.persist()
-    }
-
     func setSoulOverride(key: AgentSoulOverrideKey, value: String) {
         guard AgentSoulOverridePolicy.isAllowed(key: key.rawValue, value: value) else { return }
         var updated = soulParentOverrides
@@ -236,7 +229,7 @@ final class AppStore {
     }
 
     func resetCustomisationDefaults() {
-        setTheme(.journal)
+        UserDefaults.standard.set(StandardTheme.defaultID, forKey: StandardThemeStore.subjectAppStorageKey)
         learnerDisplayName = "Kym"
         selectedCurriculumLens = .coreStage8Complete
         defaultWorkbookTier = .allTiers

@@ -5,7 +5,6 @@ import SwiftUI
 struct MathsSettingsSheet: View {
     @Bindable var store: AppStore
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.themeTokens) private var tokens
 
     private let paperStyles = ["grid", "dots", "lined", "blank", "cornell"]
     private let goalOptions = [15, 25, 40, 60]
@@ -19,58 +18,16 @@ struct MathsSettingsSheet: View {
             JournalPage {
                 // 1. Visual Theme & Palette
                 JournalSection(
-                    title: "Journal Colour Palette",
-                    eyebrow: "9 WCAG-Audited Light Themes · Default: Apple Journal Lavender"
+                    title: "Colour Theme",
+                    eyebrow: "The Standard · Six Themes · Default: Vivid"
                 ) {
                     JournalCard {
                         VStack(alignment: .leading, spacing: Spacing.md) {
-                            Text("Choose the paper and ink palette for KymMaths. Every palette is audited for WCAG AAA body-copy legibility.")
+                            Text("Choose the page and ink colours for KymMaths, or follow the system appearance. Every theme meets WCAG AA contrast.")
                                 .font(Typography.callout)
-                                .foregroundStyle(tokens.secondary)
+                                .foregroundStyle(Color.kymaiaMutedInk)
 
-                            LazyVGrid(columns: [GridItem(.adaptive(minimum: 190), spacing: Spacing.sm)], spacing: Spacing.sm) {
-                                ForEach(CuratedColorScheme.allCases) { scheme in
-                                    let schemeTokens = ThemeTokens.tokens(for: scheme)
-                                    let isSelected = store.colorScheme == scheme
-                                    Button {
-                                        store.setTheme(scheme)
-                                    } label: {
-                                        HStack(spacing: Spacing.sm) {
-                                            Circle()
-                                                .fill(schemeTokens.accent)
-                                                .frame(width: 22, height: 22)
-                                                .overlay(
-                                                    Circle()
-                                                        .strokeBorder(schemeTokens.primary.opacity(0.2), lineWidth: 1)
-                                                )
-                                            VStack(alignment: .leading, spacing: 2) {
-                                                Text(scheme.displayName)
-                                                    .font(Typography.subheadline.weight(.semibold))
-                                                    .foregroundStyle(tokens.primary)
-                                                Text(scheme.moodSubtitle)
-                                                    .font(Typography.caption)
-                                                    .foregroundStyle(tokens.secondary)
-                                                    .lineLimit(1)
-                                            }
-                                            Spacer()
-                                            if isSelected {
-                                                Image(systemName: "checkmark.circle.fill")
-                                                    .foregroundStyle(tokens.accent)
-                                            }
-                                        }
-                                        .padding(Spacing.sm)
-                                        .background(
-                                            RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                                                .fill(isSelected ? tokens.accentSubtle : tokens.surfaceElevated)
-                                        )
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                                                .strokeBorder(isSelected ? tokens.accent : tokens.borderSubtle, lineWidth: isSelected ? 1.5 : 1)
-                                        )
-                                    }
-                                    .buttonStyle(.plain)
-                                }
-                            }
+                            StandardThemeGallery()
                         }
                     }
                 }
@@ -84,7 +41,7 @@ struct MathsSettingsSheet: View {
                         VStack(alignment: .leading, spacing: Spacing.md) {
                             Text("Curriculum Lens")
                                 .font(Typography.headline)
-                                .foregroundStyle(tokens.primary)
+                                .foregroundStyle(Color.kymaiaInk)
 
                             ForEach(MathsCurriculumLens.allCases) { lens in
                                 let isSelected = store.selectedCurriculumLens == lens
@@ -93,22 +50,22 @@ struct MathsSettingsSheet: View {
                                 } label: {
                                     HStack(alignment: .top, spacing: Spacing.sm) {
                                         Image(systemName: isSelected ? "largecircle.fill.circle" : "circle")
-                                            .foregroundStyle(isSelected ? tokens.accent : tokens.secondary)
+                                            .foregroundStyle(isSelected ? Color.kymaiaPrimary : Color.kymaiaMutedInk)
                                             .padding(.top, 2)
                                         VStack(alignment: .leading, spacing: 2) {
                                             Text(lens.title)
                                                 .font(Typography.subheadline.weight(.semibold))
-                                                .foregroundStyle(tokens.primary)
+                                                .foregroundStyle(Color.kymaiaInk)
                                             Text(lens.subtitle)
                                                 .font(Typography.caption)
-                                                .foregroundStyle(tokens.secondary)
+                                                .foregroundStyle(Color.kymaiaMutedInk)
                                         }
                                         Spacer()
                                     }
                                     .padding(Spacing.sm)
                                     .background(
                                         RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                                            .fill(isSelected ? tokens.accentSubtle : tokens.surfaceElevated)
+                                            .fill(isSelected ? Color.kymaiaSelectionFill : Color.kymaiaElevatedSurface)
                                     )
                                 }
                                 .buttonStyle(.plain)
@@ -118,10 +75,10 @@ struct MathsSettingsSheet: View {
 
                             Text("Default Companion Workbook Tier")
                                 .font(Typography.headline)
-                                .foregroundStyle(tokens.primary)
+                                .foregroundStyle(Color.kymaiaInk)
                             Text("Because the school only provides the OUP Student Book without a separate Workbook, KymMaths generates a 3-Tier Singapore & Checkpoint Companion Workbook for every chapter.")
                                 .font(Typography.caption)
-                                .foregroundStyle(tokens.secondary)
+                                .foregroundStyle(Color.kymaiaMutedInk)
 
                             AdaptiveOptionPicker(
                                 options: CompanionWorkbookTierFilter.allCases,
@@ -143,13 +100,13 @@ struct MathsSettingsSheet: View {
                                 VStack(alignment: .leading, spacing: 2) {
                                     Text("Always Show Visual Intuition → \"Aha!\" Bridge Before Symbolic Formula")
                                         .font(Typography.subheadline.weight(.semibold))
-                                        .foregroundStyle(tokens.primary)
+                                        .foregroundStyle(Color.kymaiaInk)
                                     Text("Displays the Concrete Manipulation, Structural Invariant, and Colour-Locked Term Mapping above every symbolic equation.")
                                         .font(Typography.caption)
-                                        .foregroundStyle(tokens.secondary)
+                                        .foregroundStyle(Color.kymaiaMutedInk)
                                 }
                             }
-                            .tint(tokens.accent)
+                            .tint(Color.kymaiaPrimary)
 
                             Divider()
 
@@ -157,13 +114,13 @@ struct MathsSettingsSheet: View {
                                 VStack(alignment: .leading, spacing: 2) {
                                     Text("Show Singapore CPA Bar-Model & Area Scaffolds by Default")
                                         .font(Typography.subheadline.weight(.semibold))
-                                        .foregroundStyle(tokens.primary)
+                                        .foregroundStyle(Color.kymaiaInk)
                                     Text("Pre-loads Singapore comparison bars, area tiles, and natural-frequency grids in problem practice.")
                                         .font(Typography.caption)
-                                        .foregroundStyle(tokens.secondary)
+                                        .foregroundStyle(Color.kymaiaMutedInk)
                                 }
                             }
-                            .tint(tokens.accent)
+                            .tint(Color.kymaiaPrimary)
 
                             Divider()
 
@@ -171,13 +128,13 @@ struct MathsSettingsSheet: View {
                                 VStack(alignment: .leading, spacing: 2) {
                                     Text("Enable Horizon Modules (Set Theory & Logic, Bayes, Trigonometry, Calculus & Linear Algebra)")
                                         .font(Typography.subheadline.weight(.semibold))
-                                        .foregroundStyle(tokens.primary)
+                                        .foregroundStyle(Color.kymaiaInk)
                                     Text("Unlocks Ch 0 (Set Theory & Logic), Ch 12 (Unit Circle & Trig), Ch 15 (Bayes' Theorem), Ch 17–18 (Calculus), and Ch 20 (2×2 Matrices & Eigenvectors).")
                                         .font(Typography.caption)
-                                        .foregroundStyle(tokens.secondary)
+                                        .foregroundStyle(Color.kymaiaMutedInk)
                                 }
                             }
-                            .tint(tokens.accent)
+                            .tint(Color.kymaiaPrimary)
                         }
                     }
                 }
@@ -191,7 +148,7 @@ struct MathsSettingsSheet: View {
                         VStack(alignment: .leading, spacing: Spacing.md) {
                             Text("AI Routing Policy")
                                 .font(Typography.headline)
-                                .foregroundStyle(tokens.primary)
+                                .foregroundStyle(Color.kymaiaInk)
                             AdaptiveOptionPicker(
                                 options: AIFeaturePolicy.allCases,
                                 selection: $store.aiFeaturePolicy,
@@ -202,7 +159,7 @@ struct MathsSettingsSheet: View {
 
                             Text("Default AI Provider")
                                 .font(Typography.headline)
-                                .foregroundStyle(tokens.primary)
+                                .foregroundStyle(Color.kymaiaInk)
                             AdaptiveOptionPicker(
                                 options: AIProvider.allCases,
                                 selection: $store.defaultAIProvider,
@@ -215,24 +172,24 @@ struct MathsSettingsSheet: View {
                                 VStack(alignment: .leading, spacing: 2) {
                                     Text("Allow Remote Cloud Upload for Camera / Handwriting Images")
                                         .font(Typography.subheadline.weight(.semibold))
-                                        .foregroundStyle(tokens.primary)
+                                        .foregroundStyle(Color.kymaiaInk)
                                     Text("Off by default (strict privacy consent gate). When off, textbook scans and PencilKit working stay strictly on-device.")
                                         .font(Typography.caption)
-                                        .foregroundStyle(tokens.secondary)
+                                        .foregroundStyle(Color.kymaiaMutedInk)
                                 }
                             }
-                            .tint(tokens.accent)
+                            .tint(Color.kymaiaPrimary)
 
                             Divider()
 
                             Text("Allowlisted Parent Soul Preferences (Cannot Override Safety or Truth)")
                                 .font(Typography.headline)
-                                .foregroundStyle(tokens.primary)
+                                .foregroundStyle(Color.kymaiaInk)
                             ForEach(AgentSoulOverrideKey.allCases) { key in
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(key.title)
                                         .font(Typography.caption.weight(.semibold))
-                                        .foregroundStyle(tokens.secondary)
+                                        .foregroundStyle(Color.kymaiaMutedInk)
                                     ScrollView(.horizontal, showsIndicators: false) {
                                         HStack(spacing: Spacing.xs) {
                                             ForEach(key.allowedValues, id: \.self) { val in
@@ -253,7 +210,7 @@ struct MathsSettingsSheet: View {
 
                             Text("Frontier API Keys (Stored Safely in macOS / iPadOS Keychain)")
                                 .font(Typography.headline)
-                                .foregroundStyle(tokens.primary)
+                                .foregroundStyle(Color.kymaiaInk)
                             HStack(spacing: Spacing.sm) {
                                 SecureField("Gemini API Key", text: $geminiKeyInput)
                                     .textFieldStyle(.roundedBorder)
@@ -287,7 +244,7 @@ struct MathsSettingsSheet: View {
                             if let banner = keySaveBanner {
                                 Text(banner)
                                     .font(Typography.caption)
-                                    .foregroundStyle(tokens.positive)
+                                    .foregroundStyle(Color.kymaiaSuccess)
                             }
                         }
                     }
@@ -303,7 +260,7 @@ struct MathsSettingsSheet: View {
                             HStack {
                                 Text("Learner Name")
                                     .font(Typography.subheadline.weight(.semibold))
-                                    .foregroundStyle(tokens.primary)
+                                    .foregroundStyle(Color.kymaiaInk)
                                 Spacer()
                                 TextField("Name", text: $store.learnerDisplayName)
                                     .textFieldStyle(.roundedBorder)
@@ -315,7 +272,7 @@ struct MathsSettingsSheet: View {
                             VStack(alignment: .leading, spacing: Spacing.xs) {
                                 Text("Default PencilKit Scratchpad Paper")
                                     .font(Typography.subheadline.weight(.semibold))
-                                    .foregroundStyle(tokens.primary)
+                                    .foregroundStyle(Color.kymaiaInk)
                                 AdaptiveOptionPicker(
                                     options: paperStyles,
                                     selection: $store.defaultScratchpadPaperStyle,
@@ -328,7 +285,7 @@ struct MathsSettingsSheet: View {
                             VStack(alignment: .leading, spacing: Spacing.xs) {
                                 Text("Daily Practice Target (minutes)")
                                     .font(Typography.subheadline.weight(.semibold))
-                                    .foregroundStyle(tokens.primary)
+                                    .foregroundStyle(Color.kymaiaInk)
                                 AdaptiveOptionPicker(
                                     options: goalOptions,
                                     selection: $store.dailyPracticeGoalMinutes,
