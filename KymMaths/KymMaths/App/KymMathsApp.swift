@@ -92,6 +92,7 @@ struct KymMathsRootView: View {
                 }
             }
         }
+        .tint(Color.kymaiaPrimary)
         .sheet(isPresented: $store.showCalendarSheet) {
             CalendarHomeView(store: store)
         }
