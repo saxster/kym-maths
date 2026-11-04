@@ -24,6 +24,12 @@ struct MathsCoachView: View {
         let activeSoul = store.activeSoul
 
         JournalPage {
+            EditorialHeader(
+                eyebrow: "Maths Coach",
+                title: "Constitutional Mathematics Mentor · \(activeSoul.displayName)",
+                subtitle: activeSoul.subtitle + " · " + store.currentUnderstandingPhase.badgeSubtitle
+            )
+
             // 1. Constitutional Guardrail & 4-Phase Understanding Banner
             JournalCard {
                 VStack(alignment: .leading, spacing: Spacing.md) {
@@ -49,14 +55,6 @@ struct MathsCoachView: View {
                             .foregroundStyle(Color.kymaiaMutedInk)
                     }
 
-                    Text("Constitutional Mathematics Mentor · \(activeSoul.displayName)")
-                        .font(Typography.title2)
-                        .foregroundStyle(Color.kymaiaInk)
-
-                    Text(activeSoul.subtitle + " · " + store.currentUnderstandingPhase.badgeSubtitle)
-                        .font(Typography.callout)
-                        .foregroundStyle(Color.kymaiaMutedInk)
-
                     // Soul Persona Selector
                     VStack(alignment: .leading, spacing: Spacing.xs) {
                         Text("CHOOSE YOUR MENTOR SOUL PERSONA")
@@ -65,7 +63,7 @@ struct MathsCoachView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: Spacing.xs) {
                                 ForEach(AgentSoulCatalog.all) { soul in
-                                    JournalChip(
+                                    MathsFilterChip(
                                         title: soul.displayName,
                                         systemImage: soul.icon,
                                         isSelected: store.selectedSoulId == soul.personaId
@@ -85,7 +83,7 @@ struct MathsCoachView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: Spacing.xs) {
                                 ForEach(TutorGuidanceStyle.allCases) { style in
-                                    JournalChip(
+                                    MathsFilterChip(
                                         title: style.title,
                                         systemImage: style.icon,
                                         isSelected: store.requestedGuidanceStyle == style
@@ -101,11 +99,7 @@ struct MathsCoachView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: Spacing.xs) {
                             ForEach(starterPrompts, id: \.self) { prompt in
-                                JournalChip(
-                                    title: prompt,
-                                    systemImage: "sparkles",
-                                    isSelected: false
-                                ) {
+                                PillButton(prompt, action: {
                                     Task {
                                         await store.sendMentorMessage(
                                             prompt,
@@ -113,7 +107,9 @@ struct MathsCoachView: View {
                                             learnerDraft: workingDraftText
                                         )
                                     }
-                                }
+                                }, icon: {
+                                    Image(systemName: "sparkles")
+                                })
                             }
                         }
                     }
@@ -132,7 +128,7 @@ struct MathsCoachView: View {
                         Button("Ask Mentor") {
                             sendCurrentQuery()
                         }
-                        .buttonStyle(JournalPrimaryButtonStyle())
+                        .buttonStyle(BrassButtonStyle())
 
                         if let activeQ = store.activePracticeQuestion,
                            let savedPad = store.loadScratchpad(questionId: activeQ.id) {
@@ -226,17 +222,11 @@ struct MathsCoachView: View {
                 eyebrow: "Protected by DevelopmentalResponseValidator & SafetyEscalationService"
             ) {
                 if store.mentorTurns.isEmpty {
-                    JournalCard {
-                        VStack(alignment: .leading, spacing: Spacing.sm) {
-                            HStack {
-                                JournalBadge(text: activeSoul.displayName, symbol: activeSoul.icon, tone: .accent)
-                                JournalBadge(text: "OUP Ch 1–16 + The Patterned World Ch 0–20", symbol: "book.closed", tone: .info)
-                            }
-                            Text("Hello \(store.learnerDisplayName)! I am \(activeSoul.displayName). Choose how you'd like us to work above—whether through Socratic questions, a light hint, collaborative practice, or a direct explanation—and ask me about any chapter in Deborah Barton's Oxford Complete Mathematics 8 or The Patterned World.")
-                                .font(Typography.body)
-                                .foregroundStyle(Color.kymaiaInk)
-                        }
-                    }
+                    EmptyStateCard(
+                        eyebrow: "\(activeSoul.displayName) · OUP Ch 1–16 + The Patterned World Ch 0–20",
+                        title: "Hello \(store.learnerDisplayName)!",
+                        subtitle: "I am \(activeSoul.displayName). Choose how you'd like us to work above—whether through Socratic questions, a light hint, collaborative practice, or a direct explanation—and ask me about any chapter in Deborah Barton's Oxford Complete Mathematics 8 or The Patterned World."
+                    )
                 } else {
                     ForEach(store.mentorTurns) { turn in
                         JournalCard {

@@ -22,6 +22,12 @@ struct PolyaFluencyHomeView: View {
         let currentCard = activeDeck.cards[currentCardIndex % max(1, activeDeck.cards.count)]
 
         JournalPage {
+            EditorialHeader(
+                eyebrow: "Problem Solving & Fluency",
+                title: "Pólya & SpeedMath",
+                subtitle: "Work a problem through Pólya's four stages, then build speed with mental-maths decks and spot-the-flaw proofs."
+            )
+
             // 1. Pólya's 4-Stage How to Solve It Studio
             JournalSection(
                 title: "George Pólya's \"How to Solve It\" Studio",
@@ -29,18 +35,9 @@ struct PolyaFluencyHomeView: View {
             ) {
                 JournalCard {
                     VStack(alignment: .leading, spacing: Spacing.md) {
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: Spacing.xs) {
-                                ForEach(store.seedPack.polyaStages) { stage in
-                                    JournalChip(
-                                        title: "Stage \(stage.stageNumber): \(stage.title)",
-                                        systemImage: stage.symbol,
-                                        isSelected: store.selectedPolyaStageId == stage.id
-                                    ) {
-                                        store.selectedPolyaStageId = stage.id
-                                    }
-                                }
-                            }
+                        let dialStages = store.seedPack.polyaStages.map(\.dialStage)
+                        StageDial(stages: dialStages, selection: activeStage.dialStage) { stage in
+                            store.selectedPolyaStageId = stage.id
                         }
 
                         HStack {
@@ -71,7 +68,7 @@ struct PolyaFluencyHomeView: View {
                         }
                         .padding(Spacing.sm)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(RoundedRectangle(cornerRadius: Spacing.radiusMD).fill(Color.kymaiaElevatedSurface))
+                        .quietPanelBackground()
 
                         // Interactive Singapore Bar-Model Visualiser for Pólya's Train & Platform Example
                         PolyaSingaporeBarIllustrationView(stageNumber: activeStage.stageNumber)
@@ -99,7 +96,7 @@ struct PolyaFluencyHomeView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: Spacing.xs) {
                                 ForEach(store.seedPack.speedMathDecks) { deck in
-                                    JournalChip(
+                                    MathsFilterChip(
                                         title: deck.title,
                                         systemImage: deck.symbol,
                                         isSelected: store.selectedSpeedDeckId == deck.id
@@ -132,7 +129,7 @@ struct PolyaFluencyHomeView: View {
                             .foregroundStyle(Color.kymaiaInk)
                             .padding(Spacing.md)
                             .frame(maxWidth: .infinity, alignment: .center)
-                            .background(RoundedRectangle(cornerRadius: Spacing.radiusMD).fill(Color.kymaiaElevatedSurface))
+                            .quietPanelBackground()
 
                         HStack(spacing: Spacing.sm) {
                             TextField("Type mental answer...", text: $userSpeedAnswer)
@@ -145,7 +142,7 @@ struct PolyaFluencyHomeView: View {
                             Button("Check") {
                                 checkSpeedCard(currentCard, deckCount: activeDeck.cards.count)
                             }
-                            .buttonStyle(JournalPrimaryButtonStyle())
+                            .buttonStyle(BrassButtonStyle())
 
                             Button("Next Card") {
                                 currentCardIndex = (currentCardIndex + 1) % max(1, activeDeck.cards.count)
@@ -166,7 +163,7 @@ struct PolyaFluencyHomeView: View {
                             }
                             .padding(Spacing.sm)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(RoundedRectangle(cornerRadius: Spacing.radiusMD).fill(Color.kymaiaElevatedSurface))
+                            .quietPanelBackground()
                         }
                     }
                 }
@@ -233,7 +230,7 @@ struct PolyaFluencyHomeView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: Spacing.xs) {
                                 ForEach(MathsSpotTheFlawCatalog.all) { card in
-                                    JournalChip(
+                                    MathsFilterChip(
                                         title: card.title,
                                         systemImage: "exclamationmark.magnifyingglass",
                                         isSelected: selectedFlawCardId == card.id
@@ -304,7 +301,7 @@ struct PolyaFluencyHomeView: View {
                             }
                             .padding(Spacing.sm)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(RoundedRectangle(cornerRadius: Spacing.radiusMD).fill(Color.kymaiaElevatedSurface))
+                            .quietPanelBackground()
                         }
                     }
                 }
@@ -341,8 +338,8 @@ struct PolyaSingaporeBarIllustrationView: View {
             let w = size.width
             let h = size.height
             let bg = CGRect(origin: .zero, size: size)
-            context.fill(Path(roundedRect: bg, cornerRadius: 10), with: .color(Color(red: 0.965, green: 0.953, blue: 0.925)))
-            context.stroke(Path(roundedRect: bg, cornerRadius: 10), with: .color(cInk.opacity(0.15)), lineWidth: 1)
+            context.fill(Path(roundedRect: bg, cornerRadius: MathsFigureRadius.frame), with: .color(MathsFigureColor.paper))
+            context.stroke(Path(roundedRect: bg, cornerRadius: MathsFigureRadius.frame), with: .color(cInk.opacity(0.15)), lineWidth: 1)
 
             let x0 = w * 0.16
             let trainW = w * 0.26
@@ -350,21 +347,21 @@ struct PolyaSingaporeBarIllustrationView: View {
 
             // Row 1: Lamp-post journey (Train length L in 9 s)
             let bar1 = CGRect(x: x0, y: h * 0.20, width: trainW, height: 28)
-            context.fill(Path(roundedRect: bar1, cornerRadius: 5), with: .color(cRed.opacity(0.24)))
-            context.stroke(Path(roundedRect: bar1, cornerRadius: 5), with: .color(cRed), lineWidth: 2)
-            context.draw(Text("Pole (9 s)").font(.system(size: 11, weight: .bold)).foregroundStyle(cInk), at: CGPoint(x: w * 0.08, y: bar1.midY))
-            context.draw(Text(stageNumber >= 3 ? "Train L = 180 m (9 s)" : "Train Length L (9 s)").font(.system(size: 11, weight: .semibold, design: .monospaced)).foregroundStyle(cRed), at: CGPoint(x: bar1.midX, y: bar1.midY))
+            context.fill(Path(roundedRect: bar1, cornerRadius: MathsFigureRadius.bar), with: .color(cRed.opacity(0.24)))
+            context.stroke(Path(roundedRect: bar1, cornerRadius: MathsFigureRadius.bar), with: .color(cRed), lineWidth: 2)
+            context.draw(Text("Pole (9 s)").font(MathsFigureType.label).foregroundStyle(cInk), at: CGPoint(x: w * 0.08, y: bar1.midY))
+            context.draw(Text(stageNumber >= 3 ? "Train L = 180 m (9 s)" : "Train Length L (9 s)").font(MathsFigureType.labelMonoMedium).foregroundStyle(cRed), at: CGPoint(x: bar1.midX, y: bar1.midY))
 
             // Row 2: Platform journey (Train L + 300 m in 24 s)
             let bar2A = CGRect(x: x0, y: h * 0.58, width: trainW, height: 28)
             let bar2B = CGRect(x: x0 + trainW + 3, y: h * 0.58, width: platW, height: 28)
-            context.fill(Path(roundedRect: bar2A, cornerRadius: 5), with: .color(cRed.opacity(0.24)))
-            context.stroke(Path(roundedRect: bar2A, cornerRadius: 5), with: .color(cRed), lineWidth: 2)
-            context.fill(Path(roundedRect: bar2B, cornerRadius: 5), with: .color(cBlue.opacity(0.22)))
-            context.stroke(Path(roundedRect: bar2B, cornerRadius: 5), with: .color(cBlue), lineWidth: 2)
-            context.draw(Text("Platform (24 s)").font(.system(size: 11, weight: .bold)).foregroundStyle(cInk), at: CGPoint(x: w * 0.08, y: bar2A.midY))
-            context.draw(Text("Train L").font(.system(size: 11, weight: .semibold, design: .monospaced)).foregroundStyle(cRed), at: CGPoint(x: bar2A.midX, y: bar2A.midY))
-            context.draw(Text("Platform P = 300 m").font(.system(size: 11, weight: .semibold, design: .monospaced)).foregroundStyle(cBlue), at: CGPoint(x: bar2B.midX, y: bar2B.midY))
+            context.fill(Path(roundedRect: bar2A, cornerRadius: MathsFigureRadius.bar), with: .color(cRed.opacity(0.24)))
+            context.stroke(Path(roundedRect: bar2A, cornerRadius: MathsFigureRadius.bar), with: .color(cRed), lineWidth: 2)
+            context.fill(Path(roundedRect: bar2B, cornerRadius: MathsFigureRadius.bar), with: .color(cBlue.opacity(0.22)))
+            context.stroke(Path(roundedRect: bar2B, cornerRadius: MathsFigureRadius.bar), with: .color(cBlue), lineWidth: 2)
+            context.draw(Text("Platform (24 s)").font(MathsFigureType.label).foregroundStyle(cInk), at: CGPoint(x: w * 0.08, y: bar2A.midY))
+            context.draw(Text("Train L").font(MathsFigureType.labelMonoMedium).foregroundStyle(cRed), at: CGPoint(x: bar2A.midX, y: bar2A.midY))
+            context.draw(Text("Platform P = 300 m").font(MathsFigureType.labelMonoMedium).foregroundStyle(cBlue), at: CGPoint(x: bar2B.midX, y: bar2B.midY))
 
             if stageNumber >= 2 {
                 // Difference bracket over the extra 300 m
@@ -375,7 +372,7 @@ struct PolyaSingaporeBarIllustrationView: View {
                 let label = stageNumber == 2
                     ? "Aha! Extra 300 m takes 24 − 9 = 15 s"
                     : (stageNumber == 3 ? "v = 300 m ÷ 15 s = 20 m/s ⇒ L = 20 × 9 = 180 m" : "General Invariant: L = P · t₁ / (t₂ − t₁) = 180 m ✓")
-                context.draw(Text(label).font(.system(size: 11, weight: .bold, design: .monospaced)).foregroundStyle(cGreen), at: CGPoint(x: bar2B.midX, y: bar1.midY))
+                context.draw(Text(label).font(MathsFigureType.labelMono).foregroundStyle(cGreen), at: CGPoint(x: bar2B.midX, y: bar1.midY))
             }
         }
     }
@@ -397,8 +394,8 @@ struct VisualMathTipIllustrationView: View {
             let w = size.width
             let h = size.height
             let bg = CGRect(origin: .zero, size: size)
-            context.fill(Path(roundedRect: bg, cornerRadius: 10), with: .color(Color(red: 0.965, green: 0.953, blue: 0.925)))
-            context.stroke(Path(roundedRect: bg, cornerRadius: 10), with: .color(cInk.opacity(0.14)), lineWidth: 1)
+            context.fill(Path(roundedRect: bg, cornerRadius: MathsFigureRadius.frame), with: .color(MathsFigureColor.paper))
+            context.stroke(Path(roundedRect: bg, cornerRadius: MathsFigureRadius.frame), with: .color(cInk.opacity(0.14)), lineWidth: 1)
 
             switch tipId {
             case "tip-neg-mult":
@@ -411,9 +408,9 @@ struct VisualMathTipIllustrationView: View {
                 var arc2 = Path()
                 arc2.addArc(center: CGPoint(x: cx, y: cy), radius: r * 0.75, startAngle: .degrees(180), endAngle: .degrees(0), clockwise: true)
                 context.stroke(arc2, with: .color(cGreen), style: StrokeStyle(lineWidth: 2.5, dash: [5, 3]))
-                context.draw(Text("0").font(.system(size: 11, weight: .bold, design: .monospaced)).foregroundStyle(cInk), at: CGPoint(x: cx, y: cy + 14))
-                context.draw(Text("−1 (180° flip)").font(.system(size: 10.5, weight: .bold)).foregroundStyle(cRed), at: CGPoint(x: cx - r, y: cy + 14))
-                context.draw(Text("+1 (360° = +ab)").font(.system(size: 10.5, weight: .bold)).foregroundStyle(cGreen), at: CGPoint(x: cx + r, y: cy + 14))
+                context.draw(Text("0").font(MathsFigureType.labelMono).foregroundStyle(cInk), at: CGPoint(x: cx, y: cy + 14))
+                context.draw(Text("−1 (180° flip)").font(MathsFigureType.note).foregroundStyle(cRed), at: CGPoint(x: cx - r, y: cy + 14))
+                context.draw(Text("+1 (360° = +ab)").font(MathsFigureType.note).foregroundStyle(cGreen), at: CGPoint(x: cx + r, y: cy + 14))
 
             case "tip-binomial-square":
                 let s = min(w, h) * 0.76
@@ -428,10 +425,10 @@ struct VisualMathTipIllustrationView: View {
                 context.fill(Path(rAB2), with: .color(cBlue.opacity(0.24)))
                 context.fill(Path(rBB), with: .color(cAmber.opacity(0.28)))
                 for r in [rAA, rAB1, rAB2, rBB] { context.stroke(Path(r), with: .color(cInk.opacity(0.75)), lineWidth: 1.6) }
-                context.draw(Text("a²").font(.system(size: 13, weight: .bold)).foregroundStyle(cRed), at: CGPoint(x: rAA.midX, y: rAA.midY))
-                context.draw(Text("ab").font(.system(size: 11, weight: .bold)).foregroundStyle(cBlue), at: CGPoint(x: rAB1.midX, y: rAB1.midY))
-                context.draw(Text("ab").font(.system(size: 11, weight: .bold)).foregroundStyle(cBlue), at: CGPoint(x: rAB2.midX, y: rAB2.midY))
-                context.draw(Text("b²").font(.system(size: 11, weight: .bold)).foregroundStyle(cAmber), at: CGPoint(x: rBB.midX, y: rBB.midY))
+                context.draw(Text("a²").font(MathsFigureType.areaTerm).foregroundStyle(cRed), at: CGPoint(x: rAA.midX, y: rAA.midY))
+                context.draw(Text("ab").font(MathsFigureType.label).foregroundStyle(cBlue), at: CGPoint(x: rAB1.midX, y: rAB1.midY))
+                context.draw(Text("ab").font(MathsFigureType.label).foregroundStyle(cBlue), at: CGPoint(x: rAB2.midX, y: rAB2.midY))
+                context.draw(Text("b²").font(MathsFigureType.label).foregroundStyle(cAmber), at: CGPoint(x: rBB.midX, y: rBB.midY))
 
             case "tip-gauss-sum":
                 let n = 5
@@ -451,12 +448,12 @@ struct VisualMathTipIllustrationView: View {
                         )
                         let isOrig = row < redCount
                         let c = isOrig ? cRed : cBlue
-                        context.fill(Path(roundedRect: rect, cornerRadius: 2), with: .color(c.opacity(0.28)))
-                        context.stroke(Path(roundedRect: rect, cornerRadius: 2), with: .color(c), lineWidth: 1.2)
+                        context.fill(Path(roundedRect: rect, cornerRadius: MathsFigureRadius.cell), with: .color(c.opacity(0.28)))
+                        context.stroke(Path(roundedRect: rect, cornerRadius: MathsFigureRadius.cell), with: .color(c), lineWidth: 1.2)
                         let _ = blueCount
                     }
                 }
-                context.draw(Text("n × (n+1) rectangle").font(.system(size: 10.5, weight: .bold, design: .monospaced)).foregroundStyle(cGreen), at: CGPoint(x: w * 0.5, y: h * 0.12))
+                context.draw(Text("n × (n+1) rectangle").font(MathsFigureType.noteMono).foregroundStyle(cGreen), at: CGPoint(x: w * 0.5, y: h * 0.12))
 
             case "tip-circle-area":
                 let x0 = w * 0.16, x1 = w * 0.84, y0 = h * 0.24, y1 = h * 0.76
@@ -474,8 +471,8 @@ struct VisualMathTipIllustrationView: View {
                     context.fill(tri, with: .color((i % 2 == 0 ? cRed : cBlue).opacity(0.25)))
                     context.stroke(tri, with: .color(i % 2 == 0 ? cRed : cBlue), lineWidth: 1.4)
                 }
-                context.draw(Text("Base ≈ πr").font(.system(size: 11, weight: .bold, design: .monospaced)).foregroundStyle(cBlue), at: CGPoint(x: w * 0.50, y: h * 0.88))
-                context.draw(Text("r").font(.system(size: 11, weight: .bold, design: .monospaced)).foregroundStyle(cRed), at: CGPoint(x: x0 - 12, y: (y0 + y1) * 0.5))
+                context.draw(Text("Base ≈ πr").font(MathsFigureType.labelMono).foregroundStyle(cBlue), at: CGPoint(x: w * 0.50, y: h * 0.88))
+                context.draw(Text("r").font(MathsFigureType.labelMono).foregroundStyle(cRed), at: CGPoint(x: x0 - 12, y: (y0 + y1) * 0.5))
 
             case "tip-pythag-trig":
                 let cx = w * 0.50, cy = h * 0.56, r = min(w, h) * 0.36
@@ -488,9 +485,9 @@ struct VisualMathTipIllustrationView: View {
                 context.stroke(cosP, with: .color(cBlue), lineWidth: 3)
                 context.stroke(sinP, with: .color(cRed), lineWidth: 3)
                 context.stroke(hypP, with: .color(cGreen), lineWidth: 2.4)
-                context.draw(Text("cos θ").font(.system(size: 10.5, weight: .bold)).foregroundStyle(cBlue), at: CGPoint(x: (cx + px) * 0.5, y: cy + 12))
-                context.draw(Text("sin θ").font(.system(size: 10.5, weight: .bold)).foregroundStyle(cRed), at: CGPoint(x: px + 22, y: (cy + py) * 0.5))
-                context.draw(Text("r = 1").font(.system(size: 10.5, weight: .bold)).foregroundStyle(cGreen), at: CGPoint(x: (cx + px) * 0.5 - 12, y: (cy + py) * 0.5 - 10))
+                context.draw(Text("cos θ").font(MathsFigureType.note).foregroundStyle(cBlue), at: CGPoint(x: (cx + px) * 0.5, y: cy + 12))
+                context.draw(Text("sin θ").font(MathsFigureType.note).foregroundStyle(cRed), at: CGPoint(x: px + 22, y: (cy + py) * 0.5))
+                context.draw(Text("r = 1").font(MathsFigureType.note).foregroundStyle(cGreen), at: CGPoint(x: (cx + px) * 0.5 - 12, y: (cy + py) * 0.5 - 10))
 
             case "tip-bayes-square":
                 let sq = CGRect(x: w * 0.16, y: h * 0.14, width: w * 0.48, height: h * 0.72)
@@ -502,8 +499,8 @@ struct VisualMathTipIllustrationView: View {
                 context.stroke(Path(tpR), with: .color(cRed), lineWidth: 1.8)
                 context.fill(Path(fpR), with: .color(cAmber.opacity(0.32)))
                 context.stroke(Path(fpR), with: .color(cAmber), lineWidth: 1.8)
-                context.draw(Text("TP=19").font(.system(size: 10, weight: .bold)).foregroundStyle(cRed), at: CGPoint(x: w * 0.78, y: h * 0.34))
-                context.draw(Text("FP=49").font(.system(size: 10, weight: .bold)).foregroundStyle(cAmber), at: CGPoint(x: w * 0.78, y: h * 0.62))
+                context.draw(Text("TP=19").font(MathsFigureType.tally).foregroundStyle(cRed), at: CGPoint(x: w * 0.78, y: h * 0.34))
+                context.draw(Text("FP=49").font(MathsFigureType.tally).foregroundStyle(cAmber), at: CGPoint(x: w * 0.78, y: h * 0.62))
 
             case "tip-calculus-ftc":
                 let x0 = w * 0.16, x1 = w * 0.72, yBase = h * 0.80, yTop = h * 0.22
@@ -516,7 +513,7 @@ struct VisualMathTipIllustrationView: View {
                 let bar = CGRect(x: w * 0.80, y: yTop, width: 16, height: yBase - yTop)
                 context.fill(Path(bar), with: .color(cRed.opacity(0.32)))
                 context.stroke(Path(bar), with: .color(cRed), lineWidth: 2)
-                context.draw(Text("∫ f′ dt = Δf").font(.system(size: 10.5, weight: .bold, design: .monospaced)).foregroundStyle(cGreen), at: CGPoint(x: w * 0.44, y: h * 0.24))
+                context.draw(Text("∫ f′ dt = Δf").font(MathsFigureType.noteMono).foregroundStyle(cGreen), at: CGPoint(x: w * 0.44, y: h * 0.24))
 
             default: // "tip-matrix-det"
                 let o = CGPoint(x: w * 0.20, y: h * 0.78)
@@ -531,8 +528,16 @@ struct VisualMathTipIllustrationView: View {
                 var a2 = Path(); a2.move(to: o); a2.addLine(to: v2)
                 context.stroke(a1, with: .color(cRed), lineWidth: 2.8)
                 context.stroke(a2, with: .color(cBlue), lineWidth: 2.8)
-                context.draw(Text("det(A) = ad − bc").font(.system(size: 11, weight: .bold, design: .monospaced)).foregroundStyle(cGreen), at: CGPoint(x: (o.x + v12.x) * 0.5, y: (o.y + v12.y) * 0.5))
+                context.draw(Text("det(A) = ad − bc").font(MathsFigureType.labelMono).foregroundStyle(cGreen), at: CGPoint(x: (o.x + v12.x) * 0.5, y: (o.y + v12.y) * 0.5))
             }
         }
+    }
+}
+
+private extension PolyaStageSpec {
+    /// Pólya's four stages as the Standard's `StageDial` draws them: the stage number as the glyph
+    /// and "Stage n: title" as the spoken label.
+    var dialStage: StandardStage {
+        StandardStage(id: id, label: "Stage \(stageNumber): \(title)", glyph: "\(stageNumber)")
     }
 }

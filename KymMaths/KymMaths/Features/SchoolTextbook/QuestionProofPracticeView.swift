@@ -196,7 +196,7 @@ struct QuestionProofPracticeView: View {
                                         systemImage: "checkmark.seal.fill"
                                     )
                                 }
-                                .buttonStyle(JournalPrimaryButtonStyle())
+                                .buttonStyle(BrassButtonStyle())
 
                                 Spacer()
                             }
@@ -267,10 +267,7 @@ struct QuestionProofPracticeView: View {
                                         .foregroundStyle(Color.kymaiaMutedInk)
                                 }
                                 .padding(Spacing.md)
-                                .background(
-                                    RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                                        .fill(Color.kymaiaElevatedSurface)
-                                )
+                                .quietPanelBackground()
                             }
                         }
                     }

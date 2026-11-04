@@ -68,23 +68,23 @@ public struct TutorCanvasView: View {
             GeometryReader { geo in
                 let size = geo.size
                 ZStack {
-                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
                         .fill(Color.kymaiaPaper)
                         .overlay(
-                            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                            RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
                                 .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
                         )
 
                     if effectiveShowGrid {
                         CanvasGridBackground()
-                            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                            .clipShape(RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous))
                     }
 
                     Canvas { context, canvasSize in
                         drawShapes(in: &context, size: canvasSize)
                         drawStrokes(in: &context, size: canvasSize)
                     }
-                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    .clipShape(RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous))
                     .gesture(allowEditing ? canvasGesture(in: size) : nil)
                 }
             }
@@ -132,9 +132,13 @@ public struct TutorCanvasView: View {
                                 .padding(.vertical, 6)
                                 .background(
                                     Capsule()
-                                        .fill(selectedTool == tool ? Color.kymaiaPrimary : Color.kymaiaPaper)
+                                        .fill(selectedTool == tool ? Color.kymaiaInk : Color.clear)
                                 )
-                                .foregroundStyle(selectedTool == tool ? Color.white : Color.kymaiaInk)
+                                .overlay(
+                                    Capsule()
+                                        .stroke(selectedTool == tool ? Color.clear : Color.kymaiaHairline, lineWidth: 1)
+                                )
+                                .foregroundStyle(selectedTool == tool ? Color.kymaiaBackground : Color.kymaiaInk)
                         }
                         .buttonStyle(.plain)
                     }
@@ -244,7 +248,7 @@ public struct TutorCanvasView: View {
                 let w = CGFloat((shape.width ?? 160) / TutorCanvasSpace.width) * size.width
                 let h = CGFloat((shape.height ?? 80) / TutorCanvasSpace.height) * size.height
                 let rect = CGRect(x: topLeft.x, y: topLeft.y, width: w, height: h)
-                let path = Path(roundedRect: rect, cornerRadius: 10)
+                let path = Path(roundedRect: rect, cornerRadius: MathsFigureRadius.frame)
                 if shape.filled {
                     context.fill(path, with: .color(color.opacity(0.18)))
                 }
@@ -721,13 +725,11 @@ public struct LiveMentorChalkboardPane: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: Spacing.xs) {
                     ForEach(LiveMentorChalkboardTemplate.allCases) { template in
-                        JournalChip(
-                            title: template.title,
-                            systemImage: template.icon,
-                            isSelected: false
-                        ) {
+                        PillButton(template.title, action: {
                             model.applyTemplate(template)
-                        }
+                        }, icon: {
+                            Image(systemName: template.icon)
+                        })
                     }
 
                     if let onSendBoardToMentor {
@@ -744,7 +746,7 @@ public struct LiveMentorChalkboardPane: View {
                                 .padding(.horizontal, 12)
                                 .padding(.vertical, 7)
                                 .background(Capsule().fill(Color.kymaiaPrimary))
-                                .foregroundStyle(Color.white)
+                                .foregroundStyle(Color.kymaiaBackground)
                         }
                         .buttonStyle(.plain)
                     }

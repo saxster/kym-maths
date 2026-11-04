@@ -745,7 +745,7 @@ public struct LiveMentorCallSurface: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: Spacing.xs) {
                         ForEach(LiveMentorVoiceProvider.allCases) { voiceProvider in
-                            JournalChip(
+                            MathsFilterChip(
                                 title: voiceProvider.displayName,
                                 systemImage: "waveform",
                                 isSelected: controller.provider == voiceProvider
@@ -769,7 +769,7 @@ public struct LiveMentorCallSurface: View {
                         } label: {
                             Label("Start Live Voice + Chalkboard", systemImage: "mic.fill")
                         }
-                        .buttonStyle(JournalPrimaryButtonStyle())
+                        .buttonStyle(JournalSecondaryButtonStyle())
                     } else {
                         Button {
                             controller.isMicrophoneMuted.toggle()
@@ -796,7 +796,7 @@ public struct LiveMentorCallSurface: View {
                         } label: {
                             Label("End Call & Extract Takeaways", systemImage: "phone.down.fill")
                         }
-                        .buttonStyle(JournalPrimaryButtonStyle())
+                        .buttonStyle(JournalSecondaryButtonStyle())
                     }
                 }
 
@@ -818,7 +818,7 @@ public struct LiveMentorCallSurface: View {
                         } label: {
                             Label("Speak Turn", systemImage: "waveform.circle.fill")
                         }
-                        .buttonStyle(JournalPrimaryButtonStyle())
+                        .buttonStyle(JournalSecondaryButtonStyle())
                         .disabled(spokenDraft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                     }
                 }

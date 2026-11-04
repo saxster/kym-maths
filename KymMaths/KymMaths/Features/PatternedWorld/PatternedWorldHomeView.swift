@@ -14,21 +14,16 @@ struct PatternedWorldHomeView: View {
         let progress = store.readingProgressByChapter[chapter.number]
 
         JournalPage {
-            // 1. Book Header & Volume/Chapter Strip
+            EditorialHeader(
+                eyebrow: "Interactive Story-First Textbook · 5 Volumes · 21 Chapters",
+                title: "The Patterned World",
+                subtitle: "Every chapter moves from Concrete Visual Intuition → The \"Aha!\" Invariant → The Actual Symbolic Formula."
+            )
+
+            // 1. Volume/Chapter Strip
             JournalCard {
                 VStack(alignment: .leading, spacing: Spacing.md) {
                     HStack(alignment: .top) {
-                        VStack(alignment: .leading, spacing: Spacing.xxs) {
-                            Text("INTERACTIVE STORY-FIRST TEXTBOOK · 5 VOLUMES · 21 CHAPTERS")
-                                .font(Typography.eyebrow)
-                                .foregroundStyle(Color.kymaiaPrimary)
-                            Text("The Patterned World")
-                                .font(Typography.largeTitle)
-                                .foregroundStyle(Color.kymaiaInk)
-                            Text("Every chapter moves from Concrete Visual Intuition → The \"Aha!\" Invariant → The Actual Symbolic Formula.")
-                                .font(Typography.subheadline)
-                                .foregroundStyle(Color.kymaiaMutedInk)
-                        }
                         Spacer()
                         Button {
                             showEmbeddedWebStage.toggle()
@@ -55,7 +50,7 @@ struct PatternedWorldHomeView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: Spacing.xs) {
                             ForEach(store.visiblePatternedWorldChapters) { ch in
-                                JournalChip(
+                                MathsFilterChip(
                                     title: "Ch \(ch.number): \(ch.title)",
                                     systemImage: (store.readingProgressByChapter[ch.number]?.readFraction ?? 0) >= 0.9 ? "checkmark.circle.fill" : "book.pages",
                                     isSelected: store.selectedChapterNumber == ch.number
@@ -85,7 +80,7 @@ struct PatternedWorldHomeView: View {
                             Button("Mark Chapter Complete") {
                                 store.markChapterRead(chapterNumber: chapter.number, fraction: 1.0)
                             }
-                            .buttonStyle(JournalPrimaryButtonStyle())
+                            .buttonStyle(BrassButtonStyle())
                         }
 
                         Text(chapter.hookSummary)
@@ -109,7 +104,7 @@ struct PatternedWorldHomeView: View {
                                 }
                                 .padding(Spacing.sm)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(Color.kymaiaElevatedSurface))
+                                .quietPanelBackground()
 
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text("2. The \"Aha!\" Invariant")
@@ -121,7 +116,7 @@ struct PatternedWorldHomeView: View {
                                 }
                                 .padding(Spacing.sm)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(Color.kymaiaElevatedSurface))
+                                .quietPanelBackground()
                             }
 
                             VStack(alignment: .leading, spacing: Spacing.xs) {
@@ -133,7 +128,7 @@ struct PatternedWorldHomeView: View {
                                     .foregroundStyle(Color.kymaiaInk)
                                     .padding(Spacing.sm)
                                     .frame(maxWidth: .infinity, alignment: .leading)
-                                    .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(Color.kymaiaElevatedSurface))
+                                    .quietPanelBackground()
 
                                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 200), spacing: Spacing.xs)], spacing: Spacing.xs) {
                                     ForEach(bridge.termMappings) { term in
@@ -153,7 +148,7 @@ struct PatternedWorldHomeView: View {
                                         }
                                         .padding(Spacing.xs)
                                         .frame(maxWidth: .infinity, alignment: .leading)
-                                        .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(Color.kymaiaElevatedSurface))
+                                        .quietPanelBackground()
                                     }
                                 }
                             }

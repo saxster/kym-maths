@@ -16,21 +16,16 @@ struct SchoolMathsHomeView: View {
         let currentProblem = QuantitativeMathsEngine.generate(template: selectedTemplate, seed: problemSeed)
 
         JournalPage {
-            // 1. Textbook Header & Lens Switcher
+            EditorialHeader(
+                eyebrow: "School Textbook Spine & 3-Tier Companion Workbook",
+                title: store.seedPack.schoolTextbook.title,
+                subtitle: "By \(store.seedPack.schoolTextbook.authors) · \(store.seedPack.schoolTextbook.publisher) · pp. 5–\(store.seedPack.schoolTextbook.learnersBookTotalPages)"
+            )
+
+            // 1. Lens Switcher
             JournalCard {
                 VStack(alignment: .leading, spacing: Spacing.md) {
                     HStack(alignment: .top) {
-                        VStack(alignment: .leading, spacing: Spacing.xxs) {
-                            Text("SCHOOL TEXTBOOK SPINE & 3-TIER COMPANION WORKBOOK")
-                                .font(Typography.eyebrow)
-                                .foregroundStyle(Color.kymaiaPrimary)
-                            Text(store.seedPack.schoolTextbook.title)
-                                .font(Typography.title2)
-                                .foregroundStyle(Color.kymaiaInk)
-                            Text("By \(store.seedPack.schoolTextbook.authors) · \(store.seedPack.schoolTextbook.publisher) · pp. 5–\(store.seedPack.schoolTextbook.learnersBookTotalPages)")
-                                .font(Typography.subheadline)
-                                .foregroundStyle(Color.kymaiaMutedInk)
-                        }
                         Spacer()
                         Button {
                             store.showSettingsSheet = true
@@ -57,7 +52,7 @@ struct SchoolMathsHomeView: View {
                                     default: return "book.closed"
                                     }
                                 }()
-                                JournalChip(
+                                MathsFilterChip(
                                     title: "Ch \(unit.unitNumber): \(unit.title)",
                                     systemImage: badgeIcon,
                                     isSelected: store.selectedUnitNumber == unit.unitNumber
@@ -117,7 +112,7 @@ struct SchoolMathsHomeView: View {
                                     if let watchout = topic.cambridgeWatchouts.first {
                                         HStack(alignment: .top, spacing: 4) {
                                             Image(systemName: "exclamationmark.triangle.fill")
-                                                .font(.caption2)
+                                                .font(.kymaiaCaption2)
                                                 .foregroundStyle(Color.kymaiaWarning)
                                             Text(watchout)
                                                 .font(Typography.caption)
@@ -153,10 +148,7 @@ struct SchoolMathsHomeView: View {
                                     }
                                 }
                                 .padding(Spacing.sm)
-                                .background(
-                                    RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                                        .fill(Color.kymaiaElevatedSurface)
-                                )
+                                .quietPanelBackground()
                                 .overlay(
                                     RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
                                         .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
@@ -210,16 +202,13 @@ struct SchoolMathsHomeView: View {
                                     } label: {
                                         Label("Open Worked Example & Proof Studio", systemImage: "pencil.and.outline")
                                     }
-                                    .buttonStyle(JournalPrimaryButtonStyle())
+                                    .buttonStyle(JournalSecondaryButtonStyle())
 
                                     Spacer()
                                 }
                             }
                             .padding(Spacing.md)
-                            .background(
-                                RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                                    .fill(Color.kymaiaElevatedSurface)
-                            )
+                            .quietPanelBackground()
                         }
                     }
                 }
@@ -235,7 +224,7 @@ struct SchoolMathsHomeView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: Spacing.xs) {
                                 ForEach(QuantitativeTemplateKind.allCases) { kind in
-                                    JournalChip(
+                                    MathsFilterChip(
                                         title: kind.title,
                                         systemImage: "function",
                                         isSelected: selectedTemplate == kind
@@ -283,10 +272,7 @@ struct SchoolMathsHomeView: View {
                             }
                             .padding(Spacing.sm)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(
-                                RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                                    .fill(Color.kymaiaElevatedSurface)
-                            )
+                            .quietPanelBackground()
                         }
 
                         HStack(spacing: Spacing.sm) {
@@ -300,7 +286,7 @@ struct SchoolMathsHomeView: View {
                             Button("Verify Answer") {
                                 quantEval = QuantitativeMathsEngine.evaluate(problem: currentProblem, numericInput: numericInput)
                             }
-                            .buttonStyle(JournalPrimaryButtonStyle())
+                            .buttonStyle(BrassButtonStyle())
                         }
 
                         if let eval = quantEval {
@@ -319,10 +305,7 @@ struct SchoolMathsHomeView: View {
                                 }
                             }
                             .padding(Spacing.sm)
-                            .background(
-                                RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                                    .fill(Color.kymaiaElevatedSurface)
-                            )
+                            .quietPanelBackground()
                         }
                     }
                 }

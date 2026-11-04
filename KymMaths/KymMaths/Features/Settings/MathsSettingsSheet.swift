@@ -193,7 +193,7 @@ struct MathsSettingsSheet: View {
                                     ScrollView(.horizontal, showsIndicators: false) {
                                         HStack(spacing: Spacing.xs) {
                                             ForEach(key.allowedValues, id: \.self) { val in
-                                                JournalChip(
+                                                MathsFilterChip(
                                                     title: val,
                                                     systemImage: "slider.horizontal.3",
                                                     isSelected: store.soulParentOverrides[key.rawValue] == val

@@ -19,23 +19,19 @@ struct LabsAtlasHomeView: View {
         let plate = store.selectedDiagramPlate
 
         JournalPage {
-            // 1. Header & @saxster/atlas 3D Gallery
+            EditorialHeader(
+                eyebrow: "3D Mathematical Atlas & Diagram Recall Studio",
+                title: "47 Interactive Labs + @saxster/atlas 3D Figures + 16 Diagram Plates",
+                subtitle: "Powered by the pure-model @saxster/atlas engine (21 3D Chapter Apparatuses + Unit Circle, Secant-to-Tangent Calculus, 3D Matrix Sandbox, Galton Board, Bayes' 1,000-Person Unit Square & Compound Cascade)."
+            )
+
+            // 1. @saxster/atlas 3D Gallery
             JournalCard {
                 VStack(alignment: .leading, spacing: Spacing.md) {
-                    Text("3D MATHEMATICAL ATLAS & DIAGRAM RECALL STUDIO")
-                        .font(Typography.eyebrow)
-                        .foregroundStyle(Color.kymaiaPrimary)
-                    Text("47 Interactive Labs + @saxster/atlas 3D Figures + 16 Diagram Plates")
-                        .font(Typography.title2)
-                        .foregroundStyle(Color.kymaiaInk)
-                    Text("Powered by the pure-model @saxster/atlas engine (21 3D Chapter Apparatuses + Unit Circle, Secant-to-Tangent Calculus, 3D Matrix Sandbox, Galton Board, Bayes' 1,000-Person Unit Square & Compound Cascade).")
-                        .font(Typography.subheadline)
-                        .foregroundStyle(Color.kymaiaMutedInk)
-
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: Spacing.xs) {
                             ForEach(store.seedPack.widgets) { w in
-                                JournalChip(
+                                MathsFilterChip(
                                     title: "Ch \(w.chapter) · \(w.title)",
                                     systemImage: store.widgetStampsById[w.id] != nil ? "checkmark.seal.fill" : (w.is3D ? "cube.transparent.fill" : "slider.horizontal.below.rectangle"),
                                     isSelected: store.selectedWidgetId == w.id
@@ -115,7 +111,7 @@ struct LabsAtlasHomeView: View {
                         }
                         .padding(Spacing.sm)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(RoundedRectangle(cornerRadius: Spacing.radiusMD).fill(Color.kymaiaElevatedSurface))
+                        .quietPanelBackground()
 
                         // Cutaway & Idealised Honesty Drawers
                         HStack(alignment: .top, spacing: Spacing.md) {
@@ -129,7 +125,7 @@ struct LabsAtlasHomeView: View {
                             }
                             .padding(Spacing.sm)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(Color.kymaiaElevatedSurface))
+                            .quietPanelBackground()
 
                             VStack(alignment: .leading, spacing: 4) {
                                 Text("MATHEMATICAL IDEALISATION")
@@ -141,7 +137,7 @@ struct LabsAtlasHomeView: View {
                             }
                             .padding(Spacing.sm)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(Color.kymaiaElevatedSurface))
+                            .quietPanelBackground()
                         }
 
                         // Challenge Prompt & Stamp
@@ -161,7 +157,7 @@ struct LabsAtlasHomeView: View {
                                     store.stampWidgetChallenge(widget: widget, note: note)
                                     challengeNote = ""
                                 }
-                                .buttonStyle(JournalPrimaryButtonStyle())
+                                .buttonStyle(BrassButtonStyle())
                             }
                         }
                     }
@@ -178,7 +174,7 @@ struct LabsAtlasHomeView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: Spacing.xs) {
                                 ForEach(store.seedPack.diagramPlates) { p in
-                                    JournalChip(
+                                    MathsFilterChip(
                                         title: p.title,
                                         systemImage: "viewfinder.rectangular",
                                         isSelected: store.selectedDiagramPlateId == p.id
@@ -270,7 +266,7 @@ struct LabsAtlasHomeView: View {
                                     }
                                 }
                                 .padding(Spacing.sm)
-                                .background(RoundedRectangle(cornerRadius: Spacing.radiusMD).fill(Color.kymaiaElevatedSurface))
+                                .quietPanelBackground()
                             }
                         }
 
@@ -284,7 +280,7 @@ struct LabsAtlasHomeView: View {
                                     selfScore: 5
                                 )
                             }
-                            .buttonStyle(JournalPrimaryButtonStyle())
+                            .buttonStyle(JournalSecondaryButtonStyle())
                             Spacer()
                             Text("Logged attempts: \(store.diagramAttempts.filter { $0.plateId == plate.id }.count)")
                                 .font(Typography.caption)
@@ -318,7 +314,7 @@ struct MathematicalDiagramPlateCanvasView: View {
             let size = geo.size
             ZStack {
                 RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                    .fill(Color(red: 0.965, green: 0.953, blue: 0.925))
+                    .fill(MathsFigureColor.paper)
                     .overlay(
                         RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
                             .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
@@ -359,24 +355,24 @@ struct MathematicalDiagramPlateCanvasView: View {
                     } label: {
                         HStack(spacing: 4) {
                             Text("\(idx + 1)")
-                                .font(.system(size: 11, weight: .bold, design: .monospaced))
-                                .foregroundStyle(.white)
+                                .font(MathsFigureType.labelMono)
+                                .foregroundStyle(MathsFigureColor.pinNumber)
                                 .frame(width: 20, height: 20)
                                 .background(Circle().fill(isRevealed ? cGreen : cRed))
 
                             if isRevealed {
                                 Text(callout.label)
-                                    .font(.system(size: 11, weight: .semibold))
+                                    .font(MathsFigureType.labelMedium)
                                     .foregroundStyle(cInk)
                                     .lineLimit(1)
                             } else if diagramMode == "ghost_scaffold" {
                                 Text(callout.hint)
-                                    .font(.system(size: 10.5, weight: .medium))
+                                    .font(MathsFigureType.hint)
                                     .foregroundStyle(cInk.opacity(0.65))
                                     .lineLimit(1)
                             } else {
                                 Text("?")
-                                    .font(.system(size: 11, weight: .bold, design: .monospaced))
+                                    .font(MathsFigureType.labelMono)
                                     .foregroundStyle(cRed)
                             }
                         }
@@ -384,7 +380,7 @@ struct MathematicalDiagramPlateCanvasView: View {
                         .padding(.vertical, 4)
                         .background(
                             Capsule()
-                                .fill(Color.white.opacity(0.92))
+                                .fill(MathsFigureColor.pinCapsule)
                                 .shadow(color: .black.opacity(0.10), radius: 3, x: 0, y: 1)
                         )
                         .overlay(
@@ -439,8 +435,8 @@ struct MathematicalDiagramPlateCanvasView: View {
         switch figureId {
         case "fig-venn":
             let box = CGRect(x: 0.08 * w, y: 0.10 * h, width: 0.84 * w, height: 0.80 * h)
-            context.fill(Path(roundedRect: box, cornerRadius: 10), with: .color(cAmber.opacity(0.08)))
-            context.stroke(Path(roundedRect: box, cornerRadius: 10), with: .color(cInk.opacity(0.45)), lineWidth: 1.5)
+            context.fill(Path(roundedRect: box, cornerRadius: MathsFigureRadius.frame), with: .color(cAmber.opacity(0.08)))
+            context.stroke(Path(roundedRect: box, cornerRadius: MathsFigureRadius.frame), with: .color(cInk.opacity(0.45)), lineWidth: 1.5)
             let r = min(w, h) * 0.27
             let cA = CGRect(x: 0.40 * w - r, y: 0.48 * h - r, width: 2 * r, height: 2 * r)
             let cB = CGRect(x: 0.60 * w - r, y: 0.48 * h - r, width: 2 * r, height: 2 * r)
@@ -450,7 +446,7 @@ struct MathematicalDiagramPlateCanvasView: View {
             context.fill(Path(ellipseIn: lens), with: .color(cGreen.opacity(0.26)))
             context.stroke(Path(ellipseIn: cA), with: .color(cRed), lineWidth: 2.4)
             context.stroke(Path(ellipseIn: cB), with: .color(cBlue), lineWidth: 2.4)
-            context.draw(Text("ℰ").font(.system(size: 14, weight: .bold, design: .serif)).foregroundStyle(cInk), at: CGPoint(x: 0.11 * w, y: 0.15 * h))
+            context.draw(Text("ℰ").font(MathsFigureType.setSymbol).foregroundStyle(cInk), at: CGPoint(x: 0.11 * w, y: 0.15 * h))
 
         case "fig-prime-venn":
             let r = min(w, h) * 0.27
@@ -608,13 +604,13 @@ struct MathematicalDiagramPlateCanvasView: View {
             for i in 0..<5 {
                 let r = CGRect(x: startX + CGFloat(i) * unitW, y: 0.28 * h, width: unitW - 2, height: 0.16 * h)
                 let col = i < 3 ? cRed : cAmber
-                context.fill(Path(roundedRect: r, cornerRadius: 4), with: .color(col.opacity(0.25)))
-                context.stroke(Path(roundedRect: r, cornerRadius: 4), with: .color(col), lineWidth: 2)
+                context.fill(Path(roundedRect: r, cornerRadius: MathsFigureRadius.tile), with: .color(col.opacity(0.25)))
+                context.stroke(Path(roundedRect: r, cornerRadius: MathsFigureRadius.tile), with: .color(col), lineWidth: 2)
             }
             for i in 0..<3 {
                 let r = CGRect(x: startX + CGFloat(i) * unitW, y: 0.68 * h, width: unitW - 2, height: 0.16 * h)
-                context.fill(Path(roundedRect: r, cornerRadius: 4), with: .color(cBlue.opacity(0.25)))
-                context.stroke(Path(roundedRect: r, cornerRadius: 4), with: .color(cBlue), lineWidth: 2)
+                context.fill(Path(roundedRect: r, cornerRadius: MathsFigureRadius.tile), with: .color(cBlue.opacity(0.25)))
+                context.stroke(Path(roundedRect: r, cornerRadius: MathsFigureRadius.tile), with: .color(cBlue), lineWidth: 2)
             }
 
         case "fig-enlargement":

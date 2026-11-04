@@ -27,31 +27,29 @@ struct MathsJournalHomeView: View {
 
     var body: some View {
         JournalPage {
-            // 1. Header & Saved Entries Strip
+            EditorialHeader(
+                eyebrow: "Mathematical Proof & Cornell Journal",
+                title: "Conjectures, Invariants & Step-by-Step Proofs",
+                subtitle: "State a conjecture, find the invariant, then prove it one step at a time."
+            )
+
+            // 1. Saved Entries Strip
             JournalCard {
                 VStack(alignment: .leading, spacing: Spacing.md) {
                     HStack {
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("MATHEMATICAL PROOF & CORNELL JOURNAL")
-                                .font(Typography.eyebrow)
-                                .foregroundStyle(Color.kymaiaPrimary)
-                            Text("Conjectures, Invariants & Step-by-Step Proofs")
-                                .font(Typography.title2)
-                                .foregroundStyle(Color.kymaiaInk)
-                        }
                         Spacer()
                         Button {
                             startNewEntry()
                         } label: {
                             Label("New Proof Entry", systemImage: "plus.circle.fill")
                         }
-                        .buttonStyle(JournalPrimaryButtonStyle())
+                        .buttonStyle(JournalSecondaryButtonStyle())
                     }
 
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: Spacing.xs) {
                             ForEach(store.journalEntries) { entry in
-                                JournalChip(
+                                MathsFilterChip(
                                     title: entry.title,
                                     systemImage: "doc.text.fill",
                                     isSelected: selectedEntryId == entry.id
@@ -110,7 +108,7 @@ struct MathsJournalHomeView: View {
                                 TextEditor(text: $cueText)
                                     .frame(minHeight: 200)
                                     .padding(Spacing.xs)
-                                    .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(Color.kymaiaElevatedSurface))
+                                    .quietPanelBackground()
                             }
                             .frame(width: 220)
 
@@ -143,7 +141,7 @@ struct MathsJournalHomeView: View {
                             Button("Save Proof Journal Entry") {
                                 saveCurrentEntry()
                             }
-                            .buttonStyle(JournalPrimaryButtonStyle())
+                            .buttonStyle(BrassButtonStyle())
 
                             if let id = selectedEntryId, store.journalEntries.count > 1 {
                                 Button("Delete Entry") {
@@ -178,7 +176,7 @@ struct MathsJournalHomeView: View {
                 .font(Typography.caption)
         }
         .padding(Spacing.xs)
-        .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(Color.kymaiaElevatedSurface))
+        .quietPanelBackground()
     }
 
     private func loadEntry(_ entry: LabJournalEntryRecord) {

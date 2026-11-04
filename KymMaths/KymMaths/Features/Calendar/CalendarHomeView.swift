@@ -19,6 +19,13 @@ struct CalendarHomeView: View {
                     title: "School Maths Tests & Checkpoint Deadlines",
                     eyebrow: "Reverse-Engineered Spaced Proof Schedule"
                 ) {
+                    if store.deadlines.isEmpty {
+                        EmptyStateCard(
+                            eyebrow: "Deadlines",
+                            title: "No tests scheduled yet",
+                            subtitle: "Add a school test below and KymMaths plans spaced proof practice back from its date."
+                        )
+                    }
                     ForEach(store.deadlines) { deadline in
                         JournalCard {
                             HStack(alignment: .top, spacing: Spacing.md) {
@@ -76,7 +83,7 @@ struct CalendarHomeView: View {
                                 newTitle = ""
                                 newNotes = ""
                             }
-                            .buttonStyle(JournalPrimaryButtonStyle())
+                            .buttonStyle(BrassButtonStyle())
                         }
                     }
                 }

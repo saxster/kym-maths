@@ -41,10 +41,7 @@ struct TextbookPageScannerSheet: View {
                                 TextEditor(text: $ocrText)
                                     .frame(minHeight: 160)
                                     .padding(Spacing.xs)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                                            .fill(Color.kymaiaElevatedSurface)
-                                    )
+                                    .quietPanelBackground()
                                     .overlay(
                                         RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
                                             .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
@@ -69,7 +66,7 @@ struct TextbookPageScannerSheet: View {
                                     )
                                     dismiss()
                                 }
-                                .buttonStyle(JournalPrimaryButtonStyle())
+                                .buttonStyle(BrassButtonStyle())
                             }
                         }
                     }

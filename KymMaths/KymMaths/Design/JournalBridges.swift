@@ -25,13 +25,6 @@ enum Typography {
 
 // MARK: - Button Styles
 
-struct JournalPrimaryButtonStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        JournalCapsuleButtonStyle(prominence: .filled, size: .regular)
-            .makeBody(configuration: configuration)
-    }
-}
-
 struct JournalSecondaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         JournalCapsuleButtonStyle(prominence: .tinted, size: .small)
@@ -39,7 +32,7 @@ struct JournalSecondaryButtonStyle: ButtonStyle {
     }
 }
 
-// MARK: - JournalPage, JournalSection, JournalBadge & JournalChip Overloads
+// MARK: - JournalPage, JournalSection & JournalBadge Overloads
 
 extension JournalPage {
     init(@ViewBuilder content: () -> Content) {
@@ -73,12 +66,6 @@ extension JournalBadge {
             }
         }()
         self.init(symbol: symbol, tint: color, size: .small, labelText: text)
-    }
-}
-
-extension JournalChip {
-    init(title: String, systemImage: String, isSelected: Bool, action: @escaping () -> Void) {
-        self.init(text: title, tone: isSelected ? .accent : .muted, systemImage: systemImage, action: action)
     }
 }
 

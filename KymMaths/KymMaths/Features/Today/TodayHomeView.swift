@@ -9,23 +9,16 @@ struct TodayHomeView: View {
 
     var body: some View {
         JournalPage {
-            // 1. Hero Greeting & Readiness Strip
+            EditorialHeader(
+                eyebrow: "Daily Mathematics Studio · Mumbai",
+                title: "Good day, \(store.learnerDisplayName)",
+                subtitle: "Oxford Cambridge Lower Secondary Complete Mathematics 8 (Deborah Barton) + Singapore CPA & Horizon Atlas"
+            )
+
+            // 1. Readiness Strip
             JournalCard {
                 VStack(alignment: .leading, spacing: Spacing.md) {
                     HStack(alignment: .top) {
-                        VStack(alignment: .leading, spacing: Spacing.xxs) {
-                            Text("DAILY MATHEMATICS STUDIO · MUMBAI")
-                                .font(Typography.eyebrow)
-                                .tracking(0.6)
-                                .foregroundStyle(Color.kymaiaPrimary)
-                            Text("Good day, \(store.learnerDisplayName)")
-                                .font(Typography.largeTitle)
-                                .foregroundStyle(Color.kymaiaInk)
-                            Text("Oxford Cambridge Lower Secondary Complete Mathematics 8 (Deborah Barton) + Singapore CPA & Horizon Atlas")
-                                .font(Typography.subheadline)
-                                .foregroundStyle(Color.kymaiaMutedInk)
-                        }
-                        Spacer()
                         HStack(spacing: Spacing.xs) {
                             Button {
                                 store.showCalendarSheet = true
@@ -123,10 +116,7 @@ struct TodayHomeView: View {
                                         .foregroundStyle(Color.kymaiaInk)
                                         .padding(Spacing.md)
                                         .frame(maxWidth: .infinity, alignment: .leading)
-                                        .background(
-                                            RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                                                .fill(Color.kymaiaElevatedSurface)
-                                        )
+                                        .quietPanelBackground()
 
                                     HStack(spacing: Spacing.sm) {
                                         ForEach(FSRSRating.allCases, id: \.rawValue) { rating in
@@ -134,7 +124,7 @@ struct TodayHomeView: View {
                                                 isShowingCardBack = false
                                                 store.reviewFSRSCard(card, rating: rating)
                                             }
-                                            .buttonStyle(rating == .good || rating == .easy ? AnyButtonStyle(JournalPrimaryButtonStyle()) : AnyButtonStyle(JournalSecondaryButtonStyle()))
+                                            .buttonStyle(rating == .good ? AnyButtonStyle(BrassButtonStyle()) : AnyButtonStyle(JournalSecondaryButtonStyle()))
                                         }
                                     }
                                 }
@@ -144,26 +134,16 @@ struct TodayHomeView: View {
                                 } label: {
                                     Label("Reveal Formula & Visual Invariant", systemImage: "eye.fill")
                                 }
-                                .buttonStyle(JournalPrimaryButtonStyle())
+                                .buttonStyle(BrassButtonStyle())
                             }
                         }
                     }
                 } else {
-                    JournalCard {
-                        HStack(spacing: Spacing.md) {
-                            Image(systemName: "checkmark.circle.fill")
-                                .font(.title2)
-                                .foregroundStyle(Color.kymaiaSuccess)
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text("All FSRS Retrieval Cards Complete for Today")
-                                    .font(Typography.headline)
-                                    .foregroundStyle(Color.kymaiaInk)
-                                Text("Every due formula and visual invariant has been reviewed. Proceed to your Intuition → Formula Spotlight or Companion Workbook below.")
-                                    .font(Typography.caption)
-                                    .foregroundStyle(Color.kymaiaMutedInk)
-                            }
-                        }
-                    }
+                    EmptyStateCard(
+                        eyebrow: "FSRS Review",
+                        title: "All FSRS Retrieval Cards Complete for Today",
+                        subtitle: "Every due formula and visual invariant has been reviewed. Proceed to your Intuition → Formula Spotlight or Companion Workbook below."
+                    )
                 }
             }
 
@@ -209,10 +189,7 @@ struct TodayHomeView: View {
                                     .foregroundStyle(Color.kymaiaInk)
                                     .padding(Spacing.sm)
                                     .frame(maxWidth: .infinity, alignment: .leading)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: Spacing.radiusSM, style: .continuous)
-                                            .fill(Color.kymaiaElevatedSurface)
-                                    )
+                                    .quietPanelBackground()
 
                                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 210), spacing: Spacing.xs)], spacing: Spacing.xs) {
                                     ForEach(bridge.termMappings) { mapping in
@@ -232,10 +209,7 @@ struct TodayHomeView: View {
                                         }
                                         .padding(Spacing.xs)
                                         .frame(maxWidth: .infinity, alignment: .leading)
-                                        .background(
-                                            RoundedRectangle(cornerRadius: Spacing.radiusSM, style: .continuous)
-                                                .fill(Color.kymaiaElevatedSurface)
-                                        )
+                                        .quietPanelBackground()
                                     }
                                 }
                             }
@@ -245,7 +219,7 @@ struct TodayHomeView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: Spacing.xs) {
                                 ForEach(store.visiblePatternedWorldChapters) { chapter in
-                                    JournalChip(
+                                    MathsFilterChip(
                                         title: "Ch \(chapter.number): \(chapter.title)",
                                         systemImage: store.selectedChapterNumber == chapter.number ? "checkmark.circle.fill" : "function",
                                         isSelected: store.selectedChapterNumber == chapter.number
@@ -305,13 +279,10 @@ struct TodayHomeView: View {
                                     store.activePracticeQuestion = question
                                     store.activeRoom = .schoolMaths
                                 }
-                                .buttonStyle(JournalPrimaryButtonStyle())
+                                .buttonStyle(JournalSecondaryButtonStyle())
                             }
                             .padding(Spacing.sm)
-                            .background(
-                                RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                                    .fill(Color.kymaiaElevatedSurface)
-                            )
+                            .quietPanelBackground()
                         }
                     }
                 }
@@ -391,10 +362,7 @@ struct TodayHomeView: View {
         }
         .padding(Spacing.sm)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(
-            RoundedRectangle(cornerRadius: Spacing.radiusSM, style: .continuous)
-                .fill(Color.kymaiaElevatedSurface)
-        )
+        .quietPanelBackground()
     }
 
     private func colorForRole(_ role: String) -> Color {

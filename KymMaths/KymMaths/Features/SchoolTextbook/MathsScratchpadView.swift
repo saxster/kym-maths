@@ -92,7 +92,7 @@ struct MathsScratchpadView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: Spacing.xs) {
                     ForEach(MathsScratchpadStamp.allCases) { stamp in
-                        JournalChip(
+                        MathsFilterChip(
                             title: stamp.title,
                             systemImage: stamp.symbol,
                             isSelected: selectedStamp == stamp
@@ -251,15 +251,15 @@ struct MathsStampBlueprintCanvas: View {
                 for i in 0..<5 {
                     let r = CGRect(x: x0 + CGFloat(i) * uW, y: h * 0.28, width: uW - 2, height: 34)
                     let col = i < 3 ? cRed : cAmber
-                    context.fill(Path(roundedRect: r, cornerRadius: 4), with: .color(col.opacity(0.14)))
-                    context.stroke(Path(roundedRect: r, cornerRadius: 4), with: .color(col.opacity(0.55)), lineWidth: 1.5)
-                    context.draw(Text("1u").font(.system(size: 10, weight: .semibold, design: .monospaced)).foregroundStyle(col.opacity(0.75)), at: CGPoint(x: r.midX, y: r.midY))
+                    context.fill(Path(roundedRect: r, cornerRadius: MathsFigureRadius.tile), with: .color(col.opacity(0.14)))
+                    context.stroke(Path(roundedRect: r, cornerRadius: MathsFigureRadius.tile), with: .color(col.opacity(0.55)), lineWidth: 1.5)
+                    context.draw(Text("1u").font(MathsFigureType.unitTile).foregroundStyle(col.opacity(0.75)), at: CGPoint(x: r.midX, y: r.midY))
                 }
                 for i in 0..<3 {
                     let r = CGRect(x: x0 + CGFloat(i) * uW, y: h * 0.56, width: uW - 2, height: 34)
-                    context.fill(Path(roundedRect: r, cornerRadius: 4), with: .color(cBlue.opacity(0.14)))
-                    context.stroke(Path(roundedRect: r, cornerRadius: 4), with: .color(cBlue.opacity(0.55)), lineWidth: 1.5)
-                    context.draw(Text("1u").font(.system(size: 10, weight: .semibold, design: .monospaced)).foregroundStyle(cBlue.opacity(0.75)), at: CGPoint(x: r.midX, y: r.midY))
+                    context.fill(Path(roundedRect: r, cornerRadius: MathsFigureRadius.tile), with: .color(cBlue.opacity(0.14)))
+                    context.stroke(Path(roundedRect: r, cornerRadius: MathsFigureRadius.tile), with: .color(cBlue.opacity(0.55)), lineWidth: 1.5)
+                    context.draw(Text("1u").font(MathsFigureType.unitTile).foregroundStyle(cBlue.opacity(0.75)), at: CGPoint(x: r.midX, y: r.midY))
                 }
 
             case .cartesianAxes:
@@ -345,7 +345,7 @@ struct MathsStampBlueprintCanvas: View {
                     let tx = x0 + CGFloat(i + 5) / 10.0 * (x1 - x0)
                     var tick = Path(); tick.move(to: CGPoint(x: tx, y: y - 6)); tick.addLine(to: CGPoint(x: tx, y: y + 6))
                     context.stroke(tick, with: .color(cBlue.opacity(0.55)), lineWidth: 1.5)
-                    context.draw(Text("\(i)").font(.system(size: 9, design: .monospaced)).foregroundStyle(cBlue.opacity(0.75)), at: CGPoint(x: tx, y: y + 16))
+                    context.draw(Text("\(i)").font(MathsFigureType.axisTick).foregroundStyle(cBlue.opacity(0.75)), at: CGPoint(x: tx, y: y + 16))
                 }
             }
 
