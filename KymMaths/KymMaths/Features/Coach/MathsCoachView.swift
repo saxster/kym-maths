@@ -7,6 +7,7 @@ struct MathsCoachView: View {
 
     @State private var queryText: String = ""
     @State private var workingDraftText: String = ""
+    @State private var bracketDrafts: [String: String] = [:]
     @State private var liveVoiceController = LiveMentorVoiceController()
     @State private var safetyEvalReport: SafetyEvalSuiteReport = ChildSafetyEvalHarness.runFullSuite()
     @State private var latestCouncilVerdict: AdversarialCouncil.CouncilVerdict?
@@ -164,6 +165,111 @@ struct MathsCoachView: View {
                     mathContextSummary: store.activePracticeQuestion?.prompt
                 ) { takeaway in
                     store.saveVoiceTakeawayFlashcard(takeaway)
+                }
+            }
+
+            // 1C. Prerequisite Bracket Prober & Minimal Dependency Tree (Ported from LearnHarness)
+            JournalSection(
+                title: "Prerequisite Bracket Prober & Minimal Dependency Tree",
+                eyebrow: "Binary-Search Prerequisite Strands · Prune Fluent Roots Before Teaching"
+            ) {
+                JournalCard {
+                    VStack(alignment: .leading, spacing: Spacing.md) {
+                        HStack {
+                            JournalBadge(
+                                text: "Role: \(store.activeMentorRole.title)",
+                                symbol: "point.3.connected.trianglepath.dotted",
+                                tone: .accent
+                            )
+                            Spacer()
+                            ForEach(AgentPromptRole.allCases) { role in
+                                MathsFilterChip(
+                                    title: role.rawValue.capitalized,
+                                    systemImage: "sparkles",
+                                    isSelected: store.activeMentorRole == role
+                                ) {
+                                    store.activeMentorRole = role
+                                }
+                            }
+                        }
+
+                        ForEach(store.prerequisiteBrackets) { bracket in
+                            let binding = Binding<String>(
+                                get: { bracketDrafts[bracket.id] ?? bracket.learnerResponse },
+                                set: { bracketDrafts[bracket.id] = $0 }
+                            )
+                            VStack(alignment: .leading, spacing: 6) {
+                                HStack {
+                                    Text(bracket.strandTitle)
+                                        .font(Typography.subheadline.weight(.bold))
+                                        .foregroundStyle(Color.kymaiaInk)
+                                    Spacer()
+                                    JournalBadge(
+                                        text: bracket.depthLevel.rawValue,
+                                        symbol: bracket.depthLevel == .symbolicFluent ? "checkmark.seal.fill" : "questionmark.circle",
+                                        tone: bracket.depthLevel == .symbolicFluent ? .positive : .info
+                                    )
+                                }
+                                Text(bracket.diagnosticProbeQuestion)
+                                    .font(Typography.caption)
+                                    .foregroundStyle(Color.kymaiaMutedInk)
+                                HStack {
+                                    TextField("Quick diagnostic check...", text: binding)
+                                        .textFieldStyle(.roundedBorder)
+                                    Button("Bracket Strand") {
+                                        store.recordPrerequisiteBracketAnswer(
+                                            bracketId: bracket.id,
+                                            answer: binding.wrappedValue
+                                        )
+                                    }
+                                    .buttonStyle(JournalSecondaryButtonStyle())
+                                }
+                            }
+                            .padding(Spacing.sm)
+                            .quietPanelBackground()
+                        }
+
+                        if let dag = store.activeLessonDAG {
+                            Divider()
+                            Text("MINIMAL LESSON DEPENDENCY TREE · \(dag.targetConceptTitle.uppercased())")
+                                .font(Typography.eyebrow)
+                                .foregroundStyle(Color.kymaiaPrimary)
+
+                            ForEach(dag.nodes) { node in
+                                let isActive = dag.activeNodeId == node.id
+                                HStack(alignment: .top, spacing: Spacing.sm) {
+                                    Image(systemName: node.isCompleted ? "checkmark.circle.fill" : (isActive ? "arrow.right.circle.fill" : "circle"))
+                                        .foregroundStyle(node.isCompleted ? Color.kymaiaSuccess : (isActive ? Color.kymaiaPrimary : Color.kymaiaMutedInk))
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text(node.title)
+                                            .font(Typography.subheadline.weight(.semibold))
+                                            .foregroundStyle(Color.kymaiaInk)
+                                        Text(node.unconditionalProposition)
+                                            .font(Typography.caption)
+                                            .foregroundStyle(Color.kymaiaMutedInk)
+                                    }
+                                    Spacer()
+                                    if !node.isCompleted {
+                                        Button("Mark Held") {
+                                            store.activeLessonDAG?.markNodeCompleted(node.id)
+                                        }
+                                        .buttonStyle(JournalSecondaryButtonStyle())
+                                    }
+                                }
+                                .padding(Spacing.xs)
+                                .quietPanelBackground()
+                            }
+                        }
+                    }
+                }
+            }
+
+            if let annotatedCanvas = store.latestAnnotatedScratchpadCanvas {
+                JournalSection(
+                    title: "Coach Annotated Scratchpad Overlay",
+                    eyebrow: "Vector Callouts Anchored on Your Shared PencilKit Working (1000×640)"
+                ) {
+                    TutorCanvasView(canvas: annotatedCanvas, allowEditing: true)
                 }
             }
 

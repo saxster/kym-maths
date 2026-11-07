@@ -10,3 +10,5 @@
    - Because her school only provides Deborah Barton's *Complete Mathematics 8* Student Book and no separate Workbook, every section (`1.1`–`16.2`) includes a 3-Tier Companion Workbook (`Foundation & Fluency`, `Singapore Bar-Model & Checkpoint Application`, `Olympiad & Horizon Stretch`).
 4. **Pure-Model Honesty (`@saxster/atlas` invariant):**
    - Every number in a figure, table, chart cursor, and practice answer is computed from a pure mathematical model verified by an independent check.
+5. **Cross-App Game Companion Bridge (`../kym_mathgames`):**
+   - Standalone mental mathemagics and Singapore Math Olympiad gameplay lives in the sibling repository [`../kym_mathgames`](../kym_mathgames/README.md) ([`PRD.md`](../kym_mathgames/PRD.md)), linked via the shared App Group (`group.com.kymaia.science` & `group.com.kymaia.maths`) and `kymmathgames://track/<track_id>`.

@@ -13,7 +13,7 @@
   1. **OUP Maths 8 Core (Ch 1–16)** *(Default)*: All 16 chapters (`1.1`–`16.2`) in exact printed order, preserving Kym's completed (`✓`) Chapters 3, 5, 12 and active (`○`) Chapters 1, 2, 6, 7, 9.
   2. **+ Singapore CPA & Companion Workbook**: Injects Singapore Bar-Model decompositions, Al-Khwarizmi area boxes, Pólya heuristics, and the 3-tier Companion Workbook.
   3. **Full Horizon (Set Theory & Logic, Trig, Bayes, Calculus & Linear Algebra)**: Cross-wires every school chapter directly into the 5 Volumes and 21 Chapters of ***The Patterned World***.
-- Shared App Group (`group.com.kymaia.science`) synchronises STEM progress, Question Proofs, FSRS cards, and deadlines across `KymMaths`, `KymBio`, `KymChem`, and `KymPhysics`.
+- Shared App Group (`group.com.kymaia.science`) synchronises STEM progress, Question Proofs, FSRS cards, and deadlines across `KymMaths`, `KymBio`, `KymChem`, `KymPhysics`, and the standalone game companion [`../kym_mathgames`](../../kym_mathgames/README.md) (`kymmathgames://track/<track_id>`).
 
 ## 3. Pedagogical Honesty Guardrails
 - **Three-Stage Readiness:** *1. Material in → 2. Checked learning → 3. Independent proof & spaced study*.

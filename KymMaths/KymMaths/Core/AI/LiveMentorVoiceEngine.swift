@@ -192,7 +192,8 @@ public final class LiveMentorToolCoordinator: Sendable {
         argumentsJSON: String,
         existingCanvas: TutorCanvas? = nil
     ) -> LiveMentorToolOutcome {
-        let args = (try? JSONSerialization.jsonObject(with: Data(argumentsJSON.utf8)) as? [String: Any]) ?? [:]
+        let rawArgs = (try? JSONSerialization.jsonObject(with: Data(argumentsJSON.utf8)) as? [String: Any]) ?? [:]
+        let args = (UniversalArgumentHealer.healJSONValue(rawArgs) as? [String: Any]) ?? rawArgs
 
         switch name {
         case "lookup_concept_mastery":

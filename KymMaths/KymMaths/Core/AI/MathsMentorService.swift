@@ -571,3 +571,199 @@ public struct MathsMentorTurn: Identifiable, Codable, Sendable, Equatable {
         self.timestamp = timestamp
     }
 }
+
+// MARK: - Prerequisite Bracket Prober & Minimal Dependency Tree Planner (Ported from LearnHarness)
+
+public enum PrerequisiteDepthLevel: String, Codable, CaseIterable, Sendable, Equatable {
+    case unprobed = "Unprobed"
+    case needsConcreteGroundFloor = "Ground Floor (Concrete)"
+    case pictorialReady = "Pictorial Ready (CPA)"
+    case symbolicFluent = "Symbolic Fluent"
+}
+
+public struct PrerequisiteStrandBracket: Identifiable, Codable, Sendable, Equatable {
+    public let id: String
+    public let strandTitle: String
+    public let diagnosticProbeQuestion: String
+    public let expectedInvariantKeyword: String
+    public var depthLevel: PrerequisiteDepthLevel
+    public var learnerResponse: String
+
+    public init(
+        id: String,
+        strandTitle: String,
+        diagnosticProbeQuestion: String,
+        expectedInvariantKeyword: String,
+        depthLevel: PrerequisiteDepthLevel = .unprobed,
+        learnerResponse: String = ""
+    ) {
+        self.id = id
+        self.strandTitle = strandTitle
+        self.diagnosticProbeQuestion = diagnosticProbeQuestion
+        self.expectedInvariantKeyword = expectedInvariantKeyword
+        self.depthLevel = depthLevel
+        self.learnerResponse = learnerResponse
+    }
+}
+
+public struct LessonPlanNode: Identifiable, Codable, Sendable, Equatable {
+    public let id: String
+    public let title: String
+    public let unconditionalProposition: String
+    public let prerequisiteIds: [String]
+    public var isCompleted: Bool
+
+    public init(
+        id: String,
+        title: String,
+        unconditionalProposition: String,
+        prerequisiteIds: [String],
+        isCompleted: Bool = false
+    ) {
+        self.id = id
+        self.title = title
+        self.unconditionalProposition = unconditionalProposition
+        self.prerequisiteIds = prerequisiteIds
+        self.isCompleted = isCompleted
+    }
+}
+
+public struct LessonDependencyDAG: Codable, Sendable, Equatable {
+    public var targetConceptTitle: String
+    public var chapterNumber: Int
+    public var nodes: [LessonPlanNode]
+    public var activeNodeId: String
+
+    public init(
+        targetConceptTitle: String,
+        chapterNumber: Int,
+        nodes: [LessonPlanNode],
+        activeNodeId: String
+    ) {
+        self.targetConceptTitle = targetConceptTitle
+        self.chapterNumber = chapterNumber
+        self.nodes = nodes
+        self.activeNodeId = activeNodeId
+    }
+
+    public mutating func markNodeCompleted(_ nodeId: String) {
+        for idx in nodes.indices where nodes[idx].id == nodeId {
+            nodes[idx].isCompleted = true
+        }
+        if let nextPending = nodes.first(where: { !$0.isCompleted }) {
+            activeNodeId = nextPending.id
+        }
+    }
+
+    static func defaultBrackets(for chapter: PatternedWorldChapter) -> [PrerequisiteStrandBracket] {
+        switch chapter.number {
+        case 12:
+            return [
+                PrerequisiteStrandBracket(
+                    id: "strand-right-triangle-pythagoras-\(chapter.number)",
+                    strandTitle: "Pythagoras Area Conservation",
+                    diagnosticProbeQuestion: "In a right triangle with legs a, b and hypotenuse 1, what do the two leg-squares sum to?",
+                    expectedInvariantKeyword: "1"
+                ),
+                PrerequisiteStrandBracket(
+                    id: "strand-unit-circle-projection-\(chapter.number)",
+                    strandTitle: "Orthogonal Shadow Projections",
+                    diagnosticProbeQuestion: "When light shines from directly above onto a point P on the unit circle, which axis receives the shadow?",
+                    expectedInvariantKeyword: "horizontal"
+                )
+            ]
+        case 15, 16:
+            return [
+                PrerequisiteStrandBracket(
+                    id: "strand-natural-frequencies-\(chapter.number)",
+                    strandTitle: "Natural Frequency Partitioning (1,000 Square)",
+                    diagnosticProbeQuestion: "If 1% of 1,000 people have a condition, how many people are in that base-rate column?",
+                    expectedInvariantKeyword: "10"
+                ),
+                PrerequisiteStrandBracket(
+                    id: "strand-conditional-denominator-\(chapter.number)",
+                    strandTitle: "Conditioning as Restricting the Denominator",
+                    diagnosticProbeQuestion: "When we compute P(Sick | Positive), which group forms the denominator of our fraction?",
+                    expectedInvariantKeyword: "positive"
+                )
+            ]
+        case 20:
+            return [
+                PrerequisiteStrandBracket(
+                    id: "strand-basis-columns-\(chapter.number)",
+                    strandTitle: "Basis Vector Landing Columns (î, ĵ)",
+                    diagnosticProbeQuestion: "Where does a 2×2 matrix [a b; c d] send the unit vector î = (1, 0)?",
+                    expectedInvariantKeyword: "a"
+                ),
+                PrerequisiteStrandBracket(
+                    id: "strand-box-area-subtraction-\(chapter.number)",
+                    strandTitle: "Bounding Box Area Subtraction",
+                    diagnosticProbeQuestion: "If we enclose the transformed parallelogram inside an (a+b)×(c+d) rectangle, how do we find the inner area?",
+                    expectedInvariantKeyword: "subtract"
+                )
+            ]
+        default:
+            return [
+                PrerequisiteStrandBracket(
+                    id: "strand-unitary-bar-\(chapter.number)",
+                    strandTitle: "Singapore Unitary Bar Model",
+                    diagnosticProbeQuestion: "If 4 equal bar units total 36, what is the value of 1 unit?",
+                    expectedInvariantKeyword: "9"
+                ),
+                PrerequisiteStrandBracket(
+                    id: "strand-equality-balance-\(chapter.number)",
+                    strandTitle: "Symbolic Balance Invariant",
+                    diagnosticProbeQuestion: "If we subtract 5 from the left side of an equation, what must we do to the right side?",
+                    expectedInvariantKeyword: "subtract"
+                )
+            ]
+        }
+    }
+
+    /// Builds a minimal prerequisite dependency tree for `chapter` ("Why is every node here? Because the
+    /// target requires it"), pruning already-fluent roots when the learner's bracket probe or BKT mastery is high.
+    static func buildMinimalTree(
+        for chapter: PatternedWorldChapter,
+        skills: [BKTSkillRecord],
+        brackets: [PrerequisiteStrandBracket]
+    ) -> LessonDependencyDAG {
+        let groundFloorId = "node-ground-\(chapter.number)"
+        let bridgeId = "node-bridge-\(chapter.number)"
+        let targetId = "node-target-\(chapter.number)"
+
+        let groundCompleted = brackets.first?.depthLevel == .symbolicFluent
+        let bridgeCompleted = brackets.dropFirst().first?.depthLevel == .symbolicFluent
+
+        let nodes: [LessonPlanNode] = [
+            LessonPlanNode(
+                id: groundFloorId,
+                title: "1. Ground Floor · Concrete Invariant",
+                unconditionalProposition: chapter.intuitionToFormula.concreteAction,
+                prerequisiteIds: [],
+                isCompleted: groundCompleted
+            ),
+            LessonPlanNode(
+                id: bridgeId,
+                title: "2. Pictorial Bridge · Geometric / Bar Model Conservation",
+                unconditionalProposition: chapter.intuitionToFormula.ahaInvariant,
+                prerequisiteIds: [groundFloorId],
+                isCompleted: bridgeCompleted
+            ),
+            LessonPlanNode(
+                id: targetId,
+                title: "3. Target Proposition · \(chapter.intuitionToFormula.formulaDisplay)",
+                unconditionalProposition: "\(chapter.intuitionToFormula.formulaDisplay) — \(chapter.hookSummary)",
+                prerequisiteIds: [bridgeId],
+                isCompleted: false
+            )
+        ]
+
+        let active = nodes.first(where: { !$0.isCompleted })?.id ?? targetId
+        return LessonDependencyDAG(
+            targetConceptTitle: "Ch \(chapter.number): \(chapter.title)",
+            chapterNumber: chapter.number,
+            nodes: nodes,
+            activeNodeId: active
+        )
+    }
+}

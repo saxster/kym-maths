@@ -139,12 +139,24 @@ final class AppStore {
     var mentorTurns: [MathsMentorTurn] = []
     var lastSafetyConcern: SafetyEscalationService.Concern?
     var didShareScratchpadWithCoach: Bool = false
+    var activeMentorRole: AgentPromptRole = .teacher
+    var promptSegmentSwitches: [String: Bool] = [:] {
+        didSet {
+            UserDefaults.standard.set(promptSegmentSwitches, forKey: PromptSegmentComposer.storageKey)
+        }
+    }
+    var prerequisiteBrackets: [PrerequisiteStrandBracket] = []
+    var activeLessonDAG: LessonDependencyDAG?
+    var latestAnnotatedScratchpadCanvas: TutorCanvas?
+    var webStageHealthVerified: Bool = false
 
     // Reactive Database State
     var proofsByQuestionId: [String: QuestionProofRecord] = [:]
     var fsrsCards: [FSRSCardRecord] = []
     var bktSkillsById: [String: BKTSkillRecord] = [:]
     var journalEntries: [LabJournalEntryRecord] = []
+    var propositionNodes: [PropositionNodeRecord] = []
+    var derivationChains: [DerivationChainRecord] = []
     var diagramAttempts: [DiagramRecallAttemptRecord] = []
     var widgetStampsById: [String: WidgetChallengeStampRecord] = [:]
     var readingProgressByChapter: [Int: ChapterReadingProgressRecord] = [:]
@@ -192,6 +204,8 @@ final class AppStore {
             "analogy_preference": "use-when-helpful"
         ]
         self.soulParentOverrides = AgentSoulOverridePolicy.safeOverrides(from: rawOverrides)
+        self.promptSegmentSwitches = (defaults.dictionary(forKey: PromptSegmentComposer.storageKey) as? [String: Bool])
+            ?? PromptSegmentComposer.defaultSwitches()
 
         self.aiRouter = PolicyDrivenAIProvider(
             localProvider: LocalMathsConstitutionalProvider(),
@@ -202,6 +216,7 @@ final class AppStore {
         )
 
         refreshState()
+        rebuildMinimalLessonTree()
     }
 
     private func syncAIProviderConfig() {
@@ -258,6 +273,8 @@ final class AppStore {
         let skills = (try? db.fetchAllBKTSkills()) ?? []
         bktSkillsById = Dictionary(uniqueKeysWithValues: skills.map { ($0.id, $0) })
         journalEntries = (try? db.fetchJournalEntries()) ?? []
+        propositionNodes = (try? db.fetchPropositionNodes()) ?? []
+        derivationChains = (try? db.fetchDerivationChains()) ?? []
         diagramAttempts = (try? db.fetchDiagramAttempts()) ?? []
         let stamps = (try? db.fetchWidgetStamps()) ?? []
         widgetStampsById = Dictionary(uniqueKeysWithValues: stamps.map { ($0.id, $0) })
@@ -269,6 +286,43 @@ final class AppStore {
         calloutResponses = Dictionary(uniqueKeysWithValues: callouts.map { ($0.id, $0) })
 
         SystemSurfaceSnapshotStore.writeSnapshot(from: self)
+    }
+
+    func setPromptSegmentEnabled(id: String, enabled: Bool) {
+        var updated = promptSegmentSwitches
+        updated[id] = enabled
+        promptSegmentSwitches = updated
+    }
+
+    func rebuildMinimalLessonTree() {
+        if prerequisiteBrackets.isEmpty || prerequisiteBrackets.first?.id.contains("\(selectedChapter.number)") == false {
+            prerequisiteBrackets = LessonDependencyDAG.defaultBrackets(for: selectedChapter)
+        }
+        activeLessonDAG = LessonDependencyDAG.buildMinimalTree(
+            for: selectedChapter,
+            skills: Array(bktSkillsById.values),
+            brackets: prerequisiteBrackets
+        )
+    }
+
+    func recordPrerequisiteBracketAnswer(bracketId: String, answer: String) {
+        for idx in prerequisiteBrackets.indices where prerequisiteBrackets[idx].id == bracketId {
+            prerequisiteBrackets[idx].learnerResponse = answer
+            let kw = prerequisiteBrackets[idx].expectedInvariantKeyword.lowercased()
+            let clean = answer.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+            if clean.contains(kw) || (!clean.isEmpty && STEMPolynomial.areEquivalent(clean, kw)) {
+                prerequisiteBrackets[idx].depthLevel = .symbolicFluent
+            } else if !clean.isEmpty {
+                prerequisiteBrackets[idx].depthLevel = .pictorialReady
+            } else {
+                prerequisiteBrackets[idx].depthLevel = .needsConcreteGroundFloor
+            }
+        }
+        activeLessonDAG = LessonDependencyDAG.buildMinimalTree(
+            for: selectedChapter,
+            skills: Array(bktSkillsById.values),
+            brackets: prerequisiteBrackets
+        )
     }
 
     // MARK: - Computed Helpers
@@ -363,22 +417,30 @@ final class AppStore {
     func submitQuestionAttempt(
         question: SchoolMathsQuestion,
         answerText: String,
-        usedAssistance: Bool
+        usedAssistance: Bool,
+        highestHintRung: HintLadderRung = .none,
+        confidencePercent: Int = 75,
+        declinedToGuess: Bool = false,
+        thinkingTrace: String = ""
     ) -> QuestionEvaluationResult {
         let existing = proofsByQuestionId[question.id]
         let (eval, record) = QuestionProofService.evaluateAndRecord(
             question: question,
             answerText: answerText,
             usedAssistance: usedAssistance,
-            existingProof: existing
+            existingProof: existing,
+            highestHintRung: highestHintRung,
+            confidencePercent: confidencePercent,
+            declinedToGuess: declinedToGuess,
+            thinkingTrace: thinkingTrace
         )
         try? db.saveQuestionProof(record)
 
-        if let skill = bktSkillsById[question.topicCode] {
+        if !declinedToGuess, let skill = bktSkillsById[question.topicCode] {
             let updatedSkill = BKTEngine.update(
                 skill: skill,
                 isCorrect: eval.isPass,
-                usedAssistance: usedAssistance
+                usedAssistance: eval.effectiveUsedAssistance
             )
             try? db.saveBKTSkill(updatedSkill)
         }
@@ -465,6 +527,20 @@ final class AppStore {
 
     func saveJournalEntry(_ entry: LabJournalEntryRecord) {
         try? db.saveJournalEntry(entry)
+        let findings = PropositionGraphEngine.extractFindings(fromJournalEntry: entry)
+        let verdicts = PropositionGraphEngine.auditIdentities(
+            extracted: findings.propositions,
+            existingNodes: propositionNodes
+        )
+        let merged = PropositionGraphEngine.mergeFindings(
+            sourceKind: "journal",
+            sourceId: entry.id,
+            findings: findings,
+            verdicts: verdicts,
+            existingNodes: propositionNodes,
+            existingChains: derivationChains
+        )
+        try? db.replacePropositionGraph(nodes: merged.nodes, chains: merged.chains)
         refreshState()
     }
 
@@ -521,13 +597,21 @@ final class AppStore {
         try? db.fetchLatestScratchpad(forQuestionId: questionId)
     }
 
-    func saveCalloutResponse(calloutId: String, chapterNumber: Int, text: String) {
+    func saveCalloutResponse(
+        calloutId: String,
+        chapterNumber: Int,
+        text: String,
+        thinkingWhileReading: String = "",
+        confidencePercent: Int = 75
+    ) {
         let record = CalloutResponseRecord(
             id: calloutId,
             chapterNumber: chapterNumber,
             responseText: text,
             isUnlocked: !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-            updatedAt: Date()
+            updatedAt: Date(),
+            thinkingWhileReading: thinkingWhileReading,
+            confidencePercent: confidencePercent
         )
         try? db.saveCalloutResponse(record)
         refreshState()
@@ -658,10 +742,16 @@ final class AppStore {
             learnerText: trimmed
         )
 
-        let systemInstruction = activeSoul.toSystemInstruction() + "\n\n" + liveBrief
+        let systemInstruction = PromptSegmentComposer.composeSystemInstruction(
+            role: activeQuestion != nil ? .practice : activeMentorRole,
+            soul: activeSoul,
+            guidanceStyle: resolvedStyle,
+            switches: promptSegmentSwitches,
+            extraContext: liveBrief
+        )
         let compositePrompt = "Learner question: \"\(trimmed)\"\n\nCurriculum grounding:\n\(knowledgeContext)"
 
-        let replyText = (try? await aiRouter.generateLearnerFacingText(
+        let rawReplyText = (try? await aiRouter.generateLearnerFacingText(
             prompt: compositePrompt,
             systemInstruction: systemInstruction,
             provider: defaultAIProvider,
@@ -669,6 +759,7 @@ final class AppStore {
             useGrounding: true,
             requestContext: requestContext
         )) ?? DevelopmentalResponseValidator.safeFallback
+        let replyText = NarrationGuard.audit(rawReplyText, topic: selectedChapter.title).sanitizedText
 
         mentorTurns.append(
             MathsMentorTurn(
@@ -684,6 +775,11 @@ final class AppStore {
 
     func shareScratchpadWithCoach(pngData: Data, activeQuestion: SchoolMathsQuestion? = nil) async {
         didShareScratchpadWithCoach = true
+        let fallbackQuestion = activeQuestion ?? seedPack.schoolQuestions[0]
+        latestAnnotatedScratchpadCanvas = LearnerScratchpadAnnotator.annotateScratchpad(
+            pngData: pngData,
+            question: fallbackQuestion
+        )
         let image = MultimodalImage(data: pngData, mimeType: "image/png")
         let systemInstruction = activeSoul.toSystemInstruction()
         let reply = (try? await aiRouter.generateLearnerFacingFromImage(

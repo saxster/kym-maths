@@ -11,6 +11,76 @@ extension FSRSScheduler {
 }
 extension BKTSkillRecord: BKTSkill {}
 
+// MARK: - 6-Rung Hint Ladder & Confidence × Verdict Diagnostic Matrix
+
+enum HintLadderRung: Int, CaseIterable, Codable, Sendable, Comparable {
+    case none = 0
+    case r0AttentionRedirect = 1
+    case r1PatternRedescription = 2
+    case r2CandidateClass = 3
+    case r3PropositionNamed = 4
+    case r4MoveOutlined = 5
+    case r5WorkedStep = 6
+
+    static func < (lhs: HintLadderRung, rhs: HintLadderRung) -> Bool {
+        lhs.rawValue < rhs.rawValue
+    }
+
+    /// R0–R2 preserve retrieval; R3–R5 surrender retrieval and count as assisted.
+    var surrendersRetrieval: Bool {
+        rawValue >= HintLadderRung.r3PropositionNamed.rawValue
+    }
+
+    var badgeText: String {
+        switch self {
+        case .none: return "No Hints"
+        case .r0AttentionRedirect: return "R0 · Attention"
+        case .r1PatternRedescription: return "R1 · Pattern"
+        case .r2CandidateClass: return "R2 · Class"
+        case .r3PropositionNamed: return "R3 · Proposition"
+        case .r4MoveOutlined: return "R4 · Move"
+        case .r5WorkedStep: return "R5 · Worked Step"
+        }
+    }
+
+    var title: String {
+        switch self {
+        case .none: return "Unassisted"
+        case .r0AttentionRedirect: return "Rung 0: Attention Redirect (Retrieval Intact)"
+        case .r1PatternRedescription: return "Rung 1: Pattern Redescription (Retrieval Intact)"
+        case .r2CandidateClass: return "R2: Candidate Class (Retrieval Intact)"
+        case .r3PropositionNamed: return "R3: Proposition Named (Assisted)"
+        case .r4MoveOutlined: return "R4: Move Outlined (Assisted)"
+        case .r5WorkedStep: return "R5: Worked Step (Assisted)"
+        }
+    }
+}
+
+public enum ConfidenceVerdictCell: String, Codable, Equatable, Sendable {
+    case solidKnowledge = "solid_knowledge"
+    case fragileOrLuckyGuess = "fragile_or_lucky_guess"
+    case committedMisconception = "committed_misconception"
+    case shakyNearMiss = "shaky_near_miss"
+    case honestGap = "honest_gap"
+
+    public var badgeTitle: String {
+        switch self {
+        case .solidKnowledge: return "Solid Mastery"
+        case .fragileOrLuckyGuess: return "Fragile / Lucky Guess — Probe Why"
+        case .committedMisconception: return "Committed Misconception — Spot the Flaw"
+        case .shakyNearMiss: return "Shaky Near-Miss — Retest Later"
+        case .honestGap: return "Honest Gap — Prerequisite Scaffold"
+        }
+    }
+}
+
+enum DiagnosticFollowUpAction: Equatable, Sendable {
+    case none
+    case triggerElaborativeInterrogation
+    case surfaceSpotTheFlaw(topicCode: String)
+    case scheduleFreshSurfaceRetest(questionId: String)
+}
+
 // MARK: - Question Proof Service (Worked Example -> Faded -> Independent Proof)
 
 struct QuestionEvaluationResult: Equatable, Sendable {
@@ -20,6 +90,31 @@ struct QuestionEvaluationResult: Equatable, Sendable {
     let isPass: Bool
     let resultingProofLevel: QuestionProofLevel
     let feedbackSummary: String
+    let diagnosticCell: ConfidenceVerdictCell
+    let recommendedFollowUp: DiagnosticFollowUpAction
+    let effectiveUsedAssistance: Bool
+
+    init(
+        matchedKeywords: [String],
+        missingKeywords: [String],
+        coverageFraction: Double,
+        isPass: Bool,
+        resultingProofLevel: QuestionProofLevel,
+        feedbackSummary: String,
+        diagnosticCell: ConfidenceVerdictCell = .solidKnowledge,
+        recommendedFollowUp: DiagnosticFollowUpAction = .none,
+        effectiveUsedAssistance: Bool = false
+    ) {
+        self.matchedKeywords = matchedKeywords
+        self.missingKeywords = missingKeywords
+        self.coverageFraction = coverageFraction
+        self.isPass = isPass
+        self.resultingProofLevel = resultingProofLevel
+        self.feedbackSummary = feedbackSummary
+        self.diagnosticCell = diagnosticCell
+        self.recommendedFollowUp = recommendedFollowUp
+        self.effectiveUsedAssistance = effectiveUsedAssistance
+    }
 }
 
 enum QuestionProofService {
@@ -34,13 +129,74 @@ enum QuestionProofService {
             .replacingOccurrences(of: ",", with: "")
     }
 
+    static func classifyDiagnosticCell(
+        isPass: Bool,
+        confidencePercent: Int,
+        declinedToGuess: Bool
+    ) -> ConfidenceVerdictCell {
+        if declinedToGuess {
+            return .honestGap
+        }
+        let highConfidence = confidencePercent >= 70
+        switch (isPass, highConfidence) {
+        case (true, true):
+            return .solidKnowledge
+        case (true, false):
+            return .fragileOrLuckyGuess
+        case (false, true):
+            return .committedMisconception
+        case (false, false):
+            return .shakyNearMiss
+        }
+    }
+
     static func evaluateAndRecord(
         question: SchoolMathsQuestion,
         answerText: String,
         usedAssistance: Bool,
         existingProof: QuestionProofRecord?,
-        now: Date = Date()
+        now: Date = Date(),
+        highestHintRung: HintLadderRung = .none,
+        confidencePercent: Int = 75,
+        declinedToGuess: Bool = false,
+        thinkingTrace: String = ""
     ) -> (result: QuestionEvaluationResult, record: QuestionProofRecord) {
+        let effectiveAssisted = usedAssistance || highestHintRung.surrendersRetrieval
+
+        if declinedToGuess {
+            let nextLevel: QuestionProofLevel = existingProof?.level ?? .unseen
+            let feedback = "Honest 'I don't know yet' recorded — no guess penalty applied. Start with Rung 0–2 hints or inspect the prerequisite intuition first."
+            let record = QuestionProofRecord(
+                id: question.id,
+                unitNumber: question.unitNumber,
+                topicCode: question.topicCode,
+                proofLevel: nextLevel.rawValue,
+                independentPassDays: existingProof?.independentPassDays ?? 0,
+                lastIndependentPassDayKey: existingProof?.lastIndependentPassDayKey,
+                lastAttemptAt: now,
+                lastAnswerText: answerText,
+                lastUsedAssistance: effectiveAssisted,
+                matchedKeywordsCSV: "",
+                missingKeywordsCSV: question.markSchemeKeywords.joined(separator: ","),
+                highestHintRung: highestHintRung.rawValue,
+                confidencePercent: 0,
+                declinedToGuess: true,
+                thinkingTrace: thinkingTrace
+            )
+            let eval = QuestionEvaluationResult(
+                matchedKeywords: [],
+                missingKeywords: question.markSchemeKeywords,
+                coverageFraction: 0,
+                isPass: false,
+                resultingProofLevel: nextLevel,
+                feedbackSummary: feedback,
+                diagnosticCell: .honestGap,
+                recommendedFollowUp: .scheduleFreshSurfaceRetest(questionId: question.id),
+                effectiveUsedAssistance: effectiveAssisted
+            )
+            return (eval, record)
+        }
+
         let normalizedAnswer = normalizeMathText(answerText)
         var matched: [String] = []
         var missing: [String] = []
@@ -71,15 +227,16 @@ enum QuestionProofService {
         let nextLevel: QuestionProofLevel
         let feedback: String
 
-        if usedAssistance {
+        if effectiveAssisted {
             if let prev = existingProof?.level, prev.isIndependentProof {
                 nextLevel = prev
             } else {
                 nextLevel = .assisted
             }
+            let rungNote = highestHintRung.surrendersRetrieval ? " (\(highestHintRung.badgeText) used)" : ""
             feedback = isPass
-                ? "Good guided solution (\(matched.count)/\(total) mark-scheme targets). Now solve without the scaffold to earn Independent Proof."
-                : "Guided attempt recorded. Check: \(missing.prefix(3).joined(separator: ", "))."
+                ? "Good guided solution\(rungNote) (\(matched.count)/\(total) mark-scheme targets). Now solve with at most R0–R2 hints to earn Independent Proof."
+                : "Guided attempt\(rungNote) recorded. Check: \(missing.prefix(3).joined(separator: ", "))."
         } else if isPass {
             if lastPassDay != todayKey {
                 passDays += 1
@@ -97,6 +254,23 @@ enum QuestionProofService {
             feedback = "Almost there (\(matched.count)/\(total) mark-scheme targets). Check key steps: \(missing.prefix(3).joined(separator: ", "))."
         }
 
+        let cell = classifyDiagnosticCell(
+            isPass: isPass,
+            confidencePercent: confidencePercent,
+            declinedToGuess: false
+        )
+        let followUp: DiagnosticFollowUpAction
+        switch cell {
+        case .solidKnowledge:
+            followUp = .none
+        case .fragileOrLuckyGuess:
+            followUp = .triggerElaborativeInterrogation
+        case .committedMisconception:
+            followUp = .surfaceSpotTheFlaw(topicCode: question.topicCode)
+        case .shakyNearMiss, .honestGap:
+            followUp = .scheduleFreshSurfaceRetest(questionId: question.id)
+        }
+
         let record = QuestionProofRecord(
             id: question.id,
             unitNumber: question.unitNumber,
@@ -106,9 +280,13 @@ enum QuestionProofService {
             lastIndependentPassDayKey: lastPassDay,
             lastAttemptAt: now,
             lastAnswerText: answerText,
-            lastUsedAssistance: usedAssistance,
+            lastUsedAssistance: effectiveAssisted,
             matchedKeywordsCSV: matched.joined(separator: ","),
-            missingKeywordsCSV: missing.joined(separator: ",")
+            missingKeywordsCSV: missing.joined(separator: ","),
+            highestHintRung: highestHintRung.rawValue,
+            confidencePercent: confidencePercent,
+            declinedToGuess: false,
+            thinkingTrace: thinkingTrace
         )
 
         let eval = QuestionEvaluationResult(
@@ -117,7 +295,10 @@ enum QuestionProofService {
             coverageFraction: coverage,
             isPass: isPass,
             resultingProofLevel: nextLevel,
-            feedbackSummary: feedback
+            feedbackSummary: feedback,
+            diagnosticCell: cell,
+            recommendedFollowUp: followUp,
+            effectiveUsedAssistance: effectiveAssisted
         )
         return (eval, record)
     }

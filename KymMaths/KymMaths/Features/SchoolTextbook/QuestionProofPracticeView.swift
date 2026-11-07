@@ -10,12 +10,29 @@ struct QuestionProofPracticeView: View {
     @State private var showWorkedExample = false
     @State private var showFadedScaffold = false
     @State private var usedAssistanceInSession = false
+    @State private var highestHintRung: HintLadderRung = .none
+    @State private var currentHintRung: HintLadderRung = .none
+    @State private var thinkingTrace = ""
+    @State private var confidencePercent: Int = 75
+    @State private var declinedToGuess = false
     @State private var fadedInput = ""
     @State private var answerText = ""
     @State private var evaluation: QuestionEvaluationResult?
     @State private var graduatedFeedback: SocraticGraduatedFeedback?
     @State private var interrogationResponse = ""
+    @State private var selectedFlawStepIndex: Int?
+    @State private var flawScoreResult: SpotTheFlawScoreResult?
     @State private var showScratchpad = true
+
+    private var effectiveAssisted: Bool {
+        usedAssistanceInSession || highestHintRung.surrendersRetrieval
+    }
+
+    private var matchingSpotTheFlaw: SpotTheFlawPayload {
+        let chKey = String(format: "ch%02d", question.unitNumber)
+        return MathsSpotTheFlawCatalog.all.first(where: { $0.chapterId == chKey })
+            ?? MathsSpotTheFlawCatalog.all[0]
+    }
 
     private var recommendedCPAStage: ConcretenessRepresentationStage {
         let skill = store.bktSkillsById[question.topicCode]
@@ -88,11 +105,13 @@ struct QuestionProofPracticeView: View {
                             }
                             .buttonStyle(JournalSecondaryButtonStyle())
 
-                            if usedAssistanceInSession {
+                            if effectiveAssisted {
                                 Button {
                                     showWorkedExample = false
                                     showFadedScaffold = false
                                     usedAssistanceInSession = false
+                                    highestHintRung = .none
+                                    currentHintRung = .none
                                     answerText = ""
                                     evaluation = nil
                                 } label: {
@@ -102,11 +121,52 @@ struct QuestionProofPracticeView: View {
                             }
                         }
 
-                        if usedAssistanceInSession {
+                        // 6-Rung Metered Hint Ladder (R0–R2 preserve retrieval; R3–R5 surrender retrieval)
+                        VStack(alignment: .leading, spacing: Spacing.xs) {
+                            HStack {
+                                Text("METERED 6-RUNG HINT LADDER (R0–R2 KEEP INDEPENDENT PROOF INTACT)")
+                                    .font(Typography.eyebrow)
+                                    .foregroundStyle(Color.kymaiaPrimary)
+                                Spacer()
+                                JournalBadge(
+                                    text: highestHintRung.badgeText,
+                                    symbol: highestHintRung.surrendersRetrieval ? "hand.raised.fill" : "shield.lefthalf.filled",
+                                    tone: highestHintRung.surrendersRetrieval ? .warning : .positive
+                                )
+                            }
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: Spacing.xs) {
+                                    ForEach(HintLadderRung.allCases.filter { $0 != .none }, id: \.rawValue) { rung in
+                                        Button {
+                                            currentHintRung = rung
+                                            if rung > highestHintRung {
+                                                highestHintRung = rung
+                                            }
+                                            if rung.surrendersRetrieval {
+                                                usedAssistanceInSession = true
+                                            }
+                                        } label: {
+                                            Text(rung.badgeText)
+                                                .font(Typography.caption.weight(.semibold))
+                                        }
+                                        .buttonStyle(JournalSecondaryButtonStyle())
+                                    }
+                                }
+                            }
+                            if currentHintRung != .none {
+                                Text(MeteredHintLadderEngine.hint(for: question, rung: currentHintRung, thinkingTrace: thinkingTrace))
+                                    .font(Typography.subheadline)
+                                    .foregroundStyle(Color.kymaiaInk)
+                                    .padding(Spacing.sm)
+                                    .quietPanelBackground()
+                            }
+                        }
+
+                        if effectiveAssisted {
                             HStack(spacing: Spacing.xs) {
                                 Image(systemName: "info.circle.fill")
                                     .foregroundStyle(Color.kymaiaWarning)
-                                Text("Guided mode active: Because you opened a scaffold, this attempt will record as Assisted Practice. Click 'Reset for Unassisted Proof' when ready to prove independently.")
+                                Text("Guided mode active: Because you opened a R3–R5 hint or full scaffold, this attempt will record as Assisted Practice. R0–R2 hints preserve Independent Proof.")
                                     .font(Typography.caption)
                                     .foregroundStyle(Color.kymaiaMutedInk)
                             }
@@ -166,10 +226,17 @@ struct QuestionProofPracticeView: View {
                 // Stage 3: Final Solution & Mark-Scheme Verification
                 JournalSection(
                     title: "Stage 3 · Final Solution & Mark-Scheme Proof",
-                    eyebrow: usedAssistanceInSession ? "Submitting as Assisted Practice" : "Submitting as Independent Proof"
+                    eyebrow: effectiveAssisted ? "Submitting as Assisted Practice" : "Submitting as Independent Proof"
                 ) {
                     JournalCard {
                         VStack(alignment: .leading, spacing: Spacing.md) {
+                            LearnerTextInput(
+                                title: "Thinking Trace (optional — dictate or jot what invariant you're testing):",
+                                placeholder: "e.g., Let 1 bar unit be the unknown, or compare the two areas...",
+                                text: $thinkingTrace,
+                                minHeight: 64
+                            )
+
                             LearnerTextInput(
                                 title: "Write your working and final answer (include units or algebraic steps):",
                                 placeholder: "Show your step-by-step reasoning and final value...",
@@ -177,12 +244,45 @@ struct QuestionProofPracticeView: View {
                                 minHeight: 110
                             )
 
+                            // Confidence × Verdict Selector (LearnHarness Calibration Channel)
+                            VStack(alignment: .leading, spacing: Spacing.xs) {
+                                Text("CONFIDENCE CALIBRATION (HOW SURE ARE YOU?)")
+                                    .font(Typography.eyebrow)
+                                    .foregroundStyle(Color.kymaiaPrimary)
+                                HStack(spacing: Spacing.sm) {
+                                    Button {
+                                        declinedToGuess = true
+                                        confidencePercent = 0
+                                    } label: {
+                                        Label("I don't know yet", systemImage: declinedToGuess ? "checkmark.circle.fill" : "questionmark.circle")
+                                    }
+                                    .buttonStyle(JournalSecondaryButtonStyle())
+
+                                    ForEach([(35, "Unsure · 35%"), (75, "Pretty Sure · 75%"), (95, "Certain · 95%")], id: \.0) { pct, label in
+                                        Button {
+                                            declinedToGuess = false
+                                            confidencePercent = pct
+                                        } label: {
+                                            Label(
+                                                label,
+                                                systemImage: (!declinedToGuess && confidencePercent == pct) ? "checkmark.circle.fill" : "circle"
+                                            )
+                                        }
+                                        .buttonStyle(JournalSecondaryButtonStyle())
+                                    }
+                                }
+                            }
+
                             HStack {
                                 Button {
                                     evaluation = store.submitQuestionAttempt(
                                         question: question,
                                         answerText: answerText,
-                                        usedAssistance: usedAssistanceInSession
+                                        usedAssistance: usedAssistanceInSession,
+                                        highestHintRung: highestHintRung,
+                                        confidencePercent: confidencePercent,
+                                        declinedToGuess: declinedToGuess,
+                                        thinkingTrace: thinkingTrace
                                     )
                                     graduatedFeedback = SocraticFeedbackEngine.evaluate(
                                         studentAnswer: answerText,
@@ -192,7 +292,9 @@ struct QuestionProofPracticeView: View {
                                     )
                                 } label: {
                                     Label(
-                                        usedAssistanceInSession ? "Check Guided Solution" : "Submit Independent Proof",
+                                        declinedToGuess
+                                            ? "Record Honest Gap (No Penalty)"
+                                            : (effectiveAssisted ? "Check Guided Solution" : "Submit Independent Proof"),
                                         systemImage: "checkmark.seal.fill"
                                     )
                                 }
@@ -209,8 +311,13 @@ struct QuestionProofPracticeView: View {
                                         Text(eval.feedbackSummary)
                                             .font(Typography.subheadline.weight(.semibold))
                                             .foregroundStyle(Color.kymaiaInk)
+                                        Spacer()
+                                        JournalBadge(
+                                            text: eval.diagnosticCell.badgeTitle,
+                                            symbol: "gauge.with.dots.needle.67percent",
+                                            tone: eval.diagnosticCell == .solidKnowledge ? .positive : .warning
+                                        )
                                         if let grad = graduatedFeedback {
-                                            Spacer()
                                             JournalBadge(
                                                 text: grad.tier.badgeTitle,
                                                 symbol: "sparkles",
@@ -219,12 +326,45 @@ struct QuestionProofPracticeView: View {
                                         }
                                     }
 
-                                    if let grad = graduatedFeedback {
+                                    if let grad = graduatedFeedback, !declinedToGuess {
                                         Text("\(grad.headline) — \(grad.socraticNudge)")
                                             .font(Typography.caption)
                                             .foregroundStyle(Color.kymaiaMutedInk)
                                         if let trap = grad.detectedTrap {
                                             JournalBadge(text: "Detected: \(trap)", symbol: "exclamationmark.shield", tone: .warning)
+                                        }
+                                    }
+
+                                    if eval.diagnosticCell == .committedMisconception {
+                                        Divider()
+                                        let stf = matchingSpotTheFlaw
+                                        Text("COMMITTED MISCONCEPTION REPAIR · SPOT THE FLAW IN \(stf.title.uppercased())")
+                                            .font(Typography.eyebrow)
+                                            .foregroundStyle(Color.kymaiaWarning)
+                                        Text(stf.problemStem)
+                                            .font(Typography.subheadline.weight(.semibold))
+                                            .foregroundStyle(Color.kymaiaInk)
+                                        ForEach(Array(stf.steps.enumerated()), id: \.offset) { idx, stepLine in
+                                            Button {
+                                                selectedFlawStepIndex = idx
+                                                flawScoreResult = stf.score(selectedStepIndex: idx)
+                                            } label: {
+                                                HStack {
+                                                    Text("Step \(idx + 1): \(stepLine)")
+                                                        .font(Typography.caption)
+                                                        .foregroundStyle(Color.kymaiaInk)
+                                                    Spacer()
+                                                    if selectedFlawStepIndex == idx {
+                                                        Image(systemName: "hand.point.left.fill")
+                                                    }
+                                                }
+                                            }
+                                            .buttonStyle(JournalSecondaryButtonStyle())
+                                        }
+                                        if let flawResult = flawScoreResult {
+                                            Text(flawResult.feedback)
+                                                .font(Typography.caption)
+                                                .foregroundStyle(flawResult.isCorrect ? Color.kymaiaSuccess : Color.kymaiaWarning)
                                         }
                                     }
 

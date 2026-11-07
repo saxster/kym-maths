@@ -495,4 +495,255 @@ struct KymMathsTests {
             #expect(scenario.passed, "Safety scenario \(scenario.id) failed: \(scenario.detail)")
         }
     }
+
+    @Test("LearnHarness Phase 1: 6-Rung Hint Ladder retrieval cutoff (R0-R2 vs R3-R5) and Confidence x Verdict Diagnostic Matrix")
+    func testMeteredHintLadderAndConfidenceVerdictMatrix() {
+        let pack = SeedPackLoader.load()
+        let q = pack.schoolQuestions[0]
+        let day1 = Date(timeIntervalSince1970: 1_760_000_000)
+
+        // R0, R1, R2 preserve retrieval; R3, R4, R5 surrender retrieval
+        #expect(HintLadderRung.r0AttentionRedirect.surrendersRetrieval == false)
+        #expect(HintLadderRung.r1PatternRedescription.surrendersRetrieval == false)
+        #expect(HintLadderRung.r2CandidateClass.surrendersRetrieval == false)
+        #expect(HintLadderRung.r3PropositionNamed.surrendersRetrieval == true)
+        #expect(HintLadderRung.r4MoveOutlined.surrendersRetrieval == true)
+        #expect(HintLadderRung.r5WorkedStep.surrendersRetrieval == true)
+
+        // 1. Solving with R2 hint and high confidence (85%) still earns Independent Proof (.proven) and .solidKnowledge
+        let (r2Eval, r2Rec) = QuestionProofService.evaluateAndRecord(
+            question: q,
+            answerText: q.modelAnswer,
+            usedAssistance: false,
+            existingProof: nil,
+            now: day1,
+            highestHintRung: .r2CandidateClass,
+            confidencePercent: 85,
+            declinedToGuess: false,
+            thinkingTrace: "Testing equal bar units"
+        )
+        #expect(r2Eval.isPass == true)
+        #expect(r2Eval.effectiveUsedAssistance == false)
+        #expect(r2Rec.level == .proven)
+        #expect(r2Eval.diagnosticCell == .solidKnowledge)
+        #expect(r2Rec.highestHintRung == HintLadderRung.r2CandidateClass.rawValue)
+
+        // 2. Solving with R3 hint surrenders retrieval and records as .assisted
+        let (r3Eval, r3Rec) = QuestionProofService.evaluateAndRecord(
+            question: q,
+            answerText: q.modelAnswer,
+            usedAssistance: false,
+            existingProof: nil,
+            now: day1,
+            highestHintRung: .r3PropositionNamed,
+            confidencePercent: 80
+        )
+        #expect(r3Eval.isPass == true)
+        #expect(r3Eval.effectiveUsedAssistance == true)
+        #expect(r3Rec.level == .assisted)
+
+        // 3. Correct + Low Confidence (35%) -> .fragileOrLuckyGuess -> triggers ElaborativeInterrogation
+        let (luckyEval, _) = QuestionProofService.evaluateAndRecord(
+            question: q,
+            answerText: q.modelAnswer,
+            usedAssistance: false,
+            existingProof: nil,
+            now: day1,
+            highestHintRung: .none,
+            confidencePercent: 35
+        )
+        #expect(luckyEval.diagnosticCell == .fragileOrLuckyGuess)
+        #expect(luckyEval.recommendedFollowUp == .triggerElaborativeInterrogation)
+        #expect(ElaborativeInterrogationEngine.shouldInterrogate(consecutiveCorrectCount: 0, masteryProbability: 0.2, diagnosticCell: luckyEval.diagnosticCell))
+
+        // 4. Wrong + High Confidence (95%) -> .committedMisconception -> surfaces Spot-the-Flaw
+        let (misconceptionEval, _) = QuestionProofService.evaluateAndRecord(
+            question: q,
+            answerText: "completely wrong value 999999",
+            usedAssistance: false,
+            existingProof: nil,
+            now: day1,
+            highestHintRung: .none,
+            confidencePercent: 95
+        )
+        #expect(misconceptionEval.diagnosticCell == .committedMisconception)
+        #expect(misconceptionEval.recommendedFollowUp == .surfaceSpotTheFlaw(topicCode: q.topicCode))
+
+        // 5. Declined to guess ("I don't know yet") -> .honestGap without guess penalty
+        let (gapEval, gapRec) = QuestionProofService.evaluateAndRecord(
+            question: q,
+            answerText: "",
+            usedAssistance: false,
+            existingProof: nil,
+            now: day1,
+            highestHintRung: .r0AttentionRedirect,
+            confidencePercent: 0,
+            declinedToGuess: true
+        )
+        #expect(gapEval.diagnosticCell == .honestGap)
+        #expect(gapRec.declinedToGuess == true)
+        #expect(gapRec.level == .unseen)
+    }
+
+    @Test("LearnHarness Phase 2: PropositionGraphEngine 3-stage pipeline and simplifyChains (prefer-fewest-premises + ancestry-cover)")
+    func testPropositionGraphExtractorIdentityAuditorMergerAndSimplifyChains() throws {
+        // 1. World-facing statement sanitization strips learner-centric prefixes
+        let sanitized = PropositionGraphEngine.sanitizeWorldFacingStatement("The learner understands that vertical and horizontal unit circle shadows form a right triangle.")
+        #expect(sanitized == "Vertical and horizontal unit circle shadows form a right triangle.")
+
+        // 2. simplifyChains Rule 1 (prefer-fewest-premises): [A] => Y drops [A, B] => Y
+        let now = Date(timeIntervalSince1970: 1_760_000_000)
+        let directChain = DerivationChainRecord(
+            id: "c_direct",
+            premisesCSV: "n_A",
+            conclusionId: "n_Y",
+            chainKey: PropositionGraphEngine.chainKey(premises: ["n_A"], conclusion: "n_Y"),
+            createdAt: now
+        )
+        let bloatedChain = DerivationChainRecord(
+            id: "c_bloated",
+            premisesCSV: "n_A,n_B",
+            conclusionId: "n_Y",
+            chainKey: PropositionGraphEngine.chainKey(premises: ["n_A", "n_B"], conclusion: "n_Y"),
+            createdAt: now
+        )
+        let simplified1 = PropositionGraphEngine.simplifyChains([directChain, bloatedChain])
+        #expect(simplified1.count == 1)
+        #expect(simplified1.first?.id == "c_direct")
+
+        // 3. simplifyChains Rule 2 (ancestry-cover): [A, B] => X and [X, C] => Y drops [A, B, C] => Y
+        let step1 = DerivationChainRecord(
+            id: "c_step1",
+            premisesCSV: "n_A,n_B",
+            conclusionId: "n_X",
+            chainKey: PropositionGraphEngine.chainKey(premises: ["n_A", "n_B"], conclusion: "n_X"),
+            createdAt: now
+        )
+        let step2 = DerivationChainRecord(
+            id: "c_step2",
+            premisesCSV: "n_C,n_X",
+            conclusionId: "n_Y",
+            chainKey: PropositionGraphEngine.chainKey(premises: ["n_C", "n_X"], conclusion: "n_Y"),
+            createdAt: now
+        )
+        let transitiveLong = DerivationChainRecord(
+            id: "c_transitive_long",
+            premisesCSV: "n_A,n_B,n_C",
+            conclusionId: "n_Y",
+            chainKey: PropositionGraphEngine.chainKey(premises: ["n_A", "n_B", "n_C"], conclusion: "n_Y"),
+            createdAt: now.addingTimeInterval(10)
+        )
+        let simplified2 = PropositionGraphEngine.simplifyChains([step1, step2, transitiveLong])
+        #expect(simplified2.count == 2)
+        #expect(!simplified2.contains(where: { $0.id == "c_transitive_long" }))
+
+        // 4. Full 3-stage pipeline in-memory DB persistence check
+        let db = DatabaseManager(inMemory: true)
+        let seededNodes = try db.fetchPropositionNodes()
+        let seededChains = try db.fetchDerivationChains()
+        #expect(!seededNodes.isEmpty)
+        #expect(!seededChains.isEmpty)
+    }
+
+    @Test("LearnHarness Phase 3: InterleavedPracticeStreamEngine Inactivity Constraint and Near-Twin Discrimination Catalog")
+    func testInterleavedPracticeInactivityConstraintAndNearTwinDiscrimination() throws {
+        #expect(MathsDiscriminationCatalog.allPairs.count == 8)
+
+        let db = DatabaseManager(inMemory: true)
+        let nodes = try db.fetchPropositionNodes()
+        let chains = try db.fetchDerivationChains()
+
+        // When Chapter 12 is actively being taught, no Chapter 12 items appear in the interleaved stream
+        let activeStream = InterleavedPracticeStreamEngine.buildStream(
+            activeTeachingChapter: 12,
+            isTeachingChapterActive: true,
+            propositions: nodes,
+            chains: chains,
+            proofs: []
+        )
+        #expect(!activeStream.isEmpty)
+        #expect(activeStream.allSatisfy { $0.linkedChapterNumber != 12 })
+
+        // When Chapter 12 is no longer active in teaching, Chapter 12 items are eligible again
+        let fullStream = InterleavedPracticeStreamEngine.buildStream(
+            activeTeachingChapter: 12,
+            isTeachingChapterActive: false,
+            propositions: nodes,
+            chains: chains,
+            proofs: []
+        )
+        let modesPresent = Set(fullStream.map(\.mode))
+        #expect(modesPresent.contains(PracticeDemandMode.recall))
+        #expect(modesPresent.contains(PracticeDemandMode.discrimination))
+        #expect(modesPresent.contains(PracticeDemandMode.composition))
+    }
+
+    @Test("LearnHarness Phase 4: PromptSegmentComposer constitutional root lock and Minimal Dependency Tree pruning")
+    func testPromptSegmentComposerPrerequisiteBracketingAndMinimalDependencyTree() {
+        let polyaSoul = AgentSoulCatalog.soul(for: "polya")
+
+        // Even if every optional pedagogical segment is toggled off, TutorConstitution remains locked at the root
+        let allOffSwitches = Dictionary(uniqueKeysWithValues: PromptSegmentComposer.catalog.map { ($0.id, false) })
+        let instructionWithAllOff = PromptSegmentComposer.composeSystemInstruction(
+            role: .teacher,
+            soul: polyaSoul,
+            guidanceStyle: .adaptive,
+            switches: allOffSwitches
+        )
+        #expect(instructionWithAllOff.contains(TutorConstitution.version))
+        #expect(!instructionWithAllOff.contains("# Predict → Teach → Check Cycle"))
+
+        // With default switches enabled, role-specific segments are composed in numeric order
+        let teacherInstruction = PromptSegmentComposer.composeSystemInstruction(
+            role: .teacher,
+            soul: polyaSoul,
+            guidanceStyle: .adaptive
+        )
+        #expect(teacherInstruction.contains("# The Method — Two Principles"))
+        #expect(teacherInstruction.contains("# Predict → Teach → Check Cycle"))
+
+        // Minimal Dependency Tree prunes fluent prerequisite roots when bracket probe is symbolicFluent
+        let pack = SeedPackLoader.load()
+        let ch12 = pack.chapters.first(where: { $0.number == 12 })!
+        var brackets = LessonDependencyDAG.defaultBrackets(for: ch12)
+        brackets[0].depthLevel = .symbolicFluent
+        let dag = LessonDependencyDAG.buildMinimalTree(for: ch12, skills: [], brackets: brackets)
+        #expect(dag.nodes.count == 3)
+        #expect(dag.nodes[0].isCompleted == true)
+        #expect(dag.activeNodeId == dag.nodes[1].id)
+    }
+
+    @Test("LearnHarness Phase 5: UniversalArgumentHealer, NarrationGuard, LearnerScratchpadAnnotator, and WebStageHealthProbe")
+    func testUniversalArgumentHealerNarrationGuardScratchpadAnnotatorAndStageHealth() {
+        // 1. UniversalArgumentHealer unwraps stringified JSON arrays and strips double-quoted enum strings
+        let malformedArgs: [String: Any] = [
+            "action": "\"replace\"",
+            "removeIds": "[\"shape_1\",\"shape_2\"]"
+        ]
+        let healed = UniversalArgumentHealer.healJSONValue(malformedArgs) as? [String: Any]
+        #expect((healed?["action"] as? String) == "replace")
+        #expect((healed?["removeIds"] as? [String]) == ["shape_1", "shape_2"])
+
+        // 2. NarrationGuard catches meta-choreography narration and replaces it with learner-facing explanation
+        let metaOutput = "Now I will call the tool to set up the canvas for Chapter 12."
+        let audit = NarrationGuard.audit(metaOutput, topic: "Unit Circle")
+        #expect(audit.isClean == false)
+        #expect(audit.detectedViolation == "meta_choreography_narration")
+        #expect(!audit.sanitizedText.lowercased().contains("now i will call"))
+
+        // 3. LearnerScratchpadAnnotator anchors vector callouts and SHA-256 hash on TutorCanvas
+        let pack = SeedPackLoader.load()
+        let samplePNG = Data([0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A])
+        let annotated = LearnerScratchpadAnnotator.annotateScratchpad(
+            pngData: samplePNG,
+            question: pack.schoolQuestions[0]
+        )
+        #expect(annotated.backgroundSnapshotPNGData == samplePNG)
+        #expect(annotated.backgroundSnapshotSHA256?.count == 64)
+        #expect(annotated.shapes.count == 3)
+
+        // 4. WebStageHealthProbe evaluates stage health report deterministically
+        let report = WebStageHealthProbe.evaluateReport(from: ["domLoaded": true, "count": 4, "errors": 0])
+        #expect(report.isHealthy == true)
+    }
 }

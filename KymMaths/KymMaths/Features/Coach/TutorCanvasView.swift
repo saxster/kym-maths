@@ -80,6 +80,26 @@ public struct TutorCanvasView: View {
                             .clipShape(RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous))
                     }
 
+                    if let pngData = canvas.backgroundSnapshotPNGData {
+                        #if canImport(UIKit)
+                        if let uiImg = UIImage(data: pngData) {
+                            Image(uiImage: uiImg)
+                                .resizable()
+                                .scaledToFit()
+                                .opacity(0.88)
+                                .clipShape(RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous))
+                        }
+                        #elseif canImport(AppKit)
+                        if let nsImg = NSImage(data: pngData) {
+                            Image(nsImage: nsImg)
+                                .resizable()
+                                .scaledToFit()
+                                .opacity(0.88)
+                                .clipShape(RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous))
+                        }
+                        #endif
+                    }
+
                     Canvas { context, canvasSize in
                         drawShapes(in: &context, size: canvasSize)
                         drawStrokes(in: &context, size: canvasSize)

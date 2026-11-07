@@ -1,3 +1,4 @@
+import CryptoKit
 import Foundation
 import SwiftUI
 
@@ -249,17 +250,23 @@ public struct TutorCanvas: Codable, Sendable, Equatable {
     public var caption: String?
     public var showGrid: Bool
     public var shapes: [TutorCanvasShape]
+    public var backgroundSnapshotSHA256: String?
+    public var backgroundSnapshotPNGData: Data?
 
     public init(
         title: String,
         caption: String? = nil,
         showGrid: Bool = true,
-        shapes: [TutorCanvasShape] = []
+        shapes: [TutorCanvasShape] = [],
+        backgroundSnapshotSHA256: String? = nil,
+        backgroundSnapshotPNGData: Data? = nil
     ) {
         self.title = title
         self.caption = caption
         self.showGrid = showGrid
         self.shapes = shapes.map { $0.sanitized() }
+        self.backgroundSnapshotSHA256 = backgroundSnapshotSHA256
+        self.backgroundSnapshotPNGData = backgroundSnapshotPNGData
     }
 
     public func sanitized() -> TutorCanvas {
@@ -267,7 +274,71 @@ public struct TutorCanvas: Codable, Sendable, Equatable {
             title: title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "Interactive Chalkboard" : title,
             caption: caption,
             showGrid: showGrid,
-            shapes: shapes.map { $0.sanitized() }
+            shapes: shapes.map { $0.sanitized() },
+            backgroundSnapshotSHA256: backgroundSnapshotSHA256,
+            backgroundSnapshotPNGData: backgroundSnapshotPNGData
+        )
+    }
+}
+
+/// Ported from LearnHarness's `LearnerAnnotationModal`: overlays coach vector callouts (`ellipse`, `arrow`, `text`)
+/// in `1000 × 640` logical space directly over Kym's shared PencilKit scratchpad PNG snapshot.
+public enum LearnerScratchpadAnnotator {
+    public static func sha256Hex(of data: Data) -> String {
+        let digest = SHA256.hash(data: data)
+        return digest.map { String(format: "%02x", $0) }.joined()
+    }
+
+    static func annotateScratchpad(
+        pngData: Data,
+        question: SchoolMathsQuestion,
+        latestAnswer: String = ""
+    ) -> TutorCanvas {
+        let hash = sha256Hex(of: pngData)
+        let keyTarget = question.markSchemeKeywords.first ?? question.fadedAnswer
+        let shapes: [TutorCanvasShape] = [
+            TutorCanvasShape(
+                id: "annot-focus-ellipse",
+                kind: .ellipse,
+                x: 160,
+                y: 150,
+                width: 340,
+                height: 150,
+                text: "Step 1 · Conservation Setup",
+                color: .accent,
+                filled: false
+            ),
+            TutorCanvasShape(
+                id: "annot-bridge-arrow",
+                kind: .arrow,
+                x: 510,
+                y: 225,
+                x2: 670,
+                y2: 290,
+                text: "Verify invariant",
+                color: .warning,
+                filled: false
+            ),
+            TutorCanvasShape(
+                id: "annot-coach-note",
+                kind: .text,
+                x: 560,
+                y: 310,
+                width: 380,
+                height: 64,
+                text: "Check target invariant: \(keyTarget)",
+                color: .success,
+                filled: true
+            )
+        ]
+
+        return TutorCanvas(
+            title: "Annotated Scratchpad · \(question.topicCode)",
+            caption: "Coach overlay on your shared PencilKit working (SHA-256: \(hash.prefix(12))…)",
+            showGrid: true,
+            shapes: shapes,
+            backgroundSnapshotSHA256: hash,
+            backgroundSnapshotPNGData: pngData
         )
     }
 }

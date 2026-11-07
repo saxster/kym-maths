@@ -157,6 +157,99 @@ struct MathsJournalHomeView: View {
                     }
                 }
             }
+
+            // 3. The Click · Personal Proposition & Derivation Graph (Ported from LearnHarness)
+            JournalSection(
+                title: "The Click · Personal Proposition & Derivation Graph",
+                eyebrow: "\(store.propositionNodes.count) World-Facing Propositions · \(store.derivationChains.count) Minimal Derivation Chains"
+            ) {
+                JournalCard {
+                    VStack(alignment: .leading, spacing: Spacing.md) {
+                        HStack {
+                            JournalBadge(
+                                text: "\(store.propositionNodes.filter(\.isUnconditionalTruth).count) Unconditional Foundations",
+                                symbol: "shield.checkered",
+                                tone: .positive
+                            )
+                            JournalBadge(
+                                text: "\(store.derivationChains.count) Simplified Chains",
+                                symbol: "point.3.connected.trianglepath.dotted",
+                                tone: .accent
+                            )
+                            Spacer()
+                            Button {
+                                let simplified = PropositionGraphEngine.simplifyChains(store.derivationChains)
+                                try? store.db.replacePropositionGraph(nodes: store.propositionNodes, chains: simplified)
+                                store.refreshState()
+                            } label: {
+                                Label("Run simplifyChains Pass", systemImage: "wand.and.stars")
+                            }
+                            .buttonStyle(JournalSecondaryButtonStyle())
+                        }
+
+                        let nodesById = Dictionary(uniqueKeysWithValues: store.propositionNodes.map { ($0.id, $0) })
+
+                        if !store.derivationChains.isEmpty {
+                            Text("MINIMAL JOINT-PREMISE DERIVATION CHAINS ([P₁, P₂] ⟹ Q)")
+                                .font(Typography.eyebrow)
+                                .foregroundStyle(Color.kymaiaPrimary)
+
+                            ForEach(store.derivationChains.prefix(6)) { chain in
+                                let premiseTitles = chain.premisesList.map { nodesById[$0]?.name ?? $0 }
+                                let conclusionNode = nodesById[chain.conclusionId]
+                                VStack(alignment: .leading, spacing: 4) {
+                                    HStack {
+                                        Text("\(premiseTitles.joined(separator: "  +  "))  ⟹  \(conclusionNode?.name ?? chain.conclusionId)")
+                                            .font(Typography.subheadline.weight(.semibold))
+                                            .foregroundStyle(Color.kymaiaInk)
+                                        Spacer()
+                                        JournalBadge(text: chain.id, symbol: "link", tone: .neutral)
+                                    }
+                                    if let statement = conclusionNode?.statement {
+                                        Text(statement)
+                                            .font(Typography.caption)
+                                            .foregroundStyle(Color.kymaiaMutedInk)
+                                    }
+                                }
+                                .padding(Spacing.sm)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .quietPanelBackground()
+                            }
+                        }
+
+                        Text("EXTRACTED WORLD-FACING PROPOSITIONS")
+                            .font(Typography.eyebrow)
+                            .foregroundStyle(Color.kymaiaPrimary)
+
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 280), spacing: Spacing.sm)], spacing: Spacing.sm) {
+                            ForEach(store.propositionNodes.prefix(8)) { node in
+                                VStack(alignment: .leading, spacing: 4) {
+                                    HStack {
+                                        JournalBadge(
+                                            text: node.isUnconditionalTruth ? "Unconditional Truth" : "Derived Invariant",
+                                            symbol: node.isUnconditionalTruth ? "sparkles" : "function",
+                                            tone: node.isUnconditionalTruth ? .positive : .info
+                                        )
+                                        Spacer()
+                                        Text("Ch \(node.chapterNumber)")
+                                            .font(Typography.caption)
+                                            .foregroundStyle(Color.kymaiaMutedInk)
+                                    }
+                                    Text(node.name)
+                                        .font(Typography.subheadline.weight(.bold))
+                                        .foregroundStyle(Color.kymaiaInk)
+                                    Text(node.statement)
+                                        .font(Typography.caption)
+                                        .foregroundStyle(Color.kymaiaMutedInk)
+                                }
+                                .padding(Spacing.sm)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .quietPanelBackground()
+                            }
+                        }
+                    }
+                }
+            }
         }
         .onAppear {
             if selectedEntryId == nil, let first = store.journalEntries.first {

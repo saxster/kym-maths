@@ -306,6 +306,56 @@ struct MathsSettingsSheet: View {
                         }
                     }
                 }
+
+                // 5. Inspectable Pedagogical Prompt Segments (Ported from LearnHarness src/agent/prompts/)
+                JournalSection(
+                    title: "Inspectable Pedagogical Prompt Segments",
+                    eyebrow: "Parent-Transparent Prompt Doctrine · TutorConstitution Locked at Root"
+                ) {
+                    JournalCard {
+                        VStack(alignment: .leading, spacing: Spacing.md) {
+                            HStack {
+                                JournalBadge(
+                                    text: "Root Locked: TutorConstitution \(TutorConstitution.version)",
+                                    symbol: "lock.shield.fill",
+                                    tone: .positive
+                                )
+                                Spacer()
+                                Text("Child safety & learner agency cannot be disabled")
+                                    .font(Typography.caption)
+                                    .foregroundStyle(Color.kymaiaMutedInk)
+                            }
+
+                            ForEach(PromptSegmentComposer.catalog) { segment in
+                                let isEnabled = store.promptSegmentSwitches[segment.id] ?? segment.defaultEnabled
+                                VStack(alignment: .leading, spacing: Spacing.xs) {
+                                    HStack {
+                                        Toggle(isOn: Binding(
+                                            get: { isEnabled },
+                                            set: { store.setPromptSegmentEnabled(id: segment.id, enabled: $0) }
+                                        )) {
+                                            VStack(alignment: .leading, spacing: 2) {
+                                                Text(segment.title)
+                                                    .font(Typography.subheadline.weight(.semibold))
+                                                    .foregroundStyle(Color.kymaiaInk)
+                                                Text(segment.subtitle)
+                                                    .font(Typography.caption)
+                                                    .foregroundStyle(Color.kymaiaMutedInk)
+                                            }
+                                        }
+                                    }
+                                    Text(segment.markdownBody)
+                                        .font(Typography.caption)
+                                        .foregroundStyle(Color.kymaiaMutedInk)
+                                        .padding(Spacing.xs)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .quietPanelBackground()
+                                }
+                                Divider()
+                            }
+                        }
+                    }
+                }
             }
             .navigationTitle("Settings & Customisation")
             .toolbar {

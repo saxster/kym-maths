@@ -134,10 +134,120 @@ public enum JSONUnwrap {
 
     public static func decode<T: Decodable>(_ type: T.Type, from raw: String) throws -> T {
         let clean = extractJSONString(from: raw)
-        guard let data = clean.data(using: .utf8) else {
+        let healed = UniversalArgumentHealer.healJSONString(clean)
+        guard let data = healed.data(using: .utf8) else {
             throw NSError(domain: "JSONUnwrap", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid UTF-8"])
         }
         return try JSONDecoder().decode(T.self, from: data)
+    }
+}
+
+/// Ported from LearnHarness's `wrapSchema` universal argument healer (`src/agent/tools/normalize-args.ts`):
+/// heals stringified JSON arrays/objects (`"[\"a\"]"` → `["a"]`), strips double-quoted enum strings (`"\"predict\""` → `"predict"`),
+/// and normalizes dictionary arguments before tool execution or schema decoding.
+public enum UniversalArgumentHealer {
+    public static func healJSONValue(_ value: Any) -> Any {
+        if let str = value as? String {
+            let trimmed = str.trimmingCharacters(in: .whitespacesAndNewlines)
+            // Unwrap stringified JSON arrays or objects
+            if (trimmed.hasPrefix("[") && trimmed.hasSuffix("]"))
+                || (trimmed.hasPrefix("{") && trimmed.hasSuffix("}")) {
+                if let data = trimmed.data(using: .utf8),
+                   let parsed = try? JSONSerialization.jsonObject(with: data) {
+                    return healJSONValue(parsed)
+                }
+            }
+            // Strip extra escaped quotes around enum strings: "\"predict\"" -> "predict"
+            if trimmed.count >= 2 && trimmed.hasPrefix("\"") && trimmed.hasSuffix("\"") {
+                let inner = String(trimmed.dropFirst().dropLast())
+                return inner
+            }
+            return str
+        } else if let array = value as? [Any] {
+            return array.map { healJSONValue($0) }
+        } else if let dict = value as? [String: Any] {
+            var out: [String: Any] = [:]
+            for (k, v) in dict {
+                out[k] = healJSONValue(v)
+            }
+            return out
+        }
+        return value
+    }
+
+    public static func healStringDictionary(_ args: [String: String]) -> [String: String] {
+        var out: [String: String] = [:]
+        for (k, v) in args {
+            let healed = healJSONValue(v)
+            if let str = healed as? String {
+                out[k] = str
+            } else if let arr = healed as? [Any] {
+                let items = arr.map { "\($0)" }
+                out[k] = items.joined(separator: ",")
+            } else if JSONSerialization.isValidJSONObject(healed),
+                      let data = try? JSONSerialization.data(withJSONObject: healed),
+                      let jsonStr = String(data: data, encoding: .utf8) {
+                out[k] = jsonStr
+            } else {
+                out[k] = "\(healed)"
+            }
+        }
+        return out
+    }
+
+    public static func healJSONString(_ jsonString: String) -> String {
+        guard let data = jsonString.data(using: .utf8),
+              let obj = try? JSONSerialization.jsonObject(with: data) else {
+            return jsonString
+        }
+        let healed = healJSONValue(obj)
+        guard JSONSerialization.isValidJSONObject(healed),
+              let healedData = try? JSONSerialization.data(withJSONObject: healed),
+              let result = String(data: healedData, encoding: .utf8) else {
+            return jsonString
+        }
+        return result
+    }
+}
+
+/// Ported from LearnHarness's `narration-guard.ts`: detects responses that contain only meta-narration
+/// choreography ("Now I will call the tool...", "Let me set up the canvas:") or a bare question without
+/// substantive mathematical explanation prose, and supplies a learner-facing replacement.
+public enum NarrationGuard {
+    public struct AuditResult: Sendable, Equatable {
+        public let isClean: Bool
+        public let detectedViolation: String?
+        public let sanitizedText: String
+    }
+
+    private static let metaChoreographyPatterns = [
+        "now i will call",
+        "i am going to invoke",
+        "calling tool ",
+        "let me set up the stage tool",
+        "i will now render the json"
+    ]
+
+    public static func audit(_ response: String, topic: String) -> AuditResult {
+        let trimmed = response.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else {
+            return AuditResult(
+                isClean: false,
+                detectedViolation: "empty_response",
+                sanitizedText: "Let's inspect the visual invariant for \(topic) step by step on the canvas."
+            )
+        }
+        let lower = trimmed.lowercased()
+        for pattern in metaChoreographyPatterns {
+            if lower.contains(pattern) {
+                return AuditResult(
+                    isClean: false,
+                    detectedViolation: "meta_choreography_narration",
+                    sanitizedText: "Look at how the quantities in \(topic) stay balanced: each unit on the diagram maps directly to a term in the formula. What do you notice happens when we change one unit?"
+                )
+            }
+        }
+        return AuditResult(isClean: true, detectedViolation: nil, sanitizedText: trimmed)
     }
 }
 
@@ -448,6 +558,7 @@ public struct AdversarialCouncil: Sendable {
         }
 
         let devValidation = DevelopmentalResponseValidator.validate(candidateResponse)
+        let narrationAudit = NarrationGuard.audit(candidateResponse, topic: topic)
         let stemOK: Bool
         if let claimToVerify {
             let receipt = STEMVerification.check(claimToVerify, content: candidateResponse)
@@ -456,13 +567,15 @@ public struct AdversarialCouncil: Sendable {
             stemOK = true
         }
 
-        let allApproved = reviews.allSatisfy(\.approved) && devValidation.isValid && stemOK
+        let allApproved = reviews.allSatisfy(\.approved) && devValidation.isValid && stemOK && narrationAudit.isClean
         let avgScore = reviews.map(\.score).reduce(0, +) / Double(max(reviews.count, 1))
         let finalOutput: String
         if !devValidation.isValid {
             finalOutput = DevelopmentalResponseValidator.safeFallback
         } else if !stemOK {
             finalOutput = "Let's pause and verify the algebra step-by-step on our scratchpad for \(topic) so every equality stays balanced."
+        } else if !narrationAudit.isClean {
+            finalOutput = narrationAudit.sanitizedText
         } else {
             finalOutput = candidateResponse
         }
@@ -599,12 +712,16 @@ public struct ElaborativeInterrogationPrompt: Codable, Sendable, Equatable {
 
 public enum ElaborativeInterrogationEngine {
     /// Triggers a deep conceptual *"Why does this work?"* interrogation after consecutive correct answers
-    /// so Kym never relies on memorised rules without understanding the underlying invariant.
+    /// or immediately when the Confidence × Verdict matrix detects a fragile/lucky guess (`correct + low confidence`).
     public static func shouldInterrogate(
         consecutiveCorrectCount: Int,
-        masteryProbability: Double
+        masteryProbability: Double,
+        diagnosticCell: ConfidenceVerdictCell? = nil
     ) -> Bool {
-        consecutiveCorrectCount >= 2 && masteryProbability >= 0.55
+        if diagnosticCell == .fragileOrLuckyGuess {
+            return true
+        }
+        return consecutiveCorrectCount >= 2 && masteryProbability >= 0.55
     }
 
     public static func makePrompt(
@@ -968,5 +1085,314 @@ public enum ChildSafetyEvalHarness {
             passedScenarios: passedCount,
             results: results
         )
+    }
+}
+
+// MARK: - 10. Metered 6-Rung Hint Ladder Engine (LearnHarness R0–R5 Retrieval Cutoff)
+
+enum MeteredHintLadderEngine {
+    /// Generates a graduated hint for `rung` (`R0` through `R5`) without surrendering retrieval on `R0–R2`.
+    static func hint(
+        for question: SchoolMathsQuestion,
+        rung: HintLadderRung,
+        thinkingTrace: String = ""
+    ) -> String {
+        let workedLines = question.workedExample
+            .components(separatedBy: .newlines)
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+        switch rung {
+        case .none:
+            return "Solve independently or step onto Rung 0–2 to preserve Independent Proof eligibility."
+        case .r0AttentionRedirect:
+            let focus = question.markSchemeKeywords.first ?? question.topicCode
+            let traceAck = thinkingTrace.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                ? ""
+                : "Starting from your note (\"\(thinkingTrace.prefix(48))\"), "
+            return "R0 · Attention Redirect (Retrieval Intact): \(traceAck)Look closely at the given condition in the prompt around '\(focus)' — what stays equal before and after the change?"
+        case .r1PatternRedescription:
+            return "R1 · Pattern Redescription (Retrieval Intact): Picture this as a Singapore bar model or geometric area box: \(question.fadedPrompt)"
+        case .r2CandidateClass:
+            return "R2 · Candidate Class (Retrieval Intact): This problem belongs to the Topic \(question.topicCode) invariant family (Living World Ch \(question.linkedChapter)). Ask yourself which conservation law links the known units to the unknown."
+        case .r3PropositionNamed:
+            let keywords = question.markSchemeKeywords.prefix(2).joined(separator: " and ")
+            return "R3 · Proposition Named (Assisted — Retrieval Surrendered): Apply the proposition connecting \(keywords.isEmpty ? "the core invariant" : keywords). Frame: \(question.fadedPrompt)"
+        case .r4MoveOutlined:
+            let firstLine = workedLines.first ?? question.fadedPrompt
+            return "R4 · Move Outlined (Assisted): Set up the first structural move like the worked model: \"\(firstLine)\", then substitute your numbers."
+        case .r5WorkedStep:
+            let lines = workedLines.prefix(2).joined(separator: " → ")
+            return "R5 · Worked Step (Assisted): Follow the full step sequence: \(lines.isEmpty ? question.workedExample : lines). Target form: \(question.fadedAnswer)."
+        }
+    }
+}
+
+// MARK: - 11. 3-Mode Interleaved Practice Engine & Near-Twin Discrimination Catalog
+
+public enum PracticeDemandMode: String, Codable, CaseIterable, Sendable, Equatable {
+    case recall = "Recall"
+    case discrimination = "Discrimination"
+    case composition = "Composition"
+
+    public var subtitle: String {
+        switch self {
+        case .recall:
+            return "Produce an unconditional truth or structural move from a cold cue."
+        case .discrimination:
+            return "Distinguish near-twin lookalikes where a subtly different premise changes which theorem fires."
+        case .composition:
+            return "Chain 2+ propositions where no single rule bridges premise to conclusion."
+        }
+    }
+}
+
+public enum PracticeDemandModifier: String, Codable, CaseIterable, Sendable, Equatable {
+    case forwardStandard = "Forward: Premise → Conclusion"
+    case reverseConclusionToGrounds = "Reverse: Conclusion → Required Premise"
+    case probeWeakenedPremise = "Boundary Probe: What breaks if a premise is weakened?"
+}
+
+public struct DiscriminationTwinPair: Identifiable, Codable, Sendable, Equatable {
+    public let id: String
+    public let title: String
+    public let chapterNumber: Int
+    public let topicCode: String
+    public let twinACase: String
+    public let twinBCase: String
+    public let sharedSurfaceTrap: String
+    public let decidingPremiseQuestion: String
+    public let correctDistinction: String
+    public let keywords: [String]
+
+    public init(
+        id: String,
+        title: String,
+        chapterNumber: Int,
+        topicCode: String,
+        twinACase: String,
+        twinBCase: String,
+        sharedSurfaceTrap: String,
+        decidingPremiseQuestion: String,
+        correctDistinction: String,
+        keywords: [String]
+    ) {
+        self.id = id
+        self.title = title
+        self.chapterNumber = chapterNumber
+        self.topicCode = topicCode
+        self.twinACase = twinACase
+        self.twinBCase = twinBCase
+        self.sharedSurfaceTrap = sharedSurfaceTrap
+        self.decidingPremiseQuestion = decidingPremiseQuestion
+        self.correctDistinction = correctDistinction
+        self.keywords = keywords
+    }
+}
+
+public enum MathsDiscriminationCatalog {
+    public static let allPairs: [DiscriminationTwinPair] = [
+        DiscriminationTwinPair(
+            id: "twin-integer-neg-squares",
+            title: "(-3)² versus -3² (Scope of the Exponent)",
+            chapterNumber: 1,
+            topicCode: "1.3",
+            twinACase: "Case A: Evaluate (-3)²",
+            twinBCase: "Case B: Evaluate -3²",
+            sharedSurfaceTrap: "Both contain a minus sign, a 3, and a power of 2.",
+            decidingPremiseQuestion: "Does the exponent 2 act on the negative sign inside brackets, or only on the base 3 before negation?",
+            correctDistinction: "(-3)² = (-3) × (-3) = +9 because brackets include the negative sign in the base, whereas -3² = -(3 × 3) = -9.",
+            keywords: ["+9", "-9", "brackets", "base"]
+        ),
+        DiscriminationTwinPair(
+            id: "twin-hcf-vs-lcm",
+            title: "HCF Partitioning versus LCM Synchronisation",
+            chapterNumber: 1,
+            topicCode: "1.2",
+            twinACase: "Case A: Cutting 24 cm and 36 cm ribbons into the longest possible equal strips with no leftover.",
+            twinBCase: "Case B: Two metro trains departing every 24 min and 36 min from Churchgate — when do they next depart together?",
+            sharedSurfaceTrap: "Both give the exact numbers 24 and 36 and ask for a single shared number.",
+            decidingPremiseQuestion: "Are we splitting quantities into smaller equal factors (HCF) or repeating cycles to a common future multiple (LCM)?",
+            correctDistinction: "Case A splits into factors so HCF(24, 36) = 12 cm; Case B repeats cycles into a common multiple so LCM(24, 36) = 72 min.",
+            keywords: ["12", "72", "hcf", "lcm", "factor", "multiple"]
+        ),
+        DiscriminationTwinPair(
+            id: "twin-expression-vs-equation",
+            title: "Simplifying an Expression versus Solving an Equation",
+            chapterNumber: 2,
+            topicCode: "2.2",
+            twinACase: "Case A: Simplify (x/2) + (x/3)",
+            twinBCase: "Case B: Solve (x/2) + (x/3) = 10",
+            sharedSurfaceTrap: "Both contain fractional algebra terms with denominators 2 and 3.",
+            decidingPremiseQuestion: "Can you multiply through by 6 and discard the denominator when there is no '=' balance sign?",
+            correctDistinction: "Case A has no '=' balance, so you must keep the common denominator: 5x/6. Case B is a balanced equation, so multiplying both sides by 6 gives 5x = 60, x = 12.",
+            keywords: ["5x/6", "12", "denominator", "equation"]
+        ),
+        DiscriminationTwinPair(
+            id: "twin-recurring-decimal-shift",
+            title: "Pure Recurring 0.777... versus Mixed Recurring 0.1666...",
+            chapterNumber: 6,
+            topicCode: "6.1",
+            twinACase: "Case A: Convert x = 0.777... to a fraction",
+            twinBCase: "Case B: Convert x = 0.1666... (only the 6 repeats) to a fraction",
+            sharedSurfaceTrap: "Both have a single repeating digit.",
+            decidingPremiseQuestion: "Do the decimal tails align immediately in 10x - x, or must we compare 100x - 10x so the non-repeating tenths digit cancels?",
+            correctDistinction: "In Case A, 10x - x = 9x = 7 gives 7/9. In Case B, 100x - 10x = 90x = 15 gives 15/90 = 1/6.",
+            keywords: ["7/9", "1/6", "90x", "tail"]
+        ),
+        DiscriminationTwinPair(
+            id: "twin-reverse-percentage",
+            title: "Forward 20% Discount versus Reverse Original Price",
+            chapterNumber: 9,
+            topicCode: "9.1",
+            twinACase: "Case A: A ₹500 book is discounted by 20%. Find the sale price.",
+            twinBCase: "Case B: After a 20% discount, a book costs ₹500. Find the original price.",
+            sharedSurfaceTrap: "Both feature ₹500 and a 20% discount.",
+            decidingPremiseQuestion: "Which quantity represents the 100% base unit — the ₹500 given, or the unknown original price?",
+            correctDistinction: "In Case A, ₹500 is 100%, so 80% is ₹400. In Case B, ₹500 is 80% of the original price, so 100% is 500 ÷ 0.8 = ₹625.",
+            keywords: ["400", "625", "80%", "100%", "original"]
+        ),
+        DiscriminationTwinPair(
+            id: "twin-trig-pythagoras-hypotenuse",
+            title: "Finding the Hypotenuse versus Finding a Shorter Leg",
+            chapterNumber: 12,
+            topicCode: "16.2",
+            twinACase: "Case A: Right triangle with legs 6 and 8; find side x opposite the 90° angle.",
+            twinBCase: "Case B: Right triangle with hypotenuse 10 and leg 8; find the remaining leg x.",
+            sharedSurfaceTrap: "Both are right triangles using Pythagoras' theorem.",
+            decidingPremiseQuestion: "Is the unknown x the largest square (hypotenuse opposite 90°) or one of the two smaller leg squares?",
+            correctDistinction: "In Case A, x² = 6² + 8² = 100 (add areas). In Case B, x² = 10² - 8² = 36 (subtract leg area from hypotenuse square).",
+            keywords: ["add", "subtract", "hypotenuse", "100", "36"]
+        ),
+        DiscriminationTwinPair(
+            id: "twin-bayes-conditional-direction",
+            title: "Sensitivity P(+ | Condition) versus Positive Predictive Value P(Condition | +)",
+            chapterNumber: 15,
+            topicCode: "15.2",
+            twinACase: "Case A: Given a person has the condition, the test is 99% likely to be positive.",
+            twinBCase: "Case B: Given a person tested positive in a rare (1-in-1,000) screening, what is the probability they have the condition?",
+            sharedSurfaceTrap: "Both describe a 99%-accurate test and a positive result.",
+            decidingPremiseQuestion: "Which sub-population is the denominator of our fraction — the 10 sick people, or all positive test results (True Positives + False Positives)?",
+            correctDistinction: "P(+ | Sick) divides by the sick group (99%), whereas P(Sick | +) divides True Positives by (True Positives + False Positives in the 1,000-person square).",
+            keywords: ["denominator", "false positive", "base rate", "1000"]
+        ),
+        DiscriminationTwinPair(
+            id: "twin-derivative-slope-vs-integral-area",
+            title: "Instantaneous Rate dy/dx versus Accumulated Area ∫ y dx",
+            chapterNumber: 17,
+            topicCode: "17.1",
+            twinACase: "Case A: Given position s(t) = t², find instantaneous speed at t = 3.",
+            twinBCase: "Case B: Given speed v(t) = 2t, find total distance travelled from t = 0 to t = 3.",
+            sharedSurfaceTrap: "Both connect position and speed on a time graph at t = 3.",
+            decidingPremiseQuestion: "Are we dividing tiny changes (rise ÷ run slope) or summing tiny rectangles (height × width area)?",
+            correctDistinction: "Case A takes the tangent slope ds/dt = 2t = 6 m/s. Case B sums the triangle area under v(t) = 2t from 0 to 3, giving ½ × 3 × 6 = 9 m.",
+            keywords: ["slope", "area", "6", "9", "tangent"]
+        )
+    ]
+}
+
+public struct InterleavedPracticeItem: Identifiable, Sendable, Equatable {
+    public let id: String
+    public let mode: PracticeDemandMode
+    public let modifier: PracticeDemandModifier
+    public let title: String
+    public let prompt: String
+    public let expectedInsight: String
+    public let keywords: [String]
+    public let twinPair: DiscriminationTwinPair?
+    public let linkedChapterNumber: Int
+}
+
+enum InterleavedPracticeStreamEngine {
+    /// Generates an interleaved practice stream across `Recall`, `Discrimination`, and `Composition`
+    /// while strictly enforcing LearnHarness's **Inactivity Constraint**: the currently active teaching
+    /// chapter (`activeTeachingChapter`) is excluded from cold interleaving until its arrival check is complete.
+    static func buildStream(
+        activeTeachingChapter: Int?,
+        isTeachingChapterActive: Bool,
+        propositions: [PropositionNodeRecord],
+        chains: [DerivationChainRecord],
+        proofs: [QuestionProofRecord]
+    ) -> [InterleavedPracticeItem] {
+        let excludedChapter: Int? = isTeachingChapterActive ? activeTeachingChapter : nil
+        var items: [InterleavedPracticeItem] = []
+
+        // 1. Recall items from propositions (excluding active teaching chapter)
+        let eligibleProps = propositions.filter { prop in
+            guard let ex = excludedChapter else { return true }
+            return prop.chapterNumber != ex
+        }
+        for (idx, prop) in eligibleProps.prefix(3).enumerated() {
+            let modifier: PracticeDemandModifier = (idx % 2 == 0) ? .forwardStandard : .reverseConclusionToGrounds
+            let promptText: String
+            switch modifier {
+            case .forwardStandard:
+                promptText = "State the unconditional mathematical truth for '\(prop.name)' and explain what geometric quantity stays invariant."
+            case .reverseConclusionToGrounds:
+                promptText = "Reverse Demand: Suppose we want to guarantee '\(prop.statement)'. What exact geometric or algebraic premise must hold first?"
+            case .probeWeakenedPremise:
+                promptText = "Boundary Probe: What breaks in '\(prop.statement)' if we drop one of its premises?"
+            }
+            items.append(
+                InterleavedPracticeItem(
+                    id: "recall-\(prop.id)",
+                    mode: .recall,
+                    modifier: modifier,
+                    title: "Cold Recall · \(prop.name)",
+                    prompt: promptText,
+                    expectedInsight: prop.statement,
+                    keywords: ["invariant", "equal", "unit", "area", "shadow", "="],
+                    twinPair: nil,
+                    linkedChapterNumber: prop.chapterNumber
+                )
+            )
+        }
+
+        // 2. Discrimination items from MathsDiscriminationCatalog (excluding active teaching chapter)
+        let eligibleTwins = MathsDiscriminationCatalog.allPairs.filter { pair in
+            guard let ex = excludedChapter else { return true }
+            return pair.chapterNumber != ex
+        }
+        for pair in eligibleTwins.prefix(4) {
+            items.append(
+                InterleavedPracticeItem(
+                    id: "disc-\(pair.id)",
+                    mode: .discrimination,
+                    modifier: .probeWeakenedPremise,
+                    title: "Near-Twin Discrimination · \(pair.title)",
+                    prompt: "\(pair.twinACase)\n\(pair.twinBCase)\n\n\(pair.decidingPremiseQuestion)",
+                    expectedInsight: pair.correctDistinction,
+                    keywords: pair.keywords,
+                    twinPair: pair,
+                    linkedChapterNumber: pair.chapterNumber
+                )
+            )
+        }
+
+        // 3. Composition items from multi-premise derivation chains
+        let nodesById = Dictionary(uniqueKeysWithValues: propositions.map { ($0.id, $0) })
+        for chain in chains.prefix(3) {
+            let conclusionNode = nodesById[chain.conclusionId]
+            if let ex = excludedChapter, conclusionNode?.chapterNumber == ex {
+                continue
+            }
+            let premiseNames = chain.premisesList.map { nodesById[$0]?.name ?? $0 }
+            let conclusionName = conclusionNode?.name ?? chain.conclusionId
+            let conclusionStatement = conclusionNode?.statement ?? chain.chainKey
+            items.append(
+                InterleavedPracticeItem(
+                    id: "comp-\(chain.id)",
+                    mode: .composition,
+                    modifier: .forwardStandard,
+                    title: "Multi-Step Composition · \(premiseNames.joined(separator: " + ")) ⇒ \(conclusionName)",
+                    prompt: "Compose \(premiseNames.joined(separator: " and ")) to derive '\(conclusionName)' in two explicit steps.",
+                    expectedInsight: conclusionStatement,
+                    keywords: ["therefore", "because", "area", "triangle", "square", "="],
+                    twinPair: nil,
+                    linkedChapterNumber: conclusionNode?.chapterNumber ?? 12
+                )
+            )
+        }
+
+        return items
     }
 }

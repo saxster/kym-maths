@@ -13,6 +13,10 @@ struct PolyaFluencyHomeView: View {
     @State private var selectedFlawStepIndex: Int?
     @State private var learnerFlawExplanation: String = ""
     @State private var flawScoreResult: SpotTheFlawScoreResult?
+    @State private var selectedPracticeMode: PracticeDemandMode = .discrimination
+    @State private var selectedPracticeItemIndex: Int = 0
+    @State private var practiceUserAnswer: String = ""
+    @State private var practiceRevealedInsight: String?
 
     var body: some View {
         let activeStage = store.seedPack.polyaStages.first(where: { $0.id == store.selectedPolyaStageId })
@@ -302,6 +306,137 @@ struct PolyaFluencyHomeView: View {
                             .padding(Spacing.sm)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .quietPanelBackground()
+                        }
+                    }
+                }
+            }
+
+            // 5. 3-Mode Interleaved Practice & Near-Twin Discrimination Arena (Ported from LearnHarness)
+            JournalSection(
+                title: "3-Mode Interleaved Practice & Near-Twin Discrimination Arena",
+                eyebrow: "Inactivity Constraint · Recall → Near-Twin Lookalikes → Multi-Step Composition"
+            ) {
+                let allStreamItems = InterleavedPracticeStreamEngine.buildStream(
+                    activeTeachingChapter: store.selectedChapterNumber,
+                    isTeachingChapterActive: false,
+                    propositions: store.propositionNodes,
+                    chains: store.derivationChains,
+                    proofs: Array(store.proofsByQuestionId.values)
+                )
+                let modeItems = allStreamItems.filter { $0.mode == selectedPracticeMode }
+                let activeItem = modeItems.isEmpty
+                    ? allStreamItems.first
+                    : modeItems[selectedPracticeItemIndex % modeItems.count]
+
+                JournalCard {
+                    VStack(alignment: .leading, spacing: Spacing.md) {
+                        HStack(spacing: Spacing.xs) {
+                            ForEach(PracticeDemandMode.allCases, id: \.rawValue) { mode in
+                                MathsFilterChip(
+                                    title: mode.rawValue,
+                                    systemImage: mode == .discrimination ? "arrow.left.and.right.righttriangle.left.righttriangle.right" : "sparkles",
+                                    isSelected: selectedPracticeMode == mode
+                                ) {
+                                    selectedPracticeMode = mode
+                                    selectedPracticeItemIndex = 0
+                                    practiceUserAnswer = ""
+                                    practiceRevealedInsight = nil
+                                }
+                            }
+                            Spacer()
+                            JournalBadge(
+                                text: "Inactivity Constraint Active",
+                                symbol: "shuffle",
+                                tone: .info
+                            )
+                        }
+
+                        Text(selectedPracticeMode.subtitle)
+                            .font(Typography.caption)
+                            .foregroundStyle(Color.kymaiaMutedInk)
+
+                        if let item = activeItem {
+                            HStack {
+                                JournalBadge(text: item.mode.rawValue, symbol: "bolt.fill", tone: .accent)
+                                JournalBadge(text: item.modifier.rawValue, symbol: "arrow.triangle.branch", tone: .neutral)
+                                Spacer()
+                                Button("Next Interleaved Prompt") {
+                                    selectedPracticeItemIndex += 1
+                                    practiceUserAnswer = ""
+                                    practiceRevealedInsight = nil
+                                }
+                                .buttonStyle(JournalSecondaryButtonStyle())
+                            }
+
+                            Text(item.title)
+                                .font(Typography.headline)
+                                .foregroundStyle(Color.kymaiaInk)
+
+                            if let twin = item.twinPair {
+                                HStack(alignment: .top, spacing: Spacing.md) {
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text("Near-Twin A")
+                                            .font(Typography.caption.weight(.bold))
+                                            .foregroundStyle(Color.kymaiaPrimary)
+                                        Text(twin.twinACase)
+                                            .font(Typography.subheadline)
+                                            .foregroundStyle(Color.kymaiaInk)
+                                    }
+                                    .padding(Spacing.sm)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .quietPanelBackground()
+
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text("Near-Twin B")
+                                            .font(Typography.caption.weight(.bold))
+                                            .foregroundStyle(Color.kymaiaSecondary)
+                                        Text(twin.twinBCase)
+                                            .font(Typography.subheadline)
+                                            .foregroundStyle(Color.kymaiaInk)
+                                    }
+                                    .padding(Spacing.sm)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .quietPanelBackground()
+                                }
+
+                                Text("Surface Trap: \(twin.sharedSurfaceTrap)")
+                                    .font(Typography.caption)
+                                    .foregroundStyle(Color.kymaiaWarning)
+
+                                Text("Deciding Premise Question: \(twin.decidingPremiseQuestion)")
+                                    .font(Typography.subheadline.weight(.semibold))
+                                    .foregroundStyle(Color.kymaiaInk)
+                            } else {
+                                Text(item.prompt)
+                                    .font(Typography.subheadline)
+                                    .foregroundStyle(Color.kymaiaInk)
+                                    .padding(Spacing.sm)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .quietPanelBackground()
+                            }
+
+                            HStack(spacing: Spacing.sm) {
+                                TextField("Name the deciding premise or compose the steps...", text: $practiceUserAnswer)
+                                    .textFieldStyle(.roundedBorder)
+                                Button("Verify Distinction") {
+                                    practiceRevealedInsight = item.expectedInsight
+                                }
+                                .buttonStyle(BrassButtonStyle())
+                            }
+
+                            if let insight = practiceRevealedInsight {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text("VERIFIED STRUCTURAL DISTINCTION")
+                                        .font(Typography.eyebrow)
+                                        .foregroundStyle(Color.kymaiaSuccess)
+                                    Text(insight)
+                                        .font(Typography.subheadline)
+                                        .foregroundStyle(Color.kymaiaInk)
+                                }
+                                .padding(Spacing.sm)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .quietPanelBackground()
+                            }
                         }
                     }
                 }

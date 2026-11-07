@@ -41,6 +41,10 @@ struct QuestionProofRecord: Codable, FetchableRecord, PersistableRecord, Identif
     var lastUsedAssistance: Bool
     var matchedKeywordsCSV: String
     var missingKeywordsCSV: String
+    var highestHintRung: Int = 0
+    var confidencePercent: Int = 75
+    var declinedToGuess: Bool = false
+    var thinkingTrace: String = ""
 
     var level: QuestionProofLevel {
         QuestionProofLevel(rawValue: proofLevel) ?? .unseen
@@ -180,6 +184,118 @@ struct CalloutResponseRecord: Codable, FetchableRecord, PersistableRecord, Ident
     var responseText: String
     var isUnlocked: Bool
     var updatedAt: Date
+    var thinkingWhileReading: String = ""
+    var confidencePercent: Int = 75
+}
+
+public struct PropositionNodeRecord: Codable, FetchableRecord, PersistableRecord, Identifiable, Equatable, Sendable {
+    public static let databaseTableName = "proposition_nodes"
+
+    public var id: String
+    public var name: String
+    public var statement: String
+    public var aliasesJSON: String
+    public var isUnconditionalTruth: Bool
+    public var chapterNumber: Int
+    public var topicCode: String
+    public var provenanceJSON: String
+    public var createdAt: Date
+
+    public init(
+        id: String,
+        name: String,
+        statement: String,
+        aliasesJSON: String = "[]",
+        isUnconditionalTruth: Bool = false,
+        chapterNumber: Int = 0,
+        topicCode: String = "1.1",
+        provenanceJSON: String = "[]",
+        createdAt: Date = Date()
+    ) {
+        self.id = id
+        self.name = name
+        self.statement = statement
+        self.aliasesJSON = aliasesJSON
+        self.isUnconditionalTruth = isUnconditionalTruth
+        self.chapterNumber = chapterNumber
+        self.topicCode = topicCode
+        self.provenanceJSON = provenanceJSON
+        self.createdAt = createdAt
+    }
+
+    public var decodedAliases: [String] {
+        guard let data = aliasesJSON.data(using: .utf8),
+              let arr = try? JSONDecoder().decode([String].self, from: data) else {
+            return []
+        }
+        return arr
+    }
+
+    public var decodedProvenance: [ProvenancePoint] {
+        guard let data = provenanceJSON.data(using: .utf8),
+              let arr = try? JSONDecoder().decode([ProvenancePoint].self, from: data) else {
+            return []
+        }
+        return arr
+    }
+
+    public static func encodeStringArray(_ items: [String]) -> String {
+        guard let data = try? JSONEncoder().encode(items),
+              let str = String(data: data, encoding: .utf8) else {
+            return "[]"
+        }
+        return str
+    }
+
+    public static func encodeProvenance(_ items: [ProvenancePoint]) -> String {
+        guard let data = try? JSONEncoder().encode(items),
+              let str = String(data: data, encoding: .utf8) else {
+            return "[]"
+        }
+        return str
+    }
+}
+
+public struct DerivationChainRecord: Codable, FetchableRecord, PersistableRecord, Identifiable, Equatable, Sendable {
+    public static let databaseTableName = "derivation_chains"
+
+    public var id: String
+    public var premisesCSV: String
+    public var conclusionId: String
+    public var chainKey: String
+    public var provenanceJSON: String
+    public var createdAt: Date
+
+    public init(
+        id: String,
+        premisesCSV: String,
+        conclusionId: String,
+        chainKey: String,
+        provenanceJSON: String = "[]",
+        createdAt: Date = Date()
+    ) {
+        self.id = id
+        self.premisesCSV = premisesCSV
+        self.conclusionId = conclusionId
+        self.chainKey = chainKey
+        self.provenanceJSON = provenanceJSON
+        self.createdAt = createdAt
+    }
+
+    public var premisesList: [String] {
+        premisesCSV
+            .split(separator: ",")
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+    }
+
+    public var decodedProvenance: [ProvenancePoint] {
+        guard let data = provenanceJSON.data(using: .utf8),
+              let arr = try? JSONDecoder().decode([ProvenancePoint].self, from: data) else {
+            return []
+        }
+        return arr
+    }
 }
 
 struct KBChapterRecord: Codable, FetchableRecord, PersistableRecord, Identifiable, Equatable, Sendable {
@@ -372,6 +488,18 @@ final class DatabaseManager: Sendable {
                 t.column("updatedAt", .datetime).notNull()
             }
         }
+        migrator.registerMigration("v2_state_learnharness") { db in
+            try db.alter(table: QuestionProofRecord.databaseTableName) { t in
+                t.add(column: "highestHintRung", .integer).notNull().defaults(to: 0)
+                t.add(column: "confidencePercent", .integer).notNull().defaults(to: 75)
+                t.add(column: "declinedToGuess", .boolean).notNull().defaults(to: false)
+                t.add(column: "thinkingTrace", .text).notNull().defaults(to: "")
+            }
+            try db.alter(table: CalloutResponseRecord.databaseTableName) { t in
+                t.add(column: "thinkingWhileReading", .text).notNull().defaults(to: "")
+                t.add(column: "confidencePercent", .integer).notNull().defaults(to: 75)
+            }
+        }
         try migrator.migrate(writer)
     }
 
@@ -420,6 +548,28 @@ final class DatabaseManager: Sendable {
                 t.column("drawingData", .blob)
                 t.column("selfScore", .integer).notNull()
                 t.column("completedAt", .datetime).notNull()
+            }
+        }
+        migrator.registerMigration("v2_mnemosyne_click_graph") { db in
+            try db.create(table: PropositionNodeRecord.databaseTableName, ifNotExists: true) { t in
+                t.primaryKey("id", .text)
+                t.column("name", .text).notNull()
+                t.column("statement", .text).notNull()
+                t.column("aliasesJSON", .text).notNull()
+                t.column("isUnconditionalTruth", .boolean).notNull()
+                t.column("chapterNumber", .integer).notNull()
+                t.column("topicCode", .text).notNull()
+                t.column("provenanceJSON", .text).notNull()
+                t.column("createdAt", .datetime).notNull()
+            }
+
+            try db.create(table: DerivationChainRecord.databaseTableName, ifNotExists: true) { t in
+                t.primaryKey("id", .text)
+                t.column("premisesCSV", .text).notNull()
+                t.column("conclusionId", .text).notNull()
+                t.column("chainKey", .text).notNull()
+                t.column("provenanceJSON", .text).notNull()
+                t.column("createdAt", .datetime).notNull()
             }
         }
         try migrator.migrate(writer)
@@ -560,6 +710,57 @@ final class DatabaseManager: Sendable {
                     updatedAt: now
                 )
                 try starter.save(db)
+            }
+
+            let existingPropositions = try PropositionNodeRecord.fetchCount(db)
+            if existingPropositions == 0 {
+                let starterEntries = try LabJournalEntryRecord.fetchAll(db)
+                var nodes: [PropositionNodeRecord] = []
+                var chains: [DerivationChainRecord] = []
+                for entry in starterEntries {
+                    let findings = PropositionGraphEngine.extractFindings(fromJournalEntry: entry)
+                    let verdicts = PropositionGraphEngine.auditIdentities(
+                        extracted: findings.propositions,
+                        existingNodes: nodes
+                    )
+                    let merged = PropositionGraphEngine.mergeFindings(
+                        sourceKind: "journal",
+                        sourceId: entry.id,
+                        findings: findings,
+                        verdicts: verdicts,
+                        existingNodes: nodes,
+                        existingChains: chains,
+                        now: now
+                    )
+                    nodes = merged.nodes
+                    chains = merged.chains
+                }
+                for chNum in [0, 12, 15, 17, 20] {
+                    if let ch = pack.chapters.first(where: { $0.number == chNum }) {
+                        let findings = PropositionGraphEngine.extractFindings(fromChapter: ch)
+                        let verdicts = PropositionGraphEngine.auditIdentities(
+                            extracted: findings.propositions,
+                            existingNodes: nodes
+                        )
+                        let merged = PropositionGraphEngine.mergeFindings(
+                            sourceKind: "chapter",
+                            sourceId: ch.id,
+                            findings: findings,
+                            verdicts: verdicts,
+                            existingNodes: nodes,
+                            existingChains: chains,
+                            now: now
+                        )
+                        nodes = merged.nodes
+                        chains = merged.chains
+                    }
+                }
+                for node in nodes {
+                    try node.save(db)
+                }
+                for chain in chains {
+                    try chain.save(db)
+                }
             }
         }
     }
@@ -710,6 +911,31 @@ final class DatabaseManager: Sendable {
                 .filter(Column("questionId") == questionId)
                 .order(Column("updatedAt").desc)
                 .fetchOne(db)
+        }
+    }
+
+    func fetchPropositionNodes() throws -> [PropositionNodeRecord] {
+        try mnemosynePool.read { db in
+            try PropositionNodeRecord.order(Column("id").asc).fetchAll(db)
+        }
+    }
+
+    func fetchDerivationChains() throws -> [DerivationChainRecord] {
+        try mnemosynePool.read { db in
+            try DerivationChainRecord.order(Column("id").asc).fetchAll(db)
+        }
+    }
+
+    func replacePropositionGraph(nodes: [PropositionNodeRecord], chains: [DerivationChainRecord]) throws {
+        try mnemosynePool.write { db in
+            _ = try PropositionNodeRecord.deleteAll(db)
+            _ = try DerivationChainRecord.deleteAll(db)
+            for node in nodes {
+                try node.save(db)
+            }
+            for chain in chains {
+                try chain.save(db)
+            }
         }
     }
 
