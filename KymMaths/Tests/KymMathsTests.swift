@@ -746,4 +746,220 @@ struct KymMathsTests {
         let report = WebStageHealthProbe.evaluateReport(from: ["domLoaded": true, "count": 4, "errors": 0])
         #expect(report.isHealthy == true)
     }
+
+    @Test("Cluster 1A: BuggyRuleTrap detection across all 21 QuantitativeTemplateKind templates")
+    func testBuggyRuleTrapDetectionAcrossAll21Templates() {
+        #expect(QuantitativeTemplateKind.allCases.count == 21)
+        for kind in QuantitativeTemplateKind.allCases {
+            for seed in [1, 2, 5] {
+                let problem = QuantitativeMathsEngine.generate(template: kind, seed: seed)
+                #expect(problem.traps.count >= 2)
+                for trap in problem.traps {
+                    #expect(abs(trap.buggyValue - problem.expectedValue) > problem.tolerance)
+                    #expect(!trap.diagnosticWhy.isEmpty)
+                    #expect(!trap.visualFixNudge.isEmpty)
+                    let eval = QuantitativeMathsEngine.evaluate(
+                        problem: problem,
+                        numericInput: String(format: "%.4f", trap.buggyValue)
+                    )
+                    #expect(eval != nil)
+                    #expect(eval?.isCorrect == false)
+                    #expect(eval?.matchedTrap != nil)
+                    #expect(eval?.feedback.contains("Trap Detected") == true)
+                }
+            }
+        }
+    }
+
+    @Test("Cluster 1B: Non-leaking SocraticFeedbackEngine.evaluateFadedStep and sign-inversion non-leak")
+    func testNonLeakingFadedStepEvaluator() {
+        // 1. Sign inversion in SocraticFeedbackEngine.evaluate never leaks cleanExpected
+        let signFlip = SocraticFeedbackEngine.evaluate(
+            studentAnswer: "-42",
+            expectedAnswer: "42"
+        )
+        #expect(signFlip.tier == .close)
+        #expect(signFlip.detectedTrap == "Sign Inversion Trap")
+        #expect(!signFlip.socraticNudge.contains("instead of 42"))
+
+        // 2. evaluateFadedStep accepts RHS of '=>' or '=' and never leaks expectedFadedAnswer on wrong input
+        let target = "3 units = 36 => 1 unit = 12"
+        let wrongEval = SocraticFeedbackEngine.evaluateFadedStep(
+            studentInput: "999",
+            expectedFadedAnswer: target,
+            workedHint: "Divide 36 by 3 equal bar units."
+        )
+        #expect(wrongEval.tier != .correct)
+        #expect(!wrongEval.socraticNudge.contains("12"))
+        #expect(!wrongEval.headline.contains("12"))
+
+        let rhsMatch = SocraticFeedbackEngine.evaluateFadedStep(
+            studentInput: "12",
+            expectedFadedAnswer: target
+        )
+        #expect(rhsMatch.tier == .correct)
+
+        let fullMatch = SocraticFeedbackEngine.evaluateFadedStep(
+            studentInput: "1 unit = 12",
+            expectedFadedAnswer: target
+        )
+        #expect(fullMatch.tier == .correct)
+    }
+
+    @Test("Cluster 2: CPAManipulativeEngine maps all 16 OUP units to Singapore Bar, Al-Khwarizmi Box, or Geometric Balance")
+    func testCPAManipulativeEngineAcrossAllOUPUnits() {
+        let pack = SeedPackLoader.load()
+        #expect(!pack.schoolQuestions.isEmpty)
+        var seenKinds: Set<CPAManipulativeKind> = []
+        for question in pack.schoolQuestions {
+            let spec = CPAManipulativeEngine.spec(for: question)
+            let state = CPAManipulativeEngine.initialState(for: question)
+            seenKinds.insert(spec.kind)
+            let readout = state.liveReadout(for: spec)
+            #expect(!readout.isEmpty)
+            switch question.cpaManipulativeDomain {
+            case "algebraic_area":
+                #expect(spec.kind == .alKhwarizmiAreaBox)
+            case "geometric_angle_vector":
+                #expect(spec.kind == .geometricAngleVectorBalance)
+            default:
+                #expect(spec.kind == .singaporeBarPartition)
+            }
+        }
+        #expect(seenKinds.count == 3)
+    }
+
+    @Test("Cluster 4: ChapterInteractiveBeatEngine, Perturbation Micro-Checks, WebStage Sync, and ChapterAudioNarrator across all 21 chapters")
+    @MainActor
+    func testChapterInteractiveBeatEngineAndNarrator() {
+        let pack = SeedPackLoader.load()
+        #expect(pack.chapters.count == 21)
+        for chapter in pack.chapters {
+            let beats = ChapterInteractiveBeatEngine.beats(for: chapter)
+            #expect(beats.count >= 4)
+            #expect(beats.first?.kind == .everydayHook)
+            #expect(beats.contains(where: { $0.kind == .interactiveLabAndFormula && $0.formulaBridge != nil }))
+            #expect(beats.contains(where: { $0.kind == .misconceptionDebate && $0.debateScenario != nil && $0.requiresInteractionToUnlock }))
+            #expect(beats.last?.kind == .chapterSynthesis)
+            for beat in beats {
+                #expect(!beat.spokenScript.isEmpty)
+            }
+            for term in chapter.intuitionToFormula.termMappings {
+                let prompt = chapter.intuitionToFormula.perturbationPrompt(for: term)
+                let explanation = chapter.intuitionToFormula.perturbationExplanation(for: term)
+                #expect(prompt.contains(term.symbol))
+                #expect(explanation.contains(term.visualPart))
+            }
+        }
+
+        // Verify WebStage sync script explicitly clears highlightFormulaTerm('') when highlightedColorRole is nil
+        let clearJS = PatternedWorldWebStageBridge.buildSyncScript(
+            chapterNumber: 3,
+            atlasRoute: "fig-ch03",
+            highlightedColorRole: nil
+        )
+        #expect(clearJS.contains("window.highlightFormulaTerm('')"))
+        let activeJS = PatternedWorldWebStageBridge.buildSyncScript(
+            chapterNumber: 3,
+            atlasRoute: "fig-ch03",
+            highlightedColorRole: "blue"
+        )
+        #expect(activeJS.contains("window.highlightFormulaTerm('blue')"))
+
+        let narrator = ChapterAudioNarrator(allowsHardwareSpeech: false)
+        #expect(narrator.isSpeaking == false)
+        #expect(narrator.playbackSpeedMultiplier == 1.0)
+        narrator.cycleSpeed()
+        #expect(narrator.playbackSpeedMultiplier == 1.25)
+        narrator.speak(text: "Testing chapter beat narration", beatIndex: 2, beatId: "ch0-beat-2", watchStepIndex: 1)
+        #expect(narrator.isSpeaking == true)
+        #expect(narrator.activeBeatIndex == 2)
+        #expect(narrator.currentBeatId == "ch0-beat-2")
+        #expect(narrator.activeWatchStepIndex == 1)
+        narrator.advanceWatchStep(totalSteps: 3)
+        #expect(narrator.activeWatchStepIndex == 2)
+        narrator.handleUtteranceDidFinish()
+        #expect(narrator.isSpeaking == false)
+    }
+
+    @Test("Cluster 5: MathematicalDebateCatalog completeness across all 21 Patterned World chapters and 16 OUP units")
+    func testMathematicalDebateCatalogCompleteness() {
+        #expect(MathematicalDebateCatalog.all.count == 21)
+        for chNum in 0...20 {
+            let scenario = MathematicalDebateEngine.scenario(forChapter: chNum)
+            #expect(scenario.chapterNumber == chNum)
+            #expect(scenario.choices.count == 3)
+            let correctChoices = scenario.choices.filter(\.isCorrect)
+            #expect(correctChoices.count == 1)
+            let evaluated = MathematicalDebateEngine.evaluateChoice(
+                scenario: scenario,
+                choiceId: correctChoices[0].id
+            )
+            #expect(evaluated?.isCorrect == true)
+            // Verify cross-chapter choiceId does not resolve in a different chapter's scenario
+            #expect(MathematicalDebateEngine.evaluateChoice(scenario: scenario, choiceId: "stale-other-ch-id") == nil)
+        }
+        for unitNum in 1...16 {
+            let scenario = MathematicalDebateEngine.scenario(forOUPUnit: unitNum)
+            #expect(scenario.oupUnitNumber == unitNum)
+        }
+    }
+
+    @Test("Cluster 6: DailyFlowSessionEngine 4-stage 15-minute daily session composer & Debate persistence")
+    @MainActor
+    func testDailyFlowSessionComposer() throws {
+        let store = AppStore(db: DatabaseManager(inMemory: true))
+        let plan = DailyFlowSessionEngine.buildPlan(
+            pack: store.seedPack,
+            dueCards: store.dueFSRSCards,
+            allCards: store.fsrsCards,
+            selectedChapterNumber: 6,
+            selectedUnitNumber: 9,
+            proofsByQuestionId: store.proofsByQuestionId
+        )
+        #expect(plan.estimatedMinutes == 15)
+        #expect(plan.reviewCards.count <= 3)
+        #expect(!plan.reviewCards.isEmpty)
+        #expect(plan.chapter.number == 6)
+        #expect(plan.debateScenario.chapterNumber == 6)
+        #expect(plan.trapProblem.patternedWorldChapter == 6)
+        #expect(plan.proofQuestion.unitNumber == 9)
+        #expect(DailyFlowStageKind.allCases.count == 4)
+
+        // When 0 due cards exist, buildPlan selects 2 lowest-stability warm-up cards
+        let warmUpPlan = DailyFlowSessionEngine.buildPlan(
+            pack: store.seedPack,
+            dueCards: [],
+            allCards: store.fsrsCards,
+            selectedChapterNumber: 6,
+            selectedUnitNumber: 9,
+            proofsByQuestionId: store.proofsByQuestionId
+        )
+        #expect(warmUpPlan.reviewCards.count == min(2, store.fsrsCards.count))
+
+        // Verify debate persistence with isUnlockedOverride
+        store.saveCalloutResponse(
+            calloutId: "debate-debate-ch06",
+            chapterNumber: 6,
+            text: "ch06-a",
+            confidencePercent: 40,
+            isUnlockedOverride: false
+        )
+        #expect(store.calloutResponses["debate-debate-ch06"]?.isUnlocked == false)
+        store.saveCalloutResponse(
+            calloutId: "debate-debate-ch06",
+            chapterNumber: 6,
+            text: "ch06-b",
+            confidencePercent: 95,
+            isUnlockedOverride: true
+        )
+        #expect(store.calloutResponses["debate-debate-ch06"]?.isUnlocked == true)
+
+        // Verify markChapterRead(incrementCounters: false) does not inflate predictionsCompleted
+        let before = store.readingProgressByChapter[6]?.predictionsCompleted ?? 0
+        store.markChapterRead(chapterNumber: 6, fraction: 0.4, incrementCounters: false)
+        let afterBeat = store.readingProgressByChapter[6]?.predictionsCompleted ?? 0
+        #expect(afterBeat == before)
+        #expect((store.readingProgressByChapter[6]?.readFraction ?? 0) >= 0.4)
+    }
 }

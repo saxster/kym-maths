@@ -151,6 +151,7 @@ struct LabsAtlasHomeView: View {
 
                             HStack {
                                 TextField("Record your readout or invariant verification...", text: $challengeNote)
+                                    .learnerTextInput(.retrieval)
                                     .textFieldStyle(.roundedBorder)
                                 Button("Earn Lab Stamp") {
                                     let note = challengeNote.isEmpty ? "Verified invariant on \(widget.title)" : challengeNote
@@ -262,6 +263,7 @@ struct LabsAtlasHomeView: View {
                                             set: { diagramInputs[callout.id] = $0 }
                                         )
                                         TextField("Type formula or geometric label...", text: binding)
+                                            .learnerTextInput(.retrieval)
                                             .textFieldStyle(.roundedBorder)
                                     }
                                 }
@@ -303,11 +305,11 @@ struct MathematicalDiagramPlateCanvasView: View {
     @Binding var activeStroke: [CGPoint]
 
     // Colour-locked palette matching @saxster/atlas and Intuition-to-Formula bridges
-    private let cRed = Color(red: 0.784, green: 0.243, blue: 0.216)
-    private let cBlue = Color(red: 0.180, green: 0.400, blue: 0.722)
-    private let cAmber = Color(red: 0.784, green: 0.541, blue: 0.118)
-    private let cGreen = Color(red: 0.118, green: 0.478, blue: 0.314)
-    private let cInk = Color(red: 0.16, green: 0.14, blue: 0.20)
+    private let cRed = MathsFigureColor.roleColor("red")
+    private let cBlue = MathsFigureColor.roleColor("blue")
+    private let cAmber = MathsFigureColor.roleColor("amber")
+    private let cGreen = MathsFigureColor.roleColor("green")
+    private let cInk = MathsFigureColor.ink
 
     var body: some View {
         GeometryReader { geo in

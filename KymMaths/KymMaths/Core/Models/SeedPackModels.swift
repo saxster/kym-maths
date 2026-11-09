@@ -35,6 +35,14 @@ struct IntuitionToFormulaBridge: Codable, Equatable, Sendable {
     let formulaDisplay: String
     let termMappings: [FormulaTermMapping]
     let atlasFigureRef: String
+
+    func perturbationPrompt(for term: FormulaTermMapping) -> String {
+        "Perturbation Probe for \(term.symbol): What happens to \(formulaDisplay) if you double or vary \(term.symbol) (\(term.visualPart)) while holding all other terms fixed?"
+    }
+
+    func perturbationExplanation(for term: FormulaTermMapping) -> String {
+        "Because \(term.symbol) represents \(term.visualPart) (\(term.meaning)), scaling or shifting \(term.symbol) directly transforms \(term.visualPart) while preserving the structural invariant: \(ahaInvariant)"
+    }
 }
 
 struct FormulaTermMapping: Codable, Identifiable, Equatable, Sendable {
@@ -305,6 +313,21 @@ struct SchoolMathsQuestion: Codable, Identifiable, Equatable, Sendable {
 
     var sourceBadgeTitle: String {
         sourceBook == "workbook" ? "Companion Workbook · \(tier)" : "OUP Student Book · \(tier)"
+    }
+
+    /// Domain-semantic manipulative classification derived from topic, widget, and prompt metadata.
+    var cpaManipulativeDomain: String {
+        let corpus = "\(topicCode) \(linkedWidget) \(bookSection) \(prompt)".lowercased()
+        if corpus.contains("expand") || corpus.contains("factoris") || corpus.contains("quadratic")
+            || corpus.contains("al-khwarizmi") || unitNumber == 2 || unitNumber == 13 {
+            return "algebraic_area"
+        }
+        if corpus.contains("angle") || corpus.contains("polygon") || corpus.contains("pythagoras")
+            || corpus.contains("bearing") || corpus.contains("vector") || corpus.contains("prism")
+            || corpus.contains("circle") || [3, 5, 8, 16].contains(unitNumber) {
+            return "geometric_angle_vector"
+        }
+        return "unitary_bar_partition"
     }
 }
 

@@ -137,6 +137,7 @@ struct PolyaFluencyHomeView: View {
 
                         HStack(spacing: Spacing.sm) {
                             TextField("Type mental answer...", text: $userSpeedAnswer)
+                                .learnerTextInput(.retrieval)
                                 .textFieldStyle(.roundedBorder)
                                 .font(Typography.mono)
                                 .onSubmit {
@@ -290,6 +291,7 @@ struct PolyaFluencyHomeView: View {
                         }
 
                         TextField("Optional: In one line, explain why that step is flawed...", text: $learnerFlawExplanation)
+                            .learnerTextInput(.retrieval)
                             .textFieldStyle(.roundedBorder)
 
                         if let result = flawScoreResult {
@@ -417,11 +419,12 @@ struct PolyaFluencyHomeView: View {
 
                             HStack(spacing: Spacing.sm) {
                                 TextField("Name the deciding premise or compose the steps...", text: $practiceUserAnswer)
+                                    .learnerTextInput(.retrieval)
                                     .textFieldStyle(.roundedBorder)
                                 Button("Verify Distinction") {
                                     practiceRevealedInsight = item.expectedInsight
                                 }
-                                .buttonStyle(BrassButtonStyle())
+                                .buttonStyle(JournalSecondaryButtonStyle())
                             }
 
                             if let insight = practiceRevealedInsight {
@@ -462,11 +465,11 @@ struct PolyaFluencyHomeView: View {
 struct PolyaSingaporeBarIllustrationView: View {
     let stageNumber: Int
 
-    private let cRed = Color(red: 0.784, green: 0.243, blue: 0.216)
-    private let cBlue = Color(red: 0.180, green: 0.400, blue: 0.722)
-    private let cAmber = Color(red: 0.784, green: 0.541, blue: 0.118)
-    private let cGreen = Color(red: 0.118, green: 0.478, blue: 0.314)
-    private let cInk = Color(red: 0.16, green: 0.14, blue: 0.20)
+    private let cRed = MathsFigureColor.roleColor("red")
+    private let cBlue = MathsFigureColor.roleColor("blue")
+    private let cAmber = MathsFigureColor.roleColor("amber")
+    private let cGreen = MathsFigureColor.roleColor("green")
+    private let cInk = MathsFigureColor.ink
 
     var body: some View {
         Canvas { context, size in
@@ -518,11 +521,11 @@ struct PolyaSingaporeBarIllustrationView: View {
 struct VisualMathTipIllustrationView: View {
     let tipId: String
 
-    private let cRed = Color(red: 0.784, green: 0.243, blue: 0.216)
-    private let cBlue = Color(red: 0.180, green: 0.400, blue: 0.722)
-    private let cAmber = Color(red: 0.784, green: 0.541, blue: 0.118)
-    private let cGreen = Color(red: 0.118, green: 0.478, blue: 0.314)
-    private let cInk = Color(red: 0.16, green: 0.14, blue: 0.20)
+    private let cRed = MathsFigureColor.roleColor("red")
+    private let cBlue = MathsFigureColor.roleColor("blue")
+    private let cAmber = MathsFigureColor.roleColor("amber")
+    private let cGreen = MathsFigureColor.roleColor("green")
+    private let cInk = MathsFigureColor.ink
 
     var body: some View {
         Canvas { context, size in

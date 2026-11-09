@@ -36,56 +36,34 @@ enum WebStageHealthProbe {
 struct PatternedWorldWebStageView: View {
     let chapterNumber: Int
     let atlasRoute: String?
+    var highlightedColorRole: String? = nil
+    var onTermHighlighted: ((String, String) -> Void)? = nil
     @Bindable var store: AppStore
 
     var body: some View {
         PatternedWorldWebViewRepresentable(
             chapterNumber: chapterNumber,
             atlasRoute: atlasRoute,
+            highlightedColorRole: highlightedColorRole,
+            onTermHighlighted: onTermHighlighted,
             store: store
         )
     }
 }
 
-#if os(macOS)
-struct PatternedWorldWebViewRepresentable: NSViewRepresentable {
-    let chapterNumber: Int
-    let atlasRoute: String?
-    var store: AppStore
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator(store: store)
-    }
-
-    func makeNSView(context: Context) -> WKWebView {
-        let config = WKWebViewConfiguration()
-        config.userContentController.add(context.coordinator, name: "kymmathsBridge")
-        let webView = WKWebView(frame: .zero, configuration: config)
-        loadBook(in: webView)
-        return webView
-    }
-
-    func updateNSView(_ webView: WKWebView, context: Context) {
+enum PatternedWorldWebStageBridge {
+    static func buildSyncScript(
+        chapterNumber: Int,
+        atlasRoute: String?,
+        highlightedColorRole: String?
+    ) -> String {
         var js = "if (window.selectChapter) { window.selectChapter(\(chapterNumber)); }"
         if let route = atlasRoute, !route.isEmpty {
             js += " if (window.setAtlasRoute) { window.setAtlasRoute('\(route)'); }"
         }
-        webView.evaluateJavaScript(js, completionHandler: nil)
-        webView.evaluateJavaScript(WebStageHealthProbe.verificationScript) { result, _ in
-            let report = WebStageHealthProbe.evaluateReport(from: result as? [String: Any])
-            Task { @MainActor in
-                store.webStageHealthVerified = report.isHealthy
-            }
-        }
-    }
-
-    private func loadBook(in webView: WKWebView) {
-        if let indexURL = Self.resolveIndexURL() {
-            let readAccessDir = indexURL.deletingLastPathComponent()
-            webView.loadFileURL(indexURL, allowingReadAccessTo: readAccessDir)
-        } else {
-            webView.loadHTMLString("<html><body style='font-family: -apple-system; padding: 24px;'><h3>The Patterned World Interactive Stage</h3><p>Chapter \(chapterNumber) ready.</p></body></html>", baseURL: nil)
-        }
+        let role = highlightedColorRole ?? ""
+        js += " if (window.highlightFormulaTerm) { window.highlightFormulaTerm('\(role)'); }"
+        return js
     }
 
     static func resolveIndexURL() -> URL? {
@@ -106,83 +84,146 @@ struct PatternedWorldWebViewRepresentable: NSViewRepresentable {
         return candidates.first { FileManager.default.fileExists(atPath: $0.path) }
     }
 
-    final class Coordinator: NSObject, WKScriptMessageHandler {
-        var store: AppStore
+    @MainActor
+    static func makeConfiguredWebView(coordinator: PatternedWorldWebStageCoordinator, chapterNumber: Int) -> WKWebView {
+        let config = WKWebViewConfiguration()
+        config.userContentController.add(coordinator, name: "kymmathsBridge")
+        let webView = WKWebView(frame: .zero, configuration: config)
+        loadBook(in: webView, chapterNumber: chapterNumber)
+        return webView
+    }
 
-        init(store: AppStore) {
-            self.store = store
+    @MainActor
+    static func loadBook(in webView: WKWebView, chapterNumber: Int) {
+        if let indexURL = resolveIndexURL() {
+            let readAccessDir = indexURL.deletingLastPathComponent()
+            webView.loadFileURL(indexURL, allowingReadAccessTo: readAccessDir)
+        } else {
+            webView.loadHTMLString("<html><body style='font-family: -apple-system; padding: 24px;'><h3>The Patterned World Interactive Stage</h3><p>Chapter \(chapterNumber) ready.</p></body></html>", baseURL: nil)
         }
+    }
 
-        func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-            guard let dict = message.body as? [String: Any],
-                  let type = dict["type"] as? String else { return }
+    @MainActor
+    static func syncWebView(
+        _ webView: WKWebView,
+        chapterNumber: Int,
+        atlasRoute: String?,
+        highlightedColorRole: String?,
+        onTermHighlighted: ((String, String) -> Void)?,
+        store: AppStore,
+        coordinator: PatternedWorldWebStageCoordinator
+    ) {
+        coordinator.onTermHighlighted = onTermHighlighted
+        let js = buildSyncScript(
+            chapterNumber: chapterNumber,
+            atlasRoute: atlasRoute,
+            highlightedColorRole: highlightedColorRole
+        )
+        webView.evaluateJavaScript(js, completionHandler: nil)
+        webView.evaluateJavaScript(WebStageHealthProbe.verificationScript) { result, _ in
+            let report = WebStageHealthProbe.evaluateReport(from: result as? [String: Any])
             Task { @MainActor in
-                if type == "chapterRead", let ch = dict["chapter"] as? Int {
-                    store.markChapterRead(chapterNumber: ch, fraction: 1.0)
-                }
+                store.webStageHealthVerified = report.isHealthy
             }
         }
+    }
+}
+
+final class PatternedWorldWebStageCoordinator: NSObject, WKScriptMessageHandler {
+    var store: AppStore
+    var onTermHighlighted: ((String, String) -> Void)?
+
+    init(store: AppStore, onTermHighlighted: ((String, String) -> Void)?) {
+        self.store = store
+        self.onTermHighlighted = onTermHighlighted
+    }
+
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        guard let dict = message.body as? [String: Any] else { return }
+        let type = (dict["type"] as? String) ?? ""
+        Task { @MainActor in
+            if type == "chapterRead", let ch = dict["chapter"] as? Int {
+                store.markChapterRead(chapterNumber: ch, fraction: 1.0)
+            } else if type == "stampWidget" || dict["widgetId"] != nil {
+                let wid = (dict["widgetId"] as? String) ?? ""
+                let readout = (dict["readout"] as? String) ?? "Stamped from interactive stage"
+                let ch = (dict["chapter"] as? Int) ?? store.selectedChapterNumber
+                if let widget = store.seedPack.widgets.first(where: { $0.id == wid })
+                    ?? store.seedPack.widgets.first(where: { $0.chapter == ch }) {
+                    store.stampWidgetChallenge(widget: widget, note: readout)
+                }
+            } else if type == "termHighlighted" {
+                let role = (dict["colorRole"] as? String) ?? ""
+                let symbol = (dict["symbol"] as? String) ?? ""
+                onTermHighlighted?(role, symbol)
+            }
+        }
+    }
+}
+
+#if os(macOS)
+struct PatternedWorldWebViewRepresentable: NSViewRepresentable {
+    let chapterNumber: Int
+    let atlasRoute: String?
+    var highlightedColorRole: String?
+    var onTermHighlighted: ((String, String) -> Void)?
+    var store: AppStore
+
+    func makeCoordinator() -> PatternedWorldWebStageCoordinator {
+        PatternedWorldWebStageCoordinator(store: store, onTermHighlighted: onTermHighlighted)
+    }
+
+    func makeNSView(context: Context) -> WKWebView {
+        PatternedWorldWebStageBridge.makeConfiguredWebView(
+            coordinator: context.coordinator,
+            chapterNumber: chapterNumber
+        )
+    }
+
+    func updateNSView(_ webView: WKWebView, context: Context) {
+        PatternedWorldWebStageBridge.syncWebView(
+            webView,
+            chapterNumber: chapterNumber,
+            atlasRoute: atlasRoute,
+            highlightedColorRole: highlightedColorRole,
+            onTermHighlighted: onTermHighlighted,
+            store: store,
+            coordinator: context.coordinator
+        )
     }
 }
 #else
 struct PatternedWorldWebViewRepresentable: UIViewRepresentable {
     let chapterNumber: Int
     let atlasRoute: String?
+    var highlightedColorRole: String?
+    var onTermHighlighted: ((String, String) -> Void)?
     var store: AppStore
 
-    func makeCoordinator() -> Coordinator {
-        Coordinator(store: store)
+    func makeCoordinator() -> PatternedWorldWebStageCoordinator {
+        PatternedWorldWebStageCoordinator(store: store, onTermHighlighted: onTermHighlighted)
     }
 
     func makeUIView(context: Context) -> WKWebView {
-        let config = WKWebViewConfiguration()
-        config.userContentController.add(context.coordinator, name: "kymmathsBridge")
-        let webView = WKWebView(frame: .zero, configuration: config)
+        let webView = PatternedWorldWebStageBridge.makeConfiguredWebView(
+            coordinator: context.coordinator,
+            chapterNumber: chapterNumber
+        )
         webView.isOpaque = false
         webView.backgroundColor = .clear
-        if let indexURL = Self.resolveIndexURL() {
-            let dir = indexURL.deletingLastPathComponent()
-            webView.loadFileURL(indexURL, allowingReadAccessTo: dir)
-        }
         return webView
     }
 
     func updateUIView(_ webView: WKWebView, context: Context) {
-        var js = "if (window.selectChapter) { window.selectChapter(\(chapterNumber)); }"
-        if let route = atlasRoute, !route.isEmpty {
-            js += " if (window.setAtlasRoute) { window.setAtlasRoute('\(route)'); }"
-        }
-        webView.evaluateJavaScript(js, completionHandler: nil)
-    }
-
-    static func resolveIndexURL() -> URL? {
-        if let url = Bundle.main.url(forResource: "index", withExtension: "html", subdirectory: "PatternedWorldBook") {
-            return url
-        }
-        let candidate = URL(fileURLWithPath: #filePath)
-            .deletingLastPathComponent()
-            .deletingLastPathComponent()
-            .deletingLastPathComponent()
-            .appendingPathComponent("Resources/PatternedWorldBook/index.html")
-        return FileManager.default.fileExists(atPath: candidate.path) ? candidate : nil
-    }
-
-    final class Coordinator: NSObject, WKScriptMessageHandler {
-        var store: AppStore
-
-        init(store: AppStore) {
-            self.store = store
-        }
-
-        func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-            guard let dict = message.body as? [String: Any],
-                  let type = dict["type"] as? String else { return }
-            Task { @MainActor in
-                if type == "chapterRead", let ch = dict["chapter"] as? Int {
-                    store.markChapterRead(chapterNumber: ch, fraction: 1.0)
-                }
-            }
-        }
+        PatternedWorldWebStageBridge.syncWebView(
+            webView,
+            chapterNumber: chapterNumber,
+            atlasRoute: atlasRoute,
+            highlightedColorRole: highlightedColorRole,
+            onTermHighlighted: onTermHighlighted,
+            store: store,
+            coordinator: context.coordinator
+        )
     }
 }
 #endif

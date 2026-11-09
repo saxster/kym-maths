@@ -107,6 +107,13 @@ h1 {
   border-radius: 10px;
   background: var(--elevated);
   border-left: 4px solid var(--accent);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.term-pill.active-role {
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 2px var(--ink);
+  font-weight: 600;
 }
 .term-pill.red { border-left-color: var(--red); }
 .term-pill.blue { border-left-color: var(--blue); }
@@ -328,13 +335,36 @@ function renderChapter() {
 
   const termsEl = document.getElementById('ch-terms');
   termsEl.innerHTML = (br.termMappings || []).map(tm =>
-    `<div class="term-pill ${tm.colorRole}"><b>${tm.symbol}</b> → ${tm.visualPart}: ${tm.meaning}</div>`
+    `<div class="term-pill ${tm.colorRole}" data-role="${tm.colorRole}" data-symbol="${tm.symbol}"><b>${tm.symbol}</b> → ${tm.visualPart}: ${tm.meaning}</div>`
   ).join('');
+  termsEl.querySelectorAll('.term-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      const role = pill.getAttribute('data-role') || '';
+      const sym = pill.getAttribute('data-symbol') || '';
+      window.highlightFormulaTerm(role);
+      if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.kymmathsBridge) {
+        window.webkit.messageHandlers.kymmathsBridge.postMessage({ type: 'termHighlighted', colorRole: role, symbol: sym });
+      }
+    });
+  });
 
   applyChapterSliders(ch.number);
   setAtlasRoute(br.atlasFigureRef);
   drawSandbox();
 }
+
+window.highlightedRole = null;
+window.highlightFormulaTerm = function(role) {
+  window.highlightedRole = role || null;
+  document.querySelectorAll('.term-pill').forEach(pill => {
+    if (role && pill.getAttribute('data-role') === role) {
+      pill.classList.add('active-role');
+    } else {
+      pill.classList.remove('active-role');
+    }
+  });
+  drawSandbox();
+};
 
 window.selectChapter = function(n) {
   const idx = Math.max(0, Math.min(CHAPTERS.length - 1, parseInt(n, 10) || 0));
@@ -859,6 +889,22 @@ function drawSandbox() {
     }
   }
 
+  if (window.highlightedRole) {
+    const ch = CHAPTERS[currentChapter] || CHAPTERS[0];
+    const mappings = (ch.intuitionToFormula && ch.intuitionToFormula.termMappings) || [];
+    const matched = mappings.find(m => m.colorRole === window.highlightedRole);
+    if (matched) {
+      const roleCol = matched.colorRole === 'red' ? RED : (matched.colorRole === 'blue' ? BLUE : (matched.colorRole === 'amber' ? AMBER : GREEN));
+      ctx.save();
+      ctx.strokeStyle = roleCol;
+      ctx.lineWidth = 3;
+      ctx.strokeRect(6, 6, W - 12, H - 12);
+      ctx.fillStyle = roleCol;
+      ctx.font = 'bold 12px -apple-system, sans-serif';
+      ctx.fillText(`Focused Term: ${matched.symbol} → ${matched.visualPart}`, 16, H - 14);
+      ctx.restore();
+    }
+  }
   ctx.restore();
   document.getElementById('live-readout').innerHTML = readoutHtml;
 }
@@ -892,7 +938,7 @@ document.getElementById('btn-stamp').addEventListener('click', () => {
   const wid = (ch.widgets && ch.widgets[0]) || `w_ch${ch.number}`;
   const readout = document.getElementById('live-readout').innerText.replace(/\n/g, ' · ');
   if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.kymmathsBridge) {
-    window.webkit.messageHandlers.kymmathsBridge.postMessage({ widgetId: wid, readout });
+    window.webkit.messageHandlers.kymmathsBridge.postMessage({ type: 'stampWidget', widgetId: wid, chapter: ch.number, readout });
   }
   document.getElementById('btn-stamp').textContent = 'Challenge Stamped ✓';
 });

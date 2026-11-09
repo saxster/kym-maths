@@ -6,8 +6,18 @@ struct TodayHomeView: View {
     @Bindable var store: AppStore
     @State private var isShowingCardBack = false
     @State private var revealedBridgeIds: Set<String> = []
+    @State private var selectedFormulaTermSymbol: String? = nil
 
     var body: some View {
+        let dailyPlan = DailyFlowSessionEngine.buildPlan(
+            pack: store.seedPack,
+            dueCards: store.dueFSRSCards,
+            allCards: store.fsrsCards,
+            selectedChapterNumber: store.selectedChapterNumber,
+            selectedUnitNumber: store.selectedUnitNumber,
+            proofsByQuestionId: store.proofsByQuestionId
+        )
+
         JournalPage {
             EditorialHeader(
                 eyebrow: "Daily Mathematics Studio · Mumbai",
@@ -15,10 +25,16 @@ struct TodayHomeView: View {
                 subtitle: "Oxford Cambridge Lower Secondary Complete Mathematics 8 (Deborah Barton) + Singapore CPA & Horizon Atlas"
             )
 
-            // 1. Readiness Strip
+            // 1. Readiness Strip & 15-Minute Daily Flow Hero Launcher
             JournalCard {
                 VStack(alignment: .leading, spacing: Spacing.md) {
-                    HStack(alignment: .top) {
+                    HStack(alignment: .center) {
+                        JournalBadge(
+                            text: "15-Minute Daily Flow Ready",
+                            symbol: "flame.fill",
+                            tone: .accent
+                        )
+                        Spacer()
                         HStack(spacing: Spacing.xs) {
                             Button {
                                 store.showCalendarSheet = true
@@ -34,6 +50,46 @@ struct TodayHomeView: View {
                             }
                             .buttonStyle(JournalSecondaryButtonStyle())
                         }
+                    }
+
+                    // 4-Stage Daily Flow Ribbon
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: Spacing.xs) {
+                            ForEach(DailyFlowStageKind.allCases) { stage in
+                                HStack(spacing: 4) {
+                                    Image(systemName: stage.systemImage)
+                                        .foregroundStyle(Color.kymaiaPrimary)
+                                    Text(stage.title)
+                                        .font(Typography.caption.weight(.semibold))
+                                        .foregroundStyle(Color.kymaiaInk)
+                                    Text("· \(stage.durationLabel)")
+                                        .font(Typography.mono)
+                                        .foregroundStyle(Color.kymaiaMutedInk)
+                                }
+                                .padding(.horizontal, Spacing.xs)
+                                .padding(.vertical, 6)
+                                .background(Color.kymaiaElevatedSurface)
+                                .clipShape(RoundedRectangle(cornerRadius: Spacing.radiusSM))
+                            }
+                        }
+                    }
+
+                    HStack(alignment: .center, spacing: Spacing.sm) {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Today's Guided Arc: Ch \(dailyPlan.chapter.number) (\(dailyPlan.chapter.title)) + OUP Topic \(dailyPlan.proofQuestion.topicCode)")
+                                .font(Typography.subheadline.weight(.semibold))
+                                .foregroundStyle(Color.kymaiaInk)
+                            Text("1. FSRS Memory Lock → 2. Interactive Discovery Beat → 3. Misconception Immunity Debate → 4. Companion Workbook Proof")
+                                .font(Typography.caption)
+                                .foregroundStyle(Color.kymaiaMutedInk)
+                        }
+                        Spacer()
+                        Button {
+                            store.showDailyFlowSheet = true
+                        } label: {
+                            Label("Start 15-Min Daily Flow", systemImage: "play.fill")
+                        }
+                        .buttonStyle(BrassButtonStyle())
                     }
 
                     FlowLayout(spacing: Spacing.xs) {
@@ -124,7 +180,7 @@ struct TodayHomeView: View {
                                                 isShowingCardBack = false
                                                 store.reviewFSRSCard(card, rating: rating)
                                             }
-                                            .buttonStyle(rating == .good ? AnyButtonStyle(BrassButtonStyle()) : AnyButtonStyle(JournalSecondaryButtonStyle()))
+                                            .buttonStyle(JournalSecondaryButtonStyle())
                                         }
                                     }
                                 }
@@ -134,7 +190,7 @@ struct TodayHomeView: View {
                                 } label: {
                                     Label("Reveal Formula & Visual Invariant", systemImage: "eye.fill")
                                 }
-                                .buttonStyle(BrassButtonStyle())
+                                .buttonStyle(JournalSecondaryButtonStyle())
                             }
                         }
                     }
@@ -168,52 +224,11 @@ struct TodayHomeView: View {
                             .buttonStyle(JournalSecondaryButtonStyle())
                         }
 
-                        // 3-Stage Pedagogical Pipeline
-                        VStack(alignment: .leading, spacing: Spacing.sm) {
-                            intuitionStepBox(
-                                stepLabel: "1. CONCRETE ACTION (WHAT YOU MANIPULATE)",
-                                text: bridge.concreteAction,
-                                accentColor: Color.kymaiaPrimary
-                            )
-                            intuitionStepBox(
-                                stepLabel: "2. THE \"AHA!\" INVARIANT (WHAT NEVER CHANGES)",
-                                text: bridge.ahaInvariant,
-                                accentColor: Color.kymaiaSuccess
-                            )
-                            VStack(alignment: .leading, spacing: Spacing.xs) {
-                                Text("3. SYMBOLIC FORMULA & COLOUR-LOCKED ANATOMY")
-                                    .font(Typography.eyebrow)
-                                    .foregroundStyle(Color.kymaiaWarning)
-                                Text(bridge.formulaDisplay)
-                                    .font(Typography.numericFormula)
-                                    .foregroundStyle(Color.kymaiaInk)
-                                    .padding(Spacing.sm)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .quietPanelBackground()
-
-                                LazyVGrid(columns: [GridItem(.adaptive(minimum: 210), spacing: Spacing.xs)], spacing: Spacing.xs) {
-                                    ForEach(bridge.termMappings) { mapping in
-                                        HStack(alignment: .top, spacing: Spacing.xs) {
-                                            Circle()
-                                                .fill(colorForRole(mapping.colorRole))
-                                                .frame(width: 10, height: 10)
-                                                .padding(.top, 5)
-                                            VStack(alignment: .leading, spacing: 2) {
-                                                Text("\(mapping.symbol)  ←  \(mapping.visualPart)")
-                                                    .font(Typography.caption.weight(.bold))
-                                                    .foregroundStyle(Color.kymaiaInk)
-                                                Text(mapping.meaning)
-                                                    .font(Typography.caption)
-                                                    .foregroundStyle(Color.kymaiaMutedInk)
-                                            }
-                                        }
-                                        .padding(Spacing.xs)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .quietPanelBackground()
-                                    }
-                                }
-                            }
-                        }
+                        // Shared Interactive Intuition -> Formula Bridge Card
+                        IntuitionFormulaBridgeCard(
+                            bridge: bridge,
+                            selectedTermSymbol: $selectedFormulaTermSymbol
+                        )
 
                         // Chapter switcher strip
                         ScrollView(.horizontal, showsIndicators: false) {
@@ -225,6 +240,7 @@ struct TodayHomeView: View {
                                         isSelected: store.selectedChapterNumber == chapter.number
                                     ) {
                                         store.selectedChapterNumber = chapter.number
+                                        selectedFormulaTermSymbol = nil
                                     }
                                 }
                             }
@@ -348,30 +364,297 @@ struct TodayHomeView: View {
                 KymMathsWidgetPreviewGallery(store: store)
             }
         }
-    }
-
-    @ViewBuilder
-    private func intuitionStepBox(stepLabel: String, text: String, accentColor: Color) -> some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text(stepLabel)
-                .font(Typography.eyebrow)
-                .foregroundStyle(accentColor)
-            Text(text)
-                .font(Typography.subheadline)
-                .foregroundStyle(Color.kymaiaInk)
+        .sheet(isPresented: $store.showDailyFlowSheet) {
+            DailyFlowPlayerSheet(plan: dailyPlan, store: store)
         }
-        .padding(Spacing.sm)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .quietPanelBackground()
     }
+}
 
-    private func colorForRole(_ role: String) -> Color {
-        switch role {
-        case "red": return Color(red: 0.78, green: 0.22, blue: 0.18)
-        case "blue": return Color(red: 0.14, green: 0.36, blue: 0.72)
-        case "amber": return Color(red: 0.76, green: 0.48, blue: 0.08)
-        case "green": return Color(red: 0.15, green: 0.52, blue: 0.32)
-        default: return Color.kymaiaPrimary
+// MARK: - 15-Minute Daily Flow Guided Player Sheet
+
+struct DailyFlowPlayerSheet: View {
+    let plan: DailyFlowSessionPlan
+    @Bindable var store: AppStore
+    @Environment(\.dismiss) private var dismiss
+
+    @State private var currentStage: DailyFlowStageKind = .fsrsMemoryLock
+    @State private var completedStages: Set<DailyFlowStageKind> = []
+    @State private var currentReviewCardIndex: Int = 0
+    @State private var showCardBack = false
+    @State private var narrator = ChapterAudioNarrator()
+    @State private var selectedTermSymbol: String? = nil
+    @State private var trapInput = ""
+    @State private var trapEval: QuantitativeAttemptEvaluation? = nil
+
+    var body: some View {
+        NavigationStack {
+            JournalPage {
+                // Segmented Stage Header
+                JournalCard {
+                    VStack(alignment: .leading, spacing: Spacing.sm) {
+                        HStack {
+                            JournalBadge(text: "15-Minute Daily Flow", symbol: "flame.fill", tone: .accent)
+                            Spacer()
+                            Text("\(completedStages.count) / 4 Stages Completed")
+                                .font(Typography.mono)
+                                .foregroundStyle(Color.kymaiaMutedInk)
+                        }
+
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: Spacing.xs) {
+                                ForEach(DailyFlowStageKind.allCases) { stage in
+                                    let isActive = currentStage == stage
+                                    let isDone = completedStages.contains(stage)
+                                    Button {
+                                        narrator.stop()
+                                        currentStage = stage
+                                    } label: {
+                                        HStack(spacing: 4) {
+                                            Image(systemName: isDone ? "checkmark.circle.fill" : stage.systemImage)
+                                                .foregroundStyle(isDone ? Color.kymaiaSuccess : (isActive ? Color.kymaiaPrimary : Color.kymaiaMutedInk))
+                                            Text(stage.title)
+                                                .font(Typography.caption.weight(isActive ? .bold : .regular))
+                                                .foregroundStyle(Color.kymaiaInk)
+                                        }
+                                        .padding(.horizontal, Spacing.xs)
+                                        .padding(.vertical, 6)
+                                        .background(isActive ? Color.kymaiaSelectionFill : Color.kymaiaElevatedSurface)
+                                        .clipShape(RoundedRectangle(cornerRadius: Spacing.radiusSM))
+                                    }
+                                    .buttonStyle(.plain)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                switch currentStage {
+                case .fsrsMemoryLock:
+                    JournalSection(
+                        title: "Stage 1 · FSRS Memory Lock (3 min)",
+                        eyebrow: "Retrieve the Key Invariant Before Seeing the Answer"
+                    ) {
+                        if !plan.reviewCards.isEmpty {
+                            let safeIndex = min(max(0, currentReviewCardIndex), plan.reviewCards.count - 1)
+                            let card = plan.reviewCards[safeIndex]
+                            JournalCard {
+                                VStack(alignment: .leading, spacing: Spacing.md) {
+                                    HStack {
+                                        JournalBadge(text: "Card \(safeIndex + 1) of \(plan.reviewCards.count)", symbol: "rectangle.stack.fill", tone: .info)
+                                        JournalBadge(text: "Topic \(card.topicCode)", symbol: "number", tone: .accent)
+                                        JournalBadge(text: "Ch \(card.chapterNumber)", symbol: "book.pages", tone: .neutral)
+                                        Spacer()
+                                        Text("Stability: \(String(format: "%.1f", card.stability))d")
+                                            .font(Typography.caption)
+                                            .foregroundStyle(Color.kymaiaMutedInk)
+                                    }
+
+                                    Text(card.frontPrompt)
+                                        .font(Typography.title3)
+                                        .foregroundStyle(Color.kymaiaInk)
+
+                                    if showCardBack {
+                                        Text(card.backAnswer)
+                                            .font(Typography.body)
+                                            .foregroundStyle(Color.kymaiaInk)
+                                            .padding(Spacing.md)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .quietPanelBackground()
+
+                                        HStack(spacing: Spacing.sm) {
+                                            ForEach(FSRSRating.allCases, id: \.rawValue) { rating in
+                                                Button(rating.title) {
+                                                    store.reviewFSRSCard(card, rating: rating)
+                                                    showCardBack = false
+                                                    if safeIndex + 1 < plan.reviewCards.count {
+                                                        currentReviewCardIndex = safeIndex + 1
+                                                    } else {
+                                                        completedStages.insert(.fsrsMemoryLock)
+                                                        currentStage = .conceptDiscoveryBeat
+                                                    }
+                                                }
+                                                .buttonStyle(rating == .good ? AnyButtonStyle(BrassButtonStyle()) : AnyButtonStyle(JournalSecondaryButtonStyle()))
+                                            }
+                                        }
+                                    } else {
+                                        Button("Reveal Formula & Invariant") {
+                                            showCardBack = true
+                                        }
+                                        .buttonStyle(BrassButtonStyle())
+                                    }
+                                }
+                            }
+                        } else {
+                            JournalCard {
+                                VStack(alignment: .leading, spacing: Spacing.sm) {
+                                    Text("All FSRS cards are up to date!")
+                                        .font(Typography.headline)
+                                        .foregroundStyle(Color.kymaiaInk)
+                                    Button("Advance to Stage 2: Concept Discovery Beat →") {
+                                        completedStages.insert(.fsrsMemoryLock)
+                                        currentStage = .conceptDiscoveryBeat
+                                    }
+                                    .buttonStyle(BrassButtonStyle())
+                                }
+                            }
+                        }
+                    }
+
+                case .conceptDiscoveryBeat:
+                    JournalSection(
+                        title: "Stage 2 · Concept Discovery Beat (4 min)",
+                        eyebrow: "Ch \(plan.chapter.number): \(plan.chapter.title)"
+                    ) {
+                        JournalCard {
+                            VStack(alignment: .leading, spacing: Spacing.md) {
+                                HStack {
+                                    JournalBadge(text: plan.discoveryBeat.eyebrow, symbol: "sparkles", tone: .accent)
+                                    Spacer()
+                                    Button {
+                                        narrator.togglePlayPause(text: plan.discoveryBeat.spokenScript, beatIndex: plan.discoveryBeat.index)
+                                    } label: {
+                                        Label(narrator.isSpeaking ? "Stop Audio" : "Read & Listen", systemImage: narrator.isSpeaking ? "stop.circle.fill" : "speaker.wave.2.fill")
+                                    }
+                                    .buttonStyle(JournalSecondaryButtonStyle())
+                                }
+
+                                Text(plan.discoveryBeat.title)
+                                    .font(Typography.title3)
+                                    .foregroundStyle(Color.kymaiaInk)
+
+                                ForEach(plan.discoveryBeat.bodyParagraphs, id: \.self) { para in
+                                    Text(para)
+                                        .font(Typography.body)
+                                        .foregroundStyle(Color.kymaiaInk)
+                                }
+
+                                IntuitionFormulaBridgeCard(
+                                    bridge: plan.chapter.intuitionToFormula,
+                                    selectedTermSymbol: $selectedTermSymbol
+                                )
+
+                                HStack {
+                                    Spacer()
+                                    Button("Advance to Stage 3: Misconception Immunity →") {
+                                        narrator.stop()
+                                        completedStages.insert(.conceptDiscoveryBeat)
+                                        currentStage = .misconceptionImmunity
+                                    }
+                                    .buttonStyle(BrassButtonStyle())
+                                }
+                            }
+                        }
+                    }
+
+                case .misconceptionImmunity:
+                    JournalSection(
+                        title: "Stage 3 · Misconception Immunity & Trap Check (4 min)",
+                        eyebrow: "Spot the Peer Debate Flaw + Solve 1 Quantitative Trap Check"
+                    ) {
+                        MathematicalDebateCardView(
+                            scenario: plan.debateScenario,
+                            initialSelectedChoiceId: store.calloutResponses["debate-\(plan.debateScenario.id)"]?.responseText,
+                            onChoiceSelected: { choice, isCorrect in
+                                store.saveCalloutResponse(
+                                    calloutId: "debate-\(plan.debateScenario.id)",
+                                    chapterNumber: plan.debateScenario.chapterNumber,
+                                    text: choice.id,
+                                    confidencePercent: isCorrect ? 95 : 40,
+                                    isUnlockedOverride: isCorrect
+                                )
+                                if isCorrect {
+                                    completedStages.insert(.misconceptionImmunity)
+                                }
+                            }
+                        )
+
+                        JournalCard {
+                            VStack(alignment: .leading, spacing: Spacing.sm) {
+                                JournalBadge(text: "Quick Quantitative Check · \(plan.trapProblem.title)", symbol: "function", tone: .info)
+                                Text(plan.trapProblem.prompt)
+                                    .font(Typography.body)
+                                    .foregroundStyle(Color.kymaiaInk)
+
+                                HStack(spacing: Spacing.sm) {
+                                    NumericKeypadField(
+                                        label: "Answer",
+                                        unitLabel: plan.trapProblem.unitLabel,
+                                        text: $trapInput
+                                    ) {
+                                        trapEval = QuantitativeMathsEngine.evaluate(problem: plan.trapProblem, numericInput: trapInput)
+                                    }
+                                    Button("Check") {
+                                        trapEval = QuantitativeMathsEngine.evaluate(problem: plan.trapProblem, numericInput: trapInput)
+                                    }
+                                    .buttonStyle(JournalSecondaryButtonStyle())
+                                }
+
+                                if let eval = trapEval {
+                                    Text(eval.feedback)
+                                        .font(Typography.caption.weight(.semibold))
+                                        .foregroundStyle(eval.isCorrect ? Color.kymaiaSuccess : Color.kymaiaWarning)
+                                    if let trap = eval.matchedTrap {
+                                        BuggyRuleTrapBanner(trap: trap)
+                                    }
+                                }
+
+                                HStack {
+                                    Spacer()
+                                    Button("Advance to Stage 4: Companion Workbook Proof →") {
+                                        completedStages.insert(.misconceptionImmunity)
+                                        currentStage = .companionWorkbookProof
+                                    }
+                                    .buttonStyle(BrassButtonStyle())
+                                }
+                            }
+                        }
+                    }
+
+                case .companionWorkbookProof:
+                    JournalSection(
+                        title: "Stage 4 · Companion Workbook Proof (4 min)",
+                        eyebrow: "OUP Ch \(plan.proofQuestion.unitNumber) · Topic \(plan.proofQuestion.topicCode) (\(plan.proofQuestion.tier))"
+                    ) {
+                        JournalCard {
+                            VStack(alignment: .leading, spacing: Spacing.md) {
+                                Text(plan.proofQuestion.prompt)
+                                    .font(Typography.title3)
+                                    .foregroundStyle(Color.kymaiaInk)
+
+                                HStack {
+                                    Button {
+                                        completedStages.insert(.companionWorkbookProof)
+                                        dismiss()
+                                        store.activePracticeQuestion = plan.proofQuestion
+                                        store.activeRoom = .schoolMaths
+                                    } label: {
+                                        Label("Launch Full CPA Proof Studio for Topic \(plan.proofQuestion.topicCode)", systemImage: "pencil.and.outline")
+                                    }
+                                    .buttonStyle(BrassButtonStyle())
+
+                                    Button("Finish Daily Flow") {
+                                        completedStages.insert(.companionWorkbookProof)
+                                        dismiss()
+                                    }
+                                    .buttonStyle(JournalSecondaryButtonStyle())
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .navigationTitle("15-Minute Daily Flow")
+            .onDisappear {
+                narrator.stop()
+            }
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Close") {
+                        narrator.stop()
+                        dismiss()
+                    }
+                }
+            }
         }
     }
 }

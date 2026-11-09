@@ -72,6 +72,7 @@ final class AppStore {
     var activePracticeQuestion: SchoolMathsQuestion?
     var showCalendarSheet: Bool = false
     var showSettingsSheet: Bool = false
+    var showDailyFlowSheet: Bool = false
 
     // Customisation & Preferences (persisted in UserDefaults)
     var learnerDisplayName: String {
@@ -510,15 +511,16 @@ final class AppStore {
         refreshState()
     }
 
-    func markChapterRead(chapterNumber: Int, fraction: Double) {
+    func markChapterRead(chapterNumber: Int, fraction: Double, incrementCounters: Bool = true) {
         let id = String(format: "ch%02d", chapterNumber)
         let current = readingProgressByChapter[chapterNumber]
+        let delta = incrementCounters ? 1 : 0
         let record = ChapterReadingProgressRecord(
             id: id,
             chapterNumber: chapterNumber,
             readFraction: max(current?.readFraction ?? 0.0, min(1.0, fraction)),
-            predictionsCompleted: (current?.predictionsCompleted ?? 0) + 1,
-            checksCompleted: (current?.checksCompleted ?? 0) + 1,
+            predictionsCompleted: (current?.predictionsCompleted ?? 0) + delta,
+            checksCompleted: (current?.checksCompleted ?? 0) + delta,
             updatedAt: Date()
         )
         try? db.saveChapterReadingProgress(record)
@@ -602,13 +604,15 @@ final class AppStore {
         chapterNumber: Int,
         text: String,
         thinkingWhileReading: String = "",
-        confidencePercent: Int = 75
+        confidencePercent: Int = 75,
+        isUnlockedOverride: Bool? = nil
     ) {
+        let unlocked = isUnlockedOverride ?? !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         let record = CalloutResponseRecord(
             id: calloutId,
             chapterNumber: chapterNumber,
             responseText: text,
-            isUnlocked: !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+            isUnlocked: unlocked,
             updatedAt: Date(),
             thinkingWhileReading: thinkingWhileReading,
             confidencePercent: confidencePercent

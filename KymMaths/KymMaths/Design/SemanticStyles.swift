@@ -25,6 +25,18 @@ enum KymaiaSemanticStyle {
     static func phaseAccent(_ phase: RitualPhase) -> Color {
         Color.phaseColor(phase)
     }
+
+    /// Theme-routed semantic accent for 4-colour formula/geometry roles on `.kymaiaSurface` cards.
+    /// Ensures 4.5:1 AA contrast across both light (`Daylight`/`Warm`) and dark (`Vivid`/`Black`/`Dusk`) themes.
+    static func roleAccent(_ role: String) -> Color {
+        switch role.lowercased() {
+        case "red": return .kymaiaError
+        case "blue": return .kymaiaSecondary
+        case "amber": return .kymaiaWarning
+        case "green": return .kymaiaSuccess
+        default: return .kymaiaPrimary
+        }
+    }
 }
 
 extension ShapeStyle where Self == Color {
@@ -78,4 +90,21 @@ enum MathsFigureColor {
     static let pinNumber = Color(white: 1)
     /// A callout pin's capsule, lifted off the plate.
     static let pinCapsule = Color(white: 1).opacity(0.92)
+
+    /// 4-colour semantic geometry palette (PLAYBOOK §1.2) on drafting paper (`MathsFigureColor.paper`).
+    static let red = Color(red: 0.78, green: 0.25, blue: 0.18)
+    static let blue = Color(red: 0.14, green: 0.36, blue: 0.58)
+    static let amber = Color(red: 0.72, green: 0.45, blue: 0.10)
+    static let green = Color(red: 0.18, green: 0.48, blue: 0.31)
+    static let ink = Color(red: 0.16, green: 0.14, blue: 0.20)
+
+    static func roleColor(_ role: String) -> Color {
+        switch role.lowercased() {
+        case "red": return red
+        case "blue": return blue
+        case "amber": return amber
+        case "green": return green
+        default: return ink
+        }
+    }
 }

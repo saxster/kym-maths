@@ -16,13 +16,16 @@ struct QuestionProofPracticeView: View {
     @State private var confidencePercent: Int = 75
     @State private var declinedToGuess = false
     @State private var fadedInput = ""
+    @State private var fadedFeedback: SocraticGraduatedFeedback?
+    @State private var revealFadedTarget = false
+    @State private var cpaState = CPAManipulativeState(primaryValue: 5, secondaryValue: 12)
     @State private var answerText = ""
     @State private var evaluation: QuestionEvaluationResult?
     @State private var graduatedFeedback: SocraticGraduatedFeedback?
     @State private var interrogationResponse = ""
+    @State private var interrogationLocked = false
     @State private var selectedFlawStepIndex: Int?
     @State private var flawScoreResult: SpotTheFlawScoreResult?
-    @State private var showScratchpad = true
 
     private var effectiveAssisted: Bool {
         usedAssistanceInSession || highestHintRung.surrendersRetrieval
@@ -190,25 +193,102 @@ struct QuestionProofPracticeView: View {
                     }
                 }
 
-                // Stage 2: Faded Completion
+                // Stage 2: Faded Completion (Non-Leaking Socratic Step Gate)
                 if showFadedScaffold {
                     JournalSection(
                         title: "Stage 2 · Faded Step Completion",
-                        eyebrow: "Complete the Missing Link"
+                        eyebrow: "Complete & Verify the Missing Link Before Solo Proof"
                     ) {
                         JournalCard {
                             VStack(alignment: .leading, spacing: Spacing.sm) {
                                 Text(question.fadedPrompt)
                                     .font(Typography.subheadline)
                                     .foregroundStyle(Color.kymaiaInk)
-                                HStack {
-                                    TextField("Fill in the blank...", text: $fadedInput)
+
+                                MathSymbolRibbon(text: $fadedInput)
+
+                                HStack(spacing: Spacing.sm) {
+                                    TextField("Type the missing step or expression...", text: $fadedInput)
+                                        .learnerTextInput(.retrieval)
                                         .textFieldStyle(.roundedBorder)
-                                    Text("Target: \(question.fadedAnswer)")
                                         .font(Typography.mono)
-                                        .foregroundStyle(Color.kymaiaSuccess)
+                                        .onSubmit {
+                                            fadedFeedback = SocraticFeedbackEngine.evaluateFadedStep(
+                                                studentInput: fadedInput,
+                                                expectedFadedAnswer: question.fadedAnswer,
+                                                workedHint: question.workedExample
+                                            )
+                                        }
+
+                                    Button("Check Step") {
+                                        fadedFeedback = SocraticFeedbackEngine.evaluateFadedStep(
+                                            studentInput: fadedInput,
+                                            expectedFadedAnswer: question.fadedAnswer,
+                                            workedHint: question.workedExample
+                                        )
+                                    }
+                                    .buttonStyle(JournalSecondaryButtonStyle())
+
+                                    if fadedFeedback != nil || !fadedInput.isEmpty {
+                                        Button("Reset Step") {
+                                            fadedInput = ""
+                                            fadedFeedback = nil
+                                            revealFadedTarget = false
+                                        }
+                                        .buttonStyle(JournalSecondaryButtonStyle())
+                                    }
+                                }
+
+                                if let fEval = fadedFeedback {
+                                    VStack(alignment: .leading, spacing: Spacing.xxs) {
+                                        HStack {
+                                            JournalBadge(
+                                                text: fEval.tier.badgeTitle,
+                                                symbol: fEval.tier == .correct ? "checkmark.seal.fill" : "lightbulb.fill",
+                                                tone: fEval.tier == .correct ? .positive : .warning
+                                            )
+                                            Text(fEval.headline)
+                                                .font(Typography.caption.weight(.bold))
+                                                .foregroundStyle(Color.kymaiaInk)
+                                            Spacer()
+                                            if fEval.tier != .correct {
+                                                Button(revealFadedTarget ? "Hide Step Target" : "Reveal Step Target") {
+                                                    revealFadedTarget.toggle()
+                                                    usedAssistanceInSession = true
+                                                }
+                                                .buttonStyle(JournalSecondaryButtonStyle())
+                                            }
+                                        }
+                                        Text(fEval.socraticNudge)
+                                            .font(Typography.caption)
+                                            .foregroundStyle(Color.kymaiaMutedInk)
+                                        if revealFadedTarget || fEval.tier == .correct {
+                                            Text("Verified Step Target: \(question.fadedAnswer)")
+                                                .font(Typography.mono)
+                                                .foregroundStyle(Color.kymaiaSuccess)
+                                        }
+                                    }
+                                    .padding(Spacing.xs)
+                                    .quietPanelBackground()
                                 }
                             }
+                        }
+                    }
+                }
+
+                // Interactive CPA Manipulative Sandbox (Concrete -> Pictorial -> Abstract Lockstep)
+                JournalSection(
+                    title: "Interactive CPA Manipulative Sandbox",
+                    eyebrow: "Touch & Partition the Model · Stamp Live Equations into Your Working"
+                ) {
+                    CPAManipulativeSandboxCard(
+                        spec: CPAManipulativeEngine.spec(for: question),
+                        state: $cpaState
+                    ) { stampedEquation in
+                        if answerText.isEmpty {
+                            answerText = stampedEquation
+                        } else {
+                            answerText += "\n" + stampedEquation
                         }
                     }
                 }
@@ -395,7 +475,31 @@ struct QuestionProofPracticeView: View {
                                             .font(Typography.caption)
                                             .foregroundStyle(Color.kymaiaMutedInk)
                                         TextField("Explain why this works in 1 sentence...", text: $interrogationResponse)
+                                            .learnerTextInput(.retrieval)
                                             .textFieldStyle(.roundedBorder)
+                                        HStack {
+                                            Button("Lock Why-Explanation") {
+                                                let textToSave = interrogationResponse.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                                                    ? prompt.invariantHint
+                                                    : interrogationResponse
+                                                store.saveCalloutResponse(
+                                                    calloutId: "interrogation-\(question.id)",
+                                                    chapterNumber: question.linkedChapter,
+                                                    text: textToSave,
+                                                    isUnlockedOverride: true
+                                                )
+                                                interrogationLocked = true
+                                            }
+                                            .buttonStyle(JournalSecondaryButtonStyle())
+
+                                            if interrogationLocked || store.calloutResponses["interrogation-\(question.id)"]?.isUnlocked == true {
+                                                JournalBadge(
+                                                    text: "Why-Explanation Logged ✓",
+                                                    symbol: "checkmark.circle.fill",
+                                                    tone: .positive
+                                                )
+                                            }
+                                        }
                                     }
 
                                     Divider()
@@ -414,6 +518,9 @@ struct QuestionProofPracticeView: View {
                 }
             }
             .navigationTitle("Topic \(question.topicCode) Proof Studio")
+            .onAppear {
+                cpaState = CPAManipulativeEngine.initialState(for: question)
+            }
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") { dismiss() }

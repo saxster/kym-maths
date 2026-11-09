@@ -830,7 +830,7 @@ public enum SocraticFeedbackEngine {
                 return SocraticGraduatedFeedback(
                     tier: .close,
                     headline: "Your magnitude is exact, but check the direction/sign!",
-                    socraticNudge: "You found \(cleanStudent) instead of \(cleanExpected). Trace the negative sign on the directed number line—did two negatives multiply, or did an inequality flip?",
+                    socraticNudge: "You wrote \(cleanStudent), which has the right size but opposite sign. Trace the direction on the number line—did two negatives multiply, or did a transposed term flip sign?",
                     detectedTrap: "Sign Inversion Trap"
                 )
             }
@@ -873,6 +873,74 @@ public enum SocraticFeedbackEngine {
             headline: "Let's build the visual bridge first",
             socraticNudge: nudge
         )
+    }
+
+    /// Evaluates a student's Stage 2 Faded Step response WITHOUT ever leaking `expectedFadedAnswer` in the feedback message.
+    public static func evaluateFadedStep(
+        studentInput: String,
+        expectedFadedAnswer: String,
+        workedHint: String = ""
+    ) -> SocraticGraduatedFeedback {
+        let cleanStudent = studentInput
+            .replacingOccurrences(of: "−", with: "-")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        let cleanExpected = expectedFadedAnswer
+            .replacingOccurrences(of: "−", with: "-")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+
+        guard !cleanStudent.isEmpty else {
+            return SocraticGraduatedFeedback(
+                tier: .far,
+                headline: "Complete the blank step above",
+                socraticNudge: "Use the Stage 1 worked step as your template and type what belongs in the blank."
+            )
+        }
+
+        // Normalize candidate right-hand sides if expectedFadedAnswer contains '=>' or '='
+        let candidateTargets: [String] = {
+            var targets = [cleanExpected]
+            for sep in ["=>", "⇒", "="] {
+                if cleanExpected.contains(sep) {
+                    let parts = cleanExpected.components(separatedBy: sep)
+                        .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                        .filter { !$0.isEmpty }
+                    targets.append(contentsOf: parts)
+                }
+            }
+            return targets
+        }()
+
+        for target in candidateTargets {
+            if STEMPolynomial.areEquivalent(cleanStudent, target)
+                || cleanStudent.caseInsensitiveCompare(target) == .orderedSame {
+                return SocraticGraduatedFeedback(
+                    tier: .correct,
+                    headline: "Step locked in — your bridge to Stage 3 is verified!",
+                    socraticNudge: "Notice how this step preserves the invariant from Stage 1. Ready for Stage 3 Solo Proof!"
+                )
+            }
+            let sCleanNum = cleanStudent.replacingOccurrences(of: ",", with: "")
+            let tCleanNum = target.replacingOccurrences(of: ",", with: "")
+            if let sVal = Double(sCleanNum), let tVal = Double(tCleanNum), abs(sVal - tVal) <= max(0.01, abs(tVal) * 0.005) {
+                return SocraticGraduatedFeedback(
+                    tier: .correct,
+                    headline: "Numerical step verified!",
+                    socraticNudge: "That matches the target quantity for this step. Proceed to Stage 3 Solo Proof!"
+                )
+            }
+        }
+
+        // Check if student matched tokens/keywords from expectedFadedAnswer without leaking it
+        let tokens = cleanExpected
+            .components(separatedBy: CharacterSet.alphanumerics.inverted)
+            .filter { $0.count >= 2 }
+        let feedback = evaluate(
+            studentAnswer: cleanStudent,
+            expectedAnswer: candidateTargets.last ?? cleanExpected,
+            keywords: tokens,
+            workedHint: workedHint
+        )
+        return feedback
     }
 }
 

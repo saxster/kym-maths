@@ -81,6 +81,56 @@ enum QuantitativeTemplateKind: String, CaseIterable, Identifiable, Codable, Send
     }
 }
 
+struct BuggyRuleTrap: Identifiable, Equatable, Codable, Sendable {
+    var id: String { "\(trapName)-\(buggyValue)" }
+    let trapName: String
+    let buggyValue: Double
+    let tolerance: Double
+    let diagnosticWhy: String
+    let visualFixNudge: String
+
+    var socraticDiagnosis: String { diagnosticWhy }
+
+    init(
+        trapName: String,
+        buggyValue: Double,
+        tolerance: Double = 0.05,
+        diagnosticWhy: String,
+        visualFixNudge: String = ""
+    ) {
+        self.trapName = trapName
+        self.buggyValue = buggyValue
+        self.tolerance = tolerance
+        self.diagnosticWhy = diagnosticWhy
+        self.visualFixNudge = visualFixNudge.isEmpty ? diagnosticWhy : visualFixNudge
+    }
+
+    init(
+        id: String,
+        trapName: String,
+        buggyValue: Double,
+        tolerance: Double = 0.05,
+        socraticDiagnosis: String
+    ) {
+        self.trapName = trapName
+        self.buggyValue = buggyValue
+        self.tolerance = tolerance
+        let sentences = socraticDiagnosis
+            .components(separatedBy: ". ")
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+        if sentences.count >= 2 {
+            let first = sentences[0].hasSuffix(".") ? sentences[0] : sentences[0] + "."
+            let remainder = sentences.dropFirst().joined(separator: ". ")
+            self.diagnosticWhy = first
+            self.visualFixNudge = remainder
+        } else {
+            self.diagnosticWhy = socraticDiagnosis
+            self.visualFixNudge = "Inspect the Concrete Visual Intuition step to verify how the invariant constrains \(trapName)."
+        }
+    }
+}
+
 struct QuantitativeMathsProblem: Identifiable, Equatable, Sendable {
     let id: String
     let template: QuantitativeTemplateKind
@@ -96,6 +146,41 @@ struct QuantitativeMathsProblem: Identifiable, Equatable, Sendable {
     let ahaInvariantStep: String
     let formulaStep: String
     let stepByStepDerivation: [String]
+    let traps: [BuggyRuleTrap]
+
+    init(
+        id: String,
+        template: QuantitativeTemplateKind,
+        seed: Int,
+        title: String,
+        schoolTopicCode: String,
+        patternedWorldChapter: Int,
+        prompt: String,
+        expectedValue: Double,
+        tolerance: Double,
+        unitLabel: String,
+        visualIntuitionStep: String,
+        ahaInvariantStep: String,
+        formulaStep: String,
+        stepByStepDerivation: [String],
+        traps: [BuggyRuleTrap] = []
+    ) {
+        self.id = id
+        self.template = template
+        self.seed = seed
+        self.title = title
+        self.schoolTopicCode = schoolTopicCode
+        self.patternedWorldChapter = patternedWorldChapter
+        self.prompt = prompt
+        self.expectedValue = expectedValue
+        self.tolerance = tolerance
+        self.unitLabel = unitLabel
+        self.visualIntuitionStep = visualIntuitionStep
+        self.ahaInvariantStep = ahaInvariantStep
+        self.formulaStep = formulaStep
+        self.stepByStepDerivation = stepByStepDerivation
+        self.traps = traps
+    }
 }
 
 struct QuantitativeAttemptEvaluation: Equatable, Sendable {
@@ -104,6 +189,23 @@ struct QuantitativeAttemptEvaluation: Equatable, Sendable {
     let expectedValue: Double
     let absoluteError: Double
     let feedback: String
+    let matchedTrap: BuggyRuleTrap?
+
+    init(
+        isCorrect: Bool,
+        submittedValue: Double,
+        expectedValue: Double,
+        absoluteError: Double,
+        feedback: String,
+        matchedTrap: BuggyRuleTrap? = nil
+    ) {
+        self.isCorrect = isCorrect
+        self.submittedValue = submittedValue
+        self.expectedValue = expectedValue
+        self.absoluteError = absoluteError
+        self.feedback = feedback
+        self.matchedTrap = matchedTrap
+    }
 }
 
 enum QuantitativeMathsEngine {
@@ -147,6 +249,20 @@ enum QuantitativeMathsEngine {
                     "1. Find union |A ∪ B| = \(total) − \(neither) = \(union).",
                     "2. Sum individual sets: |A| + |B| = \(setA) + \(setB) = \(setA + setB).",
                     "3. Subtract union to isolate overlap: |A ∩ B| = \(setA + setB) − \(union) = \(both)."
+                ],
+                traps: [
+                    BuggyRuleTrap(
+                        id: "trap-set-forgot-neither",
+                        trapName: "Ignored 'Neither' Outside the Union",
+                        buggyValue: Double(setA + setB - total),
+                        socraticDiagnosis: "You subtracted the entire class (\(total)) instead of the union |A ∪ B| = \(total) − \(neither) = \(union). Where do the \(neither) students who study neither subject sit in the Venn box?"
+                    ),
+                    BuggyRuleTrap(
+                        id: "trap-set-stopped-at-union",
+                        trapName: "Stopped at Union |A ∪ B|",
+                        buggyValue: Double(union),
+                        socraticDiagnosis: "You found |A ∪ B| = \(union), which is everyone inside at least one circle. Now compare that with |A| + |B| = \(setA + setB) to see how many were counted twice!"
+                    )
                 ]
             )
 
@@ -174,6 +290,20 @@ enum QuantitativeMathsEngine {
                     "1. Compute product a × b = \(a) × \(b) = \(a * b).",
                     "2. Divide by HCF(\(a), \(b)) = \(hcf).",
                     "3. LCM = \(a * b) / \(hcf) = \(lcm)."
+                ],
+                traps: [
+                    BuggyRuleTrap(
+                        id: "trap-lcm-raw-product",
+                        trapName: "Raw Product Without Dividing by HCF",
+                        buggyValue: Double(a * b),
+                        socraticDiagnosis: "Multiplying \(a) × \(b) = \(a * b) counts the shared prime factor overlap (HCF = \(hcf)) twice! Divide by \(hcf) so the Venn intersection is counted only once."
+                    ),
+                    BuggyRuleTrap(
+                        id: "trap-lcm-reported-hcf",
+                        trapName: "Reported HCF Instead of LCM",
+                        buggyValue: Double(hcf),
+                        socraticDiagnosis: "\(hcf) is the Highest Common Factor (the shared Venn lens). For the Lowest Common Multiple, include the outer factors of both circles: (\(a) × \(b)) ÷ \(hcf)."
+                    )
                 ]
             )
 
@@ -202,6 +332,20 @@ enum QuantitativeMathsEngine {
                     "1. Combine numerator exponents: \(m) + \(n) = \(m + n).",
                     "2. Subtract denominator exponent: \(m + n) − \(p) = \(finalExp).",
                     "3. Evaluate \(base)^\(finalExp) = \(val)."
+                ],
+                traps: [
+                    BuggyRuleTrap(
+                        id: "trap-index-multiplied-exponents",
+                        trapName: "Multiplied Exponents Instead of Adding",
+                        buggyValue: pow(Double(base), Double(m * n - p)),
+                        socraticDiagnosis: "When multiplying \(base)^\(m) × \(base)^\(n), we join \(m) copies and \(n) copies side by side (\(m) + \(n)), rather than multiplying \(m) × \(n)."
+                    ),
+                    BuggyRuleTrap(
+                        id: "trap-index-added-denominator",
+                        trapName: "Added Denominator Exponent on Division",
+                        buggyValue: pow(Double(base), Double(m + n + p)),
+                        socraticDiagnosis: "Dividing by \(base)^\(p) cancels \(p) factors of \(base) from the numerator chain, so subtract \(p) from (\(m) + \(n)) instead of adding it."
+                    )
                 ]
             )
 
@@ -229,6 +373,20 @@ enum QuantitativeMathsEngine {
                     "1. Rewrite \(plus) × \(minus) as (\(a) + \(b))(\(a) − \(b)).",
                     "2. Compute a² = \(a)² = \(a * a) and b² = \(b)² = \(b * b).",
                     "3. Subtract: \(a * a) − \(b * b) = \(ans)."
+                ],
+                traps: [
+                    BuggyRuleTrap(
+                        id: "trap-dots-added-square",
+                        trapName: "Added b² Corner Instead of Subtracting",
+                        buggyValue: Double(a * a + b * b),
+                        socraticDiagnosis: "In (\(a) + \(b))(\(a) − \(b)), the last product is (+\(b)) × (−\(b)) = −\(b * b), so the \(b)×\(b) corner is missing from \(a * a), not added!"
+                    ),
+                    BuggyRuleTrap(
+                        id: "trap-dots-squared-difference",
+                        trapName: "Confused (a+b)(a−b) with (a−b)²",
+                        buggyValue: Double((a - b) * (a - b)),
+                        socraticDiagnosis: "You computed (\(a) − \(b))² = \(minus * minus). Notice the first factor is (\(a) + \(b)) = \(plus), so the +ab and −ab strips cancel!"
+                    )
                 ]
             )
 
@@ -256,6 +414,20 @@ enum QuantitativeMathsEngine {
                     "1. Let x = 0.\(twoDigit) recurring; then 100x = \(twoDigit).\(twoDigit) recurring.",
                     "2. Subtract: 99x = \(twoDigit) ⇒ x = \(twoDigit)/99.",
                     "3. Divide top and bottom by HCF(\(twoDigit), 99) = \(g) to get \(num)/\(den). Sum p + q = \(num) + \(den) = \(sumNumDen)."
+                ],
+                traps: [
+                    BuggyRuleTrap(
+                        id: "trap-recurring-unsimplified-99",
+                        trapName: "Forgot to Simplify p/q Before Adding p + q",
+                        buggyValue: Double(twoDigit + 99),
+                        socraticDiagnosis: "You found the right unsimplified fraction \(twoDigit)/99! Now divide both numerator and denominator by their HCF (\(g)) before summing p + q."
+                    ),
+                    BuggyRuleTrap(
+                        id: "trap-recurring-used-100",
+                        trapName: "Used Denominator 100 Instead of 99",
+                        buggyValue: Double(twoDigit + 100),
+                        socraticDiagnosis: "0.\(twoDigit)\(twoDigit)... repeats forever, so 100x − x = 99x = \(twoDigit) (denominator 99, not 100), and then simplify by HCF = \(g)."
+                    )
                 ]
             )
 
@@ -283,6 +455,20 @@ enum QuantitativeMathsEngine {
                     "1. Subtract \(rightCoeff)x from both sides: \(leftCoeff - rightCoeff)x − \(leftConst) = \(rightConst).",
                     "2. Add \(leftConst) to both sides: \(leftCoeff - rightCoeff)x = \(rightConst + leftConst).",
                     "3. Divide by \(leftCoeff - rightCoeff): x = \(rightConst + leftConst) / \(leftCoeff - rightCoeff) = \(xVal)."
+                ],
+                traps: [
+                    BuggyRuleTrap(
+                        id: "trap-linear-sign-transpose",
+                        trapName: "Sign Preservation Error When Moving −\(leftConst)",
+                        buggyValue: Double(abs(rightConst - leftConst)) / Double(leftCoeff - rightCoeff),
+                        socraticDiagnosis: "Because the left bar has \(leftCoeff)x MINUS \(leftConst), restoring that missing \(leftConst) piece adds +\(leftConst) to \(rightConst) (giving \(rightConst + leftConst)), rather than subtracting."
+                    ),
+                    BuggyRuleTrap(
+                        id: "trap-linear-added-x-coeffs",
+                        trapName: "Added Variable Coefficients Across Equals",
+                        buggyValue: Double(rightConst + leftConst) / Double(leftCoeff + rightCoeff),
+                        socraticDiagnosis: "Removing \(rightCoeff)x from both balanced pans leaves (\(leftCoeff) − \(rightCoeff))x = \(leftCoeff - rightCoeff)x, not (\(leftCoeff) + \(rightCoeff))x."
+                    )
                 ]
             )
 
@@ -308,6 +494,20 @@ enum QuantitativeMathsEngine {
                     "1. Upward multiplier = 1 + 0.20 = 1.20; downward multiplier = 1 − 0.20 = 0.80.",
                     "2. Combined multiplier = 1.20 × 0.80 = 0.96 (a 4% net decrease).",
                     "3. Final price = ₹\(Int(basePrice)) × 0.96 = ₹\(Int(netPrice))."
+                ],
+                traps: [
+                    BuggyRuleTrap(
+                        id: "trap-pct-additive-cancellation",
+                        trapName: "Additive Percentage Cancellation (+20% − 20% = 0%)",
+                        buggyValue: basePrice,
+                        socraticDiagnosis: "The 20% discount is taken off the NEW enlarged price ₹\(Int(basePrice * 1.2)), not the original ₹\(Int(basePrice))! Multiply 1.20 × 0.80 = 0.96."
+                    ),
+                    BuggyRuleTrap(
+                        id: "trap-pct-discount-only",
+                        trapName: "Applied Discount Only (Ignored Initial +20%)",
+                        buggyValue: basePrice * 0.80,
+                        socraticDiagnosis: "₹\(Int(basePrice * 0.80)) is a 20% discount on the original price. First scale ₹\(Int(basePrice)) by 1.20, then multiply that result by 0.80."
+                    )
                 ]
             )
 
@@ -335,6 +535,20 @@ enum QuantitativeMathsEngine {
                     "1. Initial ratio = 5 : 3 (8 units total); final equal ratio = 4 : 4 (8 units total).",
                     "2. Aarav drops from 5 units to 4 units, so 1 unit = \(transfer) marbles.",
                     "3. Total marbles = 8 units × \(transfer) = \(total)."
+                ],
+                traps: [
+                    BuggyRuleTrap(
+                        id: "trap-ratio-diff-two-units",
+                        trapName: "Equated Transfer to Initial Difference (5 − 3 = 2 Units)",
+                        buggyValue: Double(4 * transfer),
+                        socraticDiagnosis: "Although 5 − 3 = 2 units, when Aarav gives 1 unit to Kym, Aarav loses 1 and Kym gains 1 (both become 4 units). So \(transfer) marbles is 1 unit, and 8 units = \(total)."
+                    ),
+                    BuggyRuleTrap(
+                        id: "trap-ratio-one-person-only",
+                        trapName: "Reported Aarav's Initial Share (5 Units) Instead of Total (8 Units)",
+                        buggyValue: Double(initialA),
+                        socraticDiagnosis: "You found Aarav's starting 5 units (\(initialA) marbles). Add Kym's 3 units (\(initialB) marbles) for all 8 units in total!"
+                    )
                 ]
             )
 
@@ -361,6 +575,20 @@ enum QuantitativeMathsEngine {
                     "1. Identify first term a = \(a) and common difference d = \(d).",
                     "2. Substitute n = \(n): T_\(n) = \(a) + (\(n) − 1) × \(d).",
                     "3. T_\(n) = \(a) + 19 × \(d) = \(nth)."
+                ],
+                traps: [
+                    BuggyRuleTrap(
+                        id: "trap-seq-fencepost-nd",
+                        trapName: "Fencepost Off-By-One Trap (a + nd)",
+                        buggyValue: Double(a + n * d),
+                        socraticDiagnosis: "Term 1 is already at \(a) with 0 jumps of +\(d). To reach Term \(n), you take (\(n) − 1) = 19 jumps of +\(d), not \(n) jumps!"
+                    ),
+                    BuggyRuleTrap(
+                        id: "trap-seq-forgot-first-term",
+                        trapName: "Direct Multiple Trap (n × d Without Starting Term)",
+                        buggyValue: Double(n * d),
+                        socraticDiagnosis: "You computed \(n) × \(d) = \(n * d), which is only if the sequence started at \(d). Start at T₁ = \(a) and add 19 jumps of \(d)."
+                    )
                 ]
             )
 
@@ -385,6 +613,20 @@ enum QuantitativeMathsEngine {
                 stepByStepDerivation: [
                     "1. Find one exterior angle: e = 360° / \(sides) = \(ext)°.",
                     "2. Subtract from 180° on a straight line: Interior = 180° − \(ext)° = \(interior)°."
+                ],
+                traps: [
+                    BuggyRuleTrap(
+                        id: "trap-poly-exterior-angle",
+                        trapName: "Stopped at Exterior Angle (360° / n)",
+                        buggyValue: Double(ext),
+                        socraticDiagnosis: "\(ext)° is one EXTERIOR turn (360° ÷ \(sides)). The interior angle and exterior angle form a straight 180° line—subtract \(ext)° from 180°!"
+                    ),
+                    BuggyRuleTrap(
+                        id: "trap-poly-total-sum",
+                        trapName: "Total Interior Sum Instead of One Angle",
+                        buggyValue: Double((sides - 2) * 180),
+                        socraticDiagnosis: "\((sides - 2) * 180)° is the sum of ALL \(sides) interior angles. Divide by \(sides) to find the size of ONE interior angle."
+                    )
                 ]
             )
 
@@ -411,6 +653,20 @@ enum QuantitativeMathsEngine {
                 stepByStepDerivation: [
                     "1. Cross-sectional triangle area A = ½ × \(Int(b)) × \(Int(h)) = \(Int(area)) cm².",
                     "2. Multiply by prism length L = \(Int(length)) cm: V = \(Int(area)) × \(Int(length)) = \(Int(vol)) cm³."
+                ],
+                traps: [
+                    BuggyRuleTrap(
+                        id: "trap-prism-forgot-half",
+                        trapName: "Cuboid Volume Trap (Forgot ½ for Triangle)",
+                        buggyValue: b * h * length,
+                        socraticDiagnosis: "Multiplying \(Int(b)) × \(Int(h)) × \(Int(length)) gives the full rectangular box! A triangular prism fills exactly HALF that box: V = ½ × \(Int(b)) × \(Int(h)) × \(Int(length))."
+                    ),
+                    BuggyRuleTrap(
+                        id: "trap-prism-cross-section-only",
+                        trapName: "Stopped at 2D Cross-Section Area (½bh)",
+                        buggyValue: area,
+                        socraticDiagnosis: "\(Int(area)) cm² is the area of one triangular slice. Extrude that slice along the prism length of \(Int(length)) cm!"
+                    )
                 ]
             )
 
@@ -435,6 +691,20 @@ enum QuantitativeMathsEngine {
                     "1. Bearings 090° and 000° meet at a right angle (90°).",
                     "2. Compute squares: \(east)² + \(north)² = \(east * east) + \(north * north) = \(hyp * hyp).",
                     "3. Distance d = √\(hyp * hyp) = \(hyp) km."
+                ],
+                traps: [
+                    BuggyRuleTrap(
+                        id: "trap-pythag-taxicab-sum",
+                        trapName: "Taxicab Sum Trap (a + b Instead of √(a² + b²))",
+                        buggyValue: Double(east + north),
+                        socraticDiagnosis: "\(east) + \(north) = \(east + north) km is the L-shaped sailing path, not the straight-line shortcut across the hypotenuse! Use √(\(east)² + \(north)²)."
+                    ),
+                    BuggyRuleTrap(
+                        id: "trap-pythag-unrooted-square",
+                        trapName: "Forgot Final Square Root (Reported c²)",
+                        buggyValue: Double(hyp * hyp),
+                        socraticDiagnosis: "\(hyp * hyp) is the area of the tilted square c² = \(east)² + \(north)². Take √\(hyp * hyp) to find the straight-line length c!"
+                    )
                 ]
             )
 
@@ -461,6 +731,20 @@ enum QuantitativeMathsEngine {
                     "1. Compute Pythagorean sum: a² + b² = \(Int(a * a)) + \(Int(b * b)) = \(Int(a * a + b * b)).",
                     "2. Subtract cosine correction: 2 × \(Int(a)) × \(Int(b)) × cos(60°) = 2 × \(Int(a * b)) × 0.5 = \(Int(a * b)).",
                     "3. c² = \(Int(a * a + b * b)) − \(Int(a * b)) = \(Int(cSquared))."
+                ],
+                traps: [
+                    BuggyRuleTrap(
+                        id: "trap-cosine-pythagoras-only",
+                        trapName: "Pythagoras-Only Trap (Omitted −2ab cos 60°)",
+                        buggyValue: a * a + b * b,
+                        socraticDiagnosis: "\(Int(a * a + b * b)) would be c² if angle C were 90°. Because C = 60° closes the hinge inward, subtract 2ab cos 60° = \(Int(a * b))."
+                    ),
+                    BuggyRuleTrap(
+                        id: "trap-cosine-plus-sign",
+                        trapName: "Sign Inversion in Law of Cosines (+2ab cos C)",
+                        buggyValue: a * a + b * b + 2.0 * a * b * 0.5,
+                        socraticDiagnosis: "An acute 60° angle pulls the third side shorter than a right triangle, so we SUBTRACT 2ab cos 60° rather than adding it."
+                    )
                 ]
             )
 
@@ -485,6 +769,20 @@ enum QuantitativeMathsEngine {
                 stepByStepDerivation: [
                     "1. Identify class width Δx = \(width) and Frequency Density = \(Int(density)).",
                     "2. Compute bar area: Frequency = \(Int(density)) × \(width) = \(Int(freq))."
+                ],
+                traps: [
+                    BuggyRuleTrap(
+                        id: "trap-hist-height-as-freq",
+                        trapName: "Read Bar Height as Frequency (Ignored Width)",
+                        buggyValue: density,
+                        socraticDiagnosis: "In an unequal-width histogram, \(Int(density)) is the Frequency Density (height per minute). Multiply height \(Int(density)) by width \(width) to find the bar's AREA!"
+                    ),
+                    BuggyRuleTrap(
+                        id: "trap-hist-divided-by-width",
+                        trapName: "Divided Density by Width Instead of Multiplying",
+                        buggyValue: density / Double(width),
+                        socraticDiagnosis: "Since Frequency Density = Frequency ÷ Width, rearranging for Frequency multiplies FD × Width (\(Int(density)) × \(width))."
+                    )
                 ]
             )
 
@@ -509,6 +807,20 @@ enum QuantitativeMathsEngine {
                     "1. Choices for Gold = \(n).",
                     "2. Remaining choices for Silver = \(n - 1); remaining for Bronze = \(n - 2).",
                     "3. Total ordered arrangements = \(n) × \(n - 1) × \(n - 2) = \(ways)."
+                ],
+                traps: [
+                    BuggyRuleTrap(
+                        id: "trap-comb-unordered-ncr",
+                        trapName: "Unordered Combination Trap (Divided by 3! = 6)",
+                        buggyValue: Double(ways / 6),
+                        socraticDiagnosis: "\(ways / 6) counts unordered 3-person committees. Because Gold, Silver, and Bronze are distinct medals, order matters: multiply by 3! = 6 to get \(ways)."
+                    ),
+                    BuggyRuleTrap(
+                        id: "trap-comb-with-replacement",
+                        trapName: "With-Replacement Trap (n³)",
+                        buggyValue: Double(n * n * n),
+                        socraticDiagnosis: "Once a finalist wins Gold, only \(n - 1) finalists remain for Silver and \(n - 2) for Bronze—Compute \(n) × \(n - 1) × \(n - 2) instead of \(n)³."
+                    )
                 ]
             )
 
@@ -536,6 +848,20 @@ enum QuantitativeMathsEngine {
                     "1. Total positive tests = \(truePos) + \(falsePos) = \(totalPos).",
                     "2. Posterior fraction P(Sick | +) = \(truePos) / \(totalPos).",
                     "3. Percentage = (\(truePos) / \(totalPos)) × 100% = \(String(format: "%.1f", pct))%."
+                ],
+                traps: [
+                    BuggyRuleTrap(
+                        id: "trap-bayes-base-rate-neglect",
+                        trapName: "Base-Rate Neglect (Confused P(+|Sick) with P(Sick|+))",
+                        buggyValue: 90.0,
+                        socraticDiagnosis: "90% is the test sensitivity before looking at false positives! Zoom into ONLY the \(totalPos) positive results (\(truePos) true + \(falsePos) false) and find \(truePos) ÷ \(totalPos)."
+                    ),
+                    BuggyRuleTrap(
+                        id: "trap-bayes-unconditioned-1000",
+                        trapName: "Used Total Cohort (1,000) Instead of Positive Subset (\(totalPos))",
+                        buggyValue: (Double(truePos) / 1000.0) * 100.0,
+                        socraticDiagnosis: "Because we already know the test is positive, our denominator shrinks from 1,000 people to only the \(totalPos) positive testers (\(truePos) + \(falsePos))."
+                    )
                 ]
             )
 
@@ -564,6 +890,20 @@ enum QuantitativeMathsEngine {
                     "1. Vertical rise Δy = \(y2) − \(y1) = \(y2 - y1).",
                     "2. Horizontal run Δx = \(x2) − \(x1) = \(dx).",
                     "3. Gradient m = \(y2 - y1) / \(dx) = \(m)."
+                ],
+                traps: [
+                    BuggyRuleTrap(
+                        id: "trap-grad-run-over-rise",
+                        trapName: "Run-Over-Rise Inversion (Δx / Δy)",
+                        buggyValue: Double(dx) / Double(y2 - y1),
+                        socraticDiagnosis: "You divided horizontal run (\(dx)) by vertical rise (\(y2 - y1)). Gradient measures steepness: vertical rise Δy (\(y2 - y1)) divided by horizontal run Δx (\(dx))."
+                    ),
+                    BuggyRuleTrap(
+                        id: "trap-grad-forgot-divide-dx",
+                        trapName: "Reported Raw Vertical Rise Δy Without Dividing by Δx",
+                        buggyValue: Double(y2 - y1),
+                        socraticDiagnosis: "\(y2 - y1) is the total vertical rise across \(dx) horizontal steps. Divide by Δx = \(dx) to find the rise per 1 unit of run!"
+                    )
                 ]
             )
 
@@ -588,6 +928,20 @@ enum QuantitativeMathsEngine {
                 stepByStepDerivation: [
                     "1. Differentiate y = \(a)x² using the power rule: dy/dx = 2 × \(a)x = \(2 * a)x.",
                     "2. Evaluate at x = \(x0): dy/dx = \(2 * a) × \(x0) = \(deriv)."
+                ],
+                traps: [
+                    BuggyRuleTrap(
+                        id: "trap-deriv-dropped-factor-2",
+                        trapName: "Omitted Power-Rule Factor of 2 (Computed ax Instead of 2ax)",
+                        buggyValue: Double(a * x0),
+                        socraticDiagnosis: "Because expanding (x + h)² produces TWO xh cross-strips, differentiating \(a)x² brings down a factor of 2: dy/dx = 2 × \(a) × \(x0)."
+                    ),
+                    BuggyRuleTrap(
+                        id: "trap-deriv-kept-square",
+                        trapName: "Forgot to Reduce Exponent (Computed 2ax²)",
+                        buggyValue: Double(2 * a * x0 * x0),
+                        socraticDiagnosis: "Bringing down the exponent 2 reduces the power of x from x² to x¹: evaluate 2 × \(a) × \(x0) rather than 2 × \(a) × \(x0)²."
+                    )
                 ]
             )
 
@@ -611,6 +965,20 @@ enum QuantitativeMathsEngine {
                 stepByStepDerivation: [
                     "1. Find the antiderivative of 3x²: F(x) = x³ (since d/dx(x³) = 3x²).",
                     "2. Apply the Fundamental Theorem of Calculus: F(\(upper)) − F(0) = \(upper)³ − 0 = \(Int(area))."
+                ],
+                traps: [
+                    BuggyRuleTrap(
+                        id: "trap-integral-forgot-divide-3",
+                        trapName: "Kept Coefficient 3 When Integrating (Computed 3b³)",
+                        buggyValue: Double(3 * upper * upper * upper),
+                        socraticDiagnosis: "Integrating x² gives x³/3, so the 3 in 3x² cancels with ÷3 to leave simply [x³]₀^\(upper) = \(upper)³!"
+                    ),
+                    BuggyRuleTrap(
+                        id: "trap-integral-differentiated",
+                        trapName: "Differentiated Instead of Integrating (Computed 6b)",
+                        buggyValue: Double(6 * upper),
+                        socraticDiagnosis: "6x is the derivative (slope) of 3x². For the area under the curve, reverse the power rule to get F(x) = x³ at x = \(upper)."
+                    )
                 ]
             )
 
@@ -634,6 +1002,20 @@ enum QuantitativeMathsEngine {
                 stepByStepDerivation: [
                     "1. Square the components: \(vx)² + \(vy)² = \(vx * vx) + \(vy * vy) = \(mag * mag).",
                     "2. Take the square root: |v| = √\(mag * mag) = \(mag)."
+                ],
+                traps: [
+                    BuggyRuleTrap(
+                        id: "trap-vec-manhattan-sum",
+                        trapName: "Component Sum Trap (vx + vy Instead of √(vx² + vy²))",
+                        buggyValue: Double(vx + vy),
+                        socraticDiagnosis: "\(vx) + \(vy) = \(vx + vy) walks along the grid axes. The vector arrow cuts diagonally across the right triangle: |v| = √(\(vx)² + \(vy)²)."
+                    ),
+                    BuggyRuleTrap(
+                        id: "trap-vec-squared-length",
+                        trapName: "Forgot Square Root (Reported |v|² = vx² + vy²)",
+                        buggyValue: Double(mag * mag),
+                        socraticDiagnosis: "\(mag * mag) is |v|² = \(vx)² + \(vy)². Take √\(mag * mag) to get the vector's length |v|!"
+                    )
                 ]
             )
 
@@ -661,6 +1043,20 @@ enum QuantitativeMathsEngine {
                     "1. Multiply main diagonal entries: a × d = \(a) × \(d) = \(a * d).",
                     "2. Subtract off-diagonal product: b × c = \(b) × \(c) = \(b * c).",
                     "3. Determinant det(A) = \(a * d) − \(b * c) = \(det)."
+                ],
+                traps: [
+                    BuggyRuleTrap(
+                        id: "trap-det-added-off-diagonal",
+                        trapName: "Added Off-Diagonal Product (ad + bc Instead of ad − bc)",
+                        buggyValue: Double(a * d + b * c),
+                        socraticDiagnosis: "The off-diagonal shear triangles reduce the bounding-box area, so subtract b × c = \(b * c) from a × d = \(a * d) instead of adding!"
+                    ),
+                    BuggyRuleTrap(
+                        id: "trap-det-trace-sum",
+                        trapName: "Confused Determinant with Matrix Trace (a + d)",
+                        buggyValue: Double(a + d),
+                        socraticDiagnosis: "\(a) + \(d) = \(a + d) is the trace of A. Area scaling comes from the product of diagonals minus the shear: (\(a) × \(d)) − (\(b) × \(c))."
+                    )
                 ]
             )
         }
@@ -679,9 +1075,13 @@ enum QuantitativeMathsEngine {
         let err = abs(value - problem.expectedValue)
         let ok = err <= problem.tolerance
 
+        var matchedTrap: BuggyRuleTrap? = nil
         let feedback: String
         if ok {
             feedback = "Exact match! Expected \(formatNumber(problem.expectedValue)) \(problem.unitLabel). Notice how the visual invariant guarantees the formula."
+        } else if let trap = problem.traps.first(where: { abs(value - $0.buggyValue) <= max($0.tolerance, problem.tolerance) }) {
+            matchedTrap = trap
+            feedback = "Trap Detected (\(trap.trapName)): \(trap.socraticDiagnosis)"
         } else {
             feedback = "Submitted \(formatNumber(value)), expected \(formatNumber(problem.expectedValue)) \(problem.unitLabel). Check the Intuition → Formula steps below."
         }
@@ -691,7 +1091,8 @@ enum QuantitativeMathsEngine {
             submittedValue: value,
             expectedValue: problem.expectedValue,
             absoluteError: err,
-            feedback: feedback
+            feedback: feedback,
+            matchedTrap: matchedTrap
         )
     }
 

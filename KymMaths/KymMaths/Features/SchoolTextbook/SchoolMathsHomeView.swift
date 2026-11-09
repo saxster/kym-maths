@@ -298,6 +298,9 @@ struct SchoolMathsHomeView: View {
                                         .font(Typography.subheadline.weight(.semibold))
                                         .foregroundStyle(Color.kymaiaInk)
                                 }
+                                if let trap = eval.matchedTrap {
+                                    BuggyRuleTrapBanner(trap: trap)
+                                }
                                 ForEach(currentProblem.stepByStepDerivation, id: \.self) { step in
                                     Text(step)
                                         .font(Typography.caption)
@@ -309,6 +312,27 @@ struct SchoolMathsHomeView: View {
                         }
                     }
                 }
+            }
+
+            // 5. Peer Mathematical Debate ("Who Is Right & Why?") for OUP Chapter
+            let unitDebate = MathematicalDebateEngine.scenario(forOUPUnit: unit.unitNumber)
+            JournalSection(
+                title: "Peer Mathematical Debate (OUP Ch \(unit.unitNumber))",
+                eyebrow: "Misconception Immunity · Spot the Tempting Exam Trap Before It Catches You"
+            ) {
+                MathematicalDebateCardView(
+                    scenario: unitDebate,
+                    initialSelectedChoiceId: store.calloutResponses["debate-\(unitDebate.id)"]?.responseText,
+                    onChoiceSelected: { choice, isCorrect in
+                        store.saveCalloutResponse(
+                            calloutId: "debate-\(unitDebate.id)",
+                            chapterNumber: unitDebate.chapterNumber,
+                            text: choice.id,
+                            confidencePercent: isCorrect ? 95 : 40,
+                            isUnlockedOverride: isCorrect
+                        )
+                    }
+                )
             }
         }
         .onAppear {
