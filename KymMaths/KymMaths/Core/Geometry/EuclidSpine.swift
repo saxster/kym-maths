@@ -101,6 +101,7 @@ struct EuclidProposition {
 /// docs/EUCLID_SPINE.md is the readable version; when the two disagree, this file wins.
 enum EuclidSpine {
     static let catalog: [EuclidProposition] = [
+        i1, i9, i10, i11, i46, i47,
         i4, i8, i14, i28, i33, i34, i41,
     ]
 
@@ -109,6 +110,380 @@ enum EuclidSpine {
     }
 
     private static let byID = Dictionary(catalog.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
+
+    private static func degrees(_ d: Double) -> Double { d * .pi / 180 }
+
+    // MARK: - Built
+
+    static let i1 = EuclidProposition(
+        id: "I.1",
+        title: "Equilateral triangle",
+        statement: "On a given line, build a triangle with all three sides equal.",
+        kind: .built(Construction(
+            givens: [.point("A", Vec2(x: 0, y: 0)), .point("B", Vec2(x: 4, y: 0)), .segment("A", "B")],
+            construct: { board, n in
+                let (a, b) = (try n.point("A"), try n.point("B"))
+                let aroundA = try board.circle(a, through: b, .blue)
+                let aroundB = try board.circle(b, through: a, .red)
+                let c = try board.intersect(aroundA, aroundB, .left)
+                _ = try board.segment(c, a, .blue)
+                _ = try board.segment(c, b, .red)
+                return ["A": a, "B": b, "C": c]
+            },
+            goal: .equilateralTriangle(on: "A", "B")
+        )),
+        uses: [],
+        proofSteps: [
+            ProofStep(claim: [.segment("C", "A", .blue), .text("="), .segment("A", "B", .ink),
+                              .text(": both are radii of"), .circle(center: "A", .blue)],
+                      because: .definition(15)),
+            ProofStep(claim: [.segment("C", "B", .red), .text("="), .segment("B", "A", .ink),
+                              .text(": both are radii of"), .circle(center: "B", .red)],
+                      because: .definition(15)),
+            ProofStep(claim: [.segment("C", "A", .blue), .text("="), .segment("C", "B", .red),
+                              .text(": both equal"), .segment("A", "B", .ink)],
+                      because: .commonNotion(1)),
+            ProofStep(claim: [.text("All three sides are equal, so"), .region(["A", "B", "C"], .amber),
+                              .text("is equilateral")],
+                      because: .definition(20)),
+        ],
+        deviceOffCheck: DeviceOffCheck(
+            task: "On paper, with a real compass, build an equilateral triangle on a 6 cm line. Measure all three sides.",
+            answer: "All three sides are 6 cm."
+        ),
+        knowsWhen: KnowsWhenPrompt(
+            problem: "Three friends want to stand so that each one is the same distance from the other two. Two are already standing. Where does the third go?",
+            answer: "I.1"
+        ),
+        leadsToChapter: nil
+    )
+
+    static let i9 = EuclidProposition(
+        id: "I.9",
+        title: "Bisect an angle",
+        statement: "Cut a given angle exactly in half.",
+        kind: .built(Construction(
+            givens: [
+                .point("A", Vec2(x: 0, y: 0)),
+                .point("B", Vec2(x: 4, y: 0)),
+                .point("C", Vec2(x: 6 * cos(degrees(70)), y: 6 * sin(degrees(70)))),
+                .segment("A", "B"),
+                .segment("A", "C"),
+            ],
+            construct: { board, n in
+                let (a, b, c) = (try n.point("A"), try n.point("B"), try n.point("C"))
+                // Euclid takes D anywhere on AB and copies AD onto AC with I.3. A circle centred at
+                // the vertex does both: D is B itself, and E is where the circle cuts AC.
+                let d = b
+                let aroundA = try board.circle(a, through: d, .green)
+                let e = try board.intersect(aroundA, try board.segment(a, c, .ink), .nearer)
+                let (pa, pd, pe) = (try board.position(of: a), try board.position(of: d), try board.position(of: e))
+                // I.1 puts its apex left of the line it is given; order D and E so the apex lands away from A.
+                let base = (pe - pd).cross(pa - pd) > 0 ? [e, d] : [d, e]
+                let f = try board.use("I.1", base).point("C")
+                _ = try board.segment(a, f, .amber)
+                return ["A": a, "B": b, "C": c, "D": d, "E": e, "F": f]
+            },
+            goal: .bisectAngle(vertex: "A", arms: "B", "C")
+        )),
+        uses: ["I.1", "I.8"],
+        proofSteps: [
+            ProofStep(claim: [.segment("A", "D", .ink), .text("="), .segment("A", "E", .ink),
+                              .text(": both are radii of"), .circle(center: "A", .green)],
+                      because: .definition(15)),
+            ProofStep(claim: [.segment("D", "F", .red), .text("="), .segment("E", "F", .blue),
+                              .text(": two sides of an equilateral triangle")],
+                      because: .proposition("I.1")),
+            ProofStep(claim: [.text("The two triangles share"), .segment("A", "F", .amber),
+                              .text(", so"), .angle("D", "A", "F", .red), .text("="), .angle("E", "A", "F", .blue),
+                              .text(":"), .segment("A", "F", .amber), .text("cuts the angle in half")],
+                      because: .proposition("I.8")),
+        ],
+        deviceOffCheck: DeviceOffCheck(
+            task: "Draw a 70° angle. Bisect it with a compass and a ruler, then measure each half.",
+            answer: "Each half is 35°."
+        ),
+        knowsWhen: KnowsWhenPrompt(
+            problem: "A path starts at the corner of a field and must stay the same distance from both walls. Which way does it run?",
+            answer: "I.9"
+        ),
+        leadsToChapter: nil
+    )
+
+    static let i10 = EuclidProposition(
+        id: "I.10",
+        title: "Bisect a segment",
+        statement: "Cut a given line exactly in half.",
+        kind: .built(Construction(
+            givens: [.point("A", Vec2(x: 0, y: 0)), .point("B", Vec2(x: 7, y: 0)), .segment("A", "B")],
+            construct: { board, n in
+                let (a, b) = (try n.point("A"), try n.point("B"))
+                let c = try board.use("I.1", [a, b]).point("C")
+                let f = try board.use("I.9", [c, a, b]).point("F")
+                let d = try board.intersect(try board.segment(c, f, .amber), try board.segment(a, b, .ink), .only)
+                return ["A": a, "B": b, "C": c, "D": d]
+            },
+            goal: .bisectSegment("A", "B")
+        )),
+        uses: ["I.1", "I.9", "I.4"],
+        proofSteps: [
+            ProofStep(claim: [.segment("A", "C", .blue), .text("="), .segment("C", "B", .red),
+                              .text(": two sides of an equilateral triangle")],
+                      because: .proposition("I.1")),
+            ProofStep(claim: [.angle("A", "C", "D", .red), .text("="), .angle("B", "C", "D", .blue),
+                              .text(":"), .segment("C", "D", .amber), .text("cuts the angle in half")],
+                      because: .proposition("I.9")),
+            ProofStep(claim: [.text("The two triangles share"), .segment("C", "D", .amber),
+                              .text(", so"), .segment("A", "D", .ink), .text("="), .segment("D", "B", .ink)],
+                      because: .proposition("I.4")),
+        ],
+        deviceOffCheck: DeviceOffCheck(
+            task: "Draw a 7 cm line. Find its midpoint with a compass. Measure both halves and the angle where the two lines cross.",
+            answer: "Each half is 3.5 cm, and the lines cross at 90°."
+        ),
+        knowsWhen: KnowsWhenPrompt(
+            problem: "Where can a well go so that it is the same distance from two villages?",
+            answer: "I.10"
+        ),
+        leadsToChapter: "ch09"
+    )
+
+    static let i11 = EuclidProposition(
+        id: "I.11",
+        title: "Perpendicular at a point",
+        statement: "From a point on a line, draw a second line at right angles to it.",
+        kind: .built(Construction(
+            givens: [
+                .point("A", Vec2(x: 0, y: 0)),
+                .point("B", Vec2(x: 8, y: 0)),
+                .point("C", Vec2(x: 3, y: 0)),
+                .segment("A", "B"),
+            ],
+            construct: { board, n in
+                let (a, b, c) = (try n.point("A"), try n.point("B"), try n.point("C"))
+                let (pa, pb, pc) = (try board.position(of: a), try board.position(of: b), try board.position(of: c))
+                // Euclid takes D anywhere on the line. The nearer end is a point already on the board,
+                // and the circle through it cuts the line again inside the segment.
+                let d = pc.distance(to: pa) <= pc.distance(to: pb) ? a : b
+                let aroundC = try board.circle(c, through: d, .green)
+                let e = try board.intersect(aroundC, try board.segment(a, b, .ink), awayFrom: d)
+                // Ordered along A→B, so I.1's apex, and the perpendicular, land left of A→B.
+                let f = try board.use("I.1", d == a ? [d, e] : [e, d]).point("C")
+                _ = try board.segment(c, f, .amber)
+                return ["A": a, "B": b, "C": c, "D": d, "E": e, "F": f]
+            },
+            goal: .perpendicularAt(point: "C", onSegment: "A", "B")
+        )),
+        uses: ["I.1", "I.8"],
+        proofSteps: [
+            ProofStep(claim: [.segment("C", "D", .ink), .text("="), .segment("C", "E", .ink),
+                              .text(": both are radii of"), .circle(center: "C", .green)],
+                      because: .definition(15)),
+            ProofStep(claim: [.segment("D", "F", .blue), .text("="), .segment("E", "F", .red),
+                              .text(": two sides of an equilateral triangle")],
+                      because: .proposition("I.1")),
+            ProofStep(claim: [.text("The two triangles share"), .segment("C", "F", .amber),
+                              .text(", so"), .angle("D", "C", "F", .red), .text("="), .angle("E", "C", "F", .blue)],
+                      because: .proposition("I.8")),
+            ProofStep(claim: [.text("Equal angles side by side on a line are right angles, so"),
+                              .segment("C", "F", .amber), .text("is at right angles to"), .segment("A", "B", .ink)],
+                      because: .definition(10)),
+        ],
+        deviceOffCheck: DeviceOffCheck(
+            task: "Draw a line and mark a point on it. Without a protractor, draw a line through the point at right angles. Check it with a set square.",
+            answer: "The set square fits: the angle is 90°."
+        ),
+        knowsWhen: KnowsWhenPrompt(
+            problem: "A flagpole must stand at right angles to a straight path, at one marked spot. How do you set it out with only a rope and two pegs?",
+            answer: "I.11"
+        ),
+        leadsToChapter: nil
+    )
+
+    static let i46 = EuclidProposition(
+        id: "I.46",
+        title: "Square on a segment",
+        statement: "On a given line, build a square.",
+        kind: .built(Construction(
+            // The board has no Postulate 2, so the given line runs past A and B, far enough for I.11 at each end.
+            givens: [
+                .point("P", Vec2(x: -3.5, y: 0)),
+                .point("A", Vec2(x: 0, y: 0)),
+                .point("B", Vec2(x: 5, y: 0)),
+                .point("Q", Vec2(x: 8.5, y: 0)),
+                .segment("P", "Q"),
+            ],
+            construct: { board, n in
+                let (p, a, b, q) = (try n.point("P"), try n.point("A"), try n.point("B"), try n.point("Q"))
+                let upFromA = try board.segment(a, board.use("I.11", [p, q, a]).point("F"), .amber)
+                let upFromB = try board.segment(b, board.use("I.11", [p, q, b]).point("F"), .amber)
+                let d = try board.intersect(try board.circle(a, through: b, .blue), upFromA, .nearer)
+                let e = try board.intersect(try board.circle(b, through: a, .red), upFromB, .nearer)
+                _ = try board.segment(d, e, .green)
+                return ["P": p, "A": a, "B": b, "Q": q, "D": d, "E": e]
+            },
+            goal: .squareOn(side: "A", "B")
+        )),
+        uses: ["I.11", "I.28", "I.33", "I.34"],
+        proofSteps: [
+            ProofStep(claim: [.segment("A", "D", .amber), .text("="), .segment("A", "B", .ink),
+                              .text(": both are radii of"), .circle(center: "A", .blue)],
+                      because: .definition(15)),
+            ProofStep(claim: [.segment("B", "E", .amber), .text("="), .segment("B", "A", .ink),
+                              .text(": both are radii of"), .circle(center: "B", .red)],
+                      because: .definition(15)),
+            ProofStep(claim: [.angle("D", "A", "B", .red), .text("and"), .angle("E", "B", "A", .blue),
+                              .text("are right angles")],
+                      because: .proposition("I.11")),
+            ProofStep(claim: [.text("Together they make two right angles, so"), .segment("A", "D", .amber),
+                              .text("is parallel to"), .segment("B", "E", .amber)],
+                      because: .proposition("I.28")),
+            ProofStep(claim: [.segment("A", "D", .amber), .text("and"), .segment("B", "E", .amber),
+                              .text("are equal and parallel, so"), .segment("D", "E", .green),
+                              .text("is equal and parallel to"), .segment("A", "B", .ink)],
+                      because: .proposition("I.33")),
+            ProofStep(claim: [.text("Opposite angles of a parallelogram are equal, so every angle of"),
+                              .region(["A", "D", "E", "B"], .amber), .text("is a right angle")],
+                      because: .proposition("I.34")),
+            ProofStep(claim: [.text("Four equal sides and four right angles:"),
+                              .region(["A", "D", "E", "B"], .amber), .text("is a square")],
+                      because: .definition(22)),
+        ],
+        deviceOffCheck: DeviceOffCheck(
+            task: "Build a square on a 5 cm line with a compass and a ruler. Measure a diagonal.",
+            answer: "About 7.1 cm (5 × √2 ≈ 7.07)."
+        ),
+        knowsWhen: KnowsWhenPrompt(
+            problem: "Mark out a square sandpit along one wall of the garden, with each side as long as the wall.",
+            answer: "I.46"
+        ),
+        leadsToChapter: nil
+    )
+
+    static let i47 = EuclidProposition(
+        id: "I.47",
+        title: "Pythagoras",
+        statement: "In a right-angled triangle, the square on the longest side equals the squares on the other two sides added together.",
+        kind: .built(Construction(
+            // A 3-4-5 triangle with the right angle at A. Each side's given line runs on past its ends
+            // (bc1 beyond B, bc2 beyond C, and so on) so I.46 can raise a square on it.
+            givens: [
+                .point("A", Vec2(x: 1.8, y: 2.4)),
+                .point("B", Vec2(x: 0, y: 0)),
+                .point("C", Vec2(x: 5, y: 0)),
+                .point("bc1", Vec2(x: -3.5, y: 0)),
+                .point("bc2", Vec2(x: 8.5, y: 0)),
+                .point("ab1", Vec2(x: 3.06, y: 4.08)),
+                .point("ab2", Vec2(x: -1.26, y: -1.68)),
+                .point("ac1", Vec2(x: -0.44, y: 4.08)),
+                .point("ac2", Vec2(x: 7.24, y: -1.68)),
+                .segment("bc1", "bc2"),
+                .segment("ab1", "ab2"),
+                .segment("ac1", "ac2"),
+            ],
+            construct: { board, n in
+                let (a, b, c) = (try n.point("A"), try n.point("B"), try n.point("C"))
+                let (d, e) = try square(&board, on: b, c, line: (n.point("bc1"), n.point("bc2")), awayFrom: a)
+                let (g, f) = try square(&board, on: a, b, line: (n.point("ab1"), n.point("ab2")), awayFrom: c)
+                let (h, k) = try square(&board, on: a, c, line: (n.point("ac1"), n.point("ac2")), awayFrom: b)
+                // Euclid draws AL parallel to BD with I.31. The board has no parallel tool, so AL is
+                // dropped onto DE at right angles instead: a circle centred A cuts DE at D and N, and I.10 halves DN.
+                let aroundA = try board.circle(a, through: d, .ink)
+                let nPoint = try board.intersect(aroundA, try board.segment(d, e, .green), awayFrom: d)
+                let l = try board.use("I.10", [d, nPoint]).point("D")
+                let m = try board.intersect(
+                    try board.segment(a, l, .amber),
+                    try board.segment(n.point("bc1"), n.point("bc2"), .ink),
+                    .only
+                )
+                _ = try board.segment(a, d, .red)
+                _ = try board.segment(f, c, .red)
+                _ = try board.segment(a, e, .blue)
+                _ = try board.segment(b, k, .blue)
+                return n.merging(["D": d, "E": e, "F": f, "G": g, "H": h, "K": k, "L": l, "M": m, "N": nPoint]) { $1 }
+            },
+            goal: .squaresOnRightTriangle(rightAngle: "A", "B", "C")
+        )),
+        uses: ["I.46", "I.10", "I.8", "I.28", "I.14", "I.4", "I.41"],
+        proofSteps: [
+            ProofStep(claim: [.segment("D", "L", .green), .text("="), .segment("L", "N", .green),
+                              .text(": L halves DN")],
+                      because: .proposition("I.10")),
+            ProofStep(claim: [.text("AD = AN, radii of"), .circle(center: "A", .ink), .text(", and the triangles share"),
+                              .segment("A", "L", .amber), .text(", so"),
+                              .angle("A", "L", "D", .red), .text("="), .angle("A", "L", "N", .blue)],
+                      because: .proposition("I.8")),
+            ProofStep(claim: [.text("Equal angles side by side are right angles, so"), .segment("A", "L", .amber),
+                              .text("is at right angles to"), .segment("D", "E", .green)],
+                      because: .definition(10)),
+            ProofStep(claim: [.segment("B", "D", .amber), .text("is at right angles to"), .segment("D", "E", .green),
+                              .text("too, so"), .segment("A", "L", .amber), .text("is parallel to"),
+                              .segment("B", "D", .amber)],
+                      because: .proposition("I.28")),
+            ProofStep(claim: [.angle("B", "A", "C", .red), .text("and"), .angle("B", "A", "G", .blue),
+                              .text("are right angles, so"), .segment("G", "A", .amber), .text("and"),
+                              .segment("A", "C", .ink), .text("make one straight line")],
+                      because: .proposition("I.14")),
+            ProofStep(claim: [.angle("D", "B", "C", .red), .text("="), .angle("F", "B", "A", .blue),
+                              .text(": both are right angles")],
+                      because: .postulate(4)),
+            ProofStep(claim: [.text("Add"), .angle("A", "B", "C", .green), .text("to each:"),
+                              .angle("D", "B", "A", .red), .text("="), .angle("F", "B", "C", .blue)],
+                      because: .commonNotion(2)),
+            ProofStep(claim: [.segment("B", "D", .amber), .text("="), .segment("B", "C", .ink), .text("and"),
+                              .segment("B", "A", .ink), .text("="), .segment("B", "F", .amber), .text(", so"),
+                              .region(["A", "B", "D"], .red), .text("="), .region(["F", "B", "C"], .red)],
+                      because: .proposition("I.4")),
+            ProofStep(claim: [.region(["B", "D", "L", "M"], .blue), .text("is double"),
+                              .region(["A", "B", "D"], .red), .text(": the same base"), .segment("B", "D", .amber),
+                              .text(", between the parallels"), .segment("B", "D", .amber), .text("and"),
+                              .segment("A", "L", .amber)],
+                      because: .proposition("I.41")),
+            ProofStep(claim: [.region(["A", "B", "F", "G"], .blue), .text("is double"),
+                              .region(["F", "B", "C"], .red), .text(": the same base"), .segment("F", "B", .amber),
+                              .text(", between the parallels FB and GC")],
+                      because: .proposition("I.41")),
+            ProofStep(claim: [.text("Both are double the same-sized triangle, so"),
+                              .region(["B", "D", "L", "M"], .blue), .text("="), .region(["A", "B", "F", "G"], .blue)],
+                      because: .commonNotion(1)),
+            ProofStep(claim: [.text("In the same way, joining"), .segment("A", "E", .blue), .text("and"),
+                              .segment("B", "K", .blue), .text(":"), .region(["C", "E", "L", "M"], .green),
+                              .text("="), .region(["A", "C", "K", "H"], .green)],
+                      because: .proposition("I.41")),
+            ProofStep(claim: [.region(["B", "D", "E", "C"], .amber), .text("="),
+                              .region(["B", "D", "L", "M"], .blue), .text("+"), .region(["C", "E", "L", "M"], .green),
+                              .text("="), .region(["A", "B", "F", "G"], .blue), .text("+"),
+                              .region(["A", "C", "K", "H"], .green)],
+                      because: .commonNotion(2)),
+        ],
+        deviceOffCheck: DeviceOffCheck(
+            task: "Sketch the three squares and say why the two small squares fill the big one. Then: a right triangle has shorter sides 5 and 12. How long is the longest side?",
+            answer: "Each small square equals the rectangle below it in the big square. 25 + 144 = 169, so the longest side is 13."
+        ),
+        knowsWhen: KnowsWhenPrompt(
+            problem: "A ladder is 13 m long and its foot is 5 m from the wall. How high up the wall does it reach?",
+            answer: "I.47"
+        ),
+        leadsToChapter: "ch12"
+    )
+
+    /// I.46 on the side `u`–`v`, on the side away from `w`. `line` is the given line, its first end beyond `u`.
+    /// Returns the square's new corners next to `u` and next to `v`.
+    private static func square(
+        _ board: inout ConstructionBoard,
+        on u: PointID, _ v: PointID,
+        line: (PointID, PointID),
+        awayFrom w: PointID
+    ) throws -> (PointID, PointID) {
+        let (pu, pv, pw) = (try board.position(of: u), try board.position(of: v), try board.position(of: w))
+        // I.46 builds on the left of its line, so when w is on the left, walk the line the other way.
+        if (pv - pu).cross(pw - pu) > 0 {
+            let corners = try board.use("I.46", [line.1, v, u, line.0])
+            return (try corners.point("E"), try corners.point("D"))
+        }
+        let corners = try board.use("I.46", [line.0, u, v, line.1])
+        return (try corners.point("D"), try corners.point("E"))
+    }
 
     // MARK: - Accepted
 
