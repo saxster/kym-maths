@@ -207,9 +207,10 @@ def build_chapters():
             "Because AP = BP = AQ = BQ = r, the four radii form a rhombus — and the diagonals of a rhombus always bisect each other at 90°!",
             "|PA| = |PB|  ⇔  P lies on perpendicular bisector of AB;   Euler: V − E + F = 2",
             [
-                {"symbol": "|PA| = |PB| = r", "visualPart": "Red & Blue equal compass radii from A and B", "colorRole": "red", "meaning": "Rhombus side invariant"},
-                {"symbol": "000°–360°", "visualPart": "Amber clockwise bearing arc from North", "colorRole": "amber", "meaning": "Back-bearing differs by ±180°"},
-                {"symbol": "V − E + F = 2", "visualPart": "Green 3D polyhedron net topology", "colorRole": "green", "meaning": "Euler characteristic of any convex polyhedron"}
+                {"symbol": "|PA| = |PB| = r", "visualPart": "Blue equal compass rings centred on A and B", "colorRole": "blue", "meaning": "Rhombus side invariant"},
+                {"symbol": "PQ ⊥ AB", "visualPart": "Red perpendicular bisector through the two crossings", "colorRole": "red", "meaning": "Every point on it is the same distance from A and B"},
+                {"symbol": "000°–360°", "visualPart": "Amber bearing ray from A to B, read clockwise from the green North lines", "colorRole": "amber", "meaning": "Back-bearing differs by ±180°"},
+                {"symbol": "V − E + F = 2", "visualPart": "Amber cube wireframe folded from its net", "colorRole": "amber", "meaning": "Euler characteristic of any convex polyhedron"}
             ],
             "maths/ch09-loci-constructions/index.html",
             ["Locus", "Perpendicular Bisector", "Angle Bisector", "SSS / SAS / ASA Triangle Construction", "3-Figure Bearing", "Plan & Elevation", "Euler's Formula"],
@@ -496,6 +497,50 @@ def build_explorers():
     ]
 
 
+# Widgets that share a chapter but show a different atlas page need their own text.
+# Numbers and colours here come from the routed page's model.js and chapter.js.
+WIDGET_OVERRIDES = {
+    "w_bearings_back_bearing_radar": {
+        "challengePrompt": "Set the bearing of B from A, measured clockwise from North in three figures. Predict the back bearing of A from B, then check it on the radar: 065° gives 245°.",
+        "cutaway": "The North lines at A and B are parallel, so the way back points exactly opposite the way out. Back bearing = forward + 180° when the forward bearing is under 180°, and forward − 180° otherwise. At 065° the co-interior angle at B is 115° and the back bearing is 245°.",
+        "idealised": "Formula Anatomy: back bearing = forward ± 180°, always written in three figures (065° → 245°)",
+        "watchSteps": [
+            {"title": "1. Concrete Touch", "caption": "Drag the forward-bearing slider between 25° and 160° and watch the amber ray from A to B turn clockwise from North."},
+            {"title": "2. Spot the Invariant ('Aha!')", "caption": "The back bearing is always the forward bearing plus 180°: 065° + 180° = 245°."},
+            {"title": "3. Colour-Map the Symbols", "caption": "The green arrows are the parallel North lines at A and B. The amber ray is the path from A to B, read one way for the bearing and the other way for the back bearing."},
+            {"title": "4. Test a Boundary Case", "caption": "On paper, start from 245°. It is over 180°, so subtract instead: 245° − 180° = 065°, back where you began."},
+            {"title": "5. Stamp & Sketch in Journal", "caption": "Write both bearings with three figures (065°, not 65°) in your Cornell Proof & Construction Journal."},
+        ],
+    },
+    "w_polyhedron_net_folder": {
+        "challengePrompt": "Slide the net fold from 0 (flat) to 1 (closed) to fold six squares into a cube. Count its vertices, edges and faces, then check V − E + F = 2 for the tetrahedron, the cube and the octahedron.",
+        "cutaway": "Folding a net joins edges and corners together but never adds or removes a face. The cube has 8 vertices, 12 edges and 6 faces: 8 − 12 + 6 = 2. The tetrahedron gives 4 − 6 + 4 = 2 and the octahedron 6 − 12 + 8 = 2.",
+        "idealised": "Formula Anatomy: V − E + F = 2 (tetrahedron 4 − 6 + 4, cube 8 − 12 + 6, octahedron 6 − 12 + 8)",
+        "watchSteps": [
+            {"title": "1. Concrete Touch", "caption": "Set the net fold to 0 to lay the cube open, then slide it to 1 to close it."},
+            {"title": "2. Spot the Invariant ('Aha!')", "caption": "Count the closed cube: 8 corners, 12 edges, 6 faces. 8 − 12 + 6 = 2."},
+            {"title": "3. Colour-Map the Symbols", "caption": "The amber wireframe is the folded cube: its corners are V, its struts are E and its square faces are F."},
+            {"title": "4. Test a Boundary Case", "caption": "Count two other solids on paper: the tetrahedron gives 4 − 6 + 4 = 2 and the octahedron 6 − 12 + 8 = 2."},
+            {"title": "5. Stamp & Sketch in Journal", "caption": "Sketch a cube net in your Cornell Proof & Construction Journal and label V, E and F."},
+        ],
+    },
+    "w_pythagoras_garfield_proof": {
+        "title": "Pythagoras: Three Squares Under P",
+        "atlasRoute": "maths/unit-circle/index.html#3",
+        "challengePrompt": "Watch P sway between 20° and 70° on the unit circle and follow the three squares on the right triangle under P. Check that the red square and the blue square together always cover the grey square on the radius: sin²θ + cos²θ = 1.",
+        "cutaway": "This page shows Pythagoras on one right triangle, the one with hypotenuse 1. Its sides are cos θ across (blue) and sin θ up (red), so the squares on them are cos²θ and sin²θ, and together they match the grey 1² square on the radius. It checks the theorem at every angle; it does not prove it.",
+        "idealised": "Formula Anatomy: sin²θ + cos²θ = 1², the squares on the two legs and the hypotenuse of the triangle under P",
+        "watchSteps": [
+            {"title": "1. Concrete Touch", "caption": "Click the triangle under P: the red, blue and grey squares fold part way up off the board."},
+            {"title": "2. Spot the Invariant ('Aha!')", "caption": "Red plus blue covers grey at every angle. At 30°: (½)² + (√3/2)² = ¼ + ¾ = 1."},
+            {"title": "3. Colour-Map the Symbols", "caption": "Red is the square on the side up, sin θ. Blue is the square on the side across, cos θ. Grey is the square on the radius, 1."},
+            {"title": "4. Test a Boundary Case", "caption": "On paper, take θ = 0°: the red square vanishes and the blue square is the whole grey one, 0 + 1 = 1."},
+            {"title": "5. Stamp & Sketch in Journal", "caption": "Draw the triangle and its three squares in your Cornell Proof & Construction Journal."},
+        ],
+    },
+}
+
+
 def build_widgets(chapters):
     widgets = []
     for ch in chapters:
@@ -520,6 +565,7 @@ def build_widgets(chapters):
                     {"title": "4. Test a Boundary Case", "caption": "Push the slider to 0, 1, or 90° and verify that the formula predicts the exact extreme state."},
                     {"title": "5. Stamp & Sketch in Journal", "caption": "Freeze the state into your Cornell Proof & Construction Journal."},
                 ],
+                **WIDGET_OVERRIDES.get(wid, {}),
             })
     return widgets
 
