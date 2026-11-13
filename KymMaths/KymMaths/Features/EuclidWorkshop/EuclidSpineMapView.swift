@@ -86,7 +86,7 @@ struct EuclidSpineMapView: View {
     private var legend: some View {
         FlowLayout(spacing: Spacing.sm) {
             ForEach(SkillLevel.allCases, id: \.self) { level in
-                HStack(spacing: Spacing.xxs) {
+                HStack(spacing: Spacing.xs) {
                     LampRow(lit: { $0 == level })
                     Text(level.title).font(Typography.caption).foregroundStyle(Color.kymaiaMutedInk)
                 }
