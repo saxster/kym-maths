@@ -386,8 +386,9 @@ struct DailyFlowPlayerSheet: View {
     @State private var selectedTermSymbol: String? = nil
     @State private var trapInput = ""
     @State private var trapEval: QuantitativeAttemptEvaluation? = nil
-    @State private var knowsWhenChoice: PropositionID? = nil
-    @State private var knowsWhenRight = false
+    /// Pinned when the sheet opens. The plan is rebuilt whenever progress changes, and a right
+    /// answer moves the selector on, so reading it live would drop the card and its feedback.
+    @State private var knowsWhen: EuclidKnowsWhenAttempt? = nil
 
     var body: some View {
         NavigationStack {
@@ -600,24 +601,22 @@ struct DailyFlowPlayerSheet: View {
                                         BuggyRuleTrapBanner(trap: trap)
                                     }
                                 }
-
-                                HStack {
-                                    Spacer()
-                                    Button("Advance to Stage 4: Companion Workbook Proof →") {
-                                        completedStages.insert(.misconceptionImmunity)
-                                        currentStage = .companionWorkbookProof
-                                    }
-                                    .buttonStyle(BrassButtonStyle())
-                                }
                             }
                         }
 
-                        if let question = plan.euclidKnowsWhen {
-                            EuclidKnowsWhenCard(question: question, choice: knowsWhenChoice, isRight: knowsWhenRight) { choice in
-                                guard knowsWhenChoice == nil else { return }
-                                knowsWhenChoice = choice
-                                knowsWhenRight = EuclidKnowsWhen.answer(choice, to: question, progress: &store.euclidProgress)
+                        if let attempt = knowsWhen {
+                            EuclidKnowsWhenCard(question: attempt.question, choice: attempt.choice, isRight: attempt.isRight) { choice in
+                                knowsWhen?.choose(choice, progress: &store.euclidProgress)
                             }
+                        }
+
+                        HStack {
+                            Spacer()
+                            Button("Advance to Stage 4: Companion Workbook Proof →") {
+                                completedStages.insert(.misconceptionImmunity)
+                                currentStage = .companionWorkbookProof
+                            }
+                            .buttonStyle(BrassButtonStyle())
                         }
                     }
 
@@ -655,6 +654,9 @@ struct DailyFlowPlayerSheet: View {
                 }
             }
             .navigationTitle("15-Minute Daily Flow")
+            .onAppear {
+                if knowsWhen == nil { knowsWhen = plan.euclidKnowsWhen.map(EuclidKnowsWhenAttempt.init(question:)) }
+            }
             .onDisappear {
                 narrator.stop()
             }

@@ -167,12 +167,17 @@ struct EuclidKnowsWhenQuestion: Equatable, Sendable {
 
 enum EuclidKnowsWhen {
     /// The earliest proposition she has in her head but has not yet shown she knows when to use.
+    /// Every wrong option is one she has proven, so the question waits until she has proven two
+    /// besides the answer: with one wrong option, a guess would light the last lamp half the time.
     static func select(progress: EuclidProgress, catalog: [EuclidProposition] = EuclidSpine.catalog) -> EuclidKnowsWhenQuestion? {
         let asked = catalog.filter { $0.knowsWhen != nil }
         guard let target = asked.first(where: { progress.highest($0.id) == .head }),
               let prompt = target.knowsWhen else { return nil }
+        let proven = progress.proven
+        let candidates = asked.map(\.id).filter { $0 != prompt.answer && proven.contains($0) }
+        guard candidates.count >= 2 else { return nil }
         var rng = SplitMix64(seed: target.id.stableSeed)
-        let others = asked.map(\.id).filter { $0 != prompt.answer }.shuffled(using: &rng).prefix(2)
+        let others = candidates.shuffled(using: &rng).prefix(2)
         return EuclidKnowsWhenQuestion(
             proposition: target.id,
             problem: prompt.problem,
@@ -185,6 +190,25 @@ enum EuclidKnowsWhen {
         guard let answer = EuclidSpine.proposition(question.proposition)?.knowsWhen?.answer, choice == answer else { return false }
         progress.record(.knowsWhen, for: question.proposition, assisted: false)
         return true
+    }
+}
+
+/// One showing of a knows-when question. It keeps the question it was shown with, so the card
+/// stays put with its feedback after a right answer lights the lamp and the selector moves on.
+struct EuclidKnowsWhenAttempt: Equatable {
+    let question: EuclidKnowsWhenQuestion
+    private(set) var choice: PropositionID?
+    private(set) var isRight = false
+
+    init(question: EuclidKnowsWhenQuestion) {
+        self.question = question
+    }
+
+    /// Only the first answer counts.
+    mutating func choose(_ option: PropositionID, progress: inout EuclidProgress) {
+        guard choice == nil else { return }
+        choice = option
+        isRight = EuclidKnowsWhen.answer(option, to: question, progress: &progress)
     }
 }
 

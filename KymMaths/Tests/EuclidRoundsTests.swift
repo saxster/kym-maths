@@ -95,13 +95,18 @@ struct EuclidRoundsTests {
 
     // MARK: - Knows when
 
+    private static func lit(_ progress: inout EuclidProgress, _ id: PropositionID, to top: SkillLevel) {
+        for level in SkillLevel.allCases where level <= top { progress.record(level, for: id, assisted: false) }
+    }
+
     @Test("The selector picks the earliest proposition held in her head, and nothing before that")
     func knowsWhenSelection() throws {
         var progress = EuclidProgress()
         #expect(EuclidKnowsWhen.select(progress: progress) == nil)
-        for level in [SkillLevel.picture, .letters] { progress.record(level, for: "I.1", assisted: false) }
+        Self.lit(&progress, "I.1", to: .letters)
+        Self.lit(&progress, "I.9", to: .picture)
         #expect(EuclidKnowsWhen.select(progress: progress) == nil, "letters is not yet in her head")
-        for level in [SkillLevel.picture, .letters, .head] { progress.record(level, for: "I.10", assisted: false) }
+        Self.lit(&progress, "I.10", to: .head)
         let question = try #require(EuclidKnowsWhen.select(progress: progress))
         #expect(question.proposition == "I.10")
         #expect(question.options.count == 3 && question.options.contains("I.10") && Set(question.options).count == 3)
@@ -110,10 +115,65 @@ struct EuclidRoundsTests {
         #expect(EuclidKnowsWhen.select(progress: progress)?.proposition == "I.1", "earliest first")
     }
 
+    @Test("Every wrong option is a proposition she has proven")
+    func knowsWhenDistractorsAreProven() throws {
+        var progress = EuclidProgress()
+        Self.lit(&progress, "I.1", to: .head)
+        Self.lit(&progress, "I.9", to: .picture)
+        Self.lit(&progress, "I.11", to: .picture)
+        let question = try #require(EuclidKnowsWhen.select(progress: progress))
+        #expect(Set(question.options) == ["I.1", "I.9", "I.11"], "never I.10 or I.47, which she has not built")
+    }
+
+    @Test("With fewer than two other proven propositions, the question waits")
+    func knowsWhenWaitsForTwoDistractors() throws {
+        var progress = EuclidProgress()
+        Self.lit(&progress, "I.1", to: .head)
+        #expect(EuclidKnowsWhen.select(progress: progress) == nil, "nothing else built")
+        Self.lit(&progress, "I.9", to: .picture)
+        #expect(EuclidKnowsWhen.select(progress: progress) == nil, "one wrong option makes it a coin toss")
+        progress.record(.picture, for: "I.10", assisted: true)
+        #expect(EuclidKnowsWhen.select(progress: progress) == nil, "an assisted try is not proven")
+        Self.lit(&progress, "I.10", to: .picture)
+        #expect(EuclidKnowsWhen.select(progress: progress)?.proposition == "I.1")
+    }
+
+    @Test("A shown question keeps its card and feedback after a right answer lights the lamp")
+    func knowsWhenAttemptStaysPinned() throws {
+        var progress = EuclidProgress()
+        Self.lit(&progress, "I.1", to: .picture)
+        Self.lit(&progress, "I.9", to: .picture)
+        Self.lit(&progress, "I.47", to: .head)
+        var attempt = EuclidKnowsWhenAttempt(question: try #require(EuclidKnowsWhen.select(progress: progress)))
+        attempt.choose("I.47", progress: &progress)
+        #expect(progress.highest("I.47") == .knowsWhen)
+        #expect(EuclidKnowsWhen.select(progress: progress) == nil, "the selector has moved on")
+        #expect(attempt.question.proposition == "I.47" && attempt.choice == "I.47" && attempt.isRight)
+
+        attempt.choose("I.1", progress: &progress)
+        #expect(attempt.choice == "I.47" && attempt.isRight, "only the first answer counts")
+    }
+
+    @Test("A wrong first answer in a shown question records nothing and stays wrong")
+    func knowsWhenAttemptWrong() throws {
+        var progress = EuclidProgress()
+        Self.lit(&progress, "I.1", to: .picture)
+        Self.lit(&progress, "I.9", to: .picture)
+        Self.lit(&progress, "I.47", to: .head)
+        var attempt = EuclidKnowsWhenAttempt(question: try #require(EuclidKnowsWhen.select(progress: progress)))
+        let wrong = try #require(attempt.question.options.first { $0 != "I.47" })
+        attempt.choose(wrong, progress: &progress)
+        attempt.choose("I.47", progress: &progress)
+        #expect(attempt.choice == wrong && !attempt.isRight)
+        #expect(progress.highest("I.47") == .head)
+    }
+
     @Test("A right first answer records knows-when; a wrong one records nothing")
     func knowsWhenRecording() throws {
         var progress = EuclidProgress()
-        for level in [SkillLevel.picture, .letters, .head] { progress.record(level, for: "I.47", assisted: false) }
+        Self.lit(&progress, "I.1", to: .picture)
+        Self.lit(&progress, "I.9", to: .picture)
+        Self.lit(&progress, "I.47", to: .head)
         let question = try #require(EuclidKnowsWhen.select(progress: progress))
         let wrong = try #require(question.options.first { $0 != "I.47" })
         let wrongAnswer = EuclidKnowsWhen.answer(wrong, to: question, progress: &progress)
@@ -135,7 +195,9 @@ struct EuclidRoundsTests {
         let without = plan(EuclidProgress())
         #expect(without.euclidKnowsWhen == nil)
         var progress = EuclidProgress()
-        for level in [SkillLevel.picture, .letters, .head] { progress.record(level, for: "I.11", assisted: false) }
+        Self.lit(&progress, "I.1", to: .picture)
+        Self.lit(&progress, "I.9", to: .picture)
+        Self.lit(&progress, "I.11", to: .head)
         let with = plan(progress)
         #expect(with.euclidKnowsWhen?.proposition == "I.11")
         #expect(with.debateScenario == without.debateScenario && with.trapProblem == without.trapProblem)
