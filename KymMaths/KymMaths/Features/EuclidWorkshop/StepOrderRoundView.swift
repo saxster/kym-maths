@@ -17,6 +17,7 @@ struct StepOrderRoundView: View {
 
     var body: some View {
         JournalPage(title: "", column: .calendar) {
+            EuclidMapBackButton(store: store)
             if let proposition = EuclidSpine.proposition(id) {
                 EditorialHeader(
                     eyebrow: "Euclid's Workshop · In your head",
@@ -44,7 +45,7 @@ struct StepOrderRoundView: View {
                 HStack(alignment: .top, spacing: Spacing.md) {
                     VStack(alignment: .leading, spacing: Spacing.md) {
                         figureCard
-                        poolCard
+                        if !round!.pool.isEmpty { poolCard }
                     }
                     .frame(width: 380)
                     proofCard.frame(maxWidth: .infinity)
@@ -53,7 +54,7 @@ struct StepOrderRoundView: View {
                 VStack(alignment: .leading, spacing: Spacing.md) {
                     figureCard
                     proofCard
-                    poolCard
+                    if !round!.pool.isEmpty { poolCard }
                 }
             }
         }
@@ -87,11 +88,6 @@ struct StepOrderRoundView: View {
                 Text("STEPS TO PLACE")
                     .font(Typography.eyebrow)
                     .foregroundStyle(Color.kymaiaPrimary)
-                if round!.pool.isEmpty {
-                    Text("All placed.")
-                        .font(Typography.caption)
-                        .foregroundStyle(Color.kymaiaMutedInk)
-                }
                 ForEach(round!.pool, id: \.self) { index in
                     ClaimLine(claim: round!.steps[index].claim, session: outlineBinding)
                         .padding(Spacing.sm)
@@ -126,7 +122,9 @@ struct StepOrderRoundView: View {
                 ForEach(Array(round!.placed.enumerated()), id: \.element) { position, index in
                     placedRow(position: position, index: index)
                 }
-                if !round!.isComplete {
+                if round!.isComplete {
+                    finished
+                } else if !round!.pool.isEmpty {
                     dropZone
                     Button {
                         round!.revealNext()
@@ -135,8 +133,6 @@ struct StepOrderRoundView: View {
                     }
                     .buttonStyle(JournalSecondaryButtonStyle())
                     .help("Shows the next step and its reason. The round then counts as practice.")
-                } else {
-                    finished
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
