@@ -843,20 +843,26 @@
         "termMappings": [
           {
             "symbol": "|PA| = |PB| = r",
-            "visualPart": "Red & Blue equal compass radii from A and B",
-            "colorRole": "red",
+            "visualPart": "Blue equal compass rings centred on A and B",
+            "colorRole": "blue",
             "meaning": "Rhombus side invariant"
           },
           {
+            "symbol": "PQ ⊥ AB",
+            "visualPart": "Red perpendicular bisector through the two crossings",
+            "colorRole": "red",
+            "meaning": "Every point on it is the same distance from A and B"
+          },
+          {
             "symbol": "000°–360°",
-            "visualPart": "Amber clockwise bearing arc from North",
+            "visualPart": "Amber bearing ray from A to B, read clockwise from the green North lines",
             "colorRole": "amber",
             "meaning": "Back-bearing differs by ±180°"
           },
           {
             "symbol": "V − E + F = 2",
-            "visualPart": "Green 3D polyhedron net topology",
-            "colorRole": "green",
+            "visualPart": "Amber cube wireframe folded from its net",
+            "colorRole": "amber",
             "meaning": "Euler characteristic of any convex polyhedron"
           }
         ],

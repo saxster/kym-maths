@@ -207,9 +207,10 @@ def build_chapters():
             "Because AP = BP = AQ = BQ = r, the four radii form a rhombus — and the diagonals of a rhombus always bisect each other at 90°!",
             "|PA| = |PB|  ⇔  P lies on perpendicular bisector of AB;   Euler: V − E + F = 2",
             [
-                {"symbol": "|PA| = |PB| = r", "visualPart": "Red & Blue equal compass radii from A and B", "colorRole": "red", "meaning": "Rhombus side invariant"},
-                {"symbol": "000°–360°", "visualPart": "Amber clockwise bearing arc from North", "colorRole": "amber", "meaning": "Back-bearing differs by ±180°"},
-                {"symbol": "V − E + F = 2", "visualPart": "Green 3D polyhedron net topology", "colorRole": "green", "meaning": "Euler characteristic of any convex polyhedron"}
+                {"symbol": "|PA| = |PB| = r", "visualPart": "Blue equal compass rings centred on A and B", "colorRole": "blue", "meaning": "Rhombus side invariant"},
+                {"symbol": "PQ ⊥ AB", "visualPart": "Red perpendicular bisector through the two crossings", "colorRole": "red", "meaning": "Every point on it is the same distance from A and B"},
+                {"symbol": "000°–360°", "visualPart": "Amber bearing ray from A to B, read clockwise from the green North lines", "colorRole": "amber", "meaning": "Back-bearing differs by ±180°"},
+                {"symbol": "V − E + F = 2", "visualPart": "Amber cube wireframe folded from its net", "colorRole": "amber", "meaning": "Euler characteristic of any convex polyhedron"}
             ],
             "maths/ch09-loci-constructions/index.html",
             ["Locus", "Perpendicular Bisector", "Angle Bisector", "SSS / SAS / ASA Triangle Construction", "3-Figure Bearing", "Plan & Elevation", "Euler's Formula"],
