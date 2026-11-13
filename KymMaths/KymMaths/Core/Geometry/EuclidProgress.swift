@@ -87,6 +87,23 @@ struct EuclidProgress: Codable, Equatable {
     }
 }
 
+extension EuclidSpine {
+    /// The built propositions `id` stands on that she has not yet proven with the picture.
+    /// Accepted facts never hold anything back.
+    static func needs(_ id: PropositionID, progress: EuclidProgress) -> [PropositionID] {
+        let proven = progress.proven
+        return (proposition(id)?.uses ?? []).filter { used in
+            guard case .built? = proposition(used)?.kind else { return false }
+            return !proven.contains(used)
+        }
+    }
+
+    /// A proposition opens once everything built that it stands on is proven.
+    static func isOpen(_ id: PropositionID, progress: EuclidProgress) -> Bool {
+        proposition(id) != nil && needs(id, progress: progress).isEmpty
+    }
+}
+
 /// Saves progress as JSON in UserDefaults, the way `AppStore` keeps its preferences.
 struct EuclidProgressStore {
     static let key = "kymmaths.euclid.progress"

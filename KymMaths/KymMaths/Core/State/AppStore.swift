@@ -78,6 +78,8 @@ final class AppStore {
     var showSettingsSheet: Bool = false
     var showDailyFlowSheet: Bool = false
     var euclidRoute: EuclidRoute = .map
+    /// The proposition the Book I map shows in its detail panel.
+    var euclidMapSelection: PropositionID = "I.1"
 
     // Customisation & Preferences (persisted in UserDefaults)
     var learnerDisplayName: String {
@@ -243,8 +245,14 @@ final class AppStore {
         euclidProgress.record(level, for: id, assisted: assisted)
     }
 
+    /// Opens the workshop. A board she can't build yet opens the map on it instead, which says what it needs.
     func openEuclid(_ route: EuclidRoute) {
-        euclidRoute = route
+        if case let .board(id) = route, !EuclidSpine.isOpen(id, progress: euclidProgress) {
+            euclidMapSelection = id
+            euclidRoute = .map
+        } else {
+            euclidRoute = route
+        }
         activeRoom = .euclidWorkshop
     }
 

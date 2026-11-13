@@ -5,8 +5,9 @@ import SwiftUI
 /// shows its paper check, which a parent ticks off.
 struct EuclidSpineMapView: View {
     @Bindable var store: AppStore
-    @State private var selected: PropositionID = "I.1"
     @State private var width: CGFloat = 0
+
+    private var selected: PropositionID { store.euclidMapSelection }
 
     private static let detailWidth: CGFloat = 340
     private static let mapWidth: CGFloat = 700
@@ -36,7 +37,7 @@ struct EuclidSpineMapView: View {
         }
         .onAppear {
             #if DEBUG
-            if let id = UserDefaults.standard.string(forKey: "EuclidSelect") { selected = PropositionID(id) }
+            if let id = UserDefaults.standard.string(forKey: "EuclidSelect") { store.euclidMapSelection = PropositionID(id) }
             #endif
         }
     }
@@ -57,7 +58,8 @@ struct EuclidSpineMapView: View {
                     ForEach(row, id: \.self) { id in
                         if let proposition = EuclidSpine.proposition(id) {
                             SpineNode(proposition: proposition, record: store.euclidProgress.record(for: id),
-                                      isSelected: selected == id) { selected = id }
+                                      needs: EuclidSpine.needs(id, progress: store.euclidProgress),
+                                      isSelected: selected == id) { store.euclidMapSelection = id }
                                 .anchorPreference(key: SpineNodeAnchors.self, value: .bounds) { [id: $0] }
                         }
                     }
@@ -80,13 +82,19 @@ struct EuclidSpineMapView: View {
         }
     }
 
+    /// Each level shows the node's row of four lamps with only its own lit, so position reads as level.
     private var legend: some View {
         FlowLayout(spacing: Spacing.sm) {
             ForEach(SkillLevel.allCases, id: \.self) { level in
                 HStack(spacing: Spacing.xxs) {
-                    LampDot(isLit: true)
+                    LampRow(lit: { $0 == level })
                     Text(level.title).font(Typography.caption).foregroundStyle(Color.kymaiaMutedInk)
                 }
+                .accessibilityElement(children: .combine)
+            }
+            HStack(spacing: Spacing.xxs) {
+                Image(systemName: "lock.fill").foregroundStyle(Color.kymaiaMutedInk)
+                Text("needs an earlier one first").font(Typography.caption).foregroundStyle(Color.kymaiaMutedInk)
             }
             HStack(spacing: Spacing.xxs) {
                 Image(systemName: "hand.raised.fill").foregroundStyle(Color.kymaiaWarning)
@@ -124,7 +132,14 @@ struct EuclidSpineMapView: View {
                             .fixedSize(horizontal: false, vertical: true)
                     } else {
                         lamps(record)
-                        actions(for: proposition, record: record)
+                        let needs = EuclidSpine.needs(selected, progress: store.euclidProgress)
+                        if needs.isEmpty {
+                            actions(for: proposition, record: record)
+                        } else {
+                            Label(Self.needsText(needs), systemImage: "lock.fill")
+                                .font(Typography.caption.weight(.semibold))
+                                .foregroundStyle(Color.kymaiaMutedInk)
+                        }
                     }
                     if !proposition.uses.isEmpty {
                         Text("Stands on " + proposition.uses.map(\.raw).joined(separator: ", "))
@@ -178,6 +193,15 @@ struct EuclidSpineMapView: View {
     }
 }
 
+extension EuclidSpineMapView {
+    /// "Needs I.9 first", or "Needs I.46 and I.10 first".
+    static func needsText(_ needs: [PropositionID]) -> String {
+        let names = needs.map(\.raw)
+        let list = names.count > 1 ? names.dropLast().joined(separator: ", ") + " and " + names.last! : names.joined()
+        return "Needs \(list) first"
+    }
+}
+
 private struct SpineNodeAnchors: PreferenceKey {
     static var defaultValue: [PropositionID: Anchor<CGRect>] { [:] }
     static func reduce(value: inout [PropositionID: Anchor<CGRect>], nextValue: () -> [PropositionID: Anchor<CGRect>]) {
@@ -199,6 +223,19 @@ private struct SpineEdge: Shape {
     }
 }
 
+/// A node's four lamps in level order, left to right.
+private struct LampRow: View {
+    let lit: (SkillLevel) -> Bool
+
+    var body: some View {
+        HStack(spacing: 4) {
+            ForEach(SkillLevel.allCases, id: \.self) { level in
+                LampDot(isLit: lit(level))
+            }
+        }
+    }
+}
+
 private struct LampDot: View {
     let isLit: Bool
 
@@ -214,8 +251,12 @@ private struct LampDot: View {
 private struct SpineNode: View {
     let proposition: EuclidProposition
     let record: EuclidSkillRecord
+    /// What must be proven before this one opens.
+    let needs: [PropositionID]
     let isSelected: Bool
     let onSelect: () -> Void
+
+    private var isLocked: Bool { !needs.isEmpty }
 
     var body: some View {
         Button(action: onSelect) {
@@ -232,6 +273,9 @@ private struct SpineNode: View {
                     .font(Typography.headline)
                     .foregroundStyle(Color.kymaiaInk)
                 Spacer(minLength: 0)
+                if isLocked {
+                    Image(systemName: "lock.fill").foregroundStyle(Color.kymaiaMutedInk).font(Typography.caption)
+                }
                 if record.assisted {
                     Image(systemName: "hand.raised.fill").foregroundStyle(Color.kymaiaWarning).font(Typography.caption)
                 }
@@ -239,17 +283,14 @@ private struct SpineNode: View {
                     Image(systemName: "checkmark.seal.fill").foregroundStyle(Color.kymaiaSuccess).font(Typography.caption)
                 }
             }
-            Text(proposition.title)
+            Text(isLocked ? EuclidSpineMapView.needsText(needs) : proposition.title)
                 .font(Typography.caption)
                 .foregroundStyle(Color.kymaiaMutedInk)
                 .lineLimit(2, reservesSpace: true)
-            HStack(spacing: 4) {
-                ForEach(SkillLevel.allCases, id: \.self) { level in
-                    LampDot(isLit: record.highest.map { $0 >= level } ?? false)
-                }
-            }
-            .padding(.top, Spacing.xxs)
+            LampRow(lit: { level in record.highest.map { $0 >= level } ?? false })
+                .padding(.top, Spacing.xxs)
         }
+        .opacity(isLocked ? 0.55 : 1)
         .padding(Spacing.xs)
         .frame(width: 124, alignment: .leading)
         .background(
@@ -287,6 +328,9 @@ private struct SpineNode: View {
     private var accessibility: String {
         if proposition.isAccepted {
             return "\(proposition.id), \(proposition.title), taught at school in \(proposition.oupSection ?? "school")"
+        }
+        if isLocked {
+            return "\(proposition.id), \(proposition.title), locked. \(EuclidSpineMapView.needsText(needs))"
         }
         let lit = record.highest.map { "highest lamp \($0.title)" } ?? "no lamps lit"
         return "\(proposition.id), \(proposition.title), \(lit)" + (record.assisted ? ", last try had help" : "")
