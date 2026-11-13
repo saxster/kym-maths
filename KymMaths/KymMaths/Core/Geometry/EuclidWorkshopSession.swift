@@ -122,6 +122,28 @@ struct EuclidWorkshopSession {
     private(set) var solvedLayer: BoardLayer?
     var highlightedToken: ClaimToken?
     let script: ScriptedSolution
+    /// What a proposition tool drew on the way to its result: its circles and helper lines, and
+    /// the points they made. The board draws these faintly, as Euclid would leave them out.
+    private(set) var scaffolding = Scaffolding()
+
+    struct Scaffolding: Equatable {
+        var curves: Set<CurveID> = []
+        var points: Set<PointID> = []
+        /// A helper line that runs along part of the result, such as a perpendicular that holds
+        /// a square's side: the two result points that bound the part to draw in full.
+        var spans: [CurveID: [PointID]] = [:]
+    }
+
+    /// The letters of each proposition's result, as its construction names them. A tool's segment
+    /// joining two of these is part of the answer; everything else it drew is scaffolding.
+    static let resultLetters: [PropositionID: Set<String>] = [
+        "I.1": ["A", "B", "C"],
+        "I.9": ["A", "F"],
+        "I.10": ["D"],
+        "I.11": ["C", "F"],
+        "I.46": ["A", "B", "D", "E"],
+        "I.47": ["A", "B", "C", "D", "E", "F", "G", "H", "K"],
+    ]
 
     static let palette: [ColorRole] = [.red, .blue, .amber, .green]
 
@@ -262,6 +284,7 @@ struct EuclidWorkshopSession {
                 board = before
                 return .failure(.alreadyOnBoard)
             }
+            Self.markScaffolding(&scaffolding, action: action, result: result, before: before, after: board)
             moved()
             return .success(result)
         } catch let error as BoardError {
@@ -281,14 +304,52 @@ struct EuclidWorkshopSession {
     }
 
     mutating func undo() {
-        guard !board.history.isEmpty,
-              let previous = try? ConstructionBoard.replay(givens: construction.givens, history: Array(board.history.dropLast()))
-        else { return }
+        guard !board.history.isEmpty else { return }
+        var previous = ConstructionBoard(givens: construction.givens)
+        var marked = Scaffolding()
+        for action in board.history.dropLast() {
+            let before = previous
+            guard let result = try? previous.apply(action) else { return }
+            Self.markScaffolding(&marked, action: action, result: result, before: before, after: previous)
+        }
         board = previous
+        scaffolding = marked
         tool = ToolState(tool.tool)
         hint = nil
         hintRung = .none
         if !isSolved { solvedLayer = nil }
+    }
+
+    /// Marks what a proposition tool added beyond its result.
+    private static func markScaffolding(_ marked: inout Scaffolding, action: BoardAction, result: AppliedResult,
+                                        before: ConstructionBoard, after: ConstructionBoard) {
+        guard case let .macro(id, _) = action, case let .macro(named) = result else { return }
+        let kept = Set((resultLetters[id] ?? []).compactMap { named[$0] })
+        for index in before.points.count..<after.points.count where !kept.contains(PointID(raw: index)) {
+            marked.points.insert(PointID(raw: index))
+        }
+        for index in before.curves.count..<after.curves.count {
+            let id = CurveID(raw: index)
+            guard case let .segment(a, b) = after.curves[index].curve else {
+                marked.curves.insert(id)
+                continue
+            }
+            if kept.contains(a), kept.contains(b) { continue }
+            marked.curves.insert(id)
+            guard let pa = try? after.position(of: a), let pb = try? after.position(of: b) else { continue }
+            let along = pb - pa
+            let length = along.length
+            let onIt = kept.compactMap { point -> (PointID, Double)? in
+                guard let p = try? after.position(of: point) else { return nil }
+                let w = p - pa
+                let t = w.dot(along) / (length * length)
+                guard abs(along.cross(w)) <= ConstructionBoard.coincidence * length, t > -1e-9, t < 1 + 1e-9 else { return nil }
+                return (point, t)
+            }.sorted { $0.1 < $1.1 }
+            if let first = onIt.first, let last = onIt.last, first.0 != last.0 {
+                marked.spans[id] = [first.0, last.0]
+            }
+        }
     }
 
     /// Opens the proof. Before she has solved it, that shows her the answer, so it counts as help.
@@ -302,7 +363,7 @@ struct EuclidWorkshopSession {
     /// Makes the next `count` scripted moves without marking help, for launch arguments that set up a screen.
     mutating func playScript(moves count: Int) {
         var made = 0
-        while made < count, let next = script.next(on: board), let action = ScriptedSolution.action(for: next.move, on: board) {
+        while made < count, let next = script.next(on: board), let action = workedAction(next) {
             let before = board
             _ = perform(action)
             if board == before { break }

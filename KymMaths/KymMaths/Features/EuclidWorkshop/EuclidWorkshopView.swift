@@ -30,6 +30,7 @@ struct EuclidPropositionPage: View {
     @State private var session: EuclidWorkshopSession?
     @State private var lastOutcome: TapOutcome?
     @State private var recorded: ProgressOutcome?
+    @State private var width: CGFloat = 0
 
     var body: some View {
         JournalPage(title: "", column: .calendar) {
@@ -54,16 +55,39 @@ struct EuclidPropositionPage: View {
         Binding(get: { session! }, set: { session = $0 })
     }
 
+    /// Board and proof side by side need this much width; narrower, the proof goes underneath.
+    private static let sideBySide: CGFloat = 520 + Spacing.md + 340
+
     @ViewBuilder
     private var content: some View {
-        ViewThatFits(in: .horizontal) {
-            HStack(alignment: .top, spacing: Spacing.md) {
-                boardCard.frame(minWidth: 520)
-                proofCard.frame(width: 340)
+        Group {
+            if width >= Self.sideBySide {
+                HStack(alignment: .top, spacing: Spacing.md) {
+                    VStack(alignment: .leading, spacing: Spacing.md) {
+                        boardCard
+                        shearCard
+                    }
+                    .frame(maxWidth: .infinity)
+                    proofCard.frame(width: 340)
+                }
+            } else {
+                VStack(alignment: .leading, spacing: Spacing.md) {
+                    boardCard
+                    shearCard
+                    proofCard
+                }
             }
-            VStack(alignment: .leading, spacing: Spacing.md) {
-                boardCard
-                proofCard
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width = $0 }
+    }
+
+    /// I.47's proof is easiest to see moving, once the proof itself is open.
+    @ViewBuilder
+    private var shearCard: some View {
+        if id == "I.47", session?.hasAttempted == true {
+            JournalCard {
+                PythagorasShearView()
             }
         }
     }
@@ -154,7 +178,7 @@ struct EuclidPropositionPage: View {
             return "Solved with help (a hint from R3 up, or the proof opened early), so the lamp stays off. Build it again from a fresh board to light it."
         case .notNext?, nil:
             if let level, let highest = store.euclidProgress.highest(id), level <= highest {
-                return "Solved again. \(level.title) is already lit."
+                return "Solved again. That lamp is already lit."
             }
             return "Solved. Light the lamps in order: with the picture first, then in letters."
         }

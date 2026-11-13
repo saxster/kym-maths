@@ -13,6 +13,7 @@
 		07371895019D3209CE34008F /* MathsJournalHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C90BAC6ED11793D40FD3EC /* MathsJournalHomeView.swift */; };
 		0822FD3BA476CAF876B823AD /* TutorCanvasEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DB198D93D535056F0BC2E0 /* TutorCanvasEngine.swift */; };
 		0BCBD3E279702D5CBEA2905F /* KymMathsAppIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE18E8E73216B45DE7361C45 /* KymMathsAppIntents.swift */; };
+		0CB7E9EEA02F9D7307CD3B21 /* PythagorasShearTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C59950286B98D15326C7CDA /* PythagorasShearTests.swift */; };
 		0FCF081751A5076A6FF93003 /* PromptSegmentComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFE67BC70377C4005738555 /* PromptSegmentComposer.swift */; };
 		102440F11824377FFC348183 /* KymTutorAI in Frameworks */ = {isa = PBXBuildFile; productRef = 7842BAC63A7BE3E80B7DF86E /* KymTutorAI */; };
 		1077F2DDC1476B3227161FE1 /* KymMathsWidgetViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02B9F0D1042BC7376621ADA /* KymMathsWidgetViews.swift */; };
@@ -43,6 +44,7 @@
 		3C3AFB2742372D4C2C7608F3 /* JournalCardParts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5036835CEA79609FFD85EA33 /* JournalCardParts.swift */; };
 		3CCC5188306D920A138D77BC /* ThemeCharacterizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A4BC5EF3D4DA66972985A /* ThemeCharacterizationTests.swift */; };
 		3E7A4F376BD0EBC174960203 /* PatternedWorldBook in Resources */ = {isa = PBXBuildFile; fileRef = 2A38D288E5A8D98776CA488B /* PatternedWorldBook */; };
+		433543BC9751E57FC14B0153 /* PythagorasShearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B90CDC692D92202D9559FD3 /* PythagorasShearView.swift */; };
 		480F7A752FB414977F4A1584 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 0F91866900AE7816866A10E4 /* GRDB */; };
 		482C9F55DB77F8C08F4E9957 /* SchoolMathsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA29A7C3025EB034F6E598F8 /* SchoolMathsHomeView.swift */; };
 		4876E47F1D1A4E2D4C5910BF /* ContentPacks in Resources */ = {isa = PBXBuildFile; fileRef = FC5E968CEEE19955E9CB2DAE /* ContentPacks */; };
@@ -77,6 +79,7 @@
 		8BF72DEF1A548F9497CA8976 /* SeedPackModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDD75ED6882912482DEE178 /* SeedPackModels.swift */; };
 		9043D80D98AC7FD707E345A0 /* KymDesignExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9580C4310B6A226F00755883 /* KymDesignExport.swift */; };
 		962F9AE3A1C72277DE3EDBB7 /* MathsSettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DED304239C5F1518DC70AD1 /* MathsSettingsSheet.swift */; };
+		970EACAC7527C3F829C9243B /* PythagorasShear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B496759A8E89BCAAF5ADA /* PythagorasShear.swift */; };
 		978058813915E442EC74C7A7 /* Info-iPad.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1CF684174A9170E85BB5ACB4 /* Info-iPad.plist */; };
 		98F96414E9395FE4393E29A4 /* PatternedWorldWebStageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DD6A6AE6D9FB5B8A7419FE /* PatternedWorldWebStageView.swift */; };
 		991104BD09C5175B440B25ED /* EuclidSpine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA68EA19E31C10BE32B6DCA9 /* EuclidSpine.swift */; };
@@ -88,6 +91,7 @@
 		9FFFD2525943AEC198071687 /* MathsFilterChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83254AA59B7D72A36F78A38B /* MathsFilterChip.swift */; };
 		A09C9B1D9A7A6B0FA1194C47 /* KymMathsAppIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE18E8E73216B45DE7361C45 /* KymMathsAppIntents.swift */; };
 		A21437ACAE0675568D8D33DE /* EuclidBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3F4E8E551262FDC0F71D37 /* EuclidBoardView.swift */; };
+		A24C303050645AE83F3560E6 /* PythagorasShear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B496759A8E89BCAAF5ADA /* PythagorasShear.swift */; };
 		A4F609CDA38764EAD22FC501 /* STEMVerificationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472088539BE760CF1692992B /* STEMVerificationEngine.swift */; };
 		A63D38559B02C7891F364911 /* MissingDesignElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41CF12BC90D33476C80DA5F /* MissingDesignElements.swift */; };
 		A66FB087EA63DBC55C0DAE81 /* PolicyDrivenAIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C78793C33CEEB8AEFDB87C5 /* PolicyDrivenAIProvider.swift */; };
@@ -141,6 +145,7 @@
 		F5184210F98F2F3B92B55DD6 /* KymLearning in Frameworks */ = {isa = PBXBuildFile; productRef = 5C4E115569DF698E731BE8E4 /* KymLearning */; };
 		F604CCF366FC7462C001086C /* EuclidBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3F4E8E551262FDC0F71D37 /* EuclidBoardView.swift */; };
 		F800AD96803B83CFF9E60F1D /* KymMathsProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B645FBF7198CDC72BC6F0A6 /* KymMathsProfile.swift */; };
+		F892FEC77B0ECA682658A0A3 /* PythagorasShearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B90CDC692D92202D9559FD3 /* PythagorasShearView.swift */; };
 		FABDAF0613DD3ADE750A6683 /* EuclidProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC71DA7D4D44E3F8E62D1A79 /* EuclidProgress.swift */; };
 		FC89039DFF1CFA7E3ABC0BE2 /* KymDesign in Frameworks */ = {isa = PBXBuildFile; productRef = A4DCB1779ACDDFED5F6AF76D /* KymDesign */; };
 		FD116EBF392C6AA54FD115F4 /* KymMathsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48816A9525967912876C42A /* KymMathsApp.swift */; };
@@ -162,6 +167,7 @@
 /* Begin PBXFileReference section */
 		0663D4E4DE8459F2D3C1E673 /* theme-characterization.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "theme-characterization.json"; sourceTree = "<group>"; };
 		0AFAE40635495E5AD63003F9 /* MathsScratchpadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathsScratchpadView.swift; sourceTree = "<group>"; };
+		0C59950286B98D15326C7CDA /* PythagorasShearTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PythagorasShearTests.swift; sourceTree = "<group>"; };
 		122B93E0119F72B029B814CF /* TutorCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorCanvasView.swift; sourceTree = "<group>"; };
 		156FB0647550A01C48704221 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		1BDD75ED6882912482DEE178 /* SeedPackModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPackModels.swift; sourceTree = "<group>"; };
@@ -171,6 +177,7 @@
 		28DD6A6AE6D9FB5B8A7419FE /* PatternedWorldWebStageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternedWorldWebStageView.swift; sourceTree = "<group>"; };
 		2A38D288E5A8D98776CA488B /* PatternedWorldBook */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PatternedWorldBook; path = KymMaths/Resources/PatternedWorldBook; sourceTree = SOURCE_ROOT; };
 		2A9427F05150134B15A68F66 /* PolyaFluencyHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyaFluencyHomeView.swift; sourceTree = "<group>"; };
+		2B90CDC692D92202D9559FD3 /* PythagorasShearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PythagorasShearView.swift; sourceTree = "<group>"; };
 		3160B78266BEBBA80CDC7162 /* ConstructionBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionBoard.swift; sourceTree = "<group>"; };
 		31DB198D93D535056F0BC2E0 /* TutorCanvasEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorCanvasEngine.swift; sourceTree = "<group>"; };
 		35B19A7C85527ADEBAD024F0 /* JournalRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalRow.swift; sourceTree = "<group>"; };
@@ -193,6 +200,7 @@
 		5C53EB16B46F825B1999FFE4 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		616A5CD3B25E7FB1261CE0D1 /* TutorProfileRegistrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorProfileRegistrationTests.swift; sourceTree = "<group>"; };
 		6576FADCC848B8C8633A29E3 /* EuclidWorkshopSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuclidWorkshopSession.swift; sourceTree = "<group>"; };
+		665B496759A8E89BCAAF5ADA /* PythagorasShear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PythagorasShear.swift; sourceTree = "<group>"; };
 		6BC8B11130353FC5CF72FBB3 /* LearningEngineCharacterizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningEngineCharacterizationTests.swift; sourceTree = "<group>"; };
 		6C78793C33CEEB8AEFDB87C5 /* PolicyDrivenAIProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyDrivenAIProvider.swift; sourceTree = "<group>"; };
 		73763B9E1D3039C1E9C4AB5B /* SystemSurfaceSnapshotStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemSurfaceSnapshotStore.swift; sourceTree = "<group>"; };
@@ -329,6 +337,7 @@
 				EC71DA7D4D44E3F8E62D1A79 /* EuclidProgress.swift */,
 				EA68EA19E31C10BE32B6DCA9 /* EuclidSpine.swift */,
 				6576FADCC848B8C8633A29E3 /* EuclidWorkshopSession.swift */,
+				665B496759A8E89BCAAF5ADA /* PythagorasShear.swift */,
 			);
 			path = Geometry;
 			sourceTree = "<group>";
@@ -398,6 +407,7 @@
 				A3002A57F05CC2CD720C3AF1 /* EuclidWorkshopSessionTests.swift */,
 				ECA0C47C2C0178C8A4F1E115 /* KymMathsTests.swift */,
 				6BC8B11130353FC5CF72FBB3 /* LearningEngineCharacterizationTests.swift */,
+				0C59950286B98D15326C7CDA /* PythagorasShearTests.swift */,
 				BA3A4BC5EF3D4DA66972985A /* ThemeCharacterizationTests.swift */,
 				616A5CD3B25E7FB1261CE0D1 /* TutorProfileRegistrationTests.swift */,
 				A58AAF9A1E74DD9EA6A7C9AC /* Golden */,
@@ -521,6 +531,7 @@
 				7E3F4E8E551262FDC0F71D37 /* EuclidBoardView.swift */,
 				A30C275945F77A4F1451E7D4 /* EuclidWorkshopView.swift */,
 				37AEDCB1D711BD0FC146C531 /* ProofStepsView.swift */,
+				2B90CDC692D92202D9559FD3 /* PythagorasShearView.swift */,
 			);
 			path = EuclidWorkshop;
 			sourceTree = "<group>";
@@ -785,6 +796,8 @@
 				0FCF081751A5076A6FF93003 /* PromptSegmentComposer.swift in Sources */,
 				71BFE53F4DF8042077F7E031 /* ProofStepsView.swift in Sources */,
 				1E5985D25D7FD5ABBFA59A48 /* PropositionGraphEngine.swift in Sources */,
+				A24C303050645AE83F3560E6 /* PythagorasShear.swift in Sources */,
+				433543BC9751E57FC14B0153 /* PythagorasShearView.swift in Sources */,
 				7CB78DE01B0C060FF7E574DA /* QuantitativeMathsEngine.swift in Sources */,
 				760F8CA88B87279B3A09297E /* QuestionProofPracticeView.swift in Sources */,
 				13C00A343E3A84C81ACBDBDD /* QuietPanelBackground.swift in Sources */,
@@ -810,6 +823,7 @@
 				B3D52DD85789E9A95FA36707 /* EuclidWorkshopSessionTests.swift in Sources */,
 				07360B6D3E9DF8422DB87A79 /* KymMathsTests.swift in Sources */,
 				B5EB1A362E135FEF89227E9A /* LearningEngineCharacterizationTests.swift in Sources */,
+				0CB7E9EEA02F9D7307CD3B21 /* PythagorasShearTests.swift in Sources */,
 				3CCC5188306D920A138D77BC /* ThemeCharacterizationTests.swift in Sources */,
 				7110F2B561C6D750677CF9AA /* TutorProfileRegistrationTests.swift in Sources */,
 			);
@@ -865,6 +879,8 @@
 				37CC07E6F42ECF08FF680873 /* PromptSegmentComposer.swift in Sources */,
 				C6C15EA3DAD1295429582951 /* ProofStepsView.swift in Sources */,
 				B11E9879DA1EA4799BAD8975 /* PropositionGraphEngine.swift in Sources */,
+				970EACAC7527C3F829C9243B /* PythagorasShear.swift in Sources */,
+				F892FEC77B0ECA682658A0A3 /* PythagorasShearView.swift in Sources */,
 				298D6E7606C80115514F4656 /* QuantitativeMathsEngine.swift in Sources */,
 				A99C84FF4C58231E30FC8D17 /* QuestionProofPracticeView.swift in Sources */,
 				86FE98CEB71C8BDBEE1FC965 /* QuietPanelBackground.swift in Sources */,

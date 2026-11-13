@@ -240,6 +240,65 @@ struct EuclidWorkshopSessionTests {
         #expect(s.tool.tool == .proposition("I.1"))
     }
 
+    @Test("A tool's circles and helper points are scaffolding; its result's sides are not, and undo forgets them")
+    func toolScaffolding() throws {
+        var s = try Self.session("I.10", tools: ["I.1"])
+        for _ in 0..<6 { s.requestHint() }
+        #expect(s.board.history.count == 1, "one I.1 step")
+        let circles = s.board.curves.indices.filter { if case .circle = s.board.curves[$0].curve { true } else { false } }
+        let segments = s.board.curves.indices.filter { if case .segment = s.board.curves[$0].curve { true } else { false } }
+        #expect(circles.count == 2)
+        #expect(Set(circles.map(CurveID.init(raw:))).isSubset(of: s.scaffolding.curves))
+        let sides = segments.filter { !s.scaffolding.curves.contains(CurveID(raw: $0)) }
+        #expect(sides.count == 3, "AB was given, and I.1 drew CA and CB")
+        let apex = try #require(s.script.position(named: "C"))
+        let apexID = try #require(s.board.point(at: apex))
+        #expect(!s.scaffolding.points.contains(apexID), "the apex is the result")
+
+        s.undo()
+        #expect(s.scaffolding == .init())
+    }
+
+#if DEBUG
+    @Test("I.46 as a tool keeps the square's sides, even where they lie along its longer helper lines")
+    func squareSidesKept() throws {
+        var s = try Self.session("I.47", tools: ["I.1", "I.9", "I.10", "I.11", "I.46"])
+        s.playScript(moves: .max)
+        #expect(s.isSolved)
+        #expect(!s.scaffolding.spans.isEmpty, "the squares' upright sides lie along I.11's perpendiculars")
+        // Every side of the three squares is drawn strongly: as a kept segment or as a span.
+        let strong: [(Vec2, Vec2)] = s.board.curves.indices.compactMap { index in
+            let id = CurveID(raw: index)
+            if let ends = s.scaffolding.spans[id] {
+                return (try? s.board.position(of: ends[0])).flatMap { a in (try? s.board.position(of: ends[1])).map { (a, $0) } }
+            }
+            guard !s.scaffolding.curves.contains(id), case let .segment(a, b) = s.board.curves[index].curve else { return nil }
+            return (try? s.board.position(of: a)).flatMap { pa in (try? s.board.position(of: b)).map { (pa, $0) } }
+        }
+        func covered(_ p: String, _ q: String) throws -> Bool {
+            let (a, b) = (try #require(s.script.position(named: p)), try #require(s.script.position(named: q)))
+            return strong.contains { u, v in
+                let along = v - u
+                func on(_ w: Vec2) -> Bool {
+                    let t = (w - u).dot(along) / along.dot(along)
+                    return abs(along.cross(w - u)) < 1e-6 * along.length && t > -1e-9 && t < 1 + 1e-9
+                }
+                return on(a) && on(b)
+            }
+        }
+        for (p, q) in [("B", "D"), ("D", "E"), ("E", "C"), ("A", "G"), ("G", "F"), ("F", "B"), ("A", "H"), ("H", "K"), ("K", "C")] {
+            #expect(try covered(p, q), "\(p)\(q) drawn")
+        }
+    }
+#endif
+
+    @Test("A curve she draws herself is never scaffolding")
+    func ownCurvesNotScaffolding() throws {
+        var s = try Self.session("I.1")
+        _ = Self.tap(&s, 0, 0); _ = Self.tap(&s, 4, 0)
+        #expect(s.scaffolding.curves.isEmpty && s.scaffolding.points.isEmpty)
+    }
+
     // MARK: - Proof
 
     @Test("Opening the proof needs a first try, and before a solve it counts as help")

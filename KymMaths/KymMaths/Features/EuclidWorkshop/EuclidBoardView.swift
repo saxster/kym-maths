@@ -68,28 +68,33 @@ struct EuclidBoardCanvas: View {
             drawHighlight(highlight, in: &context, viewport, pulse: pulse)
         }
 
-        for curve in board.curves {
-            switch curve.curve {
-            case let .circle(c, t):
-                guard let pc = try? board.position(of: c), let pt = try? board.position(of: t) else { continue }
-                let path = BoardPaths.circle(viewport.toView(pc), radius: viewport.length(pc.distance(to: pt)))
-                context.stroke(path, with: .color(colour(curve.role).opacity(0.85)), lineWidth: 1.4)
-            case let .segment(a, b):
-                guard let pa = try? board.position(of: a), let pb = try? board.position(of: b) else { continue }
-                let path = BoardPaths.line(viewport.toView(pa), viewport.toView(pb))
-                context.stroke(path, with: .color(colour(curve.role)), style: StrokeStyle(lineWidth: 3.2, lineCap: .round))
+        let scaffolding = session.scaffolding
+        // A tool's scaffolding goes down first and faint, so her own curves sit on top of it.
+        for pass in [true, false] {
+            for (index, curve) in board.curves.enumerated() where scaffolding.curves.contains(CurveID(raw: index)) == pass {
+                drawCurve(curve, on: board, viewport, in: &context, faint: pass)
             }
+        }
+        for (id, ends) in scaffolding.spans {
+            guard ends.count == 2, let pa = try? board.position(of: ends[0]), let pb = try? board.position(of: ends[1]) else { continue }
+            context.stroke(BoardPaths.line(viewport.toView(pa), viewport.toView(pb)),
+                           with: .color(colour(board.curves[id.raw].role)), style: StrokeStyle(lineWidth: 3.2, lineCap: .round))
         }
 
         drawPreview(in: &context, viewport)
 
-        for candidate in board.intersectionCandidates() {
+        for candidate in board.intersectionCandidates()
+        where !scaffolding.curves.contains(candidate.a) && !scaffolding.curves.contains(candidate.b) {
             let at = viewport.toView(candidate.position)
             context.stroke(BoardPaths.circle(at, radius: 3), with: .color(MathsFigureColor.ink.opacity(0.35)), lineWidth: 1)
         }
 
         for (index, point) in board.points.enumerated() {
             let at = viewport.toView(point.position)
+            if scaffolding.points.contains(PointID(raw: index)) {
+                context.fill(BoardPaths.circle(at, radius: 2), with: .color(MathsFigureColor.ink.opacity(0.3)))
+                continue
+            }
             let isGiven = if case .given = point.origin { true } else { false }
             context.fill(BoardPaths.circle(at, radius: isGiven ? 4.5 : 3.6), with: .color(MathsFigureColor.ink))
             if session.layer == .letters, let name = session.label(of: PointID(raw: index)) {
@@ -110,6 +115,22 @@ struct EuclidBoardCanvas: View {
         if let target = snapPosition(viewport) {
             context.stroke(BoardPaths.circle(viewport.toView(target), radius: 12),
                            with: .color(MathsFigureColor.amber), lineWidth: 2.2)
+        }
+    }
+
+    private func drawCurve(_ curve: BoardCurve, on board: ConstructionBoard, _ viewport: BoardViewport,
+                           in context: inout GraphicsContext, faint: Bool) {
+        let scaffoldInk = MathsFigureColor.ink.opacity(0.16)
+        switch curve.curve {
+        case let .circle(c, t):
+            guard let pc = try? board.position(of: c), let pt = try? board.position(of: t) else { return }
+            let path = BoardPaths.circle(viewport.toView(pc), radius: viewport.length(pc.distance(to: pt)))
+            context.stroke(path, with: .color(faint ? scaffoldInk : colour(curve.role).opacity(0.85)), lineWidth: faint ? 0.8 : 1.4)
+        case let .segment(a, b):
+            guard let pa = try? board.position(of: a), let pb = try? board.position(of: b) else { return }
+            let path = BoardPaths.line(viewport.toView(pa), viewport.toView(pb))
+            context.stroke(path, with: .color(faint ? scaffoldInk : colour(curve.role)),
+                           style: StrokeStyle(lineWidth: faint ? 1 : 3.2, lineCap: .round))
         }
     }
 
