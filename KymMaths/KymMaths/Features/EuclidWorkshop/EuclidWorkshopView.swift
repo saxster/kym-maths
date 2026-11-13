@@ -174,7 +174,9 @@ struct EuclidPropositionPage: View {
         guard let proposition = EuclidSpine.proposition(id) else { return }
         let next = store.euclidProgress.nextLevel(id)
         let layer = layer ?? (next == .picture || next == nil ? .byrne : .letters)
-        session = EuclidWorkshopSession(proposition: proposition, tools: [], layer: layer)
+        session = EuclidWorkshopSession(proposition: proposition,
+                                        tools: EuclidWorkshopSession.tools(for: id, progress: store.euclidProgress),
+                                        layer: layer)
         lastOutcome = nil
         recorded = nil
         #if DEBUG

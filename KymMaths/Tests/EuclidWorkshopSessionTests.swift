@@ -212,6 +212,34 @@ struct EuclidWorkshopSessionTests {
         #expect(s.board.history == [.macro("I.1", inputs: [a, b])])
     }
 
+    // MARK: - Tools
+
+    @Test("Tools are the earlier built propositions she has proven; accepted facts and unproven ones are not")
+    func toolsFromProgress() throws {
+        var progress = EuclidProgress()
+        #expect(EuclidWorkshopSession.tools(for: "I.10", progress: progress).isEmpty, "nothing proven yet")
+
+        progress.record(.picture, for: "I.1", assisted: false)
+        progress.record(.picture, for: "I.9", assisted: true)
+        #expect(EuclidWorkshopSession.tools(for: "I.10", progress: progress) == ["I.1"], "an assisted attempt proves nothing")
+
+        progress.record(.picture, for: "I.9", assisted: false)
+        progress.record(.picture, for: "I.47", assisted: false)
+        progress.record(.picture, for: "I.4", assisted: false)
+        #expect(EuclidWorkshopSession.tools(for: "I.10", progress: progress) == ["I.1", "I.9"], "later and accepted ones stay off")
+        #expect(EuclidWorkshopSession.tools(for: "I.1", progress: progress).isEmpty, "a proposition is never its own tool")
+        #expect(EuclidWorkshopSession.tools(for: "I.4", progress: progress).isEmpty, "an accepted fact has no board")
+    }
+
+    @Test("Choosing a tool she has not proven does nothing")
+    func unprovenToolIgnored() throws {
+        var s = try Self.session("I.10", tools: ["I.1"])
+        s.choose(.proposition("I.9"))
+        #expect(s.tool.tool == .compass)
+        s.choose(.proposition("I.1"))
+        #expect(s.tool.tool == .proposition("I.1"))
+    }
+
     // MARK: - Proof
 
     @Test("Opening the proof needs a first try, and before a solve it counts as help")

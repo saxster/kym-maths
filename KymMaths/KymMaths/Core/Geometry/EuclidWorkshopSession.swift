@@ -137,6 +137,15 @@ struct EuclidWorkshopSession {
         givenNames = script.givenNames
     }
 
+    /// The tools a board for `id` offers: every built proposition before it in Book I that she
+    /// has proven at least with the picture. A fact the spine only accepts never becomes a tool.
+    static func tools(for id: PropositionID, progress: EuclidProgress) -> [PropositionID] {
+        let built = EuclidSpine.catalog.filter { if case .built = $0.kind { true } else { false } }.map(\.id)
+        guard let index = built.firstIndex(of: id) else { return [] }
+        let proven = progress.proven
+        return built[..<index].filter(proven.contains)
+    }
+
     // MARK: - State
 
     var isSolved: Bool {
