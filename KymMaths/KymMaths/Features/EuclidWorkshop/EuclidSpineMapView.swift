@@ -248,6 +248,7 @@ private struct SpineNode: View {
                     LampDot(isLit: record.highest.map { $0 >= level } ?? false)
                 }
             }
+            .padding(.top, Spacing.xxs)
         }
         .padding(Spacing.xs)
         .frame(width: 124, alignment: .leading)
