@@ -62,6 +62,59 @@ struct PatternedWorldHomeView: View {
         return true
     }
 
+    private var readingModePicker: some View {
+        AdaptiveOptionPicker(
+            options: PatternedWorldReadingMode.allCases,
+            selection: $readingMode,
+            label: { $0.title }
+        )
+        .fixedSize()
+    }
+
+    @ViewBuilder
+    private func stageControls(currentBeat: ChapterInteractiveBeat, beatIndex: Int, chapter: PatternedWorldChapter) -> some View {
+        // Read + Listen Synchronized Audio Narrator Controls
+        Button {
+            narrator.togglePlayPause(
+                text: currentBeat.spokenScript,
+                beatIndex: beatIndex,
+                beatId: currentBeat.id
+            )
+        } label: {
+            Label(
+                narrator.isSpeaking ? "Stop Read-Aloud" : "Read & Listen",
+                systemImage: narrator.isSpeaking ? "stop.circle.fill" : "speaker.wave.2.fill"
+            )
+        }
+        .buttonStyle(JournalSecondaryButtonStyle())
+        .fixedSize()
+
+        Button("\(String(format: "%.2gx", narrator.playbackSpeedMultiplier))") {
+            narrator.cycleSpeed()
+        }
+        .buttonStyle(JournalSecondaryButtonStyle())
+        .fixedSize()
+
+        Button {
+            showEmbeddedWebStage.toggle()
+        } label: {
+            Label(showEmbeddedWebStage ? "Hide Interactive Stage" : "Show Interactive Stage", systemImage: "cube.transparent.fill")
+        }
+        .buttonStyle(JournalSecondaryButtonStyle())
+        .fixedSize()
+
+        if chapter.id == EuclidBuildLinks.mapChapter {
+            Button {
+                store.openEuclid(.map)
+            } label: {
+                Label("Build it yourself", systemImage: "compass.drawing")
+            }
+            .buttonStyle(JournalSecondaryButtonStyle())
+            .fixedSize()
+            .help("Open Book I in Euclid's Workshop")
+        }
+    }
+
     var body: some View {
         let chapter = store.selectedChapter
         let bridge = chapter.intuitionToFormula
@@ -80,50 +133,19 @@ struct PatternedWorldHomeView: View {
             // 1. Volume/Chapter Strip + Mode Switcher + Read+Listen Audio Narrator
             JournalCard {
                 VStack(alignment: .leading, spacing: Spacing.md) {
-                    HStack(alignment: .center, spacing: Spacing.sm) {
-                        AdaptiveOptionPicker(
-                            options: PatternedWorldReadingMode.allCases,
-                            selection: $readingMode,
-                            label: { $0.title }
-                        )
-
-                        Spacer()
-
-                        // Read + Listen Synchronized Audio Narrator Controls
-                        Button {
-                            narrator.togglePlayPause(
-                                text: currentBeat.spokenScript,
-                                beatIndex: clampedBeatIndex,
-                                beatId: currentBeat.id
-                            )
-                        } label: {
-                            Label(
-                                narrator.isSpeaking ? "Stop Read-Aloud" : "Read & Listen",
-                                systemImage: narrator.isSpeaking ? "stop.circle.fill" : "speaker.wave.2.fill"
-                            )
+                    // One row when it fits; otherwise the controls wrap under the picker, so no
+                    // button is squeezed into a tall empty pill.
+                    ViewThatFits(in: .horizontal) {
+                        HStack(alignment: .center, spacing: Spacing.sm) {
+                            readingModePicker
+                            Spacer()
+                            stageControls(currentBeat: currentBeat, beatIndex: clampedBeatIndex, chapter: chapter)
                         }
-                        .buttonStyle(JournalSecondaryButtonStyle())
-
-                        Button("\(String(format: "%.2gx", narrator.playbackSpeedMultiplier))") {
-                            narrator.cycleSpeed()
-                        }
-                        .buttonStyle(JournalSecondaryButtonStyle())
-
-                        Button {
-                            showEmbeddedWebStage.toggle()
-                        } label: {
-                            Label(showEmbeddedWebStage ? "Hide Interactive Stage" : "Show Interactive Stage", systemImage: "cube.transparent.fill")
-                        }
-                        .buttonStyle(JournalSecondaryButtonStyle())
-
-                        if chapter.id == EuclidBuildLinks.mapChapter {
-                            Button {
-                                store.openEuclid(.map)
-                            } label: {
-                                Label("Build it yourself", systemImage: "compass.drawing")
+                        VStack(alignment: .leading, spacing: Spacing.sm) {
+                            readingModePicker
+                            FlowLayout(spacing: Spacing.sm) {
+                                stageControls(currentBeat: currentBeat, beatIndex: clampedBeatIndex, chapter: chapter)
                             }
-                            .buttonStyle(JournalSecondaryButtonStyle())
-                            .help("Open Book I in Euclid's Workshop")
                         }
                     }
 
