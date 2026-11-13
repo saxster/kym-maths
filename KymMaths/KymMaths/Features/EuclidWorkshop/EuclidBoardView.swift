@@ -229,55 +229,82 @@ struct EuclidBoardCanvas: View {
 }
 
 /// Compass, straightedge, one tool per proven proposition, then undo, hint, the layer switch and,
-/// on a solved figure with a plain version, its construction lines.
+/// on a solved figure with a plain version, its construction lines. One row when it fits: first with
+/// every label, then with the side controls as icons (named in their help and accessibility labels),
+/// and only then wrapped.
 struct EuclidBoardToolbar: View {
     @Binding var session: EuclidWorkshopSession
 
     var body: some View {
-        FlowLayout(spacing: Spacing.xs) {
-            MathsFilterChip(title: "Compass", systemImage: "circle.dashed", isSelected: session.tool.tool == .compass) {
-                session.choose(.compass)
-            }
-            MathsFilterChip(title: "Straightedge", systemImage: "line.diagonal", isSelected: session.tool.tool == .straightedge) {
-                session.choose(.straightedge)
-            }
-            ForEach(session.tools, id: \.self) { id in
-                let name = "\(id) · \(EuclidSpine.proposition(id)?.title ?? "")"
-                MathsFilterChip(title: id.raw, systemImage: "wand.and.rays", isSelected: session.tool.tool == .proposition(id)) {
-                    session.choose(.proposition(id))
-                }
-                .help(name)
-                .accessibilityLabel(name)
-            }
-            let canUndo = !session.board.history.isEmpty
-            Button {
-                session.undo()
-            } label: {
-                Label("Undo", systemImage: "arrow.uturn.backward")
-            }
-            .buttonStyle(JournalSecondaryButtonStyle())
-            .disabled(!canUndo)
-            .opacity(canUndo ? 1 : 0.4)
-
-            Button {
-                session.requestHint()
-            } label: {
-                Label("Hint", systemImage: "lightbulb")
-            }
-            .buttonStyle(JournalSecondaryButtonStyle())
-            .disabled(session.isSolved)
-            .opacity(session.isSolved ? 0.4 : 1)
-
-            MathsFilterChip(title: "Letters", systemImage: "textformat", isSelected: session.layer == .letters) {
-                session.layer = session.layer == .letters ? .byrne : .letters
-            }
-            if session.offersCleanFigure {
-                MathsFilterChip(title: "Construction lines", systemImage: "eye",
-                                isSelected: session.showsConstructionLines) {
-                    session.showsConstructionLines.toggle()
-                }
-                .help("Show every circle and line used to build the figure")
-            }
+        ViewThatFits(in: .horizontal) {
+            HStack(spacing: Spacing.xs) { controls(compact: false) }
+            HStack(spacing: Spacing.xs) { controls(compact: true) }
+            FlowLayout(spacing: Spacing.xs) { controls(compact: true) }
         }
+    }
+
+    @ViewBuilder
+    private func controls(compact: Bool) -> some View {
+        MathsFilterChip(title: "Compass", systemImage: "circle.dashed", isSelected: session.tool.tool == .compass) {
+            session.choose(.compass)
+        }
+        MathsFilterChip(title: "Straightedge", systemImage: "line.diagonal", isSelected: session.tool.tool == .straightedge) {
+            session.choose(.straightedge)
+        }
+        ForEach(session.tools, id: \.self) { id in
+            let name = "\(id) · \(EuclidSpine.proposition(id)?.title ?? "")"
+            MathsFilterChip(title: id.raw, systemImage: "wand.and.rays", isSelected: session.tool.tool == .proposition(id)) {
+                session.choose(.proposition(id))
+            }
+            .labelStyle(compact ? AnyLabelStyle(.titleOnly) : AnyLabelStyle(.titleAndIcon))
+            .help(name)
+            .accessibilityLabel(name)
+        }
+        let canUndo = !session.board.history.isEmpty
+        Button {
+            session.undo()
+        } label: {
+            Label("Undo", systemImage: "arrow.uturn.backward")
+        }
+        .buttonStyle(JournalSecondaryButtonStyle())
+        .disabled(!canUndo)
+        .opacity(canUndo ? 1 : 0.4)
+        .sideControl(compact, help: "Undo the last step")
+
+        Button {
+            session.requestHint()
+        } label: {
+            Label("Hint", systemImage: "lightbulb")
+        }
+        .buttonStyle(JournalSecondaryButtonStyle())
+        .disabled(session.isSolved)
+        .opacity(session.isSolved ? 0.4 : 1)
+        .sideControl(compact, help: "Show the next step")
+
+        MathsFilterChip(title: "Letters", systemImage: "textformat", isSelected: session.layer == .letters) {
+            session.layer = session.layer == .letters ? .byrne : .letters
+        }
+        .sideControl(compact, help: "Name the points with letters")
+        if session.offersCleanFigure {
+            MathsFilterChip(title: "Construction lines", systemImage: "eye",
+                            isSelected: session.showsConstructionLines) {
+                session.showsConstructionLines.toggle()
+            }
+            .sideControl(compact, help: "Show every circle and line used to build the figure")
+        }
+    }
+}
+
+private struct AnyLabelStyle: LabelStyle {
+    private let make: (Configuration) -> AnyView
+    init<S: LabelStyle>(_ style: S) { make = { AnyView(style.makeBody(configuration: $0)) } }
+    func makeBody(configuration: Configuration) -> some View { make(configuration) }
+}
+
+private extension View {
+    /// A side control shown as its icon alone when the toolbar is short of room.
+    func sideControl(_ compact: Bool, help: String) -> some View {
+        labelStyle(compact ? AnyLabelStyle(.iconOnly) : AnyLabelStyle(.titleAndIcon))
+            .help(help)
     }
 }
