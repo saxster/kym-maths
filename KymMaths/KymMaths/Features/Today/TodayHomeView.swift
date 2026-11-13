@@ -15,7 +15,8 @@ struct TodayHomeView: View {
             allCards: store.fsrsCards,
             selectedChapterNumber: store.selectedChapterNumber,
             selectedUnitNumber: store.selectedUnitNumber,
-            proofsByQuestionId: store.proofsByQuestionId
+            proofsByQuestionId: store.proofsByQuestionId,
+            euclidProgress: store.euclidProgress
         )
 
         JournalPage {
@@ -385,6 +386,8 @@ struct DailyFlowPlayerSheet: View {
     @State private var selectedTermSymbol: String? = nil
     @State private var trapInput = ""
     @State private var trapEval: QuantitativeAttemptEvaluation? = nil
+    @State private var knowsWhenChoice: PropositionID? = nil
+    @State private var knowsWhenRight = false
 
     var body: some View {
         NavigationStack {
@@ -606,6 +609,14 @@ struct DailyFlowPlayerSheet: View {
                                     }
                                     .buttonStyle(BrassButtonStyle())
                                 }
+                            }
+                        }
+
+                        if let question = plan.euclidKnowsWhen {
+                            EuclidKnowsWhenCard(question: question, choice: knowsWhenChoice, isRight: knowsWhenRight) { choice in
+                                guard knowsWhenChoice == nil else { return }
+                                knowsWhenChoice = choice
+                                knowsWhenRight = EuclidKnowsWhen.answer(choice, to: question, progress: &store.euclidProgress)
                             }
                         }
                     }

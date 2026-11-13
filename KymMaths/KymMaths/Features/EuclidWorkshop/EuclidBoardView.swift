@@ -201,6 +201,9 @@ struct EuclidBoardCanvas: View {
         let length = max(1, (dx * dx + dy * dy).squareRoot())
         (dx, dy) = (dx / length, dy / length)
         if length < 2 { (dx, dy) = (0.7, -0.7) }
+        // Turned a little off the line from the middle, which often runs along a drawn segment.
+        let turn = 0.6
+        (dx, dy) = (dx * cos(turn) - dy * sin(turn), dx * sin(turn) + dy * cos(turn))
         context.draw(Text(name).font(MathsFigureType.setSymbol).foregroundStyle(MathsFigureColor.ink),
                      at: CGPoint(x: point.x + 15 * dx, y: point.y + 15 * dy))
     }

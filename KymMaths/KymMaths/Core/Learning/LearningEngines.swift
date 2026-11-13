@@ -1534,6 +1534,9 @@ struct DailyFlowSessionPlan: Equatable, Sendable {
     let trapProblem: QuantitativeMathsProblem
     let proofQuestion: SchoolMathsQuestion
     let estimatedMinutes: Int
+    /// Stage 3's knows-when question from Euclid's Workshop, when a proposition is in her head
+    /// but she has not yet shown she knows when to use it.
+    var euclidKnowsWhen: EuclidKnowsWhenQuestion? = nil
 }
 
 enum DailyFlowSessionEngine {
@@ -1543,7 +1546,8 @@ enum DailyFlowSessionEngine {
         allCards: [FSRSCardRecord],
         selectedChapterNumber: Int,
         selectedUnitNumber: Int,
-        proofsByQuestionId: [String: QuestionProofRecord]
+        proofsByQuestionId: [String: QuestionProofRecord],
+        euclidProgress: EuclidProgress = EuclidProgress()
     ) -> DailyFlowSessionPlan {
         // Stage 1: Up to 3 FSRS v5 retrieval cards (due cards first; if 0 due, selects the 2 lowest-stability warm-up cards)
         let selectedReviewCards: [FSRSCardRecord] = {
@@ -1583,7 +1587,8 @@ enum DailyFlowSessionEngine {
             debateScenario: debate,
             trapProblem: trapProblem,
             proofQuestion: proofQuestion,
-            estimatedMinutes: 15
+            estimatedMinutes: 15,
+            euclidKnowsWhen: EuclidKnowsWhen.select(progress: euclidProgress)
         )
     }
 }

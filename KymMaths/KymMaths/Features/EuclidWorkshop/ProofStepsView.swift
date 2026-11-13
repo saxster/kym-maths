@@ -112,7 +112,7 @@ struct ClaimGlyph: View {
             if layer == .letters {
                 Text(Self.letters(token))
                     .font(Typography.body.weight(.semibold))
-                    .foregroundStyle(Color.kymaiaInk)
+                    .foregroundStyle(MathsFigureColor.ink)
                     .padding(.horizontal, 3)
             } else {
                 Canvas { context, size in draw(in: &context, size) }

@@ -259,7 +259,6 @@ struct EuclidWorkshopSessionTests {
         #expect(s.scaffolding == .init())
     }
 
-#if DEBUG
     @Test("I.46 as a tool keeps the square's sides, even where they lie along its longer helper lines")
     func squareSidesKept() throws {
         var s = try Self.session("I.47", tools: ["I.1", "I.9", "I.10", "I.11", "I.46"])
@@ -290,7 +289,6 @@ struct EuclidWorkshopSessionTests {
             #expect(try covered(p, q), "\(p)\(q) drawn")
         }
     }
-#endif
 
     @Test("A curve she draws herself is never scaffolding")
     func ownCurvesNotScaffolding() throws {

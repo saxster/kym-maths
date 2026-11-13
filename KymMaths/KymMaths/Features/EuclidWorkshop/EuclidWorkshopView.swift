@@ -13,11 +13,14 @@ struct EuclidWorkshopView: View {
 
     var body: some View {
         switch store.euclidRoute {
-        case .map, .stepOrder:
-            EuclidPropositionPage(store: store, id: "I.1")
+        case .map:
+            EuclidSpineMapView(store: store)
         case let .board(id):
             EuclidPropositionPage(store: store, id: id)
                 .id(id)
+        case let .stepOrder(id):
+            StepOrderRoundView(store: store, id: id)
+                .id("order-\(id)")
         }
     }
 }
@@ -34,6 +37,12 @@ struct EuclidPropositionPage: View {
 
     var body: some View {
         JournalPage(title: "", column: .calendar) {
+            Button {
+                store.euclidRoute = .map
+            } label: {
+                Label("Book I map", systemImage: "chevron.backward")
+            }
+            .buttonStyle(JournalSecondaryButtonStyle())
             if let proposition = EuclidSpine.proposition(id) {
                 EditorialHeader(
                     eyebrow: "Euclid's Workshop · Book I",
@@ -162,6 +171,10 @@ struct EuclidPropositionPage: View {
                     Button("Try it in letters") { start(layer: .letters) }
                         .buttonStyle(JournalSecondaryButtonStyle())
                 }
+                if let highest = store.euclidProgress.highest(id), highest >= .letters {
+                    Button("Put the steps in order") { store.euclidRoute = .stepOrder(id) }
+                        .buttonStyle(JournalSecondaryButtonStyle())
+                }
             }
         }
         .padding(Spacing.sm)
@@ -205,6 +218,7 @@ struct EuclidPropositionPage: View {
         recorded = nil
         #if DEBUG
         EuclidDebugLaunch.prepare(&session)
+        recordIfSolved()
         #endif
     }
 
@@ -221,6 +235,8 @@ struct EuclidPropositionPage: View {
 #if DEBUG
 /// Launch arguments for driving the workshop from a script, e.g.
 /// `-KymMathsSection euclidWorkshop -EuclidOpen I.10 -EuclidReplay solved -EuclidLayer letters`.
+/// Also `-EuclidProgress picture|letters|head`, `-EuclidHints n`, `-EuclidShearT 0.4`,
+/// `-EuclidSelect I.10` (map), and `-EuclidSeed n -EuclidPlaced n` (step-order round).
 enum EuclidDebugLaunch {
     private static var defaults: UserDefaults { .standard }
 
@@ -233,8 +249,13 @@ enum EuclidDebugLaunch {
         if let room = defaults.string(forKey: "KymMathsSection").flatMap(AppRoom.init(rawValue:)) {
             store.activeRoom = room
         }
+        // "map", "I.10", or "order:I.10".
         if let open = defaults.string(forKey: "EuclidOpen") {
-            store.euclidRoute = .board(PropositionID(open))
+            store.euclidRoute = switch open {
+            case "map": .map
+            case let order where order.hasPrefix("order:"): .stepOrder(PropositionID(String(order.dropFirst(6))))
+            default: .board(PropositionID(open))
+            }
         }
     }
 

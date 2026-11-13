@@ -359,8 +359,8 @@ struct EuclidWorkshopSession {
         hasAttempted = true
     }
 
-    #if DEBUG
-    /// Makes the next `count` scripted moves without marking help, for launch arguments that set up a screen.
+    /// Makes the next `count` scripted moves without marking help: the step-order round's finished
+    /// outline, and launch arguments that set up a screen.
     mutating func playScript(moves count: Int) {
         var made = 0
         while made < count, let next = script.next(on: board), let action = workedAction(next) {
@@ -370,7 +370,6 @@ struct EuclidWorkshopSession {
             made += 1
         }
     }
-    #endif
 
     // MARK: - Hints
 

@@ -72,6 +72,16 @@ struct LabsAtlasHomeView: View {
                                 Label("Launch in Full Stage", systemImage: "arrow.up.right.square")
                             }
                             .buttonStyle(JournalSecondaryButtonStyle())
+
+                            if let proposition = EuclidBuildLinks.widgets[widget.id] {
+                                Button {
+                                    store.openEuclid(.board(proposition))
+                                } label: {
+                                    Label("Build it yourself", systemImage: "compass.drawing")
+                                }
+                                .buttonStyle(JournalSecondaryButtonStyle())
+                                .help("Open \(proposition) in Euclid's Workshop")
+                            }
                         }
 
                         if showEmbeddedWebStage {

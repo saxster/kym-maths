@@ -115,6 +115,16 @@ struct PatternedWorldHomeView: View {
                             Label(showEmbeddedWebStage ? "Hide Interactive Stage" : "Show Interactive Stage", systemImage: "cube.transparent.fill")
                         }
                         .buttonStyle(JournalSecondaryButtonStyle())
+
+                        if chapter.id == EuclidBuildLinks.mapChapter {
+                            Button {
+                                store.openEuclid(.map)
+                            } label: {
+                                Label("Build it yourself", systemImage: "compass.drawing")
+                            }
+                            .buttonStyle(JournalSecondaryButtonStyle())
+                            .help("Open Book I in Euclid's Workshop")
+                        }
                     }
 
                     // Volumes bar

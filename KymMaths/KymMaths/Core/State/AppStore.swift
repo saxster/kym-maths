@@ -77,7 +77,7 @@ final class AppStore {
     var showCalendarSheet: Bool = false
     var showSettingsSheet: Bool = false
     var showDailyFlowSheet: Bool = false
-    var euclidRoute: EuclidRoute = .board("I.1")
+    var euclidRoute: EuclidRoute = .map
 
     // Customisation & Preferences (persisted in UserDefaults)
     var learnerDisplayName: String {
