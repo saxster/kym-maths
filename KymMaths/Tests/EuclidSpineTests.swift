@@ -130,6 +130,16 @@ struct EuclidSpineTests {
         }
     }
 
+    @Test("Proof text never spells a point's letter: the Byrne view hides letters, so parts must be glyphs")
+    func proofTextHasNoLetters() throws {
+        let pointName = try Regex(#"\b[A-Z]{1,3}\b"#)
+        for proposition in EuclidSpine.catalog {
+            for case let .text(text) in proposition.proofSteps.flatMap(\.claim) {
+                #expect(text.firstMatch(of: pointName) == nil, "\(proposition.id): \"\(text)\" names points in words")
+            }
+        }
+    }
+
     // MARK: - Near misses
 
     private static func given(_ construction: Construction, plus extra: [Given]) -> (ConstructionBoard, [String: PointID]) {
