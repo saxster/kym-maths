@@ -231,7 +231,7 @@ struct EuclidBoardCanvas: View {
 /// Compass, straightedge, one tool per proven proposition, then undo, hint, the layer switch and,
 /// on a solved figure with a plain version, its construction lines. One row when it fits: first with
 /// every label, then with the side controls as icons (named in their help and accessibility labels),
-/// and only then wrapped.
+/// then with the compass and straightedge as icons too, and only then wrapped.
 struct EuclidBoardToolbar: View {
     @Binding var session: EuclidWorkshopSession
 
@@ -239,18 +239,21 @@ struct EuclidBoardToolbar: View {
         ViewThatFits(in: .horizontal) {
             HStack(spacing: Spacing.xs) { controls(compact: false) }
             HStack(spacing: Spacing.xs) { controls(compact: true) }
+            HStack(spacing: Spacing.xs) { controls(compact: true, iconTools: true) }
             FlowLayout(spacing: Spacing.xs) { controls(compact: true) }
         }
     }
 
     @ViewBuilder
-    private func controls(compact: Bool) -> some View {
+    private func controls(compact: Bool, iconTools: Bool = false) -> some View {
         MathsFilterChip(title: "Compass", systemImage: "circle.dashed", isSelected: session.tool.tool == .compass) {
             session.choose(.compass)
         }
+        .sideControl(iconTools, help: "Compass: draw a circle")
         MathsFilterChip(title: "Straightedge", systemImage: "line.diagonal", isSelected: session.tool.tool == .straightedge) {
             session.choose(.straightedge)
         }
+        .sideControl(iconTools, help: "Straightedge: draw a line")
         ForEach(session.tools, id: \.self) { id in
             let name = "\(id) · \(EuclidSpine.proposition(id)?.title ?? "")"
             MathsFilterChip(title: id.raw, systemImage: "wand.and.rays", isSelected: session.tool.tool == .proposition(id)) {
