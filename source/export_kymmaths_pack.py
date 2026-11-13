@@ -439,7 +439,7 @@ def build_chapters():
                     "id": f"ch{num:02d}-c-predict",
                     "kind": "predict",
                     "title": "Predict Before You Drag",
-                    "body": f"Before moving the slider in {widgets[0]}, predict which geometric quantity changes and which invariant stays locked.",
+                    "body": f"Before moving the slider in {widget_title(widgets[0])}, predict which geometric quantity changes and which invariant stays locked.",
                 },
                 {
                     "id": f"ch{num:02d}-c-aha",
@@ -541,6 +541,12 @@ WIDGET_OVERRIDES = {
 }
 
 
+def widget_title(wid):
+    """The name a learner sees for a widget: its override title, else one made from its id."""
+    derived = wid.replace("w_atlas_", "3D Atlas: ").replace("w_", "").replace("_", " ").title()
+    return WIDGET_OVERRIDES.get(wid, {}).get("title", derived)
+
+
 def build_widgets(chapters):
     widgets = []
     for ch in chapters:
@@ -548,7 +554,7 @@ def build_widgets(chapters):
         bridge = ch["intuitionToFormula"]
         for idx, wid in enumerate(ch["widgets"]):
             is_3d = "atlas" in wid or ch_num in (3, 10, 12, 13, 15, 16, 17, 18, 19, 20)
-            title = wid.replace("w_atlas_", "3D Atlas: ").replace("w_", "").replace("_", " ").title()
+            title = widget_title(wid)
             widgets.append({
                 "id": wid,
                 "title": title,
