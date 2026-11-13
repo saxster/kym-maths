@@ -88,8 +88,8 @@ struct ClaimLine: View {
                     Button {
                         session.highlightedToken = session.highlightedToken == token ? nil : token
                     } label: {
-                        ClaimGlyph(token: token, positions: session.positions(of: token), layer: session.layer,
-                                   isHighlighted: session.highlightedToken == token)
+                        ClaimGlyph(token: token, positions: session.positions(of: token), skeleton: session.skeleton,
+                                   layer: session.layer, isHighlighted: session.highlightedToken == token)
                     }
                     .buttonStyle(.plain)
                     .accessibilityLabel(ClaimGlyph.spoken(token))
@@ -100,10 +100,13 @@ struct ClaimLine: View {
 }
 
 /// One part of the figure in miniature, drawn the way it sits on the board, in its role colour.
-/// The Letters layer shows the school's notation instead.
+/// A segment sits within a faint copy of the whole figure, so two lines of one colour and length
+/// tell apart by where they are. The Letters layer shows the school's notation instead.
 struct ClaimGlyph: View {
     let token: ClaimToken
     let positions: [Vec2]
+    /// The solved figure's lines, for placing a segment.
+    var skeleton: [FigureStroke] = []
     let layer: BoardLayer
     var isHighlighted = false
 
@@ -116,16 +119,20 @@ struct ClaimGlyph: View {
                     .padding(.horizontal, 3)
             } else {
                 Canvas { context, size in draw(in: &context, size) }
-                    .frame(width: 34, height: 22)
+                    .frame(width: 36, height: 26)
             }
         }
+        // A picked glyph is lit in light amber on the paper, so its ink stays readable in every theme.
         .background(
             RoundedRectangle(cornerRadius: MathsFigureRadius.tile)
-                .fill(isHighlighted ? Color.kymaiaSelectionFill : MathsFigureColor.paper)
+                .fill(MathsFigureColor.paper)
+                .overlay(RoundedRectangle(cornerRadius: MathsFigureRadius.tile)
+                    .fill(MathsFigureColor.amber.opacity(isHighlighted ? 0.3 : 0)))
         )
         .overlay(
             RoundedRectangle(cornerRadius: MathsFigureRadius.tile)
-                .strokeBorder(isHighlighted ? Color.kymaiaPrimary : MathsFigureColor.ink.opacity(0.12), lineWidth: 1)
+                .strokeBorder(isHighlighted ? MathsFigureColor.amber : MathsFigureColor.ink.opacity(0.12),
+                              lineWidth: isHighlighted ? 2 : 1)
         )
     }
 
@@ -138,7 +145,7 @@ struct ClaimGlyph: View {
 
     private func draw(in context: inout GraphicsContext, _ size: CGSize) {
         let colour = role.figureColor
-        let inset = CGRect(origin: .zero, size: size).insetBy(dx: 5, dy: 4)
+        let inset = CGRect(origin: .zero, size: size).insetBy(dx: 4, dy: 3)
         switch token {
         case .text:
             break
@@ -146,9 +153,13 @@ struct ClaimGlyph: View {
             let r = min(inset.width, inset.height) / 2
             context.stroke(BoardPaths.circle(CGPoint(x: inset.midX, y: inset.midY), radius: r), with: .color(colour), lineWidth: 2)
         case .segment:
-            let points = fitted(positions, in: inset)
-            guard points.count == 2 else { return }
-            context.stroke(BoardPaths.line(points[0], points[1]), with: .color(colour), style: StrokeStyle(lineWidth: 3.2, lineCap: .round))
+            guard positions.count == 2 else { return }
+            let figure = skeleton.flatMap { [$0.from, $0.to] }
+            let points = fitted(positions + figure, in: inset)
+            for index in stride(from: 2, to: points.count, by: 2) {
+                context.stroke(BoardPaths.line(points[index], points[index + 1]), with: .color(MathsFigureColor.ink.opacity(0.2)), lineWidth: 0.8)
+            }
+            context.stroke(BoardPaths.line(points[0], points[1]), with: .color(colour), style: StrokeStyle(lineWidth: 2.6, lineCap: .round))
         case .angle:
             guard positions.count == 3 else { return }
             let (p, v, q) = (positions[0], positions[1], positions[2])

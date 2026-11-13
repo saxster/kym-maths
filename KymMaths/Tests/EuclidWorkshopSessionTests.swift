@@ -319,4 +319,116 @@ struct EuclidWorkshopSessionTests {
         #expect(s.highlight(for: .circle(center: "B", .red)) == .circle(center: Vec2(x: 4, y: 0), radius: 4, .red))
         #expect(s.highlight(for: .text("so")) == nil)
     }
+
+    // MARK: - Status line
+
+    @Test("The status line prompts for the tool until the board is solved, then says nothing")
+    func promptStopsWhenSolved() throws {
+        var s = try Self.session("I.1")
+        #expect(s.status == BoardStatus(kind: .info, text: "Compass: tap the point for the centre."))
+        while !s.isSolved, s.board.history.count < 20 { s.requestHint() }
+        #expect(s.isSolved)
+        #expect(s.prompt == nil && s.status == nil)
+    }
+
+    @Test("A refused tap reads as a refusal until a hint, a tool or an undo makes it stale")
+    func refusalClears() throws {
+        var s = try Self.session("I.1")
+        _ = Self.tap(&s, 2, 1)
+        #expect(s.status?.kind == .refusal)
+        s.requestHint()
+        #expect(s.status?.kind == .info, "the hint replaces the stale refusal")
+
+        _ = Self.tap(&s, 2, 1)
+        s.choose(.straightedge)
+        #expect(s.status == BoardStatus(kind: .info, text: "Straightedge: tap the first point."))
+    }
+
+    @Test("A proposition tool that builds reads as a success, not a warning")
+    func builtIsSuccess() throws {
+        var s = try Self.session("I.10", tools: ["I.1"])
+        s.choose(.proposition("I.1"))
+        _ = Self.tap(&s, 0, 0)
+        #expect(s.status?.kind == .info)
+        #expect(Self.tap(&s, 7, 0) == .built("I.1"))
+        #expect(s.status == BoardStatus(kind: .success, text: "I.1 built in one step."))
+    }
+
+    // MARK: - Reading the figure
+
+    @Test("A given line that runs past the figure is split at the figure's own points")
+    func givenSpans() throws {
+        func spans(_ id: PropositionID) throws -> Set<Set<Vec2>> {
+            Set(try Self.session(id).givenSpans.values.map { [$0.from, $0.to] })
+        }
+        let (a, b, c) = (Vec2(x: 1.8, y: 2.4), Vec2(x: 0, y: 0), Vec2(x: 5, y: 0))
+        #expect(try spans("I.47") == [[b, c], [a, b], [a, c]], "the triangle itself, inside three longer lines")
+        #expect(try spans("I.46") == [[Vec2(x: 0, y: 0), Vec2(x: 5, y: 0)]])
+        for id: PropositionID in ["I.1", "I.9", "I.10", "I.11"] {
+            #expect(try spans(id).isEmpty, "\(id)'s given lines end at its own points")
+        }
+    }
+
+    @Test("Solved I.47 shows a plain figure: the triangle, three shaded squares, AL and the four joins, no circles")
+    func cleanI47() throws {
+        var s = try Self.session("I.47", tools: ["I.1", "I.9", "I.10", "I.11", "I.46"])
+        #expect(s.cleanFigure == nil, "not before it is solved")
+        s.playScript(moves: .max)
+        let figure = try #require(s.cleanFigure)
+        func at(_ name: String) throws -> Vec2 { try #require(s.script.position(named: name)) }
+        let lettered = try Set(["A", "B", "C", "D", "E", "F", "G", "H", "K", "L", "M", "N"].map(at))
+        for stroke in figure.strokes {
+            #expect(lettered.contains(stroke.from) && lettered.contains(stroke.to), "no line runs past a lettered point")
+        }
+        func drawn(_ p: String, _ q: String) throws -> Bool {
+            let ends: Set<Vec2> = [try at(p), try at(q)]
+            return figure.strokes.contains { [$0.from, $0.to] == ends }
+        }
+        for (p, q) in [("B", "C"), ("A", "B"), ("A", "C"), ("A", "L"), ("A", "D"), ("F", "C"), ("A", "E"), ("B", "K"),
+                       ("B", "D"), ("D", "E"), ("C", "E"), ("G", "F"), ("H", "K")] {
+            #expect(try drawn(p, q), "\(p)\(q)")
+        }
+        #expect(figure.fills.map(\.role) == [.amber, .blue, .green])
+        #expect(try figure.fills.first?.corners == ["B", "D", "E", "C"].map(at))
+
+        s.showsConstructionLines = true
+        #expect(s.cleanFigure == nil, "the toggle brings the construction back")
+    }
+
+    @Test("A proposition without a plain version keeps its arcs when solved")
+    func noCleanFigureForI1() throws {
+        var s = try Self.session("I.1")
+        s.playScript(moves: .max)
+        #expect(s.isSolved && !s.offersCleanFigure && s.cleanFigure == nil)
+    }
+
+    @Test("Each letter on solved I.10 sits away from every line that meets its point")
+    func labelsClearLines() throws {
+        var s = try Self.session("I.10", layer: .letters)
+        s.playScript(moves: .max)
+        for (index, point) in s.board.points.enumerated() {
+            guard s.label(of: PointID(raw: index)) != nil else { continue }
+            let direction = s.labelDirection(of: PointID(raw: index))
+            for curve in s.board.curves {
+                guard case let .segment(a, b) = curve.curve else { continue }
+                let (pa, pb) = (try s.board.position(of: a), try s.board.position(of: b))
+                for (from, to) in [(pa, pb), (pb, pa)] where from.distance(to: point.position) > 1e-6 {
+                    let along = to - from
+                    let t = (point.position - from).dot(along) / along.dot(along)
+                    guard abs(along.cross(point.position - from)) < 1e-6 * along.length, t > -1e-6, t < 1 + 1e-6 else { continue }
+                    let ray = from - point.position
+                    let cosine = ray.dot(direction) / ray.length
+                    #expect(cosine < cos(.pi / 6), "\(s.label(of: PointID(raw: index)) ?? "") clears its lines")
+                }
+            }
+        }
+        let d = try #require(s.board.point(at: Vec2(x: 3.5, y: 0)))
+        #expect(s.label(of: d) == "D")
+    }
+
+    @Test("A point no line meets takes its letter straight out from the middle")
+    func labelFallsBackToRadial() {
+        let direction = EuclidWorkshopSession.labelDirection(at: Vec2(x: 3, y: 4), lines: [], outFrom: Vec2(x: 0, y: 0))
+        #expect(abs(direction.x - 0.6) < 1e-12 && abs(direction.y - 0.8) < 1e-12)
+    }
 }

@@ -74,6 +74,12 @@ struct Construction {
     let goal: Goal
     /// What to tap when the proposition is used as a tool.
     let inputPrompt: String
+    /// Given points that only mark how far a line runs past the figure, since the board has no
+    /// Postulate 2. The board draws that run faint and dashed, so the figure reads as itself.
+    var runOff: Set<String> = []
+    /// For a figure too busy to read once solved: the regions its plain version shades. The plain
+    /// version keeps only the lines between lettered points; her construction lines come back on a toggle.
+    var cleanFigure: [ShadedRegion]? = nil
 
     var givenPointNames: [String] {
         givens.compactMap { given in
@@ -91,6 +97,12 @@ struct Construction {
         let names = try construct(&board, given)
         return (board, names)
     }
+}
+
+/// A region of a finished figure, named by its corners in order.
+struct ShadedRegion: Hashable {
+    let corners: [String]
+    let role: ColorRole
 }
 
 /// The task she does on paper with a real compass, with the answer a parent checks.
@@ -377,7 +389,8 @@ enum EuclidSpine {
                 return ["P": p, "A": a, "B": b, "Q": q, "D": d, "E": e]
             },
             goal: .squareOn(side: "A", "B"),
-            inputPrompt: "Tap four points along one line: an end of the line, the two corners of the side, the other end. The square goes on the left."
+            inputPrompt: "Tap four points along one line: an end of the line, the two corners of the side, the other end. The square goes on the left.",
+            runOff: ["P", "Q"]
         )),
         uses: ["I.11", "I.28", "I.33", "I.34"],
         proofSteps: [
@@ -463,7 +476,13 @@ enum EuclidSpine {
                 return n.merging(["D": d, "E": e, "F": f, "G": g, "H": h, "K": k, "L": l, "M": m, "N": nPoint]) { $1 }
             },
             goal: .squaresOnRightTriangle(rightAngle: "A", "B", "C"),
-            inputPrompt: "Tap the right-angled corner, the other two corners, then both far ends of each side's line."
+            inputPrompt: "Tap the right-angled corner, the other two corners, then both far ends of each side's line.",
+            runOff: ["bc1", "bc2", "ab1", "ab2", "ac1", "ac2"],
+            cleanFigure: [
+                ShadedRegion(corners: ["B", "D", "E", "C"], role: .amber),
+                ShadedRegion(corners: ["A", "B", "F", "G"], role: .blue),
+                ShadedRegion(corners: ["A", "C", "K", "H"], role: .green),
+            ]
         )),
         uses: ["I.46", "I.10", "I.8", "I.28", "I.14", "I.4", "I.41"],
         proofSteps: [

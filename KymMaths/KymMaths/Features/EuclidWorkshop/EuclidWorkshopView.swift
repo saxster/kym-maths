@@ -31,18 +31,12 @@ struct EuclidPropositionPage: View {
     let id: PropositionID
 
     @State private var session: EuclidWorkshopSession?
-    @State private var lastOutcome: TapOutcome?
     @State private var recorded: ProgressOutcome?
     @State private var width: CGFloat = 0
 
     var body: some View {
         JournalPage(title: "", column: .calendar) {
-            Button {
-                store.euclidRoute = .map
-            } label: {
-                Label("Book I map", systemImage: "chevron.backward")
-            }
-            .buttonStyle(JournalSecondaryButtonStyle())
+            EuclidMapBackButton(store: store)
             if let proposition = EuclidSpine.proposition(id) {
                 EditorialHeader(
                     eyebrow: "Euclid's Workshop · Book I",
@@ -104,15 +98,17 @@ struct EuclidPropositionPage: View {
     private var boardCard: some View {
         JournalCard {
             VStack(alignment: .leading, spacing: Spacing.sm) {
-                EuclidBoardToolbar(session: sessionBinding) { lastOutcome = nil }
+                EuclidBoardToolbar(session: sessionBinding)
                 GeometryReader { geo in
                     EuclidBoardCanvas(session: session!) { location, tolerance in
-                        lastOutcome = session?.tap(at: location, tolerance: tolerance)
+                        session?.tap(at: location, tolerance: tolerance)
                     }
                     .frame(width: geo.size.width, height: geo.size.height)
                 }
                 .frame(height: boardHeight)
-                statusLine
+                if let status = session?.status {
+                    statusLine(status)
+                }
                 if let hint = session?.hint {
                     hintPanel(hint)
                 }
@@ -135,11 +131,16 @@ struct EuclidPropositionPage: View {
         }
     }
 
-    private var statusLine: some View {
-        HStack(alignment: .firstTextBaseline, spacing: Spacing.xs) {
-            Image(systemName: lastOutcome?.message == nil ? "hand.point.up.left" : "exclamationmark.circle")
-                .foregroundStyle(lastOutcome?.message == nil ? Color.kymaiaMutedInk : Color.kymaiaWarning)
-            Text(lastOutcome?.message ?? session?.prompt ?? "")
+    private func statusLine(_ status: BoardStatus) -> some View {
+        let (symbol, tone): (String, Color) = switch status.kind {
+        case .info: ("hand.point.up.left", Color.kymaiaMutedInk)
+        case .refusal: ("exclamationmark.circle", Color.kymaiaWarning)
+        case .success: ("checkmark.circle.fill", Color.kymaiaSuccess)
+        }
+        return HStack(alignment: .firstTextBaseline, spacing: Spacing.xs) {
+            Image(systemName: symbol)
+                .foregroundStyle(tone)
+            Text(status.text)
                 .font(Typography.caption)
                 .foregroundStyle(Color.kymaiaInk)
         }
@@ -214,7 +215,6 @@ struct EuclidPropositionPage: View {
         session = EuclidWorkshopSession(proposition: proposition,
                                         tools: EuclidWorkshopSession.tools(for: id, progress: store.euclidProgress),
                                         layer: layer)
-        lastOutcome = nil
         recorded = nil
         #if DEBUG
         EuclidDebugLaunch.prepare(&session)
@@ -228,7 +228,21 @@ struct EuclidPropositionPage: View {
     }
 
     private func open(_ target: PropositionID) {
-        store.euclidRoute = .board(target)
+        store.openEuclid(.board(target))
+    }
+}
+
+/// Back to the Book I map, at the top of every workshop page.
+struct EuclidMapBackButton: View {
+    @Bindable var store: AppStore
+
+    var body: some View {
+        Button {
+            store.euclidRoute = .map
+        } label: {
+            Label("Book I map", systemImage: "chevron.backward")
+        }
+        .buttonStyle(JournalSecondaryButtonStyle())
     }
 }
 

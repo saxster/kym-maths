@@ -73,6 +73,57 @@ enum TapOutcome: Equatable {
     case refused(TapRefusal)
 }
 
+/// What the line under the board says, and how it says it.
+struct BoardStatus: Equatable {
+    enum Kind: Equatable {
+        /// What the tool in hand waits for.
+        case info
+        /// A tap the board turned down, and why.
+        case refusal
+        /// Something she made worked.
+        case success
+    }
+
+    let kind: Kind
+    let text: String
+}
+
+extension TapOutcome {
+    /// The status a tap leaves, when the tap needs explaining.
+    var status: BoardStatus? {
+        switch self {
+        case .refused(.emptyPaper):
+            BoardStatus(kind: .refusal, text: "Euclid allows no free points. Tap a point, or a place where two lines cross.")
+        case .refused(.alreadyOnBoard):
+            BoardStatus(kind: .refusal, text: "That is already on the board.")
+        case .refused(.alreadyPicked):
+            BoardStatus(kind: .refusal, text: "That point is already chosen.")
+        case let .refused(.failed(error)):
+            switch error {
+            case .noIntersection: BoardStatus(kind: .refusal, text: "Those lines don't cross there.")
+            case let .wrongInputCount(id, expected, _): BoardStatus(kind: .refusal, text: "\(id) needs \(expected) points.")
+            default: BoardStatus(kind: .refusal, text: "That tool can't be used on those points. Try them in another order.")
+            }
+        case let .built(id):
+            BoardStatus(kind: .success, text: "\(id) built in one step.")
+        case .picked, .released, .drew:
+            nil
+        }
+    }
+}
+
+/// A finished figure shown plainly: the lines between its lettered points, its regions shaded.
+struct CleanFigure: Equatable {
+    struct Fill: Equatable {
+        let corners: [Vec2]
+        let role: ColorRole
+    }
+
+    let strokes: [FigureStroke]
+    let fills: [Fill]
+    let points: [Vec2]
+}
+
 /// A part of the figure to pulse on the board, from a proof glyph or a hint.
 enum BoardHighlight: Equatable {
     case points([Vec2])
@@ -121,6 +172,14 @@ struct EuclidWorkshopSession {
     /// The layer she finished in, which decides the level she earned.
     private(set) var solvedLayer: BoardLayer?
     var highlightedToken: ClaimToken?
+    /// The last tap's outcome, until the next tap, tool, hint or undo makes it stale.
+    private(set) var lastOutcome: TapOutcome?
+    /// On a solved board with a plain version, brings back every construction line.
+    var showsConstructionLines = false
+    /// Given lines that run on past the figure, each with the part between the figure's own points.
+    let givenSpans: [CurveID: FigureStroke]
+    /// The solved figure's lines between lettered points, for placing a proof glyph within it.
+    let skeleton: [FigureStroke]
     let script: ScriptedSolution
     /// What a proposition tool drew on the way to its result: its circles and helper lines, and
     /// the points they made. The board draws these faintly, as Euclid would leave them out.
@@ -157,6 +216,23 @@ struct EuclidWorkshopSession {
         self.script = script
         board = ConstructionBoard(givens: construction.givens)
         givenNames = script.givenNames
+        givenSpans = Self.givenSpans(of: construction)
+        skeleton = script.board.strokes(between: script.letters.map(\.position))
+    }
+
+    private static func givenSpans(of construction: Construction) -> [CurveID: FigureStroke] {
+        let board = ConstructionBoard(givens: construction.givens)
+        func runsOff(_ id: PointID) -> Bool {
+            if case let .given(name) = board.points[id.raw].origin { construction.runOff.contains(name) } else { false }
+        }
+        let own = board.points.indices.filter { !runsOff(PointID(raw: $0)) }.map { (board.points[$0].position, board.points[$0].position) }
+        var spans: [CurveID: FigureStroke] = [:]
+        for (index, curve) in board.curves.enumerated() {
+            guard case let .segment(a, b) = curve.curve, runsOff(a) || runsOff(b),
+                  let ends = board.outermost(on: CurveID(raw: index), of: own) else { continue }
+            spans[CurveID(raw: index)] = FigureStroke(from: ends.first, to: ends.last, role: curve.role)
+        }
+        return spans
     }
 
     /// The tools a board for `id` offers: every built proposition before it in Book I that she
@@ -193,8 +269,10 @@ struct EuclidWorkshopSession {
         return Self.palette[strokes % Self.palette.count]
     }
 
-    var prompt: String {
-        switch tool {
+    /// What the tool in hand waits for. Nothing, once the board is solved.
+    var prompt: String? {
+        guard !isSolved else { return nil }
+        return switch tool {
         case .compass(.awaitingCentre): "Compass: tap the point for the centre."
         case .compass(.awaitingRadius): "Now tap a point the circle runs through."
         case .straightedge(.awaitingStart): "Straightedge: tap the first point."
@@ -204,17 +282,45 @@ struct EuclidWorkshopSession {
         }
     }
 
+    /// The line under the board: the last tap's outcome when it needs explaining, else the prompt.
+    var status: BoardStatus? {
+        lastOutcome?.status ?? prompt.map { BoardStatus(kind: .info, text: $0) }
+    }
+
+    var offersCleanFigure: Bool { isSolved && construction.cleanFigure != nil }
+
+    /// The plain version of a solved figure, unless she asked for the construction lines.
+    var cleanFigure: CleanFigure? {
+        guard offersCleanFigure, !showsConstructionLines, let shading = construction.cleanFigure else { return nil }
+        let lettered = script.letters.map(\.position).filter { board.point(at: $0) != nil }
+        return CleanFigure(
+            strokes: board.strokes(between: lettered, tolerance: ScriptedSolution.sameness),
+            fills: shading.compactMap { region in
+                let corners = region.corners.compactMap(script.position(named:))
+                return corners.count == region.corners.count ? CleanFigure.Fill(corners: corners, role: region.role) : nil
+            },
+            points: lettered
+        )
+    }
+
     // MARK: - Moves
 
     mutating func choose(_ next: WorkshopTool) {
         if case let .proposition(id) = next, !tools.contains(id) { return }
         tool = ToolState(next)
+        lastOutcome = nil
     }
 
     /// A tap at `location` in board units. It snaps to a point or a crossing, never to empty paper;
     /// a crossing becomes a point first, then the tool takes it.
     @discardableResult
     mutating func tap(at location: Vec2, tolerance: Double) -> TapOutcome {
+        let outcome = take(at: location, tolerance: tolerance)
+        lastOutcome = outcome
+        return outcome
+    }
+
+    private mutating func take(at location: Vec2, tolerance: Double) -> TapOutcome {
         guard let target = board.snap(location, tolerance: tolerance) else { return .refused(.emptyPaper) }
         let point: PointID
         switch target {
@@ -317,6 +423,7 @@ struct EuclidWorkshopSession {
         tool = ToolState(tool.tool)
         hint = nil
         hintRung = .none
+        lastOutcome = nil
         if !isSolved { solvedLayer = nil }
     }
 
@@ -336,18 +443,9 @@ struct EuclidWorkshopSession {
             }
             if kept.contains(a), kept.contains(b) { continue }
             marked.curves.insert(id)
-            guard let pa = try? after.position(of: a), let pb = try? after.position(of: b) else { continue }
-            let along = pb - pa
-            let length = along.length
-            let onIt = kept.compactMap { point -> (PointID, Double)? in
-                guard let p = try? after.position(of: point) else { return nil }
-                let w = p - pa
-                let t = w.dot(along) / (length * length)
-                guard abs(along.cross(w)) <= ConstructionBoard.coincidence * length, t > -1e-9, t < 1 + 1e-9 else { return nil }
-                return (point, t)
-            }.sorted { $0.1 < $1.1 }
-            if let first = onIt.first, let last = onIt.last, first.0 != last.0 {
-                marked.spans[id] = [first.0, last.0]
+            let marks = kept.compactMap { point in (try? after.position(of: point)).map { (point, $0) } }
+            if let ends = after.outermost(on: id, of: marks) {
+                marked.spans[id] = [ends.first, ends.last]
             }
         }
     }
@@ -375,6 +473,7 @@ struct EuclidWorkshopSession {
 
     /// Climbs one rung for the current move. R5 makes the next scripted move for her.
     mutating func requestHint() {
+        lastOutcome = nil
         guard !isSolved else { return }
         let rung = HintLadderRung(rawValue: min(hintRung.rawValue + 1, HintLadderRung.r5WorkedStep.rawValue)) ?? .r5WorkedStep
         if rung.surrendersRetrieval { isAssisted = true }
@@ -459,6 +558,50 @@ struct EuclidWorkshopSession {
     }
 
     // MARK: - Reading the figure
+
+    /// Which way to set a point's letter off: into the widest gap between the segments that meet
+    /// at it, so the letter clears them, or straight out from the figure's middle when none do.
+    func labelDirection(of id: PointID) -> Vec2 {
+        guard let at = try? board.position(of: id) else { return Vec2(x: 0, y: 1) }
+        let lines = board.curves.compactMap { curve -> (Vec2, Vec2)? in
+            guard case let .segment(a, b) = curve.curve, let pa = try? board.position(of: a), let pb = try? board.position(of: b) else { return nil }
+            return (pa, pb)
+        }
+        let middle = Vec2(x: (extent.min.x + extent.max.x) / 2, y: (extent.min.y + extent.max.y) / 2)
+        return Self.labelDirection(at: at, lines: lines, outFrom: middle)
+    }
+
+    static func labelDirection(at point: Vec2, lines: [(Vec2, Vec2)], outFrom middle: Vec2) -> Vec2 {
+        func unit(_ v: Vec2) -> Vec2? { v.length > 1e-9 ? (1 / v.length) * v : nil }
+        let radial = unit(point - middle) ?? Vec2(x: 0.6, y: 0.8)
+        let near = 1e-6
+        var angles: [Double] = []
+        for (a, b) in lines {
+            let along = b - a
+            let length = along.length
+            guard length > near else { continue }
+            let t = (point - a).dot(along) / (length * length)
+            guard abs(along.cross(point - a)) <= near * length, t > -near, t < 1 + near else { continue }
+            if t * length > near { angles.append(atan2(a.y - point.y, a.x - point.x)) }
+            if (1 - t) * length > near { angles.append(atan2(b.y - point.y, b.x - point.x)) }
+        }
+        guard !angles.isEmpty else { return radial }
+        angles.sort()
+        var best: (gap: Double, direction: Vec2)?
+        for (index, start) in angles.enumerated() {
+            let end = index + 1 < angles.count ? angles[index + 1] : angles[0] + 2 * .pi
+            let gap = end - start
+            let middleAngle = start + gap / 2
+            let direction = Vec2(x: cos(middleAngle), y: sin(middleAngle))
+            // Equal gaps, as where two lines cross square: take the one nearest straight out.
+            if let current = best, gap < current.gap - 1e-6
+                || (abs(gap - current.gap) <= 1e-6 && direction.dot(radial) <= current.direction.dot(radial)) {
+                continue
+            }
+            best = (gap, direction)
+        }
+        return best?.direction ?? radial
+    }
 
     /// The proposition's own letter for a point, in the Letters layer.
     func label(of id: PointID) -> String? {

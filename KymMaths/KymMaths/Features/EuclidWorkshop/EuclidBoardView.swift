@@ -53,7 +53,7 @@ struct EuclidBoardCanvas: View {
         )
         .accessibilityElement()
         .accessibilityLabel("Construction board for \(session.proposition.id), \(session.proposition.title)")
-        .accessibilityValue(session.isSolved ? "Solved" : session.prompt)
+        .accessibilityValue(session.isSolved ? "Solved" : session.prompt ?? "")
     }
 
     // MARK: - Drawing
@@ -67,12 +67,16 @@ struct EuclidBoardCanvas: View {
         for highlight in highlights {
             drawHighlight(highlight, in: &context, viewport, pulse: pulse)
         }
+        if let figure = session.cleanFigure {
+            drawClean(figure, in: &context, viewport)
+            return
+        }
 
         let scaffolding = session.scaffolding
         // A tool's scaffolding goes down first and faint, so her own curves sit on top of it.
         for pass in [true, false] {
             for (index, curve) in board.curves.enumerated() where scaffolding.curves.contains(CurveID(raw: index)) == pass {
-                drawCurve(curve, on: board, viewport, in: &context, faint: pass)
+                drawCurve(curve, id: CurveID(raw: index), on: board, viewport, in: &context, faint: pass)
             }
         }
         for (id, ends) in scaffolding.spans {
@@ -98,7 +102,7 @@ struct EuclidBoardCanvas: View {
             let isGiven = if case .given = point.origin { true } else { false }
             context.fill(BoardPaths.circle(at, radius: isGiven ? 4.5 : 3.6), with: .color(MathsFigureColor.ink))
             if session.layer == .letters, let name = session.label(of: PointID(raw: index)) {
-                drawLabel(name, at: at, viewport, in: &context)
+                drawLabel(name, at: at, direction: session.labelDirection(of: PointID(raw: index)), in: &context)
             }
         }
 
@@ -118,7 +122,7 @@ struct EuclidBoardCanvas: View {
         }
     }
 
-    private func drawCurve(_ curve: BoardCurve, on board: ConstructionBoard, _ viewport: BoardViewport,
+    private func drawCurve(_ curve: BoardCurve, id: CurveID, on board: ConstructionBoard, _ viewport: BoardViewport,
                            in context: inout GraphicsContext, faint: Bool) {
         let scaffoldInk = MathsFigureColor.ink.opacity(0.16)
         switch curve.curve {
@@ -129,8 +133,32 @@ struct EuclidBoardCanvas: View {
         case let .segment(a, b):
             guard let pa = try? board.position(of: a), let pb = try? board.position(of: b) else { return }
             let path = BoardPaths.line(viewport.toView(pa), viewport.toView(pb))
+            if !faint, let span = session.givenSpans[id] {
+                context.stroke(path, with: .color(MathsFigureColor.ink.opacity(0.3)), style: StrokeStyle(lineWidth: 1.2, dash: [5, 4]))
+                context.stroke(BoardPaths.line(viewport.toView(span.from), viewport.toView(span.to)),
+                               with: .color(colour(span.role)), style: StrokeStyle(lineWidth: 3.2, lineCap: .round))
+                return
+            }
             context.stroke(path, with: .color(faint ? scaffoldInk : colour(curve.role)),
                            style: StrokeStyle(lineWidth: faint ? 1 : 3.2, lineCap: .round))
+        }
+    }
+
+    /// The solved figure without its construction: shaded regions, the lines between lettered points, the points.
+    private func drawClean(_ figure: CleanFigure, in context: inout GraphicsContext, _ viewport: BoardViewport) {
+        for fill in figure.fills {
+            context.fill(BoardPaths.polygon(fill.corners.map(viewport.toView)), with: .color(colour(fill.role).opacity(0.16)))
+        }
+        for stroke in figure.strokes {
+            context.stroke(BoardPaths.line(viewport.toView(stroke.from), viewport.toView(stroke.to)),
+                           with: .color(colour(stroke.role)), style: StrokeStyle(lineWidth: 3.2, lineCap: .round))
+        }
+        for position in figure.points {
+            let at = viewport.toView(position)
+            context.fill(BoardPaths.circle(at, radius: 3.6), with: .color(MathsFigureColor.ink))
+            if session.layer == .letters, let name = session.name(at: position), let id = session.board.point(at: position) {
+                drawLabel(name, at: at, direction: session.labelDirection(of: id), in: &context)
+            }
         }
     }
 
@@ -193,26 +221,17 @@ struct EuclidBoardCanvas: View {
         }
     }
 
-    /// A letter set off from the point, away from the figure's middle.
-    private func drawLabel(_ name: String, at point: CGPoint, _ viewport: BoardViewport, in context: inout GraphicsContext) {
-        let extent = session.extent
-        let middle = viewport.toView(Vec2(x: (extent.min.x + extent.max.x) / 2, y: (extent.min.y + extent.max.y) / 2))
-        var dx = point.x - middle.x, dy = point.y - middle.y
-        let length = max(1, (dx * dx + dy * dy).squareRoot())
-        (dx, dy) = (dx / length, dy / length)
-        if length < 2 { (dx, dy) = (0.7, -0.7) }
-        // Turned a little off the line from the middle, which often runs along a drawn segment.
-        let turn = 0.6
-        (dx, dy) = (dx * cos(turn) - dy * sin(turn), dx * sin(turn) + dy * cos(turn))
+    /// A letter set off from its point along `direction`, in board axes (y up).
+    private func drawLabel(_ name: String, at point: CGPoint, direction: Vec2, in context: inout GraphicsContext) {
         context.draw(Text(name).font(MathsFigureType.setSymbol).foregroundStyle(MathsFigureColor.ink),
-                     at: CGPoint(x: point.x + 15 * dx, y: point.y + 15 * dy))
+                     at: CGPoint(x: point.x + 15 * direction.x, y: point.y - 15 * direction.y))
     }
 }
 
-/// Compass, straightedge, one tool per proven proposition, then undo, hint and the layer switch.
+/// Compass, straightedge, one tool per proven proposition, then undo, hint, the layer switch and,
+/// on a solved figure with a plain version, its construction lines.
 struct EuclidBoardToolbar: View {
     @Binding var session: EuclidWorkshopSession
-    var onUndo: () -> Void = {}
 
     var body: some View {
         FlowLayout(spacing: Spacing.xs) {
@@ -223,22 +242,22 @@ struct EuclidBoardToolbar: View {
                 session.choose(.straightedge)
             }
             ForEach(session.tools, id: \.self) { id in
-                MathsFilterChip(
-                    title: "\(id) · \(EuclidSpine.proposition(id)?.title ?? "")",
-                    systemImage: "wand.and.rays",
-                    isSelected: session.tool.tool == .proposition(id)
-                ) {
+                let name = "\(id) · \(EuclidSpine.proposition(id)?.title ?? "")"
+                MathsFilterChip(title: id.raw, systemImage: "wand.and.rays", isSelected: session.tool.tool == .proposition(id)) {
                     session.choose(.proposition(id))
                 }
+                .help(name)
+                .accessibilityLabel(name)
             }
+            let canUndo = !session.board.history.isEmpty
             Button {
                 session.undo()
-                onUndo()
             } label: {
                 Label("Undo", systemImage: "arrow.uturn.backward")
             }
             .buttonStyle(JournalSecondaryButtonStyle())
-            .disabled(session.board.history.isEmpty)
+            .disabled(!canUndo)
+            .opacity(canUndo ? 1 : 0.4)
 
             Button {
                 session.requestHint()
@@ -247,34 +266,18 @@ struct EuclidBoardToolbar: View {
             }
             .buttonStyle(JournalSecondaryButtonStyle())
             .disabled(session.isSolved)
+            .opacity(session.isSolved ? 0.4 : 1)
 
             MathsFilterChip(title: "Letters", systemImage: "textformat", isSelected: session.layer == .letters) {
                 session.layer = session.layer == .letters ? .byrne : .letters
             }
-        }
-    }
-}
-
-extension TapOutcome {
-    /// What the status line says after a tap, when the tap needs explaining.
-    var message: String? {
-        switch self {
-        case .refused(.emptyPaper):
-            "Euclid allows no free points. Tap a point, or a place where two lines cross."
-        case .refused(.alreadyOnBoard):
-            "That is already on the board."
-        case .refused(.alreadyPicked):
-            "That point is already chosen."
-        case let .refused(.failed(error)):
-            switch error {
-            case .noIntersection: "Those lines don't cross there."
-            case let .wrongInputCount(id, expected, _): "\(id) needs \(expected) points."
-            default: "That tool can't be used on those points. Try them in another order."
+            if session.offersCleanFigure {
+                MathsFilterChip(title: "Construction lines", systemImage: "eye",
+                                isSelected: session.showsConstructionLines) {
+                    session.showsConstructionLines.toggle()
+                }
+                .help("Show every circle and line used to build the figure")
             }
-        case let .built(id):
-            "\(id) built in one step."
-        case .picked, .released, .drew:
-            nil
         }
     }
 }

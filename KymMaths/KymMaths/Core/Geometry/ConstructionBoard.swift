@@ -409,3 +409,40 @@ extension Dictionary where Key == String, Value == PointID {
         return id
     }
 }
+
+// MARK: - Reading segments
+
+/// A drawn piece of the figure: a whole segment or part of one, in its colour.
+struct FigureStroke: Equatable {
+    let from: Vec2
+    let to: Vec2
+    let role: ColorRole
+}
+
+extension ConstructionBoard {
+    /// The two of `marks` on segment `id` that lie farthest apart along it, first-end first. Nil for
+    /// a circle, or when fewer than two marks at different places lie on the segment.
+    func outermost<Mark>(on id: CurveID, of marks: [(mark: Mark, at: Vec2)],
+                         tolerance: Double = coincidence) -> (first: Mark, last: Mark)? {
+        guard curves.indices.contains(id.raw), case let .segment(a, b) = curves[id.raw].curve,
+              let pa = try? position(of: a), let pb = try? position(of: b) else { return nil }
+        let along = pb - pa
+        let length = along.length
+        let onIt = marks.compactMap { mark -> (Mark, Double)? in
+            let w = mark.at - pa
+            let t = w.dot(along) / (length * length)
+            guard abs(along.cross(w)) <= tolerance * length, t > -tolerance, t < 1 + tolerance else { return nil }
+            return (mark.mark, t)
+        }.sorted { $0.1 < $1.1 }
+        guard let first = onIt.first, let last = onIt.last, (last.1 - first.1) * length > tolerance else { return nil }
+        return (first.0, last.0)
+    }
+
+    /// Every segment's part between the outermost of `marks` on it: the lines those points name.
+    func strokes(between marks: [Vec2], tolerance: Double = coincidence) -> [FigureStroke] {
+        curves.indices.compactMap { index in
+            outermost(on: CurveID(raw: index), of: marks.map { ($0, $0) }, tolerance: tolerance)
+                .map { FigureStroke(from: $0.first, to: $0.last, role: curves[index].role) }
+        }
+    }
+}
