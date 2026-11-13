@@ -1,6 +1,6 @@
 import SwiftUI
 
-// MARK: - KymMaths App Root & 7-Room Navigation Shell
+// MARK: - KymMaths App Root & Room Navigation Shell
 
 @main
 struct KymMathsApp: App {
@@ -79,6 +79,8 @@ struct KymMathsRootView: View {
                     MathsJournalHomeView(store: store)
                 case .coach:
                     MathsCoachView(store: store)
+                case .euclidWorkshop:
+                    EuclidWorkshopView(store: store)
                 }
             }
             .navigationTitle(store.activeRoom.title)

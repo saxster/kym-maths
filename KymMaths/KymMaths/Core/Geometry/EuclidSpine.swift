@@ -16,6 +16,32 @@ enum Justification: Hashable {
     case commonNotion(Int)
     case definition(Int)
     case proposition(PropositionID)
+
+    var label: String {
+        switch self {
+        case let .postulate(n): "Post. \(n)"
+        case let .commonNotion(n): "C.N. \(n)"
+        case let .definition(n): "Def. \(n)"
+        case let .proposition(id): id.raw
+        }
+    }
+
+    /// Heath's wording, shortened. Only the ones a proof in the catalog cites.
+    var meaning: String {
+        switch self {
+        case .postulate(1): "Postulate 1: any two points can be joined by a straight line."
+        case .postulate(3): "Postulate 3: a circle can be drawn with any centre, through any point."
+        case .postulate(4): "Postulate 4: all right angles are equal."
+        case .commonNotion(1): "Common Notion 1: things equal to the same thing are equal to each other."
+        case .commonNotion(2): "Common Notion 2: equals added to equals give equals."
+        case .definition(10): "Definition 10: when a line stands on another and makes equal angles side by side, each is a right angle."
+        case .definition(15): "Definition 15: every radius of a circle is the same length."
+        case .definition(20): "Definition 20: an equilateral triangle has three equal sides."
+        case .definition(22): "Definition 22: a square has four equal sides and four right angles."
+        case let .proposition(id): EuclidSpine.proposition(id).map { "\(id): \($0.title)" } ?? id.raw
+        default: label
+        }
+    }
 }
 
 /// A piece of a Byrne-style claim. Parts name the construction's points; the Byrne view draws
@@ -46,6 +72,8 @@ struct Construction {
     /// and returns every named point, in the proposition's own lettering.
     let construct: (inout ConstructionBoard, [String: PointID]) throws -> [String: PointID]
     let goal: Goal
+    /// What to tap when the proposition is used as a tool.
+    let inputPrompt: String
 
     var givenPointNames: [String] {
         givens.compactMap { given in
@@ -90,6 +118,8 @@ struct EuclidProposition {
     let knowsWhen: KnowsWhenPrompt?
     /// The KymMaths chapter this skill pays off in.
     let leadsToChapter: String?
+    /// Hint rungs R0–R2, which keep retrieval intact, so they name no letters and no proposition.
+    var hints: [String] = []
 
     /// The propositions whose proofs cite this one. Derived from `uses`, so the two never disagree.
     var unlocks: [PropositionID] {
@@ -130,7 +160,8 @@ enum EuclidSpine {
                 _ = try board.segment(c, b, .red)
                 return ["A": a, "B": b, "C": c]
             },
-            goal: .equilateralTriangle(on: "A", "B")
+            goal: .equilateralTriangle(on: "A", "B"),
+            inputPrompt: "Tap the two ends of the base. The triangle goes on the left as you walk from the first to the second."
         )),
         uses: [],
         proofSteps: [
@@ -155,7 +186,12 @@ enum EuclidSpine {
             problem: "Three friends want to stand so that each one is the same distance from the other two. Two are already standing. Where does the third go?",
             answer: "I.1"
         ),
-        leadsToChapter: nil
+        leadsToChapter: nil,
+        hints: [
+            "The third corner must be exactly one line-length from each end of the line.",
+            "Every point one line-length from an end lies on a circle around that end.",
+            "Two circles, one around each end, cross where both distances are right.",
+        ]
     )
 
     static let i9 = EuclidProposition(
@@ -184,7 +220,8 @@ enum EuclidSpine {
                 _ = try board.segment(a, f, .amber)
                 return ["A": a, "B": b, "C": c, "D": d, "E": e, "F": f]
             },
-            goal: .bisectAngle(vertex: "A", arms: "B", "C")
+            goal: .bisectAngle(vertex: "A", arms: "B", "C"),
+            inputPrompt: "Tap the corner of the angle, then one point on each arm."
         )),
         uses: ["I.1", "I.8"],
         proofSteps: [
@@ -207,7 +244,12 @@ enum EuclidSpine {
             problem: "A path starts at the corner of a field and must stay the same distance from both walls. Which way does it run?",
             answer: "I.9"
         ),
-        leadsToChapter: nil
+        leadsToChapter: nil,
+        hints: [
+            "Find two points, one on each arm, the same distance from the corner.",
+            "A circle around the corner cuts both arms at the same distance.",
+            "An equilateral triangle on those two cut points has its far corner on the halfway line.",
+        ]
     )
 
     static let i10 = EuclidProposition(
@@ -223,7 +265,8 @@ enum EuclidSpine {
                 let d = try board.intersect(try board.segment(c, f, .amber), try board.segment(a, b, .ink), .only)
                 return ["A": a, "B": b, "C": c, "D": d]
             },
-            goal: .bisectSegment("A", "B")
+            goal: .bisectSegment("A", "B"),
+            inputPrompt: "Tap the two ends of the segment."
         )),
         uses: ["I.1", "I.9", "I.4"],
         proofSteps: [
@@ -245,7 +288,12 @@ enum EuclidSpine {
             problem: "Where can a well go so that it is the same distance from two villages?",
             answer: "I.10"
         ),
-        leadsToChapter: "ch09"
+        leadsToChapter: "ch09",
+        hints: [
+            "The midpoint is the same distance from both ends. So is every point on one special line.",
+            "The top corner of an equilateral triangle on the segment is the same distance from both ends.",
+            "Halve the angle at that top corner. The halving line crosses the segment at its midpoint.",
+        ]
     )
 
     static let i11 = EuclidProposition(
@@ -272,7 +320,8 @@ enum EuclidSpine {
                 _ = try board.segment(c, f, .amber)
                 return ["A": a, "B": b, "C": c, "D": d, "E": e, "F": f]
             },
-            goal: .perpendicularAt(point: "C", onSegment: "A", "B")
+            goal: .perpendicularAt(point: "C", onSegment: "A", "B"),
+            inputPrompt: "Tap both ends of the line, then the point on it. The right angle opens to the left of first → second."
         )),
         uses: ["I.1", "I.8"],
         proofSteps: [
@@ -297,7 +346,12 @@ enum EuclidSpine {
             problem: "A flagpole must stand at right angles to a straight path, at one marked spot. How do you set it out with only a rope and two pegs?",
             answer: "I.11"
         ),
-        leadsToChapter: nil
+        leadsToChapter: nil,
+        hints: [
+            "Find two points on the line, the same distance either side of the marked point.",
+            "A circle around the marked point cuts the line at two such points.",
+            "An equilateral triangle on those two points has its top corner straight above the marked point.",
+        ]
     )
 
     static let i46 = EuclidProposition(
@@ -322,7 +376,8 @@ enum EuclidSpine {
                 _ = try board.segment(d, e, .green)
                 return ["P": p, "A": a, "B": b, "Q": q, "D": d, "E": e]
             },
-            goal: .squareOn(side: "A", "B")
+            goal: .squareOn(side: "A", "B"),
+            inputPrompt: "Tap four points along one line: an end of the line, the two corners of the side, the other end. The square goes on the left."
         )),
         uses: ["I.11", "I.28", "I.33", "I.34"],
         proofSteps: [
@@ -357,7 +412,12 @@ enum EuclidSpine {
             problem: "Mark out a square sandpit along one wall of the garden, with each side as long as the wall.",
             answer: "I.46"
         ),
-        leadsToChapter: nil
+        leadsToChapter: nil,
+        hints: [
+            "A square needs a right angle at each end of its side.",
+            "Raise a line at right angles at each end of the side.",
+            "Cut each upright to the side's length with a circle around its foot, then join the two tops.",
+        ]
     )
 
     static let i47 = EuclidProposition(
@@ -402,7 +462,8 @@ enum EuclidSpine {
                 _ = try board.segment(b, k, .blue)
                 return n.merging(["D": d, "E": e, "F": f, "G": g, "H": h, "K": k, "L": l, "M": m, "N": nPoint]) { $1 }
             },
-            goal: .squaresOnRightTriangle(rightAngle: "A", "B", "C")
+            goal: .squaresOnRightTriangle(rightAngle: "A", "B", "C"),
+            inputPrompt: "Tap the right-angled corner, the other two corners, then both far ends of each side's line."
         )),
         uses: ["I.46", "I.10", "I.8", "I.28", "I.14", "I.4", "I.41"],
         proofSteps: [
@@ -464,7 +525,12 @@ enum EuclidSpine {
             problem: "A ladder is 13 m long and its foot is 5 m from the wall. How high up the wall does it reach?",
             answer: "I.47"
         ),
-        leadsToChapter: "ch12"
+        leadsToChapter: "ch12",
+        hints: [
+            "Each side of the triangle needs its own square, on the side away from the triangle.",
+            "The square tool builds on the left of its line, in the order you tap the four points.",
+            "Walk along each side so the triangle is on your right, and tap the line's points in that order.",
+        ]
     )
 
     /// I.46 on the side `u`–`v`, on the side away from `w`. `line` is the given line, its first end beyond `u`.

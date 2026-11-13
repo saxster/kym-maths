@@ -2,7 +2,7 @@ import Foundation
 import Observation
 import SwiftUI
 
-// MARK: - Primary Rooms (Maximum 7 Top-Level Rooms)
+// MARK: - Primary Rooms
 
 enum AppRoom: String, CaseIterable, Identifiable, Sendable {
     case today
@@ -12,6 +12,7 @@ enum AppRoom: String, CaseIterable, Identifiable, Sendable {
     case polyaFluency
     case mathsJournal
     case coach
+    case euclidWorkshop
 
     var id: String { rawValue }
 
@@ -24,6 +25,7 @@ enum AppRoom: String, CaseIterable, Identifiable, Sendable {
         case .polyaFluency: return "Pólya & SpeedMath"
         case .mathsJournal: return "Proof Journal"
         case .coach: return "Maths Coach"
+        case .euclidWorkshop: return "Euclid's Workshop"
         }
     }
 
@@ -36,6 +38,7 @@ enum AppRoom: String, CaseIterable, Identifiable, Sendable {
         case .polyaFluency: return "Pólya & Speed"
         case .mathsJournal: return "Journal"
         case .coach: return "Coach"
+        case .euclidWorkshop: return "Euclid"
         }
     }
 
@@ -48,6 +51,7 @@ enum AppRoom: String, CaseIterable, Identifiable, Sendable {
         case .polyaFluency: return "bolt.badge.clock.fill"
         case .mathsJournal: return "square.and.pencil"
         case .coach: return "bubble.left.and.text.bubble.right.fill"
+        case .euclidWorkshop: return "compass.drawing"
         }
     }
 }
@@ -73,6 +77,7 @@ final class AppStore {
     var showCalendarSheet: Bool = false
     var showSettingsSheet: Bool = false
     var showDailyFlowSheet: Bool = false
+    var euclidRoute: EuclidRoute = .board("I.1")
 
     // Customisation & Preferences (persisted in UserDefaults)
     var learnerDisplayName: String {
@@ -99,6 +104,11 @@ final class AppStore {
     var defaultScratchpadPaperStyle: String {
         didSet { UserDefaults.standard.set(defaultScratchpadPaperStyle, forKey: "kymmaths.pref.scratchpadPaper") }
     }
+
+    var euclidProgress: EuclidProgress {
+        didSet { euclidProgressStore?.save(euclidProgress) }
+    }
+    private var euclidProgressStore: EuclidProgressStore?
 
     // AI Mentor, Constitution & Guardrail Preferences (Ported from ../kym_tutor)
     var selectedSoulId: String {
@@ -182,6 +192,9 @@ final class AppStore {
         self.enableAdvancedHorizonModules = defaults.object(forKey: "kymmaths.pref.enableHorizon") as? Bool ?? true
         self.dailyPracticeGoalMinutes = defaults.object(forKey: "kymmaths.pref.dailyGoalMinutes") as? Int ?? 25
         self.defaultScratchpadPaperStyle = defaults.string(forKey: "kymmaths.pref.scratchpadPaper") ?? "grid"
+        let euclidStore = EuclidProgressStore(defaults: defaults)
+        self.euclidProgressStore = euclidStore
+        self.euclidProgress = euclidStore.load()
 
         let savedSoul = defaults.string(forKey: "kymmaths.pref.soulId") ?? "polya"
         self.selectedSoulId = savedSoul
@@ -218,6 +231,27 @@ final class AppStore {
 
         refreshState()
         rebuildMinimalLessonTree()
+        #if DEBUG
+        EuclidDebugLaunch.apply(to: self)
+        #endif
+    }
+
+    // MARK: - Euclid's Workshop
+
+    @discardableResult
+    func recordEuclid(_ level: SkillLevel, for id: PropositionID, assisted: Bool) -> ProgressOutcome {
+        euclidProgress.record(level, for: id, assisted: assisted)
+    }
+
+    func openEuclid(_ route: EuclidRoute) {
+        euclidRoute = route
+        activeRoom = .euclidWorkshop
+    }
+
+    /// Progress held in memory only, so a scripted demo never writes over Kym's own.
+    func useEphemeralEuclidProgress(_ progress: EuclidProgress) {
+        euclidProgressStore = nil
+        euclidProgress = progress
     }
 
     private func syncAIProviderConfig() {
