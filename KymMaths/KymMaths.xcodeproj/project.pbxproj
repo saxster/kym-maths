@@ -17,6 +17,7 @@
 		102440F11824377FFC348183 /* KymTutorAI in Frameworks */ = {isa = PBXBuildFile; productRef = 7842BAC63A7BE3E80B7DF86E /* KymTutorAI */; };
 		1077F2DDC1476B3227161FE1 /* KymMathsWidgetViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02B9F0D1042BC7376621ADA /* KymMathsWidgetViews.swift */; };
 		11AAD67FD9418B435D5654F1 /* TodayHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B8B5B1FBF210293D430BBA /* TodayHomeView.swift */; };
+		11EDF56CC0C0B38AD25272DE /* EuclidGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430A2368C1CF16D52E28B6FD /* EuclidGoal.swift */; };
 		13C00A343E3A84C81ACBDBDD /* QuietPanelBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472ABF9B9ED86FF093D395E7 /* QuietPanelBackground.swift */; };
 		1D273B22BDAAE654E5EBBFA1 /* SemanticStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98BA9A23593CA5FD7D3747 /* SemanticStyles.swift */; };
 		1DD89161C4ACBE6C4AE98340 /* STEMVerificationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472088539BE760CF1692992B /* STEMVerificationEngine.swift */; };
@@ -48,8 +49,10 @@
 		55312FC5D41716C8A48C8F3F /* AgentSoulDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFF11E613DA5975AB669E8 /* AgentSoulDocument.swift */; };
 		5793B7EEE658F57FF0842556 /* PatternedWorldHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C1F14EF6D94BCEE33EDF90 /* PatternedWorldHomeView.swift */; };
 		57F3B95C58378EE3651286B4 /* JournalPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B32A0CA05B54F7C1A6E2BA /* JournalPage.swift */; };
+		5C011F130DF76899EF49D0E0 /* ConstructionBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CB984FA6B468824E1E8F9D /* ConstructionBoardTests.swift */; };
 		6C2D0E3D46D5B89186EF44F1 /* JournalEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4173B76AB64277E0CBD69473 /* JournalEmptyState.swift */; };
 		6FB4703E7D7E61AA7759ECF4 /* PatternedWorldWebStageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DD6A6AE6D9FB5B8A7419FE /* PatternedWorldWebStageView.swift */; };
+		70B83EB6CAD34556B2C5AD08 /* ConstructionBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3160B78266BEBBA80CDC7162 /* ConstructionBoard.swift */; };
 		7110F2B561C6D750677CF9AA /* TutorProfileRegistrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616A5CD3B25E7FB1261CE0D1 /* TutorProfileRegistrationTests.swift */; };
 		71BE22A65B722A54D83008B0 /* PolyaFluencyHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9427F05150134B15A68F66 /* PolyaFluencyHomeView.swift */; };
 		73BD847F416077C839A18854 /* AgentSoulDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFF11E613DA5975AB669E8 /* AgentSoulDocument.swift */; };
@@ -70,6 +73,7 @@
 		962F9AE3A1C72277DE3EDBB7 /* MathsSettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DED304239C5F1518DC70AD1 /* MathsSettingsSheet.swift */; };
 		978058813915E442EC74C7A7 /* Info-iPad.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1CF684174A9170E85BB5ACB4 /* Info-iPad.plist */; };
 		98F96414E9395FE4393E29A4 /* PatternedWorldWebStageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DD6A6AE6D9FB5B8A7419FE /* PatternedWorldWebStageView.swift */; };
+		991104BD09C5175B440B25ED /* EuclidSpine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA68EA19E31C10BE32B6DCA9 /* EuclidSpine.swift */; };
 		99AA481B5FB05313F797A596 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156FB0647550A01C48704221 /* DatabaseManager.swift */; };
 		9AF922EE8CA158E7098B005D /* PolyaFluencyHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9427F05150134B15A68F66 /* PolyaFluencyHomeView.swift */; };
 		9C9C0407BF60CEB78CE71B37 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD45FA29AF8FADF1BF0C51DC /* AppTheme.swift */; };
@@ -89,6 +93,7 @@
 		AE418FACA3CAC65982B02F4D /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C53EB16B46F825B1999FFE4 /* ColorExtensions.swift */; };
 		AE6EBE3D0B4C0E2077286811 /* AdvancedAIPedagogyEngines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF8CBF631D51D7A89E2B7 /* AdvancedAIPedagogyEngines.swift */; };
 		AFA8B4106D99CF4EC0468A0A /* KymMathsWidgetViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02B9F0D1042BC7376621ADA /* KymMathsWidgetViews.swift */; };
+		B03D45860B53981BAD9DE627 /* EuclidSpineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D6F93FF6B4E188F4F577B7 /* EuclidSpineTests.swift */; };
 		B11E9879DA1EA4799BAD8975 /* PropositionGraphEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B635A0E77CE8A08DE0915813 /* PropositionGraphEngine.swift */; };
 		B3470CFFFD9729B2EDB9862C /* MathsSettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DED304239C5F1518DC70AD1 /* MathsSettingsSheet.swift */; };
 		B5EB1A362E135FEF89227E9A /* LearningEngineCharacterizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC8B11130353FC5CF72FBB3 /* LearningEngineCharacterizationTests.swift */; };
@@ -102,6 +107,8 @@
 		CCFDB4CC80F01B8DC8740514 /* LiveMentorVoiceEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CFAB6A642E6B4183DB6DEA /* LiveMentorVoiceEngine.swift */; };
 		CDABC512B8534489E0390C0A /* JournalEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4173B76AB64277E0CBD69473 /* JournalEmptyState.swift */; };
 		D0115140500D96CC3FD4DCF3 /* MathsSafetyBindings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8233C6B299BC04DD6E561F /* MathsSafetyBindings.swift */; };
+		D2215AD50180B4291C18AD9E /* EuclidGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430A2368C1CF16D52E28B6FD /* EuclidGoal.swift */; };
+		D23B6D52543BEF5CCC17C159 /* ConstructionBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3160B78266BEBBA80CDC7162 /* ConstructionBoard.swift */; };
 		D2BC7F559FC255D2A9111CDC /* TextbookPageScannerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE35C047793940C45E3ED616 /* TextbookPageScannerSheet.swift */; };
 		D4481C7042C783D78F9D76D1 /* learning-engines.json in Resources */ = {isa = PBXBuildFile; fileRef = C13D9D0CF00FB43F8624C808 /* learning-engines.json */; };
 		D51FB463A751D331670CBFB5 /* MathsMentorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD4442D2F7FB6CD77CDEF53 /* MathsMentorService.swift */; };
@@ -116,6 +123,7 @@
 		E58C9AA80E04CD6398CB3CD2 /* PatternedWorldHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C1F14EF6D94BCEE33EDF90 /* PatternedWorldHomeView.swift */; };
 		EA015C0F92FC8E918BBA8C1D /* LearningEngines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BD99A8624A92C5BD4B8DF8 /* LearningEngines.swift */; };
 		EA0464E419B3910E178C4A1B /* JournalRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B19A7C85527ADEBAD024F0 /* JournalRow.swift */; };
+		EFA6021BC5D4ED1FBE4CB69B /* EuclidSpine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA68EA19E31C10BE32B6DCA9 /* EuclidSpine.swift */; };
 		EFE8934C41BC1AD03D64874A /* AdvancedAIPedagogyEngines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF8CBF631D51D7A89E2B7 /* AdvancedAIPedagogyEngines.swift */; };
 		F103CB51BE1A8EFF5B4BA30A /* TodayHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B8B5B1FBF210293D430BBA /* TodayHomeView.swift */; };
 		F5184210F98F2F3B92B55DD6 /* KymLearning in Frameworks */ = {isa = PBXBuildFile; productRef = 5C4E115569DF698E731BE8E4 /* KymLearning */; };
@@ -149,6 +157,7 @@
 		28DD6A6AE6D9FB5B8A7419FE /* PatternedWorldWebStageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternedWorldWebStageView.swift; sourceTree = "<group>"; };
 		2A38D288E5A8D98776CA488B /* PatternedWorldBook */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PatternedWorldBook; path = KymMaths/Resources/PatternedWorldBook; sourceTree = SOURCE_ROOT; };
 		2A9427F05150134B15A68F66 /* PolyaFluencyHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyaFluencyHomeView.swift; sourceTree = "<group>"; };
+		3160B78266BEBBA80CDC7162 /* ConstructionBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionBoard.swift; sourceTree = "<group>"; };
 		31DB198D93D535056F0BC2E0 /* TutorCanvasEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorCanvasEngine.swift; sourceTree = "<group>"; };
 		35B19A7C85527ADEBAD024F0 /* JournalRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalRow.swift; sourceTree = "<group>"; };
 		37F7F8FE6E96AA2585376DA5 /* KymMaths.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KymMaths.entitlements; sourceTree = "<group>"; };
@@ -156,6 +165,8 @@
 		3FEC0C3948CDDBBDF844FFBD /* KymMathsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KymMathsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4173B76AB64277E0CBD69473 /* JournalEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEmptyState.swift; sourceTree = "<group>"; };
 		41BD99A8624A92C5BD4B8DF8 /* LearningEngines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningEngines.swift; sourceTree = "<group>"; };
+		430A2368C1CF16D52E28B6FD /* EuclidGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuclidGoal.swift; sourceTree = "<group>"; };
+		43D6F93FF6B4E188F4F577B7 /* EuclidSpineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuclidSpineTests.swift; sourceTree = "<group>"; };
 		472088539BE760CF1692992B /* STEMVerificationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STEMVerificationEngine.swift; sourceTree = "<group>"; };
 		472ABF9B9ED86FF093D395E7 /* QuietPanelBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuietPanelBackground.swift; sourceTree = "<group>"; };
 		4EAE38307D0B53EB5B3CE05F /* MathsCoachView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathsCoachView.swift; sourceTree = "<group>"; };
@@ -195,9 +206,11 @@
 		C20E2798CF589C928229BBE1 /* KymMaths-iPad.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "KymMaths-iPad.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C48816A9525967912876C42A /* KymMathsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KymMathsApp.swift; sourceTree = "<group>"; };
 		C9CFAB6A642E6B4183DB6DEA /* LiveMentorVoiceEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMentorVoiceEngine.swift; sourceTree = "<group>"; };
+		D6CB984FA6B468824E1E8F9D /* ConstructionBoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionBoardTests.swift; sourceTree = "<group>"; };
 		DB98BA9A23593CA5FD7D3747 /* SemanticStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticStyles.swift; sourceTree = "<group>"; };
 		E40CC8050AF46F7D4717E26D /* teaching_kit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = teaching_kit; path = ../../teaching_kit; sourceTree = SOURCE_ROOT; };
 		E587ED43C4F9E158A98BFEC8 /* LabsAtlasHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabsAtlasHomeView.swift; sourceTree = "<group>"; };
+		EA68EA19E31C10BE32B6DCA9 /* EuclidSpine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuclidSpine.swift; sourceTree = "<group>"; };
 		ECA0C47C2C0178C8A4F1E115 /* KymMathsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KymMathsTests.swift; sourceTree = "<group>"; };
 		EE35C047793940C45E3ED616 /* TextbookPageScannerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextbookPageScannerSheet.swift; sourceTree = "<group>"; };
 		F41CF12BC90D33476C80DA5F /* MissingDesignElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingDesignElements.swift; sourceTree = "<group>"; };
@@ -276,6 +289,7 @@
 			children = (
 				157C2BCC9AFE66751306B638 /* AI */,
 				829B7B033EE865944254B151 /* Database */,
+				152B2ECA96E1833E23380890 /* Geometry */,
 				ED9F9216DFF66E46157F5135 /* Learning */,
 				8D2F5AC0CDF5C4512D0ED1E0 /* Models */,
 				85480B3B0E6A177A9282B6C9 /* Quantitative */,
@@ -283,6 +297,16 @@
 				1D33FC46BB3502772A0E3637 /* SystemSurfaces */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		152B2ECA96E1833E23380890 /* Geometry */ = {
+			isa = PBXGroup;
+			children = (
+				3160B78266BEBBA80CDC7162 /* ConstructionBoard.swift */,
+				430A2368C1CF16D52E28B6FD /* EuclidGoal.swift */,
+				EA68EA19E31C10BE32B6DCA9 /* EuclidSpine.swift */,
+			);
+			path = Geometry;
 			sourceTree = "<group>";
 		};
 		157C2BCC9AFE66751306B638 /* AI */ = {
@@ -344,6 +368,8 @@
 		5E6C4B5BBE2684EECB38906D /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				D6CB984FA6B468824E1E8F9D /* ConstructionBoardTests.swift */,
+				43D6F93FF6B4E188F4F577B7 /* EuclidSpineTests.swift */,
 				ECA0C47C2C0178C8A4F1E115 /* KymMathsTests.swift */,
 				6BC8B11130353FC5CF72FBB3 /* LearningEngineCharacterizationTests.swift */,
 				BA3A4BC5EF3D4DA66972985A /* ThemeCharacterizationTests.swift */,
@@ -682,7 +708,10 @@
 				9C9C0407BF60CEB78CE71B37 /* AppTheme.swift in Sources */,
 				27AE2BA3796D1A835D293477 /* CalendarHomeView.swift in Sources */,
 				23B0CD4FFEF78BB7056294FC /* ColorExtensions.swift in Sources */,
+				70B83EB6CAD34556B2C5AD08 /* ConstructionBoard.swift in Sources */,
 				99AA481B5FB05313F797A596 /* DatabaseManager.swift in Sources */,
+				D2215AD50180B4291C18AD9E /* EuclidGoal.swift in Sources */,
+				991104BD09C5175B440B25ED /* EuclidSpine.swift in Sources */,
 				AD8AE15B3BC609C72E55DCBD /* JournalBridges.swift in Sources */,
 				B6DEC981910CB72FEF0EA6F4 /* JournalCard.swift in Sources */,
 				FD6CB4D33209250ABB441938 /* JournalCardParts.swift in Sources */,
@@ -731,6 +760,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C011F130DF76899EF49D0E0 /* ConstructionBoardTests.swift in Sources */,
+				B03D45860B53981BAD9DE627 /* EuclidSpineTests.swift in Sources */,
 				07360B6D3E9DF8422DB87A79 /* KymMathsTests.swift in Sources */,
 				B5EB1A362E135FEF89227E9A /* LearningEngineCharacterizationTests.swift in Sources */,
 				3CCC5188306D920A138D77BC /* ThemeCharacterizationTests.swift in Sources */,
@@ -749,7 +780,10 @@
 				E18D81EB9D8708C6D63C570C /* AppTheme.swift in Sources */,
 				1EC25236CD7B9365EB4635D6 /* CalendarHomeView.swift in Sources */,
 				AE418FACA3CAC65982B02F4D /* ColorExtensions.swift in Sources */,
+				D23B6D52543BEF5CCC17C159 /* ConstructionBoard.swift in Sources */,
 				7CFCF7E5291681E327466097 /* DatabaseManager.swift in Sources */,
+				11EDF56CC0C0B38AD25272DE /* EuclidGoal.swift in Sources */,
+				EFA6021BC5D4ED1FBE4CB69B /* EuclidSpine.swift in Sources */,
 				3A4A5A39E22E951F70943E36 /* JournalBridges.swift in Sources */,
 				AA8D6F3913BD922370A41CB4 /* JournalCard.swift in Sources */,
 				3C3AFB2742372D4C2C7608F3 /* JournalCardParts.swift in Sources */,
