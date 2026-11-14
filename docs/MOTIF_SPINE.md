@@ -103,6 +103,6 @@ The device-off checks print on each card. A parent records them with one tap, as
 ## Build order
 
 1. This page (done).
-2. Board primitives beside `ConstructionBoard`: angle arcs with values, parallel marks, a draggable free point and a break switch. Tests re-measure every check above from coordinates.
-3. M1 end to end: question with tappable givens and goal, the break switch, and the device-off check recorded through the Euclid progress path.
-4. Only after Kym has used M1: M2–M5, then C1–C4.
+2. Board primitives beside `ConstructionBoard`: angle arcs with values, parallel marks, a draggable free point and a break switch. Tests re-measure every check above from coordinates (done).
+3. M1 end to end: question with tappable givens and goal, the break switch, and the device-off check recorded through the Euclid progress path (done).
+4. M2–M5 on the same page, each with its free point and break switch (done). C1–C4 wait until Kym has used the motifs.

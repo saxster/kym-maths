@@ -170,6 +170,176 @@ struct MotifSpineTests {
     }
 }
 
+@Suite("Playable motifs")
+struct PlayableMotifTests {
+    private static let close = 1e-6
+
+    static let draggable: [MotifID] = MotifSpine.catalog.filter { $0.scene.freePoint != nil }.map(\.id)
+
+    /// Where she might put the free point inside each motif's legal region, as offsets from where it starts.
+    /// The A-shape's D slides along AB, so its offsets run along AB.
+    static let legalNudges: [MotifID: [Vec2]] = [
+        "M1": [Vec2(x: -2, y: -1), Vec2(x: 1.5, y: 1.2), Vec2(x: -1, y: -1.2)],
+        "M2": [Vec2(x: 0.15, y: 0.1), Vec2(x: -0.15, y: 0.15), Vec2(x: 0.1, y: -0.1)],
+        "M3": [Vec2(x: 0.4, y: 0.2), Vec2(x: -0.5, y: 0), Vec2(x: 0.3, y: -0.4)],
+        "M4": [Vec2(x: 0.5, y: 0.3), Vec2(x: -0.6, y: -1.2), Vec2(x: 1.2, y: 0.6)],
+        "M5": [-1.6 * Vec2.heading(-105), -0.8 * Vec2.heading(-105), 1.2 * Vec2.heading(-105)],
+    ]
+
+    /// Pulls from far off the board down to close around the figure.
+    static let pulls: [Vec2] = stride(from: -30.0, through: 30, by: 2.5).flatMap { x in
+        stride(from: -30.0, through: 30, by: 2.5).map { Vec2(x: x, y: $0) }
+    } + stride(from: -6.0, through: 6, by: 0.4).flatMap { x in
+        stride(from: -6.0, through: 6, by: 0.4).map { Vec2(x: x, y: $0) }
+    }
+
+    private static func scene(_ id: MotifID) throws -> MotifScene {
+        try #require(MotifSpine.motif(id)).scene
+    }
+
+    private static func rule(_ scene: MotifScene, _ state: MotifState) throws -> MotifRule {
+        let rule = try #require(scene.rule)
+        return rule(scene.build(state))
+    }
+
+    private static func legalStates(_ id: MotifID) throws -> [MotifState] {
+        let scene = try scene(id)
+        let home = try #require(scene.figure.points[scene.freePoint ?? ""])
+        return try #require(legalNudges[id]).map { MotifState(free: home + $0) }
+    }
+
+    @Test("Every playable motif has a free point, a rule and a break switch, and every motif is playable")
+    func playable() throws {
+        for motif in MotifSpine.catalog {
+            #expect(MotifSpine.playable.contains(motif.id) == (motif.layer == .motif), "\(motif.id)")
+        }
+        for id in MotifSpine.playable {
+            let scene = try Self.scene(id)
+            #expect(scene.freePoint != nil && scene.rule != nil && scene.condition != nil, "\(id)")
+        }
+    }
+
+    @Test("The rule holds at the check and wherever the free point goes inside the motif", arguments: draggable)
+    func ruleHolds(_ id: MotifID) throws {
+        let scene = try Self.scene(id)
+        let free = try #require(scene.freePoint)
+        #expect(try Self.rule(scene, scene.state).holds, "\(id) at the check")
+        for state in try Self.legalStates(id) {
+            let figure = scene.build(state)
+            let rule = try Self.rule(scene, state)
+            #expect(rule.holds && abs(rule.lhs - rule.rhs) < Self.close, "\(id) at \(state.free!): \(rule.lhs) vs \(rule.rhs)")
+            #expect(figure.points[free]!.distance(to: state.free!) < 0.2, "\(id): a legal \(free) stays near where she put it")
+            let moved = (scene.givens + scene.goal).contains { abs(figure.measure($0.item)! - scene.figure.measure($0.item)!) > $0.unit.tolerance }
+            #expect(moved, "\(id): dragging \(free) changes what the board measures")
+        }
+    }
+
+    @Test("Pulling the free point anywhere keeps the rule, keeps the figure whole, and stays on the board", arguments: draggable)
+    func clamps(_ id: MotifID) throws {
+        let scene = try Self.scene(id)
+        let extent = scene.extent
+        let inset = 0.3
+        for pull in Self.pulls {
+            let figure = scene.build(MotifState(free: pull))
+            let rule = try Self.rule(scene, MotifState(free: pull))
+            #expect(rule.holds, "\(id) pulled to \(pull): \(rule.lhs) vs \(rule.rhs)")
+            for (name, p) in figure.points {
+                #expect(p.x > extent.min.x + inset && p.x < extent.max.x - inset && p.y > extent.min.y + inset && p.y < extent.max.y - inset,
+                        "\(id) pulled to \(pull): \(name) at \(p) leaves the board")
+            }
+            let points = Array(figure.points.values)
+            for i in points.indices { for j in points.indices where j > i {
+                #expect(points[i].distance(to: points[j]) > 0.3, "\(id) pulled to \(pull): two points nearly meet at \(points[i])")
+            } }
+            for quantity in scene.givens + scene.goal {
+                guard case .angle = quantity.item else { continue }
+                let angle = figure.measure(quantity.item)!
+                #expect(angle > 5 && angle < 175, "\(id) pulled to \(pull): \(quantity.item.name) = \(angle)")
+            }
+        }
+    }
+
+    @Test("The readout adds up from the board's labels: angles are whole degrees, and equal sides read the same", arguments: draggable)
+    func honestReadout(_ id: MotifID) throws {
+        let scene = try Self.scene(id)
+        for pull in Self.pulls {
+            let figure = scene.build(MotifState(free: pull))
+            let rule = try Self.rule(scene, MotifState(free: pull))
+            #expect(rule.unit.label(rule.lhs) == rule.unit.label(rule.rhs), "\(id) pulled to \(pull)")
+            guard rule.unit == .degrees else { continue }
+            for quantity in scene.givens + scene.goal {
+                let angle = figure.measure(quantity.item)!
+                #expect(abs(angle - angle.rounded()) < Self.close, "\(id) pulled to \(pull): \(quantity.item.name) = \(angle)")
+            }
+        }
+    }
+
+    @Test("Dropping the free point where it landed leaves the figure as it is", arguments: draggable)
+    func dropIsStable(_ id: MotifID) throws {
+        let scene = try Self.scene(id)
+        let free = try #require(scene.freePoint)
+        for broken in [false, true] {
+            for pull in Self.pulls {
+                let state = MotifState(free: pull, broken: broken)
+                guard scene.canDrag(state) else { continue }
+                let landed = scene.build(state)
+                let dropped = scene.build(MotifState(free: landed.points[free], broken: broken))
+                for (name, p) in landed.points {
+                    #expect(p.distance(to: dropped.points[name]!) < Self.close, "\(id) broken \(broken), pulled to \(pull): \(name) moves")
+                }
+            }
+        }
+    }
+
+    @Test("With the break switch on, the rule fails by a clear margin and the parallel arrows go", arguments: draggable)
+    func breakSwitch(_ id: MotifID) throws {
+        let scene = try Self.scene(id)
+        let states = [scene.state] + (try Self.legalStates(id)) + Self.pulls.map { MotifState(free: $0) }
+        for state in states {
+            let broken = MotifState(free: state.free, broken: true)
+            let rule = try Self.rule(scene, broken)
+            #expect(!rule.holds && abs(rule.lhs - rule.rhs) > 5 * rule.unit.tolerance,
+                    "\(id) broken at \(String(describing: state.free)): \(rule.lhs) vs \(rule.rhs)")
+            #expect(scene.build(broken).parallels.isEmpty, "\(id)")
+        }
+    }
+
+    @Test("Bending AC at O splits the angles there, and the note says so")
+    func xShapeBends() throws {
+        let scene = try Self.scene("M2")
+        let straight = scene.figure, bent = scene.build(MotifState(broken: true))
+        #expect(abs(straight.angle("A", "O", "B") - straight.angle("C", "O", "D")) < Self.close)
+        #expect(abs(bent.angle("A", "O", "B") - bent.angle("C", "O", "D")) > 10)
+        #expect(try Self.rule(scene, MotifState(broken: true)).note?.contains("∠COD") == true)
+    }
+
+    @Test("Breaking the dart moves D outside the triangle and stops the drag; the four angles then add to 360°")
+    func dartTurnsConvex() throws {
+        let scene = try Self.scene("M3")
+        for state in [scene.state] + (try Self.legalStates("M3")) {
+            let broken = MotifState(free: state.free, broken: true)
+            let figure = scene.build(broken)
+            let (a, b, c, d) = (figure.points["A"]!, figure.points["B"]!, figure.points["C"]!, figure.points["D"]!)
+            #expect((c - b).cross(d - b) * (c - b).cross(a - b) < 0, "D is across BC from A")
+            let sum = figure.angle("B", "A", "C") + figure.angle("A", "B", "D") + figure.angle("B", "D", "C") + figure.angle("A", "C", "D")
+            #expect(abs(sum - 360) < Self.close)
+            #expect(try Self.rule(scene, broken).note?.contains("360°") == true)
+            #expect(!scene.canDrag(broken))
+            #expect(scene.canDrag(state))
+        }
+    }
+
+    @Test("Length answers carry their unit: the bisector check in cm, the A-shape without one")
+    func lengthUnits() throws {
+        #expect(try Self.scene("M4").goal.map(\.unit) == [.centimetres])
+        #expect(try Self.scene("M5").goal.map(\.unit) == [.length])
+        #expect(try Self.rule(Self.scene("M4"), MotifState()).unit == .centimetres)
+        #expect(try Self.rule(Self.scene("M5"), MotifState()).unit == .ratio)
+        #expect(QuantityUnit.centimetres.reading(4) == "4 cm")
+        #expect(QuantityUnit.ratio.reading(0.6) == "0.60")
+    }
+}
+
 @Suite("Motif progress")
 struct MotifProgressTests {
     @Test("A right answer with the helper line shown first is marked as help and does not solve the motif")

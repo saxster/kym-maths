@@ -79,8 +79,8 @@ enum MotifSpine {
         catalog.first { $0.id == id }
     }
 
-    /// Motifs with a page she can work on. The rest wait until she has used M1.
-    static let playable: Set<MotifID> = ["M1"]
+    /// Motifs with a page she can work on. The composites come later.
+    static let playable: Set<MotifID> = ["M1", "M2", "M3", "M4", "M5"]
 
     static let catalog: [Motif] = [
         Motif(
