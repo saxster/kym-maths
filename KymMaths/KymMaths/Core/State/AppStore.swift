@@ -111,6 +111,10 @@ final class AppStore {
         didSet { euclidProgressStore?.save(euclidProgress) }
     }
     private var euclidProgressStore: EuclidProgressStore?
+    var motifProgress: MotifProgress {
+        didSet { motifProgressStore?.save(motifProgress) }
+    }
+    private var motifProgressStore: MotifProgressStore?
 
     // AI Mentor, Constitution & Guardrail Preferences (Ported from ../kym_tutor)
     var selectedSoulId: String {
@@ -197,6 +201,9 @@ final class AppStore {
         let euclidStore = EuclidProgressStore(defaults: defaults)
         self.euclidProgressStore = euclidStore
         self.euclidProgress = euclidStore.load()
+        let motifStore = MotifProgressStore(defaults: defaults)
+        self.motifProgressStore = motifStore
+        self.motifProgress = motifStore.load()
 
         let savedSoul = defaults.string(forKey: "kymmaths.pref.soulId") ?? "polya"
         self.selectedSoulId = savedSoul
@@ -260,6 +267,8 @@ final class AppStore {
     func useEphemeralEuclidProgress(_ progress: EuclidProgress) {
         euclidProgressStore = nil
         euclidProgress = progress
+        motifProgressStore = nil
+        motifProgress = MotifProgress()
     }
 
     private func syncAIProviderConfig() {

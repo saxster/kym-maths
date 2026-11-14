@@ -5,6 +5,7 @@ enum EuclidRoute: Hashable {
     case map
     case board(PropositionID)
     case stepOrder(PropositionID)
+    case motif(MotifID)
 }
 
 /// Room: Euclid's Workshop. Kym builds Book I with a compass and a straightedge.
@@ -21,6 +22,9 @@ struct EuclidWorkshopView: View {
         case let .stepOrder(id):
             StepOrderRoundView(store: store, id: id)
                 .id("order-\(id)")
+        case let .motif(id):
+            MotifPageView(store: store, id: id)
+                .id("motif-\(id)")
         }
     }
 }
@@ -251,6 +255,8 @@ struct EuclidMapBackButton: View {
 /// `-KymMathsSection euclidWorkshop -EuclidOpen I.10 -EuclidReplay solved -EuclidLayer letters`.
 /// Also `-EuclidProgress picture|letters|head`, `-EuclidHints n`, `-EuclidShearT 0.4`,
 /// `-EuclidSelect I.10` (map), and `-EuclidSeed n -EuclidPlaced n` (step-order round).
+/// A motif page opens with `-EuclidOpen motif:M1`, and takes `-MotifLight n` (light question phrase n),
+/// `-MotifAnswer 75`, `-MotifHelper YES`, `-MotifBroken YES` and `-MotifDrag x,y` (the free point pulled to a board point).
 enum EuclidDebugLaunch {
     private static var defaults: UserDefaults { .standard }
 
@@ -263,11 +269,12 @@ enum EuclidDebugLaunch {
         if let room = defaults.string(forKey: "KymMathsSection").flatMap(AppRoom.init(rawValue:)) {
             store.activeRoom = room
         }
-        // "map", "I.10", or "order:I.10".
+        // "map", "I.10", "order:I.10" or "motif:M1".
         if let open = defaults.string(forKey: "EuclidOpen") {
             store.euclidRoute = switch open {
             case "map": .map
             case let order where order.hasPrefix("order:"): .stepOrder(PropositionID(String(order.dropFirst(6))))
+            case let motif where motif.hasPrefix("motif:"): .motif(MotifID(String(motif.dropFirst(6))))
             default: .board(PropositionID(open))
             }
         }
