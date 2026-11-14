@@ -38,13 +38,18 @@ extension MotifScene {
             ],
             givens: [.degrees(.angle("O", "A", "B"), oab), .degrees(.angle("O", "B", "A"), oba), .degrees(.angle("O", "C", "D"), ocd)],
             goal: [.degrees(.angle("O", "D", "C"), 50)],
-            build: { _ in
-                let a = Vec2(x: -2, y: 2), b = Vec2(x: 2, y: 2)
-                let o = Vec2.meet(a, .heading(-oab), b, .heading(180 + oba))
-                let c = o + 2.4 * (o - a).unit
-                let d = Vec2.meet(c, (o - c).turned(ocd), b, o - b)
-                return MotifFigure(points: ["A": a, "B": b, "C": c, "D": d, "O": o],
-                                   segments: [["A", "C"], ["B", "D"], ["A", "B"], ["C", "D"]])
+            freePoint: "D",
+            condition: "AC straight",
+            build: { XShape.figure(oab: oab, oba: oba, ocd: ocd, state: $0) },
+            rule: { figure in
+                let top = figure.angle("A", "O", "B"), bottom = figure.angle("C", "O", "D")
+                return MotifRule(
+                    lhsLabel: "∠A + ∠B", lhs: figure.angle("O", "A", "B") + figure.angle("O", "B", "A"),
+                    rhsLabel: "∠C + ∠D", rhs: figure.angle("O", "C", "D") + figure.angle("O", "D", "C"),
+                    note: abs(top - bottom) < 0.5
+                        ? "The angles at O are vertically opposite: ∠AOB = ∠COD = \(degrees(top.rounded()))."
+                        : "AC bends at O, so the angles there differ: ∠AOB = \(degrees(top.rounded())), ∠COD = \(degrees(bottom.rounded()))."
+                )
             }
         )
     }()
@@ -62,15 +67,18 @@ extension MotifScene {
             ],
             givens: [.degrees(.angle("B", "A", "C"), bac), .degrees(.angle("A", "B", "D"), abd), .degrees(.angle("A", "C", "D"), acd)],
             goal: [.degrees(.angle("B", "D", "C"), 100)],
-            build: { _ in
-                let a = Vec2(x: 0, y: 0)
-                let b = a + 6 * .heading(bac / 2), c = a + 5 * .heading(-bac / 2)
-                let towardD = (a - b).turned(abd)
-                let d = Vec2.meet(b, towardD, c, (a - c).turned(-acd))
-                let e = Vec2.meet(b, towardD, a, c - a)
-                return MotifFigure(points: ["A": a, "B": b, "C": c, "D": d, "E": e],
-                                   segments: [["A", "B"], ["B", "D"], ["D", "C"], ["C", "A"]],
-                                   helpers: [["D", "E"]])
+            freePoint: "D",
+            condition: "D inside angle A",
+            build: { Dart.figure(bac: bac, abd: abd, acd: acd, state: $0) },
+            rule: { figure in
+                let notch = figure.angle("B", "D", "C")
+                let others = figure.angle("B", "A", "C") + figure.angle("A", "B", "D") + figure.angle("A", "C", "D")
+                return MotifRule(
+                    lhsLabel: "∠BDC", lhs: notch, rhsLabel: "∠A + ∠ABD + ∠ACD", rhs: others,
+                    note: abs(notch - others) < 0.5
+                        ? nil
+                        : "ABDC is not a dart now. It is convex, so its four angles add to \(degrees((notch + others).rounded())) instead."
+                )
             }
         )
     }()
@@ -86,15 +94,11 @@ extension MotifScene {
             ],
             givens: [.centimetres(.segment("B", "E"), be)],
             goal: [.centimetres(.segment("D", "E"), 4)],
-            build: { _ in
-                let abc = 70.0
-                let b = Vec2(x: 0, y: 0), c = Vec2(x: 8, y: 0), a = b + 7 * .heading(abc)
-                let d = Vec2.meet(b, .heading(abc / 2), a, c - a)
-                let e = Vec2.meet(d, .heading(0), b, a - b)
-                let k = be / e.distance(to: b)
-                return MotifFigure(points: ["A": k * a, "B": b, "C": k * c, "D": k * d, "E": k * e],
-                                   segments: [["A", "B"], ["B", "C"], ["C", "A"], ["B", "D"], ["D", "E"]],
-                                   parallels: [["E", "D"], ["B", "C"]])
+            freePoint: "A",
+            condition: "DE parallel to BC",
+            build: { BisectorParallel.figure(be: be, state: $0) },
+            rule: { figure in
+                MotifRule(lhsLabel: "BE", lhs: figure.length("B", "E"), rhsLabel: "DE", rhs: figure.length("D", "E"), unit: .centimetres)
             }
         )
     }()
@@ -113,14 +117,12 @@ extension MotifScene {
             ],
             givens: [.length(.segment("A", "D"), ad), .length(.segment("A", "B"), ab), .length(.segment("B", "C"), bc)],
             goal: [.length(.segment("D", "E"), 6)],
-            build: { _ in
-                let a = Vec2(x: 0, y: 0), side = Vec2.heading(-105)
-                let b = a + ab * side, d = a + ad * side
-                let c = b + bc * .heading(0)
-                let e = Vec2.meet(d, .heading(0), a, c - a)
-                return MotifFigure(points: ["A": a, "B": b, "C": c, "D": d, "E": e],
-                                   segments: [["A", "B"], ["A", "C"], ["B", "C"], ["D", "E"]],
-                                   parallels: [["D", "E"], ["B", "C"]])
+            freePoint: "D",
+            condition: "DE parallel to BC",
+            build: { AShape.figure(ad: ad, ab: ab, bc: bc, state: $0) },
+            rule: { figure in
+                MotifRule(lhsLabel: "AD/AB", lhs: figure.length("A", "D") / figure.length("A", "B"),
+                          rhsLabel: "DE/BC", rhs: figure.length("D", "E") / figure.length("B", "C"), unit: .ratio)
             }
         )
     }()
@@ -228,6 +230,14 @@ extension MotifScene {
     private static func degrees(_ value: Double) -> String { "\(value.formatted())°" }
 }
 
+/// How far a line turns when a break switch knocks it off: enough to see, and enough to move the rule well off.
+private let breakTurn = 12.0
+
+/// A whole number of degrees, kept to a range.
+private func wholeDegrees(_ value: Double, _ range: ClosedRange<Double>) -> Double {
+    min(max(value.rounded(), range.lowerBound), range.upperBound)
+}
+
 /// The M-shape: AB along the top line, CD along the bottom, and E between them with B and D to its right.
 /// B and D stay put while she drags E; E snaps so ∠ABE and ∠CDE are whole degrees, which keeps the
 /// readout's sum honest when she adds the labels in her head.
@@ -236,15 +246,12 @@ private enum MShape {
     static let left = -3.0
     static let start = Vec2(x: 0, y: 2)
     static let margin = 0.5
-    /// How far CD turns about D when the break switch is on.
-    static let tilt = 12.0
-
     static func figure(abe: Double, cde: Double, state: MotifState) -> MotifFigure {
         let b = Vec2.meet(start, .heading(abe), Vec2(x: 0, y: top), .heading(0))
         let d = Vec2.meet(start, .heading(-cde), Vec2(x: 0, y: 0), .heading(0))
         let a = Vec2(x: left, y: top), straightC = Vec2(x: left, y: 0)
         let e = state.free.map { snapped(clamped($0, b: b, d: d), b: b, d: d) } ?? start
-        let c = state.broken ? straightC.rotated(by: tilt, about: d) : straightC
+        let c = state.broken ? straightC.rotated(by: breakTurn, about: d) : straightC
         let reach = max(b.x, d.x) + 0.8
         return MotifFigure(
             points: ["A": a, "B": b, "C": c, "D": d, "E": e, "F": Vec2(x: left, y: e.y), "G": Vec2(x: reach, y: e.y)],
@@ -262,10 +269,113 @@ private enum MShape {
              y: min(max(p.y, margin), top - margin))
     }
 
+    /// The whole-degree point nearest `p` that is still inside the clamp, so dropping E where it landed leaves it there.
     static func snapped(_ p: Vec2, b: Vec2, d: Vec2) -> Vec2 {
         let west = Vec2(x: -1, y: 0)
         let atB = (acos((p - b).unit.dot(west)) * 180 / .pi).rounded()
         let atD = (acos((p - d).unit.dot(west)) * 180 / .pi).rounded()
-        return .meet(b, .heading(180 + atB), d, .heading(180 - atD))
+        let grid = [-1.0, 0, 1].flatMap { i in [-1.0, 0, 1].map { j in
+            Vec2.meet(b, .heading(180 + atB + i), d, .heading(180 - atD - j))
+        } }
+        let inside = grid.filter { clamped($0, b: b, d: d).distance(to: $0) < 1e-9 }
+        return inside.min { $0.distance(to: p) < $1.distance(to: p) } ?? grid[4]
+    }
+}
+
+/// The X-shape: AB along the top, AC and BD crossing at O, and CD closing the bottom triangle.
+/// A, B and C stay put while she drags D. D snaps so ∠B and ∠C are whole degrees; with ∠A fixed,
+/// every angle in both triangles is then whole and the two sums in the readout match the labels.
+private enum XShape {
+    static let a = Vec2(x: -2, y: 2), b = Vec2(x: 2, y: 2)
+
+    static func figure(oab: Double, oba: Double, ocd: Double, state: MotifState) -> MotifFigure {
+        let towardC = Vec2.heading(-oab)
+        let c = Vec2.meet(a, towardC, b, .heading(180 + oba)) + 2.4 * towardC
+        let (atB, atC) = state.free.map { clamped(atB: (a - b).turn(to: $0 - b), atC: (a - c).turn(to: $0 - c)) } ?? (oba, ocd)
+        let d = Vec2.meet(b, (a - b).turned(atB), c, (a - c).turned(atC))
+        let o = Vec2.meet(a, towardC, b, d - b)
+        let bent = state.broken ? c.rotated(by: breakTurn, about: o) : c
+        return MotifFigure(
+            points: ["A": a, "B": b, "C": bent, "D": d, "O": o],
+            segments: (state.broken ? [["A", "O"], ["O", "C"]] : [["A", "C"]]) + [["B", "D"], ["A", "B"], ["C", "D"]]
+        )
+    }
+
+    /// ∠B keeps O between A and C; ∠C keeps ∠D between 45° and 80°, so the bottom triangle never
+    /// flattens or runs off the board.
+    static func clamped(atB: Double, atC: Double) -> (Double, Double) {
+        let b = wholeDegrees(atB, 30...50)
+        return (b, wholeDegrees(atC, max(35, b - 10)...(b + 25)))
+    }
+}
+
+/// The dart: A at the tip, B and C at the back corners, and D in the notch. A, B and C stay put while
+/// she drags D. D snaps so ∠ABD and ∠ACD are whole degrees, and stays strictly inside the triangle.
+/// The break switch mirrors D across BC, which makes ABDC convex.
+private enum Dart {
+    static let abc = 55.0
+    static let margin = 15.0
+    /// The widest the notch opens, so D never lies flat on BC.
+    static let widest = 150.0
+
+    static func figure(bac: Double, abd: Double, acd: Double, state: MotifState) -> MotifFigure {
+        let a = Vec2(x: 0, y: 0), b = a + 6 * .heading(bac / 2)
+        let c = Vec2.meet(a, .heading(-bac / 2), b, (a - b).turned(abc))
+        let acb = 180 - bac - abc
+        let (atB, atC) = state.free.map { p in
+            let atB = wholeDegrees((a - b).turn(to: p - b), margin...(abc - margin))
+            return (atB, wholeDegrees(-(a - c).turn(to: p - c), margin...min(acb - margin, widest - bac - atB)))
+        } ?? (abd, acd)
+        let towardD = (a - b).turned(atB)
+        let inside = Vec2.meet(b, towardD, c, (a - c).turned(-atC))
+        guard !state.broken else {
+            return MotifFigure(points: ["A": a, "B": b, "C": c, "D": inside.reflected(across: b, c)],
+                               segments: [["A", "B"], ["B", "D"], ["D", "C"], ["C", "A"]])
+        }
+        return MotifFigure(points: ["A": a, "B": b, "C": c, "D": inside, "E": Vec2.meet(b, towardD, a, c - a)],
+                           segments: [["A", "B"], ["B", "D"], ["D", "C"], ["C", "A"]],
+                           helpers: [["D", "E"]])
+    }
+}
+
+/// The bisector and the parallel: B at the corner, BC along the bottom, and A she can drag to open or
+/// close ∠ABC. D is where the bisector meets AC, and E is where the line through D parallel to BC
+/// meets AB. The board is scaled so BE is the check's length at the check.
+private enum BisectorParallel {
+    static let b = Vec2(x: 0, y: 0)
+    static let abc = 70.0
+
+    static func figure(be: Double, state: MotifState) -> MotifFigure {
+        let k = be / corners(a: 7 * .heading(abc), c: Vec2(x: 8, y: 0), tilt: 0).e.length
+        let c = Vec2(x: 8 * k, y: 0)
+        let a = state.free.map { p in
+            min(max(p.length, 5 * k), 8.5 * k) * .heading(min(max(p.heading, 40), 110))
+        } ?? 7 * k * .heading(abc)
+        let (d, e) = corners(a: a, c: c, tilt: state.broken ? breakTurn : 0)
+        return MotifFigure(points: ["A": a, "B": b, "C": c, "D": d, "E": e],
+                           segments: [["A", "B"], ["B", "C"], ["C", "A"], ["B", "D"], ["D", "E"]],
+                           parallels: state.broken ? [] : [["E", "D"], ["B", "C"]])
+    }
+
+    static func corners(a: Vec2, c: Vec2, tilt: Double) -> (d: Vec2, e: Vec2) {
+        let d = Vec2.meet(b, .heading(a.heading / 2), a, c - a)
+        return (d, Vec2.meet(d, .heading(tilt), b, a - b))
+    }
+}
+
+/// The A-shape: A at the top, BC along the bottom, and D she slides along AB. E is where the line
+/// through D parallel to BC meets AC. AD snaps to tenths, so AD/AB is exact to two places.
+private enum AShape {
+    static let side = Vec2.heading(-105)
+
+    static func figure(ad: Double, ab: Double, bc: Double, state: MotifState) -> MotifFigure {
+        let a = Vec2(x: 0, y: 0), b = a + ab * side
+        let c = b + bc * .heading(0)
+        let along = state.free.map { min(max((($0 - a).dot(side) * 10).rounded() / 10, 1), ab - 0.5) } ?? ad
+        let d = a + along * side
+        let e = Vec2.meet(d, .heading(state.broken ? breakTurn : 0), a, c - a)
+        return MotifFigure(points: ["A": a, "B": b, "C": c, "D": d, "E": e],
+                           segments: [["A", "B"], ["A", "C"], ["B", "C"], ["D", "E"]],
+                           parallels: state.broken ? [] : [["D", "E"], ["B", "C"]])
     }
 }
