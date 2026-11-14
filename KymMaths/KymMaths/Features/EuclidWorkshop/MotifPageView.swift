@@ -481,7 +481,13 @@ struct MotifBoard: View {
             drawArrow(from: at(parallel[0]), to: at(parallel[1]), color: ink(item), in: &context)
         }
 
-        for (index, quantity) in scene.givens.enumerated() {
+        // Longest first, so a given that lies along a longer one (AD on AB) is drawn on top of it.
+        let longestFirst = scene.givens.enumerated().sorted { (figure.measure($0.element.item) ?? 0) > (figure.measure($1.element.item) ?? 0) }
+        for (index, quantity) in longestFirst where Self.isSegment(quantity.item) {
+            drawQuantity(quantity, color: Self.givenRoles[index % Self.givenRoles.count].figureColor,
+                         label: format(figure.measure(quantity.item), unit: quantity.unit), in: &context, viewport)
+        }
+        for (index, quantity) in scene.givens.enumerated() where !Self.isSegment(quantity.item) {
             drawQuantity(quantity, color: Self.givenRoles[index % Self.givenRoles.count].figureColor,
                          label: format(figure.measure(quantity.item), unit: quantity.unit), in: &context, viewport)
         }
@@ -522,19 +528,42 @@ struct MotifBoard: View {
         switch quantity.item {
         case let .angle(p, v, q):
             let (pp, vv, qq) = (at(p), at(v), at(q))
-            context.fill(BoardPaths.wedge(pp, vertex: vv, qq, radius: radius), with: .color(shade.opacity(0.22)))
-            context.stroke(Self.arc(pp, vertex: vv, qq, radius: radius), with: .color(shade), lineWidth: 2)
-            let bisector = Self.unit(Self.unit(pp - vv) + Self.unit(qq - vv))
-            let spot = CGPoint(x: vv.x + (radius + 15) * bisector.x, y: vv.y + (radius + 15) * bisector.y)
-            context.draw(Text(label).font(MathsFigureType.areaTerm).foregroundStyle(shade), at: spot)
+            let text = context.resolve(Text(label).font(MathsFigureType.areaTerm).foregroundStyle(shade))
+            let size = text.measure(in: CGSize(width: 200, height: 60))
+            let (u, w) = (Self.unit(pp - vv), Self.unit(qq - vv))
+            let half = acos(min(1, max(-1, u.x * w.x + u.y * w.y))) / 2
+            // A narrow angle moves its label out until the label fits between the arms, and takes its arc along.
+            let reach = min(max(radius + 15, hypot(size.width, size.height) / 2 / max(sin(half), 0.05) + 2), 120)
+            let arc = reach - 15
+            context.fill(BoardPaths.wedge(pp, vertex: vv, qq, radius: arc), with: .color(shade.opacity(0.22)))
+            context.stroke(Self.arc(pp, vertex: vv, qq, radius: arc), with: .color(shade), lineWidth: 2)
+            let bisector = Self.unit(u + w)
+            context.draw(text, at: CGPoint(x: vv.x + reach * bisector.x, y: vv.y + reach * bisector.y))
         case let .segment(a, b):
             let (pa, pb) = (at(a), at(b))
+            let side: CGFloat = holdsShorterSegment(quantity.item) ? -14 : 14
             let normal = Self.unit(CGPoint(x: pa.y - pb.y, y: pb.x - pa.x))
-            let middle = CGPoint(x: (pa.x + pb.x) / 2 + 14 * normal.x, y: (pa.y + pb.y) / 2 + 14 * normal.y)
+            let middle = CGPoint(x: (pa.x + pb.x) / 2 + side * normal.x, y: (pa.y + pb.y) / 2 + side * normal.y)
             context.stroke(BoardPaths.line(pa, pb), with: .color(shade), style: StrokeStyle(lineWidth: 3.4, lineCap: .round))
             context.draw(Text(label).font(MathsFigureType.areaTerm).foregroundStyle(shade), at: middle)
         case .point:
             break
+        }
+    }
+
+    private static func isSegment(_ item: FigureItem) -> Bool {
+        if case .segment = item { true } else { false }
+    }
+
+    /// A segment with a shorter given or goal lying along it puts its label on the other side, so the two never stack.
+    private func holdsShorterSegment(_ item: FigureItem) -> Bool {
+        guard case let .segment(a, b) = item, let pa = figure.points[a], let pb = figure.points[b] else { return false }
+        let along = (pb - pa).unit
+        return (scene.givens + scene.goal).contains { other in
+            guard case let .segment(c, d) = other.item, !other.item.names(item),
+                  let pc = figure.points[c], let pd = figure.points[d] else { return false }
+            let onLine = abs(along.cross(pc - pa)) < 1e-6 && abs(along.cross(pd - pa)) < 1e-6
+            return onLine && pc.distance(to: pd) < pa.distance(to: pb)
         }
     }
 
