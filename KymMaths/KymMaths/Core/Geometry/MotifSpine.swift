@@ -39,14 +39,6 @@ enum MotifFoundation: Hashable {
     case prototype(PrototypeID)
     case proposition(PropositionID)
     case motif(MotifID)
-
-    var label: String {
-        switch self {
-        case let .prototype(id): id.rawValue
-        case let .proposition(id): id.raw
-        case let .motif(id): id.raw
-        }
-    }
 }
 
 enum MotifLayer: Hashable {
@@ -93,13 +85,13 @@ enum MotifSpine {
     static let catalog: [Motif] = [
         Motif(
             id: "M1", layer: .motif, title: "M-shape",
-            check: "AB ∥ CD. E is between them, and the bend points away from A and C. ∠ABE = 40° and ∠CDE = 35°. Find ∠BED.",
+            check: "AB is parallel to CD. E is between them, and the bend points away from A and C. ∠ABE = 40° and ∠CDE = 35°. Find ∠BED.",
             answer: "∠BED = 75°",
-            move: "Draw a line through E parallel to AB. It splits ∠BED into two Z-angles: 40° and 35°.",
+            move: "Draw a line through E parallel to AB. It splits ∠BED into two Z-angles.",
             whyItMatters: "The helper line is the first construction she invents rather than copies. Bent paths between parallels fill exam angle questions.",
             standsOn: [.prototype(.parallel)],
             chapterUnlocks: [],
-            breakSwitch: "AB ∥ CD off: CD tilts, and ∠B + ∠D and ∠E drift apart.",
+            breakSwitch: "AB and CD stop being parallel: CD tilts, and ∠B + ∠D and ∠E drift apart.",
             knowsWhen: "Two shelves are parallel. A wire leaves the top shelf at 40°, bends at a nail between the shelves, and meets the bottom shelf at 35°. Both angles are on the side away from the bend. What angle does it make at the nail?",
             scene: .mShape
         ),
@@ -129,31 +121,31 @@ enum MotifSpine {
         ),
         Motif(
             id: "M4", layer: .motif, title: "Bisector + parallel",
-            check: "BD bisects ∠ABC. DE ∥ BC with E on AB. BE = 4 cm. Find DE.",
+            check: "BD bisects ∠ABC. DE is parallel to BC, with E on AB. BE = 4 cm. Find DE.",
             answer: "DE = 4 cm",
             move: "∠EDB = ∠DBC (Z), and ∠DBC = ∠EBD (bisector). Two equal angles make △BED isosceles.",
             whyItMatters: "Turns two angle facts into a length. This is how a parallelogram question hands her a side.",
             standsOn: [.prototype(.parallel), .prototype(.isosceles), .proposition("I.9")],
             chapterUnlocks: [],
-            breakSwitch: "DE ∥ BC off: DE tilts, and BE and DE stop being equal.",
+            breakSwitch: "DE and BC stop being parallel: DE tilts, and BE and DE stop being equal.",
             knowsWhen: "Fold a strip of paper with parallel edges, at any angle. The overlap is a triangle with two equal sides. Which motif says why?",
             scene: .bisectorParallel
         ),
         Motif(
             id: "M5", layer: .motif, title: "A-shape",
-            check: "DE ∥ BC, with D on AB and E on AC. AD = 3, AB = 5 and BC = 10. Find DE.",
+            check: "DE is parallel to BC, with D on AB and E on AC. AD = 3, AB = 5 and BC = 10. Find DE.",
             answer: "DE = 6",
             move: "Corresponding angles make the small and big triangles the same shape, so every side scales by AD/AB.",
             whyItMatters: "Scale drawings, shadows and maps. Sine and cosine are ratios in an A-shape.",
             standsOn: [.prototype(.parallel)],
             chapterUnlocks: ["ch11 (OUP 13, enlargement)", "ch12 (trigonometry)"],
-            breakSwitch: "DE ∥ BC off: DE tilts, and AD/AB and DE/BC stop matching.",
+            breakSwitch: "DE and BC stop being parallel: DE tilts, and AD/AB and DE/BC stop matching.",
             knowsWhen: "A 1.5 m stick casts a 2 m shadow. At the same moment a tree casts a 12 m shadow. How tall is the tree?",
             scene: .aShape
         ),
         Motif(
             id: "C1", layer: .composite, title: "Bent path + isosceles",
-            check: "AB ∥ CD, and E is between them (an M-shape). ∠ABE = 40° and ∠BED = 80°. G is on DC with DG = DE. Find ∠CDE and ∠DEG.",
+            check: "AB is parallel to CD, and E is between them (an M-shape). ∠ABE = 40° and ∠BED = 80°. G is on DC with DG = DE. Find ∠CDE and ∠DEG.",
             answer: "∠CDE = 40°, ∠DEG = 70°",
             move: "∠CDE = 80° − 40° (M1). △DEG has DG = DE, so its base angles are (180° − 40°) ÷ 2 (P-iso, P-tri).",
             whyItMatters: nil,
@@ -191,7 +183,7 @@ enum MotifSpine {
             id: "C4", layer: .composite, title: "Bisector in a parallelogram",
             check: "In parallelogram ABCD, AB = 5 cm and AD = 8 cm. The bisector of ∠A meets BC at E. Find BE and EC.",
             answer: "BE = 5 cm, EC = 3 cm",
-            move: "AD ∥ BC, so M4 makes △ABE isosceles: BE = AB. BC = AD = 8, so EC = 8 − 5.",
+            move: "AD is parallel to BC, so M4 makes △ABE isosceles: BE = AB. BC = AD = 8, so EC = 8 − 5.",
             whyItMatters: nil,
             standsOn: [.motif("M4")],
             chapterUnlocks: [],

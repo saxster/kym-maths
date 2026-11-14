@@ -6,7 +6,7 @@ extension MotifScene {
         let abe = 40.0, cde = 35.0
         return MotifScene(
             question: [
-                .given("AB ∥ CD.", .segment("A", "B"), .segment("C", "D")),
+                .given("AB is parallel to CD.", .segment("A", "B"), .segment("C", "D")),
                 .given("E is between them, and the bend points away from A and C.",
                        .point("E"), .segment("B", "E"), .segment("E", "D")),
                 .given("∠ABE = \(degrees(abe))", .angle("A", "B", "E")),
@@ -79,7 +79,7 @@ extension MotifScene {
         return MotifScene(
             question: [
                 .given("BD bisects ∠ABC.", .angle("A", "B", "D"), .angle("D", "B", "C")),
-                .given("DE ∥ BC with E on AB.", .segment("D", "E"), .segment("B", "C"), .point("E")),
+                .given("DE is parallel to BC, with E on AB.", .segment("D", "E"), .segment("B", "C"), .point("E")),
                 .given("BE = \(be.formatted()) cm.", .segment("B", "E")),
                 .goal("Find DE.", .segment("D", "E")),
             ],
@@ -102,7 +102,7 @@ extension MotifScene {
         let ad = 3.0, ab = 5.0, bc = 10.0
         return MotifScene(
             question: [
-                .given("DE ∥ BC,", .segment("D", "E"), .segment("B", "C")),
+                .given("DE is parallel to BC,", .segment("D", "E"), .segment("B", "C")),
                 .given("with D on AB and E on AC.", .point("D"), .point("E")),
                 .given("AD = \(ad.formatted()),", .segment("A", "D")),
                 .given("AB = \(ab.formatted())", .segment("A", "B")),
@@ -128,7 +128,7 @@ extension MotifScene {
         let abe = 40.0, bed = 80.0
         return MotifScene(
             question: [
-                .given("AB ∥ CD, and E is between them.", .segment("A", "B"), .segment("C", "D"), .point("E")),
+                .given("AB is parallel to CD, and E is between them.", .segment("A", "B"), .segment("C", "D"), .point("E")),
                 .given("∠ABE = \(degrees(abe))", .angle("A", "B", "E")),
                 QuestionPhrase(text: "and"),
                 .given("∠BED = \(degrees(bed)).", .angle("B", "E", "D")),
