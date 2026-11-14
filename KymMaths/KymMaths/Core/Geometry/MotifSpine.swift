@@ -85,14 +85,14 @@ enum MotifSpine {
     static let catalog: [Motif] = [
         Motif(
             id: "M1", layer: .motif, title: "M-shape",
-            check: "AB is parallel to CD. E is between them, and the bend points away from A and C. ∠ABE = 40° and ∠CDE = 35°. Find ∠BED.",
+            check: "AB is parallel to CD. E is between them, and the bend points toward A and C. ∠ABE = 40° and ∠CDE = 35°. Find ∠BED.",
             answer: "∠BED = 75°",
             move: "Draw a line through E parallel to AB. It splits ∠BED into two Z-angles.",
             whyItMatters: "The helper line is the first construction she invents rather than copies. Bent paths between parallels fill exam angle questions.",
             standsOn: [.prototype(.parallel)],
             chapterUnlocks: [],
             breakSwitch: "AB and CD stop being parallel: CD tilts, and ∠B + ∠D and ∠E drift apart.",
-            knowsWhen: "Two shelves are parallel. A wire leaves the top shelf at 40°, bends at a nail between the shelves, and meets the bottom shelf at 35°. Both angles are on the side away from the bend. What angle does it make at the nail?",
+            knowsWhen: "Two shelves are parallel. A wire leaves the top shelf at 40°, bends at a nail between the shelves, and meets the bottom shelf at 35°. Both angles are measured on the side the bend points to. What angle does it make at the nail?",
             scene: .mShape
         ),
         Motif(

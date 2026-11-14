@@ -49,7 +49,7 @@ These are accepted, not taught here. Each names where she learns it.
 
 | ID | Motif | She can do, device off (the check) | The move | Why it matters | Stands on | Unlocks |
 |---|---|---|---|---|---|---|
-| M1 | M-shape | AB ∥ CD. E is between them, and the bend points away from A and C. ∠ABE = 40°, ∠CDE = 35°. **∠BED = 75°.** | Draw a line through E parallel to AB. It splits ∠BED into two Z-angles. | The helper parallel line is the first construction she invents rather than copies. Bent paths between parallels fill exam angle questions. | P-par | C1 |
+| M1 | M-shape | AB ∥ CD. E is between them, and the bend points toward A and C. ∠ABE = 40°, ∠CDE = 35°. **∠BED = 75°.** | Draw a line through E parallel to AB. It splits ∠BED into two Z-angles. | The helper parallel line is the first construction she invents rather than copies. Bent paths between parallels fill exam angle questions. | P-par | C1 |
 | M2 | X-shape | AC and BD cross at O. In △AOB, ∠A = 70° and ∠B = 40°. In △COD, ∠C = 60°. **∠D = 50°.** | The angles at O are vertically opposite, so the other two pairs have the same sum. | Moving an angle sum from one triangle to another without measuring either. It is the engine of the star. | P-line, P-tri | C2 |
 | M3 | Dart | ABDC is an arrowhead: D sits inside angle A. ∠A = 50°, ∠ABD = 20°, ∠ACD = 30°. **∠BDC = 100°.** | The notch angle equals the other three added. Extend BD to meet AC, then use the exterior angle twice. | The exterior angle used twice in a row: her first two-step chain. | P-tri | C3 |
 | M4 | Bisector + parallel | BD bisects ∠ABC. DE ∥ BC with E on AB. BE = 4 cm. **DE = 4 cm.** | ∠EDB = ∠DBC (Z), and ∠DBC = ∠EBD (bisector). Two equal angles make △BED isosceles. | Turns two angle facts into a length. This is how a parallelogram question hands her a side. | P-par, P-iso, I.9 | C4 |
@@ -57,7 +57,7 @@ These are accepted, not taught here. Each names where she learns it.
 
 ### Not yet: the pencil tip
 
-The pencil tip is the M-shape's twin: the bend points toward A and C, and ∠B + ∠E + ∠D = 360°. It joins once a composite needs it. Its first job will be a knows-when distractor for M1: she has to say which way the bend points before she picks the rule.
+The pencil tip is the M-shape's twin: the bend points away from A and C, and ∠B + ∠E + ∠D = 360°. It joins once a composite needs it. Its first job will be a knows-when distractor for M1: she has to say which way the bend points before she picks the rule.
 
 ## Composite cards
 
@@ -92,7 +92,7 @@ Each switch removes the one condition the motif needs. The readout shows how far
 
 | ID | Problem |
 |---|---|
-| M1 | Two shelves are parallel. A wire leaves the top shelf at 40°, bends at a nail between the shelves, and meets the bottom shelf at 35°. Both angles are on the side away from the bend. What angle does it make at the nail? |
+| M1 | Two shelves are parallel. A wire leaves the top shelf at 40°, bends at a nail between the shelves, and meets the bottom shelf at 35°. Both angles are measured on the side the bend points to. What angle does it make at the nail? |
 | M2 | Two sticks cross like open scissors. In the top triangle, the angles at the stick ends are 70° and 40°. In the bottom triangle, one end angle is 60°. What is the other? |
 | M3 | An arrowhead kite has a 50° tip, and its back corners are 20° and 30°. What is the angle inside the notch? |
 | M4 | Fold a strip of paper with parallel edges, at any angle. The overlap is a triangle with two equal sides. Which motif says why? |

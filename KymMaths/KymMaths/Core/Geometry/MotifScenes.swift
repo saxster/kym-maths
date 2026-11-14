@@ -7,7 +7,7 @@ extension MotifScene {
         return MotifScene(
             question: [
                 .given("AB is parallel to CD.", .segment("A", "B"), .segment("C", "D")),
-                .given("E is between them, and the bend points away from A and C.",
+                .given("E is between them, and the bend points toward A and C.",
                        .point("E"), .segment("B", "E"), .segment("E", "D")),
                 .given("∠ABE = \(degrees(abe))", .angle("A", "B", "E")),
                 QuestionPhrase(text: "and"),
@@ -255,7 +255,7 @@ private enum MShape {
         )
     }
 
-    /// Strictly between the lines, and left of B and D, so the bend still opens away from A and C.
+    /// Strictly between the lines, and left of B and D, so the bend still points toward A and C.
     static func clamped(_ p: Vec2, b: Vec2, d: Vec2) -> Vec2 {
         Vec2(x: min(max(p.x, left + margin), min(b.x, d.x) - margin),
              y: min(max(p.y, margin), top - margin))
