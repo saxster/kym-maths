@@ -34,6 +34,7 @@ struct EuclidSpineMapView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width = $0 }
+            MotifsCard(store: store)
         }
         .onAppear {
             #if DEBUG
@@ -334,6 +335,74 @@ private struct SpineNode: View {
         }
         let lit = record.highest.map { "highest lamp \($0.title)" } ?? "no lamps lit"
         return "\(proposition.id), \(proposition.title), \(lit)" + (record.assisted ? ", last try had help" : "")
+    }
+}
+
+/// The motif spine's entry: figures exam questions reuse, the open ones first.
+private struct MotifsCard: View {
+    @Bindable var store: AppStore
+
+    private var motifs: [Motif] { MotifSpine.catalog.filter { $0.layer == .motif } }
+
+    var body: some View {
+        JournalCard {
+            VStack(alignment: .leading, spacing: Spacing.sm) {
+                Text("MOTIFS")
+                    .font(Typography.eyebrow)
+                    .foregroundStyle(Color.kymaiaPrimary)
+                Text("Figures exam questions use again and again. Spot one and the helper line comes next.")
+                    .font(Typography.body)
+                    .foregroundStyle(Color.kymaiaInk)
+                    .fixedSize(horizontal: false, vertical: true)
+                FlowLayout(spacing: Spacing.xs) {
+                    ForEach(motifs, id: \.id) { motif in
+                        if MotifSpine.playable.contains(motif.id) {
+                            open(motif)
+                        } else {
+                            comingNext(motif)
+                        }
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+
+    private func open(_ motif: Motif) -> some View {
+        let record = store.motifProgress.record(for: motif.id)
+        return Button {
+            store.openEuclid(.motif(motif.id))
+        } label: {
+            HStack(spacing: Spacing.xxs) {
+                Text("\(motif.id) · \(motif.title)")
+                if record.solved {
+                    Image(systemName: "checkmark.circle.fill").foregroundStyle(Color.kymaiaPrimary)
+                }
+                if record.parentChecked {
+                    Image(systemName: "checkmark.seal.fill").foregroundStyle(Color.kymaiaSuccess)
+                }
+            }
+        }
+        .buttonStyle(JournalSecondaryButtonStyle())
+        .accessibilityLabel("\(motif.id), \(motif.title)" + (record.solved ? ", solved" : ", open"))
+    }
+
+    private func comingNext(_ motif: Motif) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text("\(motif.id) · \(motif.title)")
+                .font(Typography.subheadline.weight(.semibold))
+                .foregroundStyle(Color.kymaiaMutedInk)
+            Text("Coming next")
+                .font(Typography.caption)
+                .foregroundStyle(Color.kymaiaMutedInk)
+        }
+        .padding(.horizontal, Spacing.sm)
+        .padding(.vertical, Spacing.xs)
+        .overlay(
+            RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous)
+                .strokeBorder(Color.kymaiaMutedInk.opacity(0.4), style: StrokeStyle(lineWidth: 1, dash: [4, 3]))
+        )
+        .accessibilityElement(children: .combine)
     }
 }
 

@@ -169,3 +169,37 @@ struct MotifSpineTests {
         #expect(try Self.rule(figure).holds)
     }
 }
+
+@Suite("Motif progress")
+struct MotifProgressTests {
+    @Test("A right answer with the helper line shown first is marked as help and does not solve the motif")
+    func assisted() {
+        var progress = MotifProgress()
+        #expect(progress.recordPicture(for: "M1", assisted: true) == .assisted)
+        #expect(progress.record(for: "M1") == MotifRecord(solved: false, assisted: true, parentChecked: false))
+        #expect(progress.recordPicture(for: "M1", assisted: false) == .advanced(to: .picture))
+        #expect(progress.record(for: "M1") == MotifRecord(solved: true, assisted: false, parentChecked: false))
+        #expect(progress.recordPicture(for: "M1", assisted: false) == .notNext, "already solved")
+    }
+
+    @Test("Progress survives a save and a load through UserDefaults")
+    func roundTrip() throws {
+        let suite = "motif-progress-\(UUID().uuidString)"
+        let defaults = try #require(UserDefaults(suiteName: suite))
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let store = MotifProgressStore(defaults: defaults)
+        #expect(store.load() == MotifProgress(), "nothing saved yet")
+
+        var progress = MotifProgress()
+        progress.recordPicture(for: "M1", assisted: false)
+        progress.setParentChecked(true, for: "M1")
+        progress.recordPicture(for: "M2", assisted: true)
+        store.save(progress)
+
+        let loaded = MotifProgressStore(defaults: defaults).load()
+        #expect(loaded == progress)
+        #expect(loaded.record(for: "M1") == MotifRecord(solved: true, assisted: false, parentChecked: true))
+        #expect(loaded.record(for: "M2").assisted)
+        #expect(defaults.data(forKey: "kymmaths.motif.progress") != nil)
+    }
+}
