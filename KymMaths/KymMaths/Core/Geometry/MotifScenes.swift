@@ -17,6 +17,7 @@ extension MotifScene {
             givens: [.degrees(.angle("A", "B", "E"), abe), .degrees(.angle("C", "D", "E"), cde)],
             goal: [.degrees(.angle("B", "E", "D"), 75)],
             freePoint: "E",
+            condition: "AB parallel to CD",
             build: { MShape.figure(abe: abe, cde: cde, state: $0) },
             rule: { figure in
                 MotifRule(lhsLabel: "∠B + ∠D", lhs: figure.angle("A", "B", "E") + figure.angle("C", "D", "E"),
@@ -83,8 +84,8 @@ extension MotifScene {
                 .given("BE = \(be.formatted()) cm.", .segment("B", "E")),
                 .goal("Find DE.", .segment("D", "E")),
             ],
-            givens: [.length(.segment("B", "E"), be)],
-            goal: [.length(.segment("D", "E"), 4)],
+            givens: [.centimetres(.segment("B", "E"), be)],
+            goal: [.centimetres(.segment("D", "E"), 4)],
             build: { _ in
                 let abc = 70.0
                 let b = Vec2(x: 0, y: 0), c = Vec2(x: 8, y: 0), a = b + 7 * .heading(abc)
@@ -210,8 +211,8 @@ extension MotifScene {
                 .goal("Find BE", .segment("B", "E")),
                 .goal("and EC.", .segment("E", "C")),
             ],
-            givens: [.length(.segment("A", "B"), ab), .length(.segment("A", "D"), ad)],
-            goal: [.length(.segment("B", "E"), 5), .length(.segment("E", "C"), 3)],
+            givens: [.centimetres(.segment("A", "B"), ab), .centimetres(.segment("A", "D"), ad)],
+            goal: [.centimetres(.segment("B", "E"), 5), .centimetres(.segment("E", "C"), 3)],
             build: { _ in
                 let dab = 60.0
                 let a = Vec2(x: 0, y: 0), d = Vec2(x: ad, y: 0), b = ab * Vec2.heading(dab)

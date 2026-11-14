@@ -72,6 +72,7 @@ struct MotifPageView: View {
     private func figureCard(_ motif: Motif) -> some View {
         let scene = motif.scene
         let figure = scene.build(state)
+        let extent = scene.extent
         return JournalCard {
             VStack(alignment: .leading, spacing: Spacing.sm) {
                 Text("THE CHECK")
@@ -91,16 +92,17 @@ struct MotifPageView: View {
                     title: motif.title,
                     scene: scene,
                     figure: figure,
+                    extent: extent,
                     lights: lit.map { scene.question[$0].lights },
                     showsHelper: showsHelper,
                     showsAnswer: solved,
-                    canDrag: solved && scene.freePoint != nil,
+                    canDrag: solved && scene.canDrag(state),
                     onDrag: { state.free = $0 },
                     onDragEnd: {
                         if let free = scene.freePoint { state.free = scene.build(state).points[free] }
                     }
                 )
-                .frame(height: BoardViewport.height(for: MotifBoard.extent(of: scene), width: 620, clampedTo: 300...460))
+                .frame(height: BoardViewport.height(for: extent, width: 620, clampedTo: 300...460))
                 controls(scene, figure)
             }
         }
@@ -118,8 +120,8 @@ struct MotifPageView: View {
                 }
                 .buttonStyle(JournalSecondaryButtonStyle())
             }
-            if solved, scene.hasBreakSwitch {
-                Toggle("Lines parallel", isOn: Binding(get: { !state.broken }, set: { state.broken = !$0 }))
+            if solved, let condition = scene.condition {
+                Toggle(condition, isOn: Binding(get: { !state.broken }, set: { state.broken = !$0 }))
                     .toggleStyle(.switch)
                     .font(Typography.body)
                     .fixedSize()
@@ -133,26 +135,40 @@ struct MotifPageView: View {
             readout(rule)
         }
         if let free = scene.freePoint {
-            Text(solved
-                 ? "Drag \(free). The other points stay put, and every angle is measured again."
-                 : "Answer first. Then you can drag \(free) and switch the parallel lines off.")
+            Text(dragCaption(scene, free: free))
                 .font(Typography.caption)
                 .foregroundStyle(Color.kymaiaMutedInk)
                 .fixedSize(horizontal: false, vertical: true)
         }
     }
 
+    private func dragCaption(_ scene: MotifScene, free: String) -> String {
+        guard solved else { return "Answer first. Then you can drag \(free) and flip the switch." }
+        if scene.canDrag(state) { return "Drag \(free). The figure is measured again as it moves." }
+        return "Switch \(scene.condition ?? "the condition") back on to drag \(free) again."
+    }
+
     private func readout(_ rule: MotifRule) -> some View {
-        let lhs = Int(rule.lhs.rounded()), rhs = Int(rule.rhs.rounded())
-        return Label {
-            Text("\(rule.lhsLabel) = \(lhs)°   \(rule.holds ? "=" : "≠")   \(rule.rhsLabel) = \(rhs)°")
-                .font(Typography.body.monospacedDigit().weight(.semibold))
-        } icon: {
-            Image(systemName: rule.holds ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
+        let unit = rule.unit
+        return VStack(alignment: .leading, spacing: Spacing.xxs) {
+            Label {
+                Text("\(rule.lhsLabel) = \(unit.reading(rule.lhs))   \(rule.holds ? "=" : "≠")   \(rule.rhsLabel) = \(unit.reading(rule.rhs))")
+                    .font(Typography.body.monospacedDigit().weight(.semibold))
+                    .fixedSize(horizontal: false, vertical: true)
+            } icon: {
+                Image(systemName: rule.holds ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
+            }
+            .foregroundStyle(rule.holds ? Color.kymaiaSuccess : Color.kymaiaWarning)
+            .accessibilityLabel(rule.holds
+                ? "The rule holds: \(rule.lhsLabel) is \(unit.spoken(rule.lhs)), \(rule.rhsLabel) is \(unit.spoken(rule.rhs))"
+                : "The rule fails: \(rule.lhsLabel) is \(unit.spoken(rule.lhs)) but \(rule.rhsLabel) is \(unit.spoken(rule.rhs))")
+            if let note = rule.note {
+                Text(note)
+                    .font(Typography.caption)
+                    .foregroundStyle(Color.kymaiaInk)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
         }
-        .foregroundStyle(rule.holds ? Color.kymaiaSuccess : Color.kymaiaWarning)
-        .accessibilityLabel(rule.holds ? "The rule holds: \(rule.lhsLabel) is \(lhs) degrees, \(rule.rhsLabel) is \(rhs) degrees"
-                                       : "The rule fails: \(rule.lhsLabel) is \(lhs) degrees but \(rule.rhsLabel) is \(rhs) degrees")
     }
 
     // MARK: - The answer
@@ -169,7 +185,7 @@ struct MotifPageView: View {
                         Text(quantity.item.name + " =")
                             .font(Typography.headline)
                             .foregroundStyle(Color.kymaiaInk)
-                        TextField(quantity.unit == .degrees ? "degrees" : "length", text: answerBinding(index))
+                        TextField(quantity.unit.placeholder, text: answerBinding(index))
                             .learnerTextInput(.retrieval)
                             .textFieldStyle(.roundedBorder)
                             .font(Typography.mono)
@@ -179,8 +195,8 @@ struct MotifPageView: View {
                             #if os(iOS)
                             .keyboardType(.decimalPad)
                             #endif
-                        if quantity.unit == .degrees {
-                            Text("°").font(Typography.headline).foregroundStyle(Color.kymaiaInk)
+                        if let symbol = quantity.unit.symbol {
+                            Text(symbol).font(Typography.headline).foregroundStyle(Color.kymaiaInk)
                         }
                     }
                 }
@@ -251,15 +267,17 @@ struct MotifPageView: View {
 
     private func check(_ motif: Motif) {
         let goal = motif.scene.goal
-        let typed = answers.map { Double($0.replacingOccurrences(of: "°", with: "").trimmingCharacters(in: .whitespaces)) }
+        let typed = answers.map {
+            Double($0.replacingOccurrences(of: "°", with: "").replacingOccurrences(of: "cm", with: "").trimmingCharacters(in: .whitespaces))
+        }
         guard typed.allSatisfy({ $0 != nil }) else {
             nudge = "Type a number in each box."
             return
         }
-        let right = zip(goal, typed).allSatisfy { quantity, value in abs(quantity.value - value!) < 0.5 }
+        let right = zip(goal, typed).allSatisfy { quantity, value in abs(quantity.value - value!) < quantity.unit.tolerance }
         guard right else {
             nudge = showsHelper
-                ? "Not quite. Look at the two angles the helper line makes at the bend."
+                ? "Not quite. Look at the angles the helper line makes, then try again."
                 : "Not quite, and no harm done. Look at the angles you know and try again."
             return
         }
@@ -346,6 +364,7 @@ struct MotifBoard: View {
     let title: String
     let scene: MotifScene
     let figure: MotifFigure
+    let extent: BoardExtent
     /// What the lit phrase names. Everything else fades.
     let lights: [FigureItem]?
     let showsHelper: Bool
@@ -365,19 +384,9 @@ struct MotifBoard: View {
 
     private static let givenRoles: [ColorRole] = [.red, .blue, .amber]
 
-    /// The check's figure and its broken version, padded for labels. Fixed, so a drag never rescales the board.
-    static func extent(of scene: MotifScene) -> BoardExtent {
-        var states = [scene.state]
-        if scene.hasBreakSwitch { states.append(MotifState(free: scene.state.free, broken: true)) }
-        let points = states.flatMap { scene.build($0).points.values }
-        let pad = 0.6
-        return BoardExtent(min: Vec2(x: points.map(\.x).min()! - pad, y: points.map(\.y).min()! - pad),
-                           max: Vec2(x: points.map(\.x).max()! + pad, y: points.map(\.y).max()! + pad))
-    }
-
     var body: some View {
         GeometryReader { geo in
-            let viewport = BoardViewport(fitting: Self.extent(of: scene), in: geo.size, margin: 16)
+            let viewport = BoardViewport(fitting: extent, in: geo.size, margin: 16)
             Canvas { context, _ in draw(in: &context, viewport) }
                 .contentShape(Rectangle())
                 .gesture(drag(viewport), including: canDrag ? .all : .subviews)
@@ -394,8 +403,9 @@ struct MotifBoard: View {
     }
 
     private var accessibilityValue: String {
-        let givens = scene.givens.map { "\($0.item.name) \(format(figure.measure($0.item), unit: $0.unit))" }
-        let goals = scene.goal.map { "\($0.item.name) \(showsAnswer ? format(figure.measure($0.item), unit: $0.unit) : "unknown")" }
+        func spoken(_ quantity: Quantity) -> String { figure.measure(quantity.item).map(quantity.unit.spoken) ?? "" }
+        let givens = scene.givens.map { "\($0.item.name) \(spoken($0))" }
+        let goals = scene.goal.map { "\($0.item.name) \(showsAnswer ? spoken($0) : "unknown")" }
         return (givens + goals).joined(separator: ", ")
     }
 
@@ -599,8 +609,7 @@ struct MotifBoard: View {
     }
 
     private func format(_ value: Double?, unit: QuantityUnit) -> String {
-        guard let value else { return "" }
-        return unit == .degrees ? "\(Int(value.rounded()))°" : value.formatted(.number.precision(.fractionLength(0...1)))
+        value.map(unit.label) ?? ""
     }
 }
 

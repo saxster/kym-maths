@@ -256,7 +256,7 @@ struct EuclidMapBackButton: View {
 /// Also `-EuclidProgress picture|letters|head`, `-EuclidHints n`, `-EuclidShearT 0.4`,
 /// `-EuclidSelect I.10` (map), and `-EuclidSeed n -EuclidPlaced n` (step-order round).
 /// A motif page opens with `-EuclidOpen motif:M1`, and takes `-MotifLight n` (light question phrase n),
-/// `-MotifAnswer 75`, `-MotifHelper YES`, `-MotifBroken YES` and `-MotifDrag x,y` (E pulled to a board point).
+/// `-MotifAnswer 75`, `-MotifHelper YES`, `-MotifBroken YES` and `-MotifDrag x,y` (the free point pulled to a board point).
 enum EuclidDebugLaunch {
     private static var defaults: UserDefaults { .standard }
 

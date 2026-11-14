@@ -78,7 +78,61 @@ struct AngleTwin {
 
 enum QuantityUnit: Hashable {
     case degrees
+    case centimetres
+    /// A length the question gives without a unit.
     case length
+    /// One length over another.
+    case ratio
+
+    /// How far apart two values may be and still count as equal: under half the last digit shown.
+    var tolerance: Double {
+        switch self {
+        case .degrees: 0.5
+        case .centimetres, .length: 0.05
+        case .ratio: 0.005
+        }
+    }
+
+    /// The number as the board writes it: "75°", "4.2", "0.60".
+    func label(_ value: Double) -> String {
+        switch self {
+        case .degrees: "\(Int(value.rounded()))°"
+        case .centimetres, .length: value.formatted(.number.precision(.fractionLength(0...1)))
+        case .ratio: value.formatted(.number.precision(.fractionLength(2)))
+        }
+    }
+
+    /// The number with its unit: "75°", "4.2 cm", "0.60".
+    func reading(_ value: Double) -> String {
+        self == .centimetres ? label(value) + " cm" : label(value)
+    }
+
+    /// The number as VoiceOver says it.
+    func spoken(_ value: Double) -> String {
+        switch self {
+        case .degrees: "\(Int(value.rounded())) degrees"
+        case .centimetres: label(value) + " centimetres"
+        case .length, .ratio: label(value)
+        }
+    }
+
+    /// The answer box's placeholder, and what follows the box.
+    var placeholder: String {
+        switch self {
+        case .degrees: "degrees"
+        case .centimetres: "cm"
+        case .length: "length"
+        case .ratio: "ratio"
+        }
+    }
+
+    var symbol: String? {
+        switch self {
+        case .degrees: "°"
+        case .centimetres: "cm"
+        case .length, .ratio: nil
+        }
+    }
 }
 
 /// A number the question states or asks for, and the item it measures.
@@ -89,6 +143,7 @@ struct Quantity: Hashable {
 
     static func degrees(_ item: FigureItem, _ value: Double) -> Quantity { Quantity(item: item, value: value, unit: .degrees) }
     static func length(_ item: FigureItem, _ value: Double) -> Quantity { Quantity(item: item, value: value, unit: .length) }
+    static func centimetres(_ item: FigureItem, _ value: Double) -> Quantity { Quantity(item: item, value: value, unit: .centimetres) }
 }
 
 /// One phrase of the question. Tapping a given or the goal lights what it names on the figure.
@@ -116,8 +171,11 @@ struct MotifRule {
     let lhs: Double
     let rhsLabel: String
     let rhs: Double
+    var unit: QuantityUnit = .degrees
+    /// A line under the readout saying what the figure shows now.
+    var note: String? = nil
 
-    var holds: Bool { abs(lhs - rhs) < 0.5 }
+    var holds: Bool { abs(lhs - rhs) < unit.tolerance }
 }
 
 struct MotifScene {
@@ -126,6 +184,8 @@ struct MotifScene {
     let goal: [Quantity]
     /// The point she can drag, when the motif has one.
     var freePoint: String? = nil
+    /// The condition the break switch removes, as the switch's label: "AB parallel to CD".
+    var condition: String? = nil
     let build: (MotifState) -> MotifFigure
     /// The state that reproduces the check's numbers.
     var state = MotifState()
@@ -133,6 +193,30 @@ struct MotifScene {
 
     var figure: MotifFigure { build(state) }
     var hasBreakSwitch: Bool { rule != nil }
+
+    /// She can drag the free point unless the break switch is what moved it.
+    func canDrag(_ state: MotifState) -> Bool {
+        guard let free = freePoint, let here = build(state).points[free] else { return false }
+        guard state.broken, let whole = build(MotifState(free: state.free)).points[free] else { return true }
+        return here.distance(to: whole) < 1e-9
+    }
+
+    /// Every figure she can reach by dragging or breaking, padded for labels. Fixed, so a drag never rescales the board.
+    var extent: BoardExtent {
+        var pulls: [Vec2?] = [state.free]
+        if let free = freePoint, let home = figure.points[free] {
+            for radius in [0.5, 1, 2, 3, 4, 6, 40] {
+                pulls += (0..<24).map { home + radius * .heading(Double($0) * 15) }
+            }
+        }
+        let states = pulls.flatMap { pull in
+            hasBreakSwitch ? [MotifState(free: pull), MotifState(free: pull, broken: true)] : [MotifState(free: pull)]
+        }
+        let points = states.flatMap { build($0).points.values }
+        let pad = 0.6
+        return BoardExtent(min: Vec2(x: points.map(\.x).min()! - pad, y: points.map(\.y).min()! - pad),
+                           max: Vec2(x: points.map(\.x).max()! + pad, y: points.map(\.y).max()! + pad))
+    }
 }
 
 // MARK: - Plane geometry for building figures from their numbers
@@ -145,6 +229,19 @@ extension Vec2 {
     }
 
     var unit: Vec2 { (1 / length) * self }
+
+    /// Degrees counterclockwise from the x-axis, in (-180, 180].
+    var heading: Double { atan2(y, x) * 180 / .pi }
+
+    /// The degrees `other` turns counterclockwise from this direction, in (-180, 180].
+    func turn(to other: Vec2) -> Double { atan2(cross(other), dot(other)) * 180 / .pi }
+
+    /// This point mirrored in the line through `a` and `b`.
+    func reflected(across a: Vec2, _ b: Vec2) -> Vec2 {
+        let along = (b - a).unit
+        let foot = a + (self - a).dot(along) * along
+        return 2 * foot - self
+    }
 
     /// This point turned `degrees` counterclockwise about `pivot`.
     func rotated(by degrees: Double, about pivot: Vec2) -> Vec2 {
