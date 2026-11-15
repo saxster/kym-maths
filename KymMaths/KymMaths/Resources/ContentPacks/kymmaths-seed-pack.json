@@ -13047,223 +13047,2409 @@
   "misconceptions": [
     {
       "id": "sign-of-product",
-      "name": "You got a sign wrong multiplying or dividing"
+      "name": "You got a sign wrong multiplying or dividing",
+      "standsOn": "negative-numbers"
     },
     {
       "id": "dropped-minus",
-      "name": "You lost a minus sign"
+      "name": "You lost a minus sign",
+      "standsOn": "negative-numbers"
     },
     {
       "id": "rearranged-sign",
-      "name": "You got a sign wrong moving a term across"
+      "name": "You got a sign wrong moving a term across",
+      "standsOn": "inverse-operations"
     },
     {
       "id": "expand-first-term-only",
-      "name": "You multiplied only the first term in the bracket"
+      "name": "You multiplied only the first term in the bracket",
+      "standsOn": "distributive-law"
     },
     {
       "id": "lcm-as-product",
-      "name": "You took the LCM as the numbers multiplied together"
+      "name": "You took the LCM as the numbers multiplied together",
+      "standsOn": "factors-and-multiples"
     },
     {
       "id": "hcf-lcm-swapped",
-      "name": "You mixed up HCF and LCM"
+      "name": "You mixed up HCF and LCM",
+      "standsOn": "factors-and-multiples"
     },
     {
       "id": "stopped-early",
-      "name": "You stopped one step too soon"
+      "name": "You stopped one step too soon",
+      "standsOn": "answer-the-question"
     },
     {
       "id": "common-factor-left",
-      "name": "You left a common factor in"
+      "name": "You left a common factor in",
+      "standsOn": "factors-and-multiples"
     },
     {
       "id": "square-of-difference",
-      "name": "You treated a² − b² as (a − b)²"
+      "name": "You treated a² − b² as (a − b)²",
+      "standsOn": "distributive-law"
     },
     {
       "id": "back-bearing",
-      "name": "You did not turn round for the back-bearing"
+      "name": "You did not turn round for the back-bearing",
+      "standsOn": "angle-facts"
     },
     {
       "id": "added-sides",
-      "name": "You added lengths instead of using Pythagoras"
+      "name": "You added lengths instead of using Pythagoras",
+      "standsOn": "squares-and-roots"
     },
     {
       "id": "forgot-square-root",
-      "name": "You forgot the square root"
+      "name": "You forgot the square root",
+      "standsOn": "squares-and-roots"
     },
     {
       "id": "equal-split",
-      "name": "You split the sample equally, not in proportion"
+      "name": "You split the sample equally, not in proportion",
+      "standsOn": "ratio-and-proportion"
     },
     {
       "id": "multiplied-instead-of-divided",
-      "name": "You multiplied when you needed to divide"
+      "name": "You multiplied when you needed to divide",
+      "standsOn": "multiply-or-divide"
     },
     {
       "id": "divided-wrong-way-round",
-      "name": "You divided the wrong way round"
+      "name": "You divided the wrong way round",
+      "standsOn": "multiply-or-divide"
     },
     {
       "id": "unit-slip",
-      "name": "You mixed up the units"
+      "name": "You mixed up the units",
+      "standsOn": "units-and-scale"
     },
     {
       "id": "forgot-half",
-      "name": "You forgot to halve"
+      "name": "You forgot to halve",
+      "standsOn": "area-and-perimeter"
     },
     {
       "id": "radius-diameter-mixed",
-      "name": "You mixed up the radius and the diameter"
+      "name": "You mixed up the radius and the diameter",
+      "standsOn": "area-and-perimeter"
     },
     {
       "id": "power-as-multiply",
-      "name": "You multiplied by the power instead of raising to it"
+      "name": "You multiplied by the power instead of raising to it",
+      "standsOn": "squares-and-roots"
     },
     {
       "id": "height-slant-mixed",
-      "name": "You mixed up the slanted side and the height"
+      "name": "You mixed up the slanted side and the height",
+      "standsOn": "area-and-perimeter"
     },
     {
       "id": "missing-edges",
-      "name": "You left out some edges of the shape"
+      "name": "You left out some edges of the shape",
+      "standsOn": "area-and-perimeter"
     },
     {
       "id": "truncated",
-      "name": "You cut digits off instead of rounding"
+      "name": "You cut digits off instead of rounding",
+      "standsOn": "rounding"
     },
     {
       "id": "recurring-as-terminating",
-      "name": "You treated the recurring decimal as if it stopped"
+      "name": "You treated the recurring decimal as if it stopped",
+      "standsOn": "place-value"
     },
     {
       "id": "decimal-places-not-sf",
-      "name": "You rounded to decimal places, not significant figures"
+      "name": "You rounded to decimal places, not significant figures",
+      "standsOn": "rounding"
     },
     {
       "id": "place-value-shift",
-      "name": "You shifted the place value"
+      "name": "You shifted the place value",
+      "standsOn": "place-value"
     },
     {
       "id": "split-mixed-number",
-      "name": "You worked on the whole numbers and fractions separately"
+      "name": "You worked on the whole numbers and fractions separately",
+      "standsOn": "fractions"
     },
     {
       "id": "added-denominators",
-      "name": "You added or subtracted the denominators"
+      "name": "You added or subtracted the denominators",
+      "standsOn": "fractions"
     },
     {
       "id": "inequality-not-flipped",
-      "name": "You did not reverse the inequality sign"
+      "name": "You did not reverse the inequality sign",
+      "standsOn": "negative-numbers"
     },
     {
       "id": "co-interior-as-equal",
-      "name": "You made co-interior angles equal"
+      "name": "You made co-interior angles equal",
+      "standsOn": "angle-facts"
     },
     {
       "id": "half-difference",
-      "name": "You halved the difference instead of averaging"
+      "name": "You halved the difference instead of averaging",
+      "standsOn": "coordinates-and-gradient"
     },
     {
       "id": "swapped-coordinates",
-      "name": "You swapped x and y"
+      "name": "You swapped x and y",
+      "standsOn": "coordinates-and-gradient"
     },
     {
       "id": "interior-for-exterior",
-      "name": "You used the interior angle instead of the exterior"
+      "name": "You used the interior angle instead of the exterior",
+      "standsOn": "angle-facts"
     },
     {
       "id": "percent-of-wrong-amount",
-      "name": "You took the percentage of the wrong amount"
+      "name": "You took the percentage of the wrong amount",
+      "standsOn": "percentages"
     },
     {
       "id": "percentages-cancel",
-      "name": "You let the two percentages cancel out"
+      "name": "You let the two percentages cancel out",
+      "standsOn": "percentages"
     },
     {
       "id": "simple-not-compound",
-      "name": "You used simple interest instead of compound"
+      "name": "You used simple interest instead of compound",
+      "standsOn": "percentages"
     },
     {
       "id": "density-as-frequency",
-      "name": "You mixed up frequency and frequency density"
+      "name": "You mixed up frequency and frequency density",
+      "standsOn": "spread-and-density"
     },
     {
       "id": "boundary-for-width",
-      "name": "You used a class boundary instead of the class width"
+      "name": "You used a class boundary instead of the class width",
+      "standsOn": "spread-and-density"
     },
     {
       "id": "range-for-iqr",
-      "name": "You found the range, not the interquartile range"
+      "name": "You found the range, not the interquartile range",
+      "standsOn": "spread-and-density"
     },
     {
       "id": "off-by-one",
-      "name": "You were one step out"
+      "name": "You were one step out",
+      "standsOn": "nth-term"
     },
     {
       "id": "wrong-units-for-difference",
-      "name": "You matched the difference to the wrong units"
+      "name": "You matched the difference to the wrong units",
+      "standsOn": "ratio-and-proportion"
     },
     {
       "id": "area-by-length-factor",
-      "name": "You scaled an area by the length factor"
+      "name": "You scaled an area by the length factor",
+      "standsOn": "units-and-scale"
     },
     {
       "id": "direct-for-inverse",
-      "name": "You used direct proportion where it is inverse"
+      "name": "You used direct proportion where it is inverse",
+      "standsOn": "ratio-and-proportion"
     },
     {
       "id": "unmatched-middle",
-      "name": "You joined the ratios without matching the shared part"
+      "name": "You joined the ratios without matching the shared part",
+      "standsOn": "ratio-and-proportion"
     },
     {
       "id": "centre-ignored",
-      "name": "You enlarged from the origin, not the centre"
+      "name": "You enlarged from the origin, not the centre",
+      "standsOn": "transformations"
     },
     {
       "id": "wrong-mirror-line",
-      "name": "You reflected in the wrong mirror line"
+      "name": "You reflected in the wrong mirror line",
+      "standsOn": "transformations"
     },
     {
       "id": "wrong-turn-direction",
-      "name": "You turned the wrong way"
+      "name": "You turned the wrong way",
+      "standsOn": "transformations"
     },
     {
       "id": "inverse-wrong-order",
-      "name": "You undid the steps in the wrong order"
+      "name": "You undid the steps in the wrong order",
+      "standsOn": "inverse-operations"
     },
     {
       "id": "inverse-as-reciprocal",
-      "name": "You took one over f instead of the inverse"
+      "name": "You took one over f instead of the inverse",
+      "standsOn": "inverse-operations"
     },
     {
       "id": "perpendicular-gradient",
-      "name": "You did not both flip and negate the gradient"
+      "name": "You did not both flip and negate the gradient",
+      "standsOn": "coordinates-and-gradient"
     },
     {
       "id": "conditional-reversed",
-      "name": "You turned the condition round"
+      "name": "You turned the condition round",
+      "standsOn": "the-right-total"
     },
     {
       "id": "wrong-total",
-      "name": "You divided by the wrong total"
+      "name": "You divided by the wrong total",
+      "standsOn": "the-right-total"
     },
     {
       "id": "unequal-outcomes",
-      "name": "You treated the sums as equally likely"
+      "name": "You treated the sums as equally likely",
+      "standsOn": "equally-likely-outcomes"
     },
     {
       "id": "order-mixed",
-      "name": "You mixed up whether order matters"
+      "name": "You mixed up whether order matters",
+      "standsOn": "equally-likely-outcomes"
     },
     {
       "id": "with-replacement",
-      "name": "You forgot the first marble stays out"
+      "name": "You forgot the first marble stays out",
+      "standsOn": "the-right-total"
     },
     {
       "id": "vector-combined-wrongly",
-      "name": "You combined the vectors the wrong way"
+      "name": "You combined the vectors the wrong way",
+      "standsOn": "vectors"
+    }
+  ],
+  "footings": [
+    {
+      "id": "negative-numbers",
+      "skill": "Multiply and divide negative numbers",
+      "teach": "Same signs make a positive and different signs make a negative, so (−3) × (−2) = 6 and 6 ÷ (−3) = −2, and a minus sign stays with its number through every step. Multiplying or dividing both sides of an inequality by a negative number turns the sign round: −x < 2 becomes x > −2.",
+      "probes": [
+        {
+          "id": "negative-numbers-1",
+          "prompt": "Work out (−5) × (−4) ÷ (−2).",
+          "answer": "−10",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "-10"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "-10",
+              "−10",
+              "= -10"
+            ],
+            "rejects": [
+              "10",
+              "-40",
+              "40"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "negative-numbers-2",
+          "prompt": "Work out 2 × 3 − 4 × 5.",
+          "answer": "−14",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "-14"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "-14",
+              "6 − 20 = −14",
+              "= -14"
+            ],
+            "rejects": [
+              "14",
+              "10",
+              "-26"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "negative-numbers-3",
+          "prompt": "Solve −2x < 8.",
+          "answer": "x > −4",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "form",
+                    "value": "x>-4"
+                  },
+                  {
+                    "kind": "form",
+                    "value": "-4<x"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "x > −4",
+              "x>-4",
+              "-4 < x"
+            ],
+            "rejects": [
+              "x < -4",
+              "x > 4",
+              "x < 4"
+            ],
+            "mistakes": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "inverse-operations",
+      "skill": "Undo each step with its inverse",
+      "teach": "Undo the last step first and do the same to both sides: for x/2 + 3 = 8, take 3 from both sides to get x/2 = 5, then multiply by 2 to get x = 10. An inverse function f⁻¹ makes those undo steps; it is not 1 ÷ f.",
+      "probes": [
+        {
+          "id": "inverse-operations-1",
+          "prompt": "Solve x + 9 = 4.",
+          "answer": "x = −5",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "-5"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "x = −5",
+              "-5",
+              "x=-5"
+            ],
+            "rejects": [
+              "13",
+              "5",
+              "x = 13"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "inverse-operations-2",
+          "prompt": "Solve x/4 − 3 = 2.",
+          "answer": "x = 20",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "20"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "x = 20",
+              "20",
+              "x=20"
+            ],
+            "rejects": [
+              "11",
+              "5",
+              "-4"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "inverse-operations-3",
+          "prompt": "f(x) = 2x + 1. Find f⁻¹(9).",
+          "answer": "4",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "4"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "4",
+              "f⁻¹(9) = 4",
+              "= 4"
+            ],
+            "rejects": [
+              "1/19",
+              "19",
+              "5"
+            ],
+            "mistakes": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "distributive-law",
+      "skill": "Multiply every term inside a bracket",
+      "teach": "The number outside a bracket multiplies each term inside it: −3(x − 4) = −3x + 12. A squared bracket is two brackets, so (x + 2)² = (x + 2)(x + 2) = x² + 4x + 4, not x² + 4.",
+      "probes": [
+        {
+          "id": "distributive-law-1",
+          "prompt": "Expand −2(x − 5).",
+          "answer": "−2x + 10",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "form",
+                    "value": "-2x+10"
+                  },
+                  {
+                    "kind": "form",
+                    "value": "10-2x"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "−2x + 10",
+              "-2x+10",
+              "10 − 2x"
+            ],
+            "rejects": [
+              "-2x - 5",
+              "-2x - 10",
+              "2x + 10",
+              "-2x + 5"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "distributive-law-2",
+          "prompt": "Expand (x + 3)².",
+          "answer": "x² + 6x + 9",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "form",
+                    "value": "x^2+6x+9"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "x² + 6x + 9",
+              "x^2+6x+9",
+              "= x² + 6x + 9"
+            ],
+            "rejects": [
+              "x² + 9",
+              "x² + 3x + 9",
+              "x² + 6x + 6"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "distributive-law-3",
+          "prompt": "Work out 7² − 3², then (7 − 3)².",
+          "answer": "40 and 16",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "7² − 3²",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "40"
+                  }
+                ]
+              },
+              {
+                "label": "(7 − 3)²",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "16"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "40 and 16",
+              "40, 16",
+              "49 − 9 = 40 and 4² = 16"
+            ],
+            "rejects": [
+              "16 and 16",
+              "40 and 40",
+              "16"
+            ],
+            "mistakes": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "factors-and-multiples",
+      "skill": "Find the HCF and LCM, and cancel fully",
+      "teach": "The HCF is the biggest number that divides both, and the LCM is the smallest number both divide into: for 4 and 10, the HCF is 2 and the LCM is 20, not 4 × 10 = 40. Cancel a fraction by the HCF so nothing common is left, as in 10/15 = 2/3.",
+      "probes": [
+        {
+          "id": "factors-and-multiples-1",
+          "prompt": "Find the LCM of 6 and 8.",
+          "answer": "24",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "24"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "24",
+              "LCM = 24",
+              "lcm 24"
+            ],
+            "rejects": [
+              "48",
+              "2",
+              "12"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "factors-and-multiples-2",
+          "prompt": "Find the HCF of 18 and 24.",
+          "answer": "6",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "6"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "6",
+              "HCF = 6",
+              "hcf 6"
+            ],
+            "rejects": [
+              "72",
+              "3",
+              "2"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "factors-and-multiples-3",
+          "prompt": "Write 18/24 in its simplest form.",
+          "answer": "3/4",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "3/4",
+                    "simplest": true
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "3/4",
+              "= 3/4",
+              "18/24 = 3/4"
+            ],
+            "rejects": [
+              "9/12",
+              "6/8",
+              "18/24"
+            ],
+            "mistakes": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "squares-and-roots",
+      "skill": "Square a number and undo it with a square root",
+      "teach": "Squaring multiplies a number by itself, so 5² = 5 × 5 = 25, not 10, and a square root undoes it: √25 = 5. In a right-angled triangle, square the two shorter sides, add, then take the square root: 3² + 4² = 25, so the longest side is 5.",
+      "probes": [
+        {
+          "id": "squares-and-roots-1",
+          "prompt": "Work out 6².",
+          "answer": "36",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "36"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "36",
+              "6 × 6 = 36",
+              "= 36"
+            ],
+            "rejects": [
+              "12",
+              "8",
+              "6"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "squares-and-roots-2",
+          "prompt": "x² = 64 and x is positive. Find x.",
+          "answer": "x = 8",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "8"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "x = 8",
+              "8",
+              "x=8"
+            ],
+            "rejects": [
+              "32",
+              "64",
+              "4096"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "squares-and-roots-3",
+          "prompt": "A right-angled triangle has shorter sides 5 cm and 12 cm. Find the longest side.",
+          "answer": "13 cm",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "13"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "13",
+              "13 cm",
+              "√169 = 13"
+            ],
+            "rejects": [
+              "17",
+              "169",
+              "7"
+            ],
+            "mistakes": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "fractions",
+      "skill": "Use a common denominator and improper fractions",
+      "teach": "Add or subtract fractions only once they share a denominator: 1/2 + 1/3 = 3/6 + 2/6 = 5/6, never 2/5. Turn a mixed number into an improper fraction first, so 1 1/2 is 3/2.",
+      "probes": [
+        {
+          "id": "fractions-1",
+          "prompt": "Work out 1/3 + 1/4.",
+          "answer": "7/12",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "7/12"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "7/12",
+              "4/12 + 3/12 = 7/12",
+              "= 7/12"
+            ],
+            "rejects": [
+              "2/7",
+              "2/12",
+              "1/7"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "fractions-2",
+          "prompt": "Work out 2 1/3 − 1 2/3.",
+          "answer": "2/3",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "2/3"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "2/3",
+              "7/3 − 5/3 = 2/3",
+              "= 2/3"
+            ],
+            "rejects": [
+              "1 1/3",
+              "1/3",
+              "-1/3"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "fractions-3",
+          "prompt": "Work out 2 1/2 × 1 1/5.",
+          "answer": "3",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "3"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "3",
+              "5/2 × 6/5 = 3",
+              "= 3"
+            ],
+            "rejects": [
+              "2 1/10",
+              "2",
+              "21/10"
+            ],
+            "mistakes": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "rounding",
+      "skill": "Round to decimal places and significant figures",
+      "teach": "Look at the digit after the last one you keep and round up if it is 5 or more, so 2.367 to 2 decimal places is 2.37, not 2.36. Significant figures start at the first digit that is not zero: 0.005281 to 2 significant figures is 0.0053.",
+      "probes": [
+        {
+          "id": "rounding-1",
+          "prompt": "Round 4.2861 to 2 decimal places.",
+          "answer": "4.29",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "4.29"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "4.29",
+              "= 4.29",
+              "4.29 (2 dp)"
+            ],
+            "rejects": [
+              "4.28",
+              "4.3",
+              "4.286"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "rounding-2",
+          "prompt": "Round 0.07368 to 2 significant figures.",
+          "answer": "0.074",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "0.074"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "0.074",
+              "= 0.074",
+              ".074"
+            ],
+            "rejects": [
+              "0.07",
+              "0.073",
+              "0.0737"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "rounding-3",
+          "prompt": "Round 52,718 to 2 significant figures.",
+          "answer": "53,000",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "53000"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "53,000",
+              "53000",
+              "= 53000"
+            ],
+            "rejects": [
+              "52,000",
+              "53",
+              "52"
+            ],
+            "mistakes": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "place-value",
+      "skill": "Multiply and divide by 10, 100 and decimals",
+      "teach": "Multiplying by 100 moves every digit two places to the left, so 0.47 × 100 = 47, and a recurring decimal never stops, so 10 × 0.333… take away 0.333… is exactly 3. To divide by a decimal, multiply both numbers by 10 until it is whole: 12 ÷ 0.3 = 120 ÷ 3 = 40.",
+      "probes": [
+        {
+          "id": "place-value-1",
+          "prompt": "Work out 0.36 × 100.",
+          "answer": "36",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "36"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "36",
+              "= 36",
+              "0.36 × 100 = 36"
+            ],
+            "rejects": [
+              "3.6",
+              "360",
+              "0.0036"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "place-value-2",
+          "prompt": "Work out 36 ÷ 0.4.",
+          "answer": "90",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "90"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "90",
+              "360 ÷ 4 = 90",
+              "= 90"
+            ],
+            "rejects": [
+              "9",
+              "14.4",
+              "900"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "place-value-3",
+          "prompt": "x = 0.555…, where the fives go on for ever. Work out 10x − x.",
+          "answer": "5",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "5"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "5",
+              "9x = 5",
+              "5.555… − 0.555… = 5"
+            ],
+            "rejects": [
+              "4.995",
+              "5.55",
+              "0.5"
+            ],
+            "mistakes": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "multiply-or-divide",
+      "skill": "Choose multiply or divide, and which way round",
+      "teach": "Ask what one of something is worth: if 4 pens cost £6, one pen costs 6 ÷ 4 = £1.50, and the amount you share out goes first. Dividing by a number less than 1 gives a bigger answer, so 2 ÷ 0.5 = 4.",
+      "probes": [
+        {
+          "id": "multiply-or-divide-1",
+          "prompt": "A car goes 75 km on 6 litres of fuel. How far does it go on 1 litre?",
+          "answer": "12.5 km",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "12.5"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "12.5",
+              "12.5 km",
+              "75 ÷ 6 = 12.5"
+            ],
+            "rejects": [
+              "0.08",
+              "450",
+              "81"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "multiply-or-divide-2",
+          "prompt": "How many 0.25 kg bags can be filled from 3 kg of rice?",
+          "answer": "12",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "12"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "12",
+              "12 bags",
+              "3 ÷ 0.25 = 12"
+            ],
+            "rejects": [
+              "0.75",
+              "1.2",
+              "0.083"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "multiply-or-divide-3",
+          "prompt": "A 1.5 m ribbon is cut into pieces 0.3 m long. How many pieces are there?",
+          "answer": "5",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "5"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "5",
+              "5 pieces",
+              "1.5 ÷ 0.3 = 5"
+            ],
+            "rejects": [
+              "0.45",
+              "0.2",
+              "45"
+            ],
+            "mistakes": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "ratio-and-proportion",
+      "skill": "Work out what one part is worth",
+      "teach": "Find one part first: to share 45 in the ratio 4 : 5, there are 9 parts, so one part is 5 and the shares are 20 and 25. If more workers do the same job, it takes less time: 2 workers taking 6 hours means 1 worker takes 12 hours.",
+      "probes": [
+        {
+          "id": "ratio-and-proportion-1",
+          "prompt": "Share 60 in the ratio 2 : 3.",
+          "answer": "24 and 36",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "smaller share",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "24"
+                  }
+                ]
+              },
+              {
+                "label": "larger share",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "36"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "24 and 36",
+              "24, 36",
+              "£24 and £36"
+            ],
+            "rejects": [
+              "30 and 30",
+              "12 and 18",
+              "24",
+              "20 and 40"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "ratio-and-proportion-2",
+          "prompt": "4 workers paint a fence in 6 days. How long would 8 workers take at the same rate?",
+          "answer": "3 days",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "3"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "3",
+              "3 days",
+              "24 ÷ 8 = 3"
+            ],
+            "rejects": [
+              "12",
+              "2",
+              "1.5"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "ratio-and-proportion-3",
+          "prompt": "Two amounts are in the ratio 2 : 5. The larger is 15 more than the smaller. What is the smaller amount?",
+          "answer": "10",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "10"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "10",
+              "= 10",
+              "3 parts = 15, so 2 parts = 10"
+            ],
+            "rejects": [
+              "6",
+              "5",
+              "3"
+            ],
+            "mistakes": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "percentages",
+      "skill": "Use a multiplier for a percentage change",
+      "teach": "A percentage change is one multiplication: a 30% decrease is × 0.7 and a 5% increase is × 1.05. Two changes multiply, so up 40% then down 40% is × 1.4 × 0.6 = × 0.84, and to undo a change you divide by its multiplier.",
+      "probes": [
+        {
+          "id": "percentages-1",
+          "prompt": "What do you multiply by to decrease an amount by 15%?",
+          "answer": "0.85",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "0.85"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "0.85",
+              "× 0.85",
+              "multiply by 0.85"
+            ],
+            "rejects": [
+              "0.15",
+              "1.15",
+              "1.85"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "percentages-2",
+          "prompt": "A price rises by 10%, then rises by 10% again. What single multiplier does the same?",
+          "answer": "1.21",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "1.21"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "1.21",
+              "1.1 × 1.1 = 1.21",
+              "× 1.21"
+            ],
+            "rejects": [
+              "1.2",
+              "1.1",
+              "0.21"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "percentages-3",
+          "prompt": "After a 20% increase, a coat costs £60. What did it cost before the increase?",
+          "answer": "£50",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "50"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "50",
+              "£50",
+              "60 ÷ 1.2 = 50"
+            ],
+            "rejects": [
+              "48",
+              "72",
+              "40"
+            ],
+            "mistakes": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "units-and-scale",
+      "skill": "Convert units, and square the factor for areas",
+      "teach": "Change every length to the same unit before you calculate: 1 m = 100 cm, so 3.2 m = 320 cm. An area scales by the square of the length factor, so 1 m² = 100 × 100 = 10,000 cm², and doubling every length makes an area 4 times as big.",
+      "probes": [
+        {
+          "id": "units-and-scale-1",
+          "prompt": "Write 2.5 m in centimetres.",
+          "answer": "250 cm",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "250"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "250",
+              "250 cm",
+              "= 250 cm"
+            ],
+            "rejects": [
+              "25",
+              "2500",
+              "0.025"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "units-and-scale-2",
+          "prompt": "How many cm² are there in 3 m²?",
+          "answer": "30,000 cm²",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "30000"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "30,000",
+              "30000 cm²",
+              "3 × 10,000 = 30,000"
+            ],
+            "rejects": [
+              "300",
+              "3000",
+              "900"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "units-and-scale-3",
+          "prompt": "A shape has area 5 cm². It is enlarged by scale factor 3. What is its new area?",
+          "answer": "45 cm²",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "45"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "45",
+              "45 cm²",
+              "5 × 9 = 45"
+            ],
+            "rejects": [
+              "15",
+              "135",
+              "8"
+            ],
+            "mistakes": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "area-and-perimeter",
+      "skill": "Use the right lengths in area and perimeter",
+      "teach": "A triangle's area is half of base × perpendicular height, so base 6 cm and height 4 cm give 12 cm², and a slanted side is never the height. Use the radius in πr², and add every edge for a perimeter: a quarter circle of radius 2 cm has perimeter π + 4.",
+      "probes": [
+        {
+          "id": "area-and-perimeter-1",
+          "prompt": "A triangle has base 12 cm, a slanted side 10 cm and perpendicular height 8 cm. Find its area.",
+          "answer": "48 cm²",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "48"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "48",
+              "48 cm²",
+              "1/2 × 12 × 8 = 48"
+            ],
+            "rejects": [
+              "96",
+              "60",
+              "120"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "area-and-perimeter-2",
+          "prompt": "A semicircle has diameter 10 cm. Find its perimeter, using π = 3.14.",
+          "answer": "25.7 cm",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "25.7",
+                    "tolerance": 0.05
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "25.7",
+              "25.7 cm",
+              "15.7 + 10 = 25.7"
+            ],
+            "rejects": [
+              "15.7",
+              "41.4",
+              "31.4"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "area-and-perimeter-3",
+          "prompt": "A circle has diameter 12 cm. Find its area in terms of π.",
+          "answer": "36π cm²",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "form",
+                    "value": "36π"
+                  },
+                  {
+                    "kind": "form",
+                    "value": "36pi"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "36π",
+              "36π cm²",
+              "A = 36π"
+            ],
+            "rejects": [
+              "144π",
+              "12π",
+              "6π"
+            ],
+            "mistakes": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "angle-facts",
+      "skill": "Use angle facts for parallel lines, polygons and bearings",
+      "teach": "Co-interior angles between parallel lines add to 180°, and an exterior angle of a polygon is 180° take away the interior angle, so an interior angle of 108° has exterior angle 72°. A back-bearing is the bearing plus 180°, or minus 180° if that passes 360°: the back-bearing of 050° is 230°.",
+      "probes": [
+        {
+          "id": "angle-facts-1",
+          "prompt": "Two parallel lines are cut by a transversal. One co-interior angle is 115°. Find the other.",
+          "answer": "65°",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "65"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "65",
+              "65°",
+              "180 − 115 = 65"
+            ],
+            "rejects": [
+              "115",
+              "245",
+              "25"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "angle-facts-2",
+          "prompt": "Each interior angle of a regular polygon is 150°. What is each exterior angle?",
+          "answer": "30°",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "30"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "30",
+              "30°",
+              "180 − 150 = 30"
+            ],
+            "rejects": [
+              "150",
+              "210",
+              "24"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "angle-facts-3",
+          "prompt": "The bearing of B from A is 120°. What is the bearing of A from B?",
+          "answer": "300°",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "300"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "300",
+              "300°",
+              "120 + 180 = 300"
+            ],
+            "rejects": [
+              "120",
+              "240",
+              "060"
+            ],
+            "mistakes": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "coordinates-and-gradient",
+      "skill": "Find a midpoint and a gradient from coordinates",
+      "teach": "The midpoint averages the x-coordinates and then the y-coordinates, keeping x first: the midpoint of (1, 2) and (5, 10) is (3, 6). Gradient is change in y ÷ change in x, and a perpendicular gradient flips it and changes its sign, so 2/3 becomes −3/2.",
+      "probes": [
+        {
+          "id": "coordinates-and-gradient-1",
+          "prompt": "Find the midpoint of (2, 3) and (8, 11).",
+          "answer": "(5, 7)",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "sequence",
+                    "values": [
+                      "5",
+                      "7"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "(5, 7)",
+              "5, 7",
+              "M = (5, 7)"
+            ],
+            "rejects": [
+              "(3, 4)",
+              "(7, 5)",
+              "(10, 14)"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "coordinates-and-gradient-2",
+          "prompt": "Find the gradient of the line through (2, 1) and (5, 13).",
+          "answer": "4",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "4"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "4",
+              "12/3 = 4",
+              "m = 4"
+            ],
+            "rejects": [
+              "1/4",
+              "12",
+              "3"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "coordinates-and-gradient-3",
+          "prompt": "A line has gradient 3. What is the gradient of a line perpendicular to it?",
+          "answer": "−1/3",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "-1/3"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "-1/3",
+              "−1/3",
+              "m = -1/3"
+            ],
+            "rejects": [
+              "1/3",
+              "-3",
+              "3"
+            ],
+            "mistakes": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "transformations",
+      "skill": "Reflect, rotate and enlarge a point",
+      "teach": "Check the mirror line or centre before you move: reflecting (3, 4) in the y-axis gives (−3, 4), and a 90° turn clockwise about the origin takes (x, y) to (y, −x). To enlarge about a centre, multiply the step from the centre to the point, then add it back on: (3, 2) from centre (1, 1) by scale factor 3 is (7, 4).",
+      "probes": [
+        {
+          "id": "transformations-1",
+          "prompt": "Reflect the point (2, 5) in the x-axis.",
+          "answer": "(2, −5)",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "sequence",
+                    "values": [
+                      "2",
+                      "-5"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "(2, −5)",
+              "(2, -5)",
+              "2, -5"
+            ],
+            "rejects": [
+              "(-2, 5)",
+              "(5, 2)",
+              "(2, 5)"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "transformations-2",
+          "prompt": "Rotate the point (3, 1) through 90° clockwise about the origin.",
+          "answer": "(1, −3)",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "sequence",
+                    "values": [
+                      "1",
+                      "-3"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "(1, −3)",
+              "(1, -3)",
+              "1, -3"
+            ],
+            "rejects": [
+              "(-1, 3)",
+              "(-3, -1)",
+              "(1, 3)"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "transformations-3",
+          "prompt": "Enlarge the point (4, 3) by scale factor 2, centre (1, 1).",
+          "answer": "(7, 5)",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "sequence",
+                    "values": [
+                      "7",
+                      "5"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "(7, 5)",
+              "7, 5",
+              "R′ = (7, 5)"
+            ],
+            "rejects": [
+              "(8, 6)",
+              "(6, 4)",
+              "(5, 3)"
+            ],
+            "mistakes": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "equally-likely-outcomes",
+      "skill": "List equally likely outcomes and count each once",
+      "teach": "List every outcome so each one is equally likely: a coin and a spinner numbered 1 to 3 give H1, H2, H3, T1, T2 and T3, six outcomes. When order does not matter, a pair like AB is the same as BA, so count it once.",
+      "probes": [
+        {
+          "id": "equally-likely-outcomes-1",
+          "prompt": "Two fair coins are flipped. What is the probability of one head and one tail?",
+          "answer": "1/2",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "1/2"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "1/2",
+              "2/4",
+              "0.5"
+            ],
+            "rejects": [
+              "1/3",
+              "1/4",
+              "2/3"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "equally-likely-outcomes-2",
+          "prompt": "Two fair dice are rolled. What is the probability that the total is 3?",
+          "answer": "2/36 = 1/18",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "1/18"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "1/18",
+              "2/36",
+              "2/36 = 1/18"
+            ],
+            "rejects": [
+              "1/36",
+              "1/11",
+              "1/6"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "equally-likely-outcomes-3",
+          "prompt": "How many different pairs can you choose from 4 people, if order does not matter?",
+          "answer": "6",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "6"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "6",
+              "6 pairs",
+              "12 ÷ 2 = 6"
+            ],
+            "rejects": [
+              "12",
+              "16",
+              "8"
+            ],
+            "mistakes": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "the-right-total",
+      "skill": "Use the right total for a probability",
+      "teach": "The total is the group you are picking from at that moment. If 1 of 10 sweets is eaten, the next pick is out of 9, and if you are told the person wears glasses, the total is only the people who wear glasses.",
+      "probes": [
+        {
+          "id": "the-right-total-1",
+          "prompt": "A bag has 4 red and 2 blue counters. A red counter is taken out and not put back. What is the probability that the next counter is red?",
+          "answer": "3/5",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "3/5"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "3/5",
+              "0.6",
+              "= 3/5"
+            ],
+            "rejects": [
+              "2/3",
+              "4/6",
+              "3/6"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "the-right-total-2",
+          "prompt": "In a club of 20, 12 play football and 3 of those also play chess. A football player is picked at random. What is the probability that they play chess?",
+          "answer": "3/12 = 1/4",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "1/4"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "1/4",
+              "3/12",
+              "0.25"
+            ],
+            "rejects": [
+              "3/20",
+              "12/20",
+              "3/17"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "the-right-total-3",
+          "prompt": "In a class of 30, 15 wear glasses and 10 are left-handed. 5 are left-handed and wear glasses. A student who wears glasses is picked. What is the probability they are left-handed?",
+          "answer": "5/15 = 1/3",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "1/3",
+                    "tolerance": 0.001
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "1/3",
+              "5/15",
+              "0.333"
+            ],
+            "rejects": [
+              "1/2",
+              "5/10",
+              "1/6"
+            ],
+            "mistakes": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "spread-and-density",
+      "skill": "Find class width, frequency density and quartiles",
+      "teach": "Class width is the upper boundary take away the lower one, and frequency density is frequency ÷ class width: 10 ≤ x < 40 has width 30, so frequency 60 gives density 2. The interquartile range is the upper quartile minus the lower quartile, not the largest value minus the smallest.",
+      "probes": [
+        {
+          "id": "spread-and-density-1",
+          "prompt": "The class 20 ≤ t < 35 has frequency 45. Find its frequency density.",
+          "answer": "3",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "3"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "3",
+              "45 ÷ 15 = 3",
+              "= 3"
+            ],
+            "rejects": [
+              "45",
+              "1.29",
+              "2.25"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "spread-and-density-2",
+          "prompt": "A histogram bar for 0 ≤ x < 5 has frequency density 4. How many values are in that class?",
+          "answer": "20",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "20"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "20",
+              "4 × 5 = 20",
+              "= 20"
+            ],
+            "rejects": [
+              "4",
+              "0.8",
+              "1.25"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "spread-and-density-3",
+          "prompt": "Find the interquartile range of 1, 3, 8, 9, 12, 20, 24.",
+          "answer": "17",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "17"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "17",
+              "IQR = 17",
+              "20 − 3 = 17"
+            ],
+            "rejects": [
+              "23",
+              "9",
+              "3"
+            ],
+            "mistakes": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "vectors",
+      "skill": "Add and subtract column vectors",
+      "teach": "Add or subtract the top numbers, then the bottom numbers: (2, 5) − (3, 1) = (−1, 4). To go from P to Q, go back to O and then out again, so PQ = −p + q.",
+      "probes": [
+        {
+          "id": "vectors-1",
+          "prompt": "Work out the column vector (3, 2) + (1, −4).",
+          "answer": "(4, −2)",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "sequence",
+                    "values": [
+                      "4",
+                      "-2"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "(4, −2)",
+              "(4, -2)",
+              "4, -2"
+            ],
+            "rejects": [
+              "(4, 2)",
+              "(2, 6)",
+              "(3, -8)"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "vectors-2",
+          "prompt": "Work out the column vector (5, 1) − (2, 3).",
+          "answer": "(3, −2)",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "sequence",
+                    "values": [
+                      "3",
+                      "-2"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "(3, −2)",
+              "(3, -2)",
+              "3, -2"
+            ],
+            "rejects": [
+              "(7, 4)",
+              "(3, 2)",
+              "(-3, 2)"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "vectors-3",
+          "prompt": "OA = a and OB = b. Write the vector AB in terms of a and b.",
+          "answer": "b − a",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "form",
+                    "value": "b-a"
+                  },
+                  {
+                    "kind": "form",
+                    "value": "-a+b"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "b − a",
+              "AB = b - a",
+              "-a + b"
+            ],
+            "rejects": [
+              "a − b",
+              "a + b",
+              "b + a"
+            ],
+            "mistakes": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "nth-term",
+      "skill": "Find and use the nth term of a sequence",
+      "teach": "Sequences start at n = 1, so test a rule by putting n = 1 and n = 2 back in: for 2, 7, 12, … the rule 5n − 3 gives 2, then 7. Counting from 3 to 6 including both ends gives 4 numbers, not 3.",
+      "probes": [
+        {
+          "id": "nth-term-1",
+          "prompt": "Find the nth term of 5, 8, 11, 14, …",
+          "answer": "3n + 2",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "form",
+                    "value": "3n+2"
+                  },
+                  {
+                    "kind": "form",
+                    "value": "2+3n"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "3n + 2",
+              "3n+2",
+              "nth term = 3n + 2"
+            ],
+            "rejects": [
+              "3n + 5",
+              "n + 3",
+              "3n"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "nth-term-2",
+          "prompt": "The nth term of a sequence is 4n − 1. Find the 10th term.",
+          "answer": "39",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "39"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "39",
+              "4 × 10 − 1 = 39",
+              "= 39"
+            ],
+            "rejects": [
+              "40",
+              "35",
+              "43"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "nth-term-3",
+          "prompt": "How many whole numbers are there from 5 to 12, counting both 5 and 12?",
+          "answer": "8",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "8"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "8",
+              "12 − 5 + 1 = 8",
+              "= 8"
+            ],
+            "rejects": [
+              "7",
+              "17",
+              "6"
+            ],
+            "mistakes": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "answer-the-question",
+      "skill": "Check you answered what was asked",
+      "teach": "Before you write the answer, reread the last line of the question. If a = 5 and it asks for 3a − 2, then 5 is only a step and 13 is the answer.",
+      "probes": [
+        {
+          "id": "answer-the-question-1",
+          "prompt": "A shirt costs £20. It is reduced by 15%. What is the new price?",
+          "answer": "£17",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "17"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "17",
+              "£17",
+              "20 − 3 = 17"
+            ],
+            "rejects": [
+              "3",
+              "23",
+              "5"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "answer-the-question-2",
+          "prompt": "3x = 12. Find the value of 2x + 1.",
+          "answer": "9",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "9"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "9",
+              "= 9",
+              "x = 4, so 2x + 1 = 9"
+            ],
+            "rejects": [
+              "4",
+              "8",
+              "25"
+            ],
+            "mistakes": []
+          }
+        },
+        {
+          "id": "answer-the-question-3",
+          "prompt": "A rectangle has perimeter 30 cm and length 9 cm. Find its area.",
+          "answer": "54 cm²",
+          "answerKey": {
+            "parts": [
+              {
+                "label": "answer",
+                "anyOf": [
+                  {
+                    "kind": "number",
+                    "value": "54"
+                  }
+                ]
+              }
+            ],
+            "accepts": [
+              "54",
+              "54 cm²",
+              "9 × 6 = 54"
+            ],
+            "rejects": [
+              "6",
+              "270",
+              "21"
+            ],
+            "mistakes": []
+          }
+        }
+      ]
     }
   ]
 }

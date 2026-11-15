@@ -1054,6 +1054,397 @@ def one(*matchers, accepts, rejects, mistakes=()):
     return key([part("answer", *matchers)], accepts, rejects, mistakes)
 
 
+# ---------------------------------------------------------------------------
+# Footings: the smaller skill each slip rests on. When the same slip comes back,
+# the app checks its footing with three short probes before Kym tries again.
+# A teach line is shown after a missed probe, so its example must not give away
+# another probe's answer; the app's tests check that.
+# ---------------------------------------------------------------------------
+
+def probe(prompt, answer_key, answer):
+    return {"prompt": prompt, "answer": answer, "answerKey": answer_key}
+
+
+def footing(skill, teach, probes):
+    return {"skill": skill, "teach": teach, "probes": probes}
+
+
+FOOTINGS = {
+    "negative-numbers": footing(
+        skill="Multiply and divide negative numbers",
+        teach="Same signs make a positive and different signs make a negative, so (−3) × (−2) = 6 and 6 ÷ (−3) = −2, and a minus sign stays with its number through every step. Multiplying or dividing both sides of an inequality by a negative number turns the sign round: −x < 2 becomes x > −2.",
+        probes=[
+            probe("Work out (−5) × (−4) ÷ (−2).",
+                  one(num("-10"), accepts=["-10", "−10", "= -10"], rejects=["10", "-40", "40"]),
+                  answer="−10"),
+            probe("Work out 2 × 3 − 4 × 5.",
+                  one(num("-14"), accepts=["-14", "6 − 20 = −14", "= -14"], rejects=["14", "10", "-26"]),
+                  answer="−14"),
+            probe("Solve −2x < 8.",
+                  one(forms("x>-4", "-4<x"), accepts=["x > −4", "x>-4", "-4 < x"], rejects=["x < -4", "x > 4", "x < 4"]),
+                  answer="x > −4"),
+        ]),
+    "inverse-operations": footing(
+        skill="Undo each step with its inverse",
+        teach="Undo the last step first and do the same to both sides: for x/2 + 3 = 8, take 3 from both sides to get x/2 = 5, then multiply by 2 to get x = 10. An inverse function f⁻¹ makes those undo steps; it is not 1 ÷ f.",
+        probes=[
+            probe("Solve x + 9 = 4.",
+                  one(num("-5"), accepts=["x = −5", "-5", "x=-5"], rejects=["13", "5", "x = 13"]),
+                  answer="x = −5"),
+            probe("Solve x/4 − 3 = 2.",
+                  one(num("20"), accepts=["x = 20", "20", "x=20"], rejects=["11", "5", "-4"]),
+                  answer="x = 20"),
+            probe("f(x) = 2x + 1. Find f⁻¹(9).",
+                  one(num("4"), accepts=["4", "f⁻¹(9) = 4", "= 4"], rejects=["1/19", "19", "5"]),
+                  answer="4"),
+        ]),
+    "distributive-law": footing(
+        skill="Multiply every term inside a bracket",
+        teach="The number outside a bracket multiplies each term inside it: −3(x − 4) = −3x + 12. A squared bracket is two brackets, so (x + 2)² = (x + 2)(x + 2) = x² + 4x + 4, not x² + 4.",
+        probes=[
+            probe("Expand −2(x − 5).",
+                  one(forms("-2x+10", "10-2x"), accepts=["−2x + 10", "-2x+10", "10 − 2x"],
+                      rejects=["-2x - 5", "-2x - 10", "2x + 10", "-2x + 5"]),
+                  answer="−2x + 10"),
+            probe("Expand (x + 3)².",
+                  one(forms("x^2+6x+9"), accepts=["x² + 6x + 9", "x^2+6x+9", "= x² + 6x + 9"],
+                      rejects=["x² + 9", "x² + 3x + 9", "x² + 6x + 6"]),
+                  answer="x² + 6x + 9"),
+            probe("Work out 7² − 3², then (7 − 3)².",
+                  key([part("7² − 3²", num("40")), part("(7 − 3)²", num("16"))],
+                      accepts=["40 and 16", "40, 16", "49 − 9 = 40 and 4² = 16"],
+                      rejects=["16 and 16", "40 and 40", "16"]),
+                  answer="40 and 16"),
+        ]),
+    "factors-and-multiples": footing(
+        skill="Find the HCF and LCM, and cancel fully",
+        teach="The HCF is the biggest number that divides both, and the LCM is the smallest number both divide into: for 4 and 10, the HCF is 2 and the LCM is 20, not 4 × 10 = 40. Cancel a fraction by the HCF so nothing common is left, as in 10/15 = 2/3.",
+        probes=[
+            probe("Find the LCM of 6 and 8.",
+                  one(num("24"), accepts=["24", "LCM = 24", "lcm 24"], rejects=["48", "2", "12"]),
+                  answer="24"),
+            probe("Find the HCF of 18 and 24.",
+                  one(num("6"), accepts=["6", "HCF = 6", "hcf 6"], rejects=["72", "3", "2"]),
+                  answer="6"),
+            probe("Write 18/24 in its simplest form.",
+                  one(num("3/4", simplest=True), accepts=["3/4", "= 3/4", "18/24 = 3/4"], rejects=["9/12", "6/8", "18/24"]),
+                  answer="3/4"),
+        ]),
+    "squares-and-roots": footing(
+        skill="Square a number and undo it with a square root",
+        teach="Squaring multiplies a number by itself, so 5² = 5 × 5 = 25, not 10, and a square root undoes it: √25 = 5. In a right-angled triangle, square the two shorter sides, add, then take the square root: 3² + 4² = 25, so the longest side is 5.",
+        probes=[
+            probe("Work out 6².",
+                  one(num("36"), accepts=["36", "6 × 6 = 36", "= 36"], rejects=["12", "8", "6"]),
+                  answer="36"),
+            probe("x² = 64 and x is positive. Find x.",
+                  one(num("8"), accepts=["x = 8", "8", "x=8"], rejects=["32", "64", "4096"]),
+                  answer="x = 8"),
+            probe("A right-angled triangle has shorter sides 5 cm and 12 cm. Find the longest side.",
+                  one(num("13"), accepts=["13", "13 cm", "√169 = 13"], rejects=["17", "169", "7"]),
+                  answer="13 cm"),
+        ]),
+    "fractions": footing(
+        skill="Use a common denominator and improper fractions",
+        teach="Add or subtract fractions only once they share a denominator: 1/2 + 1/3 = 3/6 + 2/6 = 5/6, never 2/5. Turn a mixed number into an improper fraction first, so 1 1/2 is 3/2.",
+        probes=[
+            probe("Work out 1/3 + 1/4.",
+                  one(num("7/12"), accepts=["7/12", "4/12 + 3/12 = 7/12", "= 7/12"], rejects=["2/7", "2/12", "1/7"]),
+                  answer="7/12"),
+            probe("Work out 2 1/3 − 1 2/3.",
+                  one(num("2/3"), accepts=["2/3", "7/3 − 5/3 = 2/3", "= 2/3"], rejects=["1 1/3", "1/3", "-1/3"]),
+                  answer="2/3"),
+            probe("Work out 2 1/2 × 1 1/5.",
+                  one(num("3"), accepts=["3", "5/2 × 6/5 = 3", "= 3"], rejects=["2 1/10", "2", "21/10"]),
+                  answer="3"),
+        ]),
+    "rounding": footing(
+        skill="Round to decimal places and significant figures",
+        teach="Look at the digit after the last one you keep and round up if it is 5 or more, so 2.367 to 2 decimal places is 2.37, not 2.36. Significant figures start at the first digit that is not zero: 0.005281 to 2 significant figures is 0.0053.",
+        probes=[
+            probe("Round 4.2861 to 2 decimal places.",
+                  one(num("4.29"), accepts=["4.29", "= 4.29", "4.29 (2 dp)"], rejects=["4.28", "4.3", "4.286"]),
+                  answer="4.29"),
+            probe("Round 0.07368 to 2 significant figures.",
+                  one(num("0.074"), accepts=["0.074", "= 0.074", ".074"], rejects=["0.07", "0.073", "0.0737"]),
+                  answer="0.074"),
+            probe("Round 52,718 to 2 significant figures.",
+                  one(num("53000"), accepts=["53,000", "53000", "= 53000"], rejects=["52,000", "53", "52"]),
+                  answer="53,000"),
+        ]),
+    "place-value": footing(
+        skill="Multiply and divide by 10, 100 and decimals",
+        teach="Multiplying by 100 moves every digit two places to the left, so 0.47 × 100 = 47, and a recurring decimal never stops, so 10 × 0.333… take away 0.333… is exactly 3. To divide by a decimal, multiply both numbers by 10 until it is whole: 12 ÷ 0.3 = 120 ÷ 3 = 40.",
+        probes=[
+            probe("Work out 0.36 × 100.",
+                  one(num("36"), accepts=["36", "= 36", "0.36 × 100 = 36"], rejects=["3.6", "360", "0.0036"]),
+                  answer="36"),
+            probe("Work out 36 ÷ 0.4.",
+                  one(num("90"), accepts=["90", "360 ÷ 4 = 90", "= 90"], rejects=["9", "14.4", "900"]),
+                  answer="90"),
+            probe("x = 0.555…, where the fives go on for ever. Work out 10x − x.",
+                  one(num("5"), accepts=["5", "9x = 5", "5.555… − 0.555… = 5"], rejects=["4.995", "5.55", "0.5"]),
+                  answer="5"),
+        ]),
+    "multiply-or-divide": footing(
+        skill="Choose multiply or divide, and which way round",
+        teach="Ask what one of something is worth: if 4 pens cost £6, one pen costs 6 ÷ 4 = £1.50, and the amount you share out goes first. Dividing by a number less than 1 gives a bigger answer, so 2 ÷ 0.5 = 4.",
+        probes=[
+            probe("A car goes 75 km on 6 litres of fuel. How far does it go on 1 litre?",
+                  one(num("12.5"), accepts=["12.5", "12.5 km", "75 ÷ 6 = 12.5"], rejects=["0.08", "450", "81"]),
+                  answer="12.5 km"),
+            probe("How many 0.25 kg bags can be filled from 3 kg of rice?",
+                  one(num("12"), accepts=["12", "12 bags", "3 ÷ 0.25 = 12"], rejects=["0.75", "1.2", "0.083"]),
+                  answer="12"),
+            probe("A 1.5 m ribbon is cut into pieces 0.3 m long. How many pieces are there?",
+                  one(num("5"), accepts=["5", "5 pieces", "1.5 ÷ 0.3 = 5"], rejects=["0.45", "0.2", "45"]),
+                  answer="5"),
+        ]),
+    "ratio-and-proportion": footing(
+        skill="Work out what one part is worth",
+        teach="Find one part first: to share 45 in the ratio 4 : 5, there are 9 parts, so one part is 5 and the shares are 20 and 25. If more workers do the same job, it takes less time: 2 workers taking 6 hours means 1 worker takes 12 hours.",
+        probes=[
+            probe("Share 60 in the ratio 2 : 3.",
+                  key([part("smaller share", num("24")), part("larger share", num("36"))],
+                      accepts=["24 and 36", "24, 36", "£24 and £36"],
+                      rejects=["30 and 30", "12 and 18", "24", "20 and 40"]),
+                  answer="24 and 36"),
+            probe("4 workers paint a fence in 6 days. How long would 8 workers take at the same rate?",
+                  one(num("3"), accepts=["3", "3 days", "24 ÷ 8 = 3"], rejects=["12", "2", "1.5"]),
+                  answer="3 days"),
+            probe("Two amounts are in the ratio 2 : 5. The larger is 15 more than the smaller. What is the smaller amount?",
+                  one(num("10"), accepts=["10", "= 10", "3 parts = 15, so 2 parts = 10"], rejects=["6", "5", "3"]),
+                  answer="10"),
+        ]),
+    "percentages": footing(
+        skill="Use a multiplier for a percentage change",
+        teach="A percentage change is one multiplication: a 30% decrease is × 0.7 and a 5% increase is × 1.05. Two changes multiply, so up 40% then down 40% is × 1.4 × 0.6 = × 0.84, and to undo a change you divide by its multiplier.",
+        probes=[
+            probe("What do you multiply by to decrease an amount by 15%?",
+                  one(num("0.85"), accepts=["0.85", "× 0.85", "multiply by 0.85"], rejects=["0.15", "1.15", "1.85"]),
+                  answer="0.85"),
+            probe("A price rises by 10%, then rises by 10% again. What single multiplier does the same?",
+                  one(num("1.21"), accepts=["1.21", "1.1 × 1.1 = 1.21", "× 1.21"], rejects=["1.2", "1.1", "0.21"]),
+                  answer="1.21"),
+            probe("After a 20% increase, a coat costs £60. What did it cost before the increase?",
+                  one(num("50"), accepts=["50", "£50", "60 ÷ 1.2 = 50"], rejects=["48", "72", "40"]),
+                  answer="£50"),
+        ]),
+    "units-and-scale": footing(
+        skill="Convert units, and square the factor for areas",
+        teach="Change every length to the same unit before you calculate: 1 m = 100 cm, so 3.2 m = 320 cm. An area scales by the square of the length factor, so 1 m² = 100 × 100 = 10,000 cm², and doubling every length makes an area 4 times as big.",
+        probes=[
+            probe("Write 2.5 m in centimetres.",
+                  one(num("250"), accepts=["250", "250 cm", "= 250 cm"], rejects=["25", "2500", "0.025"]),
+                  answer="250 cm"),
+            probe("How many cm² are there in 3 m²?",
+                  one(num("30000"), accepts=["30,000", "30000 cm²", "3 × 10,000 = 30,000"], rejects=["300", "3000", "900"]),
+                  answer="30,000 cm²"),
+            probe("A shape has area 5 cm². It is enlarged by scale factor 3. What is its new area?",
+                  one(num("45"), accepts=["45", "45 cm²", "5 × 9 = 45"], rejects=["15", "135", "8"]),
+                  answer="45 cm²"),
+        ]),
+    "area-and-perimeter": footing(
+        skill="Use the right lengths in area and perimeter",
+        teach="A triangle's area is half of base × perpendicular height, so base 6 cm and height 4 cm give 12 cm², and a slanted side is never the height. Use the radius in πr², and add every edge for a perimeter: a quarter circle of radius 2 cm has perimeter π + 4.",
+        probes=[
+            probe("A triangle has base 12 cm, a slanted side 10 cm and perpendicular height 8 cm. Find its area.",
+                  one(num("48"), accepts=["48", "48 cm²", "1/2 × 12 × 8 = 48"], rejects=["96", "60", "120"]),
+                  answer="48 cm²"),
+            probe("A semicircle has diameter 10 cm. Find its perimeter, using π = 3.14.",
+                  one(num("25.7", tolerance=0.05), accepts=["25.7", "25.7 cm", "15.7 + 10 = 25.7"], rejects=["15.7", "41.4", "31.4"]),
+                  answer="25.7 cm"),
+            probe("A circle has diameter 12 cm. Find its area in terms of π.",
+                  one(forms("36π", "36pi"), accepts=["36π", "36π cm²", "A = 36π"], rejects=["144π", "12π", "6π"]),
+                  answer="36π cm²"),
+        ]),
+    "angle-facts": footing(
+        skill="Use angle facts for parallel lines, polygons and bearings",
+        teach="Co-interior angles between parallel lines add to 180°, and an exterior angle of a polygon is 180° take away the interior angle, so an interior angle of 108° has exterior angle 72°. A back-bearing is the bearing plus 180°, or minus 180° if that passes 360°: the back-bearing of 050° is 230°.",
+        probes=[
+            probe("Two parallel lines are cut by a transversal. One co-interior angle is 115°. Find the other.",
+                  one(num("65"), accepts=["65", "65°", "180 − 115 = 65"], rejects=["115", "245", "25"]),
+                  answer="65°"),
+            probe("Each interior angle of a regular polygon is 150°. What is each exterior angle?",
+                  one(num("30"), accepts=["30", "30°", "180 − 150 = 30"], rejects=["150", "210", "24"]),
+                  answer="30°"),
+            probe("The bearing of B from A is 120°. What is the bearing of A from B?",
+                  one(num("300"), accepts=["300", "300°", "120 + 180 = 300"], rejects=["120", "240", "060"]),
+                  answer="300°"),
+        ]),
+    "coordinates-and-gradient": footing(
+        skill="Find a midpoint and a gradient from coordinates",
+        teach="The midpoint averages the x-coordinates and then the y-coordinates, keeping x first: the midpoint of (1, 2) and (5, 10) is (3, 6). Gradient is change in y ÷ change in x, and a perpendicular gradient flips it and changes its sign, so 2/3 becomes −3/2.",
+        probes=[
+            probe("Find the midpoint of (2, 3) and (8, 11).",
+                  one(seq("5", "7"), accepts=["(5, 7)", "5, 7", "M = (5, 7)"], rejects=["(3, 4)", "(7, 5)", "(10, 14)"]),
+                  answer="(5, 7)"),
+            probe("Find the gradient of the line through (2, 1) and (5, 13).",
+                  one(num("4"), accepts=["4", "12/3 = 4", "m = 4"], rejects=["1/4", "12", "3"]),
+                  answer="4"),
+            probe("A line has gradient 3. What is the gradient of a line perpendicular to it?",
+                  one(num("-1/3"), accepts=["-1/3", "−1/3", "m = -1/3"], rejects=["1/3", "-3", "3"]),
+                  answer="−1/3"),
+        ]),
+    "transformations": footing(
+        skill="Reflect, rotate and enlarge a point",
+        teach="Check the mirror line or centre before you move: reflecting (3, 4) in the y-axis gives (−3, 4), and a 90° turn clockwise about the origin takes (x, y) to (y, −x). To enlarge about a centre, multiply the step from the centre to the point, then add it back on: (3, 2) from centre (1, 1) by scale factor 3 is (7, 4).",
+        probes=[
+            probe("Reflect the point (2, 5) in the x-axis.",
+                  one(seq("2", "-5"), accepts=["(2, −5)", "(2, -5)", "2, -5"], rejects=["(-2, 5)", "(5, 2)", "(2, 5)"]),
+                  answer="(2, −5)"),
+            probe("Rotate the point (3, 1) through 90° clockwise about the origin.",
+                  one(seq("1", "-3"), accepts=["(1, −3)", "(1, -3)", "1, -3"], rejects=["(-1, 3)", "(-3, -1)", "(1, 3)"]),
+                  answer="(1, −3)"),
+            probe("Enlarge the point (4, 3) by scale factor 2, centre (1, 1).",
+                  one(seq("7", "5"), accepts=["(7, 5)", "7, 5", "R′ = (7, 5)"], rejects=["(8, 6)", "(6, 4)", "(5, 3)"]),
+                  answer="(7, 5)"),
+        ]),
+    "equally-likely-outcomes": footing(
+        skill="List equally likely outcomes and count each once",
+        teach="List every outcome so each one is equally likely: a coin and a spinner numbered 1 to 3 give H1, H2, H3, T1, T2 and T3, six outcomes. When order does not matter, a pair like AB is the same as BA, so count it once.",
+        probes=[
+            probe("Two fair coins are flipped. What is the probability of one head and one tail?",
+                  one(num("1/2"), accepts=["1/2", "2/4", "0.5"], rejects=["1/3", "1/4", "2/3"]),
+                  answer="1/2"),
+            probe("Two fair dice are rolled. What is the probability that the total is 3?",
+                  one(num("1/18"), accepts=["1/18", "2/36", "2/36 = 1/18"], rejects=["1/36", "1/11", "1/6"]),
+                  answer="2/36 = 1/18"),
+            probe("How many different pairs can you choose from 4 people, if order does not matter?",
+                  one(num("6"), accepts=["6", "6 pairs", "12 ÷ 2 = 6"], rejects=["12", "16", "8"]),
+                  answer="6"),
+        ]),
+    "the-right-total": footing(
+        skill="Use the right total for a probability",
+        teach="The total is the group you are picking from at that moment. If 1 of 10 sweets is eaten, the next pick is out of 9, and if you are told the person wears glasses, the total is only the people who wear glasses.",
+        probes=[
+            probe("A bag has 4 red and 2 blue counters. A red counter is taken out and not put back. What is the probability that the next counter is red?",
+                  one(num("3/5"), accepts=["3/5", "0.6", "= 3/5"], rejects=["2/3", "4/6", "3/6"]),
+                  answer="3/5"),
+            probe("In a club of 20, 12 play football and 3 of those also play chess. A football player is picked at random. What is the probability that they play chess?",
+                  one(num("1/4"), accepts=["1/4", "3/12", "0.25"], rejects=["3/20", "12/20", "3/17"]),
+                  answer="3/12 = 1/4"),
+            probe("In a class of 30, 15 wear glasses and 10 are left-handed. 5 are left-handed and wear glasses. A student who wears glasses is picked. What is the probability they are left-handed?",
+                  one(num("1/3", tolerance=0.001), accepts=["1/3", "5/15", "0.333"], rejects=["1/2", "5/10", "1/6"]),
+                  answer="5/15 = 1/3"),
+        ]),
+    "spread-and-density": footing(
+        skill="Find class width, frequency density and quartiles",
+        teach="Class width is the upper boundary take away the lower one, and frequency density is frequency ÷ class width: 10 ≤ x < 40 has width 30, so frequency 60 gives density 2. The interquartile range is the upper quartile minus the lower quartile, not the largest value minus the smallest.",
+        probes=[
+            probe("The class 20 ≤ t < 35 has frequency 45. Find its frequency density.",
+                  one(num("3"), accepts=["3", "45 ÷ 15 = 3", "= 3"], rejects=["45", "1.29", "2.25"]),
+                  answer="3"),
+            probe("A histogram bar for 0 ≤ x < 5 has frequency density 4. How many values are in that class?",
+                  one(num("20"), accepts=["20", "4 × 5 = 20", "= 20"], rejects=["4", "0.8", "1.25"]),
+                  answer="20"),
+            probe("Find the interquartile range of 1, 3, 8, 9, 12, 20, 24.",
+                  one(num("17"), accepts=["17", "IQR = 17", "20 − 3 = 17"], rejects=["23", "9", "3"]),
+                  answer="17"),
+        ]),
+    "vectors": footing(
+        skill="Add and subtract column vectors",
+        teach="Add or subtract the top numbers, then the bottom numbers: (2, 5) − (3, 1) = (−1, 4). To go from P to Q, go back to O and then out again, so PQ = −p + q.",
+        probes=[
+            probe("Work out the column vector (3, 2) + (1, −4).",
+                  one(seq("4", "-2"), accepts=["(4, −2)", "(4, -2)", "4, -2"], rejects=["(4, 2)", "(2, 6)", "(3, -8)"]),
+                  answer="(4, −2)"),
+            probe("Work out the column vector (5, 1) − (2, 3).",
+                  one(seq("3", "-2"), accepts=["(3, −2)", "(3, -2)", "3, -2"], rejects=["(7, 4)", "(3, 2)", "(-3, 2)"]),
+                  answer="(3, −2)"),
+            probe("OA = a and OB = b. Write the vector AB in terms of a and b.",
+                  one(forms("b-a", "-a+b"), accepts=["b − a", "AB = b - a", "-a + b"], rejects=["a − b", "a + b", "b + a"]),
+                  answer="b − a"),
+        ]),
+    "nth-term": footing(
+        skill="Find and use the nth term of a sequence",
+        teach="Sequences start at n = 1, so test a rule by putting n = 1 and n = 2 back in: for 2, 7, 12, … the rule 5n − 3 gives 2, then 7. Counting from 3 to 6 including both ends gives 4 numbers, not 3.",
+        probes=[
+            probe("Find the nth term of 5, 8, 11, 14, …",
+                  one(forms("3n+2", "2+3n"), accepts=["3n + 2", "3n+2", "nth term = 3n + 2"], rejects=["3n + 5", "n + 3", "3n"]),
+                  answer="3n + 2"),
+            probe("The nth term of a sequence is 4n − 1. Find the 10th term.",
+                  one(num("39"), accepts=["39", "4 × 10 − 1 = 39", "= 39"], rejects=["40", "35", "43"]),
+                  answer="39"),
+            probe("How many whole numbers are there from 5 to 12, counting both 5 and 12?",
+                  one(num("8"), accepts=["8", "12 − 5 + 1 = 8", "= 8"], rejects=["7", "17", "6"]),
+                  answer="8"),
+        ]),
+    "answer-the-question": footing(
+        skill="Check you answered what was asked",
+        teach="Before you write the answer, reread the last line of the question. If a = 5 and it asks for 3a − 2, then 5 is only a step and 13 is the answer.",
+        probes=[
+            probe("A shirt costs £20. It is reduced by 15%. What is the new price?",
+                  one(num("17"), accepts=["17", "£17", "20 − 3 = 17"], rejects=["3", "23", "5"]),
+                  answer="£17"),
+            probe("3x = 12. Find the value of 2x + 1.",
+                  one(num("9"), accepts=["9", "= 9", "x = 4, so 2x + 1 = 9"], rejects=["4", "8", "25"]),
+                  answer="9"),
+            probe("A rectangle has perimeter 30 cm and length 9 cm. Find its area.",
+                  one(num("54"), accepts=["54", "54 cm²", "9 × 6 = 54"], rejects=["6", "270", "21"]),
+                  answer="54 cm²"),
+        ]),
+}
+
+STANDS_ON = {
+    "sign-of-product": "negative-numbers",
+    "dropped-minus": "negative-numbers",
+    "inequality-not-flipped": "negative-numbers",
+    "rearranged-sign": "inverse-operations",
+    "inverse-wrong-order": "inverse-operations",
+    "inverse-as-reciprocal": "inverse-operations",
+    "expand-first-term-only": "distributive-law",
+    "square-of-difference": "distributive-law",
+    "lcm-as-product": "factors-and-multiples",
+    "hcf-lcm-swapped": "factors-and-multiples",
+    "common-factor-left": "factors-and-multiples",
+    "forgot-square-root": "squares-and-roots",
+    "added-sides": "squares-and-roots",
+    "power-as-multiply": "squares-and-roots",
+    "added-denominators": "fractions",
+    "split-mixed-number": "fractions",
+    "truncated": "rounding",
+    "decimal-places-not-sf": "rounding",
+    "place-value-shift": "place-value",
+    "recurring-as-terminating": "place-value",
+    "multiplied-instead-of-divided": "multiply-or-divide",
+    "divided-wrong-way-round": "multiply-or-divide",
+    "equal-split": "ratio-and-proportion",
+    "direct-for-inverse": "ratio-and-proportion",
+    "unmatched-middle": "ratio-and-proportion",
+    "wrong-units-for-difference": "ratio-and-proportion",
+    "percent-of-wrong-amount": "percentages",
+    "percentages-cancel": "percentages",
+    "simple-not-compound": "percentages",
+    "unit-slip": "units-and-scale",
+    "area-by-length-factor": "units-and-scale",
+    "forgot-half": "area-and-perimeter",
+    "height-slant-mixed": "area-and-perimeter",
+    "radius-diameter-mixed": "area-and-perimeter",
+    "missing-edges": "area-and-perimeter",
+    "co-interior-as-equal": "angle-facts",
+    "interior-for-exterior": "angle-facts",
+    "back-bearing": "angle-facts",
+    "swapped-coordinates": "coordinates-and-gradient",
+    "half-difference": "coordinates-and-gradient",
+    "perpendicular-gradient": "coordinates-and-gradient",
+    "centre-ignored": "transformations",
+    "wrong-mirror-line": "transformations",
+    "wrong-turn-direction": "transformations",
+    "unequal-outcomes": "equally-likely-outcomes",
+    "order-mixed": "equally-likely-outcomes",
+    "conditional-reversed": "the-right-total",
+    "wrong-total": "the-right-total",
+    "with-replacement": "the-right-total",
+    "density-as-frequency": "spread-and-density",
+    "boundary-for-width": "spread-and-density",
+    "range-for-iqr": "spread-and-density",
+    "vector-combined-wrongly": "vectors",
+    "off-by-one": "nth-term",
+    "stopped-early": "answer-the-question",
+}
+
+
 DECREASE_WORDS = ["decrease", "decreases", "decreased", "down", "less", "lower", "loss", "fall", "falls",
                   "drop", "drops", "reduction", "reduced", "smaller"]
 INCREASE_WORDS = ["increase", "increases", "increased", "up", "more", "gain"]
@@ -2150,7 +2541,30 @@ def build_school_questions():
 
 
 def build_misconceptions():
-    return [{"id": misconception_id, "name": name} for misconception_id, name in MISCONCEPTIONS.items()]
+    if set(STANDS_ON) != set(MISCONCEPTIONS):
+        raise SystemExit(f"Misconceptions without a footing, or unknown ones: {sorted(set(STANDS_ON) ^ set(MISCONCEPTIONS))}")
+    unknown = sorted(set(STANDS_ON.values()) - set(FOOTINGS))
+    if unknown:
+        raise SystemExit(f"Unknown footing ids: {unknown}")
+    return [
+        {"id": misconception_id, "name": name, "standsOn": STANDS_ON[misconception_id]}
+        for misconception_id, name in MISCONCEPTIONS.items()
+    ]
+
+
+def build_footings():
+    unused = sorted(set(FOOTINGS) - set(STANDS_ON.values()))
+    if unused:
+        raise SystemExit(f"Footings no misconception stands on: {unused}")
+    footings = []
+    for footing_id, spec in FOOTINGS.items():
+        if len(spec["probes"]) != 3:
+            raise SystemExit(f"Footing {footing_id} needs exactly 3 probes, has {len(spec['probes'])}")
+        if not spec["teach"].endswith("."):
+            raise SystemExit(f"Footing {footing_id} teach must end in a full stop")
+        probes = [{"id": f"{footing_id}-{n}", **p} for n, p in enumerate(spec["probes"], start=1)]
+        footings.append({"id": footing_id, "skill": spec["skill"], "teach": spec["teach"], "probes": probes})
+    return footings
 
 
 def build_diagram_plates():
@@ -3471,6 +3885,7 @@ def main():
         "speedMathDecks": speed_math_decks,
         "visualMathTips": visual_math_tips,
         "misconceptions": build_misconceptions(),
+        "footings": build_footings(),
     }
 
     PACK_OUT.parent.mkdir(parents=True, exist_ok=True)
