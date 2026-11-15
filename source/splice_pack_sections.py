@@ -23,6 +23,32 @@ import export_kymmaths_pack as exporter  # noqa: E402
 
 # Atlas lesson stories are the chapter's hook, which the book file writes.
 DERIVED_LESSON_FIELDS = {"stories"}
+NEW_LINK_CONTEXT = 40
+
+
+def new_link_lines(old_entries, new_entries):
+    """One line per link in the new golden entries that the old ones did not have: concept, matched text, context.
+
+    A link is the same link when its text, concept and offset are the same. Context is up to 40 characters
+    either side, with the match in brackets, so a writer can see a link that lands on an everyday word.
+    """
+    def keys(entries):
+        return {(entry["text"], link["concept"], link["offset"]) for entry in entries for link in entry["links"]}
+
+    old = keys(old_entries)
+    lines = []
+    for entry in new_entries:
+        text = entry["text"]
+        for link in entry["links"]:
+            if (text, link["concept"], link["offset"]) in old:
+                continue
+            start, end = link["offset"], link["offset"] + len(link["text"])
+            before = text[max(0, start - NEW_LINK_CONTEXT):start]
+            after = text[end:end + NEW_LINK_CONTEXT]
+            context = (("…" if start > NEW_LINK_CONTEXT else "") + before + f"[{link['text']}]" + after
+                       + ("…" if end + NEW_LINK_CONTEXT < len(text) else ""))
+            lines.append(f"{link['concept']} \"{link['text']}\": {context}")
+    return lines
 
 
 def splice_stuck(pack_questions, built_questions):
@@ -94,7 +120,8 @@ def main():
                             {tid: set(tip) for tid, tip in tips.items()})
 
     content_checks.require_clean(pack, rewritten)
-    exporter.write_golden(pack)
+    old_golden = json.loads(exporter.GOLDEN_OUT.read_text(encoding="utf-8")) if exporter.GOLDEN_OUT.exists() else []
+    new_links = new_link_lines(old_golden, exporter.write_golden(pack))
     exporter.PACK_OUT.write_text(json.dumps(pack, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     splice_figure_chapters(pack["chapters"])
 
@@ -105,6 +132,9 @@ def main():
           f"{len(widget_text)} widgets, {len(lessons)} Atlas lessons and {len(tips)} visual tip(s). Content checks passed.")
     for line in drift:
         print(f"Left as it is in the pack, differs from the exporter: {line}")
+    print(f"New links since the last splice: {len(new_links)}. Read each one for a link on an everyday word.")
+    for line in new_links:
+        print(f"  {line}")
 
 
 if __name__ == "__main__":

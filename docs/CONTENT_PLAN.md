@@ -220,7 +220,7 @@ The work is finished when A1 to A12 hold for the whole pack and the brief's "Don
 | Ch | Slice done | Checks pass | Walk-through | Read aloud | Commit |
 |---|---|---|---|---|---|
 | 1 | yes | yes | yes (iPad) | waiting | `e416fa8` |
-| Stage 0 | | | | | |
+| Stage 0 | yes (G1 to G12, A8) | yes: 44 Python, 216 Swift | n/a | n/a | not committed |
 | 0, 2 to 20 | | | | | |
 
 ## Contract amendments

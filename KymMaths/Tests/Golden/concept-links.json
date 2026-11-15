@@ -419,13 +419,7 @@
     "text": "Power",
     "exclude": null,
     "linked": [],
-    "links": [
-      {
-        "concept": "power",
-        "text": "Power",
-        "offset": 0
-      }
-    ]
+    "links": []
   },
   {
     "text": "Laws of indices",
@@ -462,6 +456,102 @@
         "offset": 0
       }
     ]
+  },
+  {
+    "text": "Two trains from Dadar",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Fast trains leave Dadar every 12 minutes. Slow trains leave every 18 minutes. Both leave together at 8:00 AM. Kabir and Meera disagree about when they next leave together.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Kabir",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Multiply the two gaps. 12 × 18 = 216, so it is 216 minutes later.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Meera",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Count on in 12s and in 18s. The first number in both lists is 36, so it is 36 minutes later.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Kabir is right (216 minutes)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "To find when two things next happen together, multiply the two gaps.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The trains do leave together after 216 minutes. But they have already left together five times before that. The first time is after 36 minutes.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Meera is right (36 minutes)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The 12s go 12, 24, 36. The 18s go 18, 36. The first number in both lists is 36.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Yes. 36 = 3 × 12 and 36 = 2 × 18, so both trains leave at 8:36 AM.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Neither. It is 6 minutes.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "6 is the biggest number that divides into both 12 and 18.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "6 does divide into both. But after 6 minutes neither train has left again. The answer must be a number that 12 and 18 both divide into.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Multiplying two numbers always gives a number in both lists. It is often not the first one.",
+    "exclude": null,
+    "linked": [],
+    "links": []
   },
   {
     "text": "Turning round on the number line",
@@ -1291,7 +1381,7 @@
     "links": [
       {
         "concept": "power",
-        "text": "power",
+        "text": "power of",
         "offset": 16
       },
       {
@@ -1723,6 +1813,113 @@
       {
         "concept": "lcm",
         "text": "Lowest common multiple",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Power",
+    "exclude": "power",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A short way to write a number multiplied by itself several times.",
+    "exclude": "power",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "You forward a message to 3 people. Each of them forwards it to 3 more. In the 4th round it reaches 3 × 3 × 3 × 3 = 81 people. We write that as 3⁴.",
+    "exclude": "power",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Work out 5³. The base is 5 and it appears 3 times. 5 × 5 × 5 = 25 × 5 = 125.",
+    "exclude": "power",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The big number is the base. It is the number being multiplied.",
+    "exclude": "power",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The small raised number is the index. It says how many times the base appears.",
+    "exclude": "power",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write it out and multiply. 2⁵ = 2 × 2 × 2 × 2 × 2 = 32.",
+    "exclude": "power",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Work out 2⁴.",
+    "exclude": "power",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "16",
+    "exclude": "power",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "multiplying",
+    "exclude": "power",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3⁴ is not 3 × 4. 3 × 4 = 12, but 3⁴ = 3 × 3 × 3 × 3 = 81.",
+    "exclude": "power",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 1 · Negative numbers, primes and powers",
+    "exclude": "power",
+    "linked": [],
+    "links": [
+      {
+        "concept": "negative-number",
+        "text": "Negative numbers",
+        "offset": 12
+      },
+      {
+        "concept": "prime-number",
+        "text": "primes",
+        "offset": 30
+      }
+    ]
+  },
+  {
+    "text": "Laws of indices",
+    "exclude": "power",
+    "linked": [],
+    "links": [
+      {
+        "concept": "index-laws",
+        "text": "Laws of indices",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Square root",
+    "exclude": "power",
+    "linked": [],
+    "links": [
+      {
+        "concept": "square-root",
+        "text": "Square root",
         "offset": 0
       }
     ]
@@ -2224,113 +2421,6 @@
     ]
   },
   {
-    "text": "Power",
-    "exclude": "power",
-    "linked": [],
-    "links": []
-  },
-  {
-    "text": "A short way to write a number multiplied by itself several times.",
-    "exclude": "power",
-    "linked": [],
-    "links": []
-  },
-  {
-    "text": "You forward a message to 3 people. Each of them forwards it to 3 more. In the 4th round it reaches 3 × 3 × 3 × 3 = 81 people. We write that as 3⁴.",
-    "exclude": "power",
-    "linked": [],
-    "links": []
-  },
-  {
-    "text": "Work out 5³. The base is 5 and it appears 3 times. 5 × 5 × 5 = 25 × 5 = 125.",
-    "exclude": "power",
-    "linked": [],
-    "links": []
-  },
-  {
-    "text": "The big number is the base. It is the number being multiplied.",
-    "exclude": "power",
-    "linked": [],
-    "links": []
-  },
-  {
-    "text": "The small raised number is the index. It says how many times the base appears.",
-    "exclude": "power",
-    "linked": [],
-    "links": []
-  },
-  {
-    "text": "Write it out and multiply. 2⁵ = 2 × 2 × 2 × 2 × 2 = 32.",
-    "exclude": "power",
-    "linked": [],
-    "links": []
-  },
-  {
-    "text": "Work out 2⁴.",
-    "exclude": "power",
-    "linked": [],
-    "links": []
-  },
-  {
-    "text": "16",
-    "exclude": "power",
-    "linked": [],
-    "links": []
-  },
-  {
-    "text": "multiplying",
-    "exclude": "power",
-    "linked": [],
-    "links": []
-  },
-  {
-    "text": "3⁴ is not 3 × 4. 3 × 4 = 12, but 3⁴ = 3 × 3 × 3 × 3 = 81.",
-    "exclude": "power",
-    "linked": [],
-    "links": []
-  },
-  {
-    "text": "Chapter 1 · Negative numbers, primes and powers",
-    "exclude": "power",
-    "linked": [],
-    "links": [
-      {
-        "concept": "negative-number",
-        "text": "Negative numbers",
-        "offset": 12
-      },
-      {
-        "concept": "prime-number",
-        "text": "primes",
-        "offset": 30
-      }
-    ]
-  },
-  {
-    "text": "Laws of indices",
-    "exclude": "power",
-    "linked": [],
-    "links": [
-      {
-        "concept": "index-laws",
-        "text": "Laws of indices",
-        "offset": 0
-      }
-    ]
-  },
-  {
-    "text": "Square root",
-    "exclude": "power",
-    "linked": [],
-    "links": [
-      {
-        "concept": "square-root",
-        "text": "Square root",
-        "offset": 0
-      }
-    ]
-  },
-  {
     "text": "Laws of indices",
     "exclude": "index-laws",
     "linked": [],
@@ -2403,7 +2493,7 @@
     "links": [
       {
         "concept": "power",
-        "text": "power",
+        "text": "power of",
         "offset": 6
       }
     ]
@@ -2415,7 +2505,7 @@
     "links": [
       {
         "concept": "power",
-        "text": "power",
+        "text": "power of",
         "offset": 20
       }
     ]

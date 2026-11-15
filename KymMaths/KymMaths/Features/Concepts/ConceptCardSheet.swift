@@ -30,23 +30,59 @@ private struct ConceptLinksModifier: ViewModifier {
     }
 }
 
+/// The cards she has opened in one sheet, newest last. Each stop keeps what she typed in "Check
+/// yourself", its marking and how far down she had read, so going back finds the card as she left it.
+struct ConceptCardTrail: Equatable {
+    struct Stop: Equatable {
+        let card: String
+        var typed = ""
+        var marking: AnswerMarking?
+        /// The part of the card at the top of the screen, by its title.
+        var scrolledTo: String?
+    }
+
+    private(set) var stops: [Stop]
+
+    init(start: String) {
+        stops = [Stop(card: start)]
+    }
+
+    var current: Stop {
+        get { stops[stops.count - 1] }
+        set { stops[stops.count - 1] = newValue }
+    }
+
+    var previous: Stop? { stops.count > 1 ? stops[stops.count - 2] : nil }
+
+    /// Opens another card on top; following a link to the card already open does nothing.
+    mutating func follow(_ card: String) {
+        guard card != current.card else { return }
+        stops.append(Stop(card: card))
+    }
+
+    mutating func back() {
+        guard stops.count > 1 else { return }
+        stops.removeLast()
+    }
+}
+
 /// One concept card. A link inside it opens the next card in the same sheet, with a way back.
 struct ConceptCardSheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.standardTheme) private var theme
     @Environment(\.conceptLibrary) private var library
-    @State private var trail: [String]
+    @State private var trail: ConceptCardTrail
 
     init(start: String) {
-        _trail = State(initialValue: [start])
+        _trail = State(initialValue: ConceptCardTrail(start: start))
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                if trail.count > 1, let back = library.card(trail[trail.count - 2]) {
+                if let back = trail.previous.flatMap({ library.card($0.card) }) {
                     Button {
-                        trail.removeLast()
+                        trail.back()
                     } label: {
                         Label("Back to \(back.name.lowercased())", systemImage: "arrow.left")
                             .labelStyle(.titleAndIcon)
@@ -59,15 +95,15 @@ struct ConceptCardSheet: View {
             .padding(.horizontal, StandardSpacing.lg)
             .padding(.top, StandardSpacing.sm)
 
-            if let id = trail.last, let card = library.card(id) {
-                ConceptCardPage(card: card)
-                    .id(card.id)
+            if let card = library.card(trail.current.card) {
+                ConceptCardPage(card: card, stop: $trail.current)
+                    .id("\(trail.stops.count)-\(card.id)")
             }
         }
         .background(theme.bg)
         .environment(\.openURL, OpenURLAction { url in
             guard let id = ConceptLibrary.concept(in: url) else { return .systemAction }
-            if library.card(id) != nil, id != trail.last { trail.append(id) }
+            if library.card(id) != nil { trail.follow(id) }
             return .handled
         })
     }
@@ -77,15 +113,15 @@ private struct ConceptCardPage: View {
     @Environment(\.standardTheme) private var theme
     @Environment(\.conceptLibrary) private var library
     let card: ConceptCard
+    @Binding var stop: ConceptCardTrail.Stop
 
-    @State private var typed = ""
-    @State private var marking: AnswerMarking?
     @FocusState private var typing: Bool
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: StandardSpacing.xl) {
                 header
+                    .id("Concept card")
                 part("In one sentence") { prose(card.oneSentence) }
                 part("Picture it") { prose(card.picture) }
                 part("How to work it out") { numberedSteps }
@@ -100,9 +136,11 @@ private struct ConceptCardPage: View {
                     part("You will use it in") { usedIn }
                 }
             }
+            .scrollTargetLayout()
             .padding(.horizontal, StandardSpacing.xl)
             .padding(.vertical, StandardSpacing.lg)
         }
+        .scrollPosition(id: $stop.scrolledTo, anchor: .top)
     }
 
     private var header: some View {
@@ -127,6 +165,7 @@ private struct ConceptCardPage: View {
             content()
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        .id(title)
     }
 
     private func prose(_ text: String) -> some View {
@@ -157,11 +196,11 @@ private struct ConceptCardPage: View {
                 .patternedType(.question)
                 .foregroundStyle(theme.ink)
                 .fixedSize(horizontal: false, vertical: true)
-            AnswerCheckRow(typed: $typed, typing: $typing) {
-                marking = card.check.answerKey.mark(typed)
+            AnswerCheckRow(typed: $stop.typed, typing: $typing) {
+                stop.marking = card.check.answerKey.mark(stop.typed)
             }
-            .onChange(of: typed) { marking = nil }
-            if let marking {
+            .onChange(of: stop.typed) { stop.marking = nil }
+            if let marking = stop.marking {
                 Text(marking.isCorrect ? "Right." : "The answer is \(card.check.answer).")
                     .patternedType(.readingDefault)
                     .foregroundStyle(marking.isCorrect ? theme.patterned.provenColor : theme.patterned.assistedColor)
@@ -169,6 +208,7 @@ private struct ConceptCardPage: View {
             }
         }
         .paperCard()
+        .id("Check yourself")
     }
 
     @ViewBuilder

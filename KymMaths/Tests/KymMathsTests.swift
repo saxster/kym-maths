@@ -880,12 +880,17 @@ struct KymMathsTests {
         #expect(narrator.isSpeaking == false)
     }
 
-    @Test("Cluster 5: MathematicalDebateCatalog completeness across all 21 Patterned World chapters and 16 OUP units")
+    @Test("Cluster 5: every chapter has one Who is right? (from its pack record or the Swift catalog), and so does every OUP unit")
     func testMathematicalDebateCatalogCompleteness() {
-        #expect(MathematicalDebateCatalog.all.count == 21)
-        for chNum in 0...20 {
-            let scenario = MathematicalDebateEngine.scenario(forChapter: chNum)
-            #expect(scenario.chapterNumber == chNum)
+        let chapters = SeedPackLoader.load().chapters
+        let fromPack = chapters.filter { $0.debate != nil }
+        #expect(!fromPack.isEmpty)
+        #expect(MathematicalDebateCatalog.all.count + fromPack.count == 21)
+        for chapter in chapters {
+            let inCatalog = MathematicalDebateCatalog.all.contains { $0.chapterNumber == chapter.number }
+            #expect(inCatalog != (chapter.debate != nil), "chapter \(chapter.number) has exactly one debate source")
+            let scenario = MathematicalDebateEngine.scenario(for: chapter)
+            #expect(scenario.chapterNumber == chapter.number)
             #expect(scenario.choices.count == 3)
             let correctChoices = scenario.choices.filter(\.isCorrect)
             #expect(correctChoices.count == 1)
@@ -898,7 +903,7 @@ struct KymMathsTests {
             #expect(MathematicalDebateEngine.evaluateChoice(scenario: scenario, choiceId: "stale-other-ch-id") == nil)
         }
         for unitNum in 1...16 {
-            let scenario = MathematicalDebateEngine.scenario(forOUPUnit: unitNum)
+            let scenario = MathematicalDebateEngine.scenario(forOUPUnit: unitNum, in: chapters)
             #expect(scenario.oupUnitNumber == unitNum)
         }
     }

@@ -3,10 +3,13 @@ Chapter 1, written by hand to docs/CONTENT_BRIEF.md.
 
 Each section teaches one idea in nine steps, in this order: question, idea, picture, reason, name,
 example, mistake, turn, sayBack. A section's `teaches` lists the concept cards whose names first
-appear in its `name` step. `build(k)` takes the exporter's answer-key helpers.
+appear in its `name` step. `build(k)` returns the chapter and `cards(k)` its concept cards; both take the
+exporter's answer-key helpers.
 """
 
 from itertools import permutations
+
+from book.arithmetic import Fraction, common_multiples, factors, gcd, is_prime, isqrt, lcm, multiples, prime_factors, prod
 
 
 def product_forms(k, *orders_of):
@@ -23,6 +26,7 @@ def build(k):
         "subtitle": "School book chapter 1 · Why minus times minus is plus, how every number is built from primes, "
                     "and the rules for powers",
         "hookSummary": "Why does a minus times a minus make a plus?",
+        "beyondSchoolBook": False,
         "skillCard": {
             "skill": "Signs, primes and powers",
             "sheCan": {
@@ -58,6 +62,7 @@ def build(k):
         "sections": [
             {
                 "heading": "1.1 Minus times minus",
+                "figure": True,
                 "teaches": [],
                 "steps": [
                     {"kind": "question",
@@ -137,6 +142,7 @@ def build(k):
             },
             {
                 "heading": "1.3 What two numbers share",
+                "figure": True,
                 "teaches": ["multiple", "hcf", "lcm"],
                 "steps": [
                     {"kind": "question",
@@ -262,6 +268,35 @@ def build(k):
             {"kind": "careful", "title": "Watch out for 1",
              "body": "1 is not a prime number. A prime has exactly two factors, and 1 has only one."},
         ],
+        "debate": {
+            "id": "debate-ch01-primes",
+            "oupUnitNumber": 1,
+            "title": "Two trains from Dadar",
+            "contextPrompt": "Fast trains leave Dadar every 12 minutes. Slow trains leave every 18 minutes. "
+                             "Both leave together at 8:00 AM. Kabir and Meera disagree about when they next leave together.",
+            "speakerAName": "Kabir",
+            "speakerAClaim": "Multiply the two gaps. 12 × 18 = 216, so it is 216 minutes later.",
+            "speakerBName": "Meera",
+            "speakerBClaim": "Count on in 12s and in 18s. The first number in both lists is 36, so it is 36 minutes later.",
+            "choices": [
+                {"id": "ch01-a", "speakerLabel": "Kabir is right (216 minutes)",
+                 "reasoningStatement": "To find when two things next happen together, multiply the two gaps.",
+                 "isCorrect": False,
+                 "socraticRebuttal": "The trains do leave together after 216 minutes. "
+                                     "But they have already left together five times before that. "
+                                     "The first time is after 36 minutes."},
+                {"id": "ch01-b", "speakerLabel": "Meera is right (36 minutes)",
+                 "reasoningStatement": "The 12s go 12, 24, 36. The 18s go 18, 36. The first number in both lists is 36.",
+                 "isCorrect": True,
+                 "socraticRebuttal": "Yes. 36 = 3 × 12 and 36 = 2 × 18, so both trains leave at 8:36 AM."},
+                {"id": "ch01-c", "speakerLabel": "Neither. It is 6 minutes.",
+                 "reasoningStatement": "6 is the biggest number that divides into both 12 and 18.",
+                 "isCorrect": False,
+                 "socraticRebuttal": "6 does divide into both. But after 6 minutes neither train has left again. "
+                                     "The answer must be a number that 12 and 18 both divide into."},
+            ],
+            "invariantTakeaway": "Multiplying two numbers always gives a number in both lists. It is often not the first one.",
+        },
         "keyTerms": [
             "Negative number", "Factor", "Prime number", "Prime factors", "Multiple", "Highest common factor",
             "Lowest common multiple", "Power", "Laws of indices", "Square root", "Irrational number",
@@ -343,4 +378,375 @@ def build(k):
                 "formula": "(−1) × (−1) = +1",
             },
         },
+    }
+
+
+def cards(k):
+    """The concept cards this chapter teaches that stand on other cards. Bedrock cards are in bedrock.py."""
+    return {
+        "prime-number": {
+            "name": "Prime number",
+            "aliases": ["prime number", "prime numbers", "prime", "primes"],
+            "oneSentence": "A whole number with exactly two factors, 1 and itself.",
+            "picture": "7 students can only line up as 1 row of 7 or 7 rows of 1. No other equal rows work, so 7 is prime. "
+                       "6 students can make 2 rows of 3, so 6 is not.",
+            "steps": [
+                "Try dividing by 2, 3, 5, 7 and so on.",
+                "If nothing divides exactly before the pairs repeat, the number is prime.",
+                "Remember that 1 is not prime. It has only one factor.",
+                "The first few primes are 2, 3, 5, 7, 11, 13, 17 and 19.",
+            ],
+            "workedExample": "Is 29 prime? It is odd, so 2 does not divide it. 29 ÷ 3 leaves 2 over. 29 ÷ 5 leaves 4 over. "
+                             "6 × 6 is already more than 29, so there is nothing bigger to check. 29 is prime.",
+            "check": {
+                "prompt": "Which of these is prime: 21, 23 or 27?",
+                "answer": "23",
+                "answerKey": k.one(k.num("23"), accepts=["23"], rejects=["21", "27"]),
+            },
+            "mixUp": {
+                "name": "odd numbers",
+                "how": "9, 15 and 21 are odd but not prime. And 2 is prime but not odd.",
+            },
+            "standsOn": ["factor"],
+        },
+        "prime-factors": {
+            "name": "Prime factors",
+            "aliases": ["prime factors", "prime factor", "prime factorisation", "product of primes", "factor tree", "factor trees"],
+            "oneSentence": "The prime numbers that multiply together to make a number.",
+            "picture": "Think of primes as bricks that cannot be split. 12 is built from the bricks 2, 2 and 3, "
+                       "because 2 × 2 × 3 = 12. No other set of prime bricks makes 12.",
+            "steps": [
+                "Split the number into any two factors. 60 = 6 × 10.",
+                "Split each part again until every part is prime. 6 = 2 × 3 and 10 = 2 × 5.",
+                "Write the primes in order. 60 = 2 × 2 × 3 × 5.",
+                "Check by multiplying back. 2 × 2 × 3 × 5 = 60.",
+            ],
+            "workedExample": "Write 84 as a product of primes. 84 = 2 × 42. 42 = 2 × 21. 21 = 3 × 7. "
+                             "So 84 = 2 × 2 × 3 × 7. Starting with 84 = 7 × 12 gives the same four primes.",
+            "check": {
+                "prompt": "Write 30 as a product of prime factors.",
+                "answer": "2 × 3 × 5",
+                "answerKey": k.one(product_forms(k, ("2", "3", "5")),
+                                   accepts=["2 × 3 × 5", "5 × 3 × 2", "2*3*5"],
+                                   rejects=["5 × 6", "2 × 15", "3 × 10"]),
+            },
+            "mixUp": {
+                "with": "factor",
+                "how": "The factors of 12 are 1, 2, 3, 4, 6 and 12. Its prime factors are only 2, 2 and 3.",
+            },
+            "standsOn": ["prime-number", "factor"],
+        },
+        "hcf": {
+            "name": "Highest common factor",
+            "short": "HCF",
+            "aliases": ["highest common factor", "HCF", "common factor", "common factors"],
+            "oneSentence": "The biggest number that divides exactly into both numbers.",
+            "picture": "You have 12 samosas and 18 jalebis. You want identical plates with nothing left over. "
+                       "The most plates you can make is 6, each with 2 samosas and 3 jalebis. So the HCF of 12 and 18 is 6.",
+            "steps": [
+                "List the factors of each number. 12: 1, 2, 3, 4, 6, 12. 18: 1, 2, 3, 6, 9, 18.",
+                "Find the ones in both lists: 1, 2, 3 and 6.",
+                "Take the biggest: 6.",
+            ],
+            "bigNumbers": "Break each number into prime factors. 12 = 2 × 2 × 3 and 18 = 2 × 3 × 3. "
+                          "They share one 2 and one 3. Multiply what they share: 2 × 3 = 6.",
+            "workedExample": "Find the HCF of 16 and 40. 16 = 2 × 2 × 2 × 2 and 40 = 2 × 2 × 2 × 5. "
+                             "They share three 2s. 2 × 2 × 2 = 8, so the HCF is 8.",
+            "check": {
+                "prompt": "What is the HCF of 20 and 30?",
+                "answer": "10",
+                "answerKey": k.one(k.num("10"), accepts=["10", "= 10"], rejects=["5", "60", "2"]),
+            },
+            "mixUp": {
+                "with": "lcm",
+                "how": "The HCF is never bigger than the smaller number. The LCM is never smaller than the bigger number.",
+            },
+            "standsOn": ["factor", "prime-factors"],
+            "footing": "factors-and-multiples",
+        },
+        "lcm": {
+            "name": "Lowest common multiple",
+            "short": "LCM",
+            "aliases": ["lowest common multiple", "least common multiple", "LCM", "common multiple", "common multiples"],
+            "oneSentence": "The smallest number that both numbers divide into exactly.",
+            "picture": "One bus leaves every 4 minutes and another every 6 minutes. They leave together now. "
+                       "They next leave together 12 minutes later. So the LCM of 4 and 6 is 12.",
+            "steps": [
+                "List the multiples of each number. 4: 4, 8, 12, 16. 6: 6, 12, 18.",
+                "Find the first number in both lists: 12.",
+            ],
+            "bigNumbers": "Break each number into prime factors. 12 = 2 × 2 × 3 and 18 = 2 × 3 × 3. "
+                          "Take each prime the most times it appears in either number. That is two 2s and two 3s. "
+                          "2 × 2 × 3 × 3 = 36.",
+            "workedExample": "Find the LCM of 6 and 15. The multiples of 15 are 15, 30, 45. Does 6 divide into 15? No. "
+                             "Into 30? Yes, 6 × 5 = 30. The LCM is 30. Notice that it is not 6 × 15 = 90.",
+            "check": {
+                "prompt": "What is the LCM of 6 and 8?",
+                "answer": "24",
+                "answerKey": k.one(k.num("24"), accepts=["24", "= 24"], rejects=["48", "2", "14"]),
+            },
+            "mixUp": {
+                "with": "hcf",
+                "how": "The LCM is the bigger answer. Both numbers divide into it. The HCF is the smaller answer. "
+                       "It divides into both numbers.",
+            },
+            "standsOn": ["multiple", "prime-factors"],
+            "footing": "factors-and-multiples",
+        },
+        "index-laws": {
+            "name": "Laws of indices",
+            "aliases": ["laws of indices", "index laws", "index law"],
+            "oneSentence": "Shortcuts for multiplying and dividing powers of the same number.",
+            "picture": "2³ × 2² is (2 × 2 × 2) × (2 × 2). Count the 2s. There are five, so 2³ × 2² = 2⁵.",
+            "steps": [
+                "Check that the bases match. The laws only work for the same base.",
+                "To multiply, add the indices. 2³ × 2² = 2⁵.",
+                "To divide, subtract the indices. 2⁵ ÷ 2² = 2³.",
+                "For a power of a power, multiply the indices. (2³)² = 2⁶.",
+            ],
+            "workedExample": "Simplify 3⁴ × 3² ÷ 3³. Multiplying adds the indices, giving 3⁶. "
+                             "Dividing subtracts them, giving 3³. And 3³ = 27.",
+            "check": {
+                "prompt": "5² × 5⁴ is a single power of 5. What is its index?",
+                "answer": "6",
+                "answerKey": k.one(k.num("6"), accepts=["6"], rejects=["8", "2"]),
+            },
+            "mixUp": {
+                "name": "different bases",
+                "how": "2³ × 3² has two different bases, so no law joins it. Work out each part: 8 × 9 = 72.",
+            },
+            "standsOn": ["power"],
+        },
+        "square-root": {
+            "name": "Square root",
+            "symbol": "√",
+            "aliases": ["square root", "square roots", "√"],
+            "oneSentence": "The number that, multiplied by itself, gives the number you started with.",
+            "picture": "A square floor has 49 tiles. Each side must be 7 tiles long, because 7 × 7 = 49. "
+                       "So the square root of 49 is 7, written √49 = 7.",
+            "steps": [
+                "Ask what number times itself gives this one.",
+                "Use the square numbers you know: 1, 4, 9, 16, 25, 36, 49, 64, 81, 100.",
+                "If the number sits between two of them, so does its root. √30 is between 5 and 6.",
+            ],
+            "workedExample": "Find √144. 10 × 10 = 100 is too small. 12 × 12 = 144. So √144 = 12.",
+            "check": {
+                "prompt": "What is √81?",
+                "answer": "9",
+                "answerKey": k.one(k.num("9"), accepts=["9", "= 9"], rejects=["40.5", "8", "6561"]),
+            },
+            "mixUp": {
+                "name": "halving",
+                "how": "√16 is 4, not 8. Halving asks what you add to itself. A square root asks what you multiply by itself.",
+            },
+            "standsOn": ["power"],
+            "footing": "squares-and-roots",
+        },
+        "irrational-number": {
+            "name": "Irrational number",
+            "aliases": ["irrational number", "irrational numbers", "irrational"],
+            "oneSentence": "A number that cannot be written as a fraction of two whole numbers.",
+            "picture": "Type √2 into a calculator. It shows 1.41421356 and then runs out of screen. "
+                       "The digits never end and never settle into a repeating pattern. No fraction lands exactly on it.",
+            "steps": [
+                "If a number can be written as a fraction, like 0.75 = 3/4, it is rational.",
+                "A decimal that stops, or repeats for ever, can always be written as a fraction.",
+                "The square root of a whole number that is not a square number is irrational. √2, √3 and √5 are.",
+            ],
+            "workedExample": "Is √36 irrational? No. √36 = 6, a whole number. Is √40 irrational? "
+                             "40 is not a square number, so yes.",
+            "check": {
+                "prompt": "Only one of √16, √20 and √25 is irrational. Which number is under its root sign?",
+                "answer": "20",
+                "answerKey": k.one(k.num("20"), accepts=["20", "= 20"], rejects=["16", "25"]),
+            },
+            "mixUp": {
+                "name": "a long decimal",
+                "how": "0.333… goes on for ever, but it repeats and equals 1/3. It is rational. An irrational number never repeats.",
+            },
+            "standsOn": ["square-root"],
+        },
+    }
+
+
+def sums():
+    """Every sum chapter 1 and its cards state, recomputed. test_book_maths.py checks computed == stated."""
+    pattern = [(n, n * (-2)) for n in (3, 2, 1, 0, -1, -2)]
+    return [
+        # Skill card
+        ("(−2)³ × (−3)", (-2) ** 3 * (-3), 24),
+        ("HCF of 12 and 20", gcd(12, 20), 4),
+        ("LCM of 12 and 20", lcm(12, 20), 60),
+        # Bridge, tip, widget and Atlas lessons: (−1) × (−1) = +1, and 3 ↔ −3
+        ("(−1) × (−1)", (-1) * (-1), 1),
+        ("3 × (−1)", 3 * (-1), -3),
+        ("(−3) × (−1)", (-3) * (-1), 3),
+        ("odd turns face backward, even face forward", [(-1) ** turns for turns in (1, 2, 3, 4)], [-1, 1, -1, 1]),
+        # 1.1 Minus times minus
+        ("3 bills of ₹50 cancelled", (-3) * (-50), 150),
+        ("3 debts of ₹50", 3 * 50, 150),
+        ("the pattern 3, 2, 1, 0, −1, −2 times (−2)", [product for _, product in pattern], [-6, -4, -2, 0, 2, 4]),
+        ("each answer is 2 more than the one before",
+         {b - a for (_, a), (_, b) in zip(pattern, pattern[1:])}, {2}),
+        ("4 × 6", 4 * 6, 24),
+        ("24 ÷ 3", Fraction(24, 3), 8),
+        ("(−4) × 6 ÷ (−3)", Fraction((-4) * 6, -3), 8),
+        ("−3 − 4", -3 - 4, -7),
+        ("(−6) × (−3) ÷ (−9)", Fraction((-6) * (-3), -9), -2),
+        # 1.2 Every number has an ingredients list
+        ("equal rows for 24", factors(24)[1:-1], [2, 3, 4, 6, 8, 12]),
+        ("23 only works as one long row", is_prime(23), True),
+        ("6 × 10", 6 * 10, 60),
+        ("6 = 2 × 3 and 10 = 2 × 5", (2 * 3, 2 * 5), (6, 10)),
+        ("60 as primes", prime_factors(60), (2, 2, 3, 5)),
+        ("4 × 15", 4 * 15, 60),
+        ("4 = 2 × 2 and 15 = 3 × 5", (2 * 2, 3 * 5), (4, 15)),
+        ("6 and 10 are factors of 60", (60 % 6, 60 % 10), (0, 0)),
+        ("1 has only one factor", len(factors(1)), 1),
+        ("84 = 2 × 42, 42 = 2 × 21, 21 = 3 × 7", (2 * 42, 2 * 21, 3 * 7), (84, 42, 21)),
+        ("84 as primes", prime_factors(84), (2, 2, 3, 7)),
+        ("4 × 21", 4 * 21, 84),
+        ("4 and 21 can still break", (is_prime(4), is_prime(21)), (False, False)),
+        ("9, 15 and 21 are odd and not prime", [(n % 2, is_prime(n)) for n in (9, 15, 21)], [(1, False)] * 3),
+        ("90 as primes", prime_factors(90), (2, 3, 3, 5)),
+        # 1.3 What two numbers share
+        ("bunches that divide 24 and 36", [d for d in factors(gcd(24, 36)) if d > 1], [2, 3, 4, 6, 12]),
+        ("HCF of 24 and 36", gcd(24, 36), 12),
+        ("roses and marigolds in each of 12 bunches", (24 // 12, 36 // 12), (2, 3)),
+        ("24 as primes", prime_factors(24), (2, 2, 2, 3)),
+        ("36 as primes", prime_factors(36), (2, 2, 3, 3)),
+        ("shared pieces 2 × 2 × 3", 2 * 2 * 3, 12),
+        ("24, 48 and 72 are multiples of 24", multiples(24, 3), [24, 48, 72]),
+        ("LCM of 24 and 36", lcm(24, 36), 72),
+        ("multiples of 12", multiples(12, 3), [12, 24, 36]),
+        ("multiples of 18", multiples(18, 2), [18, 36]),
+        ("LCM of 12 and 18", lcm(12, 18), 36),
+        ("12 as primes", prime_factors(12), (2, 2, 3)),
+        ("18 as primes", prime_factors(18), (2, 3, 3)),
+        ("2 × 2 × 3 × 3", 2 * 2 * 3 * 3, 36),
+        ("12 × 18", 12 * 18, 216),
+        ("216 is a common multiple of 12 and 18", (216 % 12, 216 % 18), (0, 0)),
+        ("HCF × LCM for 12 and 18", gcd(12, 18) * lcm(12, 18), 216),
+        ("6 × 36", 6 * 36, 216),
+        ("LCM of 8 and 12", lcm(8, 12), 24),
+        # 1.4 A shorthand for repeated multiplying
+        ("rounds 1 to 4", [2 ** r for r in range(1, 5)], [2, 4, 8, 16]),
+        ("round 10", 2 ** 10, 1024),
+        ("ten 2s multiplied", prod([2] * 10), 1024),
+        ("2³ × 2²", 2 ** 3 * 2 ** 2, 2 ** 5),
+        ("2⁵ ÷ 2²", Fraction(2 ** 5, 2 ** 2), 2 ** 3),
+        ("4 + 2", 4 + 2, 6),
+        ("6 − 3", 6 - 3, 3),
+        ("3⁴ × 3² ÷ 3³", Fraction(3 ** 4 * 3 ** 2, 3 ** 3), 3 ** 3),
+        ("3³", 3 ** 3, 27),
+        ("5² ÷ 5²", Fraction(5 ** 2, 5 ** 2), 1),
+        ("5⁰", 5 ** 0, 1),
+        ("2³ is not 2 × 3", (2 ** 3, 2 * 3 != 2 ** 3), (8, True)),
+        ("2³ × 3²", 2 ** 3 * 3 ** 2, 72),
+        ("8 × 9", 8 * 9, 72),
+        ("7³ × 7⁵", 7 ** 3 * 7 ** 5, 7 ** 8),
+        # 1.5 The number no fraction can reach
+        ("7 × 7", 7 * 7, 49),
+        ("1.4 × 1.4", Fraction("1.4") ** 2, Fraction("1.96")),
+        ("1.5 × 1.5", Fraction("1.5") ** 2, Fraction("2.25")),
+        ("2 is between 1.4² and 1.5²", Fraction("1.96") < 2 < Fraction("2.25"), True),
+        ("1.41 × 1.41", Fraction("1.41") ** 2, Fraction("1.9881")),
+        ("1.42 × 1.42", Fraction("1.42") ** 2, Fraction("2.0164")),
+        ("2 is between 1.41² and 1.42²", Fraction("1.9881") < 2 < Fraction("2.0164"), True),
+        ("√49", isqrt(49), 7),
+        ("8 × 8", 8 * 8, 64),
+        ("√50 is between 7 and 8", (isqrt(50), 7 * 7 < 50 < 8 * 8), (7, True)),
+        ("√16", isqrt(16), 4),
+        ("4 × 4", 4 * 4, 16),
+        ("√30 is between 5 and 6", (isqrt(30), 5 * 5 < 30 < 6 * 6), (5, True)),
+        # Widgets and Atlas lessons
+        ("24 and 36: HCF × LCM", gcd(24, 36) * lcm(24, 36), 864),
+        ("12 × 72", 12 * 72, 864),
+        ("24 × 36", 24 * 36, 864),
+        ("24 and 24: HCF and LCM", (gcd(24, 24), lcm(24, 24)), (24, 24)),
+        ("the doubling staircase", [2 ** n for n in range(1, 11)], [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]),
+        ("2³ and 2⁴", (2 ** 3, 2 ** 4), (8, 16)),
+        ("8 × 16", 8 * 16, 128),
+        ("128 is the 7th step", 2 ** 7, 128),
+        ("3 steps and 4 more", 3 + 4, 7),
+        ("2³ × 2⁴", 2 ** 3 * 2 ** 4, 2 ** 7),
+        # Who is right? Two trains from Dadar
+        ("12 × 18 minutes", 12 * 18, 216),
+        ("the 12s and the 18s", (multiples(12, 3), multiples(18, 2)), ([12, 24, 36], [18, 36])),
+        ("first time together", lcm(12, 18), 36),
+        ("36 = 3 × 12 = 2 × 18", (3 * 12, 2 * 18), (36, 36)),
+        ("8:00 AM plus 36 minutes is 8:36", 0 + 36, 36),
+        ("together five times before 216 minutes", len(common_multiples(12, 18, below=216)), 5),
+        ("6 divides into both 12 and 18", (12 % 6, 18 % 6, gcd(12, 18)), (0, 0, 6)),
+        # Cards: prime-number
+        ("7 has two factors", factors(7), [1, 7]),
+        ("6 = 2 rows of 3", 2 * 3, 6),
+        ("29 ÷ 2, 3 and 5 leave 1, 2 and 4 over", (29 % 2, 29 % 3, 29 % 5), (1, 2, 4)),
+        ("6 × 6 is more than 29", 6 * 6 > 29, True),
+        ("29 is prime", is_prime(29), True),
+        ("the first primes", [n for n in range(2, 20) if is_prime(n)], [2, 3, 5, 7, 11, 13, 17, 19]),
+        ("only 23 of 21, 23, 27 is prime", [n for n in (21, 23, 27) if is_prime(n)], [23]),
+        ("2 is prime and even", (is_prime(2), 2 % 2), (True, 0)),
+        # Cards: prime-factors
+        ("2 × 2 × 3", 2 * 2 * 3, 12),
+        ("2 × 2 × 3 × 5", 2 * 2 * 3 * 5, 60),
+        ("84 = 7 × 12 gives the same primes", tuple(sorted((7,) + prime_factors(12))), prime_factors(84)),
+        ("30 as primes", prime_factors(30), (2, 3, 5)),
+        ("factors of 12", factors(12), [1, 2, 3, 4, 6, 12]),
+        # Cards: hcf
+        ("HCF of 12 and 18", gcd(12, 18), 6),
+        ("samosas and jalebis per plate", (12 // 6, 18 // 6), (2, 3)),
+        ("factors of 18", factors(18), [1, 2, 3, 6, 9, 18]),
+        ("factors in both lists", sorted(set(factors(12)) & set(factors(18))), [1, 2, 3, 6]),
+        ("2 × 3", 2 * 3, 6),
+        ("16 as primes", prime_factors(16), (2, 2, 2, 2)),
+        ("40 as primes", prime_factors(40), (2, 2, 2, 5)),
+        ("2 × 2 × 2", 2 * 2 * 2, 8),
+        ("HCF of 16 and 40", gcd(16, 40), 8),
+        ("HCF of 20 and 30", gcd(20, 30), 10),
+        # Cards: lcm
+        ("LCM of 4 and 6", lcm(4, 6), 12),
+        ("multiples of 4", multiples(4, 4), [4, 8, 12, 16]),
+        ("multiples of 6", multiples(6, 3), [6, 12, 18]),
+        ("multiples of 15", multiples(15, 3), [15, 30, 45]),
+        ("6 does not divide 15", 15 % 6 != 0, True),
+        ("6 × 5", 6 * 5, 30),
+        ("LCM of 6 and 15", lcm(6, 15), 30),
+        ("6 × 15", 6 * 15, 90),
+        ("LCM of 6 and 8", lcm(6, 8), 24),
+        # Cards: index-laws
+        ("2⁵ ÷ 2² = 2³", Fraction(2 ** 5, 2 ** 2), 2 ** 3),
+        ("(2³)²", (2 ** 3) ** 2, 2 ** 6),
+        ("5² × 5⁴", 5 ** 2 * 5 ** 4, 5 ** (2 + 4)),
+        # Cards: square-root
+        ("the square numbers", [n * n for n in range(1, 11)], [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]),
+        ("10 × 10", 10 * 10, 100),
+        ("12 × 12", 12 * 12, 144),
+        ("√144", isqrt(144), 12),
+        ("√81", isqrt(81), 9),
+        # Cards: irrational-number
+        ("0.75", Fraction("0.75"), Fraction(3, 4)),
+        ("√2 on a calculator", f"{2 ** 0.5:.10f}"[:10], "1.41421356"),
+        ("√36", isqrt(36), 6),
+        ("40 is not a square number", isqrt(40) ** 2 == 40, False),
+        ("only √20 of √16, √20, √25 is irrational", [n for n in (16, 20, 25) if isqrt(n) ** 2 != n], [20]),
+        ("1/3 as a decimal starts 0.333", f"{1 / 3:.3f}", "0.333"),
+    ]
+
+
+def answers():
+    """Chapter 1's turn answers and its cards' check answers, computed."""
+    return {
+        "ch01-s1-turn": Fraction((-6) * (-3), -9),
+        "ch01-s2-turn": prime_factors(90),
+        "ch01-s3-turn": lcm(8, 12),
+        "ch01-s4-turn": f"7^{3 + 5}",
+        "ch01-s5-turn": isqrt(30),
+        "prime-number-check": next(n for n in (21, 23, 27) if is_prime(n)),
+        "prime-factors-check": prime_factors(30),
+        "hcf-check": gcd(20, 30),
+        "lcm-check": lcm(6, 8),
+        "index-laws-check": 2 + 4,
+        "square-root-check": isqrt(81),
+        "irrational-number-check": next(n for n in (16, 20, 25) if isqrt(n) ** 2 != n),
     }

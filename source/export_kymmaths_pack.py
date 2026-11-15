@@ -58,14 +58,17 @@ def book_chapter_record(spec, volumes):
                 record["answerKey"] = step["answerKey"]
             steps.append(record)
         idea = next(step["text"] for step in section["steps"] if step["kind"] == "idea")
-        sections.append({
+        record = {
             "id": section_id,
             "heading": section["heading"],
             "excerpt": idea,
             "teaches": section["teaches"],
             "steps": steps,
-        })
-    return {
+        }
+        if section.get("figure"):
+            record["figure"] = True
+        sections.append(record)
+    record = {
         "id": f"ch{num:02d}",
         "number": num,
         "volumeNumber": volume["number"],
@@ -73,6 +76,7 @@ def book_chapter_record(spec, volumes):
         "title": spec["title"],
         "subtitle": spec["subtitle"],
         "hookSummary": spec["hookSummary"],
+        "beyondSchoolBook": spec.get("beyondSchoolBook"),
         "skillCard": spec["skillCard"],
         "intuitionToFormula": spec["intuitionToFormula"],
         "sections": sections,
@@ -82,6 +86,11 @@ def book_chapter_record(spec, volumes):
         "keyTerms": spec["keyTerms"],
         "widgets": spec["widgets"],
     }
+    if "debate" in spec:
+        # Decodes straight into the app's MathematicalDebateScenario.
+        debate = dict(spec["debate"])
+        record["debate"] = {"id": debate.pop("id"), "chapterNumber": num, **debate}
+    return record
 
 
 def book_widget_text():
@@ -169,9 +178,11 @@ def concept_link_golden(pack):
 
 
 def write_golden(pack):
+    """Writes the golden link file and returns its entries."""
+    entries = concept_link_golden(pack)
     GOLDEN_OUT.parent.mkdir(parents=True, exist_ok=True)
-    GOLDEN_OUT.write_text(json.dumps(concept_link_golden(pack), indent=2, ensure_ascii=False) + "\n",
-                          encoding="utf-8")
+    GOLDEN_OUT.write_text(json.dumps(entries, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    return entries
 
 
 def build_volumes():
@@ -4640,6 +4651,7 @@ h1 {{
   margin-bottom: 16px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.04);
 }}
+#atlas-card[hidden] {{ display: none; }}
 .bridge-grid {{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -4791,11 +4803,11 @@ iframe.atlas-frame {{
   </div>
 </section>
 
-<section class="card">
+<section class="card" id="atlas-card" hidden>
   <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
     <div>
       <div class="kicker">3 · EMBEDDED @SAXSTER/ATLAS 3D/2D TEACHING STAGE (../visualisations/atlas)</div>
-      <div style="font-size:13px;color:var(--muted);" id="atlas-caption">Interactive Three.js paper-and-ink stage</div>
+      <div style="font-size:13px;color:var(--muted);" id="atlas-caption">Drag to turn the figure. Tap a part to look closer.</div>
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;">
       <button class="btn secondary" id="btn-stage-primary">3D Chapter Apparatus</button>
@@ -4883,9 +4895,9 @@ function setAtlasRoute(relPath) {{
   const targetSrc = `./atlas/examples/${{relPath}}`;
   if (iframe.getAttribute('data-src') !== targetSrc) {{
     iframe.setAttribute('data-src', targetSrc);
+    document.getElementById('atlas-card').hidden = true;
     iframe.src = targetSrc;
   }}
-  document.getElementById('atlas-caption').textContent = `Atlas route: ${{relPath}} · Drag to orbit in 3D, click parts to explode & inspect PLATES.`;
 }}
 
 function renderChapter() {{
@@ -5495,6 +5507,27 @@ document.getElementById('btn-stage-primary').addEventListener('click', () => {{
 document.getElementById('btn-stage-companion').addEventListener('click', () => {{
   const ch = CHAPTERS[currentChapter] || CHAPTERS[0];
   setAtlasRoute(COMPANION_BOOKS[ch.number] || ch.intuitionToFormula.atlasFigureRef);
+}});
+// The 3D figures are not bundled for offline use yet, so the box stays hidden until the
+// loaded figure has drawn something: a blank box with no figure is worse than none.
+function figureHasContent(frame) {{
+  try {{
+    const doc = frame.contentDocument;
+    return !!(doc && doc.body && doc.body.querySelector('canvas, svg, img, video'));
+  }} catch (e) {{
+    return false;
+  }}
+}}
+function showAtlasCardIfDrawn() {{
+  const frame = document.getElementById('atlas-iframe');
+  const card = document.getElementById('atlas-card');
+  const src = frame.src;
+  card.hidden = !figureHasContent(frame);
+  if (card.hidden) setTimeout(() => {{ if (frame.src === src) card.hidden = !figureHasContent(frame); }}, 1500);
+}}
+document.getElementById('atlas-iframe').addEventListener('load', showAtlasCardIfDrawn);
+document.getElementById('atlas-iframe').addEventListener('error', () => {{
+  document.getElementById('atlas-card').hidden = true;
 }});
 document.getElementById('btn-reload-atlas').addEventListener('click', () => {{
   const iframe = document.getElementById('atlas-iframe');

@@ -157,6 +157,7 @@
       "title": "Negative numbers, primes and powers",
       "subtitle": "School book chapter 1 · Why minus times minus is plus, how every number is built from primes, and the rules for powers",
       "hookSummary": "Why does a minus times a minus make a plus?",
+      "beyondSchoolBook": false,
       "skillCard": {
         "skill": "Signs, primes and powers",
         "sheCan": {
@@ -278,7 +279,8 @@
               "kind": "sayBack",
               "text": "Multiplying by a negative number is an about-turn, so two of them leave you facing forward."
             }
-          ]
+          ],
+          "figure": true
         },
         {
           "id": "ch01-s2",
@@ -509,7 +511,8 @@
               "kind": "sayBack",
               "text": "The HCF is built from the prime pieces two numbers share, and the LCM from every piece either one needs."
             }
-          ]
+          ],
+          "figure": true
         },
         {
           "id": "ch01-s4",
@@ -709,7 +712,42 @@
         "w_negative_rotation_line",
         "w_prime_venn_hcf_lcm",
         "w_index_staircase_surds"
-      ]
+      ],
+      "debate": {
+        "id": "debate-ch01-primes",
+        "chapterNumber": 1,
+        "oupUnitNumber": 1,
+        "title": "Two trains from Dadar",
+        "contextPrompt": "Fast trains leave Dadar every 12 minutes. Slow trains leave every 18 minutes. Both leave together at 8:00 AM. Kabir and Meera disagree about when they next leave together.",
+        "speakerAName": "Kabir",
+        "speakerAClaim": "Multiply the two gaps. 12 × 18 = 216, so it is 216 minutes later.",
+        "speakerBName": "Meera",
+        "speakerBClaim": "Count on in 12s and in 18s. The first number in both lists is 36, so it is 36 minutes later.",
+        "choices": [
+          {
+            "id": "ch01-a",
+            "speakerLabel": "Kabir is right (216 minutes)",
+            "reasoningStatement": "To find when two things next happen together, multiply the two gaps.",
+            "isCorrect": false,
+            "socraticRebuttal": "The trains do leave together after 216 minutes. But they have already left together five times before that. The first time is after 36 minutes."
+          },
+          {
+            "id": "ch01-b",
+            "speakerLabel": "Meera is right (36 minutes)",
+            "reasoningStatement": "The 12s go 12, 24, 36. The 18s go 18, 36. The first number in both lists is 36.",
+            "isCorrect": true,
+            "socraticRebuttal": "Yes. 36 = 3 × 12 and 36 = 2 × 18, so both trains leave at 8:36 AM."
+          },
+          {
+            "id": "ch01-c",
+            "speakerLabel": "Neither. It is 6 minutes.",
+            "reasoningStatement": "6 is the biggest number that divides into both 12 and 18.",
+            "isCorrect": false,
+            "socraticRebuttal": "6 does divide into both. But after 6 minutes neither train has left again. The answer must be a number that 12 and 18 both divide into."
+          }
+        ],
+        "invariantTakeaway": "Multiplying two numbers always gives a number in both lists. It is often not the first one."
+      }
     },
     {
       "id": "ch02",
@@ -26362,6 +26400,71 @@
       ]
     },
     {
+      "id": "power",
+      "name": "Power",
+      "aliases": [
+        "powers",
+        "power of",
+        "index",
+        "indices"
+      ],
+      "oneSentence": "A short way to write a number multiplied by itself several times.",
+      "picture": "You forward a message to 3 people. Each of them forwards it to 3 more. In the 4th round it reaches 3 × 3 × 3 × 3 = 81 people. We write that as 3⁴.",
+      "steps": [
+        "The big number is the base. It is the number being multiplied.",
+        "The small raised number is the index. It says how many times the base appears.",
+        "Write it out and multiply. 2⁵ = 2 × 2 × 2 × 2 × 2 = 32."
+      ],
+      "workedExample": "Work out 5³. The base is 5 and it appears 3 times. 5 × 5 × 5 = 25 × 5 = 125.",
+      "check": {
+        "id": "power-check",
+        "prompt": "Work out 2⁴.",
+        "answer": "16",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "16"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "16",
+            "= 16"
+          ],
+          "rejects": [
+            "8",
+            "6",
+            "32"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "multiplying",
+        "how": "3⁴ is not 3 × 4. 3 × 4 = 12, but 3⁴ = 3 × 3 × 3 × 3 = 81."
+      },
+      "standsOn": [],
+      "usedIn": [
+        {
+          "chapter": 1,
+          "label": "Chapter 1 · Negative numbers, primes and powers"
+        },
+        {
+          "concept": "index-laws",
+          "label": "Laws of indices"
+        },
+        {
+          "concept": "square-root",
+          "label": "Square root"
+        }
+      ]
+    },
+    {
       "id": "prime-number",
       "name": "Prime number",
       "aliases": [
@@ -26638,71 +26741,6 @@
         {
           "chapter": 1,
           "label": "Chapter 1 · Negative numbers, primes and powers"
-        }
-      ]
-    },
-    {
-      "id": "power",
-      "name": "Power",
-      "aliases": [
-        "power",
-        "powers",
-        "index",
-        "indices"
-      ],
-      "oneSentence": "A short way to write a number multiplied by itself several times.",
-      "picture": "You forward a message to 3 people. Each of them forwards it to 3 more. In the 4th round it reaches 3 × 3 × 3 × 3 = 81 people. We write that as 3⁴.",
-      "steps": [
-        "The big number is the base. It is the number being multiplied.",
-        "The small raised number is the index. It says how many times the base appears.",
-        "Write it out and multiply. 2⁵ = 2 × 2 × 2 × 2 × 2 = 32."
-      ],
-      "workedExample": "Work out 5³. The base is 5 and it appears 3 times. 5 × 5 × 5 = 25 × 5 = 125.",
-      "check": {
-        "id": "power-check",
-        "prompt": "Work out 2⁴.",
-        "answer": "16",
-        "answerKey": {
-          "parts": [
-            {
-              "label": "answer",
-              "anyOf": [
-                {
-                  "kind": "number",
-                  "value": "16"
-                }
-              ]
-            }
-          ],
-          "accepts": [
-            "16",
-            "= 16"
-          ],
-          "rejects": [
-            "8",
-            "6",
-            "32"
-          ],
-          "mistakes": []
-        }
-      },
-      "mixUp": {
-        "name": "multiplying",
-        "how": "3⁴ is not 3 × 4. 3 × 4 = 12, but 3⁴ = 3 × 3 × 3 × 3 = 81."
-      },
-      "standsOn": [],
-      "usedIn": [
-        {
-          "chapter": 1,
-          "label": "Chapter 1 · Negative numbers, primes and powers"
-        },
-        {
-          "concept": "index-laws",
-          "label": "Laws of indices"
-        },
-        {
-          "concept": "square-root",
-          "label": "Square root"
         }
       ]
     },

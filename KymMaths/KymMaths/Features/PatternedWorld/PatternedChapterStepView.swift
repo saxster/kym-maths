@@ -31,6 +31,9 @@ struct PatternedChapterStepView: View {
                 }
             }
 
+            SkillCardPanel(card: beat.skillCard, beyondSchoolLine: beat.beyondSchoolLine,
+                           linksConcepts: chapter.linksConcepts)
+
             if beat.teachingSteps.isEmpty {
                 ForEach(paragraphs, id: \.self) { paragraph in
                     ConceptText(PatternedBook.byrneMarked(paragraph, terms: terms), linking: chapter.linksConcepts)
@@ -51,16 +54,18 @@ struct PatternedChapterStepView: View {
                 }
             }
 
-            ChapterFigure(
-                chapter: chapter,
-                isShown: $reading.showEmbeddedWebStage,
-                highlightedColorRole: reading.highlightedColorRole,
-                onTermHighlighted: { role, symbol in
-                    reading.highlightedColorRole = role
-                    if !symbol.isEmpty { reading.selectedTermSymbol = symbol }
-                },
-                store: store
-            )
+            if beat.showsFigure {
+                ChapterFigure(
+                    chapter: chapter,
+                    isShown: $reading.showEmbeddedWebStage,
+                    highlightedColorRole: reading.highlightedColorRole,
+                    onTermHighlighted: { role, symbol in
+                        reading.highlightedColorRole = role
+                        if !symbol.isEmpty { reading.selectedTermSymbol = symbol }
+                    },
+                    store: store
+                )
+            }
 
             if let callout = beat.callout {
                 calloutBlock(callout)

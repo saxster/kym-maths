@@ -56,6 +56,10 @@ struct PatternedChapterScrollView: View {
             if isRead {
                 StatusTag(.proven, label: "Read")
             }
+            SkillCardPanel(card: chapter.skillCard,
+                           beyondSchoolLine: ChapterInteractiveBeatEngine.beyondSchoolLine(for: chapter),
+                           linksConcepts: chapter.linksConcepts)
+                .padding(.top, StandardSpacing.xs)
         }
     }
 
@@ -101,7 +105,7 @@ struct PatternedChapterScrollView: View {
                 }
             } else {
                 LockedNote("The rule this picture gives you opens after you predict.")
-                Button("Just show me the rule") {
+                Button("Show me the rule now") {
                     reading.bypassedPredictionChapters.insert(chapter.number)
                 }
                 .buttonStyle(TextLinkButtonStyle())
@@ -128,7 +132,7 @@ struct PatternedChapterScrollView: View {
     // MARK: Who is right?
 
     private var debate: some View {
-        let scenario = MathematicalDebateEngine.scenario(forChapter: chapter.number)
+        let scenario = MathematicalDebateEngine.scenario(for: chapter)
         return VStack(alignment: .leading, spacing: StandardSpacing.sm) {
             Kicker("Who is right, and why?")
             MathematicalDebateCardView(

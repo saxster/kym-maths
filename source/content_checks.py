@@ -1,5 +1,5 @@
 """
-The seven checks from docs/CONTENT_BRIEF.md, run before the exporter or the splice script writes anything.
+The seven checks from docs/CONTENT_BRIEF.md, and the ones docs/CONTENT_PLAN.md adds, run before the exporter or the splice script writes anything.
 
 They apply to rewritten content: the chapters that come from source/book/, their widget, Atlas and tip
 text, and every concept card. `problems(pack, rewritten)` lists every failure; `require_clean` stops
@@ -14,6 +14,12 @@ from concept_links import Linker, fold
 STEP_KINDS = ["question", "idea", "picture", "reason", "name", "example", "mistake", "turn", "sayBack"]
 BANNED = ["invariant", "lockstep", "horizon", "symbolic", "anatomy", "duality", "renormalise", "heuristic",
           "mensuration", "kinematics", "don't worry", "it's easy", "simply", "just", "obviously", "clearly"]
+# Everyday words that are also maths words. A card links on "a set" or "sets", never on the bare word,
+# or "set the sliders to 24" would open the Set card (check 8).
+AMBIGUOUS = {"set", "term", "power", "mean", "range", "limit", "net", "face", "plan", "event", "similar", "function",
+             "product", "base", "sample"}
+# A section whose steps point at the chapter's figure carries `"figure": true`, and only that section (check 9).
+FIGURE_PHRASE = "in the figure"
 MAX_SENTENCE_WORDS = 25
 SHARED_SENTENCE_WORDS = 6
 CARD_TEXT_FIELDS = ["name", "oneSentence", "picture", "workedExample"]
@@ -63,6 +69,14 @@ def chapter_record_strings(chapter, legend=True):
     for callout in chapter["callouts"]:
         out += [(f"{callout['id']} title", callout["title"]), (f"{callout['id']} body", callout["body"])]
     out += [(f"{tag} keyTerm", term) for term in chapter["keyTerms"]]
+    debate = chapter.get("debate")
+    if debate:
+        out += [(f"{tag} debate.{field}", debate[field])
+                for field in ("title", "contextPrompt", "speakerAName", "speakerAClaim", "speakerBName", "speakerBClaim")]
+        for choice in debate["choices"]:
+            out += [(f"{tag} debate.{choice['id']}.{field}", choice[field])
+                    for field in ("speakerLabel", "reasoningStatement", "socraticRebuttal")]
+        out.append((f"{tag} debate.invariantTakeaway", debate["invariantTakeaway"]))
     return out
 
 
@@ -187,6 +201,12 @@ def check_cards(pack):
     return out
 
 
+def check_ambiguous_aliases(pack):
+    return [f"8 ambiguous word: card {card.get('id')} alias \"{alias}\" is the everyday word \"{fold(alias).strip()}\"; "
+            "use a longer form that only means the maths"
+            for card in pack["concepts"] for alias in card.get("aliases", []) if fold(alias).strip() in AMBIGUOUS]
+
+
 def check_banned_words(strings):
     pattern = re.compile(r"(?<![\w’'])(" + "|".join(re.escape(word) for word in BANNED) + r")(?![\w’'])", re.IGNORECASE)
     out = []
@@ -278,6 +298,26 @@ def check_skill_cards(pack, rewritten):
             "whyItMatters": skill.get("whyItMatters"), "standsOn": skill.get("standsOn"), "unlocks": skill.get("unlocks"),
         }
         out += [f"7 skill card: {chapter['id']} skill card has no {field}" for field, value in filled.items() if not value]
+        beyond = chapter.get("beyondSchoolBook")
+        if not isinstance(beyond, bool):
+            out.append(f"7 skill card: {chapter['id']} has no beyondSchoolBook true or false")
+        elif beyond and not skill.get("standsOn"):
+            out.append(f"7 skill card: {chapter['id']} goes beyond the school book, so its skill card must name what it stands on")
+    return out
+
+
+def check_figures(pack, rewritten):
+    out = []
+    for chapter in pack["chapters"]:
+        if chapter["number"] not in rewritten:
+            continue
+        for section in chapter["sections"]:
+            says = any(FIGURE_PHRASE in fold(step["text"]) for step in section.get("steps", []))
+            flagged = section.get("figure") is True
+            if says and not flagged:
+                out.append(f"9 figure: {section['id']} says \"In the figure\" but has no \"figure\": true")
+            elif flagged and not says:
+                out.append(f"9 figure: {section['id']} has \"figure\": true but no step says \"In the figure\"")
     return out
 
 
@@ -285,10 +325,52 @@ def problems(pack, rewritten):
     strings = rewritten_strings(pack, rewritten)
     return (check_terms_are_cards(pack, rewritten) + check_cards(pack) + check_banned_words(strings)
             + check_sentence_length(strings) + check_shared_sentences(pack, rewritten)
-            + check_order(pack, rewritten) + check_skill_cards(pack, rewritten))
+            + check_order(pack, rewritten) + check_skill_cards(pack, rewritten) + check_ambiguous_aliases(pack)
+            + check_figures(pack, rewritten))
 
 
 def require_clean(pack, rewritten):
     found = problems(pack, rewritten)
     if found:
         raise SystemExit("Content checks failed; nothing was written:\n" + "\n".join(f"  {line}" for line in found))
+
+
+# ---------------------------------------------------------------------------
+# Whole-pack report: checks 3 and 4 over every chapter and card, counted, never stopping
+# ---------------------------------------------------------------------------
+
+def report(pack):
+    """{"chNN": {"banned", "long"}, "cards": {...}, "total": {...}}: check 3 and 4 failures over the whole pack."""
+    def counts(strings):
+        return {"banned": len(check_banned_words(strings)), "long": len(check_sentence_length(strings))}
+
+    found = {chapter["id"]: counts(chapter_strings(pack, chapter["number"])) for chapter in pack["chapters"]}
+    found["cards"] = counts([item for card in pack["concepts"] for item in card_strings(card)])
+    found["total"] = {kind: sum(row[kind] for row in found.values()) for kind in ("banned", "long")}
+    return found
+
+
+def report_lines(pack):
+    rows = report(pack)
+    lines = [f"{'':8}{'banned':>8}{'long':>8}"]
+    lines += [f"{name:8}{row['banned']:>8}{row['long']:>8}" for name, row in rows.items() if name != "total"]
+    lines.append(f"{'Total':8}{rows['total']['banned']:>8}{rows['total']['long']:>8}")
+    return lines
+
+
+def main(argv):
+    if argv != ["--report"]:
+        print("Usage: python3 content_checks.py --report")
+        return 2
+    import json
+
+    import export_kymmaths_pack as exporter
+    pack = json.loads(exporter.PACK_OUT.read_text(encoding="utf-8"))
+    print("Checks 3 (banned words) and 4 (sentences over 25 words), every chapter and card:")
+    print("\n".join(report_lines(pack)))
+    return 0
+
+
+if __name__ == "__main__":
+    import sys
+    sys.exit(main(sys.argv[1:]))

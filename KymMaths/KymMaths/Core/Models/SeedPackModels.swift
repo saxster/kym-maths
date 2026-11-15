@@ -181,6 +181,13 @@ struct PatternedWorldChapter: Codable, Identifiable, Equatable, Sendable {
     let callouts: [PatternedWorldCallout]
     let keyTerms: [String]
     let widgets: [String]
+    /// The chapter's "Who is right?", on chapters rewritten to the content brief. The others still
+    /// read theirs from `MathematicalDebateCatalog`.
+    let debate: MathematicalDebateScenario?
+    /// True when no school unit teaches this chapter, so its first screen says it goes past her book.
+    let beyondSchoolBook: Bool?
+
+    var goesBeyondSchoolBook: Bool { beyondSchoolBook ?? false }
 
     /// A chapter rewritten to the content brief links its concept names to their cards; the others
     /// read as they always have.
@@ -209,8 +216,14 @@ struct PatternedWorldSection: Codable, Identifiable, Equatable, Sendable {
     let teaches: [String]?
     /// The nine teaching steps of a rewritten section; absent on the others.
     let steps: [TeachingStep]?
+    /// True on a rewritten section whose text uses the chapter's interactive figure.
+    let figure: Bool?
 
     var teachingSteps: [TeachingStep] { steps ?? [] }
+
+    /// Whether the figure sits beside this section. A rewritten section shows it only when its text
+    /// uses it; a section not yet rewritten keeps it, as it always had.
+    var showsFigure: Bool { steps == nil ? true : figure == true }
 }
 
 /// The nine moves a rewritten section makes, in this order.
