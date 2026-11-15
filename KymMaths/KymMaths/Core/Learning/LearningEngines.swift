@@ -765,42 +765,6 @@ public enum MathematicalDebateEngine {
 
 public enum MathematicalDebateCatalog {
     public static let all: [MathematicalDebateScenario] = [
-        // Ch 0 -> OUP Ch 1 (Sets & Venn Logic)
-        MathematicalDebateScenario(
-            id: "debate-ch00-sets",
-            chapterNumber: 0,
-            oupUnitNumber: 1,
-            title: "The Club Overlap Paradox",
-            contextPrompt: "In a Mumbai Grade 8 homeroom of 40 students, 24 play Cricket (C), 20 play Football (F), and 4 play neither. Aarav and Zoya debate how many play BOTH sports:",
-            speakerAName: "Aarav",
-            speakerAClaim: "24 + 20 = 44, and since there are 40 students in class, 44 − 40 = 4 students must play both!",
-            speakerBName: "Zoya",
-            speakerBClaim: "Wait—4 students are outside both circles! So the union |C ∪ F| is 40 − 4 = 36, which means 44 − 36 = 8 students play both.",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch00-a",
-                    speakerLabel: "Aarav is right (4 students)",
-                    reasoningStatement: "Subtracting the total class size 40 from |C| + |F| = 44 always gives the overlap.",
-                    isCorrect: false,
-                    socraticRebuttal: "Check the 4 students who play neither sport! If only 4 played both, then 20 + 4 + 16 = 40 would play a sport, leaving 0 outside the circles."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch00-b",
-                    speakerLabel: "Zoya is right (8 students)",
-                    reasoningStatement: "First remove the 4 'neither' students to get |C ∪ F| = 36, then subtract 36 from |C| + |F| = 44.",
-                    isCorrect: true,
-                    socraticRebuttal: "Spot on! Only C = 16, Both = 8, Only F = 12, Neither = 4, and 16 + 8 + 12 + 4 = 40."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch00-c",
-                    speakerLabel: "Neither — the overlap is 24 − 20 = 4",
-                    reasoningStatement: "The intersection of two sets is the difference between their sizes.",
-                    isCorrect: false,
-                    socraticRebuttal: "|C| − |F| compares circle sizes, not how deeply the two circles overlap inside the universal box."
-                )
-            ],
-            invariantTakeaway: "|A ∪ B| = Total − Neither, and |A ∩ B| = |A| + |B| − |A ∪ B|."
-        ),
         // Ch 2 -> OUP Ch 1 (Indices & Standard Form)
         MathematicalDebateScenario(
             id: "debate-ch02-indices",

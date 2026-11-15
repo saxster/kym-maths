@@ -31,6 +31,7 @@ shot() {
 shot today 4 01-today
 shot school 2.5 03-school
 shot chapter 3 06-patterned
+shot chapter/0/read 4 07-chapter-0
 shot chapter/1 4 07-chapter-1
 shot widget 2.5 09-atlas
 shot polya 2.5 11-polya

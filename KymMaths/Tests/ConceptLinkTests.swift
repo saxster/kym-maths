@@ -16,9 +16,9 @@ struct ConceptLinkTests {
         Self.library.linker.links(in: text, exclude: exclude, linked: linked).map(\.concept)
     }
 
-    @Test("The pack carries eleven concept cards and chapter 1's nine-step sections")
+    @Test("The pack carries the cards of chapters 0 and 1, and their nine-step sections")
     func packDecodesCardsAndSteps() throws {
-        #expect(Self.pack.concepts.count == 11)
+        #expect(Self.pack.concepts.count == 25)
         #expect(Self.pack.conceptStopPhrases.contains("scale factor"))
         let chapter = try #require(Self.pack.chapters.first { $0.number == 1 })
         #expect(chapter.skillCard != nil)
@@ -29,8 +29,15 @@ struct ConceptLinkTests {
             #expect(section.excerpt == section.teachingSteps.first { $0.kind == .idea }?.text)
         }
         #expect(chapter.callouts.map(\.id) == ["ch01-c-predict", "ch01-c-aha", "ch01-c-trap"])
-        let others = Self.pack.chapters.filter { $0.number != 1 }
-        #expect(others.count == 20)
+        let zero = try #require(Self.pack.chapters.first { $0.number == 0 })
+        #expect(zero.skillCard != nil && zero.linksConcepts && zero.goesBeyondSchoolBook)
+        #expect(zero.sections.count == 7)
+        for section in zero.sections {
+            #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
+        }
+        #expect(zero.callouts.map(\.id) == ["ch00-c-predict", "ch00-c-aha", "ch00-c-trap"])
+        let others = Self.pack.chapters.filter { $0.number > 1 }
+        #expect(others.count == 19)
         #expect(others.allSatisfy { !$0.linksConcepts && $0.skillCard == nil })
         for card in Self.pack.concepts {
             for id in card.standsOn + [card.mixUp.with].compactMap({ $0 }) {

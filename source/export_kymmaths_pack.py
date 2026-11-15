@@ -17,6 +17,7 @@ from pathlib import Path
 import answer_marking as marking
 import concept_links
 import content_checks
+from book import ch00 as book_ch00
 from book import ch01 as book_ch01
 from book import concepts as book_concepts
 
@@ -26,7 +27,7 @@ BOOK_OUT = ROOT / "KymMaths" / "KymMaths" / "Resources" / "PatternedWorldBook" /
 GOLDEN_OUT = ROOT / "KymMaths" / "Tests" / "Golden" / "concept-links.json"
 
 # Chapters rewritten by hand to docs/CONTENT_BRIEF.md. The content checks apply to these.
-BOOK_CHAPTERS = (book_ch01,)
+BOOK_CHAPTERS = (book_ch00, book_ch01)
 # Saved learner responses key on callout ids, so a rewritten chapter keeps the old ids.
 CALLOUT_ID_SUFFIX = {"predict": "predict", "check": "aha", "careful": "trap"}
 
@@ -222,22 +223,6 @@ def build_volumes():
 
 def build_chapters():
     raw_specs = [
-        (
-            0, 1, "Sets, Venn Regions & The Laws of Thought",
-            "Set builder notation, Venn partitions, Inclusion–Exclusion, truth tables & De Morgan's duality",
-            "Before you calculate with numbers, you classify objects into sets and test statements for truth.",
-            "Drag two overlapping circles A and B across a universal set ξ of 30 Mumbai students.",
-            "The overlap A ∩ B gets counted once inside |A| and a second time inside |B| — subtracting |A ∩ B| once restores the exact union count!",
-            "n(A ∪ B) = n(A) + n(B) − n(A ∩ B)   and   (A ∪ B)′ = A′ ∩ B′",
-            [
-                {"symbol": "n(A) + n(B)", "visualPart": "Red circle A + Blue circle B", "colorRole": "red", "meaning": "Sum of both circles (double-counts the centre lens)"},
-                {"symbol": "− n(A ∩ B)", "visualPart": "Amber centre lens overlap", "colorRole": "amber", "meaning": "Removes the duplicate count of the intersection"},
-                {"symbol": "(A ∪ B)′ = A′ ∩ B′", "visualPart": "Green exterior courtyard", "colorRole": "green", "meaning": "Outside both circles equals outside A AND outside B (De Morgan)"}
-            ],
-            "maths/ch00-sets-logic/index.html",
-            ["Set", "Subset ⊆", "Union ∪", "Intersection ∩", "Complement A′", "Power Set P(A)", "Implication p ⇒ q", "Contrapositive ¬q ⇒ ¬p", "De Morgan's Laws"],
-            ["w_venn_inclusion_exclusion", "w_truth_table_logic_gates", "w_quantifier_counterexample"]
-        ),
         (
             2, 1, "Fractions, Recurring Decimals & The Scaling Engine",
             "OUP Ch 6 · Multiplying & dividing fractions, significant figures & 10ᵏx − x recurring decimal proofs",
@@ -4848,7 +4833,7 @@ const COMPANION_BOOKS = {{
 }};
 
 const CH_SLIDERS = {{
-  0:  [{{lbl:'|A| count:',min:8,max:22,step:1,val:16,u:''}}, {{lbl:'|B| count:',min:6,max:20,step:1,val:14,u:''}}, {{lbl:'Overlap |A∩B|:',min:1,max:10,step:1,val:6,u:''}}],
+  0:  [{{lbl:'In A (cricket):',min:8,max:22,step:1,val:18,u:''}}, {{lbl:'In B (football):',min:6,max:20,step:1,val:15,u:''}}, {{lbl:'In both:',min:0,max:20,step:1,val:7,u:''}}],
   1:  [{{lbl:'First number:',min:6,max:48,step:6,val:24,u:''}}, {{lbl:'Second number:',min:6,max:60,step:6,val:36,u:''}}, {{lbl:'Turns:',min:0,max:2,step:1,val:2,u:''}}],
   2:  [{{lbl:'Repeating block:',min:9,max:81,step:9,val:36,u:''}}, {{lbl:'Whole units N:',min:1,max:5,step:1,val:3,u:''}}, {{lbl:'Denominator b:',min:2,max:6,step:1,val:4,u:''}}],
   3:  [{{lbl:'Ratio parts A:',min:1,max:6,step:1,val:3,u:'u'}}, {{lbl:'Ratio parts B:',min:2,max:8,step:1,val:5,u:'u'}}, {{lbl:'Compound rate r:',min:4,max:15,step:1,val:8,u:'%'}}],
@@ -5017,24 +5002,35 @@ function drawSandbox() {{
 
   switch (ch.number) {{
     case 0: {{
-      // Ch 0: Venn Inclusion-Exclusion & De Morgan Courtyard
-      const inter = Math.min(a, b, Math.round(c));
-      const onlyA = Math.max(0, Math.round(a) - inter);
-      const onlyB = Math.max(0, Math.round(b) - inter);
+      // Ch 0: two circles in a class of 30. The middle can't be more than the smaller circle,
+      // and can't be so small that the two circles hold more than 30 between them.
+      const A = Math.round(a), B = Math.round(b);
+      const least = Math.max(0, A + B - 30), most = Math.min(A, B);
+      const inter = Math.min(most, Math.max(least, Math.round(c)));
+      if (inter !== Math.round(c)) {{
+        inpC.value = inter;
+        document.getElementById('val-c').textContent = inter + (inpC.dataset.unit || '');
+      }}
+      const onlyA = A - inter, onlyB = B - inter;
       const union = onlyA + onlyB + inter;
-      const outside = Math.max(0, 30 - union);
+      const outside = 30 - union;
       ctx.strokeStyle = green; ctx.fillStyle = green + '14'; ctx.lineWidth = 2;
       ctx.fillRect(24, 22, w - 48, h - 44); ctx.strokeRect(24, 22, w - 48, h - 44);
-      ctx.fillStyle = green; ctx.fillText(`ξ = 30 · Exterior (A ∪ B)′ = A′ ∩ B′ = ${{outside}}`, 36, 44);
+      ctx.fillStyle = green; ctx.fillText(`All 30 students · outside both circles: ${{outside}}`, 36, 44);
       const cxA = w * 0.39, cxB = w * 0.59, cy = h * 0.56, r = 74;
       ctx.fillStyle = red + '28'; ctx.strokeStyle = red; ctx.lineWidth = 2.5;
       ctx.beginPath(); ctx.arc(cxA, cy, r, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
       ctx.fillStyle = blue + '28'; ctx.strokeStyle = blue;
       ctx.beginPath(); ctx.arc(cxB, cy, r, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-      ctx.fillStyle = red; ctx.fillText(`Only A: ${{onlyA}}`, cxA - 54, cy + 4);
-      ctx.fillStyle = amber; ctx.fillText(`A∩B: ${{inter}}`, (cxA + cxB) / 2 - 24, cy + 4);
-      ctx.fillStyle = blue; ctx.fillText(`Only B: ${{onlyB}}`, cxB + 14, cy + 4);
-      readoutHtml = `n(A) = ${{onlyA + inter}}, n(B) = ${{onlyB + inter}}, Overlap n(A ∩ B) = ${{inter}}<br><b>n(A ∪ B) = ${{onlyA + inter}} + ${{onlyB + inter}} − ${{inter}} = ${{union}}</b> · Exterior (A ∪ B)′ = <b>${{outside}}</b>`;
+      ctx.fillStyle = red; ctx.fillText('A · cricket', cxA - r - 10, cy - r - 10);
+      ctx.fillStyle = blue; ctx.fillText('B · football', cxB + r - 60, cy - r - 10);
+      ctx.fillStyle = red; ctx.fillText(`A only: ${{onlyA}}`, cxA - 60, cy + 4);
+      ctx.fillStyle = amber; ctx.fillText(`Both: ${{inter}}`, (cxA + cxB) / 2 - 22, cy + 4);
+      ctx.fillStyle = blue; ctx.fillText(`B only: ${{onlyB}}`, cxB + 12, cy + 4);
+      const limit = inter === least && least > 0
+        ? `<br>The middle can't go below ${{A}} + ${{B}} − 30 = ${{least}}, or the circles would hold more than 30 students.`
+        : '';
+      readoutHtml = `In A: ${{A}} · In B: ${{B}} · In both: ${{inter}}<br><b>In at least one: ${{A}} + ${{B}} − ${{inter}} = ${{union}}</b> · Outside both: <b>${{outside}}</b>${{limit}}`;
       break;
     }}
     case 1: {{

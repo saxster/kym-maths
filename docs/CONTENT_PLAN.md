@@ -221,7 +221,8 @@ The work is finished when A1 to A12 hold for the whole pack and the brief's "Don
 |---|---|---|---|---|---|
 | 1 | yes | yes | yes (iPad) | waiting | `e416fa8` |
 | Stage 0 | yes (G1 to G12, A8) | yes: 44 Python, 216 Swift | n/a | n/a | not committed |
-| 0, 2 to 20 | | | | | |
+| 0 | yes (7 sections, 14 cards) | yes | yes (iPad both modes, iPhone shots, Mac build, A12 upgrade) | waiting: no notes for chapter 0 or chapter 1 yet | not committed |
+| 2 to 20 | | | | | |
 
 ## Contract amendments
 

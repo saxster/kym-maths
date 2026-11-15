@@ -1,5 +1,1819 @@
 [
   {
+    "text": "Sets and logic",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "Sets",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Beyond the school book · How to sort things into groups, count overlaps without counting twice, and test an if-then claim",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "How do you count a crowd without counting anyone twice?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Sorting, counting overlaps and testing claims",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "With no calculator: in a class of 30, 17 play cricket, 12 play football and 5 play both. How many play neither? Then find a number that breaks the claim \"if a number is odd, it is a multiple of 3\".",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "multiple",
+        "text": "multiple of",
+        "offset": 182
+      }
+    ]
+  },
+  {
+    "text": "17 + 12 − 5 = 24 play a sport, so 6 play neither. 5 breaks the claim, because it is odd and not a multiple of 3. So do 1, 7, 11 and 13.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "multiple",
+        "text": "multiple of",
+        "offset": 98
+      }
+    ]
+  },
+  {
+    "text": "Working out chances means counting outcomes in groups that overlap, so it needs this way of counting. A proof in geometry is a chain of if-then steps. One counterexample stops you from trusting a false rule.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "counterexample",
+        "text": "counterexample",
+        "offset": 155
+      }
+    ]
+  },
+  {
+    "text": "Multiples and times tables",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "multiple",
+        "text": "Multiples",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Adding and taking away up to 100",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Powers of 2, like 2³ = 8",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "power",
+        "text": "Powers",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Chapter 8: angles and proof, built from if-then steps",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 15: counting outcomes, often drawn as Venn diagrams",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "venn-diagram",
+        "text": "Venn diagrams",
+        "offset": 46
+      }
+    ]
+  },
+  {
+    "text": "Chapter 16: Bayes, which counts people in overlapping groups",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Move the three sliders: how many play cricket, how many play football, and how many play both. Watch the four parts of the class change. They always add up to 30.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The students who play both are inside the cricket count and inside the football count. Add the two counts and they are counted twice. Take the overlap away once and everyone counts once.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "n(A ∪ B) = n(A) + n(B) − n(A ∩ B),   (A ∪ B)′ = A′ ∩ B′",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "union",
+        "text": "∪",
+        "offset": 4
+      },
+      {
+        "concept": "intersection",
+        "text": "∩",
+        "offset": 29
+      },
+      {
+        "concept": "complement",
+        "text": "A′",
+        "offset": 48
+      }
+    ]
+  },
+  {
+    "text": "n(A) + n(B)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The red circle and the blue circle",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Adds the middle twice, once with each circle",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "− n(A ∩ B)",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "intersection",
+        "text": "∩",
+        "offset": 6
+      }
+    ]
+  },
+  {
+    "text": "The amber middle",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Takes the middle away once, so it counts once",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "(A ∪ B)′",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "union",
+        "text": "∪",
+        "offset": 3
+      }
+    ]
+  },
+  {
+    "text": "The green box outside both circles",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Everyone who is in neither group",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "0.1 What makes a set",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "a set",
+        "offset": 15
+      }
+    ]
+  },
+  {
+    "text": "0.2 Where two sets meet",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "sets",
+        "offset": 14
+      }
+    ]
+  },
+  {
+    "text": "0.3 Counting without counting twice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "0.4 Sets inside sets",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "Sets",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "0.5 If this, then that",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "0.6 The same promise, read backwards",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "0.7 Not this and not that",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Predict first",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "18 students play cricket and 15 play football, in a class of 30. Could it be that nobody plays both? Write your answer and one reason before you check it with the figure.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Explain it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A friend adds 18 cricket players and 15 football players and says 33 students play a sport. Explain in your own words what went wrong.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Watch out for the middle",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "When you count everyone who plays cricket or football, the students who play both belong to the count. Count them once, not twice and not zero times.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Member",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "member",
+        "text": "Member",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Universal set",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "universal-set",
+        "text": "Universal set",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Venn diagram",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "venn-diagram",
+        "text": "Venn diagram",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Intersection",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "intersection",
+        "text": "Intersection",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Union",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "union",
+        "text": "Union",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Complement",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "complement",
+        "text": "Complement",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Subset",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "subset",
+        "text": "Subset",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Power set",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "power-set",
+        "text": "Power set",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "If-then statement",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "if-then-statement",
+        "text": "If-then statement",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Counterexample",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "counterexample",
+        "text": "Counterexample",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Contrapositive",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "contrapositive",
+        "text": "Contrapositive",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Truth table",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "truth-table",
+        "text": "Truth table",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "De Morgan's laws",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "de-morgan",
+        "text": "De Morgan's laws",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Who plays both?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A class in Mumbai has 40 students. 24 play cricket, 20 play football and 4 play neither. Aarav and Zoya disagree about how many play both.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Aarav",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "24 + 20 = 44. The class has 40, so 44 − 40 = 4 must play both.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Zoya",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The 4 who play neither are outside both circles. So 40 − 4 = 36 play a sport, and 44 − 36 = 8 play both.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Aarav is right (4 students)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Take the class size away from the two counts added together, and you get the overlap.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Try it with 4 in both. Then 20 play only cricket and 16 play only football. 20 + 4 + 16 = 40, which leaves nobody outside the circles. But 4 students play neither.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Zoya is right (8 students)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "First take away the 4 who play neither. The overlap is how far 44 goes past the 36 who are left.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Yes. 16 play only cricket, 8 play both and 12 play only football. 16 + 8 + 12 + 4 = 40.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Neither. It is 24 − 20 = 4.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The overlap is the difference between the two counts.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "24 − 20 compares the sizes of the two circles. It says nothing about how much they overlap.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "First find how many are inside the circles. The overlap is how far the two counts add up past that.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Two circles in a class of 30",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Put 18 in A, 15 in B and 7 in both. Predict how many students are outside both circles, then read the figure.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "11 play cricket only, 7 play both and 8 play football only. That is 26, so 4 are outside both circles.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The rule: n(A ∪ B) = n(A) + n(B) − n(A ∩ B)",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "union",
+        "text": "∪",
+        "offset": 14
+      },
+      {
+        "concept": "intersection",
+        "text": "∩",
+        "offset": 39
+      }
+    ]
+  },
+  {
+    "text": "1. Try it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Put 18 in A, 15 in B and 7 in both.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2. Notice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The four parts are 11, 7, 8 and 4. Together they make 30.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3. Match the colours",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Red is A, blue is B, the amber number is the middle, and green is outside both.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "4. Push it further",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Put 22 in A and 20 in B. Why can the middle not go below 12?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "5. Draw it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw the two circles in your journal and write the count in each of the four parts.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Checking every case",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "On paper, make a table with four rows: in A and in B, in A only, in B only, in neither. Use it to check that outside A ∪ B means outside A and outside B.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "union",
+        "text": "∪",
+        "offset": 119
+      }
+    ]
+  },
+  {
+    "text": "Only the last row is outside A ∪ B. It is also the only row outside A and outside B. So (A ∪ B)′ = A′ ∩ B′.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "union",
+        "text": "∪",
+        "offset": 31
+      },
+      {
+        "concept": "complement",
+        "text": "A′",
+        "offset": 99
+      },
+      {
+        "concept": "intersection",
+        "text": "∩",
+        "offset": 102
+      }
+    ]
+  },
+  {
+    "text": "The rule: (A ∪ B)′ = A′ ∩ B′",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "union",
+        "text": "∪",
+        "offset": 13
+      },
+      {
+        "concept": "complement",
+        "text": "A′",
+        "offset": 21
+      },
+      {
+        "concept": "intersection",
+        "text": "∩",
+        "offset": 24
+      }
+    ]
+  },
+  {
+    "text": "1. Try it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write the four rows: in both, in A only, in B only, in neither.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2. Notice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Tick the rows that are inside A ∪ B. Three are, and one is not.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "union",
+        "text": "∪",
+        "offset": 32
+      }
+    ]
+  },
+  {
+    "text": "3. Match the rule",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The row outside A ∪ B is the row that is outside A and outside B.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "union",
+        "text": "∪",
+        "offset": 18
+      }
+    ]
+  },
+  {
+    "text": "4. Push it further",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Now tick the rows outside A ∩ B. Which description picks the same three rows?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "intersection",
+        "text": "∩",
+        "offset": 28
+      }
+    ]
+  },
+  {
+    "text": "5. Draw it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Copy the table into your journal and mark the rows for each side of the law.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Hunting for a counterexample",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "counterexample",
+        "text": "counterexample",
+        "offset": 14
+      }
+    ]
+  },
+  {
+    "text": "Test the claim \"if a number is odd, it is a multiple of 3\" on the numbers 1 to 15. Find every number that breaks it.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "multiple",
+        "text": "multiple of",
+        "offset": 44
+      }
+    ]
+  },
+  {
+    "text": "1, 5, 7, 11 and 13 are odd and not multiples of 3. Any one of them breaks the claim.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "multiple",
+        "text": "multiples",
+        "offset": 35
+      }
+    ]
+  },
+  {
+    "text": "One counterexample is enough to show a claim is false.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "counterexample",
+        "text": "counterexample",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "1. Try it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write the odd numbers from 1 to 15.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2. Notice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Cross out each one that is a multiple of 3. Five numbers are left.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "multiple",
+        "text": "multiple of",
+        "offset": 29
+      }
+    ]
+  },
+  {
+    "text": "3. Match the rule",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Each number left is odd and not a multiple of 3, so each one is a counterexample.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "multiple",
+        "text": "multiple of",
+        "offset": 34
+      },
+      {
+        "concept": "counterexample",
+        "text": "counterexample",
+        "offset": 66
+      }
+    ]
+  },
+  {
+    "text": "4. Push it further",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Now test \"if a number is a multiple of 6, it is even\". Can you break it?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "multiple",
+        "text": "multiple of",
+        "offset": 27
+      }
+    ]
+  },
+  {
+    "text": "5. Draw it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "In your journal, draw the odd numbers and the multiples of 3 as two circles. Put 5 where it belongs.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "multiple",
+        "text": "multiples",
+        "offset": 46
+      }
+    ]
+  },
+  {
+    "text": "Chapter 0 · Two circles in a class of 30",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why do 18 cricket players and 15 football players make only 26 students who play a sport?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The 7 who play both are inside both counts. Take them away once: 18 + 15 − 7 = 26.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The rule: n(A ∪ B) = n(A) + n(B) − n(A ∩ B)",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "union",
+        "text": "∪",
+        "offset": 14
+      },
+      {
+        "concept": "intersection",
+        "text": "∩",
+        "offset": 39
+      }
+    ]
+  },
+  {
+    "text": "How do you count a crowd without counting anyone twice?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 0 · Outside both circles",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "How many of the 30 students play neither sport?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "26 play at least one sport, so 30 − 26 = 4 are outside both circles. They make up the complement of A ∪ B.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "complement",
+        "text": "complement",
+        "offset": 86
+      },
+      {
+        "concept": "union",
+        "text": "∪",
+        "offset": 102
+      }
+    ]
+  },
+  {
+    "text": "The count: n((A ∪ B)′) = 30 − 26 = 4",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "union",
+        "text": "∪",
+        "offset": 16
+      }
+    ]
+  },
+  {
+    "text": "How do you count a crowd without counting anyone twice?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 0 · Not this and not that",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why is outside A ∪ B the same as outside A and outside B?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "union",
+        "text": "∪",
+        "offset": 17
+      }
+    ]
+  },
+  {
+    "text": "To be outside the union, a student must miss both sports. Missing one is not enough. So (A ∪ B)′ = A′ ∩ B′.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "union",
+        "text": "union",
+        "offset": 18
+      },
+      {
+        "concept": "complement",
+        "text": "A′",
+        "offset": 99
+      },
+      {
+        "concept": "intersection",
+        "text": "∩",
+        "offset": 102
+      }
+    ]
+  },
+  {
+    "text": "De Morgan's law: (A ∪ B)′ = A′ ∩ B′",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "de-morgan",
+        "text": "De Morgan's law",
+        "offset": 0
+      },
+      {
+        "concept": "union",
+        "text": "∪",
+        "offset": 20
+      },
+      {
+        "concept": "complement",
+        "text": "A′",
+        "offset": 28
+      },
+      {
+        "concept": "intersection",
+        "text": "∩",
+        "offset": 31
+      }
+    ]
+  },
+  {
+    "text": "How do you count a crowd without counting anyone twice?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Your class has 30 students. The teacher asks everyone in the cricket team to stand up. How does each student know whether to stand?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Each student checks one rule: am I in the cricket team? The answer is yes or no, never maybe. A rule like that sorts the whole class into in and out. The days of the week that start with T work the same way. Tuesday and Thursday are in, and nothing else is.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "On paper, write the group inside curly brackets: {Tuesday, Thursday}. Order does not matter, so {Thursday, Tuesday} is the same group. Writing a day twice adds nothing. Now draw a box around everything you could have chosen from, all seven days.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why must the rule be so strict? Try the rule \"tall students\". Is a student of 150 cm tall? People will disagree, so nobody can count the group. A clear yes-or-no rule is what makes counting possible.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A collection with a clear rule for what is in it is called a set. Each thing in it is a member, also called an element. The sign ∈ means \"is a member of\", so Tuesday ∈ {Tuesday, Thursday}. The box of everything you could choose from is the universal set, written ξ.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "a set",
+        "offset": 59
+      },
+      {
+        "concept": "member",
+        "text": "member",
+        "offset": 88
+      },
+      {
+        "concept": "universal-set",
+        "text": "universal set",
+        "offset": 240
+      }
+    ]
+  },
+  {
+    "text": "Let ξ be the whole numbers from 1 to 10. Find the even numbers in ξ. Test each number against the rule: is it even? 2, 4, 6, 8 and 10 pass. So the set is {2, 4, 6, 8, 10}, and it has 5 members.",
+    "exclude": null,
+    "linked": [
+      "member",
+      "set",
+      "universal-set"
+    ],
+    "links": []
+  },
+  {
+    "text": "It is tempting to count a repeated thing twice. The letters of the word MUMBAI make the set {M, U, B, A, I}. That is 5 members, not 6. M appears twice in the word, but once in the set.",
+    "exclude": null,
+    "linked": [
+      "member",
+      "set",
+      "universal-set"
+    ],
+    "links": []
+  },
+  {
+    "text": "ξ is the whole numbers from 1 to 20. How many members does the set of multiples of 3 in ξ have?",
+    "exclude": null,
+    "linked": [
+      "member",
+      "set",
+      "universal-set"
+    ],
+    "links": [
+      {
+        "concept": "multiple",
+        "text": "multiples",
+        "offset": 70
+      }
+    ]
+  },
+  {
+    "text": "A set is a collection with a yes-or-no rule, and each thing in it counts once.",
+    "exclude": null,
+    "linked": [
+      "member",
+      "multiple",
+      "set",
+      "universal-set"
+    ],
+    "links": []
+  },
+  {
+    "text": "In a class of 30, some students play cricket and some play football. A few play both. You draw one circle for each sport. Where do the students who play both go?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Each name goes in one place on the page. Cricket only goes in one circle, and football only in the other. A student who plays both has to be inside both circles at once. So the circles must overlap, and those students go in the shared middle.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "In the figure, move the sliders to 18 in A, 15 in B and 7 in both. Circle A is cricket and circle B is football. The middle holds the 7 who play both. The green box around everything holds all 30 students.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why overlap the circles rather than draw them apart? A student who plays both needs a spot that is inside both circles. Two circles drawn apart have no such spot. Overlapping them makes one.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A drawing of sets as circles inside a box is a Venn diagram. The middle part, in A and in B, is the intersection, written A ∩ B. Everything in A or B or both is the union, written A ∪ B. To tell them apart, ∪ looks like the letter U, for union. ∩ is the same shape upside down.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "sets",
+        "offset": 13
+      },
+      {
+        "concept": "venn-diagram",
+        "text": "Venn diagram",
+        "offset": 47
+      },
+      {
+        "concept": "intersection",
+        "text": "intersection",
+        "offset": 100
+      },
+      {
+        "concept": "union",
+        "text": "union",
+        "offset": 165
+      }
+    ]
+  },
+  {
+    "text": "Let A = {1, 2, 3, 4} and B = {3, 4, 5}. A ∩ B holds what is in both lists, so A ∩ B = {3, 4}. A ∪ B holds everything in either list, once each, so A ∪ B = {1, 2, 3, 4, 5}. Check: 3 and 4 appear once in the union, not twice.",
+    "exclude": null,
+    "linked": [
+      "intersection",
+      "set",
+      "union",
+      "venn-diagram"
+    ],
+    "links": []
+  },
+  {
+    "text": "It is tempting to read \"A or B\" as one of them but not both. In sets, \"or\" always includes the middle. A student who plays cricket and football is in A ∪ B. Leave the middle out and your count comes up short.",
+    "exclude": null,
+    "linked": [
+      "intersection",
+      "set",
+      "union",
+      "venn-diagram"
+    ],
+    "links": []
+  },
+  {
+    "text": "A = {2, 4, 6, 8} and B = {4, 8, 12}. How many members does A ∪ B have?",
+    "exclude": null,
+    "linked": [
+      "intersection",
+      "set",
+      "union",
+      "venn-diagram"
+    ],
+    "links": [
+      {
+        "concept": "member",
+        "text": "members",
+        "offset": 46
+      }
+    ]
+  },
+  {
+    "text": "The intersection is what two sets share, and the union is everything in either one, counted once.",
+    "exclude": null,
+    "linked": [
+      "intersection",
+      "member",
+      "set",
+      "union",
+      "venn-diagram"
+    ],
+    "links": []
+  },
+  {
+    "text": "A survey of 30 students finds that 18 play cricket and 15 play football. But 18 + 15 = 33, which is more than the whole class. Did the survey go wrong?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Nothing went wrong. The 7 students who play both were counted with the cricket players, and again with the football players. Count them once and 18 + 15 − 7 = 26 play at least one sport. That leaves 30 − 26 = 4 who play neither.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "In the figure, keep 18 in A, 15 in B and 7 in both. Read the three parts inside the circles: 11 play cricket only, 7 play both and 8 play football only. 11 + 7 + 8 = 26. The 4 in the green box outside the circles make the total 30.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why take the overlap away exactly once? Adding the two circles' counts adds the middle twice, once with each circle. Every other part is added once. Taking the middle away once leaves every student counted exactly once.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write n(A) for the number of members of A. The rule is n(A ∪ B) = n(A) + n(B) − n(A ∩ B). Everything in the universal set that is not in A is the complement of A, written A′. The 4 students outside both circles make up (A ∪ B)′.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "member",
+        "text": "members",
+        "offset": 29
+      },
+      {
+        "concept": "union",
+        "text": "∪",
+        "offset": 59
+      },
+      {
+        "concept": "intersection",
+        "text": "∩",
+        "offset": 84
+      },
+      {
+        "concept": "universal-set",
+        "text": "universal set",
+        "offset": 108
+      },
+      {
+        "concept": "complement",
+        "text": "complement",
+        "offset": 146
+      }
+    ]
+  },
+  {
+    "text": "In a group of 40 people, 25 like tea, 22 like coffee and 10 like both. How many like neither? First the union: 25 + 22 − 10 = 37 like at least one. Then the complement: 40 − 37 = 3 like neither.",
+    "exclude": null,
+    "linked": [
+      "complement",
+      "intersection",
+      "member",
+      "union",
+      "universal-set"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to forget the people outside the circles. In the tea survey, 37 is not the whole group. The 3 who like neither still belong to the 40. Before you finish, check that the four parts add up to the total: 15 + 10 + 12 + 3 = 40.",
+    "exclude": null,
+    "linked": [
+      "complement",
+      "intersection",
+      "member",
+      "union",
+      "universal-set"
+    ],
+    "links": []
+  },
+  {
+    "text": "In a class of 32, 20 take art, 15 take music and 6 take both. How many take neither?",
+    "exclude": null,
+    "linked": [
+      "complement",
+      "intersection",
+      "member",
+      "union",
+      "universal-set"
+    ],
+    "links": []
+  },
+  {
+    "text": "Add the two circles, take away the overlap once, and whatever is left of the total sits outside both.",
+    "exclude": null,
+    "linked": [
+      "complement",
+      "intersection",
+      "member",
+      "union",
+      "universal-set"
+    ],
+    "links": []
+  },
+  {
+    "text": "A dosa stall offers three fillings: potato, cheese and onion. You may choose any mix of them, or none at all. How many different dosas can you order?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "List them by size. There is 1 plain dosa with nothing. There are 3 with one filling. There are 3 with two fillings: potato and cheese, potato and onion, cheese and onion. There is 1 with all three. That is 1 + 3 + 3 + 1 = 8 dosas.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "On paper, go through the fillings one at a time. Potato is in or out: 2 choices. Cheese is in or out, which doubles it to 4. Onion is in or out, which doubles it to 8.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why does each new filling double the count? Every order you had before now comes in two versions. One leaves the new filling out and one puts it in. No order is lost and none is counted twice. So 3 fillings give 2 × 2 × 2 = 8 orders.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Each order is a subset of {potato, cheese, onion}: a set whose members all come from the bigger set. We write {potato, cheese} ⊆ {potato, cheese, onion}. The plain dosa is the empty set, { }, which is a subset of every set. The set of all the subsets is the power set. A set with 3 members has 2³ = 8 subsets.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "subset",
+        "text": "subset",
+        "offset": 16
+      },
+      {
+        "concept": "set",
+        "text": "a set",
+        "offset": 51
+      },
+      {
+        "concept": "member",
+        "text": "members",
+        "offset": 63
+      },
+      {
+        "concept": "power-set",
+        "text": "power set",
+        "offset": 258
+      }
+    ]
+  },
+  {
+    "text": "List the subsets of {red, blue}. Each colour is in or out. Both out gives { }. One in gives {red} and {blue}. Both in gives {red, blue}. That is 4 subsets, and 2² = 4, so the power set has 4 members.",
+    "exclude": null,
+    "linked": [
+      "member",
+      "power-set",
+      "set",
+      "subset"
+    ],
+    "links": []
+  },
+  {
+    "text": "Two subsets are easy to forget: the empty set and the whole set itself. A list for {red, blue} that stops at {red} and {blue} has only 2 of the 4. Check your count against 2 × 2 = 4.",
+    "exclude": null,
+    "linked": [
+      "member",
+      "power-set",
+      "set",
+      "subset"
+    ],
+    "links": []
+  },
+  {
+    "text": "A set has 4 members. How many subsets does it have?",
+    "exclude": null,
+    "linked": [
+      "member",
+      "power-set",
+      "set",
+      "subset"
+    ],
+    "links": []
+  },
+  {
+    "text": "A subset is any choice of members from a set, and each new member doubles the number of choices.",
+    "exclude": null,
+    "linked": [
+      "member",
+      "power-set",
+      "set",
+      "subset"
+    ],
+    "links": []
+  },
+  {
+    "text": "Riya says: if a number ends in 0, it is in the 5 times table. Dev says: if a number is odd, it is in the 3 times table. Who is right?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Test Dev's claim. 3 is odd, and it is in the 3 times table. 9 works too. Then try 5. It is odd, but it is not in the 3 times table. That one number sinks the claim. Riya's claim survives every number you try: 10, 20, 70, 1,000.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "On paper, draw a circle for the numbers that end in 0. Draw the 5 times table as a bigger circle around it. The small circle sits completely inside the big one. Riya's claim says exactly that: no number ending in 0 is outside the big circle.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why can a hundred numbers that fit never prove Riya right? A claim about every number is a promise with no exceptions. Numbers that fit cannot rule out a later one that does not. One exception breaks the promise at once. To prove Riya right you need a reason. A number ending in 0 is 10 × something, and 10 = 2 × 5.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A claim of the form \"if this, then that\" is an if-then statement, written p ⇒ q. The arrow is read \"implies\". In Dev's claim, p is \"the number is odd\" and q is \"it is in the 3 times table\". A case where p is true and q is false is a counterexample. 5 is a counterexample to Dev's claim.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "if-then-statement",
+        "text": "if-then statement",
+        "offset": 47
+      },
+      {
+        "concept": "counterexample",
+        "text": "counterexample",
+        "offset": 233
+      }
+    ]
+  },
+  {
+    "text": "Is this true: if a number is a multiple of 4, then it is even? A counterexample would be a multiple of 4 that is odd. But 4 × anything = 2 × (2 × anything), and 2 × anything is even. No counterexample can exist, so the statement is true.",
+    "exclude": null,
+    "linked": [
+      "counterexample",
+      "if-then-statement"
+    ],
+    "links": [
+      {
+        "concept": "multiple",
+        "text": "multiple of",
+        "offset": 31
+      }
+    ]
+  },
+  {
+    "text": "It is tempting to flip the arrow. If it is raining, then the road is wet. That does not mean every wet road had rain. A burst pipe wets the road too. Turning p ⇒ q round gives a new claim, and it can be false while p ⇒ q is true.",
+    "exclude": null,
+    "linked": [
+      "counterexample",
+      "if-then-statement",
+      "multiple"
+    ],
+    "links": []
+  },
+  {
+    "text": "Find a counterexample to this claim: if a number is a multiple of 3, then it is odd. Give the smallest one above 0.",
+    "exclude": null,
+    "linked": [
+      "counterexample",
+      "if-then-statement",
+      "multiple"
+    ],
+    "links": []
+  },
+  {
+    "text": "An if-then statement is a promise, and one counterexample is enough to break it.",
+    "exclude": null,
+    "linked": [
+      "counterexample",
+      "if-then-statement",
+      "multiple"
+    ],
+    "links": []
+  },
+  {
+    "text": "A sign at a swimming pool in Mumbai says: if you swim here, you have a pass. A guard at the gate meets someone with no pass. What can the guard be sure of?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "That person is not swimming here. If they were swimming, they would have a pass. So no pass means no swimming. The guard knows this without looking at the pool.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "On paper, draw the swimmers as a small circle inside a bigger circle of pass holders. Put a dot outside the pass circle for the person at the gate. The dot is outside the swimmers' circle too, because that circle sits inside the pass circle.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why do the two sentences say the same thing? They describe the same picture: swimmers inside pass holders. \"If swimming, then pass\" reads it from the inside out. \"If no pass, then not swimming\" reads it from the outside in. One cannot be true without the other.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "From p ⇒ q you can make \"if not q, then not p\". This is called the contrapositive. It is true whenever p ⇒ q is true, and false whenever p ⇒ q is false.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "if-then-statement",
+        "text": "⇒",
+        "offset": 7
+      },
+      {
+        "concept": "contrapositive",
+        "text": "contrapositive",
+        "offset": 67
+      }
+    ]
+  },
+  {
+    "text": "Write the contrapositive of: if a number is a multiple of 10, then it ends in 0. Swap the two parts and put \"not\" in front of each. If a number does not end in 0, then it is not a multiple of 10. Test it on 25: it does not end in 0, and 25 is not in the 10 times table.",
+    "exclude": null,
+    "linked": [
+      "contrapositive",
+      "if-then-statement"
+    ],
+    "links": [
+      {
+        "concept": "multiple",
+        "text": "multiple of",
+        "offset": 46
+      }
+    ]
+  },
+  {
+    "text": "The tempting slip is to add the two \"not\"s and forget to swap. \"If you do not swim here, you have no pass\" is a different claim. It is false, because many pass holders stay dry. Both parts must swap, and both must get a \"not\".",
+    "exclude": null,
+    "linked": [
+      "contrapositive",
+      "if-then-statement",
+      "multiple"
+    ],
+    "links": []
+  },
+  {
+    "text": "A rule says: if it rains, the match is cancelled. Today the match was not cancelled. Did it rain? Answer yes or no.",
+    "exclude": null,
+    "linked": [
+      "contrapositive",
+      "if-then-statement",
+      "multiple"
+    ],
+    "links": []
+  },
+  {
+    "text": "Swap the two parts and say not to both, and you get the same promise read from the outside in.",
+    "exclude": null,
+    "linked": [
+      "contrapositive",
+      "if-then-statement",
+      "multiple"
+    ],
+    "links": []
+  },
+  {
+    "text": "The 4 students outside both circles play neither sport. You could say they are not in \"cricket or football\". You could also say they are not in cricket and not in football. Do the two descriptions always pick the same students?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "To be outside the union, a student must miss cricket and also miss football. Missing only one sport is not enough. So \"not cricket-or-football\" and \"not cricket and not football\" pick out the same 4 students.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "union",
+        "text": "union",
+        "offset": 18
+      }
+    ]
+  },
+  {
+    "text": "In the figure, look at the green box outside both circles. On paper, shade everything outside A, then everything outside B. The part you shaded twice is exactly the part outside both circles.",
+    "exclude": null,
+    "linked": [
+      "union"
+    ],
+    "links": []
+  },
+  {
+    "text": "Why must this work for every pair of sets, not only this class? Each member is in A or not, and in B or not. That makes only four kinds of member. Check the two descriptions on all four kinds and they agree every time. Four kinds cover every case.",
+    "exclude": null,
+    "linked": [
+      "union"
+    ],
+    "links": [
+      {
+        "concept": "set",
+        "text": "sets",
+        "offset": 37
+      },
+      {
+        "concept": "member",
+        "text": "member",
+        "offset": 69
+      }
+    ]
+  },
+  {
+    "text": "A table that checks a claim on every mix of true and false is a truth table. The rule you found is one of De Morgan's laws: (A ∪ B)′ = A′ ∩ B′. The other law says (A ∩ B)′ = A′ ∪ B′. In both, the dash moves inside and ∪ and ∩ swap.",
+    "exclude": null,
+    "linked": [
+      "member",
+      "set",
+      "union"
+    ],
+    "links": [
+      {
+        "concept": "truth-table",
+        "text": "truth table",
+        "offset": 64
+      },
+      {
+        "concept": "de-morgan",
+        "text": "De Morgan's laws",
+        "offset": 106
+      },
+      {
+        "concept": "complement",
+        "text": "A′",
+        "offset": 135
+      },
+      {
+        "concept": "intersection",
+        "text": "∩",
+        "offset": 138
+      }
+    ]
+  },
+  {
+    "text": "Check the second law with ξ = {1, 2, 3, 4}, A = {1, 2} and B = {2, 3}. A ∩ B = {2}, so (A ∩ B)′ = {1, 3, 4}. A′ = {3, 4} and B′ = {1, 4}, so A′ ∪ B′ = {1, 3, 4}. The two sides match.",
+    "exclude": null,
+    "linked": [
+      "complement",
+      "de-morgan",
+      "intersection",
+      "member",
+      "set",
+      "truth-table",
+      "union"
+    ],
+    "links": [
+      {
+        "concept": "universal-set",
+        "text": "ξ",
+        "offset": 26
+      }
+    ]
+  },
+  {
+    "text": "It is tempting to move the dash inside and keep the sign, as if (A ∪ B)′ were A′ ∪ B′. Test it on the class of 30 with 7 in both. A′ ∪ B′ holds everyone who misses at least one sport. That is 30 − 7 = 23 students, not the 4 who play neither.",
+    "exclude": null,
+    "linked": [
+      "complement",
+      "de-morgan",
+      "intersection",
+      "member",
+      "set",
+      "truth-table",
+      "union",
+      "universal-set"
+    ],
+    "links": []
+  },
+  {
+    "text": "ξ = {1, 2, 3, 4, 5, 6}, A = {1, 2, 3} and B = {3, 4}. How many members does A′ ∩ B′ have?",
+    "exclude": null,
+    "linked": [
+      "complement",
+      "de-morgan",
+      "intersection",
+      "member",
+      "set",
+      "truth-table",
+      "union",
+      "universal-set"
+    ],
+    "links": []
+  },
+  {
+    "text": "Outside A or B means outside both, so a dash over a bracket turns ∪ into ∩.",
+    "exclude": null,
+    "linked": [
+      "complement",
+      "de-morgan",
+      "intersection",
+      "member",
+      "set",
+      "truth-table",
+      "union",
+      "universal-set"
+    ],
+    "links": []
+  },
+  {
     "text": "Negative numbers, primes and powers",
     "exclude": null,
     "linked": [],
@@ -1925,6 +3739,1825 @@
     ]
   },
   {
+    "text": "Set",
+    "exclude": "set",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A collection of things with a clear rule for what is in it.",
+    "exclude": "set",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The days of the week that start with S make a set: {Saturday, Sunday}. Ask of any day whether it starts with S, and the answer is yes or no.",
+    "exclude": "set",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write the vowels in the word CRICKET as a set. Check each letter: C no, R no, I yes, C no, K no, E yes, T no. The set is {I, E}, with 2 members.",
+    "exclude": "set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "member",
+        "text": "members",
+        "offset": 136
+      }
+    ]
+  },
+  {
+    "text": "Write the members inside curly brackets, with commas between them.",
+    "exclude": "set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "member",
+        "text": "members",
+        "offset": 10
+      }
+    ]
+  },
+  {
+    "text": "Write each member once. {1, 1, 2} is the same set as {1, 2}.",
+    "exclude": "set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "member",
+        "text": "member",
+        "offset": 11
+      }
+    ]
+  },
+  {
+    "text": "Order does not matter. {1, 2} and {2, 1} are the same set.",
+    "exclude": "set",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A set with nothing in it is the empty set, written { }.",
+    "exclude": "set",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "How many members does the set of letters in the word APPLE have?",
+    "exclude": "set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "member",
+        "text": "members",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "4",
+    "exclude": "set",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "a list",
+    "exclude": "set",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A list can repeat things, and its order matters. A set holds each thing once, in any order.",
+    "exclude": "set",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 0 · Sets and logic",
+    "exclude": "set",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Member",
+    "exclude": "set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "member",
+        "text": "Member",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Universal set",
+    "exclude": "set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "universal-set",
+        "text": "Universal set",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Venn diagram",
+    "exclude": "set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "venn-diagram",
+        "text": "Venn diagram",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Intersection",
+    "exclude": "set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "intersection",
+        "text": "Intersection",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Union",
+    "exclude": "set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "union",
+        "text": "Union",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Subset",
+    "exclude": "set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "subset",
+        "text": "Subset",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Member",
+    "exclude": "member",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "One of the things inside a set.",
+    "exclude": "member",
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "a set",
+        "offset": 25
+      }
+    ]
+  },
+  {
+    "text": "Asha sings in the school choir, so she is a member of the set of choir singers. You do not sing in the choir, so you are not a member.",
+    "exclude": "member",
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "the set of",
+        "offset": 54
+      }
+    ]
+  },
+  {
+    "text": "Is 15 a member of the multiples of 5? 15 = 3 × 5, so yes. Is 22? 22 ÷ 5 leaves 2 over, so no.",
+    "exclude": "member",
+    "linked": [],
+    "links": [
+      {
+        "concept": "multiple",
+        "text": "multiples",
+        "offset": 22
+      }
+    ]
+  },
+  {
+    "text": "∈",
+    "exclude": "member",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Read the rule of the set.",
+    "exclude": "member",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Test the thing against the rule.",
+    "exclude": "member",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "If it passes, write ∈, as in 4 ∈ {2, 4, 6}. If it fails, write ∉, as in 5 ∉ {2, 4, 6}.",
+    "exclude": "member",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A = {2, 3, 5, 7}. How many of the numbers 1, 2, 3 and 4 are members of A?",
+    "exclude": "member",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2",
+    "exclude": "member",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A member is one thing: 2 ∈ {1, 2, 3}. A subset is a set: {2} ⊆ {1, 2, 3}. The curly brackets tell you which.",
+    "exclude": "member",
+    "linked": [],
+    "links": [
+      {
+        "concept": "subset",
+        "text": "subset",
+        "offset": 40
+      },
+      {
+        "concept": "set",
+        "text": "a set",
+        "offset": 50
+      }
+    ]
+  },
+  {
+    "text": "Chapter 0 · Sets and logic",
+    "exclude": "member",
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "Sets",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Subset",
+    "exclude": "member",
+    "linked": [],
+    "links": [
+      {
+        "concept": "subset",
+        "text": "Subset",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Universal set",
+    "exclude": "universal-set",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Everything you are choosing from in one problem, drawn as the box around a Venn diagram.",
+    "exclude": "universal-set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "venn-diagram",
+        "text": "Venn diagram",
+        "offset": 75
+      }
+    ]
+  },
+  {
+    "text": "When you sort the 30 students in your class into teams, the universal set is all 30 students. A student from another school is not in it.",
+    "exclude": "universal-set",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "ξ is the whole numbers from 1 to 10, and A is the even numbers in ξ. Then A = {2, 4, 6, 8, 10}. 12 is even, but it is not in ξ, so it is not in A.",
+    "exclude": "universal-set",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "ξ",
+    "exclude": "universal-set",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Decide what the problem is about: students, numbers or letters.",
+    "exclude": "universal-set",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write that whole collection as ξ.",
+    "exclude": "universal-set",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Every other set in the problem must fit inside ξ.",
+    "exclude": "universal-set",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Anything in ξ but outside every circle still counts.",
+    "exclude": "universal-set",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "ξ is the whole numbers from 1 to 12. A is the multiples of 4 in ξ. How many members does A have?",
+    "exclude": "universal-set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "multiple",
+        "text": "multiples",
+        "offset": 46
+      },
+      {
+        "concept": "member",
+        "text": "members",
+        "offset": 76
+      }
+    ]
+  },
+  {
+    "text": "3",
+    "exclude": "universal-set",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The union is everything inside the circles. The universal set is the whole box, including what lies outside every circle.",
+    "exclude": "universal-set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "union",
+        "text": "union",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "Chapter 0 · Sets and logic",
+    "exclude": "universal-set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "Sets",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Complement",
+    "exclude": "universal-set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "complement",
+        "text": "Complement",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Venn diagram",
+    "exclude": "venn-diagram",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A picture of sets as circles inside a box, where an overlap shows what the sets share.",
+    "exclude": "venn-diagram",
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "sets",
+        "offset": 13
+      }
+    ]
+  },
+  {
+    "text": "Draw a box for your class of 30. Draw one circle for cricket and one for football. Students who play both go where the circles overlap.",
+    "exclude": "venn-diagram",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "In a class of 30, 12 play chess, 10 play carrom and 4 play both. Put 4 in the middle. Chess only is 12 − 4 = 8. Carrom only is 10 − 4 = 6. Outside is 30 − 8 − 4 − 6 = 12.",
+    "exclude": "venn-diagram",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw a box for the universal set.",
+    "exclude": "venn-diagram",
+    "linked": [],
+    "links": [
+      {
+        "concept": "universal-set",
+        "text": "universal set",
+        "offset": 19
+      }
+    ]
+  },
+  {
+    "text": "Draw one circle for each set, overlapping.",
+    "exclude": "venn-diagram",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Fill in the middle first: the things in both.",
+    "exclude": "venn-diagram",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Then fill in the rest of each circle, and last of all the outside.",
+    "exclude": "venn-diagram",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "In a Venn diagram, 9 things are in A, 6 are in B and 2 are in both. How many are in A only?",
+    "exclude": "venn-diagram",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "7",
+    "exclude": "venn-diagram",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "two separate circles",
+    "exclude": "venn-diagram",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw the circles apart only when nothing is in both. If even one thing is shared, they must overlap.",
+    "exclude": "venn-diagram",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 0 · Sets and logic",
+    "exclude": "venn-diagram",
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "Sets",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Intersection",
+    "exclude": "intersection",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The things that are in both sets at once.",
+    "exclude": "intersection",
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "sets",
+        "offset": 28
+      }
+    ]
+  },
+  {
+    "text": "The friends who like mango are {Asha, Bilal, Chetan}. The friends who like guava are {Bilal, Divya}. Only Bilal likes both, so the intersection is {Bilal}.",
+    "exclude": "intersection",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A = {1, 3, 5, 7, 9} and B = {3, 6, 9}. 3 is in both, and so is 9. Nothing else is. So A ∩ B = {3, 9}.",
+    "exclude": "intersection",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "∩",
+    "exclude": "intersection",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Go through the members of the first set.",
+    "exclude": "intersection",
+    "linked": [],
+    "links": [
+      {
+        "concept": "member",
+        "text": "members",
+        "offset": 15
+      }
+    ]
+  },
+  {
+    "text": "Keep each one that is also in the second set.",
+    "exclude": "intersection",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write what you kept. If you kept nothing, the intersection is the empty set.",
+    "exclude": "intersection",
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "empty set",
+        "offset": 66
+      }
+    ]
+  },
+  {
+    "text": "A = {2, 4, 6, 8, 10} and B = {5, 10, 15}. How many members does A ∩ B have?",
+    "exclude": "intersection",
+    "linked": [],
+    "links": [
+      {
+        "concept": "member",
+        "text": "members",
+        "offset": 51
+      }
+    ]
+  },
+  {
+    "text": "1",
+    "exclude": "intersection",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "∩ means in both, so it is never bigger than either set. ∪ means in either, so it is never smaller.",
+    "exclude": "intersection",
+    "linked": [],
+    "links": [
+      {
+        "concept": "union",
+        "text": "∪",
+        "offset": 56
+      }
+    ]
+  },
+  {
+    "text": "Chapter 0 · Sets and logic",
+    "exclude": "intersection",
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "Sets",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Truth table",
+    "exclude": "intersection",
+    "linked": [],
+    "links": [
+      {
+        "concept": "truth-table",
+        "text": "Truth table",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "De Morgan's laws",
+    "exclude": "intersection",
+    "linked": [],
+    "links": [
+      {
+        "concept": "de-morgan",
+        "text": "De Morgan's laws",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Union",
+    "exclude": "union",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Everything that is in one set or the other or both, with each thing written once.",
+    "exclude": "union",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The mango fans are {Asha, Bilal, Chetan} and the guava fans are {Bilal, Divya}. Everyone who likes either fruit is {Asha, Bilal, Chetan, Divya}. Bilal is written once.",
+    "exclude": "union",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A = {1, 2, 3} and B = {2, 3, 4, 5}. Start with 1, 2 and 3. Add 4 and 5, because 2 and 3 are already there. A ∪ B = {1, 2, 3, 4, 5}, with 5 members. Check with the rule: 3 + 4 − 2 = 5.",
+    "exclude": "union",
+    "linked": [],
+    "links": [
+      {
+        "concept": "member",
+        "text": "members",
+        "offset": 139
+      }
+    ]
+  },
+  {
+    "text": "∪",
+    "exclude": "union",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write every member of the first set.",
+    "exclude": "union",
+    "linked": [],
+    "links": [
+      {
+        "concept": "member",
+        "text": "member",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Add each member of the second set that is not already there.",
+    "exclude": "union",
+    "linked": [],
+    "links": [
+      {
+        "concept": "member",
+        "text": "member",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "To count it without listing, use n(A ∪ B) = n(A) + n(B) − n(A ∩ B).",
+    "exclude": "union",
+    "linked": [],
+    "links": [
+      {
+        "concept": "intersection",
+        "text": "∩",
+        "offset": 62
+      }
+    ]
+  },
+  {
+    "text": "A has 8 members, B has 5, and 3 are in both. How many members does A ∪ B have?",
+    "exclude": "union",
+    "linked": [],
+    "links": [
+      {
+        "concept": "member",
+        "text": "members",
+        "offset": 8
+      }
+    ]
+  },
+  {
+    "text": "10",
+    "exclude": "union",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "∪ looks like the letter U, for union: everything in either set. ∩ is the same shape upside down: only what is in both.",
+    "exclude": "union",
+    "linked": [],
+    "links": [
+      {
+        "concept": "intersection",
+        "text": "∩",
+        "offset": 64
+      }
+    ]
+  },
+  {
+    "text": "Chapter 0 · Sets and logic",
+    "exclude": "union",
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "Sets",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Truth table",
+    "exclude": "union",
+    "linked": [],
+    "links": [
+      {
+        "concept": "truth-table",
+        "text": "Truth table",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "De Morgan's laws",
+    "exclude": "union",
+    "linked": [],
+    "links": [
+      {
+        "concept": "de-morgan",
+        "text": "De Morgan's laws",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Complement",
+    "exclude": "complement",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Everything in the universal set that is not in a given set.",
+    "exclude": "complement",
+    "linked": [],
+    "links": [
+      {
+        "concept": "universal-set",
+        "text": "universal set",
+        "offset": 18
+      }
+    ]
+  },
+  {
+    "text": "In a class of 30, 18 play cricket. The other 12 do not. Those 12 are the complement of the cricket players.",
+    "exclude": "complement",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "ξ = {1, 2, 3, 4, 5, 6} and A = {2, 4, 6}. Take away 2, 4 and 6. A′ = {1, 3, 5}. Check: 6 − 3 = 3 members.",
+    "exclude": "complement",
+    "linked": [],
+    "links": [
+      {
+        "concept": "universal-set",
+        "text": "ξ",
+        "offset": 0
+      },
+      {
+        "concept": "member",
+        "text": "members",
+        "offset": 97
+      }
+    ]
+  },
+  {
+    "text": "A′",
+    "exclude": "complement",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find the universal set, ξ.",
+    "exclude": "complement",
+    "linked": [],
+    "links": [
+      {
+        "concept": "universal-set",
+        "text": "universal set",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "Take away every member of A.",
+    "exclude": "complement",
+    "linked": [],
+    "links": [
+      {
+        "concept": "member",
+        "text": "member",
+        "offset": 16
+      }
+    ]
+  },
+  {
+    "text": "What is left is A′. Its count is n(ξ) − n(A).",
+    "exclude": "complement",
+    "linked": [],
+    "links": [
+      {
+        "concept": "universal-set",
+        "text": "ξ",
+        "offset": 35
+      }
+    ]
+  },
+  {
+    "text": "ξ has 25 members and A has 9. How many members does A′ have?",
+    "exclude": "complement",
+    "linked": [],
+    "links": [
+      {
+        "concept": "universal-set",
+        "text": "ξ",
+        "offset": 0
+      },
+      {
+        "concept": "member",
+        "text": "members",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "16",
+    "exclude": "complement",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "the opposite",
+    "exclude": "complement",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The complement depends on ξ. If ξ is 1 to 10, the complement of the even numbers is {1, 3, 5, 7, 9}. Change ξ and A′ changes too.",
+    "exclude": "complement",
+    "linked": [],
+    "links": [
+      {
+        "concept": "universal-set",
+        "text": "ξ",
+        "offset": 26
+      }
+    ]
+  },
+  {
+    "text": "Chapter 0 · Sets and logic",
+    "exclude": "complement",
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "Sets",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "De Morgan's laws",
+    "exclude": "complement",
+    "linked": [],
+    "links": [
+      {
+        "concept": "de-morgan",
+        "text": "De Morgan's laws",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Subset",
+    "exclude": "subset",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A set whose members are all inside another set.",
+    "exclude": "subset",
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "A set",
+        "offset": 0
+      },
+      {
+        "concept": "member",
+        "text": "members",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Every girl in your cricket team is in the cricket team. So the girls in the team make a subset of the team.",
+    "exclude": "subset",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Is {2, 4} a subset of {1, 2, 3, 4}? 2 is in it and 4 is in it, so yes: {2, 4} ⊆ {1, 2, 3, 4}. Is {2, 5}? 5 is not in it, so no.",
+    "exclude": "subset",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "⊆",
+    "exclude": "subset",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Take each member of the smaller set.",
+    "exclude": "subset",
+    "linked": [],
+    "links": [
+      {
+        "concept": "member",
+        "text": "member",
+        "offset": 10
+      }
+    ]
+  },
+  {
+    "text": "Check that it is also in the bigger set.",
+    "exclude": "subset",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "If every one passes, it is a subset. One failure and it is not.",
+    "exclude": "subset",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The empty set and the whole set always count as subsets.",
+    "exclude": "subset",
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "empty set",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "How many of these are subsets of {1, 2, 3, 4}: {1, 4}, {2, 5}, { } and {3}?",
+    "exclude": "subset",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3",
+    "exclude": "subset",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A member is one thing: 3 ∈ {1, 2, 3}. A subset is a set: {3} ⊆ {1, 2, 3}.",
+    "exclude": "subset",
+    "linked": [],
+    "links": [
+      {
+        "concept": "member",
+        "text": "member",
+        "offset": 2
+      },
+      {
+        "concept": "set",
+        "text": "a set",
+        "offset": 50
+      }
+    ]
+  },
+  {
+    "text": "Chapter 0 · Sets and logic",
+    "exclude": "subset",
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "Sets",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Power set",
+    "exclude": "subset",
+    "linked": [],
+    "links": [
+      {
+        "concept": "power-set",
+        "text": "Power set",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Power set",
+    "exclude": "power-set",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The set of every subset of a set, including the empty set and the whole set.",
+    "exclude": "power-set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "The set of",
+        "offset": 0
+      },
+      {
+        "concept": "subset",
+        "text": "subset",
+        "offset": 17
+      }
+    ]
+  },
+  {
+    "text": "A chaat stall can add sev, curd and chutney. Each possible plate, from no topping to all three, is one subset. All 8 plates together make the power set.",
+    "exclude": "power-set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "subset",
+        "text": "subset",
+        "offset": 103
+      }
+    ]
+  },
+  {
+    "text": "How many subsets does {red, green, blue, yellow} have? Each colour is in or out. That is 2 × 2 × 2 × 2 = 16, which is 2⁴.",
+    "exclude": "power-set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "subset",
+        "text": "subsets",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "Take the members one at a time.",
+    "exclude": "power-set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "member",
+        "text": "members",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "Each member is either in a subset or out of it: 2 choices.",
+    "exclude": "power-set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "member",
+        "text": "member",
+        "offset": 5
+      },
+      {
+        "concept": "subset",
+        "text": "subset",
+        "offset": 27
+      }
+    ]
+  },
+  {
+    "text": "Multiply the choices. 3 members give 2 × 2 × 2 = 8 subsets.",
+    "exclude": "power-set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "member",
+        "text": "members",
+        "offset": 24
+      },
+      {
+        "concept": "subset",
+        "text": "subsets",
+        "offset": 51
+      }
+    ]
+  },
+  {
+    "text": "A set with n members has 2ⁿ subsets.",
+    "exclude": "power-set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "A set",
+        "offset": 0
+      },
+      {
+        "concept": "member",
+        "text": "members",
+        "offset": 13
+      },
+      {
+        "concept": "subset",
+        "text": "subsets",
+        "offset": 28
+      }
+    ]
+  },
+  {
+    "text": "A set has 5 members. How many members does its power set have?",
+    "exclude": "power-set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "A set",
+        "offset": 0
+      },
+      {
+        "concept": "member",
+        "text": "members",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "32",
+    "exclude": "power-set",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A subset is one choice, like {sev}. The power set is the set of all the choices together.",
+    "exclude": "power-set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "subset",
+        "text": "subset",
+        "offset": 2
+      },
+      {
+        "concept": "set",
+        "text": "the set of",
+        "offset": 53
+      }
+    ]
+  },
+  {
+    "text": "Chapter 0 · Sets and logic",
+    "exclude": "power-set",
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "Sets",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "If-then statement",
+    "exclude": "if-then-statement",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A claim that whenever one thing is true, a second thing is true as well.",
+    "exclude": "if-then-statement",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "If it is Sunday, then the school is closed. Every Sunday tests the promise. One Sunday with the school open would make the claim false.",
+    "exclude": "if-then-statement",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Test: if a number is a multiple of 6, then it is even. 6, 12 and 18 are even. And 6 = 2 × 3, so every multiple of 6 is 2 × something. The claim is true.",
+    "exclude": "if-then-statement",
+    "linked": [],
+    "links": [
+      {
+        "concept": "multiple",
+        "text": "multiple of",
+        "offset": 23
+      }
+    ]
+  },
+  {
+    "text": "⇒",
+    "exclude": "if-then-statement",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Split the claim into its if part, p, and its then part, q.",
+    "exclude": "if-then-statement",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Look for a case where p is true.",
+    "exclude": "if-then-statement",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Check whether q is true there too.",
+    "exclude": "if-then-statement",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "One case with p true and q false shows the claim is false.",
+    "exclude": "if-then-statement",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Claim: if a number is a multiple of 4, then it is a multiple of 8. What is the smallest whole number above 0 that breaks it?",
+    "exclude": "if-then-statement",
+    "linked": [],
+    "links": [
+      {
+        "concept": "multiple",
+        "text": "multiple of",
+        "offset": 24
+      }
+    ]
+  },
+  {
+    "text": "4",
+    "exclude": "if-then-statement",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "the claim turned round",
+    "exclude": "if-then-statement",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Swapping the parts makes a new claim. If it is Sunday, the school is closed. But a closed school does not mean it is Sunday. It could be a holiday.",
+    "exclude": "if-then-statement",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 0 · Sets and logic",
+    "exclude": "if-then-statement",
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "Sets",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Counterexample",
+    "exclude": "if-then-statement",
+    "linked": [],
+    "links": [
+      {
+        "concept": "counterexample",
+        "text": "Counterexample",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Contrapositive",
+    "exclude": "if-then-statement",
+    "linked": [],
+    "links": [
+      {
+        "concept": "contrapositive",
+        "text": "Contrapositive",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Counterexample",
+    "exclude": "counterexample",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "One case that shows an if-then claim is false: the if part holds and the then part does not.",
+    "exclude": "counterexample",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Someone says every bird can fly. A penguin is a bird that cannot fly. One penguin is enough to show the claim is false.",
+    "exclude": "counterexample",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Claim: if two numbers are odd, their sum is odd. Try 3 and 5. Both are odd, and 3 + 5 = 8, which is even. So 3 and 5 are a counterexample, and the claim is false.",
+    "exclude": "counterexample",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write the claim as: if p, then q.",
+    "exclude": "counterexample",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Look for something that makes p true.",
+    "exclude": "counterexample",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Among those, look for one that makes q false.",
+    "exclude": "counterexample",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "If you find one, the claim is false. Show it and stop.",
+    "exclude": "counterexample",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Claim: every number in the 4 times table is also in the 6 times table. What is the smallest counterexample above 0?",
+    "exclude": "counterexample",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "4",
+    "exclude": "counterexample",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "an example that fits",
+    "exclude": "counterexample",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Examples that fit a claim never prove it. Only a reason does. A counterexample works the other way: one is enough to disprove it.",
+    "exclude": "counterexample",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 0 · Sets and logic",
+    "exclude": "counterexample",
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "Sets",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Contrapositive",
+    "exclude": "contrapositive",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The if-then statement you get by swapping the two parts and putting not in front of each.",
+    "exclude": "contrapositive",
+    "linked": [],
+    "links": [
+      {
+        "concept": "if-then-statement",
+        "text": "if-then statement",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "If it is Sunday, then the school is closed. Its contrapositive is: if the school is open, it is not Sunday. Both say the same thing.",
+    "exclude": "contrapositive",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find the contrapositive of: if a shape is a square, then it has four sides. Swap and add not: if a shape does not have four sides, then it is not a square. A triangle has three sides, and it is not a square.",
+    "exclude": "contrapositive",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write the statement as: if p, then q.",
+    "exclude": "contrapositive",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Swap the parts: if q, then p.",
+    "exclude": "contrapositive",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Put not in front of each part: if not q, then not p.",
+    "exclude": "contrapositive",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "This is true exactly when the first statement is true.",
+    "exclude": "contrapositive",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Statement: if a number is a multiple of 10, then it ends in 0. A number ends in 7. Is it a multiple of 10? Answer yes or no.",
+    "exclude": "contrapositive",
+    "linked": [],
+    "links": [
+      {
+        "concept": "multiple",
+        "text": "multiple of",
+        "offset": 28
+      }
+    ]
+  },
+  {
+    "text": "No",
+    "exclude": "contrapositive",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "swapping without the nots",
+    "exclude": "contrapositive",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Swapping alone gives if q, then p, which can be false when the statement is true. The contrapositive swaps and adds not to both parts, and it always agrees.",
+    "exclude": "contrapositive",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 0 · Sets and logic",
+    "exclude": "contrapositive",
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "Sets",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Truth table",
+    "exclude": "truth-table",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A table with one row for every way the parts of a claim can be true or false.",
+    "exclude": "truth-table",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "To check a claim about A and B, ask two questions of each member: in A? in B? There are only four mixes of answers: yes yes, yes no, no yes, no no. Four rows cover everyone.",
+    "exclude": "truth-table",
+    "linked": [],
+    "links": [
+      {
+        "concept": "member",
+        "text": "member",
+        "offset": 58
+      }
+    ]
+  },
+  {
+    "text": "Check that \"not in A or B\" matches \"not in A and not in B\". Row yes, yes: both say no. Row yes, no: both say no. Row no, yes: both say no. Row no, no: both say yes. They agree on all four rows.",
+    "exclude": "truth-table",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "List the parts: in A? in B?",
+    "exclude": "truth-table",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write one row for each mix of yes and no. Two parts give 4 rows.",
+    "exclude": "truth-table",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Work out the claim on each row.",
+    "exclude": "truth-table",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Two claims mean the same thing if they agree on every row.",
+    "exclude": "truth-table",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A claim has three parts, and each can be true or false. How many rows does its truth table need?",
+    "exclude": "truth-table",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "8",
+    "exclude": "truth-table",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A Venn diagram shows the four kinds of member as four regions. A truth table lists the same four kinds as rows.",
+    "exclude": "truth-table",
+    "linked": [],
+    "links": [
+      {
+        "concept": "venn-diagram",
+        "text": "Venn diagram",
+        "offset": 2
+      },
+      {
+        "concept": "member",
+        "text": "member",
+        "offset": 39
+      }
+    ]
+  },
+  {
+    "text": "Chapter 0 · Sets and logic",
+    "exclude": "truth-table",
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "Sets",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "De Morgan's laws",
+    "exclude": "de-morgan",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Two rules for the complement of a union or an intersection: the dash moves inside, and ∪ and ∩ swap.",
+    "exclude": "de-morgan",
+    "linked": [],
+    "links": [
+      {
+        "concept": "complement",
+        "text": "complement",
+        "offset": 18
+      },
+      {
+        "concept": "union",
+        "text": "union",
+        "offset": 34
+      },
+      {
+        "concept": "intersection",
+        "text": "intersection",
+        "offset": 46
+      }
+    ]
+  },
+  {
+    "text": "The students who play neither cricket nor football are the ones who miss cricket and also miss football. Not in cricket-or-football is the same as not in cricket and not in football.",
+    "exclude": "de-morgan",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "ξ = {1, 2, 3, 4, 5}, A = {1, 2} and B = {2, 3}. A ∪ B = {1, 2, 3}, so (A ∪ B)′ = {4, 5}. A′ = {3, 4, 5} and B′ = {1, 4, 5}, so A′ ∩ B′ = {4, 5}. The two sides match.",
+    "exclude": "de-morgan",
+    "linked": [],
+    "links": [
+      {
+        "concept": "universal-set",
+        "text": "ξ",
+        "offset": 0
+      },
+      {
+        "concept": "union",
+        "text": "∪",
+        "offset": 50
+      },
+      {
+        "concept": "complement",
+        "text": "A′",
+        "offset": 89
+      },
+      {
+        "concept": "intersection",
+        "text": "∩",
+        "offset": 130
+      }
+    ]
+  },
+  {
+    "text": "(A ∪ B)′ = A′ ∩ B′. Outside either circle means outside both.",
+    "exclude": "de-morgan",
+    "linked": [],
+    "links": [
+      {
+        "concept": "union",
+        "text": "∪",
+        "offset": 3
+      },
+      {
+        "concept": "complement",
+        "text": "A′",
+        "offset": 11
+      },
+      {
+        "concept": "intersection",
+        "text": "∩",
+        "offset": 14
+      }
+    ]
+  },
+  {
+    "text": "(A ∩ B)′ = A′ ∪ B′. Outside the middle means outside at least one circle.",
+    "exclude": "de-morgan",
+    "linked": [],
+    "links": [
+      {
+        "concept": "intersection",
+        "text": "∩",
+        "offset": 3
+      },
+      {
+        "concept": "complement",
+        "text": "A′",
+        "offset": 11
+      },
+      {
+        "concept": "union",
+        "text": "∪",
+        "offset": 14
+      }
+    ]
+  },
+  {
+    "text": "When the dash moves inside the brackets, swap ∪ and ∩.",
+    "exclude": "de-morgan",
+    "linked": [],
+    "links": [
+      {
+        "concept": "union",
+        "text": "∪",
+        "offset": 46
+      },
+      {
+        "concept": "intersection",
+        "text": "∩",
+        "offset": 52
+      }
+    ]
+  },
+  {
+    "text": "ξ has 30 members and 7 of them are in A ∩ B. How many members does A′ ∪ B′ have?",
+    "exclude": "de-morgan",
+    "linked": [],
+    "links": [
+      {
+        "concept": "universal-set",
+        "text": "ξ",
+        "offset": 0
+      },
+      {
+        "concept": "member",
+        "text": "members",
+        "offset": 9
+      },
+      {
+        "concept": "intersection",
+        "text": "∩",
+        "offset": 40
+      },
+      {
+        "concept": "complement",
+        "text": "A′",
+        "offset": 67
+      },
+      {
+        "concept": "union",
+        "text": "∪",
+        "offset": 70
+      }
+    ]
+  },
+  {
+    "text": "23",
+    "exclude": "de-morgan",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "moving the dash without swapping",
+    "exclude": "de-morgan",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "(A ∪ B)′ is not A′ ∪ B′. In a class of 30 with 7 in both, A′ ∪ B′ has 23 students, while only 4 might play neither.",
+    "exclude": "de-morgan",
+    "linked": [],
+    "links": [
+      {
+        "concept": "union",
+        "text": "∪",
+        "offset": 3
+      },
+      {
+        "concept": "complement",
+        "text": "A′",
+        "offset": 16
+      }
+    ]
+  },
+  {
+    "text": "Chapter 0 · Sets and logic",
+    "exclude": "de-morgan",
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "Sets",
+        "offset": 12
+      }
+    ]
+  },
+  {
     "text": "Prime number",
     "exclude": "prime-number",
     "linked": [],
@@ -2801,6 +6434,11 @@
         "offset": 8
       },
       {
+        "concept": "intersection",
+        "text": "Intersection",
+        "offset": 79
+      },
+      {
         "concept": "hcf",
         "text": "HCF",
         "offset": 94
@@ -2809,6 +6447,11 @@
         "concept": "power",
         "text": "powers",
         "offset": 109
+      },
+      {
+        "concept": "union",
+        "text": "Union",
+        "offset": 144
       },
       {
         "concept": "lcm",

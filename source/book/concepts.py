@@ -15,7 +15,7 @@ from book import bedrock
 
 # Phrases that contain an alias but mean something else. They are matched like aliases and never link.
 STOP_PHRASES = [
-    "scale factor", "scale factors", "conversion factor", "power set", "multiple choice", "multiple-choice",
+    "scale factor", "scale factors", "conversion factor", "multiple choice", "multiple-choice",
 ]
 
 
