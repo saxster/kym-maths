@@ -19093,13 +19093,13 @@
         ]
       },
       "stuck": {
-        "sister": "Find the equation of the line through A(1, 6) and B(3, 10) in the form y = mx + c, and say where it crosses the x-axis.",
+        "sister": "Find the equation of the line through A(1, 9) and B(3, 15) in the form y = mx + c, and say where it crosses the x-axis.",
         "steps": [
           {
             "id": "q-oup-ch14-sb-step-1",
             "prompt": "Find the gradient m: change in y ÷ change in x.",
-            "answer": "m = 2",
-            "working": "(10 − 6) ÷ (3 − 1) = 4 ÷ 2 = 2.",
+            "answer": "m = 3",
+            "working": "(15 − 9) ÷ (3 − 1) = 6 ÷ 2 = 3.",
             "answerKey": {
               "parts": [
                 {
@@ -19107,19 +19107,19 @@
                   "anyOf": [
                     {
                       "kind": "number",
-                      "value": "2"
+                      "value": "3"
                     }
                   ]
                 }
               ],
               "accepts": [
-                "2",
-                "m = 2"
+                "3",
+                "m = 3"
               ],
               "rejects": [
-                "1/2",
-                "4",
-                "8"
+                "1/3",
+                "6",
+                "2"
               ],
               "mistakes": [
                 {
@@ -19128,12 +19128,12 @@
                   "anyOf": [
                     {
                       "kind": "number",
-                      "value": "1/2"
+                      "value": "1/3"
                     }
                   ],
                   "nextStep": "Gradient is the change in y over the change in x.",
                   "examples": [
-                    "1/2"
+                    "1/3"
                   ]
                 }
               ]
@@ -19141,9 +19141,9 @@
           },
           {
             "id": "q-oup-ch14-sb-step-2",
-            "prompt": "Put A(1, 6) into y = 2x + c to find c.",
-            "answer": "c = 4",
-            "working": "6 = 2 × 1 + c, so c = 4.",
+            "prompt": "Put A(1, 9) into y = 3x + c to find c.",
+            "answer": "c = 6",
+            "working": "9 = 3 × 1 + c, so c = 6.",
             "answerKey": {
               "parts": [
                 {
@@ -19151,19 +19151,19 @@
                   "anyOf": [
                     {
                       "kind": "number",
-                      "value": "4"
+                      "value": "6"
                     }
                   ]
                 }
               ],
               "accepts": [
-                "4",
-                "c = 4"
+                "6",
+                "c = 6"
               ],
               "rejects": [
-                "8",
-                "6",
-                "-4"
+                "12",
+                "9",
+                "-6"
               ],
               "mistakes": [
                 {
@@ -19172,12 +19172,12 @@
                   "anyOf": [
                     {
                       "kind": "number",
-                      "value": "8"
+                      "value": "12"
                     }
                   ],
-                  "nextStep": "Take 2 from both sides; do not add it.",
+                  "nextStep": "Take 3 from both sides; do not add it.",
                   "examples": [
-                    "8"
+                    "12"
                   ]
                 }
               ]
@@ -19186,8 +19186,8 @@
           {
             "id": "q-oup-ch14-sb-step-3",
             "prompt": "Write the equation.",
-            "answer": "y = 2x + 4",
-            "working": "m = 2 and c = 4, so y = 2x + 4.",
+            "answer": "y = 3x + 6",
+            "working": "m = 3 and c = 6, so y = 3x + 6.",
             "answerKey": {
               "parts": [
                 {
@@ -19195,26 +19195,26 @@
                   "anyOf": [
                     {
                       "kind": "form",
-                      "value": "y=2x+4"
+                      "value": "y=3x+6"
                     },
                     {
                       "kind": "form",
-                      "value": "y=4+2x"
+                      "value": "y=6+3x"
                     },
                     {
                       "kind": "form",
-                      "value": "2x+4"
+                      "value": "3x+6"
                     }
                   ]
                 }
               ],
               "accepts": [
-                "y = 2x + 4"
+                "y = 3x + 6"
               ],
               "rejects": [
-                "y = 2x + 8",
-                "y = 4x + 2",
-                "y = x + 4"
+                "y = 3x + 12",
+                "y = 6x + 3",
+                "y = x + 6"
               ],
               "mistakes": []
             }
@@ -19223,7 +19223,7 @@
             "id": "q-oup-ch14-sb-step-4",
             "prompt": "It crosses the x-axis where y = 0. Find x there.",
             "answer": "x = −2",
-            "working": "0 = 2x + 4, so 2x = −4 and x = −2.",
+            "working": "0 = 3x + 6, so 3x = −6 and x = −2.",
             "answerKey": {
               "parts": [
                 {
@@ -19242,8 +19242,8 @@
               ],
               "rejects": [
                 "2",
-                "-4",
-                "4"
+                "-6",
+                "6"
               ],
               "mistakes": [
                 {
@@ -19255,7 +19255,7 @@
                       "value": "2"
                     }
                   ],
-                  "nextStep": "Take 4 from both sides before you divide.",
+                  "nextStep": "Take 6 from both sides before you divide.",
                   "examples": [
                     "x = 2"
                   ]
