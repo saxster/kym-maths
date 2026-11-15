@@ -24,6 +24,7 @@
 		1077F2DDC1476B3227161FE1 /* KymMathsWidgetViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02B9F0D1042BC7376621ADA /* KymMathsWidgetViews.swift */; };
 		11AAD67FD9418B435D5654F1 /* TodayHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B8B5B1FBF210293D430BBA /* TodayHomeView.swift */; };
 		11EDF56CC0C0B38AD25272DE /* EuclidGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430A2368C1CF16D52E28B6FD /* EuclidGoal.swift */; };
+		160DACBD032F85BDAB53F3C4 /* FactSprintTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8E9A2F04064184EBE4E84A /* FactSprintTests.swift */; };
 		16E1B04E619ED2D1B82B7C63 /* EuclidPatterned.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFCD063E3B617B81A181C7A /* EuclidPatterned.swift */; };
 		171352BF0C3376837E499A5A /* EuclidRounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC31109B41192EECAF7F5A3 /* EuclidRounds.swift */; };
 		18C824C1ACD91D6617630B03 /* EuclidProgressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5869FF14B75D208E85107D94 /* EuclidProgressTests.swift */; };
@@ -83,6 +84,7 @@
 		573BEEE8E11CF9A1672F2CD4 /* EuclidWorkshopSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6576FADCC848B8C8633A29E3 /* EuclidWorkshopSession.swift */; };
 		5793B7EEE658F57FF0842556 /* PatternedWorldHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C1F14EF6D94BCEE33EDF90 /* PatternedWorldHomeView.swift */; };
 		57F3B95C58378EE3651286B4 /* JournalPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B32A0CA05B54F7C1A6E2BA /* JournalPage.swift */; };
+		58C6761069CAAE738835D921 /* FactSprintSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FDA1744551CF5AE2658224 /* FactSprintSheet.swift */; };
 		59B85F2A47525B52A6F6D3ED /* EuclidSpineMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AE7AF246F68167605FB3BF /* EuclidSpineMapView.swift */; };
 		5C011F130DF76899EF49D0E0 /* ConstructionBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CB984FA6B468824E1E8F9D /* ConstructionBoardTests.swift */; };
 		5DF12A8B80896E38360D8A7D /* KymResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FF023306438E4C7AEEC773 /* KymResources.swift */; };
@@ -139,6 +141,7 @@
 		9F2D1BFB4F26674618B13970 /* PatternedDesignTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F240C50A6AA96F969C5B1EA3 /* PatternedDesignTests.swift */; };
 		9F8BF7B7C9B520AE0B789D75 /* PatternedLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3A1EB314196A468C6BE475 /* PatternedLayout.swift */; };
 		A09C9B1D9A7A6B0FA1194C47 /* KymMathsAppIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE18E8E73216B45DE7361C45 /* KymMathsAppIntents.swift */; };
+		A1FB65B2B63AC2D632A588B5 /* FactSprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E7D5E7A534B9CF25518170 /* FactSprint.swift */; };
 		A21437ACAE0675568D8D33DE /* EuclidBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3F4E8E551262FDC0F71D37 /* EuclidBoardView.swift */; };
 		A24C303050645AE83F3560E6 /* PythagorasShear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B496759A8E89BCAAF5ADA /* PythagorasShear.swift */; };
 		A4F609CDA38764EAD22FC501 /* STEMVerificationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472088539BE760CF1692992B /* STEMVerificationEngine.swift */; };
@@ -184,11 +187,13 @@
 		C4BC27074C231D31AE6F73D0 /* AuditRegressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B917CD3353368098915809A /* AuditRegressionTests.swift */; };
 		C6C15EA3DAD1295429582951 /* ProofStepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AEDCB1D711BD0FC146C531 /* ProofStepsView.swift */; };
 		C8C6DC9D0118F5965D8291FC /* SchoolMathsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA29A7C3025EB034F6E598F8 /* SchoolMathsHomeView.swift */; };
+		C8E3A30D6323AD8334C9484F /* FactSprintSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FDA1744551CF5AE2658224 /* FactSprintSheet.swift */; };
 		CCFDB4CC80F01B8DC8740514 /* LiveMentorVoiceEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CFAB6A642E6B4183DB6DEA /* LiveMentorVoiceEngine.swift */; };
 		CDA638F5B56BD1EF1D820EF0 /* DailyFlowPlayerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5F5F31B2B3C48F14B948C8 /* DailyFlowPlayerSheet.swift */; };
 		CDABC512B8534489E0390C0A /* JournalEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4173B76AB64277E0CBD69473 /* JournalEmptyState.swift */; };
 		CE780B44F38C726B6C2204DB /* WalkBackRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50CCB6369735E9BFC7AB9CE /* WalkBackRule.swift */; };
 		D0115140500D96CC3FD4DCF3 /* MathsSafetyBindings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8233C6B299BC04DD6E561F /* MathsSafetyBindings.swift */; };
+		D0EA9B7C1EDDB222996317BC /* FactSprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E7D5E7A534B9CF25518170 /* FactSprint.swift */; };
 		D2215AD50180B4291C18AD9E /* EuclidGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430A2368C1CF16D52E28B6FD /* EuclidGoal.swift */; };
 		D23B6D52543BEF5CCC17C159 /* ConstructionBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3160B78266BEBBA80CDC7162 /* ConstructionBoard.swift */; };
 		D2BC7F559FC255D2A9111CDC /* TextbookPageScannerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE35C047793940C45E3ED616 /* TextbookPageScannerSheet.swift */; };
@@ -265,6 +270,7 @@
 		205B2983E86313F2E7077C9D /* PatternedChapterScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternedChapterScrollView.swift; sourceTree = "<group>"; };
 		207F62432EC6227F486B0AEA /* StepOrderRoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepOrderRoundView.swift; sourceTree = "<group>"; };
 		20E298CBDC92B37AD6CCD596 /* AIFeatureKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIFeatureKey.swift; sourceTree = "<group>"; };
+		26E7D5E7A534B9CF25518170 /* FactSprint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactSprint.swift; sourceTree = "<group>"; };
 		28DD6A6AE6D9FB5B8A7419FE /* PatternedWorldWebStageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternedWorldWebStageView.swift; sourceTree = "<group>"; };
 		299616DB0409B9B2396CC09D /* MotifSpine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotifSpine.swift; sourceTree = "<group>"; };
 		2A38D288E5A8D98776CA488B /* PatternedWorldBook */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PatternedWorldBook; path = KymMaths/Resources/PatternedWorldBook; sourceTree = SOURCE_ROOT; };
@@ -280,6 +286,7 @@
 		37F7F8FE6E96AA2585376DA5 /* KymMaths.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KymMaths.entitlements; sourceTree = "<group>"; };
 		3AD8998C1ED56D415508E8C4 /* ByrneText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ByrneText.swift; sourceTree = "<group>"; };
 		3B8233C6B299BC04DD6E561F /* MathsSafetyBindings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathsSafetyBindings.swift; sourceTree = "<group>"; };
+		3B8E9A2F04064184EBE4E84A /* FactSprintTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactSprintTests.swift; sourceTree = "<group>"; };
 		3FEC0C3948CDDBBDF844FFBD /* KymMathsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KymMathsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4173B76AB64277E0CBD69473 /* JournalEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEmptyState.swift; sourceTree = "<group>"; };
 		41A9F620EF37597E56FA8594 /* MistakeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MistakeTests.swift; sourceTree = "<group>"; };
@@ -308,6 +315,7 @@
 		698AC9565B7F84B916956C39 /* SpeedMathAnswerCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedMathAnswerCheck.swift; sourceTree = "<group>"; };
 		6BC8B11130353FC5CF72FBB3 /* LearningEngineCharacterizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningEngineCharacterizationTests.swift; sourceTree = "<group>"; };
 		6C78793C33CEEB8AEFDB87C5 /* PolicyDrivenAIProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyDrivenAIProvider.swift; sourceTree = "<group>"; };
+		72FDA1744551CF5AE2658224 /* FactSprintSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactSprintSheet.swift; sourceTree = "<group>"; };
 		73763B9E1D3039C1E9C4AB5B /* SystemSurfaceSnapshotStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemSurfaceSnapshotStore.swift; sourceTree = "<group>"; };
 		760AE45ED9F0A58C4C599F3C /* EuclidRoundsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuclidRoundsTests.swift; sourceTree = "<group>"; };
 		77DA3B0D277115D6FA1B1AE9 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
@@ -446,6 +454,7 @@
 			isa = PBXGroup;
 			children = (
 				DD5F5F31B2B3C48F14B948C8 /* DailyFlowPlayerSheet.swift */,
+				72FDA1744551CF5AE2658224 /* FactSprintSheet.swift */,
 				A3B8B5B1FBF210293D430BBA /* TodayHomeView.swift */,
 			);
 			path = Today;
@@ -561,6 +570,7 @@
 				760AE45ED9F0A58C4C599F3C /* EuclidRoundsTests.swift */,
 				43D6F93FF6B4E188F4F577B7 /* EuclidSpineTests.swift */,
 				A3002A57F05CC2CD720C3AF1 /* EuclidWorkshopSessionTests.swift */,
+				3B8E9A2F04064184EBE4E84A /* FactSprintTests.swift */,
 				89C0613A3E5115A590E6622D /* HandInGateTests.swift */,
 				ECA0C47C2C0178C8A4F1E115 /* KymMathsTests.swift */,
 				6BC8B11130353FC5CF72FBB3 /* LearningEngineCharacterizationTests.swift */,
@@ -751,6 +761,7 @@
 			isa = PBXGroup;
 			children = (
 				CEB8CFB101B40EA3E44EE644 /* AnswerKey.swift */,
+				26E7D5E7A534B9CF25518170 /* FactSprint.swift */,
 				41BD99A8624A92C5BD4B8DF8 /* LearningEngines.swift */,
 				B635A0E77CE8A08DE0915813 /* PropositionGraphEngine.swift */,
 				698AC9565B7F84B916956C39 /* SpeedMathAnswerCheck.swift */,
@@ -966,6 +977,8 @@
 				85CB0AC2C46AE73A2718F9D2 /* EuclidSpineMapView.swift in Sources */,
 				573BEEE8E11CF9A1672F2CD4 /* EuclidWorkshopSession.swift in Sources */,
 				38E92E68D62C301FE7A8B531 /* EuclidWorkshopView.swift in Sources */,
+				A1FB65B2B63AC2D632A588B5 /* FactSprint.swift in Sources */,
+				58C6761069CAAE738835D921 /* FactSprintSheet.swift in Sources */,
 				B54DEB70E50DB8FAD160C916 /* Foothold.swift in Sources */,
 				AD8AE15B3BC609C72E55DCBD /* JournalBridges.swift in Sources */,
 				B6DEC981910CB72FEF0EA6F4 /* JournalCard.swift in Sources */,
@@ -1049,6 +1062,7 @@
 				1D8439106591858AC955C2FF /* EuclidRoundsTests.swift in Sources */,
 				B03D45860B53981BAD9DE627 /* EuclidSpineTests.swift in Sources */,
 				B3D52DD85789E9A95FA36707 /* EuclidWorkshopSessionTests.swift in Sources */,
+				160DACBD032F85BDAB53F3C4 /* FactSprintTests.swift in Sources */,
 				D681EA21C63D45D30F56B76B /* HandInGateTests.swift in Sources */,
 				07360B6D3E9DF8422DB87A79 /* KymMathsTests.swift in Sources */,
 				B5EB1A362E135FEF89227E9A /* LearningEngineCharacterizationTests.swift in Sources */,
@@ -1096,6 +1110,8 @@
 				59B85F2A47525B52A6F6D3ED /* EuclidSpineMapView.swift in Sources */,
 				F2CC3A9E66D275597109D8ED /* EuclidWorkshopSession.swift in Sources */,
 				B1D7D6602320996C2DCCAEC1 /* EuclidWorkshopView.swift in Sources */,
+				D0EA9B7C1EDDB222996317BC /* FactSprint.swift in Sources */,
+				C8E3A30D6323AD8334C9484F /* FactSprintSheet.swift in Sources */,
 				FDCC6E848F49F858A0D383F2 /* Foothold.swift in Sources */,
 				3A4A5A39E22E951F70943E36 /* JournalBridges.swift in Sources */,
 				AA8D6F3913BD922370A41CB4 /* JournalCard.swift in Sources */,

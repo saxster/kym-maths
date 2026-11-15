@@ -17,6 +17,8 @@ struct TodayHomeView: View {
     @State private var flowStart: DailyFlowStageKind? = nil
     /// The width of the page's column, which decides how many cards sit side by side.
     @State private var contentWidth: CGFloat = 0
+    /// The family the fact sprint sheet opens on, while it is open.
+    @State private var sprintFamily: FactFamily? = nil
 
     var body: some View {
         let plan = DailyFlowSessionEngine.buildPlan(
@@ -39,6 +41,8 @@ struct TodayHomeView: View {
                         subtitle: "One idea to wonder about, then four short steps. About \(plan.estimatedMinutes) minutes."
                     )
                     .padding(.bottom, -StandardSpacing.sm)
+
+                    warmUpBand
 
                     if contentWidth >= 880 {
                         HStack(alignment: .top, spacing: StandardSpacing.lg) {
@@ -89,6 +93,15 @@ struct TodayHomeView: View {
             }
         }
         .background(theme.bg.ignoresSafeArea())
+        .sheet(item: $sprintFamily) { family in
+            FactSprintSheet(store: store, family: family)
+        }
+        .onChange(of: store.deepLinkTail, initial: true) { _, tail in
+            // `today/sprint` opens the next fact sprint, for screenshots.
+            guard tail.first == "sprint" else { return }
+            store.deepLinkTail = []
+            sprintFamily = store.nextFactFamily() ?? .timesAndDivide
+        }
         .modifier(FlowPresentation(isPresented: $store.showDailyFlowSheet, onDismiss: { flowStart = nil }) {
             DailyFlowPlayerSheet(
                 plan: plan,
@@ -109,6 +122,77 @@ struct TodayHomeView: View {
         guard store.deepLinkTail.first == "flow", store.deepLinkTail.count > 1,
               let step = Int(store.deepLinkTail[1]) else { return nil }
         return DailyFlowStageKind(rawValue: step - 1)
+    }
+
+    // MARK: Warm-up
+
+    private var warmUpBand: some View {
+        let next = store.nextFactFamily()
+        let doneToday = FactFamily.allCases.filter { store.todaysFactSprint($0) != nil }.count
+        let chips = ForEach(FactFamily.allCases) { family in
+            sprintChip(family, score: store.todaysFactSprint(family)?.right)
+        }
+        let start = Button {
+            sprintFamily = next ?? .timesAndDivide
+        } label: {
+            HStack(spacing: StandardSpacing.xs) {
+                Text(next == nil ? "Again" : doneToday == 0 ? "Start" : "Next sprint")
+                Image(systemName: "arrow.right").imageScale(.small)
+            }
+        }
+        .buttonStyle(OutlineButtonStyle())
+
+        return VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+            Kicker("Warm-up · facts by heart")
+            Text("Four 20-second sprints. Facts you know by heart leave room for the new idea.")
+                .patternedType(.readingSmall)
+                .foregroundStyle(theme.mute(theme.ink))
+                .fixedSize(horizontal: false, vertical: true)
+            if contentWidth >= 820 {
+                HStack(spacing: StandardSpacing.sm) {
+                    chips
+                    Spacer(minLength: StandardSpacing.sm)
+                    start
+                }
+                .padding(.top, StandardSpacing.xxs)
+            } else {
+                FlowLayout(spacing: StandardSpacing.xs) { chips }
+                    .padding(.top, StandardSpacing.xxs)
+                start
+            }
+        }
+        .paperCard(padding: StandardSpacing.md)
+    }
+
+    private func sprintChip(_ family: FactFamily, score: Int?) -> some View {
+        Button {
+            sprintFamily = family
+        } label: {
+            VStack(alignment: .leading, spacing: 0) {
+                Text(family.title)
+                    .standardType(.uiCaption)
+                    .foregroundStyle(theme.mute(theme.ink))
+                Text(score.map { "\($0) right" } ?? "20 s")
+                    .standardType(.uiHeadline)
+                    .monospacedDigit()
+                    .foregroundStyle((score ?? 0) > 0 ? theme.patterned.provenColor : theme.ink)
+            }
+            .padding(.horizontal, StandardSpacing.sm)
+            .padding(.vertical, StandardSpacing.xxs)
+            .frame(minHeight: StandardAccessibility.touchTarget, alignment: .leading)
+            .background(
+                RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous)
+                    .fill(theme.surface)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous)
+                    .strokeBorder(theme.hairline(), lineWidth: 1)
+            )
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityElement(children: .combine)
+        .accessibilityHint("Opens the \(family.title.lowercased()) sprint")
     }
 
     // MARK: Today's question
