@@ -8,6 +8,21 @@ import Testing
 struct SharedScreenTests {
     static let pack = SeedPackLoader.load()
 
+    // The whole chapter in one scroll
+
+    @Test("The whole-chapter contents list names only parts the page has a heading for, in page order")
+    func wholeChapterContentsMatchThePage() throws {
+        let chapter = try #require(Self.pack.chapters.first { $0.number == 3 })
+        let rows = WholeChapterContents.rows(for: chapter)
+        #expect(rows.map(\.label) == [
+            "From picture to formula", "Who is right?",
+            "Sharing in parts", "Find one first", "When more means less",
+            "One multiplication for a change", "Working backwards", "Growth on growth",
+        ])
+        #expect(Set(rows.map(\.id)).count == rows.count)
+        #expect(Array(rows.dropFirst(2).map(\.id)) == chapter.sections.map(\.id))
+    }
+
     // The school question screen
 
     @Test("A long list of answer parts is a sentence of its own, not the answer box's placeholder")

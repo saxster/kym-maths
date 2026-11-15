@@ -274,6 +274,8 @@ struct IntuitionFormulaBridgeCard: View {
     @Environment(\.standardTheme) private var theme
     let bridge: IntuitionToFormulaBridge
     @Binding var selectedTermSymbol: String?
+    /// Off where the page already shows what you do and what stays the same just above the card.
+    var showsSteps = true
     var onSelectTerm: ((FormulaTermMapping) -> Void)? = nil
     @State private var revealedPerturbationSymbols: Set<String> = []
 
@@ -309,12 +311,14 @@ struct IntuitionFormulaBridgeCard: View {
             }
             .accessibilityElement(children: .combine)
 
-            Text(bridge.concreteAction)
-                .patternedType(.readingDefault)
-                .foregroundStyle(theme.ink)
-                .fixedSize(horizontal: false, vertical: true)
+            if showsSteps {
+                Text(bridge.concreteAction)
+                    .patternedType(.readingDefault)
+                    .foregroundStyle(theme.ink)
+                    .fixedSize(horizontal: false, vertical: true)
 
-            StaysTheSameNote(label: "What stays the same", text: bridge.ahaInvariant)
+                StaysTheSameNote(label: "What stays the same", text: bridge.ahaInvariant)
+            }
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: StandardSpacing.xs) {

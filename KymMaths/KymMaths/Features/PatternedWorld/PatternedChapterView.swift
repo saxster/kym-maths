@@ -12,6 +12,8 @@ struct PatternedChapterView: View {
 
     @Environment(\.standardTheme) private var theme
     @State private var width: CGFloat = 700
+    /// The part of the whole-chapter page a contents row asked to scroll to.
+    @State private var scrollTarget: String?
 
     private var chapter: PatternedWorldChapter { store.selectedChapter }
     private var beats: [ChapterInteractiveBeat] { ChapterInteractiveBeatEngine.beats(for: chapter) }
@@ -24,14 +26,21 @@ struct PatternedChapterView: View {
         VStack(spacing: 0) {
             topBar
             Rectangle().fill(theme.hairline()).frame(height: 1)
-            ScrollView {
-                page
-                    .padding(.horizontal, StandardSpacing.xl)
-                    .padding(.top, StandardSpacing.xl)
-                    .padding(.bottom, StandardSpacing.xl3)
-                    .frame(maxWidth: 1180, alignment: .leading)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .readWidth($width)
+            ScrollViewReader { proxy in
+                ScrollView {
+                    page
+                        .padding(.horizontal, StandardSpacing.xl)
+                        .padding(.top, StandardSpacing.xl)
+                        .padding(.bottom, StandardSpacing.xl3)
+                        .frame(maxWidth: 1180, alignment: .leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .readWidth($width)
+                }
+                .onChange(of: scrollTarget) { _, target in
+                    guard let target else { return }
+                    withAnimation { proxy.scrollTo(target, anchor: .top) }
+                    scrollTarget = nil
+                }
             }
         }
         .background(theme.bg)
@@ -161,8 +170,14 @@ struct PatternedChapterView: View {
         VStack(alignment: .leading, spacing: StandardSpacing.xs) {
             Kicker("In this chapter", muted: true)
                 .padding(.bottom, StandardSpacing.xxs)
-            ForEach(beats) { beat in
-                contentsRow(beat)
+            if reading.readingMode == .interactiveBeats {
+                ForEach(beats) { beat in
+                    contentsRow(beat)
+                }
+            } else {
+                ForEach(WholeChapterContents.rows(for: chapter)) { row in
+                    wholeChapterRow(row)
+                }
             }
             VStack(alignment: .leading, spacing: StandardSpacing.xs) {
                 Kicker("How to read", muted: true)
@@ -220,6 +235,26 @@ struct PatternedChapterView: View {
         .buttonStyle(.plain)
         .disabled(!canJump)
         .accessibilityValue(isDone ? "Done" : (canJump ? "" : "Opens after the step before"))
+    }
+
+    /// A row for the whole chapter in one scroll: no step number and no lock, and a tap scrolls to
+    /// the heading with the same words.
+    private func wholeChapterRow(_ row: WholeChapterContents.Row) -> some View {
+        Button {
+            scrollTarget = row.id
+        } label: {
+            Text(row.label)
+                .standardType(.uiBody)
+                .foregroundStyle(theme.ink)
+                .lineLimit(2)
+                .multilineTextAlignment(.leading)
+                .padding(.leading, StandardSpacing.sm)
+                .padding(.vertical, StandardSpacing.xxs)
+                .frame(maxWidth: .infinity, minHeight: 32, alignment: .leading)
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityHint("Scrolls to this part")
     }
 
     // MARK: Margin
