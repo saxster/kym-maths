@@ -35,11 +35,16 @@ struct QuestionProofPracticeView: View {
     @State private var pageWidth: CGFloat = 0
     @FocusState private var typingIn: TypingBox?
     @State private var handInGate = HandInGate()
+    @State private var openWalkBack: WalkBack?
 
     /// The boxes whose words are handed in.
     private enum TypingBox: Hashable { case working, answer, thinking }
 
     private var isWide: Bool { pageWidth >= 860 }
+
+    private var walkBack: WalkBack? {
+        store.pendingWalkBack.flatMap { $0.questionId == question.id ? $0 : nil }
+    }
 
     private var effectiveAssisted: Bool {
         usedAssistanceInSession || highestHintRung.surrendersRetrieval
@@ -106,6 +111,10 @@ struct QuestionProofPracticeView: View {
         .sheet(isPresented: $showScratchpad) {
             MathsScratchpadView(question: question, store: store)
                 .pageSizedSheet()
+        }
+        .sheet(item: $openWalkBack) { walkBack in
+            WalkBackSheet(walkBack: walkBack, store: store)
+                .fittedFormSheet()
         }
     }
 
@@ -180,6 +189,9 @@ struct QuestionProofPracticeView: View {
 
             if let eval = evaluation {
                 resultCard(eval)
+            } else if let walkBack {
+                walkBackBlock(walkBack)
+                    .paperCard()
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -338,6 +350,23 @@ struct QuestionProofPracticeView: View {
     }
 
     private var handIn: some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+            handInRow
+            if walkBack != nil {
+                Text("Hand in opens again once you have checked the step underneath.")
+                    .standardType(.uiCaption)
+                    .foregroundStyle(theme.mute(theme.ink))
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+            }
+        }
+        .onChange(of: typingIn) { _, box in
+            guard box == nil, handInGate.editingEnded() else { return }
+            // The field hands its last keys to the binding as it lets go; read it on the next turn.
+            DispatchQueue.main.async { markAttempt() }
+        }
+    }
+
+    private var handInRow: some View {
         HStack(alignment: .center, spacing: StandardSpacing.md) {
             VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
                 HStack(spacing: StandardSpacing.xs) {
@@ -379,15 +408,12 @@ struct QuestionProofPracticeView: View {
                 }
             }
             .buttonStyle(InkButtonStyle())
-        }
-        .onChange(of: typingIn) { _, box in
-            guard box == nil, handInGate.editingEnded() else { return }
-            // The field hands its last keys to the binding as it lets go; read it on the next turn.
-            DispatchQueue.main.async { markAttempt() }
+            .disabled(walkBack != nil)
         }
     }
 
     private func markAttempt() {
+        guard walkBack == nil else { return }
         evaluation = store.submitQuestionAttempt(
             question: question,
             answerText: submission,
@@ -665,6 +691,11 @@ struct QuestionProofPracticeView: View {
                 .standardType(.uiHeadline)
                 .foregroundStyle(theme.ink)
 
+            if let walkBack {
+                Rectangle().fill(theme.hairline()).frame(height: 1)
+                walkBackBlock(walkBack)
+            }
+
             if let grad = graduatedFeedback, !declinedToGuess, eval.mistake == nil {
                 Text("\(feedbackTitle(grad.tier)). \(grad.headline). \(grad.socraticNudge)")
                     .patternedType(.readingSmall)
@@ -704,6 +735,19 @@ struct QuestionProofPracticeView: View {
             }
         }
         .paperCard()
+    }
+
+    private func walkBackBlock(_ walkBack: WalkBack) -> some View {
+        let skill = walkBack.footing.skill.prefix(1).lowercased() + walkBack.footing.skill.dropFirst()
+        return VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+            Kicker("Check the step underneath")
+            Text("\(walkBack.misconception.name) again. It rests on a smaller step: \(skill). Check that step before you try again.")
+                .patternedType(.readingDefault)
+                .foregroundStyle(theme.ink)
+                .fixedSize(horizontal: false, vertical: true)
+            Button("Check the step underneath") { openWalkBack = walkBack }
+                .buttonStyle(InkButtonStyle())
+        }
     }
 
     private var spotTheFlaw: some View {
