@@ -113,7 +113,7 @@ HCF and LCM then get their own section. They do not share a sentence with negati
 
 Before writing a chapter, write its skill card in the format of `kym_mathgames/docs/SKILL_CHAINS.md`: the skill, what she can do with the device off (with a check and its answer), why it matters, what it stands on, what it unlocks. A chapter that cannot name its skill is not ready to write.
 
-Chapters 13 to 20 go beyond the Stage 8 school book. Say so on the chapter's first screen, and name the earlier cards each one stands on.
+Chapters 0, 12, 16, 17, 18 and 20 go beyond the Stage 8 school book: no school unit teaches them. Say so on the chapter's first screen, and name the earlier cards each one stands on.
 
 Titles and subtitles are plain. "Chapter 1 · Negative numbers, primes and powers", not a list of formulas.
 
