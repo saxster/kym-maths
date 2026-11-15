@@ -24,6 +24,7 @@ from book import ch03 as book_ch03
 from book import ch04 as book_ch04
 from book import ch05 as book_ch05
 from book import ch06 as book_ch06
+from book import ch07 as book_ch07
 from book import concepts as book_concepts
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -32,7 +33,7 @@ BOOK_OUT = ROOT / "KymMaths" / "KymMaths" / "Resources" / "PatternedWorldBook" /
 GOLDEN_OUT = ROOT / "KymMaths" / "Tests" / "Golden" / "concept-links.json"
 
 # Chapters rewritten by hand to docs/CONTENT_BRIEF.md. The content checks apply to these.
-BOOK_CHAPTERS = (book_ch00, book_ch01, book_ch02, book_ch03, book_ch04, book_ch05, book_ch06)
+BOOK_CHAPTERS = (book_ch00, book_ch01, book_ch02, book_ch03, book_ch04, book_ch05, book_ch06, book_ch07)
 # Saved learner responses key on callout ids, so a rewritten chapter keeps the old ids.
 CALLOUT_ID_SUFFIX = {"predict": "predict", "check": "aha", "careful": "trap"}
 
@@ -265,22 +266,6 @@ def build_volumes():
 
 def build_chapters():
     raw_specs = [
-        (
-            7, 2, "Functions, Linear Graphs & Kinematics",
-            "OUP Ch 14 · Function machines, y = mx + c, gradient Δy/Δx, parallel/perpendicular lines & speed-time graphs",
-            "Every straight line is a constant rate of change m = Δy / Δx anchored at a vertical intercept c.",
-            "Slide two points P and Q along a line y = mx + c and inspect the right-angled rise/run staircase.",
-            "No matter how wide or narrow you make the horizontal run Δx, the vertical rise Δy scales in the exact same proportion, keeping Δy / Δx = m invariant!",
-            "y = mx + c,   m = (y₂ − y₁) / (x₂ − x₁),   m₁ · m₂ = −1 (perpendicular)",
-            [
-                {"symbol": "Δy = y₂ − y₁", "visualPart": "Red vertical rise segment", "colorRole": "red", "meaning": "Signed vertical change"},
-                {"symbol": "Δx = x₂ − x₁", "visualPart": "Blue horizontal run segment", "colorRole": "blue", "meaning": "Signed horizontal step"},
-                {"symbol": "c", "visualPart": "Green y-axis crossing (0, c)", "colorRole": "green", "meaning": "Starting value when x = 0"}
-            ],
-            "maths/ch07-functions-graphs/index.html",
-            ["Function f(x)", "Gradient m", "y-Intercept c", "x-Intercept", "Parallel Lines", "Perpendicular Gradient −1/m", "Travel Graphs"],
-            ["w_linear_graph_slope_explorer", "w_kinematics_travel_graph"]
-        ),
         (
             8, 3, "Angle Chasing, Parallel Lines & Deductive Proof",
             "OUP Ch 8 · Alternate, corresponding & co-interior angles, exterior angle of a triangle & midpoint formula",
@@ -3521,7 +3506,7 @@ STUCK_SHEETS = {
                        one(forms("x=(y-5)/2", "(y-5)/2=x", "x=y/2-5/2", "x=1/2(y-5)"), accepts=["x = (y − 5)/2"],
                            rejects=["x = (y + 5)/2", "x = 2(y - 5)", "x = y - 5"],
                            mistakes=[mistake("inverse-wrong-order", forms("x=y/2-5"),
-                                             next_step="Divide the whole of the left side, not just the y.", examples=["x = y/2 − 5"])]),
+                                             next_step="Divide the whole of the left side, not only the y.", examples=["x = y/2 − 5"])]),
                        answer="x = (y − 5)/2", working="(y − 5) ÷ 2 gives x = (y − 5)/2."),
             stuck_step("Swap y for x to write f⁻¹(x).",
                        one(forms("(x-5)/2", "x/2-5/2", "1/2(x-5)", "1/2x-5/2", "(-5+x)/2", "0.5x-2.5"),
@@ -4819,7 +4804,7 @@ const CH_SLIDERS = {{
   4:  [{{lbl:'Side x:',min:3,max:6,step:1,val:4,u:''}}, {{lbl:'First number:',min:1,max:3,step:1,val:3,u:''}}, {{lbl:'Second number:',min:1,max:3,step:1,val:2,u:''}}],
   5:  [{{lbl:'Bags:',min:2,max:6,step:1,val:4,u:''}}, {{lbl:'Loose marbles:',min:1,max:9,step:1,val:3,u:''}}, {{lbl:'Marbles in a bag:',min:1,max:5,step:1,val:3,u:''}}],
   6:  [{{lbl:'Number of terms:',min:3,max:8,step:1,val:5,u:''}}, {{lbl:'First term:',min:1,max:4,step:1,val:1,u:''}}, {{lbl:'Common difference:',min:1,max:3,step:1,val:1,u:''}}],
-  7:  [{{lbl:'Gradient m:',min:-2,max:2.5,step:0.5,val:1.5,u:''}}, {{lbl:'y-Intercept c:',min:-1.5,max:2,step:0.5,val:0.5,u:''}}, {{lbl:'Run step Δx:',min:0.5,max:2,step:0.5,val:1.5,u:''}}],
+  7:  [{{lbl:'Gradient:',min:-3,max:3,step:0.5,val:2,u:''}}, {{lbl:'Crosses the y-axis at:',min:-3,max:3,step:1,val:1,u:''}}, {{lbl:'Step across:',min:1,max:3,step:1,val:1,u:''}}],
   8:  [{{lbl:'Angle α:',min:30,max:75,step:5,val:50,u:'°'}}, {{lbl:'Angle β:',min:30,max:75,step:5,val:60,u:'°'}}, {{lbl:'Polygon sides n:',min:3,max:8,step:1,val:6,u:''}}],
   9:  [{{lbl:'Segment AB:',min:4,max:8,step:0.5,val:6,u:'cm'}}, {{lbl:'Compass r/AB:',min:0.6,max:1.0,step:0.05,val:0.8,u:'×'}}, {{lbl:'Bearing from N:',min:20,max:160,step:5,val:65,u:'°'}}],
   10: [{{lbl:'Circle radius r:',min:2,max:6,step:0.5,val:4,u:'cm'}}, {{lbl:'Trap top a:',min:2,max:6,step:0.5,val:3,u:'cm'}}, {{lbl:'Trap base b:',min:4,max:9,step:0.5,val:6,u:'cm'}}],
@@ -5160,27 +5145,35 @@ function drawSandbox() {{
       break;
     }}
     case 7: {{
-      // Ch 7: Linear Graph y = mx + c & Rise/Run Triangle
-      const m = a, cInt = b, dx = c, dy = m * dx;
-      const ox = 165, oy = 155, sc = 36;
-      drawArrow(ctx, 30, oy, 310, oy, muted, 1.5);
-      drawArrow(ctx, ox, 255, ox, 25, muted, 1.5);
-      ctx.strokeStyle = blue; ctx.lineWidth = 2.8;
-      ctx.beginPath();
-      ctx.moveTo(ox - 3 * sc, oy - (-3 * m + cInt) * sc);
-      ctx.lineTo(ox + 3 * sc, oy - (3 * m + cInt) * sc);
-      ctx.stroke();
-      const x1 = ox, y1 = oy - cInt * sc, x2 = ox + dx * sc, y2 = y1 - dy * sc;
-      ctx.strokeStyle = amber; ctx.lineWidth = 2.2;
-      ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y1); ctx.lineTo(x2, y2); ctx.stroke();
-      ctx.fillStyle = green; ctx.beginPath(); ctx.arc(x1, y1, 5, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = ink; ctx.fillText(`(0, ${{cInt}})`, x1 - 44, y1 - 6);
-      ctx.fillStyle = blue; ctx.fillText(`Run Δx = ${{dx}}`, 325, 88);
-      ctx.fillStyle = red; ctx.fillText(`Rise Δy = m·Δx = ${{dy.toFixed(2)}}`, 325, 118);
-      ctx.fillStyle = green; ctx.fillText(`Gradient m = Δy/Δx = ${{m.toFixed(2)}}`, 325, 148);
-      const mPerp = Math.abs(m) > 0.05 ? (-1 / m).toFixed(2) : '∞';
-      ctx.fillStyle = amber; ctx.fillText(`Perpendicular m₂ = −1/m = ${{mPerp}}`, 325, 178);
-      readoutHtml = `Line <b>y = ${{m}}x + ${{cInt}}</b> · Over Δx = ${{dx}}, Δy = <b>${{dy.toFixed(2)}}</b> ·Perp gradient <b>m₂ = ${{mPerp}}</b>`;
+      // Ch 7: the line y = mx + c on a grid, with a step under it
+      const m = a, k = Math.round(b), run = Math.round(c), rise = m * run;
+      const ox = 160, oy = 86, sc = 12, num = v => String(Math.round(v * 100) / 100).replace('-', '−');
+      ctx.save(); ctx.beginPath(); ctx.rect(40, 20, 240, 132); ctx.clip();
+      ctx.strokeStyle = ink + '18'; ctx.lineWidth = 1;
+      for (let i = -10; i <= 10; i++) {{ ctx.beginPath(); ctx.moveTo(ox + i * sc, 20); ctx.lineTo(ox + i * sc, 152); ctx.stroke(); }}
+      for (let j = -5; j <= 5; j++) {{ ctx.beginPath(); ctx.moveTo(40, oy - j * sc); ctx.lineTo(280, oy - j * sc); ctx.stroke(); }}
+      ctx.strokeStyle = muted; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(40, oy); ctx.lineTo(280, oy); ctx.moveTo(ox, 20); ctx.lineTo(ox, 152); ctx.stroke();
+      ctx.strokeStyle = blue; ctx.lineWidth = 2.6;
+      ctx.beginPath(); ctx.moveTo(ox - 10 * sc, oy - (-10 * m + k) * sc); ctx.lineTo(ox + 10 * sc, oy - (10 * m + k) * sc); ctx.stroke();
+      const sx = m === 0 ? -run / 2 : Math.max(-10, Math.min(10 - run, -k / m - run / 2)), sy = m * sx + k;
+      ctx.lineWidth = 2.2;
+      ctx.strokeStyle = ink; ctx.beginPath(); ctx.moveTo(ox + sx * sc, oy - sy * sc); ctx.lineTo(ox + (sx + run) * sc, oy - sy * sc); ctx.stroke();
+      ctx.strokeStyle = red; ctx.beginPath(); ctx.moveTo(ox + (sx + run) * sc, oy - sy * sc); ctx.lineTo(ox + (sx + run) * sc, oy - (sy + rise) * sc); ctx.stroke();
+      ctx.fillStyle = green; ctx.beginPath(); ctx.arc(ox, oy - k * sc, 4.5, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+      ctx.fillStyle = muted; ctx.fillText('x', 284, oy + 4); ctx.fillText('y', ox - 4, 15);
+      const mx = m === 0 ? '' : m === 1 ? 'x' : m === -1 ? '−x' : `${{num(m)}}x`;
+      const eq = m === 0 ? num(k) : mx + (k === 0 ? '' : k > 0 ? ` + ${{k}}` : ` − ${{-k}}`);
+      const step = rise === 0 ? `${{run}} across, flat` : `${{run}} across, ${{num(Math.abs(rise))}} ${{rise > 0 ? 'up' : 'down'}}`;
+      const thirds = v => {{ const t = Math.round(v * 3); if (Math.abs(v * 3 - t) > 1e-9 || t % 3 === 0) return num(v); const a = Math.abs(t), w = Math.floor(a / 3); return (t < 0 ? '−' : '') + (w || '') + (a % 3 === 1 ? '⅓' : '⅔'); }};
+      const xCross = m !== 0 ? `Crosses the x-axis at x = ${{thirds(-k / m)}}` : k === 0 ? 'Lies along the x-axis' : 'Never crosses the x-axis';
+      ctx.fillStyle = blue; ctx.fillText(`Line: y = ${{eq}}`, 46, 168);
+      ctx.fillStyle = green; ctx.fillText(`Crosses the y-axis at (0, ${{num(k)}})`, 46, 194);
+      ctx.fillStyle = ink; ctx.fillText(`Step: ${{step}}`, 46, 212);
+      ctx.fillStyle = red; ctx.fillText(`Gradient: ${{num(rise)}} ÷ ${{run}} = ${{num(m)}}`, 46, 230);
+      ctx.fillStyle = amber; ctx.fillText(xCross, 46, 254);
+      readoutHtml = `<b style="color:${{blue}}">y = ${{eq}}</b> · gradient <b>${{num(m)}}</b> · crosses the y-axis at <b>(0, ${{num(k)}})</b>`;
       break;
     }}
     case 8: {{

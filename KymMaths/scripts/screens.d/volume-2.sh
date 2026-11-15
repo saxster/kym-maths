@@ -11,3 +11,7 @@ shot chapter/6 4 09-chapter-6
 shot concept/nth-term 3 34-concept-nth-term
 shot concept/quadratic-sequence 3 35-concept-quadratic-sequence
 shot proof/11 3 05-proof-unit-11
+shot chapter/7 4 10-chapter-7
+shot concept/gradient 3 36-concept-gradient
+shot concept/linear-graph 3 37-concept-linear-graph
+shot proof/14 3 06-proof-unit-14

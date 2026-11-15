@@ -765,10 +765,10 @@ public enum MathematicalDebateEngine {
 
 public enum MathematicalDebateCatalog {
     public static let all: [MathematicalDebateScenario] = [
-        // Ch 7 -> OUP Ch 12 (Ratio, Rate & Unitary Bar Models)
+        // Ch 8 -> OUP Ch 12 (Ratio, Rate & Unitary Bar Models)
         MathematicalDebateScenario(
             id: "debate-ch07-ratio",
-            chapterNumber: 7,
+            chapterNumber: 8,
             oupUnitNumber: 12,
             title: "The Marble Transfer Conservation Law",
             contextPrompt: "Kym and Aarav hold marbles in ratio 5 : 3. After Kym gives Aarav 10 marbles, they have equal shares (1 : 1). Reyansh and Ira debate how many marbles 1 bar unit represents:",
@@ -800,42 +800,6 @@ public enum MathematicalDebateCatalog {
                 )
             ],
             invariantTakeaway: "In an internal transfer between two people, the sum of bar units is conserved, and moving Δ units changes their gap by 2Δ."
-        ),
-        // Ch 8 -> OUP Ch 11 (Sequences, Patterns & Fenceposts)
-        MathematicalDebateScenario(
-            id: "debate-ch08-sequences",
-            chapterNumber: 8,
-            oupUnitNumber: 11,
-            title: "The Staircase Fencepost Trap",
-            contextPrompt: "A sequence starts at T₁ = 7 and adds d = 4 at each step (7, 11, 15, 19...). Kabir and Sia debate the formula for the 20th term T₂₀:",
-            speakerAName: "Kabir",
-            speakerAClaim: "For the 20th term, add twenty jumps of 4 to 7: T₂₀ = 7 + 20 × 4 = 87.",
-            speakerBName: "Sia",
-            speakerBClaim: "Term 1 is already at 7! To reach Term 20 from Term 1, you take 19 jumps of 4: T₂₀ = 7 + 19 × 4 = 83.",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch08-a",
-                    speakerLabel: "Kabir is right (T₂₀ = 87)",
-                    reasoningStatement: "Term n always adds n copies of the common difference d to a.",
-                    isCorrect: false,
-                    socraticRebuttal: "Check n = 1 with Kabir's rule: 7 + 1 × 4 = 11, which is already Term 2! You are off by one fencepost."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch08-b",
-                    speakerLabel: "Sia is right (T₂₀ = 83)",
-                    reasoningStatement: "Between 1st and nth posts there are (n − 1) gaps, so T_n = a + (n − 1)d.",
-                    isCorrect: true,
-                    socraticRebuttal: "Exact! Equivalently, since 4n starts at 4, adding +3 shifts it to start at 7: 4(20) + 3 = 83."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch08-c",
-                    speakerLabel: "Neither — T₂₀ = 20 × 7 = 140",
-                    reasoningStatement: "The 20th term is 20 times the first term.",
-                    isCorrect: false,
-                    socraticRebuttal: "Only sequences with common difference d = a (like 7, 14, 21...) are direct multiples of the first term."
-                )
-            ],
-            invariantTakeaway: "Reaching the nth term from the 1st term takes (n − 1) steps of d: T_n = a + (n − 1)d."
         ),
         // Ch 9 -> OUP Ch 8 (Polygons, Parallel Lines & Exterior Turns)
         MathematicalDebateScenario(

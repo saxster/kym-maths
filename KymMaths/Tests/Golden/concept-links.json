@@ -10771,6 +10771,1428 @@
     "links": []
   },
   {
+    "text": "Straight-line graphs",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "linear-graph",
+        "text": "Straight-line graphs",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "School book chapter 14 · Function machines, coordinates, gradient, y = mx + c and real-life graphs",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "function-machine",
+        "text": "Function machines",
+        "offset": 25
+      },
+      {
+        "concept": "coordinates",
+        "text": "coordinates",
+        "offset": 44
+      },
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 57
+      },
+      {
+        "concept": "real-life-graph",
+        "text": "real-life graphs",
+        "offset": 82
+      }
+    ]
+  },
+  {
+    "text": "A taxi costs ₹50 to start and ₹20 for every kilometre. Mark the fares for 0 to 4 km as dots on squared paper. Why do the dots fall in a straight row?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Drawing and reading a straight-line graph from its equation",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "linear-graph",
+        "text": "straight-line graph",
+        "offset": 22
+      },
+      {
+        "concept": "equation",
+        "text": "equation",
+        "offset": 51
+      }
+    ]
+  },
+  {
+    "text": "With no calculator: give the gradient of y = 3x − 2 and where it crosses the y-axis. Find the equation of the line through (1, 5) and (3, 9). Where does y = 2x + 5 cross the x-axis?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 29
+      },
+      {
+        "concept": "equation",
+        "text": "equation",
+        "offset": 94
+      }
+    ]
+  },
+  {
+    "text": "Gradient 3, crossing the y-axis at (0, −2). y = 2x + 3. At (−2.5, 0).",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "Gradient",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "A straight line is the picture of a steady rate: a fare per kilometre, a speed, a price per kilo. Reading its steepness and its starting point answers questions without working out every value.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 6: the nth term of a sequence that goes up in equal steps",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 15
+      },
+      {
+        "concept": "sequence",
+        "text": "sequence",
+        "offset": 29
+      }
+    ]
+  },
+  {
+    "text": "Chapter 5: solving an equation and turning a formula round",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "solving-equations",
+        "text": "solving an equation",
+        "offset": 11
+      },
+      {
+        "concept": "formula",
+        "text": "formula",
+        "offset": 45
+      }
+    ]
+  },
+  {
+    "text": "Negative numbers on a number line",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "negative-number",
+        "text": "Negative numbers",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Solving two equations at once by finding where their lines cross",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "equation",
+        "text": "equations",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Speed, rates and unit prices read from a graph",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Curved graphs such as y = x² in later chapters",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the gradient to 2, where the line crosses the y-axis to 1 and the step across to 1. The blue line passes through (0, 1), and the step under it goes 1 across and 2 up.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 8
+      }
+    ]
+  },
+  {
+    "text": "Change the step across to 2 or 3. The rise grows with it, 4 up and then 6 up, so the rise divided by the run stays 2 wherever you draw the step.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "y = mx + c,   gradient m = change in y ÷ change in x",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 14
+      }
+    ]
+  },
+  {
+    "text": "the rise",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The red side of the step",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "How far the line climbs over the dark step across",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "y = mx + c",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The blue line",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Every point whose y is m times its x, plus c",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "(0, c)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The green dot",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Where the line crosses the y-axis",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "y = 0",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The amber line of text",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Where the line crosses the x-axis",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "7.1 Machines that follow a rule",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "7.2 Points on a grid",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "7.3 How steep?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "7.4 Reading a line's equation",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "equation",
+        "text": "equation",
+        "offset": 21
+      }
+    ]
+  },
+  {
+    "text": "7.5 Lines that never meet",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "7.6 The story of a journey",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Predict first",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Predict where y = −2x + 3 crosses the x-axis. Then set the gradient to −2 and where it crosses the y-axis to 3, and read the amber line.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 59
+      }
+    ]
+  },
+  {
+    "text": "Explain it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The machine \"multiply by 2, then add 3\" turns 4 into 11. Explain to a friend how to run it backwards from 11 to get 4 again.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Last step first",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "To run a function machine backwards, undo its last step first. For multiply by 2, then add 3, take away 3 before you halve.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "function-machine",
+        "text": "function machine",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "Function machine",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "function-machine",
+        "text": "Function machine",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Inverse function",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "inverse-function",
+        "text": "Inverse function",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Coordinates",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "coordinates",
+        "text": "Coordinates",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Gradient",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "Gradient",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Intercept",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Straight-line graph",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "linear-graph",
+        "text": "Straight-line graph",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Parallel lines",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "Parallel lines",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Real-life graph",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "real-life-graph",
+        "text": "Real-life graph",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Which number is the gradient?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 20
+      }
+    ]
+  },
+  {
+    "text": "Arjun and Zara look at the line y = 6 − 2x and argue about its gradient.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 63
+      }
+    ]
+  },
+  {
+    "text": "Arjun",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The gradient is the first number, so it is 6.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "Zara",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The gradient is the number in front of x, so it is −2.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "Arjun is right (6)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The gradient is always the first number in the equation.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 4
+      },
+      {
+        "concept": "equation",
+        "text": "equation",
+        "offset": 47
+      }
+    ]
+  },
+  {
+    "text": "Work out y when x = 0 and when x = 1. How much did y change for that one step across?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Zara is right (−2)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The gradient is the number multiplying x, sign and all.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "Yes. Written as y = −2x + 6, the line falls 2 for every 1 across, and it crosses the y-axis at (0, 6).",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Neither. It is 2.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Steepness is a size, so it cannot be negative.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Is y going up or down as x goes up? What sign tells you which way the line slopes?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The gradient is the number multiplying x, with its sign. Rewrite the rule as y = mx + c before you read it.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "Rise over run stays the same",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the gradient to 3 and where the line crosses the y-axis to −2. Predict where it crosses the x-axis before you read the amber line.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 8
+      }
+    ]
+  },
+  {
+    "text": "y = 3x − 2 crosses the y-axis at (0, −2). Setting y = 0 gives 3x = 2, so it crosses the x-axis at x = 2 ÷ 3.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The rule: y = mx + c, with gradient m = change in y ÷ change in x",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 27
+      }
+    ]
+  },
+  {
+    "text": "1. Try it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the gradient to 1, where the line crosses the y-axis to 0 and the step across to 1.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 8
+      }
+    ]
+  },
+  {
+    "text": "2. Notice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Change the step across to 3. The rise becomes 3 too, so the gradient is still 1.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 60
+      }
+    ]
+  },
+  {
+    "text": "3. Match the rule",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the gradient to −1. The line now falls 1 for every 1 across.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 8
+      }
+    ]
+  },
+  {
+    "text": "4. Push it further",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the gradient to 0. Where does the flat line cross the x-axis?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 8
+      }
+    ]
+  },
+  {
+    "text": "5. Draw it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw y = 2x + 1 and y = 2x − 3 on the same axes in your journal. Do they meet?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Reading a journey",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Kym rides 12 km in 1 hour, rests for 1 hour, then rides home in 2 hours. Predict which part of the line is steepest.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The ride out climbs 12 in 1 hour, so its gradient is 12. The ride home falls 12 in 2 hours, a gradient of −6.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 41
+      }
+    ]
+  },
+  {
+    "text": "The rule: on a distance-time graph, speed = distance ÷ time = the gradient",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "real-life-graph",
+        "text": "distance-time graph",
+        "offset": 15
+      },
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 66
+      }
+    ]
+  },
+  {
+    "text": "1. Try it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Mark the points (0, 0), (1, 12), (2, 12) and (4, 0), and join them.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2. Notice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The flat part is the rest stop. Time passes, but the distance does not change.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3. Match the rule",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The first part rises 12 in 1 hour, which is a speed of 12 km an hour.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "4. Push it further",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "If the ride home took 3 hours, would its line be steeper or less steep?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "5. Draw it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw the line of your own trip to school and back, and find each speed.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 7 · Rise over run",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why does the gradient of a straight line not depend on where you measure it?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 13
+      }
+    ]
+  },
+  {
+    "text": "Any step under a straight line makes a triangle of the same shape. A step twice as wide rises twice as far, so the rise divided by the run never changes.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The rule: gradient = change in y ÷ change in x",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 10
+      }
+    ]
+  },
+  {
+    "text": "A taxi costs ₹50 to start and ₹20 for every kilometre. Mark the fares for 0 to 4 km as dots on squared paper. Why do the dots fall in a straight row?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 7 · Reading y = mx + c",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "How can you see a line's steepness and its starting point in its equation?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "equation",
+        "text": "equation",
+        "offset": 65
+      }
+    ]
+  },
+  {
+    "text": "Put x = 0 and y is c, so the line crosses the y-axis at (0, c). Each step of 1 across adds m to y, so m is the gradient.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 111
+      }
+    ]
+  },
+  {
+    "text": "The rule: y = mx + c",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A taxi costs ₹50 to start and ₹20 for every kilometre. Mark the fares for 0 to 4 km as dots on squared paper. Why do the dots fall in a straight row?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 7 · Speed is a gradient",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 23
+      }
+    ]
+  },
+  {
+    "text": "On a distance-time graph, why does a steeper line mean a faster trip?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "real-life-graph",
+        "text": "distance-time graph",
+        "offset": 5
+      }
+    ]
+  },
+  {
+    "text": "The gradient is the distance covered divided by the time taken, which is the speed. A flat line covers no distance, so it means standing still.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "The rule: speed = distance ÷ time",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A taxi costs ₹50 to start and ₹20 for every kilometre. Mark the fares for 0 to 4 km as dots on squared paper. Why do the dots fall in a straight row?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Kym feeds 4 into a number machine and 11 comes out. Feeding in 5 gives 13, and 10 gives 23. What does the machine do? What went in if 31 came out?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Each extra 1 going in adds 2 coming out, so the machine doubles. 4 doubled is 8, and 11 is 3 more, so it doubles, then adds 3. To get back from 31, take 3 to get 28, then halve to get 14.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw two boxes in a row: in, then × 2, then + 3, then out. Under them, draw the same two boxes with the arrows pointing back: − 3, then ÷ 2.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why undo the steps in reverse order? The + 3 happened last, so it is the first thing to take off, the way you take off your shoes before your socks.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A rule that turns each input into exactly one output is called a function. A row of boxes showing its steps is a function machine, and we write the rule as f(x) = 2x + 3. Run backwards, each step undone in reverse order, it is the inverse function, f⁻¹(x) = (x − 3) ÷ 2. Say f⁻¹ as \"f inverse\". The small −1 is a label here, not a power.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "function-machine",
+        "text": "function machine",
+        "offset": 113
+      },
+      {
+        "concept": "inverse-function",
+        "text": "inverse function",
+        "offset": 231
+      }
+    ]
+  },
+  {
+    "text": "Take f(x) = 5x − 4. Then f(3) = 5 × 3 − 4 = 11. The inverse adds 4, then divides by 5, so f⁻¹(x) = (x + 4) ÷ 5, and f⁻¹(11) = 15 ÷ 5 = 3.",
+    "exclude": null,
+    "linked": [
+      "function-machine",
+      "inverse-function"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to undo the steps in the same order: halve first, then take 3. For 31 that gives 15.5 − 3 = 12.5, and 2 × 12.5 + 3 = 28, not 31.",
+    "exclude": null,
+    "linked": [
+      "function-machine",
+      "inverse-function"
+    ],
+    "links": []
+  },
+  {
+    "text": "f(x) = 3x − 7. What is f⁻¹(8)?",
+    "exclude": null,
+    "linked": [
+      "function-machine",
+      "inverse-function"
+    ],
+    "links": []
+  },
+  {
+    "text": "A function machine follows its steps in order, and its inverse undoes them in reverse order.",
+    "exclude": null,
+    "linked": [
+      "function-machine",
+      "inverse-function"
+    ],
+    "links": []
+  },
+  {
+    "text": "The taxi costs ₹50 to start and ₹20 for each kilometre. Make a table of the fares for 0, 1, 2, 3 and 4 km. Then mark each pair of numbers as a dot on squared paper. What shape do the dots make?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The fares are 50, 70, 90, 110 and 130. For each pair, go across by the kilometres and up by the fare, and put a dot. Each dot is 1 across and 20 up from the one before, so the dots sit in a straight row.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw a line across the page for the kilometres, 0 to 4, and a line up the side for the fare, 0 to 140 in steps of 20. Put dots at 0 and 50, 1 and 70, 2 and 90, 3 and 110, and 4 and 130, then lay a ruler along them.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why a straight row? Each extra kilometre adds the same ₹20. Equal steps across give equal steps up, like the arithmetic sequences of chapter 6.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "arithmetic-sequence",
+        "text": "arithmetic sequences",
+        "offset": 109
+      }
+    ]
+  },
+  {
+    "text": "The line across is the x-axis and the line up is the y-axis. They meet at the origin, (0, 0). A point is named by its coordinates (x, y): how far across, then how far up. The taxi's dots are (0, 50), (1, 70), (2, 90), (3, 110) and (4, 130).",
+    "exclude": null,
+    "linked": [
+      "arithmetic-sequence"
+    ],
+    "links": [
+      {
+        "concept": "coordinates",
+        "text": "coordinates",
+        "offset": 118
+      }
+    ]
+  },
+  {
+    "text": "The point (3, −2) is 3 to the right of the origin and 2 down. The point (−4, 1) is 4 to the left and 1 up. The x-coordinate always comes first.",
+    "exclude": null,
+    "linked": [
+      "arithmetic-sequence",
+      "coordinates"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to swap the numbers and put (2, 5) at 2 up and 5 across. Across comes first, in the same way that x comes before y in the alphabet.",
+    "exclude": null,
+    "linked": [
+      "arithmetic-sequence",
+      "coordinates"
+    ],
+    "links": []
+  },
+  {
+    "text": "Another taxi charges ₹30 to start and ₹15 for each kilometre. What is the y-coordinate of its point for 4 km?",
+    "exclude": null,
+    "linked": [
+      "arithmetic-sequence",
+      "coordinates"
+    ],
+    "links": []
+  },
+  {
+    "text": "Coordinates (x, y) say how far across, then how far up.",
+    "exclude": null,
+    "linked": [
+      "arithmetic-sequence",
+      "coordinates"
+    ],
+    "links": []
+  },
+  {
+    "text": "For 0, 1 and 2 km, one taxi's fares are 50, 70 and 90, and another's are 50, 80 and 110. Draw both rows of dots. Which row is steeper, and by how much?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The first row goes up 20 for each 1 across. The second goes up 30 for each 1 across. So the second is steeper: it climbs ₹30 for every kilometre instead of ₹20.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "On the first row, draw a step from (1, 70) to (3, 110): 2 across, then 40 up. The step and the line make a right-angled triangle.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why divide the rise by the run? A wider step has a bigger rise as well. 40 up for 2 across is as steep as 20 up for 1 across, and dividing gives 20 both times.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Divide the rise by the run to get the gradient of the line. Gradient = change in y ÷ change in x. A line that goes down from left to right has a negative gradient.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 38
+      }
+    ]
+  },
+  {
+    "text": "Between (−2, 1) and (4, 13), the change in y is 13 − 1 = 12 and the change in x is 4 − (−2) = 6. The gradient is 12 ÷ 6 = 2.",
+    "exclude": null,
+    "linked": [
+      "gradient"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to divide the run by the rise: 6 ÷ 12 = 0.5. Another is to subtract the y values one way round and the x values the other way, which flips the sign. Start from the same point both times.",
+    "exclude": null,
+    "linked": [
+      "gradient"
+    ],
+    "links": []
+  },
+  {
+    "text": "What is the gradient of the line through (1, 9) and (4, 3)?",
+    "exclude": null,
+    "linked": [
+      "gradient"
+    ],
+    "links": []
+  },
+  {
+    "text": "The gradient is the rise divided by the run, and it is negative when the line goes down.",
+    "exclude": null,
+    "linked": [
+      "gradient"
+    ],
+    "links": []
+  },
+  {
+    "text": "The taxi costs ₹50 to start and ₹20 a kilometre. Write the fare y for x kilometres. Where does its line cross the y-axis, and what is its gradient?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 138
+      }
+    ]
+  },
+  {
+    "text": "The fare is y = 20x + 50. At x = 0 it is 50, so the line crosses the y-axis at (0, 50). It climbs 20 for each kilometre, so its gradient is 20. Both numbers sit in the rule.",
+    "exclude": null,
+    "linked": [
+      "gradient"
+    ],
+    "links": []
+  },
+  {
+    "text": "In the figure, set the gradient to 2, where the line crosses the y-axis to 1 and the step across to 1. The green dot is at (0, 1), and the step goes 1 across and 2 up.",
+    "exclude": null,
+    "linked": [
+      "gradient"
+    ],
+    "links": []
+  },
+  {
+    "text": "Why is the number in front of x the gradient? Each time x goes up by 1, y goes up by that number. The number on its own is the value of y when x is 0, which is where the line meets the y-axis.",
+    "exclude": null,
+    "linked": [
+      "gradient"
+    ],
+    "links": []
+  },
+  {
+    "text": "Any rule y = mx + c draws a straight line, called a straight-line graph or a linear graph. m is its gradient. The point (0, c), where it crosses the y-axis, is the y-intercept. The point where it crosses the x-axis, where y = 0, is the x-intercept.",
+    "exclude": null,
+    "linked": [
+      "gradient"
+    ],
+    "links": [
+      {
+        "concept": "linear-graph",
+        "text": "straight-line graph",
+        "offset": 52
+      },
+      {
+        "concept": "intercept",
+        "text": "y-intercept",
+        "offset": 164
+      }
+    ]
+  },
+  {
+    "text": "y = 2x + 5 has gradient 2 and y-intercept (0, 5). For the x-intercept, set y = 0. Then 2x + 5 = 0, so 2x = −5 and x = −2.5. The line crosses the x-axis at (−2.5, 0).",
+    "exclude": null,
+    "linked": [
+      "gradient",
+      "intercept",
+      "linear-graph"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to read the gradient of y = 7 − 3x as 7, because it comes first. Write it as y = −3x + 7. The gradient is −3 and the y-intercept is (0, 7).",
+    "exclude": null,
+    "linked": [
+      "gradient",
+      "intercept",
+      "linear-graph"
+    ],
+    "links": []
+  },
+  {
+    "text": "Where does y = 4x − 12 cross the x-axis? Give the value of x.",
+    "exclude": null,
+    "linked": [
+      "gradient",
+      "intercept",
+      "linear-graph"
+    ],
+    "links": []
+  },
+  {
+    "text": "In y = mx + c, m is the gradient and c is where the line crosses the y-axis.",
+    "exclude": null,
+    "linked": [
+      "gradient",
+      "intercept",
+      "linear-graph"
+    ],
+    "links": []
+  },
+  {
+    "text": "Two taxi firms both charge ₹20 a kilometre. One charges ₹50 to start and the other ₹80. Draw both lines. Will they ever meet?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "At every distance the second fare is ₹30 more: 80 against 50, 100 against 70, 120 against 90. The gap never closes, so the lines never meet.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw y = 20x + 50 and y = 20x + 80 on the same axes. The second line is the first one slid 30 straight up.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why do they never meet? Both climb 20 for each 1 across, so the gap between them stays 30 however far you go.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Lines that never meet are parallel lines. Two straight lines are parallel when they have the same gradient. Lines that cross at a right angle are perpendicular, and multiplying their gradients gives −1. For example, y = 2x and y = −½x cross at a right angle, and 2 × −½ = −1.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 26
+      },
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 98
+      }
+    ]
+  },
+  {
+    "text": "Find the line parallel to y = 3x − 1 through (2, 11). It has gradient 3, so it is y = 3x + c. Put in x = 2 and y = 11: 11 = 6 + c, so c = 5. The line is y = 3x + 5.",
+    "exclude": null,
+    "linked": [
+      "gradient",
+      "parallel-lines"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to think y = 2x + 1 and y = x + 2 are parallel because they use the same numbers. Their gradients are 2 and 1, so they cross, at (1, 3).",
+    "exclude": null,
+    "linked": [
+      "gradient",
+      "parallel-lines"
+    ],
+    "links": []
+  },
+  {
+    "text": "Which line is parallel to y = 5x + 2: y = 2x + 5, y = 5x − 3 or y = −5x + 2?",
+    "exclude": null,
+    "linked": [
+      "gradient",
+      "parallel-lines"
+    ],
+    "links": []
+  },
+  {
+    "text": "Parallel lines have the same gradient and cross the y-axis at different places.",
+    "exclude": null,
+    "linked": [
+      "gradient",
+      "parallel-lines"
+    ],
+    "links": []
+  },
+  {
+    "text": "Kym cycles 12 km to a friend's house in 1 hour, stays for 1 hour, then rides home in 2 hours. Mark the distance from home against the time. Which part of the trip was fastest?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Going, Kym covers 12 km in 1 hour, which is 12 km an hour. Coming home, 12 km takes 2 hours, which is 6 km an hour. During the visit, time passes but the distance stays 12 km.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Put the time in hours along the x-axis, 0 to 4, and the distance from home up the y-axis, 0 to 12 km. Join (0, 0) to (1, 12), then (1, 12) to (2, 12), then (2, 12) to (4, 0).",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why is the steepest part the fastest? Its gradient is distance ÷ time, which is the speed. The flat part has gradient 0, so Kym is not moving.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 42
+      }
+    ]
+  },
+  {
+    "text": "A graph of a real situation, like a taxi fare or a trip, is a real-life graph. On a distance-time graph the gradient is the speed, and a line sloping down means heading back towards the start.",
+    "exclude": null,
+    "linked": [
+      "gradient"
+    ],
+    "links": [
+      {
+        "concept": "real-life-graph",
+        "text": "real-life graph",
+        "offset": 62
+      }
+    ]
+  },
+  {
+    "text": "A bus goes 30 km in the first half hour, then 30 km in the next hour. Its speeds are 30 ÷ 0.5 = 60 km an hour, then 30 ÷ 1 = 30 km an hour. The first part of its line is twice as steep.",
+    "exclude": null,
+    "linked": [
+      "gradient",
+      "real-life-graph"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to read the line going down as Kym riding downhill. It shows the distance from home shrinking, so Kym is riding home.",
+    "exclude": null,
+    "linked": [
+      "gradient",
+      "real-life-graph"
+    ],
+    "links": []
+  },
+  {
+    "text": "On a distance-time graph, a runner's line goes from (0, 0) to (2, 18), with time in hours and distance in km. What is the runner's speed in km an hour?",
+    "exclude": null,
+    "linked": [
+      "gradient",
+      "real-life-graph"
+    ],
+    "links": []
+  },
+  {
+    "text": "On a distance-time graph the gradient is the speed, and a flat line means standing still.",
+    "exclude": null,
+    "linked": [
+      "gradient",
+      "real-life-graph"
+    ],
+    "links": []
+  },
+  {
     "text": "Negative number",
     "exclude": "negative-number",
     "linked": [],
@@ -10891,6 +12313,30 @@
       {
         "concept": "inequality",
         "text": "Inequality",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Coordinates",
+    "exclude": "negative-number",
+    "linked": [],
+    "links": [
+      {
+        "concept": "coordinates",
+        "text": "Coordinates",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Gradient",
+    "exclude": "negative-number",
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "Gradient",
         "offset": 0
       }
     ]
@@ -16906,6 +18352,18 @@
     ]
   },
   {
+    "text": "Function machine",
+    "exclude": "expression",
+    "linked": [],
+    "links": [
+      {
+        "concept": "function-machine",
+        "text": "Function machine",
+        "offset": 0
+      }
+    ]
+  },
+  {
     "text": "Substitution",
     "exclude": "substitution",
     "linked": [],
@@ -16998,6 +18456,30 @@
         "concept": "factorising",
         "text": "factorising",
         "offset": 25
+      }
+    ]
+  },
+  {
+    "text": "Function machine",
+    "exclude": "substitution",
+    "linked": [],
+    "links": [
+      {
+        "concept": "function-machine",
+        "text": "Function machine",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Straight-line graph",
+    "exclude": "substitution",
+    "linked": [],
+    "links": [
+      {
+        "concept": "linear-graph",
+        "text": "Straight-line graph",
+        "offset": 0
       }
     ]
   },
@@ -18093,6 +19575,18 @@
     ]
   },
   {
+    "text": "Inverse function",
+    "exclude": "inverse-operation",
+    "linked": [],
+    "links": [
+      {
+        "concept": "inverse-function",
+        "text": "Inverse function",
+        "offset": 0
+      }
+    ]
+  },
+  {
     "text": "Solving an equation",
     "exclude": "solving-equations",
     "linked": [],
@@ -18214,6 +19708,12 @@
         "offset": 36
       }
     ]
+  },
+  {
+    "text": "Intercept",
+    "exclude": "solving-equations",
+    "linked": [],
+    "links": []
   },
   {
     "text": "Formula",
@@ -19409,6 +20909,834 @@
     ]
   },
   {
+    "text": "Function machine",
+    "exclude": "function-machine",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A row of steps that turns each input number into exactly one output.",
+    "exclude": "function-machine",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Two boxes joined by arrows: a number goes in, is multiplied by 2, has 3 added, and comes out.",
+    "exclude": "function-machine",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "For the machine × 4 then − 1, an input of 6 gives 6 × 4 = 24, then 24 − 1 = 23.",
+    "exclude": "function-machine",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Put the input into the first box.",
+    "exclude": "function-machine",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Do each box's step in order.",
+    "exclude": "function-machine",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Read the output at the end.",
+    "exclude": "function-machine",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A machine adds 5, then multiplies by 2. What comes out when 3 goes in?",
+    "exclude": "function-machine",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "16",
+    "exclude": "function-machine",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "doing the steps in any order",
+    "exclude": "function-machine",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Add 5 then double turns 3 into 16. Double then add 5 turns 3 into 11. The order of the boxes matters.",
+    "exclude": "function-machine",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 7 · Straight-line graphs",
+    "exclude": "function-machine",
+    "linked": [],
+    "links": [
+      {
+        "concept": "linear-graph",
+        "text": "Straight-line graphs",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Inverse function",
+    "exclude": "function-machine",
+    "linked": [],
+    "links": [
+      {
+        "concept": "inverse-function",
+        "text": "Inverse function",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Inverse function",
+    "exclude": "inverse-function",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The rule that undoes a function, taking each output back to the input it came from.",
+    "exclude": "inverse-function",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A function machine with its arrows turned round, and each box swapped for its opposite step.",
+    "exclude": "inverse-function",
+    "linked": [],
+    "links": [
+      {
+        "concept": "function-machine",
+        "text": "function machine",
+        "offset": 2
+      }
+    ]
+  },
+  {
+    "text": "f(x) = 4x + 1 multiplies by 4, then adds 1. The inverse takes 1, then divides by 4: f⁻¹(x) = (x − 1) ÷ 4, and f⁻¹(9) = 2.",
+    "exclude": "inverse-function",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "List the steps of the function in order.",
+    "exclude": "inverse-function",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Swap each step for its inverse operation.",
+    "exclude": "inverse-function",
+    "linked": [],
+    "links": [
+      {
+        "concept": "inverse-operation",
+        "text": "inverse operation",
+        "offset": 23
+      }
+    ]
+  },
+  {
+    "text": "Do them in reverse order.",
+    "exclude": "inverse-function",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "f(x) = 2x + 6. What is f⁻¹(20)?",
+    "exclude": "inverse-function",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "7",
+    "exclude": "inverse-function",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "undoing in the same order",
+    "exclude": "inverse-function",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "For f(x) = 2x + 6, halving first and then taking 6 turns 20 into 4, which is wrong. Take 6 first, then halve, to get 7.",
+    "exclude": "inverse-function",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 7 · Straight-line graphs",
+    "exclude": "inverse-function",
+    "linked": [],
+    "links": [
+      {
+        "concept": "linear-graph",
+        "text": "Straight-line graphs",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Coordinates",
+    "exclude": "coordinates",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A pair of numbers (x, y) that says where a point is: how far across, then how far up.",
+    "exclude": "coordinates",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Squared paper with an x-axis across and a y-axis up, and a dot at (3, 2), 3 across and 2 up.",
+    "exclude": "coordinates",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "To reach (−2, 5), go 2 to the left of the origin, then 5 up.",
+    "exclude": "coordinates",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Start at the origin, (0, 0).",
+    "exclude": "coordinates",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Move across by the x-coordinate, right if it is positive and left if it is negative.",
+    "exclude": "coordinates",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Move up by the y-coordinate, or down if it is negative.",
+    "exclude": "coordinates",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Kym starts at (1, 4), moves 3 to the right and 6 down. What are the coordinates of the new point?",
+    "exclude": "coordinates",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "(4, −2)",
+    "exclude": "coordinates",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "swapping x and y",
+    "exclude": "coordinates",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "(2, 5) is 2 across and 5 up. (5, 2) is 5 across and 2 up, a different point.",
+    "exclude": "coordinates",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 7 · Straight-line graphs",
+    "exclude": "coordinates",
+    "linked": [],
+    "links": [
+      {
+        "concept": "linear-graph",
+        "text": "Straight-line graphs",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Gradient",
+    "exclude": "coordinates",
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "Gradient",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Intercept",
+    "exclude": "coordinates",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Gradient",
+    "exclude": "gradient",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "How steep a line is: the change in y divided by the change in x.",
+    "exclude": "gradient",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A step drawn under a line, 2 across and 6 up, so the gradient is 6 ÷ 2 = 3.",
+    "exclude": "gradient",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "From (2, 3) to (6, 11), the change in y is 8 and the change in x is 4, so the gradient is 8 ÷ 4 = 2.",
+    "exclude": "gradient",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Pick two points on the line.",
+    "exclude": "gradient",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find the change in y and the change in x, starting from the same point both times.",
+    "exclude": "gradient",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Divide the change in y by the change in x.",
+    "exclude": "gradient",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "What is the gradient of the line through (0, 7) and (2, 1)?",
+    "exclude": "gradient",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "−3",
+    "exclude": "gradient",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "run over rise",
+    "exclude": "gradient",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Gradient is rise over run. A line 2 across and 6 up has gradient 3, not ⅓.",
+    "exclude": "gradient",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 7 · Straight-line graphs",
+    "exclude": "gradient",
+    "linked": [],
+    "links": [
+      {
+        "concept": "linear-graph",
+        "text": "Straight-line graphs",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Straight-line graph",
+    "exclude": "gradient",
+    "linked": [],
+    "links": [
+      {
+        "concept": "linear-graph",
+        "text": "Straight-line graph",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Parallel lines",
+    "exclude": "gradient",
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "Parallel lines",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Real-life graph",
+    "exclude": "gradient",
+    "linked": [],
+    "links": [
+      {
+        "concept": "real-life-graph",
+        "text": "Real-life graph",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Intercept",
+    "exclude": "intercept",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A point where a line crosses an axis: the y-intercept is where x = 0 and the x-intercept is where y = 0.",
+    "exclude": "intercept",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The line y = 2x − 4 crossing the y-axis at (0, −4) and the x-axis at (2, 0).",
+    "exclude": "intercept",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "For y = 3x + 6, x = 0 gives y = 6, so the y-intercept is (0, 6). y = 0 gives 3x = −6, so the x-intercept is (−2, 0).",
+    "exclude": "intercept",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "For the y-intercept, put x = 0 into the equation.",
+    "exclude": "intercept",
+    "linked": [],
+    "links": [
+      {
+        "concept": "equation",
+        "text": "equation",
+        "offset": 40
+      }
+    ]
+  },
+  {
+    "text": "For the x-intercept, put y = 0 and solve for x.",
+    "exclude": "intercept",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write each one as a point.",
+    "exclude": "intercept",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Where does y = 5x − 10 cross the x-axis? Give the value of x.",
+    "exclude": "intercept",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2",
+    "exclude": "intercept",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "mixing up the axes",
+    "exclude": "intercept",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The y-intercept sits on the y-axis, where x = 0. The x-intercept sits on the x-axis, where y = 0.",
+    "exclude": "intercept",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 7 · Straight-line graphs",
+    "exclude": "intercept",
+    "linked": [],
+    "links": [
+      {
+        "concept": "linear-graph",
+        "text": "Straight-line graphs",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Straight-line graph",
+    "exclude": "intercept",
+    "linked": [],
+    "links": [
+      {
+        "concept": "linear-graph",
+        "text": "Straight-line graph",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Straight-line graph",
+    "exclude": "linear-graph",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The line drawn by a rule y = mx + c, where m is the gradient and c is where it crosses the y-axis.",
+    "exclude": "linear-graph",
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 52
+      }
+    ]
+  },
+  {
+    "text": "The taxi fares 50, 70, 90, 110 drawn as dots that a ruler joins into one straight line.",
+    "exclude": "linear-graph",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "y = 10 − 2x is y = −2x + 10. Mark (0, 10), then go 1 across and 2 down to (1, 8), and join them.",
+    "exclude": "linear-graph",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Rewrite the rule as y = mx + c if it is not already.",
+    "exclude": "linear-graph",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Mark the point (0, c) on the y-axis.",
+    "exclude": "linear-graph",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "From there, go 1 across and m up, and mark a second point.",
+    "exclude": "linear-graph",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Join the points with a ruler.",
+    "exclude": "linear-graph",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "What is the gradient of y = 8 − 4x?",
+    "exclude": "linear-graph",
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "−4",
+    "exclude": "linear-graph",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "the first number is the gradient",
+    "exclude": "linear-graph",
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 24
+      }
+    ]
+  },
+  {
+    "text": "In y = 8 − 4x the first number, 8, is where the line crosses the y-axis. The gradient is −4, the number with x.",
+    "exclude": "linear-graph",
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 77
+      }
+    ]
+  },
+  {
+    "text": "Chapter 7 · Straight-line graphs",
+    "exclude": "linear-graph",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Parallel lines",
+    "exclude": "linear-graph",
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "Parallel lines",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Real-life graph",
+    "exclude": "linear-graph",
+    "linked": [],
+    "links": [
+      {
+        "concept": "real-life-graph",
+        "text": "Real-life graph",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Parallel lines",
+    "exclude": "parallel-lines",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Lines that never meet. Straight lines are parallel when they have the same gradient.",
+    "exclude": "parallel-lines",
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 75
+      }
+    ]
+  },
+  {
+    "text": "Railway tracks: two lines side by side, always the same distance apart.",
+    "exclude": "parallel-lines",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "y = 4x + 1 and y = 4x − 6 both have gradient 4, so they are parallel. y = 4x + 1 and y = x + 4 are not.",
+    "exclude": "parallel-lines",
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 36
+      }
+    ]
+  },
+  {
+    "text": "Write each line as y = mx + c.",
+    "exclude": "parallel-lines",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Compare the gradients m.",
+    "exclude": "parallel-lines",
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradients",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Equal gradients and different values of c mean parallel lines.",
+    "exclude": "parallel-lines",
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradients",
+        "offset": 6
+      }
+    ]
+  },
+  {
+    "text": "A line is parallel to y = 2x + 7 and passes through (0, −1). What is its equation?",
+    "exclude": "parallel-lines",
+    "linked": [],
+    "links": [
+      {
+        "concept": "equation",
+        "text": "equation",
+        "offset": 73
+      }
+    ]
+  },
+  {
+    "text": "y = 2x − 1",
+    "exclude": "parallel-lines",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "perpendicular lines",
+    "exclude": "parallel-lines",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Parallel lines have equal gradients. Perpendicular lines cross at a right angle, and their gradients multiply to −1.",
+    "exclude": "parallel-lines",
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradients",
+        "offset": 26
+      }
+    ]
+  },
+  {
+    "text": "Chapter 7 · Straight-line graphs",
+    "exclude": "parallel-lines",
+    "linked": [],
+    "links": [
+      {
+        "concept": "linear-graph",
+        "text": "Straight-line graphs",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Real-life graph",
+    "exclude": "real-life-graph",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A graph of a real situation, where the gradient is a rate such as a speed or a price per kilometre.",
+    "exclude": "real-life-graph",
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 39
+      }
+    ]
+  },
+  {
+    "text": "A trip drawn as distance from home against time: up for going out, flat for a stop, down for coming home.",
+    "exclude": "real-life-graph",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A walker's line goes from (0, 0) to (3, 15), time in hours and distance in km. The gradient is 15 ÷ 3 = 5, so the speed is 5 km an hour.",
+    "exclude": "real-life-graph",
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 83
+      }
+    ]
+  },
+  {
+    "text": "Read what each axis measures, with its units.",
+    "exclude": "real-life-graph",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find the gradient of each straight part.",
+    "exclude": "real-life-graph",
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "Say what that gradient means, such as km an hour or rupees per kilometre.",
+    "exclude": "real-life-graph",
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 14
+      }
+    ]
+  },
+  {
+    "text": "A car's distance-time line goes from (0, 0) to (2, 150), in hours and km. What is its speed in km an hour?",
+    "exclude": "real-life-graph",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "75",
+    "exclude": "real-life-graph",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "a picture of the road",
+    "exclude": "real-life-graph",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A line going down does not mean a hill. On a distance-time graph it means getting closer to the start.",
+    "exclude": "real-life-graph",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 7 · Straight-line graphs",
+    "exclude": "real-life-graph",
+    "linked": [],
+    "links": [
+      {
+        "concept": "linear-graph",
+        "text": "Straight-line graphs",
+        "offset": 12
+      }
+    ]
+  },
+  {
     "text": "Find the Highest Common Factor (HCF) and Lowest Common Multiple (LCM) of 72 and 120 using prime factorisation, and verify that HCF × LCM = 72 × 120.",
     "exclude": null,
     "linked": [],
@@ -20342,6 +22670,125 @@
     "links": []
   },
   {
+    "text": "Find the equation of the straight line passing through A(−2, 1) and B(4, 13) in the form y = mx + c, and state where it crosses the x-axis.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "equation",
+        "text": "equation",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "Step 1: The gradient is (13 − 1) ÷ (4 − (−2)) = 12 ÷ 6 = 2.\nStep 2: So the line is y = 2x + c. Put in (4, 13): 13 = 8 + c, so c = 5 and y = 2x + 5.\nStep 3: Check with (−2, 1): 2 × (−2) + 5 = 1.\nStep 4: For the x-intercept, set y = 0. 2x + 5 = 0, so x = −2.5.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 12
+      },
+      {
+        "concept": "intercept",
+        "text": "x-intercept",
+        "offset": 210
+      }
+    ]
+  },
+  {
+    "text": "The line is y = 2x + 5. Setting y = 0 gives 2x = −5, so x = ___.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "For the function f(x) = 3x − 7, find the inverse function f⁻¹(x).",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "inverse-function",
+        "text": "inverse function",
+        "offset": 41
+      }
+    ]
+  },
+  {
+    "text": "Step 1: The machine for f(x) = 3x − 7 multiplies by 3, then takes 7.\nStep 2: Undo the steps in reverse order: first add 7, then divide by 3.\nStep 3: So f⁻¹(x) = (x + 7) ÷ 3.\nStep 4: Check: f(4) = 5, and f⁻¹(5) = 12 ÷ 3 = 4.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "f(x) = 3x − 7 multiplies by 3, then takes 7. So f⁻¹(x) = (x + ___) ÷ 3.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find the equation of the line perpendicular to y = 2x + 5 that passes through (0, 3).",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "equation",
+        "text": "equation",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "Step 1: y = 2x + 5 has gradient 2.\nStep 2: A perpendicular gradient multiplies with 2 to give −1, so it is −½.\nStep 3: The line passes through (0, 3), so it crosses the y-axis at 3.\nStep 4: The line is y = −½x + 3. Check: 2 × (−½) = −1.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 23
+      }
+    ]
+  },
+  {
+    "text": "2 × m = −1 gives m = −½, and the line crosses the y-axis at 3, so y = ___x + 3.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find the point of intersection of the lines y = 3x − 2 and x + 2y = 10.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "intersection",
+        "text": "intersection",
+        "offset": 18
+      }
+    ]
+  },
+  {
+    "text": "Step 1: Put y = 3x − 2 into x + 2y = 10. x + 2(3x − 2) = 10.\nStep 2: Expand the brackets. x + 6x − 4 = 10, so 7x = 14 and x = 2.\nStep 3: Then y = 3 × 2 − 2 = 4.\nStep 4: The lines meet at (2, 4). Check: 2 + 2 × 4 = 10.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "expanding-brackets",
+        "text": "Expand",
+        "offset": 69
+      }
+    ]
+  },
+  {
+    "text": "7x = 14 gives x = 2, and y = 3 × 2 − 2 = ___, so the lines meet at (2, ___).",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
     "text": "An expression has no = sign, such as 3x + 2. An equation is true for only some values of x, such as 3x + 2 = 11. An identity is true for every value, such as 2(x + 1) = 2x + 2.",
     "exclude": null,
     "linked": [],
@@ -20725,6 +23172,57 @@
     ]
   },
   {
+    "text": "A function machine follows a rule step by step, like f(x) = 2x + 3. Its inverse undoes the steps in reverse order, so f⁻¹(x) = (x − 3) ÷ 2.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "function-machine",
+        "text": "function machine",
+        "offset": 2
+      }
+    ]
+  },
+  {
+    "text": "The line y = mx + c has gradient m, the change in y divided by the change in x, and crosses the y-axis at (0, c). Parallel lines have the same gradient. Perpendicular gradients multiply to −1. Two lines meet at the point that fits both equations.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 24
+      },
+      {
+        "concept": "parallel-lines",
+        "text": "Parallel lines",
+        "offset": 114
+      },
+      {
+        "concept": "equation",
+        "text": "equations",
+        "offset": 236
+      }
+    ]
+  },
+  {
+    "text": "A real-life graph shows a steady rate as a straight line. On a distance-time graph the gradient is the speed, and a flat part means standing still.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "real-life-graph",
+        "text": "real-life graph",
+        "offset": 2
+      },
+      {
+        "concept": "gradient",
+        "text": "gradient",
+        "offset": 87
+      }
+    ]
+  },
+  {
     "text": "Same signs make a positive and different signs make a negative, so (−3) × (−2) = 6 and 6 ÷ (−3) = −2, and a minus sign stays with its number through every step. Multiplying or dividing both sides of an inequality by a negative number turns the sign round: −x < 2 becomes x > −2.",
     "exclude": null,
     "linked": [],
@@ -20745,7 +23243,13 @@
     "text": "Undo the last step first and do the same to both sides: for x/2 + 3 = 8, take 3 from both sides to get x/2 = 5, then multiply by 2 to get x = 10. An inverse function f⁻¹ makes those undo steps; it is not 1 ÷ f.",
     "exclude": null,
     "linked": [],
-    "links": []
+    "links": [
+      {
+        "concept": "inverse-function",
+        "text": "inverse function",
+        "offset": 149
+      }
+    ]
   },
   {
     "text": "The number outside a bracket multiplies each term inside it: −3(x − 4) = −3x + 12. A squared bracket is two brackets, so (x + 2)² = (x + 2)(x + 2) = x² + 4x + 4, not x² + 4.",
@@ -20911,13 +23415,30 @@
     "text": "Co-interior angles between parallel lines add to 180°, and an exterior angle of a polygon is 180° take away the interior angle, so an interior angle of 108° has exterior angle 72°. A back-bearing is the bearing plus 180°, or minus 180° if that passes 360°: the back-bearing of 050° is 230°.",
     "exclude": null,
     "linked": [],
-    "links": []
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 27
+      }
+    ]
   },
   {
     "text": "The midpoint averages the x-coordinates and then the y-coordinates, keeping x first: the midpoint of (1, 2) and (5, 10) is (3, 6). Gradient is change in y ÷ change in x, and a perpendicular gradient flips it and changes its sign, so 2/3 becomes −3/2.",
     "exclude": null,
     "linked": [],
-    "links": []
+    "links": [
+      {
+        "concept": "coordinates",
+        "text": "x-coordinates",
+        "offset": 26
+      },
+      {
+        "concept": "gradient",
+        "text": "Gradient",
+        "offset": 131
+      }
+    ]
   },
   {
     "text": "Check the mirror line or centre before you move: reflecting (3, 4) in the y-axis gives (−3, 4), and a 90° turn clockwise about the origin takes (x, y) to (y, −x). To enlarge about a centre, multiply the step from the centre to the point, then add it back on: (3, 2) from centre (1, 1) by scale factor 3 is (7, 4).",
