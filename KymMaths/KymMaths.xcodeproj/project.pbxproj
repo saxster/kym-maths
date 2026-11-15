@@ -27,6 +27,7 @@
 		171352BF0C3376837E499A5A /* EuclidRounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC31109B41192EECAF7F5A3 /* EuclidRounds.swift */; };
 		18C824C1ACD91D6617630B03 /* EuclidProgressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5869FF14B75D208E85107D94 /* EuclidProgressTests.swift */; };
 		1998B70C869C719A9E394707 /* StepOrderRoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207F62432EC6227F486B0AEA /* StepOrderRoundView.swift */; };
+		1CFD06D0ED0BAD67BE6D9C64 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6420E46A1C36A531648D8711 /* Assets.xcassets */; };
 		1D273B22BDAAE654E5EBBFA1 /* SemanticStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98BA9A23593CA5FD7D3747 /* SemanticStyles.swift */; };
 		1D8439106591858AC955C2FF /* EuclidRoundsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760AE45ED9F0A58C4C599F3C /* EuclidRoundsTests.swift */; };
 		1DD89161C4ACBE6C4AE98340 /* STEMVerificationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472088539BE760CF1692992B /* STEMVerificationEngine.swift */; };
@@ -109,6 +110,7 @@
 		8712DD24F5ECF7D128EFCF62 /* JournalPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8354EF0023AF306FE6783B6E /* JournalPaper.swift */; };
 		8BF72DEF1A548F9497CA8976 /* SeedPackModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDD75ED6882912482DEE178 /* SeedPackModels.swift */; };
 		8DF2612915E1103D54E85E99 /* MotifSpine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299616DB0409B9B2396CC09D /* MotifSpine.swift */; };
+		8F98D9BFFDE2F64A9DCCC6F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6420E46A1C36A531648D8711 /* Assets.xcassets */; };
 		9043D80D98AC7FD707E345A0 /* KymDesignExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9580C4310B6A226F00755883 /* KymDesignExport.swift */; };
 		9555940FA8A8323852E8B909 /* AtlasPolyaPieces.swift in Sources */ = {isa = PBXBuildFile; fileRef = B973AA88678041CACAF0C8D8 /* AtlasPolyaPieces.swift */; };
 		95E868E5172BD3DE7A168674 /* PatternedGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DE74E29002D70EDD1DA74B /* PatternedGallery.swift */; };
@@ -280,6 +282,7 @@
 		5869FF14B75D208E85107D94 /* EuclidProgressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuclidProgressTests.swift; sourceTree = "<group>"; };
 		5C53EB16B46F825B1999FFE4 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		616A5CD3B25E7FB1261CE0D1 /* TutorProfileRegistrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorProfileRegistrationTests.swift; sourceTree = "<group>"; };
+		6420E46A1C36A531648D8711 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6576FADCC848B8C8633A29E3 /* EuclidWorkshopSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuclidWorkshopSession.swift; sourceTree = "<group>"; };
 		665B496759A8E89BCAAF5ADA /* PythagorasShear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PythagorasShear.swift; sourceTree = "<group>"; };
 		698AC9565B7F84B916956C39 /* SpeedMathAnswerCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedMathAnswerCheck.swift; sourceTree = "<group>"; };
@@ -616,6 +619,7 @@
 		9D20C592883674D418BE05FA /* KymMaths */ = {
 			isa = PBXGroup;
 			children = (
+				6420E46A1C36A531648D8711 /* Assets.xcassets */,
 				1CF684174A9170E85BB5ACB4 /* Info-iPad.plist */,
 				8EC928AAB1B02C225627B926 /* KymMaths-iPad.entitlements */,
 				37F7F8FE6E96AA2585376DA5 /* KymMaths.entitlements */,
@@ -871,6 +875,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F98D9BFFDE2F64A9DCCC6F2 /* Assets.xcassets in Resources */,
 				4876E47F1D1A4E2D4C5910BF /* ContentPacks in Resources */,
 				4CF17D977F236F18A8949B23 /* PatternedWorldBook in Resources */,
 			);
@@ -880,6 +885,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CFD06D0ED0BAD67BE6D9C64 /* Assets.xcassets in Resources */,
 				AADBB57C817AEC421460E8E5 /* ContentPacks in Resources */,
 				978058813915E442EC74C7A7 /* Info-iPad.plist in Resources */,
 				3E7A4F376BD0EBC174960203 /* PatternedWorldBook in Resources */,

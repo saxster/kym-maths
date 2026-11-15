@@ -25,6 +25,7 @@ let package = Package(
             ],
             path: "KymMaths",
             exclude: [
+                "Assets.xcassets",
                 "Info-iPad.plist",
                 "KymMaths.entitlements",
                 "KymMaths-iPad.entitlements"
