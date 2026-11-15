@@ -75,7 +75,7 @@ struct TodayHomeView: View {
                         .padding(.top, StandardSpacing.lg)
                 }
                 .frame(maxWidth: 1080, alignment: .leading)
-                .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { contentWidth = $0 }
+                .readWidth($contentWidth)
                 .padding(.horizontal, sizeClass == .compact ? StandardSpacing.md : StandardSpacing.xl2)
                 .padding(.top, StandardSpacing.xl)
                 .padding(.bottom, StandardSpacing.xl3)

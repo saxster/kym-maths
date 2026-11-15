@@ -8,36 +8,47 @@ struct EuclidSpineMapView: View {
     @Bindable var store: AppStore
     @State private var width: CGFloat = 0
     @State private var mapWidth: CGFloat = 0
+    /// Counts taps on nodes. When the detail sits under the map (iPhone), each tap scrolls to it,
+    /// even a tap on the node already selected, or the tap would change nothing on screen.
+    @State private var detailRequests = 0
 
     private var selected: PropositionID { store.euclidMapSelection }
+    private var isStacked: Bool { width < Self.sideBySide }
+    private static let detailAnchor = "euclid-map-detail"
 
     private static let detailWidth: CGFloat = 320
     private static let sideBySide: CGFloat = 560 + StandardSpacing.lg + detailWidth
-    private static let nodeGap: CGFloat = StandardSpacing.sm
-    private static let nodeMinWidth: CGFloat = 132
+    static let nodeGap: CGFloat = StandardSpacing.sm
+    static let nodeMinWidth: CGFloat = 132
 
     var body: some View {
-        EuclidPage(
-            eyebrow: "Euclid's Workshop · Book I",
-            title: "From one triangle to Pythagoras",
-            subtitle: "Every proposition stands on the ones above it. Build one and it becomes a tool for the next."
-        ) {
-            Group {
-                if width >= Self.sideBySide {
-                    HStack(alignment: .top, spacing: StandardSpacing.lg) {
-                        mapCard.frame(maxWidth: .infinity)
-                        detail.frame(width: Self.detailWidth)
-                    }
-                } else {
-                    VStack(alignment: .leading, spacing: StandardSpacing.lg) {
-                        mapCard
-                        detail
+        ScrollViewReader { scroller in
+            EuclidPage(
+                eyebrow: "Euclid's Workshop · Book I",
+                title: "From one triangle to Pythagoras",
+                subtitle: "Every proposition stands on the ones above it. Build one and it becomes a tool for the next."
+            ) {
+                Group {
+                    if isStacked {
+                        VStack(alignment: .leading, spacing: StandardSpacing.lg) {
+                            mapCard
+                            detail.id(Self.detailAnchor)
+                        }
+                    } else {
+                        HStack(alignment: .top, spacing: StandardSpacing.lg) {
+                            mapCard.frame(maxWidth: .infinity)
+                            detail.frame(width: Self.detailWidth)
+                        }
                     }
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .readWidth($width)
+                MotifsStrip(store: store)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width = $0 }
-            MotifsStrip(store: store)
+            .onChange(of: detailRequests) {
+                guard isStacked else { return }
+                withAnimation { scroller.scrollTo(Self.detailAnchor, anchor: .top) }
+            }
         }
         .onAppear {
             #if DEBUG
@@ -53,17 +64,26 @@ struct EuclidSpineMapView: View {
             legend
             map
                 .frame(maxWidth: .infinity)
-                .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { mapWidth = $0 }
+                .readWidth($mapWidth)
         }
         .paperCard()
     }
 
-    /// How many nodes fit across, and how wide each is.
-    private var nodeLayout: (perRow: Int, width: CGFloat) {
-        let available = max(mapWidth, Self.nodeMinWidth * 2 + Self.nodeGap)
-        let perRow = max(2, Int((available + Self.nodeGap) / (Self.nodeMinWidth + Self.nodeGap)))
-        let width = min(176, (available - Self.nodeGap * CGFloat(perRow - 1)) / CGFloat(perRow))
+    private var nodeLayout: (perRow: Int, width: CGFloat) { Self.nodeLayout(mapWidth: mapWidth) }
+
+    /// How many nodes fit across a map this wide, and how wide each is. The width is rounded down so a
+    /// full row is never wider than the map: a row a hair too wide widened the map, which changed the
+    /// width, forever.
+    static func nodeLayout(mapWidth: CGFloat) -> (perRow: Int, width: CGFloat) {
+        let available = max(mapWidth, nodeMinWidth * 2 + nodeGap)
+        let perRow = max(2, Int((available + nodeGap) / (nodeMinWidth + nodeGap)))
+        let width = min(176, ((available - nodeGap * CGFloat(perRow - 1)) / CGFloat(perRow)).rounded(.down))
         return (perRow, width)
+    }
+
+    /// How wide a full row of nodes is, gaps included.
+    static func rowWidth(_ layout: (perRow: Int, width: CGFloat)) -> CGFloat {
+        layout.width * CGFloat(layout.perRow) + nodeGap * CGFloat(layout.perRow - 1)
     }
 
     /// The layout's rows, each split evenly into lines that fit: six becomes three and three.
@@ -86,7 +106,10 @@ struct EuclidSpineMapView: View {
                         if let proposition = EuclidSpine.proposition(id) {
                             SpineNode(proposition: proposition, record: store.euclidProgress.record(for: id),
                                       needs: EuclidSpine.needs(id, progress: store.euclidProgress),
-                                      isSelected: selected == id, width: nodeWidth) { store.euclidMapSelection = id }
+                                      isSelected: selected == id, width: nodeWidth) {
+                                store.euclidMapSelection = id
+                                detailRequests += 1
+                            }
                                 .anchorPreference(key: SpineNodeAnchors.self, value: .bounds) { [id: $0] }
                         }
                     }

@@ -59,7 +59,7 @@ struct MotifPageView: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width = $0 }
+        .readWidth($width)
     }
 
     // MARK: - The figure
