@@ -655,6 +655,11 @@ public struct LessonDependencyDAG: Codable, Sendable, Equatable {
         }
     }
 
+    /// Bracket ids end in "-<chapter number>".
+    static func bracket(id: String, belongsToChapter number: Int) -> Bool {
+        id.hasSuffix("-\(number)")
+    }
+
     static func defaultBrackets(for chapter: PatternedWorldChapter) -> [PrerequisiteStrandBracket] {
         switch chapter.number {
         case 12:

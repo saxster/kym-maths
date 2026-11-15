@@ -438,7 +438,7 @@ public final class GeminiLiveMentorClient: @unchecked Sendable {
         if let concern = safetyService.scan(currentLearnerTurnBuffer) {
             turnGate = .blockedBySafety(concern)
             heldAudioChunks.removeAll()
-            let helpline = safetyService.supportiveResponse(for: concern, region: .india)
+            let helpline = safetyService.supportiveResponse(for: concern)
             transcripts.append(
                 LiveMentorTranscriptEntry(speaker: .system, text: helpline)
             )
@@ -642,6 +642,7 @@ public final class LiveMentorVoiceController {
 
         if let concern = geminiClient.receiveLearnerInputTranscript(trimmed, turnComplete: true) {
             activeCrisisConcern = concern
+            SafetyEscalationService().escalate(concern, channel: "maths_live_voice")
             transcripts = geminiClient.transcripts
             sessionState = geminiClient.state
             return

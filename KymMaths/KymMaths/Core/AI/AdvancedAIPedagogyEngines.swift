@@ -795,6 +795,41 @@ public struct SocraticGraduatedFeedback: Codable, Sendable, Equatable {
 }
 
 public enum SocraticFeedbackEngine {
+    /// Coaching for a marked school question. The verdict comes from the marker, so the two never disagree.
+    static func evaluate(
+        studentAnswer: String,
+        question: SchoolMathsQuestion,
+        marked: QuestionEvaluationResult
+    ) -> SocraticGraduatedFeedback {
+        if marked.isPass {
+            return SocraticGraduatedFeedback(
+                tier: .correct,
+                headline: "Spot on",
+                socraticNudge: "Can you explain in one sentence why each step is allowed?"
+            )
+        }
+        if !marked.matchedParts.isEmpty {
+            return SocraticGraduatedFeedback(
+                tier: .partial,
+                headline: "\(marked.matchedParts.joined(separator: ", ")) is right",
+                socraticNudge: "Still to get: \(marked.missingParts.joined(separator: ", "))."
+            )
+        }
+        let coaching = evaluate(
+            studentAnswer: studentAnswer,
+            expectedAnswer: question.fadedAnswer,
+            workedHint: question.workedExample
+        )
+        guard coaching.tier != .correct else {
+            return SocraticGraduatedFeedback(
+                tier: .far,
+                headline: "Not there yet",
+                socraticNudge: "Check each step of your working against the question, then try again."
+            )
+        }
+        return coaching
+    }
+
     public static func evaluate(
         studentAnswer: String,
         expectedAnswer: String,
@@ -1173,18 +1208,17 @@ enum MeteredHintLadderEngine {
         case .none:
             return "Solve independently or step onto Rung 0–2 to preserve Independent Proof eligibility."
         case .r0AttentionRedirect:
-            let focus = question.markSchemeKeywords.first ?? question.topicCode
+            let focus = question.answerPartsPhrase.map { " The question asks for \($0)." } ?? ""
             let traceAck = thinkingTrace.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
                 ? ""
                 : "Starting from your note (\"\(thinkingTrace.prefix(48))\"), "
-            return "R0 · Attention Redirect (Retrieval Intact): \(traceAck)Look closely at the given condition in the prompt around '\(focus)' — what stays equal before and after the change?"
+            return "R0 · Attention Redirect (Retrieval Intact): \(traceAck)Look closely at what the prompt gives you — what stays equal before and after the change?\(focus)"
         case .r1PatternRedescription:
             return "R1 · Pattern Redescription (Retrieval Intact): Picture this as a Singapore bar model or geometric area box: \(question.fadedPrompt)"
         case .r2CandidateClass:
             return "R2 · Candidate Class (Retrieval Intact): This problem belongs to the Topic \(question.topicCode) invariant family (Living World Ch \(question.linkedChapter)). Ask yourself which conservation law links the known units to the unknown."
         case .r3PropositionNamed:
-            let keywords = question.markSchemeKeywords.prefix(2).joined(separator: " and ")
-            return "R3 · Proposition Named (Assisted — Retrieval Surrendered): Apply the proposition connecting \(keywords.isEmpty ? "the core invariant" : keywords). Frame: \(question.fadedPrompt)"
+            return "R3 · Proposition Named (Assisted — Retrieval Surrendered): Apply the proposition connecting \(question.answerPartsPhrase ?? "the core invariant"). Frame: \(question.fadedPrompt)"
         case .r4MoveOutlined:
             let firstLine = workedLines.first ?? question.fadedPrompt
             return "R4 · Move Outlined (Assisted): Set up the first structural move like the worked model: \"\(firstLine)\", then substitute your numbers."

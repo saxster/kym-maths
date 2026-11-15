@@ -347,7 +347,7 @@ final class AppStore {
     }
 
     func rebuildMinimalLessonTree() {
-        if prerequisiteBrackets.isEmpty || prerequisiteBrackets.first?.id.contains("\(selectedChapter.number)") == false {
+        if prerequisiteBrackets.isEmpty || prerequisiteBrackets.first.map({ LessonDependencyDAG.bracket(id: $0.id, belongsToChapter: selectedChapter.number) }) == false {
             prerequisiteBrackets = LessonDependencyDAG.defaultBrackets(for: selectedChapter)
         }
         activeLessonDAG = LessonDependencyDAG.buildMinimalTree(
@@ -770,7 +770,7 @@ final class AppStore {
             )
         )
 
-        // 3. Ground with offline FTS5 knowledge + contextual Maths brief + Soul Document + Constitution
+        // 3. Ground with the offline knowledge base (LIKE search) + contextual Maths brief + Soul Document + Constitution
         let kbResults = (try? db.searchKnowledgeBase(query: trimmed)) ?? (chapters: [], topics: [])
         let knowledgeContext: String
         if let topTopic = kbResults.topics.first {

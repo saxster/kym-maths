@@ -295,7 +295,7 @@ public enum LearnerScratchpadAnnotator {
         latestAnswer: String = ""
     ) -> TutorCanvas {
         let hash = sha256Hex(of: pngData)
-        let keyTarget = question.markSchemeKeywords.first ?? question.fadedAnswer
+        let coachNote = question.answerPartsPhrase.map { "Check you have found \($0)" } ?? "Check each step against the question"
         let shapes: [TutorCanvasShape] = [
             TutorCanvasShape(
                 id: "annot-focus-ellipse",
@@ -326,7 +326,7 @@ public enum LearnerScratchpadAnnotator {
                 y: 310,
                 width: 380,
                 height: 64,
-                text: "Check target invariant: \(keyTarget)",
+                text: coachNote,
                 color: .success,
                 filled: true
             )

@@ -84,8 +84,8 @@ enum DiagnosticFollowUpAction: Equatable, Sendable {
 // MARK: - Question Proof Service (Worked Example -> Faded -> Independent Proof)
 
 struct QuestionEvaluationResult: Equatable, Sendable {
-    let matchedKeywords: [String]
-    let missingKeywords: [String]
+    let matchedParts: [String]
+    let missingParts: [String]
     let coverageFraction: Double
     let isPass: Bool
     let resultingProofLevel: QuestionProofLevel
@@ -95,8 +95,8 @@ struct QuestionEvaluationResult: Equatable, Sendable {
     let effectiveUsedAssistance: Bool
 
     init(
-        matchedKeywords: [String],
-        missingKeywords: [String],
+        matchedParts: [String],
+        missingParts: [String],
         coverageFraction: Double,
         isPass: Bool,
         resultingProofLevel: QuestionProofLevel,
@@ -105,8 +105,8 @@ struct QuestionEvaluationResult: Equatable, Sendable {
         recommendedFollowUp: DiagnosticFollowUpAction = .none,
         effectiveUsedAssistance: Bool = false
     ) {
-        self.matchedKeywords = matchedKeywords
-        self.missingKeywords = missingKeywords
+        self.matchedParts = matchedParts
+        self.missingParts = missingParts
         self.coverageFraction = coverageFraction
         self.isPass = isPass
         self.resultingProofLevel = resultingProofLevel
@@ -121,12 +121,6 @@ enum QuestionProofService {
     static func dayKey(for date: Date, calendar: Calendar = .current) -> String {
         let comps = calendar.dateComponents([.year, .month, .day], from: date)
         return String(format: "%04d-%02d-%02d", comps.year ?? 2026, comps.month ?? 1, comps.day ?? 1)
-    }
-
-    private static func normalizeMathText(_ text: String) -> String {
-        text.lowercased()
-            .replacingOccurrences(of: "−", with: "-")
-            .replacingOccurrences(of: ",", with: "")
     }
 
     static func classifyDiagnosticCell(
@@ -162,6 +156,7 @@ enum QuestionProofService {
         thinkingTrace: String = ""
     ) -> (result: QuestionEvaluationResult, record: QuestionProofRecord) {
         let effectiveAssisted = usedAssistance || highestHintRung.surrendersRetrieval
+        let partLabels = question.answerKey.parts.map(\.label)
 
         if declinedToGuess {
             let nextLevel: QuestionProofLevel = existingProof?.level ?? .unseen
@@ -177,15 +172,15 @@ enum QuestionProofService {
                 lastAnswerText: answerText,
                 lastUsedAssistance: effectiveAssisted,
                 matchedKeywordsCSV: "",
-                missingKeywordsCSV: question.markSchemeKeywords.joined(separator: ","),
+                missingKeywordsCSV: partLabels.joined(separator: ","),
                 highestHintRung: highestHintRung.rawValue,
                 confidencePercent: 0,
                 declinedToGuess: true,
                 thinkingTrace: thinkingTrace
             )
             let eval = QuestionEvaluationResult(
-                matchedKeywords: [],
-                missingKeywords: question.markSchemeKeywords,
+                matchedParts: [],
+                missingParts: partLabels,
                 coverageFraction: 0,
                 isPass: false,
                 resultingProofLevel: nextLevel,
@@ -197,28 +192,16 @@ enum QuestionProofService {
             return (eval, record)
         }
 
-        let normalizedAnswer = normalizeMathText(answerText)
-        var matched: [String] = []
-        var missing: [String] = []
-
-        for kw in question.markSchemeKeywords {
-            let normKw = normalizeMathText(kw)
-            if !normKw.isEmpty && (normalizedAnswer.contains(normKw) || STEMPolynomial.areEquivalent(answerText, kw)) {
-                matched.append(kw)
-            } else {
-                missing.append(kw)
-            }
-        }
-
-        let total = max(1, question.markSchemeKeywords.count)
+        let marking = question.answerKey.mark(answerText)
+        let matched = marking.matchedParts
+        let missing = marking.missingParts
+        let total = max(1, partLabels.count)
         let coverage = Double(matched.count) / Double(total)
-        let trimmed = normalizedAnswer.trimmingCharacters(in: .whitespacesAndNewlines)
-        let polynomialEquiv = STEMPolynomial.areEquivalent(answerText, question.fadedAnswer)
-        let isPass = !trimmed.isEmpty && (
-            coverage >= 0.50
-            || trimmed == normalizeMathText(question.fadedAnswer)
-            || polynomialEquiv
-        )
+        let isPass = marking.isCorrect
+        let score = total == 1 ? "" : " (\(matched.count) of \(total) parts right)"
+        let stillToGet = total == 1
+            ? "Check each step of your working, then try again."
+            : "Still to get: \(missing.joined(separator: ", "))."
 
         let todayKey = dayKey(for: now)
         var passDays = existingProof?.independentPassDays ?? 0
@@ -235,8 +218,8 @@ enum QuestionProofService {
             }
             let rungNote = highestHintRung.surrendersRetrieval ? " (\(highestHintRung.badgeText) used)" : ""
             feedback = isPass
-                ? "Good guided solution\(rungNote) (\(matched.count)/\(total) mark-scheme targets). Now solve with at most R0–R2 hints to earn Independent Proof."
-                : "Guided attempt\(rungNote) recorded. Check: \(missing.prefix(3).joined(separator: ", "))."
+                ? "Good guided solution\(rungNote). Now solve with at most R0–R2 hints to earn Independent Proof."
+                : "Guided attempt\(rungNote) recorded\(score). \(stillToGet)"
         } else if isPass {
             if lastPassDay != todayKey {
                 passDays += 1
@@ -244,14 +227,14 @@ enum QuestionProofService {
             }
             if passDays >= 2 {
                 nextLevel = .secure
-                feedback = "Secure across \(passDays) separate days (\(matched.count)/\(total) mark-scheme targets)."
+                feedback = "Secure across \(passDays) separate days."
             } else {
                 nextLevel = .proven
-                feedback = "Proven independently today (\(matched.count)/\(total) mark-scheme targets). Prove it on one more day to lock it as Secure."
+                feedback = "Proven independently today. Prove it on one more day to lock it as Secure."
             }
         } else {
             nextLevel = .shaky
-            feedback = "Almost there (\(matched.count)/\(total) mark-scheme targets). Check key steps: \(missing.prefix(3).joined(separator: ", "))."
+            feedback = "Not right yet\(score). \(stillToGet)"
         }
 
         let cell = classifyDiagnosticCell(
@@ -290,8 +273,8 @@ enum QuestionProofService {
         )
 
         let eval = QuestionEvaluationResult(
-            matchedKeywords: matched,
-            missingKeywords: missing,
+            matchedParts: matched,
+            missingParts: missing,
             coverageFraction: coverage,
             isPass: isPass,
             resultingProofLevel: nextLevel,

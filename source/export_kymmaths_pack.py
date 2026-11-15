@@ -314,7 +314,7 @@ def build_chapters():
         ),
         (
             16, 4, "Updating Belief: Conditional Probability & Bayes' Theorem",
-            "Advanced Probability · @saxster/atlas Bayes Explorer: why a 95% accurate test on a 2% condition is right only 28% of the time",
+            "Advanced Probability · @saxster/atlas Bayes Explorer: why a positive result from a 95% accurate test on a 2% condition is right only 28% of the time",
             "Evidence never acts in a vacuum — it slices and renormalizes the prior base rate inside a 1,000-person unit square.",
             "Open the @saxster/atlas Bayes Unit-Square Explorer (`statistics/bayes`): set prevalence p = 2%, sensitivity = 95%, false-positive rate = 5%, and screen 1,000 people.",
             "Conditioning on a positive test throws away everyone who tested negative! What remains is just two bars: 19 True Positives (red) from the 20 sick people, and 49 False Positives (amber) from the 980 healthy people — so P(D | +) = 19 / (19 + 49) ≈ 27.9%!",
@@ -919,6 +919,366 @@ def build_school_textbook():
     }
 
 
+# ---------------------------------------------------------------------------
+# Answer keys for the 64 school questions.
+#
+# A key lists the parts an answer must contain; every part is required. Each
+# part passes when any one of its matchers does:
+#   num    a number that stands on its own in the answer (not a coefficient)
+#   seq    numbers in this order with nothing between them (points, ratios)
+#   forms  an exact expression, spacing ignored; list every form you accept
+#   words  every group needs one whole-word hit; any `forbid` word fails it
+#   all_of every listed matcher must pass
+# `accepts` and `rejects` are sample answers. The app's tests run them through
+# the real marker, so a key that marks its own samples wrongly fails the build.
+# ---------------------------------------------------------------------------
+
+def num(value, tolerance=0, simplest=False):
+    matcher = {"kind": "number", "value": value}
+    if tolerance:
+        matcher["tolerance"] = tolerance
+    if simplest:
+        matcher["simplest"] = True
+    return matcher
+
+
+def seq(*values, ignoring=()):
+    matcher = {"kind": "sequence", "values": list(values)}
+    if ignoring:
+        matcher["ignoring"] = list(ignoring)
+    return matcher
+
+
+def forms(*values):
+    return [{"kind": "form", "value": value} for value in values]
+
+
+def words(*groups, forbid=()):
+    matcher = {"kind": "words", "groups": [list(group) for group in groups]}
+    if forbid:
+        matcher["forbid"] = list(forbid)
+    return matcher
+
+
+def all_of(*matchers):
+    return {"kind": "all", "of": list(matchers)}
+
+
+def part(label, *matchers):
+    any_of = []
+    for matcher in matchers:
+        any_of.extend(matcher if isinstance(matcher, list) else [matcher])
+    return {"label": label, "anyOf": any_of}
+
+
+def key(parts, accepts, rejects):
+    return {"parts": parts, "accepts": accepts, "rejects": rejects}
+
+
+def one(*matchers, accepts, rejects):
+    return key([part("answer", *matchers)], accepts, rejects)
+
+
+DECREASE_WORDS = ["decrease", "decreases", "decreased", "down", "less", "lower", "loss", "fall", "falls",
+                  "drop", "drops", "reduction", "reduced", "smaller"]
+INCREASE_WORDS = ["increase", "increases", "increased", "up", "more", "gain"]
+
+ANSWER_KEYS = {
+    # Chapter 1
+    "q-oup-ch01-sb": key(
+        [part("HCF", num("24")), part("LCM", num("360"))],
+        accepts=["HCF = 24, LCM = 360", "24 and 360", "hcf 24 lcm 360"],
+        rejects=["HCF = 12, LCM = 360", "24", "360", "HCF = 240, LCM = 3600"]),
+    "q-oup-ch01-wb-focus": one(
+        num("-16"),
+        accepts=["-16", "−16", "= -16"],
+        rejects=["16", "−160", "-1.6", "-8"]),
+    "q-oup-ch01-wb-practice": one(
+        num("72"),
+        accepts=["72", "72 seconds", "72s", "after 72 seconds"],
+        rejects=["432", "6", "42 seconds", "7.2"]),
+    "q-oup-ch01-wb-challenge": one(
+        num("60"),
+        accepts=["60", "b = 60", "b=60"],
+        rejects=["b = 15", "6", "600", "2160"]),
+    # Chapter 2
+    "q-oup-ch02-sb": one(
+        forms("5x+3", "3+5x"),
+        accepts=["5x+3", "5x + 3", "3 + 5x", "= 5x + 3"],
+        rejects=["5x - 3", "5x + 27", "5x", "11x + 3", "5x+3x"]),
+    "q-oup-ch02-wb-focus": one(
+        forms("6ab(3a-2b)", "6ab (3a-2b)", "6ba(3a-2b)", "6ba (3a-2b)", "6ab(-2b+3a)", "(3a-2b)6ab",
+              "6ab*(3a-2b)", "-6ab(2b-3a)"),
+        accepts=["6ab(3a − 2b)", "6ab(3a-2b)", "6ab (3a - 2b)", "6ba(3a-2b)"],
+        rejects=["6a(3ab − 2b²)", "6ab(3a + 2b)", "3ab(6a − 4b)", "6ab"]),
+    "q-oup-ch02-wb-practice": one(
+        forms("8x+38", "38+8x", "2(4x+19)"),
+        accepts=["8x + 38", "8x+38 cm²", "8x + 38cm^2", "38 + 8x"],
+        rejects=["8x + 22", "8x", "16x + 38", "8x − 38"]),
+    "q-oup-ch02-wb-challenge": one(
+        num("8100"),
+        accepts=["8100", "8,100", "4050 × 2 = 8100"],
+        rejects=["810", "4050", "8", "81000"]),
+    # Chapter 3
+    "q-oup-ch03-sb": one(
+        num("248"),
+        accepts=["248", "248°", "068 + 180 = 248"],
+        rejects=["068", "112", "292", "68"]),
+    "q-oup-ch03-wb-focus": one(
+        num("12"),
+        accepts=["12", "12 edges", "E = 12"],
+        rejects=["16", "14", "2", "120"]),
+    "q-oup-ch03-wb-practice": key(
+        [part("the right angle", words(["bac", "cab", "angle a", "at a", "a 90", "a is 90"])),
+         part("the locus", words(["equidistant", "equal distance", "same distance", "equally distant", "equally far"]))],
+        accepts=["Angle BAC = 90°; locus equidistant from A and B", "angle A, points equidistant from A and B",
+                 "BAC. All points the same distance from A and B", "∠A = 90, equidistant from A and B"],
+        rejects=["Angle ABC = 90°; equidistant from A and B", "angle C, the midpoint of AB", "BAC", "90"]),
+    "q-oup-ch03-wb-challenge": one(
+        num("20"),
+        accepts=["20", "20 km", "20km", "√400 = 20"],
+        rejects=["28", "4", "400", "200"]),
+    # Chapter 4
+    "q-oup-ch04-sb": key(
+        [part("the three sample sizes", seq("20", "15", "15", ignoring=("7", "8", "9")))],
+        accepts=["20, 15, 15", "Year 7: 20, Year 8: 15, Year 9: 15", "20 Year 7, 15 Year 8 and 15 Year 9", "20,15,15"],
+        rejects=["17, 17, 16", "240, 180, 180", "20, 15", "15, 15, 20", "24, 18, 18"]),
+    "q-oup-ch04-wb-focus": one(
+        num("30"),
+        accepts=["30", "k = 30", "every 30th student"],
+        rejects=["20", "600", "3", "12000"]),
+    "q-oup-ch04-wb-practice": key(
+        [part("the reason", words(
+            ["exercise", "exercises", "exercisers", "exercising", "active", "fit", "fitter", "sporty", "gym",
+             "workout", "work out", "train"],
+            ["more", "already", "habitual", "regular", "regularly", "often", "a lot", "lots", "too high",
+             "higher", "overestimate", "overestimates", "keen"]))],
+        accepts=["Selection bias towards habitual early-morning exercisers",
+                 "People at a gym at 6 am already exercise a lot, so the average would be too high",
+                 "they exercise more than most people"],
+        rejects=["because it is biased", "it is too early in the morning", "Mumbai is a big city", "I do not know"]),
+    "q-oup-ch04-wb-challenge": one(
+        num("4"), forms("4n"), words(["quadruple", "quadrupled", "four"]),
+        accepts=["Multiply sample size by 4", "4", "×4", "4 times", "quadruple it", "four times bigger"],
+        rejects=["2", "double it", "16", "half"]),
+    # Chapter 5
+    "q-oup-ch05-sb": one(
+        num("375"),
+        accepts=["375", "375 litres", "375 L", "375l", "375,000 cm³ = 375 litres"],
+        rejects=["375000", "37.5 litres", "3750", "0.375"]),
+    "q-oup-ch05-wb-focus": key(
+        [part("circumference", num("44")), part("area", num("154"))],
+        accepts=["C = 44 cm, A = 154 cm²", "44 and 154", "circumference 44cm area 154cm^2"],
+        rejects=["C = 10 cm", "C = 1", "44", "154", "C = 22, A = 154", "C = 44, A = 49"]),
+    "q-oup-ch05-wb-practice": key(
+        [part("perimeter", num("48")), part("area", num("112"))],
+        accepts=["Perimeter = 48 cm, Area = 112 cm²", "48, 112", "P=48 A=112"],
+        rejects=["Perimeter = 44, Area = 112", "48 and 140", "112", "24 and 112"]),
+    "q-oup-ch05-wb-challenge": one(
+        num("30.5"),
+        accepts=["30.5", "30.5 cm", "30.5cm"],
+        rejects=["10.5", "31", "30", "20.5"]),
+    # Chapter 6
+    "q-oup-ch06-sb": key(
+        [part("the subtraction step", forms("99x", "27/99")),
+         part("the fraction in simplest form", num("3/11", simplest=True))],
+        accepts=["100x − x = 99x = 27, so x = 27/99 = 3/11", "99x = 27 so x = 3/11", "x = 27/99 = 3/11"],
+        rejects=["3/11", "27/99", "99x = 27, x = 27/99", "it equals 3/11 because 3 ÷ 11 = 0.2727"]),
+    "q-oup-ch06-wb-focus": one(
+        num("0.00409"),
+        accepts=["0.00409", ".00409"],
+        rejects=["0.0041", "0.004", "0.00408", "0.004086", "409"]),
+    "q-oup-ch06-wb-practice": one(
+        forms("2 5/12", "2 and 5/12"),
+        accepts=["2 5/12", "= 2 5/12", "2 and 5/12"],
+        rejects=["2", "29/12", "2 10/24", "5/12", "3 5/12", "2 7/12"]),
+    "q-oup-ch06-wb-challenge": one(
+        num("5/4"),
+        accepts=["5/4", "1 1/4", "1.25", "5/4 or 1 1/4"],
+        rejects=["4/5", "5", "1/4", "36/25", "125"]),
+    # Chapter 7
+    "q-oup-ch07-sb": key(
+        [part("the formula for u", forms("√(v^2-2as)", "√v^2-2as", "(v^2-2as)^(1/2)", "(v^2-2as)^0.5",
+                                         "√(v*v-2as)", "√(v^2-2*a*s)", "√(-2as+v^2)")),
+         part("the value of u", num("7"))],
+        accepts=["u = √(v² − 2as) = 7", "u = sqrt(v^2 - 2as), u = 7", "u = square root of (v^2 − 2as) = 7"],
+        rejects=["u = 7", "u = √(v² + 2as) = 7", "u = v² − 2as = 49", "u = √(v² − 2as)"]),
+    "q-oup-ch07-wb-focus": one(
+        num("3"),
+        accepts=["3", "x = 3", "x=3", "7x = 21 so x = 3"],
+        rejects=["x = 7", "21", "x = -3", "3x", "x = 13/7"]),
+    "q-oup-ch07-wb-practice": one(
+        forms("x≤4", "4≥x"),
+        accepts=["x ≤ 4 (largest integer 4)", "x <= 4, largest integer is 4", "4 ≥ x so the largest integer is 4", "x≤4"],
+        rejects=["x ≥ 4", "4", "x < 4", "x ≤ -4", "x = 4"]),
+    "q-oup-ch07-wb-challenge": one(
+        forms("(y+2)/(y-3)", "(2+y)/(y-3)", "(y+2)/(-3+y)", "(-y-2)/(3-y)", "-(y+2)/(3-y)"),
+        accepts=["x = (y + 2) / (y − 3)", "(y+2)/(y-3)", "x=(2+y)/(y-3)"],
+        rejects=["x = (y − 2) / (y + 3)", "x = y + 2 / y − 3", "x = (y + 2) / (3 − y)", "x = (3x + 2) / (x − 1)"]),
+    # Chapter 8
+    "q-oup-ch08-sb": key(
+        [part("x", num("40")), part("angle ACD", num("155"))],
+        accepts=["x = 40, ∠ACD = 155°", "40 and 155", "x=40 ACD=155"],
+        rejects=["x = 40", "155", "x = 40, ACD = 165", "x = 20, ACD = 75"]),
+    "q-oup-ch08-wb-focus": one(
+        seq("3", "2"),
+        accepts=["M = (3, 2)", "(3,2)", "3, 2", "x = 3, y = 2"],
+        rejects=["(2, 3)", "(7, 5)", "(3, -2)", "(6, 4)", "(-7, 5)"]),
+    "q-oup-ch08-wb-practice": one(
+        num("35"),
+        accepts=["35", "y = 35", "5y = 175, y = 35"],
+        rejects=["y = 15", "175", "y = 17", "3.5"]),
+    "q-oup-ch08-wb-challenge": one(
+        num("15"),
+        accepts=["15", "15 sides", "n = 15", "360/24 = 15"],
+        rejects=["24", "156", "12", "16", "150"]),
+    # Chapter 9
+    "q-oup-ch09-sb": one(
+        num("2400"),
+        accepts=["2400", "₹2,400", "Rs 2400", "2040 ÷ 0.85 = 2400"],
+        rejects=["2346", "2040", "1734", "240", "24000"]),
+    "q-oup-ch09-wb-focus": one(
+        num("240"),
+        accepts=["240", "= 240", "3600 ÷ 15 = 240"],
+        rejects=["24", "2.4", "5.4", "2400"]),
+    "q-oup-ch09-wb-practice": key(
+        [part("the net change", num("-4"), all_of(num("4"), words(DECREASE_WORDS, forbid=INCREASE_WORDS)))],
+        accepts=["−4%", "-4", "a 4% decrease", "4% decrease", "it goes down by 4%"],
+        rejects=["4%", "0%", "no change", "4% increase", "-40%", "0"]),
+    "q-oup-ch09-wb-challenge": one(
+        num("16550"),
+        accepts=["16550", "₹16,550", "16,550", "66,550 − 50,000 = 16,550"],
+        rejects=["66550", "15000", "₹66,550", "1655", "16500"]),
+    # Chapter 10
+    "q-oup-ch10-sb": key(
+        [part("the first class", num("1.5")), part("the second class", num("2.5"))],
+        accepts=["1.5 and 2.5", "FD₁ = 1.5 and FD₂ = 2.5", "30/20 = 1.5, 25/10 = 2.5", "1.5, 2.5"],
+        rejects=["1.5", "2.5", "30 and 25", "0.67 and 0.4", "15 and 25"]),
+    "q-oup-ch10-wb-focus": key(
+        [part("median", num("20")), part("IQR", num("14"))],
+        accepts=["Median = 20, IQR = 14", "20 and 14", "median 20, IQR = 29 − 15 = 14"],
+        rejects=["Median = 20", "IQR = 14", "median 17, IQR 14", "20 and 19", "median 24, IQR 12"]),
+    "q-oup-ch10-wb-practice": one(
+        num("2.83", tolerance=0.03), forms("√8", "√(8)", "2√2"),
+        accepts=["σ = √8 ≈ 2.83", "2.83", "2.828", "√8", "2√2", "sqrt(8)", "2.8"],
+        rejects=["8", "3.16", "√10", "2", "4", "σ = 8"]),
+    "q-oup-ch10-wb-challenge": one(
+        num("48"),
+        accepts=["48", "48 observations", "15 × 3.2 = 48"],
+        rejects=["3.2", "15", "80", "4.8", "32"]),
+    # Chapter 11
+    "q-oup-ch11-sb": key(
+        [part("the nth term", forms("4n+3", "3+4n")), part("the sum of 20 terms", num("900"))],
+        accepts=["Tₙ = 4n + 3, S₂₀ = 900", "4n+3 900", "4n + 3 and 900", "T_n = 3 + 4n, sum = 900"],
+        rejects=["4n + 3", "900", "4n + 7, 900", "4n + 3, 830", "n + 4, 900"]),
+    "q-oup-ch11-wb-focus": key(
+        [part("yes or no", words(["no", "not", "doesn't", "isn't", "cannot", "can't", "never"], forbid=["yes"])),
+         part("the reason", num("147"), num("147/4"), words(["integer", "whole"]))],
+        accepts=["No, because 4n + 3 = 150 gives 4n = 147, which is not an integer",
+                 "No. 4n = 147 and 147 is not a multiple of 4", "no, n would be 36.75",
+                 "No because n is not a whole number", "It does not, 147/4 is not an integer"],
+        rejects=["I do not know", "Yes", "No", "yes because 147/4 is not whole", "Yes, n = 36.75",
+                 "no because it is too big"]),
+    "q-oup-ch11-wb-practice": one(
+        forms("n^2+2n", "2n+n^2", "n(n+2)", "n (n+2)", "n(2+n)", "(n+1)^2-1", "n*n+2n"),
+        accepts=["Tₙ = n² + 2n", "n^2 + 2n", "n(n+2)", "n squared + 2n"],
+        rejects=["n² + 2", "n² + 2n + 1", "2n + 1", "n^2"]),
+    "q-oup-ch11-wb-challenge": one(
+        num("20100"),
+        accepts=["20100", "20,100", "200 × 201 ÷ 2 = 20100"],
+        rejects=["20000", "40200", "2010", "201", "20200"]),
+    # Chapter 12
+    "q-oup-ch12-sb": one(
+        num("4320"),
+        accepts=["4320", "₹4,320", "16 × 270 = 4320"],
+        rejects=["270", "1350", "432", "2160", "4,300"]),
+    "q-oup-ch12-wb-focus": one(
+        num("35000"),
+        accepts=["35000", "35,000 cm²", "35000 cm^2"],
+        rejects=["350", "3500", "350000", "0.00035", "35"]),
+    "q-oup-ch12-wb-practice": one(
+        num("4"),
+        accepts=["4", "4 hours", "4h", "60 ÷ 15 = 4"],
+        rejects=["40 hours", "25", "25 hours", "2.5", "10"]),
+    "q-oup-ch12-wb-challenge": one(
+        seq("9", "12", "14"),
+        accepts=["9 : 12 : 14", "9:12:14", "A : B : C = 9 : 12 : 14", "9, 12, 14"],
+        rejects=["3 : 4 : 7", "18 : 24 : 28", "9 : 12", "3 : 6 : 7", "14 : 12 : 9"]),
+    # Chapter 13
+    "q-oup-ch13-sb": key(
+        [part("the image point", seq("4", "7")), part("the image area", num("54"))],
+        accepts=["A′ = (4, 7), Area = 54 cm²", "(4,7) and 54", "A' = (4, 7) area 54"],
+        rejects=["(4, 7)", "54", "(6, 9), 54", "(4, 7), 18", "(7, 4), 54"]),
+    "q-oup-ch13-wb-focus": one(
+        seq("5", "-3"),
+        accepts=["P′ = (5, −3)", "(5, -3)", "(5,-3)", "5, -3"],
+        rejects=["P′ = (3, −5)", "(-3, 5)", "(5, 3)", "(-5, 3)", "(3, 5)"]),
+    "q-oup-ch13-wb-practice": one(
+        seq("-1", "4"),
+        accepts=["Q′ = (−1, 4)", "(-1, 4)", "(-1,4)"],
+        rejects=["(1, -4)", "(4, 1)", "(1, 4)", "(-4, 1)", "(4, -1)"]),
+    "q-oup-ch13-wb-challenge": one(
+        seq("-1", "0"),
+        accepts=["R′ = (−1, 0)", "(-1, 0)", "(-1,0)"],
+        rejects=["(7, 4)", "(-1, 4)", "(1, 0)", "(-4, -2)", "(-10, -6)"]),
+    # Chapter 14
+    "q-oup-ch14-sb": key(
+        [part("the equation", forms("2x+5", "5+2x")), part("the x-intercept", num("-2.5"))],
+        accepts=["y = 2x + 5, x-intercept = −2.5", "y=2x+5 -2.5", "y = 2x + 5 and (−2.5, 0)", "y=2x+5, x = -5/2"],
+        rejects=["y = 2x + 5", "-2.5", "y = 2x + 5, x = 2.5", "y = 2x + 3, −1.5", "y = 12x + 5, -2.5"]),
+    "q-oup-ch14-wb-focus": one(
+        forms("(x+7)/3", "(7+x)/3", "x/3+7/3", "7/3+x/3", "1/3(x+7)", "1/3 (x+7)", "1/3x+7/3", "(x+7)*1/3"),
+        accepts=["f⁻¹(x) = (x + 7) / 3", "(x+7)/3", "y = (x + 7)/3", "f^-1(x) = x/3 + 7/3"],
+        rejects=["(x − 7) / 3", "3x + 7", "x + 7 / 3", "(x + 7) / 3x", "1 / (3x − 7)"]),
+    "q-oup-ch14-wb-practice": one(
+        forms("-1/2x+3", "-x/2+3", "3-1/2x", "3-x/2", "-0.5x+3", "3-0.5x", "-(1/2)x+3", "3-(1/2)x",
+              "-1/2*x+3", "-(x/2)+3"),
+        accepts=["y = −½x + 3", "y = -1/2x + 3", "y = -x/2 + 3", "y = 3 - 0.5x", "y = -0.5x + 3"],
+        rejects=["y = 2x + 3", "y = ½x + 3", "y = −2x + 3", "y = −½x + 5", "y = -1/2x"]),
+    "q-oup-ch14-wb-challenge": one(
+        seq("2", "4"), all_of(*forms("x=2"), *forms("y=4")),
+        accepts=["(2, 4)", "x = 2, y = 4", "y = 4 and x = 2", "(2,4)"],
+        rejects=["(4, 2)", "(2, 8)", "x = 2", "(3, 7)", "(-2, 4)"]),
+    # Chapter 15
+    "q-oup-ch15-sb": key(
+        [part("true positives", num("19")), part("false positives", num("49")),
+         part("P(D | +)", num("19/68", tolerance=0.0006), num("27.9", tolerance=0.11))],
+        accepts=["TP = 19, FP = 49, P(D|+) = 19/68 ≈ 27.9%", "19, 49, 19/68",
+                 "19 true positives, 49 false positives, 27.9%", "19 and 49, so 0.279"],
+        rejects=["19, 49", "19/68", "20, 49, 29%", "19, 49, 95%", "19, 49, 19/49"]),
+    "q-oup-ch15-wb-focus": one(
+        num("1/9", tolerance=0.0012),
+        accepts=["1/9", "4/36", "4/36 = 1/9", "0.111", "0.11"],
+        rejects=["1/12", "1/6", "9", "4", "5/36", "1/36"]),
+    "q-oup-ch15-wb-practice": one(
+        num("5/14", tolerance=0.0008),
+        accepts=["5/14", "20/56", "20/56 = 5/14", "0.357", "5/8 × 4/7 = 20/56"],
+        rejects=["25/64", "5/8", "15/56", "3/28", "0.4"]),
+    "q-oup-ch15-wb-challenge": one(
+        num("56"),
+        accepts=["56", "56 committees", "8 × 7 × 6 ÷ 6 = 56"],
+        rejects=["336", "24", "512", "5.6", "28"]),
+    # Chapter 16
+    "q-oup-ch16-sb": key(
+        [part("2a − 3b", seq("0", "11")), part("the magnitude of a", num("5"))],
+        accepts=["2a − 3b = (0, 11)ᵀ and |a| = 5", "(0, 11) and 5", "(0,11), |a| = 5"],
+        rejects=["(0, 11)", "5", "(12, 5), 5", "(0, 11), 25", "(0, 5), 5", "(0, 11), 7"]),
+    "q-oup-ch16-wb-focus": one(
+        seq("3", "5"),
+        accepts=["AC = (3, 5)ᵀ", "(3, 5)", "(3,5)", "3, 5"],
+        rejects=["(5, 3)", "(5, -9)", "(3, 9)", "(-4, -14)", "(3, -5)"]),
+    "q-oup-ch16-wb-practice": one(
+        forms("1/2(b-a)", "1/2 (b-a)", "(1/2)(b-a)", "(b-a)/2", "(-a+b)/2", "1/2b-1/2a", "b/2-a/2", "0.5(b-a)",
+              "0.5b-0.5a", "-1/2a+1/2b", "-a/2+b/2", "1/2*(b-a)", "1/2(-a+b)"),
+        accepts=["MN = ½(b − a)", "1/2(b - a)", "(b - a)/2", "½b − ½a", "MN = ½(b − a) = ½AB"],
+        rejects=["½(a − b)", "b − a", "½(a + b)", "2(b − a)", "½ab"]),
+    "q-oup-ch16-wb-challenge": key(
+        [part("the determinant", num("10")), part("the new area", num("50"))],
+        accepts=["det(A) = 10; new area = 50 cm²", "10 and 50", "det = 10, area 50"],
+        rejects=["10", "50", "det = 14, area = 70", "det = 10, area = 15", "10, 5"]),
+}
+
+
 def build_school_questions():
     """
     Generates 64 high-precision questions across all 16 OUP chapters:
@@ -933,7 +1293,6 @@ def build_school_questions():
             "72 = 2³ × 3² and 120 = 2³ × 3 × 5, so HCF = ___ and LCM = ___.",
             "HCF = 24, LCM = 360",
             "HCF = 24 and LCM = 360 because 72 = 2³ × 3² and 120 = 2³ × 3 × 5; their overlap is 2³ × 3 = 24 and their union is 2³ × 3² × 5 = 360.",
-            ["24", "360", "2^3", "prime"],
             "Evaluate (−6) × (−4) ÷ (−3) + (−2)³.",
             "−16",
             "Two Colaba lighthouses flash every 18 seconds and 24 seconds. They flash together at 19:00:00. After how many seconds will they next flash together?",
@@ -948,7 +1307,6 @@ def build_school_questions():
             "4(2x − 3) − 3(x − 5) = 8x − 12 − 3x + ___ = ___.",
             "5x + 3",
             "5x + 3 because 4(2x − 3) = 8x − 12 and −3(x − 5) = −3x + 15, giving 5x + 3.",
-            ["5x", "+ 3", "+15"],
             "Factorise completely: 18a²b − 12ab².",
             "6ab(3a − 2b)",
             "A rectangle of length (2x + 5) cm and width 6 cm has a smaller rectangle of length (x − 2) cm and width 4 cm cut from its interior. Write a simplified expression for the remaining area.",
@@ -963,7 +1321,6 @@ def build_school_questions():
             "Because North lines are parallel, the back-bearing from B to M is 068° + 180° = ___.",
             "248°",
             "248° because the clockwise angle from North at B equals 068° + 180° = 248° by alternate angles on parallel North lines.",
-            ["248", "180", "parallel", "North"],
             "A convex polyhedron has 8 faces (F = 8) and 6 vertices (V = 6). Using Euler's formula V − E + F = 2, find the number of edges E.",
             "12 edges",
             "Triangle ABC is constructed with AB = 8 cm, AC = 6 cm, and BC = 10 cm. Which angle is 90°, and what locus does the perpendicular bisector of AB represent?",
@@ -978,7 +1335,6 @@ def build_school_questions():
             "Year 7 = (240/600) × 50 = ___, Year 8 = ___, Year 9 = ___.",
             "20, 15, 15",
             "Select 20 Year 7 students, 15 Year 8 students, and 15 Year 9 students at random within each year group so every stratum is represented in proportion Nᵢ / N.",
-            ["20", "15", "600", "proportion"],
             "To select 20 students from an alphabetical list of 600 using systematic sampling, what sampling interval k should be used?",
             "Every 30th student (k = 30)",
             "Why would surveying only people leaving a sports gym at 6 am produce a biased estimate of average weekly exercise in Mumbai?",
@@ -993,12 +1349,11 @@ def build_school_questions():
             "A = ½(40 + 60) × 30 = 1500 cm²; V = 1500 × 250 cm = ___ litres.",
             "375 litres",
             "375 litres because the trapezium cross-section has area ½(40 + 60) × 30 = 1500 cm² and multiplying by length 250 cm gives 375,000 cm³ = 375 L.",
-            ["1500", "375", "trapezium"],
             "Find the exact circumference and area of a circle of radius r = 7 cm (use π ≈ 22/7).",
             "C = 44 cm, A = 154 cm²",
             "A parallelogram has base 14 cm, slanted side 10 cm, and perpendicular height 8 cm. Calculate its perimeter and its area.",
             "Perimeter = 48 cm, Area = 112 cm²",
-            "An circular pizza of radius 10 cm is cut into 6 equal sectors. Find the perimeter of one sector to 1 decimal place.",
+            "A circular pizza of radius 10 cm is cut into 6 equal sectors. Find the perimeter of one sector to 1 decimal place.",
             "30.5 cm"
         ),
         (
@@ -1008,7 +1363,6 @@ def build_school_questions():
             "100x = 27.2727… and x = 0.2727…, so 99x = 27 and x = 27/99 = ___.",
             "3/11",
             "3/11 because 100x − x = 99x = 27, so x = 27/99 which simplifies on dividing by 9 to 3/11.",
-            ["99x", "27", "3/11"],
             "Round 0.0040862 to 3 significant figures.",
             "0.00409",
             "Work out 4 1/6 − 1 3/4 as a mixed number in simplest form.",
@@ -1023,7 +1377,6 @@ def build_school_questions():
             "u² = v² − 2as ⇒ u = √(v² − 2as) = √(169 − 120) = ___.",
             "u = 7",
             "u = √(v² − 2as) = 7 because subtracting 2as isolates u² = 169 − 120 = 49.",
-            ["v^2 - 2as", "49", "7"],
             "Solve the equation 5(2x − 1) = 3(x + 4) + 4.",
             "x = 3",
             "Solve the inequality 14 − 3x ≥ 2 and state the largest integer x that satisfies it.",
@@ -1038,7 +1391,6 @@ def build_school_questions():
             "4x − 5 = 3x + 35 ⇒ x = ___ and ∠ACD = ___.",
             "x = 40, ∠ACD = 155°",
             "x = 40 and ∠ACD = 155° because the exterior angle equals the sum of the two opposite interior angles: 4x − 5 = 3x + 35.",
-            ["40", "155", "exterior"],
             "Find the midpoint M of the line segment joining A(−4, 7) and B(10, −3).",
             "M = (3, 2)",
             "Two parallel lines are cut by a transversal. The co-interior angles are (3y + 10)° and (2y − 5)°. Find y.",
@@ -1053,7 +1405,6 @@ def build_school_questions():
             "0.85 × Original = 2040 ⇒ Original = 2040 ÷ 0.85 = ₹___.",
             "₹2,400",
             "₹2,400 because a 15% reduction corresponds to multiplying the original price by 0.85, so dividing ₹2,040 by 0.85 restores ₹2,400.",
-            ["0.85", "2400", "divide"],
             "Evaluate 36 ÷ 0.15 without a calculator.",
             "240",
             "A price increases by 20% and then decreases by 20%. What is the net percentage change?",
@@ -1068,7 +1419,6 @@ def build_school_questions():
             "FD₁ = 30/20 = ___ and FD₂ = 25/10 = ___.",
             "1.5 and 2.5",
             "FD₁ = 1.5 and FD₂ = 2.5 because Frequency Density = Frequency ÷ Class Width.",
-            ["1.5", "2.5", "density", "width"],
             "Find the median and interquartile range (IQR) of the ordered dataset: 12, 15, 17, 20, 24, 29, 31.",
             "Median = 20, IQR = 29 − 15 = 14",
             "Compute the population standard deviation σ of the five numbers: 4, 6, 8, 10, 12.",
@@ -1083,7 +1433,6 @@ def build_school_questions():
             "Tₙ = 4n + 3, T₂₀ = 83, and S₂₀ = 10 × (7 + 83) = ___.",
             "Tₙ = 4n + 3, S₂₀ = 900",
             "Tₙ = 4n + 3 and S₂₀ = 900 because pairing the 20 terms from both ends gives 10 pairs each summing to 7 + 83 = 90.",
-            ["4n + 3", "83", "900"],
             "Does the number 150 belong to the sequence Tₙ = 4n + 3? Justify your answer algebraically.",
             "No, because 4n + 3 = 150 gives 4n = 147, which is not an integer",
             "Find the nth term of the quadratic sequence 3, 8, 15, 24, 35, …",
@@ -1098,7 +1447,6 @@ def build_school_questions():
             "8 − 3 = 5 units = ₹1,350 ⇒ 1 unit = ₹270 ⇒ 16 units = ₹___.",
             "₹4,320",
             "₹4,320 because the 5-unit difference between Meera (8) and Kym (3) equals ₹1,350, making 1 unit = ₹270 and all 16 units = ₹4,320.",
-            ["5 units", "270", "4320"],
             "Convert 3.5 m² into cm².",
             "35,000 cm² (multiply by 100² = 10,000)",
             "6 pumps working together empty a flooded basement in 10 hours. How long will 15 identical pumps take?",
@@ -1113,7 +1461,6 @@ def build_school_questions():
             "CA = (1, 2) ⇒ CA′ = (3, 6) ⇒ A′ = (4, 7), and Area(T′) = 3² × 6 = ___ cm².",
             "A′ = (4, 7), Area = 54 cm²",
             "A′ = (4, 7) and Area = 54 cm² because linear rays from (1, 1) multiply by k = 3 while 2D area multiplies by k² = 9.",
-            ["(4, 7)", "54", "k^2", "9"],
             "Reflect the point P(−3, 5) in the line y = x.",
             "P′ = (5, −3)",
             "Rotate the point Q(4, 1) by 90° anticlockwise about the origin (0, 0).",
@@ -1128,7 +1475,6 @@ def build_school_questions():
             "m = 12/6 = 2, y = 2x + 5, and at y = 0, x = ___.",
             "y = 2x + 5, x-intercept = −2.5",
             "y = 2x + 5 and x-intercept (−2.5, 0) because the rise 12 over run 6 gives gradient m = 2.",
-            ["2x + 5", "-2.5", "gradient"],
             "For the function f(x) = 3x − 7, find the inverse function f⁻¹(x).",
             "f⁻¹(x) = (x + 7) / 3",
             "Find the equation of the line perpendicular to y = 2x + 5 that passes through (0, 3).",
@@ -1143,7 +1489,6 @@ def build_school_questions():
             "TP = 19, FP = 49, so P(D | +) = 19 / (19 + 49) = ___.",
             "19/68 ≈ 27.9%",
             "P(D | +) = 19/68 ≈ 27.9% because among 1,000 people there are 19 true positives and 49 false positives.",
-            ["19", "49", "68", "27.9"],
             "Two fair six-sided dice are rolled. What is the probability that their sum is 9?",
             "4/36 = 1/9",
             "A bag contains 5 red and 3 blue marbles. Two marbles are drawn without replacement. Find the probability that both are red.",
@@ -1158,7 +1503,6 @@ def build_school_questions():
             "2a − 3b = (0, 11)ᵀ and |a| = √(3² + 4²) = ___.",
             "(0, 11)ᵀ and |a| = 5",
             "2a − 3b = (0, 11)ᵀ and |a| = 5 because componentwise subtraction gives (6−6, 8+3) and √(3²+4²) = 5.",
-            ["(0, 11)", "5", "Pythagoras"],
             "If AB = (4, −2)ᵀ and BC = (−1, 7)ᵀ, find the resultant vector AC.",
             "AC = (3, 5)ᵀ",
             "In triangle OAB, OA = a, OB = b, M is the midpoint of OA, and N is the midpoint of OB. Express MN in terms of a and b.",
@@ -1171,7 +1515,7 @@ def build_school_questions():
     questions = []
     for (
         u_num, topic_code, ch_num, wid,
-        sb_prompt, sb_worked, sb_faded, sb_faded_ans, sb_model, sb_keywords,
+        sb_prompt, sb_worked, sb_faded, sb_faded_ans, sb_model,
         t1_q, t1_a, t2_q, t2_a, t3_q, t3_a
     ) in chapter_question_specs:
         # 1. Student Book Consolidation item
@@ -1189,7 +1533,6 @@ def build_school_questions():
             "fadedPrompt": sb_faded,
             "fadedAnswer": sb_faded_ans,
             "modelAnswer": sb_model,
-            "markSchemeKeywords": sb_keywords,
             "linkedChapter": ch_num,
             "linkedWidget": wid,
         })
@@ -1208,7 +1551,6 @@ def build_school_questions():
             "fadedPrompt": f"Target result for {topic_code}: ___",
             "fadedAnswer": t1_a,
             "modelAnswer": t1_a,
-            "markSchemeKeywords": [t1_a.split()[0]],
             "linkedChapter": ch_num,
             "linkedWidget": wid,
         })
@@ -1227,7 +1569,6 @@ def build_school_questions():
             "fadedPrompt": f"Singapore Bar-Model solution: ___",
             "fadedAnswer": t2_a,
             "modelAnswer": t2_a,
-            "markSchemeKeywords": [t2_a.split()[0]],
             "linkedChapter": ch_num,
             "linkedWidget": wid,
         })
@@ -1246,10 +1587,14 @@ def build_school_questions():
             "fadedPrompt": f"Horizon invariant result: ___",
             "fadedAnswer": t3_a,
             "modelAnswer": t3_a,
-            "markSchemeKeywords": [t3_a.split()[0]],
             "linkedChapter": ch_num,
             "linkedWidget": wid,
         })
+    question_ids = {question["id"] for question in questions}
+    if question_ids != set(ANSWER_KEYS):
+        raise SystemExit(f"Answer keys and questions differ: {sorted(question_ids ^ set(ANSWER_KEYS))}")
+    for question in questions:
+        question["answerKey"] = ANSWER_KEYS[question["id"]]
     return questions
 
 
@@ -1553,7 +1898,7 @@ def build_visual_math_tips():
         },
         {
             "id": "tip-bayes-square",
-            "title": "Why a 95% Accurate Test Can Be 72% Wrong",
+            "title": "Why a Positive Result from a 95% Accurate Test Is Wrong 72% of the Time",
             "chapter": 16,
             "visualIntuition": "In the @saxster/atlas 1,000-person unit square at 2% prevalence, only 20 people are sick while 980 are healthy.",
             "ahaMoment": "5% false alarms on 980 healthy people creates 49 false positives (amber), dwarfing the 19 true positives (red)!",
@@ -1572,7 +1917,7 @@ def build_visual_math_tips():
             "title": "Why det(A) = ad − bc Is Area",
             "chapter": 20,
             "visualIntuition": "Drag the red basis vector Aî = (a, c) and blue basis vector Aĵ = (b, d) in the @saxster/atlas 2×2 Matrix Sandbox.",
-            "ahaMoment": "The unit 1×1 square deforms into a parallelogram whose bounding box (a+b)(c+d) minus four right triangles leaves exact area ad − bc!",
+            "ahaMoment": "The unit 1×1 square deforms into a parallelogram whose bounding box (a+b)(c+d), minus four right triangles and two b×c rectangles, leaves exact area ad − bc!",
             "formula": "Area(A · Square) = det(A) = ad − bc",
         },
     ]
@@ -2477,14 +2822,14 @@ function drawSandbox() {{
     const mappings = (ch.intuitionToFormula && ch.intuitionToFormula.termMappings) || [];
     const matched = mappings.find(m => m.colorRole === window.highlightedRole);
     if (matched) {{
-      const roleCol = matched.colorRole === 'red' ? RED : (matched.colorRole === 'blue' ? BLUE : (matched.colorRole === 'amber' ? AMBER : GREEN));
+      const roleCol = matched.colorRole === 'red' ? red : (matched.colorRole === 'blue' ? blue : (matched.colorRole === 'amber' ? amber : green));
       ctx.save();
       ctx.strokeStyle = roleCol;
       ctx.lineWidth = 3;
-      ctx.strokeRect(6, 6, W - 12, H - 12);
+      ctx.strokeRect(6, 6, w - 12, h - 12);
       ctx.fillStyle = roleCol;
       ctx.font = 'bold 12px -apple-system, sans-serif';
-      ctx.fillText(`Focused Term: ${{matched.symbol}} → ${{matched.visualPart}}`, 16, H - 14);
+      ctx.fillText(`Focused Term: ${{matched.symbol}} → ${{matched.visualPart}}`, 16, h - 14);
       ctx.restore();
     }}
   }}

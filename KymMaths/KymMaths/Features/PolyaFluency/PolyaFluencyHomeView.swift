@@ -448,9 +448,7 @@ struct PolyaFluencyHomeView: View {
     }
 
     private func checkSpeedCard(_ card: SpeedMathCard, deckCount: Int) {
-        let trimmed = userSpeedAnswer.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-        let expected = card.answer.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-        if !trimmed.isEmpty && (trimmed == expected || expected.contains(trimmed)) {
+        if SpeedMathAnswerCheck.isCorrect(typed: userSpeedAnswer, expected: card.answer) {
             streakCount += 1
             speedFeedback = "Correct! \(card.answer)"
         } else {

@@ -364,12 +364,9 @@ struct QuestionProofPracticeView: View {
                                         declinedToGuess: declinedToGuess,
                                         thinkingTrace: thinkingTrace
                                     )
-                                    graduatedFeedback = SocraticFeedbackEngine.evaluate(
-                                        studentAnswer: answerText,
-                                        expectedAnswer: question.fadedAnswer,
-                                        keywords: question.markSchemeKeywords,
-                                        workedHint: question.workedExample
-                                    )
+                                    graduatedFeedback = evaluation.map {
+                                        SocraticFeedbackEngine.evaluate(studentAnswer: answerText, question: question, marked: $0)
+                                    }
                                 } label: {
                                     Label(
                                         declinedToGuess
@@ -448,13 +445,13 @@ struct QuestionProofPracticeView: View {
                                         }
                                     }
 
-                                    if !eval.matchedKeywords.isEmpty {
-                                        Text("Matched mark-scheme targets: \(eval.matchedKeywords.joined(separator: ", "))")
+                                    if !eval.matchedParts.isEmpty, !eval.missingParts.isEmpty {
+                                        Text("Right so far: \(eval.matchedParts.joined(separator: ", "))")
                                             .font(Typography.caption)
                                             .foregroundStyle(Color.kymaiaSuccess)
                                     }
-                                    if !eval.missingKeywords.isEmpty {
-                                        Text("Missing targets to include: \(eval.missingKeywords.joined(separator: ", "))")
+                                    if !eval.matchedParts.isEmpty, !eval.missingParts.isEmpty {
+                                        Text("Still to get: \(eval.missingParts.joined(separator: ", "))")
                                             .font(Typography.caption)
                                             .foregroundStyle(Color.kymaiaWarning)
                                     }

@@ -80,7 +80,7 @@ struct LabsAtlasHomeView: View {
                                     Label("Build it yourself", systemImage: "compass.drawing")
                                 }
                                 .buttonStyle(JournalSecondaryButtonStyle())
-                                .help("Open \(proposition) in Euclid's Workshop")
+                                .help("Open \(proposition.raw) in Euclid's Workshop")
                             }
                         }
 

@@ -34,7 +34,7 @@ struct EuclidKnowsWhenCard: View {
                 if choice != nil {
                     Text(isRight
                          ? "Yes. Knowing when to reach for it is the last lamp, and it is lit."
-                         : "Not this time. It was \(question.proposition): \(EuclidSpine.proposition(question.proposition)?.title.lowercased() ?? ""). It will come round again.")
+                         : "Not this time. It was \(question.proposition.raw): \(EuclidSpine.proposition(question.proposition)?.title.lowercased() ?? ""). It will come round again.")
                         .font(Typography.caption.weight(.semibold))
                         .foregroundStyle(isRight ? Color.kymaiaSuccess : Color.kymaiaWarning)
                         .fixedSize(horizontal: false, vertical: true)

@@ -41,7 +41,7 @@ enum ProgressOutcome: Equatable {
     case notNext
 }
 
-/// Kym's levels across the spine. Codable as `[String: EuclidSkillRecord]`, keyed by proposition id.
+/// Kym's levels across the spine. Encodes as `{"records": {id: EuclidSkillRecord}}`, keyed by proposition id.
 struct EuclidProgress: Codable, Equatable {
     private var records: [String: EuclidSkillRecord] = [:]
 

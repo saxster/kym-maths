@@ -67,21 +67,7 @@ enum PatternedWorldWebStageBridge {
     }
 
     static func resolveIndexURL() -> URL? {
-        if let url = Bundle.main.url(forResource: "index", withExtension: "html", subdirectory: "PatternedWorldBook") {
-            return url
-        }
-        let candidates: [URL] = [
-            URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-                .appendingPathComponent("KymMaths/Resources/PatternedWorldBook/index.html"),
-            URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-                .appendingPathComponent("KymMaths/KymMaths/Resources/PatternedWorldBook/index.html"),
-            URL(fileURLWithPath: #filePath)
-                .deletingLastPathComponent()
-                .deletingLastPathComponent()
-                .deletingLastPathComponent()
-                .appendingPathComponent("Resources/PatternedWorldBook/index.html")
-        ]
-        return candidates.first { FileManager.default.fileExists(atPath: $0.path) }
+        KymResources.url(forResource: "index", withExtension: "html", subdirectory: "PatternedWorldBook")
     }
 
     @MainActor

@@ -225,12 +225,12 @@ enum QuantitativeMathsEngine {
 
         switch template {
         case .setInclusionExclusion:
-            let total = 40 + (s % 5) * 5
-            let setA = 22 + (s % 6)
-            let setB = 18 + (s % 5)
+            let both = 5 + (s % 4)
+            let setA = 9 + (s % 6) + both
+            let setB = 6 + (s % 5) + both
             let neither = 4 + (s % 3)
-            let union = total - neither
-            let both = setA + setB - union
+            let union = setA + setB - both
+            let total = union + neither
             return QuantitativeMathsProblem(
                 id: "q-\(template.rawValue)-\(s)",
                 template: template,
@@ -553,7 +553,7 @@ enum QuantitativeMathsEngine {
             )
 
         case .arithmeticSequenceNthTerm:
-            let a = 5 + (s % 4)
+            let a = 6 + (s % 4)
             let d = 3 + (s % 3)
             let n = 20
             let nth = a + (n - 1) * d
@@ -1021,7 +1021,7 @@ enum QuantitativeMathsEngine {
 
         case .matrixDeterminantEigenvalue:
             let a = 3 + (s % 3)
-            let d = 2 + (s % 4)
+            let d = 3 + (s % 4)
             let b = 1
             let c = 2
             let det = a * d - b * c
@@ -1037,7 +1037,7 @@ enum QuantitativeMathsEngine {
                 tolerance: 0.01,
                 unitLabel: "× area",
                 visualIntuitionStep: "Drag the red basis vector Aî to (\(a), \(c)) and the blue basis vector Aĵ to (\(b), \(d)) in the 3D Matrix Sandbox and watch the amber unit square stretch into a parallelogram.",
-                ahaInvariantStep: "Enclosing the sheared parallelogram inside an (\(a)+\(b)) × (\(c)+\(d)) bounding box and subtracting the corner triangles leaves exact area ad − bc.",
+                ahaInvariantStep: "Enclosing the sheared parallelogram inside an (\(a)+\(b)) × (\(c)+\(d)) bounding box, then taking away the four corner triangles and the two \(b) × \(c) corner rectangles, leaves exact area ad − bc.",
                 formulaStep: "det([[a, b], [c, d]]) = ad − bc",
                 stepByStepDerivation: [
                     "1. Multiply main diagonal entries: a × d = \(a) × \(d) = \(a * d).",
@@ -1049,7 +1049,7 @@ enum QuantitativeMathsEngine {
                         id: "trap-det-added-off-diagonal",
                         trapName: "Added Off-Diagonal Product (ad + bc Instead of ad − bc)",
                         buggyValue: Double(a * d + b * c),
-                        socraticDiagnosis: "The off-diagonal shear triangles reduce the bounding-box area, so subtract b × c = \(b * c) from a × d = \(a * d) instead of adding!"
+                        socraticDiagnosis: "The off-diagonal pieces are cut out of the bounding box, so subtract b × c = \(b * c) from a × d = \(a * d) instead of adding!"
                     ),
                     BuggyRuleTrap(
                         id: "trap-det-trace-sum",
