@@ -33,6 +33,11 @@ struct QuestionProofPracticeView: View {
     @State private var showModel = false
     @State private var showThinking = false
     @State private var pageWidth: CGFloat = 0
+    @FocusState private var typingIn: TypingBox?
+    @State private var handInGate = HandInGate()
+
+    /// The boxes whose words are handed in.
+    private enum TypingBox: Hashable { case working, answer, thinking }
 
     private var isWide: Bool { pageWidth >= 860 }
 
@@ -240,6 +245,7 @@ struct QuestionProofPracticeView: View {
             ZStack(alignment: .topLeading) {
                 RuledLines(spacing: 52, color: theme.hairline())
                 TextEditor(text: $answerText)
+                    .focused($typingIn, equals: .working)
                     .learnerTextInput(.retrieval)
                     .scrollContentBackground(.hidden)
                     .lineSpacing(26)
@@ -279,6 +285,7 @@ struct QuestionProofPracticeView: View {
             VStack(alignment: .leading, spacing: StandardSpacing.xs) {
                 Kicker("Answer", muted: true)
                 TextField("", text: $finalAnswer, prompt: Text(question.answerPartsPhrase ?? "Your answer"))
+                    .focused($typingIn, equals: .answer)
                     .learnerTextInput(.retrieval)
                     .textFieldStyle(.plain)
                     .patternedType(.mathDisplay)
@@ -312,6 +319,7 @@ struct QuestionProofPracticeView: View {
     private var thinkingAloud: some View {
         DisclosureGroup(isExpanded: $showThinking) {
             TextField("What are you trying? “Let one bar be the unknown…”", text: $thinkingTrace, axis: .vertical)
+                .focused($typingIn, equals: .thinking)
                 .learnerTextInput(.retrieval)
                 .textFieldStyle(.plain)
                 .patternedType(.readingDefault)
@@ -359,17 +367,10 @@ struct QuestionProofPracticeView: View {
             }
             Spacer(minLength: StandardSpacing.sm)
             Button {
-                evaluation = store.submitQuestionAttempt(
-                    question: question,
-                    answerText: submission,
-                    usedAssistance: usedAssistanceInSession,
-                    highestHintRung: highestHintRung,
-                    confidencePercent: confidencePercent,
-                    declinedToGuess: declinedToGuess,
-                    thinkingTrace: thinkingTrace
-                )
-                graduatedFeedback = evaluation.map {
-                    SocraticFeedbackEngine.evaluate(studentAnswer: submission, question: question, marked: $0)
+                if handInGate.tap(isEditing: typingIn != nil) {
+                    markAttempt()
+                } else {
+                    typingIn = nil
                 }
             } label: {
                 HStack(spacing: StandardSpacing.xs) {
@@ -378,6 +379,26 @@ struct QuestionProofPracticeView: View {
                 }
             }
             .buttonStyle(InkButtonStyle())
+        }
+        .onChange(of: typingIn) { _, box in
+            guard box == nil, handInGate.editingEnded() else { return }
+            // The field hands its last keys to the binding as it lets go; read it on the next turn.
+            DispatchQueue.main.async { markAttempt() }
+        }
+    }
+
+    private func markAttempt() {
+        evaluation = store.submitQuestionAttempt(
+            question: question,
+            answerText: submission,
+            usedAssistance: usedAssistanceInSession,
+            highestHintRung: highestHintRung,
+            confidencePercent: confidencePercent,
+            declinedToGuess: declinedToGuess,
+            thinkingTrace: thinkingTrace
+        )
+        graduatedFeedback = evaluation.map {
+            SocraticFeedbackEngine.evaluate(studentAnswer: submission, question: question, marked: $0)
         }
     }
 
@@ -797,5 +818,23 @@ private struct RuledLines: View {
             context.stroke(path, with: .color(color), lineWidth: 1)
         }
         .accessibilityHidden(true)
+    }
+}
+
+/// One tap on Hand in marks what is in the boxes. Typed keys can still be queued for a box when the tap
+/// lands, so while Kym is typing the tap ends editing first and the attempt is marked once editing has ended.
+struct HandInGate {
+    private(set) var isWaiting = false
+
+    /// Whether the tap can mark the attempt now. If not, end editing and call `editingEnded()`.
+    mutating func tap(isEditing: Bool) -> Bool {
+        isWaiting = isEditing
+        return !isEditing
+    }
+
+    /// Whether a hand-in was waiting on editing to end and should be marked now.
+    mutating func editingEnded() -> Bool {
+        defer { isWaiting = false }
+        return isWaiting
     }
 }
