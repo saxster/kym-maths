@@ -687,9 +687,11 @@ struct QuestionProofPracticeView: View {
                 .patternedType(.readingDefault)
                 .foregroundStyle(theme.ink)
                 .fixedSize(horizontal: false, vertical: true)
-            Text(diagnosis(eval.diagnosticCell, slipNamed: eval.mistake != nil))
-                .standardType(.uiHeadline)
-                .foregroundStyle(theme.ink)
+            if walkBack == nil {
+                Text(diagnosis(eval.diagnosticCell, slipNamed: eval.mistake != nil))
+                    .standardType(.uiHeadline)
+                    .foregroundStyle(theme.ink)
+            }
 
             if let walkBack {
                 Rectangle().fill(theme.hairline()).frame(height: 1)
