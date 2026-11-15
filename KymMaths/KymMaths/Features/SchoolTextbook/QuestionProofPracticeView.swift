@@ -690,11 +690,18 @@ struct QuestionProofPracticeView: View {
             }
 
             Rectangle().fill(theme.hairline()).frame(height: 1)
-            Kicker("A model answer", muted: true)
-            Text(question.workedExample)
-                .patternedType(.readingSmall)
-                .foregroundStyle(theme.mute(theme.ink))
-                .fixedSize(horizontal: false, vertical: true)
+            if eval.isPass {
+                Kicker("A model answer", muted: true)
+                Text(question.workedExample)
+                    .patternedType(.readingSmall)
+                    .foregroundStyle(theme.mute(theme.ink))
+                    .fixedSize(horizontal: false, vertical: true)
+            } else {
+                Text("The model answer opens once you get it right. Need it sooner? The Worked example rung shows it, counted as help.")
+                    .patternedType(.readingSmall)
+                    .foregroundStyle(theme.mute(theme.ink))
+                    .fixedSize(horizontal: false, vertical: true)
+            }
         }
         .paperCard()
     }
