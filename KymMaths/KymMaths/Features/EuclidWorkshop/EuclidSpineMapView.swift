@@ -1,32 +1,35 @@
 import SwiftUI
 
 /// Book I as a map: each proposition below the ones it stands on, with four lamps for what she
-/// can do with it. Facts her school teaches sit in grey with their OUP section. Choosing a node
-/// shows its paper check, which a parent ticks off.
+/// can do with it. Facts her school teaches sit in dashed boxes with their school section.
+/// Choosing a node shows it beside the map, with its paper check, which a parent ticks off.
 struct EuclidSpineMapView: View {
+    @Environment(\.standardTheme) private var theme
     @Bindable var store: AppStore
     @State private var width: CGFloat = 0
+    @State private var mapWidth: CGFloat = 0
 
     private var selected: PropositionID { store.euclidMapSelection }
 
-    private static let detailWidth: CGFloat = 340
-    private static let mapWidth: CGFloat = 700
+    private static let detailWidth: CGFloat = 320
+    private static let sideBySide: CGFloat = 560 + StandardSpacing.lg + detailWidth
+    private static let nodeGap: CGFloat = StandardSpacing.sm
+    private static let nodeMinWidth: CGFloat = 132
 
     var body: some View {
-        JournalPage(title: "", column: .calendar) {
-            EditorialHeader(
-                eyebrow: "Euclid's Workshop · Book I",
-                title: "From one triangle to Pythagoras",
-                subtitle: "Every proposition stands on the ones above it. Build one and it becomes a tool for the next."
-            )
+        EuclidPage(
+            eyebrow: "Euclid's Workshop · Book I",
+            title: "From one triangle to Pythagoras",
+            subtitle: "Every proposition stands on the ones above it. Build one and it becomes a tool for the next."
+        ) {
             Group {
-                if width >= Self.mapWidth + Spacing.md + Self.detailWidth {
-                    HStack(alignment: .top, spacing: Spacing.md) {
+                if width >= Self.sideBySide {
+                    HStack(alignment: .top, spacing: StandardSpacing.lg) {
                         mapCard.frame(maxWidth: .infinity)
                         detail.frame(width: Self.detailWidth)
                     }
                 } else {
-                    VStack(alignment: .leading, spacing: Spacing.md) {
+                    VStack(alignment: .leading, spacing: StandardSpacing.lg) {
                         mapCard
                         detail
                     }
@@ -34,7 +37,7 @@ struct EuclidSpineMapView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width = $0 }
-            MotifsCard(store: store)
+            MotifsStrip(store: store)
         }
         .onAppear {
             #if DEBUG
@@ -43,69 +46,89 @@ struct EuclidSpineMapView: View {
         }
     }
 
+    // MARK: - Map
+
     private var mapCard: some View {
-        JournalCard {
-            VStack(alignment: .leading, spacing: Spacing.md) {
-                legend
-                map.padding(.vertical, Spacing.xs)
-            }
+        VStack(alignment: .leading, spacing: StandardSpacing.md) {
+            legend
+            map
+                .frame(maxWidth: .infinity)
+                .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { mapWidth = $0 }
+        }
+        .paperCard()
+    }
+
+    /// How many nodes fit across, and how wide each is.
+    private var nodeLayout: (perRow: Int, width: CGFloat) {
+        let available = max(mapWidth, Self.nodeMinWidth * 2 + Self.nodeGap)
+        let perRow = max(2, Int((available + Self.nodeGap) / (Self.nodeMinWidth + Self.nodeGap)))
+        let width = min(176, (available - Self.nodeGap * CGFloat(perRow - 1)) / CGFloat(perRow))
+        return (perRow, width)
+    }
+
+    /// The layout's rows, each split evenly into lines that fit: six becomes three and three.
+    private var lines: [[PropositionID]] {
+        let perRow = nodeLayout.perRow
+        return EuclidSpineLayout.rows().flatMap { row -> [[PropositionID]] in
+            guard row.count > perRow else { return [row] }
+            let count = (row.count + perRow - 1) / perRow
+            let size = (row.count + count - 1) / count
+            return stride(from: 0, to: row.count, by: size).map { Array(row[$0..<min($0 + size, row.count)]) }
         }
     }
 
     private var map: some View {
-        VStack(spacing: 34) {
-            ForEach(Array(EuclidSpineLayout.rows().enumerated()), id: \.offset) { _, row in
-                HStack(alignment: .top, spacing: Spacing.xs) {
-                    ForEach(row, id: \.self) { id in
+        let nodeWidth = nodeLayout.width
+        return VStack(spacing: 30) {
+            ForEach(Array(lines.enumerated()), id: \.offset) { _, line in
+                HStack(alignment: .top, spacing: Self.nodeGap) {
+                    ForEach(line, id: \.self) { id in
                         if let proposition = EuclidSpine.proposition(id) {
                             SpineNode(proposition: proposition, record: store.euclidProgress.record(for: id),
                                       needs: EuclidSpine.needs(id, progress: store.euclidProgress),
-                                      isSelected: selected == id) { store.euclidMapSelection = id }
+                                      isSelected: selected == id, width: nodeWidth) { store.euclidMapSelection = id }
                                 .anchorPreference(key: SpineNodeAnchors.self, value: .bounds) { [id: $0] }
                         }
                     }
                 }
             }
         }
-        .frame(maxWidth: .infinity)
+        .padding(.vertical, StandardSpacing.xs)
         .backgroundPreferenceValue(SpineNodeAnchors.self) { anchors in
             GeometryReader { proxy in
                 ForEach(Array(EuclidSpineLayout.edges().enumerated()), id: \.offset) { _, edge in
                     if let from = anchors[edge.from], let to = anchors[edge.to] {
                         let (a, b) = (proxy[from], proxy[to])
-                        let accepted = EuclidSpine.proposition(edge.from).map { if case .accepted = $0.kind { true } else { false } } ?? false
+                        let touchesSelected = edge.from == selected || edge.to == selected
                         SpineEdge(from: CGPoint(x: a.midX, y: a.maxY), to: CGPoint(x: b.midX, y: b.minY))
-                            .stroke(Color.kymaiaMutedInk.opacity(accepted ? 0.35 : 0.7),
-                                    style: StrokeStyle(lineWidth: accepted ? 1 : 1.6, dash: accepted ? [3, 4] : []))
+                            .stroke(touchesSelected ? theme.brass : theme.hairline(),
+                                    lineWidth: touchesSelected ? 1.6 : 1)
                     }
                 }
             }
         }
     }
 
-    /// Each level shows the node's row of four lamps with only its own lit, so position reads as level.
     private var legend: some View {
-        FlowLayout(spacing: Spacing.sm) {
-            ForEach(SkillLevel.allCases, id: \.self) { level in
-                HStack(spacing: Spacing.xs) {
-                    LampRow(lit: { $0 == level })
-                    Text(level.title).font(Typography.caption).foregroundStyle(Color.kymaiaMutedInk)
-                }
-                .accessibilityElement(children: .combine)
+        FlowLayout(spacing: StandardSpacing.md) {
+            HStack(spacing: StandardSpacing.xs) {
+                RoundedRectangle(cornerRadius: StandardRadius.sm).strokeBorder(theme.ink, lineWidth: 1).frame(width: 16, height: 11)
+                Text("You build it")
             }
-            HStack(spacing: Spacing.xxs) {
-                Image(systemName: "lock.fill").foregroundStyle(Color.kymaiaMutedInk)
-                Text("needs an earlier one first").font(Typography.caption).foregroundStyle(Color.kymaiaMutedInk)
+            HStack(spacing: StandardSpacing.xs) {
+                RoundedRectangle(cornerRadius: StandardRadius.sm)
+                    .strokeBorder(theme.mute(theme.ink), style: StrokeStyle(lineWidth: 1, dash: [3, 2]))
+                    .frame(width: 16, height: 11)
+                Text("Known from school, never locked")
             }
-            HStack(spacing: Spacing.xxs) {
-                Image(systemName: "hand.raised.fill").foregroundStyle(Color.kymaiaWarning)
-                Text("last try had help").font(Typography.caption).foregroundStyle(Color.kymaiaMutedInk)
-            }
-            HStack(spacing: Spacing.xxs) {
-                Image(systemName: "checkmark.seal.fill").foregroundStyle(Color.kymaiaSuccess)
-                Text("checked on paper").font(Typography.caption).foregroundStyle(Color.kymaiaMutedInk)
+            HStack(spacing: StandardSpacing.xs) {
+                Image(systemName: "checkmark.seal.fill").foregroundStyle(theme.patterned.provenColor)
+                Text("Checked on paper")
             }
         }
+        .standardType(.uiCaption)
+        .foregroundStyle(theme.mute(theme.ink))
+        .accessibilityElement(children: .combine)
     }
 
     // MARK: - Detail
@@ -114,81 +137,117 @@ struct EuclidSpineMapView: View {
     private var detail: some View {
         if let proposition = EuclidSpine.proposition(selected) {
             let record = store.euclidProgress.record(for: selected)
-            JournalCard {
-                VStack(alignment: .leading, spacing: Spacing.sm) {
-                    Text(proposition.id.raw.uppercased() + (proposition.isAccepted ? " · FROM SCHOOL" : ""))
-                        .font(Typography.eyebrow)
-                        .foregroundStyle(Color.kymaiaPrimary)
+            let needs = EuclidSpine.needs(selected, progress: store.euclidProgress)
+            VStack(alignment: .leading, spacing: StandardSpacing.md) {
+                Kicker("Selected")
+                HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.sm) {
+                    PropositionCode(id: proposition.id, size: 28)
                     Text(proposition.title)
-                        .font(Typography.title3)
-                        .foregroundStyle(Color.kymaiaInk)
-                    Text(proposition.statement)
-                        .font(Typography.body)
-                        .foregroundStyle(Color.kymaiaInk)
+                        .standardType(.headlineMd)
+                        .foregroundStyle(theme.ink)
                         .fixedSize(horizontal: false, vertical: true)
-                    if case let .accepted(taughtIn) = proposition.kind {
-                        Text("Euclid proves this too. Here it is taken as known: school teaches it in \(taughtIn).")
-                            .font(Typography.caption)
-                            .foregroundStyle(Color.kymaiaMutedInk)
-                            .fixedSize(horizontal: false, vertical: true)
+                }
+                if !proposition.isAccepted {
+                    SolvedFigure(id: proposition.id, progress: store.euclidProgress)
+                        .frame(height: 150)
+                }
+                Text(proposition.statement)
+                    .patternedType(.readingDefault)
+                    .foregroundStyle(theme.ink)
+                    .fixedSize(horizontal: false, vertical: true)
+                if case let .accepted(taughtIn) = proposition.kind {
+                    EuclidRuledNote(text: "Euclid proves this too. Here it is taken as known: school teaches it in \(taughtIn).")
+                }
+                Rectangle().fill(theme.hairline()).frame(height: 1)
+                if !proposition.uses.isEmpty {
+                    links("Stands on", proposition.uses)
+                }
+                if !proposition.unlocks.isEmpty {
+                    links("Unlocks", proposition.unlocks)
+                }
+                if !proposition.isAccepted {
+                    lamps(record)
+                    if needs.isEmpty {
+                        actions(for: proposition, record: record)
                     } else {
-                        lamps(record)
-                        let needs = EuclidSpine.needs(selected, progress: store.euclidProgress)
-                        if needs.isEmpty {
-                            actions(for: proposition, record: record)
-                        } else {
-                            Label(Self.needsText(needs), systemImage: "lock.fill")
-                                .font(Typography.caption.weight(.semibold))
-                                .foregroundStyle(Color.kymaiaMutedInk)
-                        }
-                    }
-                    if !proposition.uses.isEmpty {
-                        Text("Stands on " + proposition.uses.map(\.raw).joined(separator: ", "))
-                            .font(Typography.caption)
-                            .foregroundStyle(Color.kymaiaMutedInk)
-                    }
-                    PaperCheckCard(check: proposition.deviceOffCheck, isChecked: record.parentChecked) {
-                        store.euclidProgress.setParentChecked(!record.parentChecked, for: selected)
+                        LockedNote(Self.needsText(needs) + ". Build it there, then come back.")
                     }
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
+                Rectangle().fill(theme.hairline()).frame(height: 1)
+                PaperCheckCard(check: proposition.deviceOffCheck, isChecked: record.parentChecked) {
+                    store.euclidProgress.setParentChecked(!record.parentChecked, for: selected)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .paperCard()
+        }
+    }
+
+    private func links(_ title: String, _ ids: [PropositionID]) -> some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+            Kicker(title, muted: true)
+            ForEach(ids, id: \.self) { id in
+                if let linked = EuclidSpine.proposition(id) {
+                    Button {
+                        store.euclidMapSelection = id
+                    } label: {
+                        HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.sm) {
+                            PropositionCode(id: id, size: 18)
+                            Text(linked.title)
+                                .standardType(.uiBody)
+                                .foregroundStyle(theme.ink)
+                                .multilineTextAlignment(.leading)
+                            Spacer(minLength: StandardSpacing.xs)
+                            if linked.isAccepted {
+                                Text("From school")
+                                    .standardType(.uiCaption)
+                                    .foregroundStyle(theme.mute(theme.ink))
+                            } else {
+                                StatusTag(linked.learningStatus(store.euclidProgress))
+                            }
+                        }
+                        .frame(minHeight: StandardAccessibility.touchTarget)
+                        .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityHint("Shows \(id.raw) on the map")
+                }
             }
         }
     }
 
     private func lamps(_ record: EuclidSkillRecord) -> some View {
-        VStack(alignment: .leading, spacing: Spacing.xxs) {
-            ForEach(SkillLevel.allCases, id: \.self) { level in
-                HStack(spacing: Spacing.xs) {
-                    let lit = record.highest.map { $0 >= level } ?? false
-                    LampDot(isLit: lit)
-                    Text(level.title)
-                        .font(Typography.caption.weight(lit ? .semibold : .regular))
-                        .foregroundStyle(lit ? Color.kymaiaInk : Color.kymaiaMutedInk)
-                }
+        VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+            HStack(spacing: StandardSpacing.sm) {
+                SkillLamps(lit: record.litLamps)
+                Text("\(record.litLamps) of 4 lamps lit")
+                    .standardType(.uiCaption)
+                    .foregroundStyle(theme.mute(theme.ink))
             }
             if record.assisted {
-                JournalBadge(text: "Last try had help, so it didn't count", symbol: "hand.raised.fill", tone: .warning)
+                StatusTag(.withHelp, label: "Last try had help, so it didn't count")
             }
         }
     }
 
     @ViewBuilder
     private func actions(for proposition: EuclidProposition, record: EuclidSkillRecord) -> some View {
-        FlowLayout(spacing: Spacing.xs) {
+        VStack(spacing: StandardSpacing.sm) {
             Button {
                 store.euclidRoute = .board(proposition.id)
             } label: {
-                Label(record.highest == nil ? "Build it" : "Build it again", systemImage: "compass.drawing")
+                Label(record.highest == nil ? "Build it" : "Build it again", systemImage: "arrow.right")
+                    .labelStyle(TrailingIconLabelStyle())
             }
-            .buttonStyle(JournalSecondaryButtonStyle())
+            .buttonStyle(InkButtonStyle(fullWidth: true))
             if let highest = record.highest, highest >= .letters {
                 Button {
                     store.euclidRoute = .stepOrder(proposition.id)
                 } label: {
-                    Label("Steps in order", systemImage: "list.number")
+                    Label("Put the steps in order", systemImage: "list.number")
+                        .frame(maxWidth: .infinity)
                 }
-                .buttonStyle(JournalSecondaryButtonStyle())
+                .buttonStyle(OutlineButtonStyle())
             }
         }
     }
@@ -224,106 +283,148 @@ private struct SpineEdge: Shape {
     }
 }
 
-/// A node's four lamps in level order, left to right.
-private struct LampRow: View {
-    let lit: (SkillLevel) -> Bool
+/// The finished construction, small and still, for the selected proposition.
+private struct SolvedFigure: View {
+    let id: PropositionID
+    let progress: EuclidProgress
+    @State private var session: EuclidWorkshopSession?
 
     var body: some View {
-        HStack(spacing: 4) {
-            ForEach(SkillLevel.allCases, id: \.self) { level in
-                LampDot(isLit: lit(level))
+        Group {
+            if let session {
+                EuclidBoardCanvas(session: session, framed: false) { _, _ in }
+                    .allowsHitTesting(false)
+                    .accessibilityLabel("The finished figure for \(id.raw)")
+            } else {
+                Color.clear
             }
         }
+        .onAppear(perform: build)
+        .onChange(of: id) { _, _ in build() }
     }
-}
 
-private struct LampDot: View {
-    let isLit: Bool
-
-    var body: some View {
-        Circle()
-            .fill(isLit ? Color.kymaiaPrimary : Color.clear)
-            .overlay(Circle().strokeBorder(isLit ? Color.kymaiaPrimary : Color.kymaiaMutedInk.opacity(0.6), lineWidth: 1.2))
-            .frame(width: 9, height: 9)
+    private func build() {
+        guard let proposition = EuclidSpine.proposition(id) else { session = nil; return }
+        var figure = EuclidWorkshopSession(proposition: proposition,
+                                           tools: EuclidWorkshopSession.tools(for: id, progress: progress))
+        figure?.playScript(moves: .max)
+        session = figure
     }
 }
 
 /// One proposition on the map.
 private struct SpineNode: View {
+    @Environment(\.standardTheme) private var theme
     let proposition: EuclidProposition
     let record: EuclidSkillRecord
     /// What must be proven before this one opens.
     let needs: [PropositionID]
     let isSelected: Bool
+    let width: CGFloat
     let onSelect: () -> Void
 
     private var isLocked: Bool { !needs.isEmpty }
 
     var body: some View {
         Button(action: onSelect) {
-            if proposition.isAccepted { accepted } else { built }
+            Group {
+                if proposition.isAccepted { accepted } else { built }
+            }
+            .frame(width: width, alignment: .leading)
+            .frame(minHeight: 88, alignment: .topLeading)
+            .background(
+                RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous)
+                    .fill(fill)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous)
+                    .strokeBorder(stroke, style: StrokeStyle(lineWidth: isSelected ? 1.5 : 1,
+                                                             dash: proposition.isAccepted && !isSelected ? [4, 3] : []))
+            )
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
         .accessibilityLabel(accessibility)
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
+    }
+
+    private var fill: Color {
+        if isSelected { return theme.patterned.wash(.stays) }
+        if proposition.isAccepted { return theme.patterned.sunkColor }
+        return isLocked ? .clear : theme.surface
+    }
+
+    private var stroke: Color {
+        if isSelected { return theme.brass }
+        if proposition.isAccepted { return theme.faint(theme.ink) }
+        if isLocked { return theme.hairline() }
+        return record.highest != nil ? theme.patterned.provenColor : theme.ink
     }
 
     private var built: some View {
-        VStack(alignment: .leading, spacing: Spacing.xxs) {
-            HStack(spacing: Spacing.xxs) {
-                Text(proposition.id.raw)
-                    .font(Typography.headline)
-                    .foregroundStyle(Color.kymaiaInk)
+        VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+            HStack(alignment: .center, spacing: StandardSpacing.xxs) {
+                PropositionCode(id: proposition.id, size: 20, faded: isLocked)
                 Spacer(minLength: 0)
                 if isLocked {
-                    Image(systemName: "lock.fill").foregroundStyle(Color.kymaiaMutedInk).font(Typography.caption)
-                }
-                if record.assisted {
-                    Image(systemName: "hand.raised.fill").foregroundStyle(Color.kymaiaWarning).font(Typography.caption)
+                    Image(systemName: "lock")
+                        .imageScale(.small)
+                        .foregroundStyle(theme.mute(theme.ink))
+                } else {
+                    SkillLamps(lit: record.litLamps, size: 8)
                 }
                 if record.parentChecked {
-                    Image(systemName: "checkmark.seal.fill").foregroundStyle(Color.kymaiaSuccess).font(Typography.caption)
+                    Image(systemName: "checkmark.seal.fill")
+                        .imageScale(.small)
+                        .foregroundStyle(theme.patterned.provenColor)
                 }
             }
-            Text(isLocked ? EuclidSpineMapView.needsText(needs) : proposition.title)
-                .font(Typography.caption)
-                .foregroundStyle(Color.kymaiaMutedInk)
-                .lineLimit(2, reservesSpace: true)
-            LampRow(lit: { level in record.highest.map { $0 >= level } ?? false })
-                .padding(.top, Spacing.xxs)
+            Text(proposition.title)
+                .standardType(.uiBody)
+                .foregroundStyle(isLocked ? theme.mute(theme.ink) : theme.ink)
+                .lineLimit(2)
+                .fixedSize(horizontal: false, vertical: true)
+            Text(statusLine)
+                .standardType(.uiCaption)
+                .foregroundStyle(statusColor)
+                .lineLimit(2)
+                .fixedSize(horizontal: false, vertical: true)
         }
-        .opacity(isLocked ? 0.55 : 1)
-        .padding(Spacing.xs)
-        .frame(width: 124, alignment: .leading)
-        .background(
-            RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous)
-                .fill(isSelected ? Color.kymaiaSelectionFill : Color.kymaiaElevatedSurface)
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous)
-                .strokeBorder(isSelected ? Color.kymaiaPrimary : Color.kymaiaHairline, lineWidth: isSelected ? 2 : 1)
-        )
+        .padding(StandardSpacing.sm)
+    }
+
+    private var statusLine: String {
+        if isLocked { return EuclidSpineMapView.needsText(needs) }
+        if record.assisted { return "Last try had help" }
+        switch record.highest {
+        case .knowsWhen?: return "Secure"
+        case _?: return "Proven"
+        case nil: return "Ready to build"
+        }
+    }
+
+    private var statusColor: Color {
+        if isLocked { return theme.mute(theme.ink) }
+        if record.assisted { return theme.patterned.assistedColor }
+        return record.highest != nil ? theme.patterned.provenColor : theme.brass
     }
 
     private var accepted: some View {
-        VStack(alignment: .leading, spacing: 2) {
-            Text(proposition.id.raw)
-                .font(Typography.subheadline.weight(.semibold))
-                .foregroundStyle(Color.kymaiaMutedInk)
-            Text(proposition.oupSection ?? "School")
-                .font(Typography.caption)
-                .foregroundStyle(Color.kymaiaMutedInk)
+        VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+            HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.xs) {
+                PropositionCode(id: proposition.id, size: 20, faded: true)
+                if let section = proposition.schoolSection {
+                    Kicker(section, muted: true)
+                        .lineLimit(1)
+                }
+            }
+            Text(proposition.title)
+                .standardType(.uiBody)
+                .foregroundStyle(theme.mute(theme.ink))
+                .lineLimit(2)
+                .fixedSize(horizontal: false, vertical: true)
         }
-        .padding(Spacing.xs)
-        .frame(width: 84, alignment: .leading)
-        .background(
-            RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous)
-                .fill(isSelected ? Color.kymaiaSelectionFill : Color.clear)
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous)
-                .strokeBorder(isSelected ? Color.kymaiaPrimary : Color.kymaiaMutedInk.opacity(0.4),
-                              style: StrokeStyle(lineWidth: isSelected ? 2 : 1, dash: isSelected ? [] : [4, 3]))
-        )
+        .padding(StandardSpacing.sm)
     }
 
     private var accessibility: String {
@@ -333,115 +434,148 @@ private struct SpineNode: View {
         if isLocked {
             return "\(proposition.id), \(proposition.title), locked. \(EuclidSpineMapView.needsText(needs))"
         }
-        let lit = record.highest.map { "highest lamp \($0.title)" } ?? "no lamps lit"
+        let lit = record.highest.map { "highest lamp \($0.lampName)" } ?? "no lamps lit"
         return "\(proposition.id), \(proposition.title), \(lit)" + (record.assisted ? ", last try had help" : "")
     }
 }
 
-/// The motif spine's entry: figures exam questions reuse, the open ones first.
-private struct MotifsCard: View {
+/// The motifs: figures exam questions reuse, each with a small drawing and where she stands.
+private struct MotifsStrip: View {
+    @Environment(\.standardTheme) private var theme
     @Bindable var store: AppStore
 
     private var motifs: [Motif] { MotifSpine.catalog.filter { $0.layer == .motif } }
 
     var body: some View {
-        JournalCard {
-            VStack(alignment: .leading, spacing: Spacing.sm) {
-                Text("MOTIFS")
-                    .font(Typography.eyebrow)
-                    .foregroundStyle(Color.kymaiaPrimary)
+        VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+            FlowLayout(spacing: StandardSpacing.sm) {
+                Kicker("Motifs")
                 Text("Figures exam questions use again and again. Spot one and the helper line comes next.")
-                    .font(Typography.body)
-                    .foregroundStyle(Color.kymaiaInk)
+                    .standardType(.uiCaption)
+                    .foregroundStyle(theme.mute(theme.ink))
                     .fixedSize(horizontal: false, vertical: true)
-                FlowLayout(spacing: Spacing.xs) {
-                    ForEach(motifs, id: \.id) { motif in
-                        if MotifSpine.playable.contains(motif.id) {
-                            open(motif)
-                        } else {
-                            comingNext(motif)
+            }
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: StandardSpacing.sm)],
+                      alignment: .leading, spacing: StandardSpacing.sm) {
+                ForEach(motifs, id: \.id) { motif in
+                    if MotifSpine.playable.contains(motif.id) {
+                        Button {
+                            store.openEuclid(.motif(motif.id))
+                        } label: {
+                            card(motif)
                         }
+                        .buttonStyle(.plain)
+                        .accessibilityHint("Opens \(motif.title)")
+                    } else {
+                        card(motif)
                     }
                 }
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
         }
+        .padding(.top, StandardSpacing.sm)
     }
 
-    private func open(_ motif: Motif) -> some View {
+    private func card(_ motif: Motif) -> some View {
         let record = store.motifProgress.record(for: motif.id)
-        return Button {
-            store.openEuclid(.motif(motif.id))
-        } label: {
-            HStack(spacing: Spacing.xxs) {
+        let isPlayable = MotifSpine.playable.contains(motif.id)
+        return VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+            MotifThumbnail(scene: motif.scene)
+                .frame(width: 76, height: 46)
+                .opacity(isPlayable ? 1 : 0.5)
+            HStack(spacing: StandardSpacing.xxs) {
                 Text("\(motif.id.raw) · \(motif.title)")
-                if record.solved {
-                    Image(systemName: "checkmark.circle.fill").foregroundStyle(Color.kymaiaPrimary)
-                }
+                    .standardType(.uiHeadline)
+                    .foregroundStyle(isPlayable ? theme.ink : theme.mute(theme.ink))
+                    .lineLimit(2)
                 if record.parentChecked {
-                    Image(systemName: "checkmark.seal.fill").foregroundStyle(Color.kymaiaSuccess)
+                    Image(systemName: "checkmark.seal.fill")
+                        .imageScale(.small)
+                        .foregroundStyle(theme.patterned.provenColor)
+                        .accessibilityLabel("Checked on paper")
                 }
             }
+            status(record, isPlayable: isPlayable)
         }
-        .buttonStyle(JournalSecondaryButtonStyle())
-        .accessibilityLabel("\(motif.id), \(motif.title)" + (record.solved ? ", solved" : ", open"))
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .paperCard(padding: StandardSpacing.md)
+        .accessibilityElement(children: .combine)
     }
 
-    private func comingNext(_ motif: Motif) -> some View {
-        VStack(alignment: .leading, spacing: 2) {
-            Text("\(motif.id.raw) · \(motif.title)")
-                .font(Typography.subheadline.weight(.semibold))
-                .foregroundStyle(Color.kymaiaMutedInk)
-            Text("Coming next")
-                .font(Typography.caption)
-                .foregroundStyle(Color.kymaiaMutedInk)
+    @ViewBuilder
+    private func status(_ record: MotifRecord, isPlayable: Bool) -> some View {
+        if record.solved {
+            StatusTag(.proven)
+        } else if record.assisted {
+            StatusTag(.withHelp)
+        } else if isPlayable {
+            StatusTag(.notStarted)
+        } else {
+            StatusTag(.locked, label: "Coming next")
         }
-        .padding(.horizontal, Spacing.sm)
-        .padding(.vertical, Spacing.xs)
-        .overlay(
-            RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous)
-                .strokeBorder(Color.kymaiaMutedInk.opacity(0.4), style: StrokeStyle(lineWidth: 1, dash: [4, 3]))
-        )
-        .accessibilityElement(children: .combine)
+    }
+}
+
+/// A motif's lines in small, the way the figure first appears.
+private struct MotifThumbnail: View {
+    @Environment(\.standardTheme) private var theme
+    let scene: MotifScene
+
+    var body: some View {
+        Canvas { context, size in
+            let figure = scene.build(scene.state)
+            let viewport = BoardViewport(fitting: scene.extent, in: size, margin: 3)
+            for segment in figure.segments {
+                guard let a = figure.points[segment[0]], let b = figure.points[segment[1]] else { continue }
+                context.stroke(BoardPaths.line(viewport.toView(a), viewport.toView(b)), with: .color(theme.ink),
+                               style: StrokeStyle(lineWidth: 1.5, lineCap: .round))
+            }
+        }
+        .accessibilityHidden(true)
     }
 }
 
 /// The task done with a real compass and the answer a parent checks. Only a parent's tap marks it.
 struct PaperCheckCard: View {
+    @Environment(\.standardTheme) private var theme
     let check: DeviceOffCheck
     let isChecked: Bool
     let onToggle: () -> Void
     @State private var showsAnswer = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: Spacing.xs) {
-            Label("Device off", systemImage: "pencil.and.ruler")
-                .font(Typography.caption.weight(.semibold))
-                .foregroundStyle(Color.kymaiaPrimary)
+        VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+            HStack(spacing: StandardSpacing.xs) {
+                Image(systemName: "pencil.and.ruler")
+                    .foregroundStyle(theme.brass)
+                    .accessibilityHidden(true)
+                Kicker("Device off")
+                Spacer(minLength: StandardSpacing.xs)
+                if isChecked {
+                    StatusTag(.proven, label: "Checked on paper")
+                }
+            }
             Text(check.task)
-                .font(Typography.body)
-                .foregroundStyle(Color.kymaiaInk)
+                .patternedType(.readingDefault)
+                .foregroundStyle(theme.ink)
                 .fixedSize(horizontal: false, vertical: true)
             if showsAnswer {
                 Text("For the grown-up: " + check.answer)
-                    .font(Typography.caption)
-                    .foregroundStyle(Color.kymaiaMutedInk)
+                    .standardType(.uiCaption)
+                    .foregroundStyle(theme.mute(theme.ink))
                     .fixedSize(horizontal: false, vertical: true)
             }
-            FlowLayout(spacing: Spacing.xs) {
+            FlowLayout(spacing: StandardSpacing.md) {
                 Button(showsAnswer ? "Hide the answer" : "Show the answer") { showsAnswer.toggle() }
-                    .buttonStyle(JournalSecondaryButtonStyle())
+                    .buttonStyle(TextLinkButtonStyle(arrow: false))
                 Button(action: onToggle) {
-                    Label(isChecked ? "Checked on paper" : "Mark checked on paper",
-                          systemImage: isChecked ? "checkmark.seal.fill" : "seal")
+                    Label(isChecked ? "Undo the paper check" : "Mark checked on paper",
+                          systemImage: isChecked ? "arrow.uturn.backward" : "checkmark.seal")
                 }
-                .buttonStyle(JournalSecondaryButtonStyle())
+                .buttonStyle(OutlineButtonStyle())
                 .accessibilityHint("For a parent, once the paper version is right")
             }
         }
-        .padding(Spacing.sm)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .quietPanelBackground()
     }
 }
 

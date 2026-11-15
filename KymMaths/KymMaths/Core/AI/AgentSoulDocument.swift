@@ -231,7 +231,7 @@ public enum AgentSoulCatalog {
         ),
         teachingStyle: .init(
             primaryMethod: "Pólya's 4-Step Heuristics (Understand → Devise a Plan → Carry Out → Look Back) paired with Singapore CPA bar models",
-            scaffoldingApproach: "Concrete → Pictorial (bar model / area diagram) → Symbolic formula",
+            scaffoldingApproach: "Something to move first, then a drawing (a bar model or an area diagram), then the formula",
             errorHandling: "Treat every error as a clue about which condition wasn't satisfied yet",
             praiseStyle: "Praise heuristic choices: 'Drawing that comparison bar made the hidden invariant visible!'",
             challengeStyle: "Ask: 'Can you solve it a second way, or use this method on a harder question?'",

@@ -1,15 +1,25 @@
 import SwiftUI
 
-// MARK: - Room 1: Today (Daily Cadence, FSRS Retrieval, Intuition->Formula Spotlight & Companion Workbook)
+// MARK: - Room 1: Today
 
+/// The day's front page: a greeting, the idea to wonder about, today's four steps, and three
+/// glances (cards to remember, the next test, the Euclid thread). Everything else the room offers
+/// sits lower, folded under "More for today".
 struct TodayHomeView: View {
     @Bindable var store: AppStore
+    @Environment(\.standardTheme) private var theme
+    @Environment(\.horizontalSizeClass) private var sizeClass
     @State private var isShowingCardBack = false
     @State private var revealedBridgeIds: Set<String> = []
     @State private var selectedFormulaTermSymbol: String? = nil
+    @State private var openDetails: Set<TodayDetail> = []
+    /// The step the Daily Flow sheet opens on when a button chose one.
+    @State private var flowStart: DailyFlowStageKind? = nil
+    /// The width of the page's column, which decides how many cards sit side by side.
+    @State private var contentWidth: CGFloat = 0
 
     var body: some View {
-        let dailyPlan = DailyFlowSessionEngine.buildPlan(
+        let plan = DailyFlowSessionEngine.buildPlan(
             pack: store.seedPack,
             dueCards: store.dueFSRSCards,
             allCards: store.fsrsCards,
@@ -18,657 +28,794 @@ struct TodayHomeView: View {
             proofsByQuestionId: store.proofsByQuestionId,
             euclidProgress: store.euclidProgress
         )
+        let path = TodayPath(plan: plan, store: store)
 
-        JournalPage {
-            EditorialHeader(
-                eyebrow: "Daily Mathematics Studio · Mumbai",
-                title: "Good day, \(store.learnerDisplayName)",
-                subtitle: "Oxford Cambridge Lower Secondary Complete Mathematics 8 (Deborah Barton) + Singapore CPA & Horizon Atlas"
+        ScrollViewReader { proxy in
+            ScrollView {
+                VStack(alignment: .leading, spacing: StandardSpacing.lg) {
+                    EditorialHeader(
+                        eyebrow: Self.dateLine(),
+                        title: "\(Self.greeting()), \(store.learnerDisplayName).",
+                        subtitle: "One idea to wonder about, then four short steps. About \(plan.estimatedMinutes) minutes."
+                    )
+                    .padding(.bottom, -StandardSpacing.sm)
+
+                    if contentWidth >= 880 {
+                        HStack(alignment: .top, spacing: StandardSpacing.lg) {
+                            questionCard(plan)
+                            pathCard(plan, path).frame(width: 370)
+                        }
+                    } else {
+                        questionCard(plan)
+                        pathCard(plan, path)
+                    }
+
+                    VStack(alignment: .leading, spacing: StandardSpacing.md) {
+                        if contentWidth >= 800 {
+                            HStack(alignment: .top, spacing: StandardSpacing.md) {
+                                rememberCard(proxy)
+                                nextTestCard
+                                euclidCard
+                            }
+                        } else if contentWidth >= 520 {
+                            HStack(alignment: .top, spacing: StandardSpacing.md) {
+                                rememberCard(proxy)
+                                nextTestCard
+                            }
+                            euclidCard
+                        } else {
+                            rememberCard(proxy)
+                            nextTestCard
+                            euclidCard
+                        }
+                    }
+                    .id("glance")
+
+                    moreForToday(plan)
+                        .padding(.top, StandardSpacing.lg)
+                }
+                .frame(maxWidth: 1080, alignment: .leading)
+                .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { contentWidth = $0 }
+                .padding(.horizontal, sizeClass == .compact ? StandardSpacing.md : StandardSpacing.xl2)
+                .padding(.top, StandardSpacing.xl)
+                .padding(.bottom, StandardSpacing.xl3)
+                .frame(maxWidth: .infinity)
+            }
+            .task {
+                // `today/below` opens the room scrolled to the glances, for screenshots.
+                guard store.deepLinkTail.first == "below" else { return }
+                try? await Task.sleep(for: .milliseconds(500))
+                proxy.scrollTo("glance", anchor: .top)
+            }
+        }
+        .background(theme.bg.ignoresSafeArea())
+        .modifier(FlowPresentation(isPresented: $store.showDailyFlowSheet, onDismiss: { flowStart = nil }) {
+            DailyFlowPlayerSheet(
+                plan: plan,
+                store: store,
+                startStage: flowStart ?? deepLinkStage ?? path.current ?? .fsrsMemoryLock,
+                doneBefore: path.done
             )
+        })
+    }
 
-            // 1. Readiness Strip & 15-Minute Daily Flow Hero Launcher
-            JournalCard {
-                VStack(alignment: .leading, spacing: Spacing.md) {
-                    HStack(alignment: .center) {
-                        JournalBadge(
-                            text: "15-Minute Daily Flow Ready",
-                            symbol: "flame.fill",
-                            tone: .accent
-                        )
-                        Spacer()
-                        HStack(spacing: Spacing.xs) {
-                            Button {
-                                store.showCalendarSheet = true
-                            } label: {
-                                Label("Deadlines", systemImage: "calendar")
-                            }
-                            .buttonStyle(JournalSecondaryButtonStyle())
+    private func openFlow(at stage: DailyFlowStageKind?) {
+        flowStart = stage
+        store.showDailyFlowSheet = true
+    }
 
-                            Button {
-                                store.showSettingsSheet = true
-                            } label: {
-                                Label("Customise", systemImage: "slider.horizontal.3")
-                            }
-                            .buttonStyle(JournalSecondaryButtonStyle())
-                        }
-                    }
+    /// `today/flow/2` opens the sheet on step 2, for screenshots.
+    private var deepLinkStage: DailyFlowStageKind? {
+        guard store.deepLinkTail.first == "flow", store.deepLinkTail.count > 1,
+              let step = Int(store.deepLinkTail[1]) else { return nil }
+        return DailyFlowStageKind(rawValue: step - 1)
+    }
 
-                    // 4-Stage Daily Flow Ribbon
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: Spacing.xs) {
-                            ForEach(DailyFlowStageKind.allCases) { stage in
-                                HStack(spacing: 4) {
-                                    Image(systemName: stage.systemImage)
-                                        .foregroundStyle(Color.kymaiaPrimary)
-                                    Text(stage.title)
-                                        .font(Typography.caption.weight(.semibold))
-                                        .foregroundStyle(Color.kymaiaInk)
-                                    Text("· \(stage.durationLabel)")
-                                        .font(Typography.mono)
-                                        .foregroundStyle(Color.kymaiaMutedInk)
-                                }
-                                .padding(.horizontal, Spacing.xs)
-                                .padding(.vertical, 6)
-                                .background(Color.kymaiaElevatedSurface)
-                                .clipShape(RoundedRectangle(cornerRadius: Spacing.radiusSM))
-                            }
-                        }
-                    }
+    // MARK: Today's question
 
-                    HStack(alignment: .center, spacing: Spacing.sm) {
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("Today's Guided Arc: Ch \(dailyPlan.chapter.number) (\(dailyPlan.chapter.title)) + OUP Topic \(dailyPlan.proofQuestion.topicCode)")
-                                .font(Typography.subheadline.weight(.semibold))
-                                .foregroundStyle(Color.kymaiaInk)
-                            Text("1. FSRS Memory Lock → 2. Interactive Discovery Beat → 3. Misconception Immunity Debate → 4. Companion Workbook Proof")
-                                .font(Typography.caption)
-                                .foregroundStyle(Color.kymaiaMutedInk)
-                        }
-                        Spacer()
-                        Button {
-                            store.showDailyFlowSheet = true
-                        } label: {
-                            Label("Start 15-Min Daily Flow", systemImage: "play.fill")
-                        }
-                        .buttonStyle(BrassButtonStyle())
-                    }
-
-                    FlowLayout(spacing: Spacing.xs) {
-                        JournalBadge(
-                            text: "\(store.dueFSRSCards.count) FSRS cards due",
-                            symbol: "clock.arrow.circlepath",
-                            tone: store.dueFSRSCards.isEmpty ? .positive : .accent
-                        )
-                        JournalBadge(
-                            text: "\(store.overallIndependentProofCount)/\(store.seedPack.schoolQuestions.count) Companion Workbook Proofs",
-                            symbol: "checkmark.seal.fill",
-                            tone: .positive
-                        )
-                        JournalBadge(
-                            text: "\(store.widgetStampsById.count)/\(store.seedPack.widgets.count) 3D Atlas Stamps",
-                            symbol: "cube.transparent.fill",
-                            tone: .info
-                        )
-                        JournalBadge(
-                            text: store.selectedCurriculumLens.title,
-                            symbol: "line.3.horizontal.decrease.circle",
-                            tone: .neutral
-                        )
-                    }
-
-                    if let deadline = store.nextSchoolDeadline {
-                        HStack(spacing: Spacing.sm) {
-                            Image(systemName: "flag.checkered")
-                                .foregroundStyle(Color.kymaiaPrimary)
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text("Upcoming Target: \(deadline.title)")
-                                    .font(Typography.subheadline.weight(.semibold))
-                                    .foregroundStyle(Color.kymaiaInk)
-                                Text("Chapters \(deadline.unitNumbersCSV) · \(deadline.notes)")
-                                    .font(Typography.caption)
-                                    .foregroundStyle(Color.kymaiaMutedInk)
-                            }
-                            Spacer()
-                            Text(deadline.dueAt, style: .date)
-                                .font(Typography.caption.weight(.semibold))
-                                .foregroundStyle(Color.kymaiaPrimary)
-                        }
-                        .padding(Spacing.sm)
-                        .background(
-                            RoundedRectangle(cornerRadius: Spacing.radiusMD, style: .continuous)
-                                .fill(Color.kymaiaSelectionFill)
-                        )
-                    }
+    private func questionCard(_ plan: DailyFlowSessionPlan) -> some View {
+        let chapter = plan.chapter
+        let idea = chapter.hookSummary
+        return VStack(alignment: .leading, spacing: StandardSpacing.md) {
+            Kicker(idea.hasSuffix("?") ? "Today's question" : "Today's idea")
+            WonderQuestion(idea)
+            VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                Kicker("In symbols", muted: true)
+                Text(chapter.intuitionToFormula.formulaDisplay)
+                    .patternedType(.mathInline)
+                    .foregroundStyle(theme.ink)
+                    .fixedSize(horizontal: false, vertical: true)
+                Text("Try it: \(chapter.intuitionToFormula.concreteAction)")
+                    .patternedType(.readingSmall)
+                    .foregroundStyle(theme.mute(theme.ink))
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .padding(StandardSpacing.md)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                    .fill(theme.patterned.sunkColor)
+            )
+            ViewThatFits(in: .horizontal) {
+                HStack(alignment: .center) {
+                    chapterSource(chapter)
+                    Spacer(minLength: StandardSpacing.md)
+                    readChapterLink
+                }
+                VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+                    chapterSource(chapter)
+                    readChapterLink
                 }
             }
+        }
+        .paperCard(padding: StandardSpacing.xl)
+    }
 
-            // 2. FSRS v5 Spaced Retrieval Queue
-            JournalSection(
-                title: "Spaced Retrieval Queue (FSRS v5)",
-                eyebrow: "Step 1 · Lock Formulas & Invariants Into Long-Term Memory"
-            ) {
-                if let card = store.dueFSRSCards.first {
-                    JournalCard {
-                        VStack(alignment: .leading, spacing: Spacing.md) {
-                            HStack {
-                                JournalBadge(text: "Topic \(card.topicCode)", symbol: "number", tone: .accent)
-                                JournalBadge(text: "Patterned World Ch \(card.chapterNumber)", symbol: "book.pages", tone: .neutral)
-                                Spacer()
-                                Text("Stability: \(String(format: "%.1f", card.stability))d")
-                                    .font(Typography.caption)
-                                    .foregroundStyle(Color.kymaiaMutedInk)
-                            }
+    private func chapterSource(_ chapter: PatternedWorldChapter) -> some View {
+        Text("From Chapter \(chapter.number) · \(chapter.title)")
+            .standardType(.uiBody)
+            .foregroundStyle(theme.mute(theme.ink))
+            .lineLimit(2)
+    }
 
-                            Text(card.frontPrompt)
-                                .font(Typography.title3)
-                                .foregroundStyle(Color.kymaiaInk)
+    private var readChapterLink: some View {
+        Button("Read the chapter") {
+            store.activeRoom = .patternedWorld
+        }
+        .buttonStyle(TextLinkButtonStyle())
+    }
 
-                            if isShowingCardBack {
-                                VStack(alignment: .leading, spacing: Spacing.sm) {
-                                    Text("INVARIANT & FORMULA ANSWER")
-                                        .font(Typography.eyebrow)
-                                        .foregroundStyle(Color.kymaiaSuccess)
-                                    Text(card.backAnswer)
-                                        .font(Typography.body)
-                                        .foregroundStyle(Color.kymaiaInk)
-                                        .padding(Spacing.md)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .quietPanelBackground()
+    // MARK: Today's path
 
-                                    HStack(spacing: Spacing.sm) {
-                                        ForEach(FSRSRating.allCases, id: \.rawValue) { rating in
-                                            Button(rating.title) {
-                                                isShowingCardBack = false
-                                                store.reviewFSRSCard(card, rating: rating)
-                                            }
-                                            .buttonStyle(JournalSecondaryButtonStyle())
-                                        }
-                                    }
+    private func pathCard(_ plan: DailyFlowSessionPlan, _ path: TodayPath) -> some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+            Kicker("Today's path")
+            VStack(spacing: 0) {
+                ForEach(DailyFlowStageKind.allCases) { stage in
+                    if stage != .fsrsMemoryLock {
+                        Rectangle().fill(theme.hairline()).frame(height: 1)
+                    }
+                    Button {
+                        openFlow(at: stage)
+                    } label: {
+                        PathStepRow(
+                            number: stage.rawValue + 1,
+                            title: stage.plainTitle,
+                            detail: stepDetail(stage, plan),
+                            minutes: stage.minutes,
+                            state: path.state(of: stage)
+                        )
+                        .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityHint("Opens today's path at this step")
+                }
+            }
+            Button {
+                openFlow(at: path.current ?? .fsrsMemoryLock)
+            } label: {
+                HStack(spacing: StandardSpacing.xs) {
+                    Text(path.continueTitle)
+                    Image(systemName: "arrow.right").imageScale(.small)
+                }
+            }
+            .buttonStyle(InkButtonStyle(fullWidth: true))
+            .padding(.top, StandardSpacing.sm)
+
+            VStack(spacing: 0) {
+                Text(path.doneLine)
+                    .standardType(.uiCaption)
+                    .foregroundStyle(theme.mute(theme.ink))
+                    .multilineTextAlignment(.center)
+                Button("Change the plan") {
+                    store.showSettingsSheet = true
+                }
+                .buttonStyle(TextLinkButtonStyle(arrow: false))
+            }
+            .frame(maxWidth: .infinity)
+        }
+        .paperCard(padding: StandardSpacing.lg)
+    }
+
+    private func stepDetail(_ stage: DailyFlowStageKind, _ plan: DailyFlowSessionPlan) -> String {
+        switch stage {
+        case .fsrsMemoryLock:
+            let due = store.dueFSRSCards.count
+            switch due {
+            case 0: return "Nothing is due. A warm-up card or two."
+            case 1: return "1 card comes back today"
+            default: return "\(due) cards come back today"
+            }
+        case .conceptDiscoveryBeat:
+            return "Why it works: \(plan.chapter.title)"
+        case .misconceptionImmunity:
+            return "\(plan.debateScenario.title): a tempting wrong answer to catch"
+        case .companionWorkbookProof:
+            return "Workbook \(plan.proofQuestion.topicCode) · your own working"
+        }
+    }
+
+    // MARK: Three glances
+
+    private func rememberCard(_ proxy: ScrollViewProxy) -> some View {
+        let due = store.dueFSRSCards
+        return VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+            Kicker("Remember")
+            HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.sm) {
+                Text("\(due.count)")
+                    .patternedType(.numeral)
+                    .foregroundStyle(theme.ink)
+                Text(due.count == 1 ? "card is ready to come back" : "cards are ready to come back")
+                    .patternedType(.readingDefault)
+                    .foregroundStyle(theme.ink)
+            }
+            .accessibilityElement(children: .combine)
+            Group {
+                if let next = due.first {
+                    Text("A card waits longer each time you remember it. Next up: \(next.frontPrompt)")
+                } else {
+                    Text("A card waits longer each time you remember it. None are waiting now.")
+                }
+            }
+            .patternedType(.readingSmall)
+            .foregroundStyle(theme.mute(theme.ink))
+            .lineLimit(4)
+            if !due.isEmpty {
+                Button("Try one now") {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        _ = openDetails.insert(.remember)
+                        proxy.scrollTo(TodayDetail.remember, anchor: .top)
+                    }
+                }
+                .buttonStyle(TextLinkButtonStyle())
+            }
+        }
+        .paperCard()
+    }
+
+    @ViewBuilder private var nextTestCard: some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+            Kicker("Next test")
+            if let deadline = store.nextSchoolDeadline {
+                Text(deadline.title)
+                    .standardType(.headlineSm)
+                    .foregroundStyle(theme.ink)
+                    .fixedSize(horizontal: false, vertical: true)
+                Text(Self.dueLine(deadline.dueAt))
+                    .standardType(.uiBody)
+                    .foregroundStyle(theme.mute(theme.ink))
+                VStack(spacing: StandardSpacing.xs) {
+                    ForEach(Self.unitNumbers(deadline), id: \.self) { unit in
+                        let practice = unitPractice(unit)
+                        HStack(spacing: StandardSpacing.sm) {
+                            Text("Ch \(unit)")
+                                .standardType(.uiCaption)
+                                .foregroundStyle(theme.ink)
+                                .frame(width: 40, alignment: .leading)
+                            ProgressRule(practice.total == 0 ? 0 : Double(practice.proved) / Double(practice.total))
+                        }
+                        .accessibilityElement(children: .ignore)
+                        .accessibilityLabel("Chapter \(unit): \(practice.proved) of \(practice.total) questions proved on your own")
+                    }
+                }
+                .padding(.vertical, StandardSpacing.xxs)
+                Text(deadline.notes)
+                    .patternedType(.readingSmall)
+                    .foregroundStyle(theme.mute(theme.ink))
+                    .lineLimit(3)
+            } else {
+                Text("No tests coming up.")
+                    .patternedType(.readingDefault)
+                    .foregroundStyle(theme.mute(theme.ink))
+            }
+            Button("All deadlines") {
+                store.showCalendarSheet = true
+            }
+            .buttonStyle(TextLinkButtonStyle())
+        }
+        .paperCard()
+    }
+
+    private func unitPractice(_ unit: Int) -> (proved: Int, total: Int) {
+        let total = store.questions(forUnit: unit).count
+        let proved = store.proofsByQuestionId.values.filter { $0.unitNumber == unit && $0.level.isIndependentProof }.count
+        return (proved, total)
+    }
+
+    private var euclidCard: some View {
+        let progress = store.euclidProgress
+        let built = EuclidSpine.catalog.filter { progress.highest($0.id) != nil }.suffix(2)
+        return VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+            Kicker("Euclid thread")
+            ForEach(Array(built), id: \.id) { proposition in
+                let lit = (progress.highest(proposition.id)?.rawValue ?? -1) + 1
+                euclidRow(proposition, status: Self.lampsLine(lit), lit: lit)
+            }
+            if let next = store.euclidUpNext {
+                euclidRow(next, status: "Ready to build", lit: 0)
+            }
+            if built.isEmpty && store.euclidUpNext == nil {
+                Text("Every proposition here is built.")
+                    .patternedType(.readingSmall)
+                    .foregroundStyle(theme.mute(theme.ink))
+            }
+            Button("Open the workshop") {
+                store.openEuclid(.map)
+            }
+            .buttonStyle(TextLinkButtonStyle())
+        }
+        .paperCard()
+    }
+
+    private func euclidRow(_ proposition: EuclidProposition, status: String, lit: Int) -> some View {
+        Button {
+            store.openEuclid(.board(proposition.id))
+        } label: {
+            HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.sm) {
+                Text(proposition.id.raw)
+                    .patternedType(.mathInline)
+                    .foregroundStyle(theme.patterned.color(.moves))
+                    .frame(width: 38, alignment: .leading)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(proposition.title)
+                        .standardType(.uiHeadline)
+                        .foregroundStyle(theme.ink)
+                    Text(status)
+                        .standardType(.uiCaption)
+                        .foregroundStyle(theme.mute(theme.ink))
+                }
+                Spacer(minLength: StandardSpacing.xs)
+                SkillLamps(lit: lit)
+            }
+            .frame(minHeight: StandardAccessibility.touchTarget)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityElement(children: .combine)
+        .accessibilityHint("Opens it in Euclid's Workshop")
+    }
+
+    // MARK: More for today
+
+    private func moreForToday(_ plan: DailyFlowSessionPlan) -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Kicker("More for today")
+            Text("Proved on your own: \(store.overallIndependentProofCount) of \(store.seedPack.schoolQuestions.count) workbook questions · Atlas stamps: \(store.widgetStampsById.count) of \(store.seedPack.widgets.count) · Book: \(store.selectedCurriculumLens.title)")
+                .standardType(.uiBody)
+                .foregroundStyle(theme.mute(theme.ink))
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.top, StandardSpacing.xxs)
+                .padding(.bottom, StandardSpacing.sm)
+
+            disclosure(.remember, title: "One card now", summary: "Say the answer in your head, then check.") {
+                rememberNow
+            }
+            disclosure(.why, title: "Why it works: Chapter \(store.selectedChapter.number)", summary: "Tap a part of the formula to see it in the picture.") {
+                whyItWorks
+            }
+            disclosure(.workbook, title: "Workbook: Chapter \(store.selectedUnit.unitNumber) · \(store.selectedUnit.title)", summary: "Questions to prove, from easy to stretching.") {
+                workbook
+            }
+            disclosure(.subjects, title: "Maths in other subjects", summary: "Where this maths turns up in biology, physics, chemistry and money.") {
+                otherSubjects
+            }
+            disclosure(.widgets, title: "On your Home Screen", summary: "How today looks in the widgets.") {
+                KymMathsWidgetPreviewGallery(store: store)
+            }
+        }
+    }
+
+    private func disclosure<Content: View>(
+        _ detail: TodayDetail,
+        title: String,
+        summary: String,
+        @ViewBuilder content: () -> Content
+    ) -> some View {
+        let isOpen = openDetails.contains(detail)
+        return VStack(alignment: .leading, spacing: StandardSpacing.md) {
+            Button {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    if isOpen { openDetails.remove(detail) } else { openDetails.insert(detail) }
+                }
+            } label: {
+                HStack(alignment: .center, spacing: StandardSpacing.md) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(title)
+                            .standardType(.headlineSm)
+                            .foregroundStyle(theme.ink)
+                            .multilineTextAlignment(.leading)
+                        Text(summary)
+                            .standardType(.uiBody)
+                            .foregroundStyle(theme.mute(theme.ink))
+                            .multilineTextAlignment(.leading)
+                    }
+                    Spacer(minLength: StandardSpacing.sm)
+                    Image(systemName: "chevron.down")
+                        .foregroundStyle(theme.brass)
+                        .rotationEffect(.degrees(isOpen ? 180 : 0))
+                        .accessibilityHidden(true)
+                }
+                .frame(minHeight: StandardAccessibility.touchTarget)
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityValue(isOpen ? "Open" : "Folded")
+            .accessibilityHint(isOpen ? "Folds this part away" : "Opens this part")
+
+            if isOpen {
+                content()
+                    .padding(.bottom, StandardSpacing.sm)
+            }
+        }
+        .padding(.vertical, StandardSpacing.sm)
+        .overlay(alignment: .top) {
+            Rectangle().fill(theme.hairline()).frame(height: 1)
+        }
+        .id(detail)
+    }
+
+    @ViewBuilder private var rememberNow: some View {
+        if let card = store.dueFSRSCards.first {
+            VStack(alignment: .leading, spacing: StandardSpacing.md) {
+                Text("Topic \(card.topicCode) · Chapter \(card.chapterNumber) · holds for about \(String(format: "%.1f", card.stability)) days")
+                    .standardType(.uiCaption)
+                    .foregroundStyle(theme.mute(theme.ink))
+                Text(card.frontPrompt)
+                    .patternedType(.reading)
+                    .foregroundStyle(theme.ink)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                if isShowingCardBack {
+                    VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+                        Kicker("The answer")
+                        Text(card.backAnswer)
+                            .patternedType(.readingDefault)
+                            .foregroundStyle(theme.ink)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .padding(StandardSpacing.md)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(
+                                RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                                    .fill(theme.patterned.sunkColor)
+                            )
+                        Text("How did that feel?")
+                            .standardType(.uiBody)
+                            .foregroundStyle(theme.mute(theme.ink))
+                        FlowLayout(spacing: StandardSpacing.sm) {
+                            ForEach(FSRSRating.allCases, id: \.rawValue) { rating in
+                                Button(rating.title) {
+                                    isShowingCardBack = false
+                                    store.reviewFSRSCard(card, rating: rating)
                                 }
-                            } else {
-                                Button {
-                                    isShowingCardBack = true
-                                } label: {
-                                    Label("Reveal Formula & Visual Invariant", systemImage: "eye.fill")
-                                }
-                                .buttonStyle(JournalSecondaryButtonStyle())
+                                .buttonStyle(OutlineButtonStyle())
                             }
                         }
                     }
                 } else {
-                    EmptyStateCard(
-                        eyebrow: "FSRS Review",
-                        title: "All FSRS Retrieval Cards Complete for Today",
-                        subtitle: "Every due formula and visual invariant has been reviewed. Proceed to your Intuition → Formula Spotlight or Companion Workbook below."
-                    )
+                    Button {
+                        isShowingCardBack = true
+                    } label: {
+                        Label("Show the answer", systemImage: "eye")
+                    }
+                    .buttonStyle(OutlineButtonStyle())
                 }
             }
+            .paperCard()
+        } else {
+            Text("Every card that was due has come back today. Nothing to remember until tomorrow.")
+                .patternedType(.readingDefault)
+                .foregroundStyle(theme.mute(theme.ink))
+        }
+    }
 
-            // 3. Visual Intuition -> "Aha!" -> Symbolic Formula Spotlight
-            let ch = store.selectedChapter
-            let bridge = ch.intuitionToFormula
-            JournalSection(
-                title: "Visual Intuition → \"Aha!\" → Symbolic Formula",
-                eyebrow: "Step 2 · Why the Formula Must Be True (Ch \(ch.number): \(ch.title))"
-            ) {
-                JournalCard {
-                    VStack(alignment: .leading, spacing: Spacing.md) {
-                        HStack {
-                            JournalBadge(text: "Ch \(ch.number) · \(ch.volumeTitle)", symbol: "sparkles", tone: .accent)
-                            JournalBadge(text: "Atlas: \(bridge.atlasFigureRef)", symbol: "cube.transparent", tone: .info)
-                            Spacer()
-                            Button {
-                                store.activeRoom = .patternedWorld
-                            } label: {
-                                Label("Open Interactive 3D Chapter", systemImage: "arrow.up.right.square")
-                            }
-                            .buttonStyle(JournalSecondaryButtonStyle())
-                        }
-
-                        // Shared Interactive Intuition -> Formula Bridge Card
-                        IntuitionFormulaBridgeCard(
-                            bridge: bridge,
-                            selectedTermSymbol: $selectedFormulaTermSymbol
-                        )
-
-                        // Chapter switcher strip
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: Spacing.xs) {
-                                ForEach(store.visiblePatternedWorldChapters) { chapter in
-                                    MathsFilterChip(
-                                        title: "Ch \(chapter.number): \(chapter.title)",
-                                        systemImage: store.selectedChapterNumber == chapter.number ? "checkmark.circle.fill" : "function",
-                                        isSelected: store.selectedChapterNumber == chapter.number
-                                    ) {
-                                        store.selectedChapterNumber = chapter.number
-                                        selectedFormulaTermSymbol = nil
-                                    }
-                                }
-                            }
+    private var whyItWorks: some View {
+        let chapter = store.selectedChapter
+        return VStack(alignment: .leading, spacing: StandardSpacing.md) {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: StandardSpacing.xs) {
+                    ForEach(store.visiblePatternedWorldChapters) { item in
+                        PatternedChip(
+                            "Ch \(item.number): \(item.title)",
+                            isSelected: store.selectedChapterNumber == item.number
+                        ) {
+                            store.selectedChapterNumber = item.number
+                            selectedFormulaTermSymbol = nil
                         }
                     }
                 }
             }
-
-            // 4. 3-Tier Companion Workbook Queue (Solving the Missing School Workbook)
-            let unit = store.selectedUnit
-            let unitQuestions = store.questions(forUnit: unit.unitNumber, tierFilter: store.defaultWorkbookTier)
-            JournalSection(
-                title: "3-Tier Companion Workbook · OUP Ch \(unit.unitNumber): \(unit.title)",
-                eyebrow: "Step 3 · Worked Example → Faded Scaffold → Independent Proof"
-            ) {
-                JournalCard {
-                    VStack(alignment: .leading, spacing: Spacing.md) {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text("Deborah Barton pp. \(unit.learnersBookStartPage)–\(unit.learnersBookEndPage) · \(unit.statusBadgeLabel)")
-                                    .font(Typography.subheadline.weight(.semibold))
-                                    .foregroundStyle(Color.kymaiaInk)
-                                Text("Replaces the missing school workbook with Focus, Singapore CPA Bar-Model Practice, and Olympiad Challenge questions.")
-                                    .font(Typography.caption)
-                                    .foregroundStyle(Color.kymaiaMutedInk)
-                            }
-                            Spacer()
-                            Button {
-                                store.activeRoom = .schoolMaths
-                            } label: {
-                                Label("All 16 Chapters", systemImage: "book.closed")
-                            }
-                            .buttonStyle(JournalSecondaryButtonStyle())
-                        }
-
-                        ForEach(unitQuestions.prefix(4)) { question in
-                            let proof = store.proofsByQuestionId[question.id]
-                            HStack(alignment: .top, spacing: Spacing.md) {
-                                VStack(alignment: .leading, spacing: Spacing.xxs) {
-                                    HStack(spacing: Spacing.xs) {
-                                        JournalBadge(text: question.tier, symbol: "layers.fill", tone: question.tier == "Challenge" ? .warning : .accent)
-                                        JournalBadge(text: "Topic \(question.topicCode)", symbol: "bookmark", tone: .neutral)
-                                        JournalBadge(text: (proof?.level ?? .unseen).displayTitle, symbol: "checkmark.seal", tone: (proof?.level.isIndependentProof == true) ? .positive : .neutral)
-                                    }
-                                    Text(question.prompt)
-                                        .font(Typography.subheadline)
-                                        .foregroundStyle(Color.kymaiaInk)
-                                        .lineLimit(2)
-                                }
-                                Spacer()
-                                Button("Prove") {
-                                    store.activePracticeQuestion = question
-                                    store.activeRoom = .schoolMaths
-                                }
-                                .buttonStyle(JournalSecondaryButtonStyle())
-                            }
-                            .padding(Spacing.sm)
-                            .quietPanelBackground()
-                        }
-                    }
+            ViewThatFits(in: .horizontal) {
+                HStack {
+                    Text("Chapter \(chapter.number) · \(chapter.volumeTitle)")
+                        .standardType(.uiBody)
+                        .foregroundStyle(theme.mute(theme.ink))
+                    Spacer(minLength: StandardSpacing.md)
+                    openChapterButton
+                }
+                VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                    Text("Chapter \(chapter.number) · \(chapter.volumeTitle)")
+                        .standardType(.uiBody)
+                        .foregroundStyle(theme.mute(theme.ink))
+                    openChapterButton
                 }
             }
+            IntuitionFormulaBridgeCard(
+                bridge: chapter.intuitionToFormula,
+                selectedTermSymbol: $selectedFormulaTermSymbol
+            )
+        }
+    }
 
-            // 5. Cross-Disciplinary STEM Bridges (Biology, Physics, Chemistry, Economics)
-            JournalSection(
-                title: "Cross-Disciplinary STEM Bridges",
-                eyebrow: "How Mathematics Powers Biology, Physics, Chemistry & Mumbai Finance"
-            ) {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 300), spacing: Spacing.md)], spacing: Spacing.md) {
-                    ForEach(store.seedPack.crossDisciplinaryBridges) { bridge in
-                        JournalCard {
-                            VStack(alignment: .leading, spacing: Spacing.sm) {
-                                HStack {
-                                    JournalBadge(text: bridge.discipline.capitalized, symbol: bridge.badgeSymbol, tone: .info)
-                                    Text(bridge.sourceBook)
-                                        .font(Typography.caption)
-                                        .foregroundStyle(Color.kymaiaMutedInk)
-                                }
-                                Text(bridge.title)
-                                    .font(Typography.headline)
-                                    .foregroundStyle(Color.kymaiaInk)
-                                Text(bridge.summary)
-                                    .font(Typography.caption)
-                                    .foregroundStyle(Color.kymaiaMutedInk)
-                                Text(bridge.keyEquation)
-                                    .font(Typography.numericFormula)
-                                    .foregroundStyle(Color.kymaiaPrimary)
-                                    .padding(Spacing.xs)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: Spacing.radiusSM, style: .continuous)
-                                            .fill(Color.kymaiaSelectionFill)
-                                    )
+    private var openChapterButton: some View {
+        Button {
+            store.activeRoom = .patternedWorld
+        } label: {
+            Label("Open the chapter", systemImage: "arrow.up.right.square")
+        }
+        .buttonStyle(OutlineButtonStyle())
+    }
 
-                                Divider()
-
-                                Text(bridge.microCheckQuestion)
-                                    .font(Typography.caption.weight(.semibold))
-                                    .foregroundStyle(Color.kymaiaInk)
-
-                                if revealedBridgeIds.contains(bridge.id) {
-                                    Text(bridge.microCheckAnswer)
-                                        .font(Typography.caption)
-                                        .foregroundStyle(Color.kymaiaSuccess)
-                                } else {
-                                    Button("Check Bridge Answer") {
-                                        revealedBridgeIds.insert(bridge.id)
-                                    }
-                                    .buttonStyle(JournalSecondaryButtonStyle())
-                                }
-                            }
-                        }
-                    }
+    private var workbook: some View {
+        let unit = store.selectedUnit
+        let unitQuestions = store.questions(forUnit: unit.unitNumber, tierFilter: store.defaultWorkbookTier)
+        return VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+            ViewThatFits(in: .horizontal) {
+                HStack(alignment: .center) {
+                    workbookIntro(unit)
+                    Spacer(minLength: StandardSpacing.md)
+                    allChaptersButton
+                }
+                VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                    workbookIntro(unit)
+                    allChaptersButton
                 }
             }
-
-            // 6. iPadOS 27 & macOS System Surface Widgets (group.com.kymaia.science)
-            JournalSection(
-                title: "Live System Widgets (Home Screen & Lock Screen)",
-                eyebrow: "Synced via Shared App Group (group.com.kymaia.science)"
-            ) {
-                KymMathsWidgetPreviewGallery(store: store)
+            ForEach(unitQuestions.prefix(4)) { question in
+                let level = store.proofsByQuestionId[question.id]?.level ?? .unseen
+                HStack(alignment: .center, spacing: StandardSpacing.md) {
+                    VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+                        HStack(spacing: StandardSpacing.sm) {
+                            StatusTag(Self.status(for: level))
+                            Text("\(question.tier) · Topic \(question.topicCode)")
+                                .standardType(.uiCaption)
+                                .foregroundStyle(theme.mute(theme.ink))
+                        }
+                        Text(question.prompt)
+                            .patternedType(.readingDefault)
+                            .foregroundStyle(theme.ink)
+                            .lineLimit(2)
+                    }
+                    Spacer(minLength: StandardSpacing.sm)
+                    Button("Prove") {
+                        store.activePracticeQuestion = question
+                        store.activeRoom = .schoolMaths
+                    }
+                    .buttonStyle(OutlineButtonStyle())
+                    .accessibilityLabel("Prove: \(question.prompt)")
+                }
+                .padding(.vertical, StandardSpacing.sm)
+                .overlay(alignment: .top) {
+                    Rectangle().fill(theme.hairline()).frame(height: 1)
+                }
             }
         }
-        .sheet(isPresented: $store.showDailyFlowSheet) {
-            DailyFlowPlayerSheet(plan: dailyPlan, store: store)
+    }
+
+    private func workbookIntro(_ unit: SchoolMathsUnit) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text("School book pages \(unit.learnersBookStartPage)–\(unit.learnersBookEndPage) · \(Self.schoolStatusLine(unit.schoolStatus))")
+                .standardType(.uiHeadline)
+                .foregroundStyle(theme.ink)
+            Text("Extra questions at three levels, Focus, Practice and Challenge, in place of the missing workbook.")
+                .standardType(.uiBody)
+                .foregroundStyle(theme.mute(theme.ink))
+                .fixedSize(horizontal: false, vertical: true)
+        }
+    }
+
+    private var allChaptersButton: some View {
+        Button {
+            store.activeRoom = .schoolMaths
+        } label: {
+            Label("All chapters", systemImage: "book.closed")
+        }
+        .buttonStyle(OutlineButtonStyle())
+    }
+
+    private var otherSubjects: some View {
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 280), spacing: StandardSpacing.md, alignment: .top)], spacing: StandardSpacing.md) {
+            ForEach(store.seedPack.crossDisciplinaryBridges) { bridge in
+                VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+                    Kicker(bridge.discipline.capitalized)
+                    Text(bridge.title)
+                        .standardType(.uiHeadline)
+                        .foregroundStyle(theme.ink)
+                    Text(bridge.summary)
+                        .patternedType(.readingSmall)
+                        .foregroundStyle(theme.mute(theme.ink))
+                        .fixedSize(horizontal: false, vertical: true)
+                    Text(bridge.keyEquation)
+                        .patternedType(.mathInline)
+                        .foregroundStyle(theme.ink)
+                    Text(bridge.sourceBook)
+                        .standardType(.uiCaption)
+                        .foregroundStyle(theme.mute(theme.ink))
+                    Rectangle().fill(theme.hairline()).frame(height: 1)
+                    Text(bridge.microCheckQuestion)
+                        .standardType(.uiHeadline)
+                        .foregroundStyle(theme.ink)
+                        .fixedSize(horizontal: false, vertical: true)
+                    if revealedBridgeIds.contains(bridge.id) {
+                        Text(bridge.microCheckAnswer)
+                            .patternedType(.readingSmall)
+                            .foregroundStyle(theme.patterned.provenColor)
+                            .fixedSize(horizontal: false, vertical: true)
+                    } else {
+                        Button("Check the answer") {
+                            revealedBridgeIds.insert(bridge.id)
+                        }
+                        .buttonStyle(OutlineButtonStyle())
+                    }
+                }
+                .paperCard(padding: StandardSpacing.md)
+            }
+        }
+    }
+
+    // MARK: Words
+
+    private static func greeting(now: Date = .now) -> String {
+        switch Calendar.current.component(.hour, from: now) {
+        case ..<12: "Good morning"
+        case ..<17: "Good afternoon"
+        default: "Good evening"
+        }
+    }
+
+    private static func dateLine(now: Date = .now) -> String {
+        "\(now.formatted(.dateTime.weekday(.wide).day().month(.wide))) · Mumbai"
+    }
+
+    private static func dueLine(_ date: Date) -> String {
+        let day = date.formatted(.dateTime.weekday(.wide).day().month(.wide))
+        let days = Calendar.current.dateComponents(
+            [.day],
+            from: Calendar.current.startOfDay(for: .now),
+            to: Calendar.current.startOfDay(for: date)
+        ).day ?? 0
+        switch days {
+        case ..<0: return "\(day) · already past"
+        case 0: return "\(day) · today"
+        case 1: return "\(day) · tomorrow"
+        default: return "\(day) · \(days) days away"
+        }
+    }
+
+    private static func unitNumbers(_ deadline: SchoolDeadlineRecord) -> [Int] {
+        deadline.unitNumbersCSV.split(separator: ",").compactMap { Int($0.trimmingCharacters(in: .whitespaces)) }
+    }
+
+    private static func lampsLine(_ lit: Int) -> String {
+        switch lit {
+        case 1: "One lamp lit"
+        case 2: "Two lamps lit"
+        case 3: "Three lamps lit"
+        case 4: "All four lamps lit"
+        default: "No lamps lit yet"
+        }
+    }
+
+    private static func schoolStatusLine(_ status: String) -> String {
+        switch status {
+        case "ticked": "Done in class"
+        case "circled": "Circled for practice"
+        default: "Coming up"
+        }
+    }
+
+    static func status(for level: QuestionProofLevel) -> LearningStatus {
+        switch level {
+        case .unseen: .notStarted
+        case .assisted: .withHelp
+        case .shaky: .working
+        case .proven: .proven
+        case .secure: .secure
         }
     }
 }
 
-// MARK: - 15-Minute Daily Flow Guided Player Sheet
+/// Today's path takes the whole screen on iPad, as a page of its own, and a sheet on the Mac.
+private struct FlowPresentation<Flow: View>: ViewModifier {
+    @Binding var isPresented: Bool
+    let onDismiss: () -> Void
+    @ViewBuilder let flow: () -> Flow
 
-struct DailyFlowPlayerSheet: View {
-    let plan: DailyFlowSessionPlan
-    @Bindable var store: AppStore
-    @Environment(\.dismiss) private var dismiss
+    func body(content: Content) -> some View {
+        #if os(iOS)
+        content.fullScreenCover(isPresented: $isPresented, onDismiss: onDismiss, content: flow)
+        #else
+        content.sheet(isPresented: $isPresented, onDismiss: onDismiss, content: flow)
+        #endif
+    }
+}
 
-    @State private var currentStage: DailyFlowStageKind = .fsrsMemoryLock
-    @State private var completedStages: Set<DailyFlowStageKind> = []
-    @State private var currentReviewCardIndex: Int = 0
-    @State private var showCardBack = false
-    @State private var narrator = ChapterAudioNarrator()
-    @State private var selectedTermSymbol: String? = nil
-    @State private var trapInput = ""
-    @State private var trapEval: QuantitativeAttemptEvaluation? = nil
-    /// Pinned when the sheet opens. The plan is rebuilt whenever progress changes, and a right
-    /// answer moves the selector on, so reading it live would drop the card and its feedback.
-    @State private var knowsWhen: EuclidKnowsWhenAttempt? = nil
+/// The folded parts under "More for today".
+private enum TodayDetail: Hashable {
+    case remember, why, workbook, subjects, widgets
+}
 
-    var body: some View {
-        NavigationStack {
-            JournalPage {
-                // Segmented Stage Header
-                JournalCard {
-                    VStack(alignment: .leading, spacing: Spacing.sm) {
-                        HStack {
-                            JournalBadge(text: "15-Minute Daily Flow", symbol: "flame.fill", tone: .accent)
-                            Spacer()
-                            Text("\(completedStages.count) / 4 Stages Completed")
-                                .font(Typography.mono)
-                                .foregroundStyle(Color.kymaiaMutedInk)
-                        }
+// MARK: - Today's path
 
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: Spacing.xs) {
-                                ForEach(DailyFlowStageKind.allCases) { stage in
-                                    let isActive = currentStage == stage
-                                    let isDone = completedStages.contains(stage)
-                                    Button {
-                                        narrator.stop()
-                                        currentStage = stage
-                                    } label: {
-                                        HStack(spacing: 4) {
-                                            Image(systemName: isDone ? "checkmark.circle.fill" : stage.systemImage)
-                                                .foregroundStyle(isDone ? Color.kymaiaSuccess : (isActive ? Color.kymaiaPrimary : Color.kymaiaMutedInk))
-                                            Text(stage.title)
-                                                .font(Typography.caption.weight(isActive ? .bold : .regular))
-                                                .foregroundStyle(Color.kymaiaInk)
-                                        }
-                                        .padding(.horizontal, Spacing.xs)
-                                        .padding(.vertical, 6)
-                                        .background(isActive ? Color.kymaiaSelectionFill : Color.kymaiaElevatedSurface)
-                                        .clipShape(RoundedRectangle(cornerRadius: Spacing.radiusSM))
-                                    }
-                                    .buttonStyle(.plain)
-                                }
-                            }
-                        }
-                    }
-                }
+/// Which of today's four steps are done, read from what she did today: cards remembered, the
+/// chapter read, the trap answered, a proof done on her own.
+struct TodayPath {
+    let done: Set<DailyFlowStageKind>
+    /// When the most recent of those happened today.
+    let lastDoneAt: Date?
 
-                switch currentStage {
-                case .fsrsMemoryLock:
-                    JournalSection(
-                        title: "Stage 1 · FSRS Memory Lock (3 min)",
-                        eyebrow: "Retrieve the Key Invariant Before Seeing the Answer"
-                    ) {
-                        if !plan.reviewCards.isEmpty {
-                            let safeIndex = min(max(0, currentReviewCardIndex), plan.reviewCards.count - 1)
-                            let card = plan.reviewCards[safeIndex]
-                            JournalCard {
-                                VStack(alignment: .leading, spacing: Spacing.md) {
-                                    HStack {
-                                        JournalBadge(text: "Card \(safeIndex + 1) of \(plan.reviewCards.count)", symbol: "rectangle.stack.fill", tone: .info)
-                                        JournalBadge(text: "Topic \(card.topicCode)", symbol: "number", tone: .accent)
-                                        JournalBadge(text: "Ch \(card.chapterNumber)", symbol: "book.pages", tone: .neutral)
-                                        Spacer()
-                                        Text("Stability: \(String(format: "%.1f", card.stability))d")
-                                            .font(Typography.caption)
-                                            .foregroundStyle(Color.kymaiaMutedInk)
-                                    }
+    init(done: Set<DailyFlowStageKind>, lastDoneAt: Date?) {
+        self.done = done
+        self.lastDoneAt = lastDoneAt
+    }
 
-                                    Text(card.frontPrompt)
-                                        .font(Typography.title3)
-                                        .foregroundStyle(Color.kymaiaInk)
-
-                                    if showCardBack {
-                                        Text(card.backAnswer)
-                                            .font(Typography.body)
-                                            .foregroundStyle(Color.kymaiaInk)
-                                            .padding(Spacing.md)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .quietPanelBackground()
-
-                                        HStack(spacing: Spacing.sm) {
-                                            ForEach(FSRSRating.allCases, id: \.rawValue) { rating in
-                                                Button(rating.title) {
-                                                    store.reviewFSRSCard(card, rating: rating)
-                                                    showCardBack = false
-                                                    if safeIndex + 1 < plan.reviewCards.count {
-                                                        currentReviewCardIndex = safeIndex + 1
-                                                    } else {
-                                                        completedStages.insert(.fsrsMemoryLock)
-                                                        currentStage = .conceptDiscoveryBeat
-                                                    }
-                                                }
-                                                .buttonStyle(rating == .good ? AnyButtonStyle(BrassButtonStyle()) : AnyButtonStyle(JournalSecondaryButtonStyle()))
-                                            }
-                                        }
-                                    } else {
-                                        Button("Reveal Formula & Invariant") {
-                                            showCardBack = true
-                                        }
-                                        .buttonStyle(BrassButtonStyle())
-                                    }
-                                }
-                            }
-                        } else {
-                            JournalCard {
-                                VStack(alignment: .leading, spacing: Spacing.sm) {
-                                    Text("All FSRS cards are up to date!")
-                                        .font(Typography.headline)
-                                        .foregroundStyle(Color.kymaiaInk)
-                                    Button("Advance to Stage 2: Concept Discovery Beat →") {
-                                        completedStages.insert(.fsrsMemoryLock)
-                                        currentStage = .conceptDiscoveryBeat
-                                    }
-                                    .buttonStyle(BrassButtonStyle())
-                                }
-                            }
-                        }
-                    }
-
-                case .conceptDiscoveryBeat:
-                    JournalSection(
-                        title: "Stage 2 · Concept Discovery Beat (4 min)",
-                        eyebrow: "Ch \(plan.chapter.number): \(plan.chapter.title)"
-                    ) {
-                        JournalCard {
-                            VStack(alignment: .leading, spacing: Spacing.md) {
-                                HStack {
-                                    JournalBadge(text: plan.discoveryBeat.eyebrow, symbol: "sparkles", tone: .accent)
-                                    Spacer()
-                                    Button {
-                                        narrator.togglePlayPause(text: plan.discoveryBeat.spokenScript, beatIndex: plan.discoveryBeat.index)
-                                    } label: {
-                                        Label(narrator.isSpeaking ? "Stop Audio" : "Read & Listen", systemImage: narrator.isSpeaking ? "stop.circle.fill" : "speaker.wave.2.fill")
-                                    }
-                                    .buttonStyle(JournalSecondaryButtonStyle())
-                                }
-
-                                Text(plan.discoveryBeat.title)
-                                    .font(Typography.title3)
-                                    .foregroundStyle(Color.kymaiaInk)
-
-                                ForEach(plan.discoveryBeat.bodyParagraphs, id: \.self) { para in
-                                    Text(para)
-                                        .font(Typography.body)
-                                        .foregroundStyle(Color.kymaiaInk)
-                                }
-
-                                IntuitionFormulaBridgeCard(
-                                    bridge: plan.chapter.intuitionToFormula,
-                                    selectedTermSymbol: $selectedTermSymbol
-                                )
-
-                                HStack {
-                                    Spacer()
-                                    Button("Advance to Stage 3: Misconception Immunity →") {
-                                        narrator.stop()
-                                        completedStages.insert(.conceptDiscoveryBeat)
-                                        currentStage = .misconceptionImmunity
-                                    }
-                                    .buttonStyle(BrassButtonStyle())
-                                }
-                            }
-                        }
-                    }
-
-                case .misconceptionImmunity:
-                    JournalSection(
-                        title: "Stage 3 · Misconception Immunity & Trap Check (4 min)",
-                        eyebrow: "Spot the Peer Debate Flaw + Solve 1 Quantitative Trap Check"
-                    ) {
-                        MathematicalDebateCardView(
-                            scenario: plan.debateScenario,
-                            initialSelectedChoiceId: store.calloutResponses["debate-\(plan.debateScenario.id)"]?.responseText,
-                            onChoiceSelected: { choice, isCorrect in
-                                store.saveCalloutResponse(
-                                    calloutId: "debate-\(plan.debateScenario.id)",
-                                    chapterNumber: plan.debateScenario.chapterNumber,
-                                    text: choice.id,
-                                    confidencePercent: isCorrect ? 95 : 40,
-                                    isUnlockedOverride: isCorrect
-                                )
-                                if isCorrect {
-                                    completedStages.insert(.misconceptionImmunity)
-                                }
-                            }
-                        )
-
-                        JournalCard {
-                            VStack(alignment: .leading, spacing: Spacing.sm) {
-                                JournalBadge(text: "Quick Quantitative Check · \(plan.trapProblem.title)", symbol: "function", tone: .info)
-                                Text(plan.trapProblem.prompt)
-                                    .font(Typography.body)
-                                    .foregroundStyle(Color.kymaiaInk)
-
-                                HStack(spacing: Spacing.sm) {
-                                    NumericKeypadField(
-                                        label: "Answer",
-                                        unitLabel: plan.trapProblem.unitLabel,
-                                        text: $trapInput
-                                    ) {
-                                        trapEval = QuantitativeMathsEngine.evaluate(problem: plan.trapProblem, numericInput: trapInput)
-                                    }
-                                    Button("Check") {
-                                        trapEval = QuantitativeMathsEngine.evaluate(problem: plan.trapProblem, numericInput: trapInput)
-                                    }
-                                    .buttonStyle(JournalSecondaryButtonStyle())
-                                }
-
-                                if let eval = trapEval {
-                                    Text(eval.feedback)
-                                        .font(Typography.caption.weight(.semibold))
-                                        .foregroundStyle(eval.isCorrect ? Color.kymaiaSuccess : Color.kymaiaWarning)
-                                    if let trap = eval.matchedTrap {
-                                        BuggyRuleTrapBanner(trap: trap)
-                                    }
-                                }
-                            }
-                        }
-
-                        if let attempt = knowsWhen {
-                            EuclidKnowsWhenCard(question: attempt.question, choice: attempt.choice, isRight: attempt.isRight) { choice in
-                                knowsWhen?.choose(choice, progress: &store.euclidProgress)
-                            }
-                        }
-
-                        HStack {
-                            Spacer()
-                            Button("Advance to Stage 4: Companion Workbook Proof →") {
-                                completedStages.insert(.misconceptionImmunity)
-                                currentStage = .companionWorkbookProof
-                            }
-                            .buttonStyle(BrassButtonStyle())
-                        }
-                    }
-
-                case .companionWorkbookProof:
-                    JournalSection(
-                        title: "Stage 4 · Companion Workbook Proof (4 min)",
-                        eyebrow: "OUP Ch \(plan.proofQuestion.unitNumber) · Topic \(plan.proofQuestion.topicCode) (\(plan.proofQuestion.tier))"
-                    ) {
-                        JournalCard {
-                            VStack(alignment: .leading, spacing: Spacing.md) {
-                                Text(plan.proofQuestion.prompt)
-                                    .font(Typography.title3)
-                                    .foregroundStyle(Color.kymaiaInk)
-
-                                HStack {
-                                    Button {
-                                        completedStages.insert(.companionWorkbookProof)
-                                        dismiss()
-                                        store.activePracticeQuestion = plan.proofQuestion
-                                        store.activeRoom = .schoolMaths
-                                    } label: {
-                                        Label("Launch Full CPA Proof Studio for Topic \(plan.proofQuestion.topicCode)", systemImage: "pencil.and.outline")
-                                    }
-                                    .buttonStyle(BrassButtonStyle())
-
-                                    Button("Finish Daily Flow") {
-                                        completedStages.insert(.companionWorkbookProof)
-                                        dismiss()
-                                    }
-                                    .buttonStyle(JournalSecondaryButtonStyle())
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            .navigationTitle("15-Minute Daily Flow")
-            .onAppear {
-                if knowsWhen == nil { knowsWhen = plan.euclidKnowsWhen.map(EuclidKnowsWhenAttempt.init(question:)) }
-            }
-            .onDisappear {
-                narrator.stop()
-            }
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Close") {
-                        narrator.stop()
-                        dismiss()
-                    }
-                }
-            }
+    @MainActor init(plan: DailyFlowSessionPlan, store: AppStore, calendar: Calendar = .current) {
+        let today: (Date?) -> Date? = { date in
+            guard let date, calendar.isDateInToday(date) else { return nil }
+            return date
         }
+        let reviewed = store.fsrsCards.compactMap { today($0.lastReviewAt) }.max()
+        let read = today(store.readingProgressByChapter[plan.chapter.number]?.updatedAt)
+        let trap = today(store.calloutResponses["debate-\(plan.debateScenario.id)"]?.updatedAt)
+        let proved = store.proofsByQuestionId.values
+            .filter { $0.level.isIndependentProof }
+            .compactMap { today($0.lastAttemptAt) }
+            .max()
+
+        var done: Set<DailyFlowStageKind> = []
+        if store.dueFSRSCards.isEmpty { done.insert(.fsrsMemoryLock) }
+        if read != nil { done.insert(.conceptDiscoveryBeat) }
+        if trap != nil { done.insert(.misconceptionImmunity) }
+        if proved != nil { done.insert(.companionWorkbookProof) }
+        self.init(done: done, lastDoneAt: [reviewed, read, trap, proved].compactMap { $0 }.max())
+    }
+
+    var current: DailyFlowStageKind? {
+        DailyFlowStageKind.allCases.first { !done.contains($0) }
+    }
+
+    func state(of stage: DailyFlowStageKind) -> PathStepRow.State {
+        if done.contains(stage) { return .done }
+        return stage == current ? .current : .upcoming
+    }
+
+    var continueTitle: String {
+        guard let current else { return "Go through today again" }
+        if done.isEmpty { return "Start with step 1" }
+        return "Continue with step \(current.rawValue + 1)"
+    }
+
+    var doneLine: String {
+        guard let lastDoneAt else { return "Nothing done yet today." }
+        let time = lastDoneAt.formatted(date: .omitted, time: .shortened)
+        let hour = Calendar.current.component(.hour, from: lastDoneAt)
+        let part = hour < 12 ? "this morning" : hour < 17 ? "this afternoon" : "this evening"
+        return "Last step done at \(time) \(part)."
+    }
+}
+
+extension DailyFlowStageKind {
+    /// The step's name on the page, in plain words.
+    var plainTitle: String {
+        switch self {
+        case .fsrsMemoryLock: "Remember"
+        case .conceptDiscoveryBeat: "Discover"
+        case .misconceptionImmunity: "Spot the trap"
+        case .companionWorkbookProof: "Prove it yourself"
+        }
+    }
+
+    var minutes: Int {
+        self == .fsrsMemoryLock ? 3 : 4
     }
 }
 

@@ -19,12 +19,12 @@ enum AppRoom: String, CaseIterable, Identifiable, Sendable {
     var title: String {
         switch self {
         case .today: return "Today"
-        case .schoolMaths: return "School Maths 8"
-        case .patternedWorld: return "Patterned World"
-        case .labsAtlas: return "3D Atlas & Diagrams"
-        case .polyaFluency: return "Pólya & SpeedMath"
-        case .mathsJournal: return "Proof Journal"
-        case .coach: return "Maths Coach"
+        case .schoolMaths: return "School book"
+        case .patternedWorld: return "The Patterned World"
+        case .labsAtlas: return "Atlas"
+        case .polyaFluency: return "Pólya & Speed"
+        case .mathsJournal: return "Journal"
+        case .coach: return "Coach"
         case .euclidWorkshop: return "Euclid's Workshop"
         }
     }
@@ -32,9 +32,9 @@ enum AppRoom: String, CaseIterable, Identifiable, Sendable {
     var shortTitle: String {
         switch self {
         case .today: return "Today"
-        case .schoolMaths: return "OUP Ch 1–16"
+        case .schoolMaths: return "School book"
         case .patternedWorld: return "Patterned World"
-        case .labsAtlas: return "3D Atlas"
+        case .labsAtlas: return "Atlas"
         case .polyaFluency: return "Pólya & Speed"
         case .mathsJournal: return "Journal"
         case .coach: return "Coach"
@@ -42,15 +42,16 @@ enum AppRoom: String, CaseIterable, Identifiable, Sendable {
         }
     }
 
+    /// Line icons, matching the Figma set: chrome is ink, so no filled or coloured symbols.
     var systemImage: String {
         switch self {
-        case .today: return "sun.max.fill"
-        case .schoolMaths: return "book.closed.fill"
-        case .patternedWorld: return "sparkles.rectangle.stack.fill"
-        case .labsAtlas: return "cube.transparent.fill"
-        case .polyaFluency: return "bolt.badge.clock.fill"
+        case .today: return "sun.max"
+        case .schoolMaths: return "book"
+        case .patternedWorld: return "hurricane"
+        case .labsAtlas: return "atom"
+        case .polyaFluency: return "lightbulb"
         case .mathsJournal: return "square.and.pencil"
-        case .coach: return "bubble.left.and.text.bubble.right.fill"
+        case .coach: return "bubble.left"
         case .euclidWorkshop: return "compass.drawing"
         }
     }
@@ -77,6 +78,10 @@ final class AppStore {
     var showCalendarSheet: Bool = false
     var showSettingsSheet: Bool = false
     var showDailyFlowSheet: Bool = false
+    /// The DEBUG-only sheet that draws every Patterned component (`kymmaths://gallery`).
+    var showPatternedGallery: Bool = false
+    /// Path parts a deep link did not use, for the room it opened (`school/3/scanner` leaves `["scanner"]`).
+    var deepLinkTail: [String] = []
     var euclidRoute: EuclidRoute = .map
     /// The proposition the Book I map shows in its detail panel.
     var euclidMapSelection: PropositionID = "I.1"
@@ -242,6 +247,10 @@ final class AppStore {
         rebuildMinimalLessonTree()
         #if DEBUG
         EuclidDebugLaunch.apply(to: self)
+        // `-KymDeepLink school/3` opens a deep link at launch, so screenshot scripts skip the simulator's open-URL prompt.
+        if let link = UserDefaults.standard.string(forKey: "KymDeepLink"), let url = URL(string: "kymmaths://\(link)") {
+            openDeepLink(url)
+        }
         #endif
     }
 
@@ -261,6 +270,15 @@ final class AppStore {
             euclidRoute = route
         }
         activeRoom = .euclidWorkshop
+    }
+
+    /// The next proposition she can build: the first open one in Book I with no lamp lit yet.
+    var euclidUpNext: EuclidProposition? {
+        EuclidSpine.catalog.first { proposition in
+            guard case .built = proposition.kind else { return false }
+            return euclidProgress.highest(proposition.id) == nil
+                && EuclidSpine.isOpen(proposition.id, progress: euclidProgress)
+        }
     }
 
     /// Progress held in memory only, so a scripted demo never writes over Kym's own.
@@ -862,14 +880,22 @@ final class AppStore {
         guard url.scheme == "kymmaths" else { return }
         let host = url.host() ?? ""
         let pathParts = url.pathComponents.filter { $0 != "/" }
+        deepLinkTail = Array(pathParts.dropFirst())
 
         switch host {
         case "today":
             activeRoom = .today
+            deepLinkTail = pathParts
+            if pathParts.first == "flow" { showDailyFlowSheet = true }
         case "school":
             activeRoom = .schoolMaths
             if let first = pathParts.first, let unitNum = Int(first) {
                 selectedUnitNumber = unitNum
+            }
+        case "proof":
+            // `proof/3` opens the first question of unit 3 in the proof studio, over whichever room is open.
+            if let first = pathParts.first, let unitNum = Int(first) {
+                activePracticeQuestion = questions(forUnit: unitNum).first
             }
         case "chapter":
             activeRoom = .patternedWorld
@@ -887,6 +913,20 @@ final class AppStore {
             activeRoom = .mathsJournal
         case "coach":
             activeRoom = .coach
+        case "euclid":
+            // `euclid`, `euclid/I.10`, `euclid/order:I.10` or `euclid/motif:M1`.
+            switch pathParts.first {
+            case nil: activeRoom = .euclidWorkshop
+            case let order? where order.hasPrefix("order:"): openEuclid(.stepOrder(PropositionID(String(order.dropFirst(6)))))
+            case let motif? where motif.hasPrefix("motif:"): openEuclid(.motif(MotifID(String(motif.dropFirst(6)))))
+            case let id?: openEuclid(.board(PropositionID(id)))
+            }
+        case "deadlines":
+            showCalendarSheet = true
+        case "settings":
+            showSettingsSheet = true
+        case "gallery":
+            showPatternedGallery = true
         default:
             break
         }

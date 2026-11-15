@@ -698,7 +698,7 @@ final class DatabaseManager: Sendable {
                     linkedChapterNumber: 12,
                     linkedWidgetId: "w_atlas_unit_circle",
                     cueColumnText: "1. Why is sin θ the vertical shadow?\n2. Why does sin²θ + cos²θ = 1 for every angle?\n3. Why is det(A) = ad − bc the universal area scale factor?",
-                    bodyNotesText: "• On the @saxster/atlas unit circle of radius 1, level light casts vertical shadow sin θ (red) and top light casts horizontal shadow cos θ (blue).\n• Those two shadows form a right triangle with hypotenuse OP = 1, so Pythagoras gives sin²θ + cos²θ = 1².\n• In the 2×2 Matrix Sandbox, column 1 (a, c) is where î lands and column 2 (b, d) is where ĵ lands; subtracting the four corner triangles from the (a+b)×(c+d) box leaves exact area ad − bc.",
+                    bodyNotesText: "• On the unit circle of radius 1, level light casts vertical shadow sin θ (red) and top light casts horizontal shadow cos θ (blue).\n• Those two shadows form a right triangle with hypotenuse OP = 1, so Pythagoras gives sin²θ + cos²θ = 1².\n• In the 2×2 Matrix Sandbox, column 1 (a, c) is where î lands and column 2 (b, d) is where ĵ lands; subtracting the four corner triangles from the (a+b)×(c+d) box leaves exact area ad − bc.",
                     summaryText: "A formula is a compressed picture: every symbol in sin²θ + cos²θ = 1 and det(A) = ad − bc records a geometric invariant you can see and drag.",
                     hypothesisText: "For any angle θ on the unit circle, the areas of the red (sin²θ) and blue (cos²θ) leg-squares sum to the 1×1 radius square.",
                     independentVarText: "Angle θ ∈ [0°, 360°] and basis vectors Aî = (a, c), Aĵ = (b, d)",
@@ -711,6 +711,10 @@ final class DatabaseManager: Sendable {
                 )
                 try starter.save(db)
             }
+            // The starter note once named the figure library; reword it in books seeded before.
+            try db.execute(
+                sql: "UPDATE \(LabJournalEntryRecord.databaseTableName) SET bodyNotesText = REPLACE(bodyNotesText, 'the @saxster/atlas unit circle', 'the unit circle') WHERE id = 'journal-starter-intuition-to-formula'"
+            )
 
             let existingPropositions = try PropositionNodeRecord.fetchCount(db)
             if existingPropositions == 0 {

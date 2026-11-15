@@ -98,17 +98,17 @@
       "sections": [
         {
           "id": "ch00-s1",
-          "heading": "0.1 Concrete & Pictorial Intuition (The Visual 'Aha!')",
+          "heading": "0.1 See it in a picture",
           "excerpt": "Drag two overlapping circles A and B across a universal set ξ of 30 Mumbai students. The overlap A ∩ B gets counted once inside |A| and a second time inside |B| — subtracting |A ∩ B| once restores the exact union count!"
         },
         {
           "id": "ch00-s2",
-          "heading": "0.2 Symbolic Lockstep & Formula Anatomy",
+          "heading": "0.2 Write it in symbols",
           "excerpt": "Every piece of the geometry locks onto a symbol in n(A ∪ B) = n(A) + n(B) − n(A ∩ B)   and   (A ∪ B)′ = A′ ∩ B′. Once you see why each term exists, you never have to guess a sign or denominator."
         },
         {
           "id": "ch00-s3",
-          "heading": "0.3 Singapore Bar-Model, Checkpoint & Olympiad Stretch",
+          "heading": "0.3 Bar models and stretch problems",
           "excerpt": "Apply Sets, Venn Regions & The Laws of Thought across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
         }
       ],
@@ -155,7 +155,7 @@
       "volumeNumber": 1,
       "volumeTitle": "Volume I · The Grammar of Truth, Sets & Number Architecture",
       "title": "The Directed Number Line, Primes & The Laws of Indices",
-      "subtitle": "OUP Ch 1 · Negative integer rotation, prime factor trees, HCF × LCM = ab, index laws & √2 irrationality",
+      "subtitle": "School book Ch 1 · Negative integer rotation, prime factor trees, HCF × LCM = ab, index laws & √2 irrationality",
       "hookSummary": "Multiplying by −1 is a 180° half-turn on the number line; two half-turns bring you back to positive.",
       "intuitionToFormula": {
         "concreteAction": "Rotate a vector on the number line by 180° for each negative sign, and stack prime-exponent bars for HCF and LCM.",
@@ -186,17 +186,17 @@
       "sections": [
         {
           "id": "ch01-s1",
-          "heading": "1.1 Concrete & Pictorial Intuition (The Visual 'Aha!')",
+          "heading": "1.1 See it in a picture",
           "excerpt": "Rotate a vector on the number line by 180° for each negative sign, and stack prime-exponent bars for HCF and LCM. Two 180° rotations equal 360° (+1), and for any two integers a and b, taking min(exponents) for HCF and max(exponents) for LCM guarantees min + max = total!"
         },
         {
           "id": "ch01-s2",
-          "heading": "1.2 Symbolic Lockstep & Formula Anatomy",
+          "heading": "1.2 Write it in symbols",
           "excerpt": "Every piece of the geometry locks onto a symbol in (−a)(−b) = +ab,   aᵐ · aⁿ = aᵐ⁺ⁿ,   HCF(a, b) × LCM(a, b) = a × b. Once you see why each term exists, you never have to guess a sign or denominator."
         },
         {
           "id": "ch01-s3",
-          "heading": "1.3 Singapore Bar-Model, Checkpoint & Olympiad Stretch",
+          "heading": "1.3 Bar models and stretch problems",
           "excerpt": "Apply The Directed Number Line, Primes & The Laws of Indices across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
         }
       ],
@@ -242,7 +242,7 @@
       "volumeNumber": 1,
       "volumeTitle": "Volume I · The Grammar of Truth, Sets & Number Architecture",
       "title": "Fractions, Recurring Decimals & The Scaling Engine",
-      "subtitle": "OUP Ch 6 · Multiplying & dividing fractions, significant figures & 10ᵏx − x recurring decimal proofs",
+      "subtitle": "School book Ch 6 · Multiplying & dividing fractions, significant figures & 10ᵏx − x recurring decimal proofs",
       "hookSummary": "Dividing by a fraction a/b asks how many b-sized pieces fit inside — which scales by b/a.",
       "intuitionToFormula": {
         "concreteAction": "Slide a 10ᵏ multiplier bar against a repeating decimal tail 0.ababab… and watch the infinite tails align.",
@@ -273,17 +273,17 @@
       "sections": [
         {
           "id": "ch02-s1",
-          "heading": "2.1 Concrete & Pictorial Intuition (The Visual 'Aha!')",
+          "heading": "2.1 See it in a picture",
           "excerpt": "Slide a 10ᵏ multiplier bar against a repeating decimal tail 0.ababab… and watch the infinite tails align. Multiplying x = 0.abab… by 10ᵏ shifts the decimal point by one full period k, so subtracting x cancels the entire infinite tail in one stroke!"
         },
         {
           "id": "ch02-s2",
-          "heading": "2.2 Symbolic Lockstep & Formula Anatomy",
+          "heading": "2.2 Write it in symbols",
           "excerpt": "Every piece of the geometry locks onto a symbol in x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1). Once you see why each term exists, you never have to guess a sign or denominator."
         },
         {
           "id": "ch02-s3",
-          "heading": "2.3 Singapore Bar-Model, Checkpoint & Olympiad Stretch",
+          "heading": "2.3 Bar models and stretch problems",
           "excerpt": "Apply Fractions, Recurring Decimals & The Scaling Engine across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
         }
       ],
@@ -326,10 +326,10 @@
       "volumeNumber": 1,
       "volumeTitle": "Volume I · The Grammar of Truth, Sets & Number Architecture",
       "title": "Ratios, Percentages & Exponential Compounding",
-      "subtitle": "OUP Ch 9 & Ch 12 · Singapore unitary bar models, percentage multipliers & 20-year rupee compounding",
+      "subtitle": "School book Ch 9 & Ch 12 · Singapore unitary bar models, percentage multipliers & 20-year rupee compounding",
       "hookSummary": "A percentage change is a multiplicative scale factor (1 ± r); repeated changes multiply, they never add.",
       "intuitionToFormula": {
-        "concreteAction": "Run the @saxster/atlas ₹1,000/month at 8% machine over 20 years and compare white savings, red simple interest, and amber compound interest.",
+        "concreteAction": "Run the ₹1,000/month at 8% machine over 20 years and compare white savings, red simple interest, and amber compound interest.",
         "ahaInvariant": "A +20% rise followed by a −20% drop lands at 1.2 × 0.8 = 0.96 (a 4% loss!), while compounding multiplies by (1 + r)ⁿ so interest itself earns interest!",
         "formulaDisplay": "A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ)",
         "termMappings": [
@@ -357,17 +357,17 @@
       "sections": [
         {
           "id": "ch03-s1",
-          "heading": "3.1 Concrete & Pictorial Intuition (The Visual 'Aha!')",
-          "excerpt": "Run the @saxster/atlas ₹1,000/month at 8% machine over 20 years and compare white savings, red simple interest, and amber compound interest. A +20% rise followed by a −20% drop lands at 1.2 × 0.8 = 0.96 (a 4% loss!), while compounding multiplies by (1 + r)ⁿ so interest itself earns interest!"
+          "heading": "3.1 See it in a picture",
+          "excerpt": "Run the ₹1,000/month at 8% machine over 20 years and compare white savings, red simple interest, and amber compound interest. A +20% rise followed by a −20% drop lands at 1.2 × 0.8 = 0.96 (a 4% loss!), while compounding multiplies by (1 + r)ⁿ so interest itself earns interest!"
         },
         {
           "id": "ch03-s2",
-          "heading": "3.2 Symbolic Lockstep & Formula Anatomy",
+          "heading": "3.2 Write it in symbols",
           "excerpt": "Every piece of the geometry locks onto a symbol in A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ). Once you see why each term exists, you never have to guess a sign or denominator."
         },
         {
           "id": "ch03-s3",
-          "heading": "3.3 Singapore Bar-Model, Checkpoint & Olympiad Stretch",
+          "heading": "3.3 Bar models and stretch problems",
           "excerpt": "Apply Ratios, Percentages & Exponential Compounding across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
         }
       ],
@@ -410,7 +410,7 @@
       "volumeNumber": 2,
       "volumeTitle": "Volume II · The Singapore Bar-Model & Algebraic Machine",
       "title": "From Bar Models to Algebraic Expressions",
-      "subtitle": "OUP Ch 2 · Expanding brackets, factorising by HCF, quadratics & Difference of Two Squares",
+      "subtitle": "School book Ch 2 · Expanding brackets, factorising by HCF, quadratics & Difference of Two Squares",
       "hookSummary": "An algebraic bracket a(b + c) is the area of a rectangle of height a and split width b + c.",
       "intuitionToFormula": {
         "concreteAction": "Tile a partitioned rectangle of sides (x + a) and (x + b), or snip the corner b² from a square a².",
@@ -441,17 +441,17 @@
       "sections": [
         {
           "id": "ch04-s1",
-          "heading": "4.1 Concrete & Pictorial Intuition (The Visual 'Aha!')",
+          "heading": "4.1 See it in a picture",
           "excerpt": "Tile a partitioned rectangle of sides (x + a) and (x + b), or snip the corner b² from a square a². When you cut a corner square b² from a² and rotate the remaining strip, it forms a single rectangle of length (a + b) and height (a − b)!"
         },
         {
           "id": "ch04-s2",
-          "heading": "4.2 Symbolic Lockstep & Formula Anatomy",
+          "heading": "4.2 Write it in symbols",
           "excerpt": "Every piece of the geometry locks onto a symbol in a(b + c) = ab + ac,   (x + a)(x + b) = x² + (a + b)x + ab,   a² − b² = (a − b)(a + b). Once you see why each term exists, you never have to guess a sign or denominator."
         },
         {
           "id": "ch04-s3",
-          "heading": "4.3 Singapore Bar-Model, Checkpoint & Olympiad Stretch",
+          "heading": "4.3 Bar models and stretch problems",
           "excerpt": "Apply From Bar Models to Algebraic Expressions across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
         }
       ],
@@ -495,7 +495,7 @@
       "volumeNumber": 2,
       "volumeTitle": "Volume II · The Singapore Bar-Model & Algebraic Machine",
       "title": "The Balance Beam: Equations, Formulae & Inequalities",
-      "subtitle": "OUP Ch 7 · Deriving & solving equations, changing the subject of a formula & inequality number lines",
+      "subtitle": "School book Ch 7 · Deriving & solving equations, changing the subject of a formula & inequality number lines",
       "hookSummary": "An equation is a balanced beam; changing the subject of a formula peels the onion of operations in reverse order.",
       "intuitionToFormula": {
         "concreteAction": "Drag weights off a twin-pan balance and flip an inequality interval across 0 by multiplying by −1.",
@@ -526,17 +526,17 @@
       "sections": [
         {
           "id": "ch05-s1",
-          "heading": "5.1 Concrete & Pictorial Intuition (The Visual 'Aha!')",
+          "heading": "5.1 See it in a picture",
           "excerpt": "Drag weights off a twin-pan balance and flip an inequality interval across 0 by multiplying by −1. Multiplying a number line by −1 reflects every point across 0 like a mirror — what was further right (>) becomes further left (<)!"
         },
         {
           "id": "ch05-s2",
-          "heading": "5.2 Symbolic Lockstep & Formula Anatomy",
+          "heading": "5.2 Write it in symbols",
           "excerpt": "Every piece of the geometry locks onto a symbol in ax + b = cx + d  ⇒  x = (d − b) / (a − c),   and   a < b  ⇒  −a > −b. Once you see why each term exists, you never have to guess a sign or denominator."
         },
         {
           "id": "ch05-s3",
-          "heading": "5.3 Singapore Bar-Model, Checkpoint & Olympiad Stretch",
+          "heading": "5.3 Bar models and stretch problems",
           "excerpt": "Apply The Balance Beam: Equations, Formulae & Inequalities across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
         }
       ],
@@ -580,7 +580,7 @@
       "volumeNumber": 2,
       "volumeTitle": "Volume II · The Singapore Bar-Model & Algebraic Machine",
       "title": "Patterns in Time: Sequences, nth Terms & Gauss's Sum",
-      "subtitle": "OUP Ch 11 · Term-to-term vs position-to-term rules, linear & quadratic sequences, and Gauss's staircase",
+      "subtitle": "School book Ch 11 · Term-to-term vs position-to-term rules, linear & quadratic sequences, and Gauss's staircase",
       "hookSummary": "A constant first difference means a linear staircase dn + c; a constant second difference 2a means a quadratic parabola an² + bn + c.",
       "intuitionToFormula": {
         "concreteAction": "Duplicate an n-step staircase 1 + 2 + … + n, rotate the copy by 180°, and snap it on top of the original.",
@@ -611,17 +611,17 @@
       "sections": [
         {
           "id": "ch06-s1",
-          "heading": "6.1 Concrete & Pictorial Intuition (The Visual 'Aha!')",
+          "heading": "6.1 See it in a picture",
           "excerpt": "Duplicate an n-step staircase 1 + 2 + … + n, rotate the copy by 180°, and snap it on top of the original. The two staircases lock together into a solid rectangle of width n and uniform height (n + 1) — so one staircase is exactly half the rectangle!"
         },
         {
           "id": "ch06-s2",
-          "heading": "6.2 Symbolic Lockstep & Formula Anatomy",
+          "heading": "6.2 Write it in symbols",
           "excerpt": "Every piece of the geometry locks onto a symbol in Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a. Once you see why each term exists, you never have to guess a sign or denominator."
         },
         {
           "id": "ch06-s3",
-          "heading": "6.3 Singapore Bar-Model, Checkpoint & Olympiad Stretch",
+          "heading": "6.3 Bar models and stretch problems",
           "excerpt": "Apply Patterns in Time: Sequences, nth Terms & Gauss's Sum across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
         }
       ],
@@ -665,7 +665,7 @@
       "volumeNumber": 2,
       "volumeTitle": "Volume II · The Singapore Bar-Model & Algebraic Machine",
       "title": "Functions, Linear Graphs & Kinematics",
-      "subtitle": "OUP Ch 14 · Function machines, y = mx + c, gradient Δy/Δx, parallel/perpendicular lines & speed-time graphs",
+      "subtitle": "School book Ch 14 · Function machines, y = mx + c, gradient Δy/Δx, parallel/perpendicular lines & speed-time graphs",
       "hookSummary": "Every straight line is a constant rate of change m = Δy / Δx anchored at a vertical intercept c.",
       "intuitionToFormula": {
         "concreteAction": "Slide two points P and Q along a line y = mx + c and inspect the right-angled rise/run staircase.",
@@ -696,17 +696,17 @@
       "sections": [
         {
           "id": "ch07-s1",
-          "heading": "7.1 Concrete & Pictorial Intuition (The Visual 'Aha!')",
+          "heading": "7.1 See it in a picture",
           "excerpt": "Slide two points P and Q along a line y = mx + c and inspect the right-angled rise/run staircase. No matter how wide or narrow you make the horizontal run Δx, the vertical rise Δy scales in the exact same proportion, keeping Δy / Δx = m invariant!"
         },
         {
           "id": "ch07-s2",
-          "heading": "7.2 Symbolic Lockstep & Formula Anatomy",
+          "heading": "7.2 Write it in symbols",
           "excerpt": "Every piece of the geometry locks onto a symbol in y = mx + c,   m = (y₂ − y₁) / (x₂ − x₁),   m₁ · m₂ = −1 (perpendicular). Once you see why each term exists, you never have to guess a sign or denominator."
         },
         {
           "id": "ch07-s3",
-          "heading": "7.3 Singapore Bar-Model, Checkpoint & Olympiad Stretch",
+          "heading": "7.3 Bar models and stretch problems",
           "excerpt": "Apply Functions, Linear Graphs & Kinematics across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
         }
       ],
@@ -750,7 +750,7 @@
       "volumeNumber": 3,
       "volumeTitle": "Volume III · Euclid's Compass, Mensuration & Trigonometry",
       "title": "Angle Chasing, Parallel Lines & Deductive Proof",
-      "subtitle": "OUP Ch 8 · Alternate, corresponding & co-interior angles, exterior angle of a triangle & midpoint formula",
+      "subtitle": "School book Ch 8 · Alternate, corresponding & co-interior angles, exterior angle of a triangle & midpoint formula",
       "hookSummary": "A transversal slicing two parallel lines carries the exact same 4-angle intersection down the track.",
       "intuitionToFormula": {
         "concreteAction": "Slide the top intersection along a transversal onto the bottom parallel line, and tear the two base angles α, β off a triangle to place them into the exterior angle.",
@@ -781,17 +781,17 @@
       "sections": [
         {
           "id": "ch08-s1",
-          "heading": "8.1 Concrete & Pictorial Intuition (The Visual 'Aha!')",
+          "heading": "8.1 See it in a picture",
           "excerpt": "Slide the top intersection along a transversal onto the bottom parallel line, and tear the two base angles α, β off a triangle to place them into the exterior angle. Because a parallel translation changes no angles, α and β fit flush inside the exterior angle next to γ — proving both α + β + γ = 180° and ext = α + β at once!"
         },
         {
           "id": "ch08-s2",
-          "heading": "8.2 Symbolic Lockstep & Formula Anatomy",
+          "heading": "8.2 Write it in symbols",
           "excerpt": "Every piece of the geometry locks onto a symbol in θ_ext = α + β,   ∑ interior angles of n-gon = (n − 2) × 180°,   M = ((x₁+x₂)/2, (y₁+y₂)/2). Once you see why each term exists, you never have to guess a sign or denominator."
         },
         {
           "id": "ch08-s3",
-          "heading": "8.3 Singapore Bar-Model, Checkpoint & Olympiad Stretch",
+          "heading": "8.3 Bar models and stretch problems",
           "excerpt": "Apply Angle Chasing, Parallel Lines & Deductive Proof across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
         }
       ],
@@ -834,7 +834,7 @@
       "volumeNumber": 3,
       "volumeTitle": "Volume III · Euclid's Compass, Mensuration & Trigonometry",
       "title": "Compass & Straightedge: Locus, Quadrilaterals & 3D Nets",
-      "subtitle": "OUP Ch 3 · Quadrilateral hierarchy, 3D nets & elevations, 3-figure bearings & Euclidean locus constructions",
+      "subtitle": "School book Ch 3 · Quadrilateral hierarchy, 3D nets & elevations, 3-figure bearings & Euclidean locus constructions",
       "hookSummary": "A circle is the locus of points at a fixed distance from one point; two equal circles intersect on the locus equidistant from two points.",
       "intuitionToFormula": {
         "concreteAction": "Sweep two equal-radius compass arcs from endpoints A and B and connect their intersections P and Q.",
@@ -871,17 +871,17 @@
       "sections": [
         {
           "id": "ch09-s1",
-          "heading": "9.1 Concrete & Pictorial Intuition (The Visual 'Aha!')",
+          "heading": "9.1 See it in a picture",
           "excerpt": "Sweep two equal-radius compass arcs from endpoints A and B and connect their intersections P and Q. Because AP = BP = AQ = BQ = r, the four radii form a rhombus — and the diagonals of a rhombus always bisect each other at 90°!"
         },
         {
           "id": "ch09-s2",
-          "heading": "9.2 Symbolic Lockstep & Formula Anatomy",
+          "heading": "9.2 Write it in symbols",
           "excerpt": "Every piece of the geometry locks onto a symbol in |PA| = |PB|  ⇔  P lies on perpendicular bisector of AB;   Euler: V − E + F = 2. Once you see why each term exists, you never have to guess a sign or denominator."
         },
         {
           "id": "ch09-s3",
-          "heading": "9.3 Singapore Bar-Model, Checkpoint & Olympiad Stretch",
+          "heading": "9.3 Bar models and stretch problems",
           "excerpt": "Apply Compass & Straightedge: Locus, Quadrilaterals & 3D Nets across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
         }
       ],
@@ -926,7 +926,7 @@
       "volumeNumber": 3,
       "volumeTitle": "Volume III · Euclid's Compass, Mensuration & Trigonometry",
       "title": "Slicing Space: Circles, Prisms, Pyramids & Archimedes' π",
-      "subtitle": "OUP Ch 5 · Circumference, circle area sector rearrangement, parallelogram/trapezium shear & prism/pyramid volumes",
+      "subtitle": "School book Ch 5 · Circumference, circle area sector rearrangement, parallelogram/trapezium shear & prism/pyramid volumes",
       "hookSummary": "Every area and volume formula comes from slicing a curved or slanted shape into a familiar box.",
       "intuitionToFormula": {
         "concreteAction": "Slice a circle of radius r into 24 sectors and comb-interlock them head-to-tail into a nearly rectangular parallelogram.",
@@ -957,17 +957,17 @@
       "sections": [
         {
           "id": "ch10-s1",
-          "heading": "10.1 Concrete & Pictorial Intuition (The Visual 'Aha!')",
+          "heading": "10.1 See it in a picture",
           "excerpt": "Slice a circle of radius r into 24 sectors and comb-interlock them head-to-tail into a nearly rectangular parallelogram. Half the circumference (πr) runs along the top and half along the bottom (base = πr), while the radius r stands upright as the height — giving Area = (πr) × r = πr²!"
         },
         {
           "id": "ch10-s2",
-          "heading": "10.2 Symbolic Lockstep & Formula Anatomy",
+          "heading": "10.2 Write it in symbols",
           "excerpt": "Every piece of the geometry locks onto a symbol in C = 2πr,   A_circle = πr²,   A_trap = ½(a + b)h,   V_prism = A_cross × L. Once you see why each term exists, you never have to guess a sign or denominator."
         },
         {
           "id": "ch10-s3",
-          "heading": "10.3 Singapore Bar-Model, Checkpoint & Olympiad Stretch",
+          "heading": "10.3 Bar models and stretch problems",
           "excerpt": "Apply Slicing Space: Circles, Prisms, Pyramids & Archimedes' π across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
         }
       ],
@@ -1011,7 +1011,7 @@
       "volumeNumber": 3,
       "volumeTitle": "Volume III · Euclid's Compass, Mensuration & Trigonometry",
       "title": "Symmetry & Motion: Translations, Reflections, Rotations & Enlargements",
-      "subtitle": "OUP Ch 13 · Vector translations, mirror lines, rotational symmetry & enlargement area/volume scaling (k, k², k³)",
+      "subtitle": "School book Ch 13 · Vector translations, mirror lines, rotational symmetry & enlargement area/volume scaling (k, k², k³)",
       "hookSummary": "Translations, reflections, and rotations are rigid isometries; enlargements scale lengths by k, areas by k², and volumes by k³.",
       "intuitionToFormula": {
         "concreteAction": "Drag the centre of enlargement C and scale factor slider k from −2 to +3 on a coordinate grid.",
@@ -1042,17 +1042,17 @@
       "sections": [
         {
           "id": "ch11-s1",
-          "heading": "11.1 Concrete & Pictorial Intuition (The Visual 'Aha!')",
+          "heading": "11.1 See it in a picture",
           "excerpt": "Drag the centre of enlargement C and scale factor slider k from −2 to +3 on a coordinate grid. Every vertex P moves along the ray CP so that |CP′| = |k| · |CP| — and doubling every side (k = 2) packs k² = 4 copies of the original triangle inside the image!"
         },
         {
           "id": "ch11-s2",
-          "heading": "11.2 Symbolic Lockstep & Formula Anatomy",
+          "heading": "11.2 Write it in symbols",
           "excerpt": "Every piece of the geometry locks onto a symbol in OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object). Once you see why each term exists, you never have to guess a sign or denominator."
         },
         {
           "id": "ch11-s3",
-          "heading": "11.3 Singapore Bar-Model, Checkpoint & Olympiad Stretch",
+          "heading": "11.3 Bar models and stretch problems",
           "excerpt": "Apply Symmetry & Motion: Translations, Reflections, Rotations & Enlargements across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
         }
       ],
@@ -1096,10 +1096,10 @@
       "volumeNumber": 3,
       "volumeTitle": "Volume III · Euclid's Compass, Mensuration & Trigonometry",
       "title": "Shadows of the Circle: Pythagoras, Sine, Cosine & Radians",
-      "subtitle": "Advanced Geometry & Trig · @saxster/atlas unit-circle (8 pages): Pythagoras, SOHCAHTOA, unit-circle shadows, radians & Cosine Rule",
+      "subtitle": "Advanced Geometry & Trig · Atlas unit-circle (8 pages): Pythagoras, SOHCAHTOA, unit-circle shadows, radians & Cosine Rule",
       "hookSummary": "Sine is the vertical shadow of a turning point on the unit circle; cosine is its horizontal shadow.",
       "intuitionToFormula": {
-        "concreteAction": "Open the @saxster/atlas 3D Unit Circle stage: shine level light from the right for sin θ, top light for cos θ, and unfold the three squares on the right triangle.",
+        "concreteAction": "Open the 3D Unit Circle stage: shine level light from the right for sin θ, top light for cos θ, and unfold the three squares on the right triangle.",
         "ahaInvariant": "Because the hypotenuse of the unit-circle triangle is 1, the red vertical shadow is sin θ, the blue horizontal shadow is cos θ, and Pythagoras immediately gives sin²θ + cos²θ = 1² for every angle!",
         "formulaDisplay": "P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C",
         "termMappings": [
@@ -1127,17 +1127,17 @@
       "sections": [
         {
           "id": "ch12-s1",
-          "heading": "12.1 Concrete & Pictorial Intuition (The Visual 'Aha!')",
-          "excerpt": "Open the @saxster/atlas 3D Unit Circle stage: shine level light from the right for sin θ, top light for cos θ, and unfold the three squares on the right triangle. Because the hypotenuse of the unit-circle triangle is 1, the red vertical shadow is sin θ, the blue horizontal shadow is cos θ, and Pythagoras immediately gives sin²θ + cos²θ = 1² for every angle!"
+          "heading": "12.1 See it in a picture",
+          "excerpt": "Open the 3D Unit Circle stage: shine level light from the right for sin θ, top light for cos θ, and unfold the three squares on the right triangle. Because the hypotenuse of the unit-circle triangle is 1, the red vertical shadow is sin θ, the blue horizontal shadow is cos θ, and Pythagoras immediately gives sin²θ + cos²θ = 1² for every angle!"
         },
         {
           "id": "ch12-s2",
-          "heading": "12.2 Symbolic Lockstep & Formula Anatomy",
+          "heading": "12.2 Write it in symbols",
           "excerpt": "Every piece of the geometry locks onto a symbol in P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C. Once you see why each term exists, you never have to guess a sign or denominator."
         },
         {
           "id": "ch12-s3",
-          "heading": "12.3 Singapore Bar-Model, Checkpoint & Olympiad Stretch",
+          "heading": "12.3 Bar models and stretch problems",
           "excerpt": "Apply Shadows of the Circle: Pythagoras, Sine, Cosine & Radians across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
         }
       ],
@@ -1183,10 +1183,10 @@
       "volumeNumber": 4,
       "volumeTitle": "Volume IV · Data Forensics, Uncertainty & Bayes' Theorem",
       "title": "How Not to Be Fooled by a Sample",
-      "subtitle": "OUP Ch 4 · Sampling methods, bias forensics, Abraham Wald's bombers & @saxster/atlas σ/√n standard error",
+      "subtitle": "School book Ch 4 · Sampling methods, bias forensics, Abraham Wald's bombers & Atlas σ/√n standard error",
       "hookSummary": "A huge biased sample is worse than a small random one; repeated random samples cluster within ±σ / √n of the truth.",
       "intuitionToFormula": {
-        "concreteAction": "Run the @saxster/atlas Repeated Readings Explorer (`statistics/error`) and toggle survivorship filter on Wald's WWII aircraft.",
+        "concreteAction": "Run the Repeated Readings Explorer (`statistics/error`) and toggle survivorship filter on Wald's WWII aircraft.",
         "ahaInvariant": "Bullet holes on returning planes show where a plane can be hit and still fly home — the missing holes on the engines mark where fatal hits occurred!",
         "formulaDisplay": "Stratified nᵢ = n × (Nᵢ / N),   Standard Error SE = σ / √n",
         "termMappings": [
@@ -1214,17 +1214,17 @@
       "sections": [
         {
           "id": "ch13-s1",
-          "heading": "13.1 Concrete & Pictorial Intuition (The Visual 'Aha!')",
-          "excerpt": "Run the @saxster/atlas Repeated Readings Explorer (`statistics/error`) and toggle survivorship filter on Wald's WWII aircraft. Bullet holes on returning planes show where a plane can be hit and still fly home — the missing holes on the engines mark where fatal hits occurred!"
+          "heading": "13.1 See it in a picture",
+          "excerpt": "Run the Repeated Readings Explorer (`statistics/error`) and toggle survivorship filter on Wald's WWII aircraft. Bullet holes on returning planes show where a plane can be hit and still fly home — the missing holes on the engines mark where fatal hits occurred!"
         },
         {
           "id": "ch13-s2",
-          "heading": "13.2 Symbolic Lockstep & Formula Anatomy",
+          "heading": "13.2 Write it in symbols",
           "excerpt": "Every piece of the geometry locks onto a symbol in Stratified nᵢ = n × (Nᵢ / N),   Standard Error SE = σ / √n. Once you see why each term exists, you never have to guess a sign or denominator."
         },
         {
           "id": "ch13-s3",
-          "heading": "13.3 Singapore Bar-Model, Checkpoint & Olympiad Stretch",
+          "heading": "13.3 Bar models and stretch problems",
           "excerpt": "Apply How Not to Be Fooled by a Sample across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
         }
       ],
@@ -1267,7 +1267,7 @@
       "volumeNumber": 4,
       "volumeTitle": "Volume IV · Data Forensics, Uncertainty & Bayes' Theorem",
       "title": "Seeing the Distribution: Histograms, Spread & Standard Deviation",
-      "subtitle": "OUP Ch 10 · Time-series trends, back-to-back stem-and-leaf, frequency-density histograms, IQR & standard deviation σ",
+      "subtitle": "School book Ch 10 · Time-series trends, back-to-back stem-and-leaf, frequency-density histograms, IQR & standard deviation σ",
       "hookSummary": "In a true histogram, the area of each bar — not its height — represents frequency.",
       "intuitionToFormula": {
         "concreteAction": "Change the width Δx of a histogram class interval and watch the bar height adjust so its area stays equal to frequency f.",
@@ -1298,17 +1298,17 @@
       "sections": [
         {
           "id": "ch14-s1",
-          "heading": "14.1 Concrete & Pictorial Intuition (The Visual 'Aha!')",
+          "heading": "14.1 See it in a picture",
           "excerpt": "Change the width Δx of a histogram class interval and watch the bar height adjust so its area stays equal to frequency f. If one class interval is twice as wide as another, keeping the bar at raw frequency makes it look twice as big by accident — dividing height by class width (Frequency Density = f / Δx) makes Area = FD × Δx = f exact!"
         },
         {
           "id": "ch14-s2",
-          "heading": "14.2 Symbolic Lockstep & Formula Anatomy",
+          "heading": "14.2 Write it in symbols",
           "excerpt": "Every piece of the geometry locks onto a symbol in Frequency Density = f / Δx,   μ = (∑ xᵢ) / n,   σ = √[ (∑(xᵢ − μ)²) / n ]. Once you see why each term exists, you never have to guess a sign or denominator."
         },
         {
           "id": "ch14-s3",
-          "heading": "14.3 Singapore Bar-Model, Checkpoint & Olympiad Stretch",
+          "heading": "14.3 Bar models and stretch problems",
           "excerpt": "Apply Seeing the Distribution: Histograms, Spread & Standard Deviation across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
         }
       ],
@@ -1351,10 +1351,10 @@
       "volumeNumber": 4,
       "volumeTitle": "Volume IV · Data Forensics, Uncertainty & Bayes' Theorem",
       "title": "Counting Worlds: Sample Spaces, Permutations & Combinations",
-      "subtitle": "OUP Ch 15 · Experimental vs theoretical probability, sample-space grids, @saxster/atlas Galton board, nPr & nCr",
+      "subtitle": "School book Ch 15 · Experimental vs theoretical probability, sample-space grids, Atlas Galton board, nPr & nCr",
       "hookSummary": "Drop 500 balls through rows of 50/50 pegs and binomial combinations C(n, k) build the normal bell curve before your eyes.",
       "intuitionToFormula": {
-        "concreteAction": "Open the @saxster/atlas Galton Pegboard Explorer (`statistics/galton`): predict the slot distribution and drop 500 seeded balls.",
+        "concreteAction": "Open the Galton Pegboard Explorer (`statistics/galton`): predict the slot distribution and drop 500 seeded balls.",
         "ahaInvariant": "To land in slot k after n peg rows, a ball must bounce right k times and left (n − k) times — the number of distinct paths is Pascal's combination C(n, k) = n! / [k!(n − k)!]!",
         "formulaDisplay": "P(A ∩ B) = P(A) · P(B),   ⁿPᵣ = n! / (n − r)!,   ⁿCᵣ = n! / [r!(n − r)!]",
         "termMappings": [
@@ -1382,17 +1382,17 @@
       "sections": [
         {
           "id": "ch15-s1",
-          "heading": "15.1 Concrete & Pictorial Intuition (The Visual 'Aha!')",
-          "excerpt": "Open the @saxster/atlas Galton Pegboard Explorer (`statistics/galton`): predict the slot distribution and drop 500 seeded balls. To land in slot k after n peg rows, a ball must bounce right k times and left (n − k) times — the number of distinct paths is Pascal's combination C(n, k) = n! / [k!(n − k)!]!"
+          "heading": "15.1 See it in a picture",
+          "excerpt": "Open the Galton Pegboard Explorer (`statistics/galton`): predict the slot distribution and drop 500 seeded balls. To land in slot k after n peg rows, a ball must bounce right k times and left (n − k) times — the number of distinct paths is Pascal's combination C(n, k) = n! / [k!(n − k)!]!"
         },
         {
           "id": "ch15-s2",
-          "heading": "15.2 Symbolic Lockstep & Formula Anatomy",
+          "heading": "15.2 Write it in symbols",
           "excerpt": "Every piece of the geometry locks onto a symbol in P(A ∩ B) = P(A) · P(B),   ⁿPᵣ = n! / (n − r)!,   ⁿCᵣ = n! / [r!(n − r)!]. Once you see why each term exists, you never have to guess a sign or denominator."
         },
         {
           "id": "ch15-s3",
-          "heading": "15.3 Singapore Bar-Model, Checkpoint & Olympiad Stretch",
+          "heading": "15.3 Bar models and stretch problems",
           "excerpt": "Apply Counting Worlds: Sample Spaces, Permutations & Combinations across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
         }
       ],
@@ -1437,10 +1437,10 @@
       "volumeNumber": 4,
       "volumeTitle": "Volume IV · Data Forensics, Uncertainty & Bayes' Theorem",
       "title": "Updating Belief: Conditional Probability & Bayes' Theorem",
-      "subtitle": "Advanced Probability · @saxster/atlas Bayes Explorer: why a positive result from a 95% accurate test on a 2% condition is right only 28% of the time",
+      "subtitle": "Advanced Probability · Atlas Bayes Explorer: why a positive result from a 95% accurate test on a 2% condition is right only 28% of the time",
       "hookSummary": "Evidence never acts in a vacuum — it slices and renormalizes the prior base rate inside a 1,000-person unit square.",
       "intuitionToFormula": {
-        "concreteAction": "Open the @saxster/atlas Bayes Unit-Square Explorer (`statistics/bayes`): set prevalence p = 2%, sensitivity = 95%, false-positive rate = 5%, and screen 1,000 people.",
+        "concreteAction": "Open the Bayes Unit-Square Explorer (`statistics/bayes`): set prevalence p = 2%, sensitivity = 95%, false-positive rate = 5%, and screen 1,000 people.",
         "ahaInvariant": "Conditioning on a positive test throws away everyone who tested negative! What remains is just two bars: 19 True Positives (red) from the 20 sick people, and 49 False Positives (amber) from the 980 healthy people — so P(D | +) = 19 / (19 + 49) ≈ 27.9%!",
         "formulaDisplay": "P(D | +) = [ P(+ | D) P(D) ] / [ P(+ | D) P(D) + P(+ | ¬D) P(¬D) ]",
         "termMappings": [
@@ -1468,17 +1468,17 @@
       "sections": [
         {
           "id": "ch16-s1",
-          "heading": "16.1 Concrete & Pictorial Intuition (The Visual 'Aha!')",
-          "excerpt": "Open the @saxster/atlas Bayes Unit-Square Explorer (`statistics/bayes`): set prevalence p = 2%, sensitivity = 95%, false-positive rate = 5%, and screen 1,000 people. Conditioning on a positive test throws away everyone who tested negative! What remains is just two bars: 19 True Positives (red) from the 20 sick people, and 49 False Positives (amber) from the 980 healthy people — so P(D | +) = 19 / (19 + 49) ≈ 27.9%!"
+          "heading": "16.1 See it in a picture",
+          "excerpt": "Open the Bayes Unit-Square Explorer (`statistics/bayes`): set prevalence p = 2%, sensitivity = 95%, false-positive rate = 5%, and screen 1,000 people. Conditioning on a positive test throws away everyone who tested negative! What remains is just two bars: 19 True Positives (red) from the 20 sick people, and 49 False Positives (amber) from the 980 healthy people — so P(D | +) = 19 / (19 + 49) ≈ 27.9%!"
         },
         {
           "id": "ch16-s2",
-          "heading": "16.2 Symbolic Lockstep & Formula Anatomy",
+          "heading": "16.2 Write it in symbols",
           "excerpt": "Every piece of the geometry locks onto a symbol in P(D | +) = [ P(+ | D) P(D) ] / [ P(+ | D) P(D) + P(+ | ¬D) P(¬D) ]. Once you see why each term exists, you never have to guess a sign or denominator."
         },
         {
           "id": "ch16-s3",
-          "heading": "16.3 Singapore Bar-Model, Checkpoint & Olympiad Stretch",
+          "heading": "16.3 Bar models and stretch problems",
           "excerpt": "Apply Updating Belief: Conditional Probability & Bayes' Theorem across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
         }
       ],
@@ -1522,10 +1522,10 @@
       "volumeNumber": 5,
       "volumeTitle": "Volume V · The Horizon: Calculus, Vectors & Linear Algebra",
       "title": "Zooming In Forever: Limits, Secants & Derivatives",
-      "subtitle": "Advanced Calculus I · @saxster/atlas Calculus (pp. 0–2): secant slope to tangent limit, power rule & stationary points",
+      "subtitle": "Advanced Calculus I · Atlas Calculus (pp. 0–2): secant slope to tangent limit, power rule & stationary points",
       "hookSummary": "A curve looks straight when you zoom in; its derivative f′(x) is the limit of the secant slope as step h shrinks to zero.",
       "intuitionToFormula": {
-        "concreteAction": "Open @saxster/atlas Calculus (`maths/calculus` pp. 0–2) and slide point Q toward P(1, ½) on f(x) = ½x², or expand a square of side x by dx.",
+        "concreteAction": "Open the Atlas Calculus (`maths/calculus` pp. 0–2) and slide point Q toward P(1, ½) on f(x) = ½x², or expand a square of side x by dx.",
         "ahaInvariant": "Expanding a square x² by tiny strip dx adds two long strips of area x·dx and a tiny corner (dx)² — dividing Δ(x²)/dx = 2x + dx and letting dx → 0 leaves the exact derivative 2x!",
         "formulaDisplay": "f′(x) = lim_{h→0} [f(x + h) − f(x)] / h,   d/dx (xⁿ) = n xⁿ⁻¹",
         "termMappings": [
@@ -1553,17 +1553,17 @@
       "sections": [
         {
           "id": "ch17-s1",
-          "heading": "17.1 Concrete & Pictorial Intuition (The Visual 'Aha!')",
-          "excerpt": "Open @saxster/atlas Calculus (`maths/calculus` pp. 0–2) and slide point Q toward P(1, ½) on f(x) = ½x², or expand a square of side x by dx. Expanding a square x² by tiny strip dx adds two long strips of area x·dx and a tiny corner (dx)² — dividing Δ(x²)/dx = 2x + dx and letting dx → 0 leaves the exact derivative 2x!"
+          "heading": "17.1 See it in a picture",
+          "excerpt": "Open the Atlas Calculus (`maths/calculus` pp. 0–2) and slide point Q toward P(1, ½) on f(x) = ½x², or expand a square of side x by dx. Expanding a square x² by tiny strip dx adds two long strips of area x·dx and a tiny corner (dx)² — dividing Δ(x²)/dx = 2x + dx and letting dx → 0 leaves the exact derivative 2x!"
         },
         {
           "id": "ch17-s2",
-          "heading": "17.2 Symbolic Lockstep & Formula Anatomy",
+          "heading": "17.2 Write it in symbols",
           "excerpt": "Every piece of the geometry locks onto a symbol in f′(x) = lim_{h→0} [f(x + h) − f(x)] / h,   d/dx (xⁿ) = n xⁿ⁻¹. Once you see why each term exists, you never have to guess a sign or denominator."
         },
         {
           "id": "ch17-s3",
-          "heading": "17.3 Singapore Bar-Model, Checkpoint & Olympiad Stretch",
+          "heading": "17.3 Bar models and stretch problems",
           "excerpt": "Apply Zooming In Forever: Limits, Secants & Derivatives across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
         }
       ],
@@ -1607,10 +1607,10 @@
       "volumeNumber": 5,
       "volumeTitle": "Volume V · The Horizon: Calculus, Vectors & Linear Algebra",
       "title": "Slicing to Infinity: Riemann Sums & The Fundamental Theorem of Calculus",
-      "subtitle": "Advanced Calculus II · @saxster/atlas Calculus (pp. 3–5): midpoint Riemann bars, definite integrals & why slope and area are inverses",
+      "subtitle": "Advanced Calculus II · Atlas Calculus (pp. 3–5): midpoint Riemann bars, definite integrals & why slope and area are inverses",
       "hookSummary": "Adding up infinitely many thin rate-times-time slivers reconstructs total change: integration and differentiation undo each other.",
       "intuitionToFormula": {
-        "concreteAction": "Open @saxster/atlas Calculus (`maths/calculus` pp. 3–5) and compare the blue area under f′(t) = t from 0 to x with the red height of the parabola f(x) = ½x².",
+        "concreteAction": "Open the Atlas Calculus (`maths/calculus` pp. 3–5) and compare the blue area under f′(t) = t from 0 to x with the red height of the parabola f(x) = ½x².",
         "ahaInvariant": "Every tiny step dt adds a ribbon of area f′(t)·dt = df — which is the exact tiny rise in height of the original curve f(x)! That is why the area under the slope curve IS the height change f(b) − f(a)!",
         "formulaDisplay": "∫ₐᵇ f(x) dx = lim_{n→∞} ∑ f(xᵢ) Δx = F(b) − F(a)   where F′(x) = f(x)",
         "termMappings": [
@@ -1638,17 +1638,17 @@
       "sections": [
         {
           "id": "ch18-s1",
-          "heading": "18.1 Concrete & Pictorial Intuition (The Visual 'Aha!')",
-          "excerpt": "Open @saxster/atlas Calculus (`maths/calculus` pp. 3–5) and compare the blue area under f′(t) = t from 0 to x with the red height of the parabola f(x) = ½x². Every tiny step dt adds a ribbon of area f′(t)·dt = df — which is the exact tiny rise in height of the original curve f(x)! That is why the area under the slope curve IS the height change f(b) − f(a)!"
+          "heading": "18.1 See it in a picture",
+          "excerpt": "Open the Atlas Calculus (`maths/calculus` pp. 3–5) and compare the blue area under f′(t) = t from 0 to x with the red height of the parabola f(x) = ½x². Every tiny step dt adds a ribbon of area f′(t)·dt = df — which is the exact tiny rise in height of the original curve f(x)! That is why the area under the slope curve IS the height change f(b) − f(a)!"
         },
         {
           "id": "ch18-s2",
-          "heading": "18.2 Symbolic Lockstep & Formula Anatomy",
+          "heading": "18.2 Write it in symbols",
           "excerpt": "Every piece of the geometry locks onto a symbol in ∫ₐᵇ f(x) dx = lim_{n→∞} ∑ f(xᵢ) Δx = F(b) − F(a)   where F′(x) = f(x). Once you see why each term exists, you never have to guess a sign or denominator."
         },
         {
           "id": "ch18-s3",
-          "heading": "18.3 Singapore Bar-Model, Checkpoint & Olympiad Stretch",
+          "heading": "18.3 Bar models and stretch problems",
           "excerpt": "Apply Slicing to Infinity: Riemann Sums & The Fundamental Theorem of Calculus across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
         }
       ],
@@ -1691,7 +1691,7 @@
       "volumeNumber": 5,
       "volumeTitle": "Volume V · The Horizon: Calculus, Vectors & Linear Algebra",
       "title": "Arrows in Space: Vectors, Dot Products & Geometric Proofs",
-      "subtitle": "OUP Ch 16 Bonus Chapter · Column vectors, triangle/parallelogram addition, magnitude |v|, dot product & vector geometry proofs",
+      "subtitle": "School book Ch 16 Bonus Chapter · Column vectors, triangle/parallelogram addition, magnitude |v|, dot product & vector geometry proofs",
       "hookSummary": "A vector is a pure displacement (dx, dy) free of any starting point; adding vectors chains journeys tip-to-tail.",
       "intuitionToFormula": {
         "concreteAction": "Drag vectors a and b tip-to-tail on the grid, and project vector u onto v to measure their dot product.",
@@ -1722,17 +1722,17 @@
       "sections": [
         {
           "id": "ch19-s1",
-          "heading": "19.1 Concrete & Pictorial Intuition (The Visual 'Aha!')",
+          "heading": "19.1 See it in a picture",
           "excerpt": "Drag vectors a and b tip-to-tail on the grid, and project vector u onto v to measure their dot product. Because midpoints M of AB and N of AC have position vectors ½b and ½c, the segment MN = ½c − ½b = ½(c − b) = ½BC — proving in one line that the midsegment of ANY triangle is parallel to the base and half its length!"
         },
         {
           "id": "ch19-s2",
-          "heading": "19.2 Symbolic Lockstep & Formula Anatomy",
+          "heading": "19.2 Write it in symbols",
           "excerpt": "Every piece of the geometry locks onto a symbol in AB = OB − OA,   |v| = √(x² + y²),   u · v = x₁x₂ + y₁y₂ = |u||v| cos θ. Once you see why each term exists, you never have to guess a sign or denominator."
         },
         {
           "id": "ch19-s3",
-          "heading": "19.3 Singapore Bar-Model, Checkpoint & Olympiad Stretch",
+          "heading": "19.3 Bar models and stretch problems",
           "excerpt": "Apply Arrows in Space: Vectors, Dot Products & Geometric Proofs across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
         }
       ],
@@ -1777,10 +1777,10 @@
       "volumeNumber": 5,
       "volumeTitle": "Volume V · The Horizon: Calculus, Vectors & Linear Algebra",
       "title": "Stretching the Plane: 2×2 Matrices, Determinants & Eigenvectors",
-      "subtitle": "Advanced Linear Algebra · @saxster/atlas Linear Algebra & 2×2 Matrix Sandbox: basis columns, det(A) = ad − bc & eigenvectors",
+      "subtitle": "Advanced Linear Algebra · Atlas Linear Algebra & 2×2 Matrix Sandbox: basis columns, det(A) = ad − bc & eigenvectors",
       "hookSummary": "A 2×2 matrix is a machine that moves the entire coordinate grid by landing î at column 1 and ĵ at column 2.",
       "intuitionToFormula": {
-        "concreteAction": "Open the @saxster/atlas 2×2 Matrix Sandbox (`maths/matrix-sandbox`) and drag the red tip of Aî = (a, c) and blue tip of Aĵ = (b, d) directly in 3D.",
+        "concreteAction": "Open the 2×2 Matrix Sandbox (`maths/matrix-sandbox`) and drag the red tip of Aî = (a, c) and blue tip of Aĵ = (b, d) directly in 3D.",
         "ahaInvariant": "The unit square stretches into an amber parallelogram of signed area det(A) = ad − bc; if the two columns line up, the whole 2D plane collapses onto a 1D line (det = 0), while green eigenvector lines stay on their own span (Av = λv)!",
         "formulaDisplay": "A[x, y]ᵀ = x Aî + y Aĵ,   det(A) = ad − bc,   A v = λ v  ⇔  det(A − λI) = 0",
         "termMappings": [
@@ -1814,17 +1814,17 @@
       "sections": [
         {
           "id": "ch20-s1",
-          "heading": "20.1 Concrete & Pictorial Intuition (The Visual 'Aha!')",
-          "excerpt": "Open the @saxster/atlas 2×2 Matrix Sandbox (`maths/matrix-sandbox`) and drag the red tip of Aî = (a, c) and blue tip of Aĵ = (b, d) directly in 3D. The unit square stretches into an amber parallelogram of signed area det(A) = ad − bc; if the two columns line up, the whole 2D plane collapses onto a 1D line (det = 0), while green eigenvector lines stay on their own span (Av = λv)!"
+          "heading": "20.1 See it in a picture",
+          "excerpt": "Open the 2×2 Matrix Sandbox (`maths/matrix-sandbox`) and drag the red tip of Aî = (a, c) and blue tip of Aĵ = (b, d) directly in 3D. The unit square stretches into an amber parallelogram of signed area det(A) = ad − bc; if the two columns line up, the whole 2D plane collapses onto a 1D line (det = 0), while green eigenvector lines stay on their own span (Av = λv)!"
         },
         {
           "id": "ch20-s2",
-          "heading": "20.2 Symbolic Lockstep & Formula Anatomy",
+          "heading": "20.2 Write it in symbols",
           "excerpt": "Every piece of the geometry locks onto a symbol in A[x, y]ᵀ = x Aî + y Aĵ,   det(A) = ad − bc,   A v = λ v  ⇔  det(A − λI) = 0. Once you see why each term exists, you never have to guess a sign or denominator."
         },
         {
           "id": "ch20-s3",
-          "heading": "20.3 Singapore Bar-Model, Checkpoint & Olympiad Stretch",
+          "heading": "20.3 Bar models and stretch problems",
           "excerpt": "Apply Stretching the Plane: 2×2 Matrices, Determinants & Eigenvectors across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
         }
       ],
@@ -1880,7 +1880,7 @@
     {
       "id": "x_singapore_bar_engine",
       "title": "The Singapore CPA Bar-Model & Function Studio",
-      "subtitle": "Concrete → Pictorial → Abstract bar models translating word problems into equations",
+      "subtitle": "Bar models that turn a word problem into an equation: objects first, then a drawing, then symbols",
       "symbol": "rectangle.split.3x1.fill",
       "linkedChapters": [
         3,
@@ -1894,7 +1894,7 @@
     {
       "id": "x_euclid_compass",
       "title": "Euclid's Compass, Unit Circle & Trig Shadow Bench",
-      "subtitle": "Locus constructions, circle sector rearrangements, and @saxster/atlas unit-circle shadows",
+      "subtitle": "Locus constructions, circle sector rearrangements, and Atlas unit-circle shadows",
       "symbol": "compass.drawing",
       "linkedChapters": [
         8,
@@ -1908,7 +1908,7 @@
     {
       "id": "x_bayes_calculus_bridge",
       "title": "The Bayes, Calculus & 2×2 Matrix Horizon Lab",
-      "subtitle": "@saxster/atlas 1,000-person Bayes square, Riemann sums, derivatives & 2×2 eigen-grids",
+      "subtitle": "Atlas 1,000-person Bayes square, Riemann sums, derivatives & 2×2 eigen-grids",
       "symbol": "function",
       "linkedChapters": [
         13,
@@ -1935,7 +1935,7 @@
       "limits": "Formula: n(A ∪ B) = n(A) + n(B) − n(A ∩ B)   and   (A ∪ B)′ = A′ ∩ B′",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Before you calculate with numbers, you classify objects into sets and test statements for truth."
@@ -1952,7 +1952,7 @@
       "limits": "Formula: n(A ∪ B) = n(A) + n(B) − n(A ∩ B)   and   (A ∪ B)′ = A′ ∩ B′",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Before you calculate with numbers, you classify objects into sets and test statements for truth."
@@ -1969,7 +1969,7 @@
       "limits": "Formula: n(A ∪ B) = n(A) + n(B) − n(A ∩ B)   and   (A ∪ B)′ = A′ ∩ B′",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Before you calculate with numbers, you classify objects into sets and test statements for truth."
@@ -1986,7 +1986,7 @@
       "limits": "Formula: (−a)(−b) = +ab,   aᵐ · aⁿ = aᵐ⁺ⁿ,   HCF(a, b) × LCM(a, b) = a × b",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Multiplying by −1 is a 180° half-turn on the number line; two half-turns bring you back to positive."
@@ -2003,7 +2003,7 @@
       "limits": "Formula: (−a)(−b) = +ab,   aᵐ · aⁿ = aᵐ⁺ⁿ,   HCF(a, b) × LCM(a, b) = a × b",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Multiplying by −1 is a 180° half-turn on the number line; two half-turns bring you back to positive."
@@ -2020,7 +2020,7 @@
       "limits": "Formula: (−a)(−b) = +ab,   aᵐ · aⁿ = aᵐ⁺ⁿ,   HCF(a, b) × LCM(a, b) = a × b",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Multiplying by −1 is a 180° half-turn on the number line; two half-turns bring you back to positive."
@@ -2037,7 +2037,7 @@
       "limits": "Formula: x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Dividing by a fraction a/b asks how many b-sized pieces fit inside — which scales by b/a."
@@ -2054,7 +2054,7 @@
       "limits": "Formula: x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Dividing by a fraction a/b asks how many b-sized pieces fit inside — which scales by b/a."
@@ -2071,7 +2071,7 @@
       "limits": "Formula: x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Dividing by a fraction a/b asks how many b-sized pieces fit inside — which scales by b/a."
@@ -2084,11 +2084,11 @@
       "chapter": 3,
       "figure": "maths/ch03-ratios-compounding/index.html",
       "question": "How does touching the geometry of Ratios, Percentages & Exponential Compounding reveal its structure?",
-      "explanation": "Run the @saxster/atlas ₹1,000/month at 8% machine over 20 years and compare white savings, red simple interest, and amber compound interest.",
+      "explanation": "Run the ₹1,000/month at 8% machine over 20 years and compare white savings, red simple interest, and amber compound interest.",
       "limits": "Formula: A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "A percentage change is a multiplicative scale factor (1 ± r); repeated changes multiply, they never add."
@@ -2105,7 +2105,7 @@
       "limits": "Formula: A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "A percentage change is a multiplicative scale factor (1 ± r); repeated changes multiply, they never add."
@@ -2122,7 +2122,7 @@
       "limits": "Formula: A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "A percentage change is a multiplicative scale factor (1 ± r); repeated changes multiply, they never add."
@@ -2139,7 +2139,7 @@
       "limits": "Formula: a(b + c) = ab + ac,   (x + a)(x + b) = x² + (a + b)x + ab,   a² − b² = (a − b)(a + b)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "An algebraic bracket a(b + c) is the area of a rectangle of height a and split width b + c."
@@ -2156,7 +2156,7 @@
       "limits": "Formula: a(b + c) = ab + ac,   (x + a)(x + b) = x² + (a + b)x + ab,   a² − b² = (a − b)(a + b)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "An algebraic bracket a(b + c) is the area of a rectangle of height a and split width b + c."
@@ -2173,7 +2173,7 @@
       "limits": "Formula: a(b + c) = ab + ac,   (x + a)(x + b) = x² + (a + b)x + ab,   a² − b² = (a − b)(a + b)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "An algebraic bracket a(b + c) is the area of a rectangle of height a and split width b + c."
@@ -2190,7 +2190,7 @@
       "limits": "Formula: ax + b = cx + d  ⇒  x = (d − b) / (a − c),   and   a < b  ⇒  −a > −b",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "An equation is a balanced beam; changing the subject of a formula peels the onion of operations in reverse order."
@@ -2207,7 +2207,7 @@
       "limits": "Formula: ax + b = cx + d  ⇒  x = (d − b) / (a − c),   and   a < b  ⇒  −a > −b",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "An equation is a balanced beam; changing the subject of a formula peels the onion of operations in reverse order."
@@ -2224,7 +2224,7 @@
       "limits": "Formula: ax + b = cx + d  ⇒  x = (d − b) / (a − c),   and   a < b  ⇒  −a > −b",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "An equation is a balanced beam; changing the subject of a formula peels the onion of operations in reverse order."
@@ -2241,7 +2241,7 @@
       "limits": "Formula: Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "A constant first difference means a linear staircase dn + c; a constant second difference 2a means a quadratic parabola an² + bn + c."
@@ -2258,7 +2258,7 @@
       "limits": "Formula: Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "A constant first difference means a linear staircase dn + c; a constant second difference 2a means a quadratic parabola an² + bn + c."
@@ -2275,7 +2275,7 @@
       "limits": "Formula: Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "A constant first difference means a linear staircase dn + c; a constant second difference 2a means a quadratic parabola an² + bn + c."
@@ -2292,7 +2292,7 @@
       "limits": "Formula: y = mx + c,   m = (y₂ − y₁) / (x₂ − x₁),   m₁ · m₂ = −1 (perpendicular)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Every straight line is a constant rate of change m = Δy / Δx anchored at a vertical intercept c."
@@ -2309,7 +2309,7 @@
       "limits": "Formula: y = mx + c,   m = (y₂ − y₁) / (x₂ − x₁),   m₁ · m₂ = −1 (perpendicular)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Every straight line is a constant rate of change m = Δy / Δx anchored at a vertical intercept c."
@@ -2326,7 +2326,7 @@
       "limits": "Formula: y = mx + c,   m = (y₂ − y₁) / (x₂ − x₁),   m₁ · m₂ = −1 (perpendicular)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Every straight line is a constant rate of change m = Δy / Δx anchored at a vertical intercept c."
@@ -2343,7 +2343,7 @@
       "limits": "Formula: θ_ext = α + β,   ∑ interior angles of n-gon = (n − 2) × 180°,   M = ((x₁+x₂)/2, (y₁+y₂)/2)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "A transversal slicing two parallel lines carries the exact same 4-angle intersection down the track."
@@ -2360,7 +2360,7 @@
       "limits": "Formula: θ_ext = α + β,   ∑ interior angles of n-gon = (n − 2) × 180°,   M = ((x₁+x₂)/2, (y₁+y₂)/2)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "A transversal slicing two parallel lines carries the exact same 4-angle intersection down the track."
@@ -2377,7 +2377,7 @@
       "limits": "Formula: θ_ext = α + β,   ∑ interior angles of n-gon = (n − 2) × 180°,   M = ((x₁+x₂)/2, (y₁+y₂)/2)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "A transversal slicing two parallel lines carries the exact same 4-angle intersection down the track."
@@ -2394,7 +2394,7 @@
       "limits": "Formula: |PA| = |PB|  ⇔  P lies on perpendicular bisector of AB;   Euler: V − E + F = 2",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "A circle is the locus of points at a fixed distance from one point; two equal circles intersect on the locus equidistant from two points."
@@ -2411,7 +2411,7 @@
       "limits": "Formula: |PA| = |PB|  ⇔  P lies on perpendicular bisector of AB;   Euler: V − E + F = 2",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "A circle is the locus of points at a fixed distance from one point; two equal circles intersect on the locus equidistant from two points."
@@ -2428,7 +2428,7 @@
       "limits": "Formula: |PA| = |PB|  ⇔  P lies on perpendicular bisector of AB;   Euler: V − E + F = 2",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "A circle is the locus of points at a fixed distance from one point; two equal circles intersect on the locus equidistant from two points."
@@ -2445,7 +2445,7 @@
       "limits": "Formula: C = 2πr,   A_circle = πr²,   A_trap = ½(a + b)h,   V_prism = A_cross × L",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Every area and volume formula comes from slicing a curved or slanted shape into a familiar box."
@@ -2462,7 +2462,7 @@
       "limits": "Formula: C = 2πr,   A_circle = πr²,   A_trap = ½(a + b)h,   V_prism = A_cross × L",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Every area and volume formula comes from slicing a curved or slanted shape into a familiar box."
@@ -2479,7 +2479,7 @@
       "limits": "Formula: C = 2πr,   A_circle = πr²,   A_trap = ½(a + b)h,   V_prism = A_cross × L",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Every area and volume formula comes from slicing a curved or slanted shape into a familiar box."
@@ -2496,7 +2496,7 @@
       "limits": "Formula: OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Translations, reflections, and rotations are rigid isometries; enlargements scale lengths by k, areas by k², and volumes by k³."
@@ -2513,7 +2513,7 @@
       "limits": "Formula: OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Translations, reflections, and rotations are rigid isometries; enlargements scale lengths by k, areas by k², and volumes by k³."
@@ -2530,7 +2530,7 @@
       "limits": "Formula: OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Translations, reflections, and rotations are rigid isometries; enlargements scale lengths by k, areas by k², and volumes by k³."
@@ -2543,11 +2543,11 @@
       "chapter": 12,
       "figure": "maths/ch16-trigonometry-unit-circle/index.html#1",
       "question": "How does touching the geometry of Shadows of the Circle: Pythagoras, Sine, Cosine & Radians reveal its structure?",
-      "explanation": "Open the @saxster/atlas 3D Unit Circle stage: shine level light from the right for sin θ, top light for cos θ, and unfold the three squares on the right triangle.",
+      "explanation": "Open the 3D Unit Circle stage: shine level light from the right for sin θ, top light for cos θ, and unfold the three squares on the right triangle.",
       "limits": "Formula: P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Sine is the vertical shadow of a turning point on the unit circle; cosine is its horizontal shadow."
@@ -2564,7 +2564,7 @@
       "limits": "Formula: P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Sine is the vertical shadow of a turning point on the unit circle; cosine is its horizontal shadow."
@@ -2581,7 +2581,7 @@
       "limits": "Formula: P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Sine is the vertical shadow of a turning point on the unit circle; cosine is its horizontal shadow."
@@ -2594,11 +2594,11 @@
       "chapter": 13,
       "figure": "statistics/error/index.html",
       "question": "How does touching the geometry of How Not to Be Fooled by a Sample reveal its structure?",
-      "explanation": "Run the @saxster/atlas Repeated Readings Explorer (`statistics/error`) and toggle survivorship filter on Wald's WWII aircraft.",
+      "explanation": "Run the Repeated Readings Explorer (`statistics/error`) and toggle survivorship filter on Wald's WWII aircraft.",
       "limits": "Formula: Stratified nᵢ = n × (Nᵢ / N),   Standard Error SE = σ / √n",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "A huge biased sample is worse than a small random one; repeated random samples cluster within ±σ / √n of the truth."
@@ -2615,7 +2615,7 @@
       "limits": "Formula: Stratified nᵢ = n × (Nᵢ / N),   Standard Error SE = σ / √n",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "A huge biased sample is worse than a small random one; repeated random samples cluster within ±σ / √n of the truth."
@@ -2632,7 +2632,7 @@
       "limits": "Formula: Stratified nᵢ = n × (Nᵢ / N),   Standard Error SE = σ / √n",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "A huge biased sample is worse than a small random one; repeated random samples cluster within ±σ / √n of the truth."
@@ -2649,7 +2649,7 @@
       "limits": "Formula: Frequency Density = f / Δx,   μ = (∑ xᵢ) / n,   σ = √[ (∑(xᵢ − μ)²) / n ]",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "In a true histogram, the area of each bar — not its height — represents frequency."
@@ -2666,7 +2666,7 @@
       "limits": "Formula: Frequency Density = f / Δx,   μ = (∑ xᵢ) / n,   σ = √[ (∑(xᵢ − μ)²) / n ]",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "In a true histogram, the area of each bar — not its height — represents frequency."
@@ -2683,7 +2683,7 @@
       "limits": "Formula: Frequency Density = f / Δx,   μ = (∑ xᵢ) / n,   σ = √[ (∑(xᵢ − μ)²) / n ]",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "In a true histogram, the area of each bar — not its height — represents frequency."
@@ -2696,11 +2696,11 @@
       "chapter": 15,
       "figure": "statistics/galton/index.html",
       "question": "How does touching the geometry of Counting Worlds: Sample Spaces, Permutations & Combinations reveal its structure?",
-      "explanation": "Open the @saxster/atlas Galton Pegboard Explorer (`statistics/galton`): predict the slot distribution and drop 500 seeded balls.",
+      "explanation": "Open the Galton Pegboard Explorer (`statistics/galton`): predict the slot distribution and drop 500 seeded balls.",
       "limits": "Formula: P(A ∩ B) = P(A) · P(B),   ⁿPᵣ = n! / (n − r)!,   ⁿCᵣ = n! / [r!(n − r)!]",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Drop 500 balls through rows of 50/50 pegs and binomial combinations C(n, k) build the normal bell curve before your eyes."
@@ -2717,7 +2717,7 @@
       "limits": "Formula: P(A ∩ B) = P(A) · P(B),   ⁿPᵣ = n! / (n − r)!,   ⁿCᵣ = n! / [r!(n − r)!]",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Drop 500 balls through rows of 50/50 pegs and binomial combinations C(n, k) build the normal bell curve before your eyes."
@@ -2734,7 +2734,7 @@
       "limits": "Formula: P(A ∩ B) = P(A) · P(B),   ⁿPᵣ = n! / (n − r)!,   ⁿCᵣ = n! / [r!(n − r)!]",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Drop 500 balls through rows of 50/50 pegs and binomial combinations C(n, k) build the normal bell curve before your eyes."
@@ -2747,11 +2747,11 @@
       "chapter": 16,
       "figure": "maths/ch17-bayes-probability/index.html",
       "question": "How does touching the geometry of Updating Belief: Conditional Probability & Bayes' Theorem reveal its structure?",
-      "explanation": "Open the @saxster/atlas Bayes Unit-Square Explorer (`statistics/bayes`): set prevalence p = 2%, sensitivity = 95%, false-positive rate = 5%, and screen 1,000 people.",
+      "explanation": "Open the Bayes Unit-Square Explorer (`statistics/bayes`): set prevalence p = 2%, sensitivity = 95%, false-positive rate = 5%, and screen 1,000 people.",
       "limits": "Formula: P(D | +) = [ P(+ | D) P(D) ] / [ P(+ | D) P(D) + P(+ | ¬D) P(¬D) ]",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Evidence never acts in a vacuum — it slices and renormalizes the prior base rate inside a 1,000-person unit square."
@@ -2768,7 +2768,7 @@
       "limits": "Formula: P(D | +) = [ P(+ | D) P(D) ] / [ P(+ | D) P(D) + P(+ | ¬D) P(¬D) ]",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Evidence never acts in a vacuum — it slices and renormalizes the prior base rate inside a 1,000-person unit square."
@@ -2785,7 +2785,7 @@
       "limits": "Formula: P(D | +) = [ P(+ | D) P(D) ] / [ P(+ | D) P(D) + P(+ | ¬D) P(¬D) ]",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Evidence never acts in a vacuum — it slices and renormalizes the prior base rate inside a 1,000-person unit square."
@@ -2798,11 +2798,11 @@
       "chapter": 17,
       "figure": "maths/ch18-differential-calculus/index.html",
       "question": "How does touching the geometry of Zooming In Forever: Limits, Secants & Derivatives reveal its structure?",
-      "explanation": "Open @saxster/atlas Calculus (`maths/calculus` pp. 0–2) and slide point Q toward P(1, ½) on f(x) = ½x², or expand a square of side x by dx.",
+      "explanation": "Open the Atlas Calculus (`maths/calculus` pp. 0–2) and slide point Q toward P(1, ½) on f(x) = ½x², or expand a square of side x by dx.",
       "limits": "Formula: f′(x) = lim_{h→0} [f(x + h) − f(x)] / h,   d/dx (xⁿ) = n xⁿ⁻¹",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "A curve looks straight when you zoom in; its derivative f′(x) is the limit of the secant slope as step h shrinks to zero."
@@ -2819,7 +2819,7 @@
       "limits": "Formula: f′(x) = lim_{h→0} [f(x + h) − f(x)] / h,   d/dx (xⁿ) = n xⁿ⁻¹",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "A curve looks straight when you zoom in; its derivative f′(x) is the limit of the secant slope as step h shrinks to zero."
@@ -2836,7 +2836,7 @@
       "limits": "Formula: f′(x) = lim_{h→0} [f(x + h) − f(x)] / h,   d/dx (xⁿ) = n xⁿ⁻¹",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "A curve looks straight when you zoom in; its derivative f′(x) is the limit of the secant slope as step h shrinks to zero."
@@ -2849,11 +2849,11 @@
       "chapter": 18,
       "figure": "maths/ch19-integral-calculus/index.html",
       "question": "How does touching the geometry of Slicing to Infinity: Riemann Sums & The Fundamental Theorem of Calculus reveal its structure?",
-      "explanation": "Open @saxster/atlas Calculus (`maths/calculus` pp. 3–5) and compare the blue area under f′(t) = t from 0 to x with the red height of the parabola f(x) = ½x².",
+      "explanation": "Open the Atlas Calculus (`maths/calculus` pp. 3–5) and compare the blue area under f′(t) = t from 0 to x with the red height of the parabola f(x) = ½x².",
       "limits": "Formula: ∫ₐᵇ f(x) dx = lim_{n→∞} ∑ f(xᵢ) Δx = F(b) − F(a)   where F′(x) = f(x)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Adding up infinitely many thin rate-times-time slivers reconstructs total change: integration and differentiation undo each other."
@@ -2870,7 +2870,7 @@
       "limits": "Formula: ∫ₐᵇ f(x) dx = lim_{n→∞} ∑ f(xᵢ) Δx = F(b) − F(a)   where F′(x) = f(x)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Adding up infinitely many thin rate-times-time slivers reconstructs total change: integration and differentiation undo each other."
@@ -2887,7 +2887,7 @@
       "limits": "Formula: ∫ₐᵇ f(x) dx = lim_{n→∞} ∑ f(xᵢ) Δx = F(b) − F(a)   where F′(x) = f(x)",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "Adding up infinitely many thin rate-times-time slivers reconstructs total change: integration and differentiation undo each other."
@@ -2904,7 +2904,7 @@
       "limits": "Formula: AB = OB − OA,   |v| = √(x² + y²),   u · v = x₁x₂ + y₁y₂ = |u||v| cos θ",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "A vector is a pure displacement (dx, dy) free of any starting point; adding vectors chains journeys tip-to-tail."
@@ -2921,7 +2921,7 @@
       "limits": "Formula: AB = OB − OA,   |v| = √(x² + y²),   u · v = x₁x₂ + y₁y₂ = |u||v| cos θ",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "A vector is a pure displacement (dx, dy) free of any starting point; adding vectors chains journeys tip-to-tail."
@@ -2938,7 +2938,7 @@
       "limits": "Formula: AB = OB − OA,   |v| = √(x² + y²),   u · v = x₁x₂ + y₁y₂ = |u||v| cos θ",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "A vector is a pure displacement (dx, dy) free of any starting point; adding vectors chains journeys tip-to-tail."
@@ -2951,11 +2951,11 @@
       "chapter": 20,
       "figure": "maths/ch20-matrices-eigen/index.html",
       "question": "How does touching the geometry of Stretching the Plane: 2×2 Matrices, Determinants & Eigenvectors reveal its structure?",
-      "explanation": "Open the @saxster/atlas 2×2 Matrix Sandbox (`maths/matrix-sandbox`) and drag the red tip of Aî = (a, c) and blue tip of Aĵ = (b, d) directly in 3D.",
+      "explanation": "Open the 2×2 Matrix Sandbox (`maths/matrix-sandbox`) and drag the red tip of Aî = (a, c) and blue tip of Aĵ = (b, d) directly in 3D.",
       "limits": "Formula: A[x, y]ᵀ = x Aî + y Aĵ,   det(A) = ad − bc,   A v = λ v  ⇔  det(A − λI) = 0",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "A 2×2 matrix is a machine that moves the entire coordinate grid by landing î at column 1 and ĵ at column 2."
@@ -2972,7 +2972,7 @@
       "limits": "Formula: A[x, y]ᵀ = x Aî + y Aĵ,   det(A) = ad − bc,   A v = λ v  ⇔  det(A − λI) = 0",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "A 2×2 matrix is a machine that moves the entire coordinate grid by landing î at column 1 and ĵ at column 2."
@@ -2989,7 +2989,7 @@
       "limits": "Formula: A[x, y]ᵀ = x Aî + y Aĵ,   det(A) = ad − bc,   A v = λ v  ⇔  det(A − λI) = 0",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
-        "@saxster/atlas Visualisations"
+        "Atlas figures"
       ],
       "stories": [
         "A 2×2 matrix is a machine that moves the entire coordinate grid by landing î at column 1 and ĵ at column 2."
@@ -3265,7 +3265,7 @@
       "watchSteps": [
         {
           "title": "1. Concrete Touch",
-          "caption": "Run the @saxster/atlas ₹1,000/month at 8% machine over 20 years and compare white savings, red simple interest, and amber compound interest."
+          "caption": "Run the ₹1,000/month at 8% machine over 20 years and compare white savings, red simple interest, and amber compound interest."
         },
         {
           "title": "2. Spot the Invariant ('Aha!')",
@@ -3297,7 +3297,7 @@
       "watchSteps": [
         {
           "title": "1. Concrete Touch",
-          "caption": "Run the @saxster/atlas ₹1,000/month at 8% machine over 20 years and compare white savings, red simple interest, and amber compound interest."
+          "caption": "Run the ₹1,000/month at 8% machine over 20 years and compare white savings, red simple interest, and amber compound interest."
         },
         {
           "title": "2. Spot the Invariant ('Aha!')",
@@ -3905,7 +3905,7 @@
       "watchSteps": [
         {
           "title": "1. Concrete Touch",
-          "caption": "Open the @saxster/atlas 3D Unit Circle stage: shine level light from the right for sin θ, top light for cos θ, and unfold the three squares on the right triangle."
+          "caption": "Open the 3D Unit Circle stage: shine level light from the right for sin θ, top light for cos θ, and unfold the three squares on the right triangle."
         },
         {
           "title": "2. Spot the Invariant ('Aha!')",
@@ -3969,7 +3969,7 @@
       "watchSteps": [
         {
           "title": "1. Concrete Touch",
-          "caption": "Open the @saxster/atlas 3D Unit Circle stage: shine level light from the right for sin θ, top light for cos θ, and unfold the three squares on the right triangle."
+          "caption": "Open the 3D Unit Circle stage: shine level light from the right for sin θ, top light for cos θ, and unfold the three squares on the right triangle."
         },
         {
           "title": "2. Spot the Invariant ('Aha!')",
@@ -4001,7 +4001,7 @@
       "watchSteps": [
         {
           "title": "1. Concrete Touch",
-          "caption": "Run the @saxster/atlas Repeated Readings Explorer (`statistics/error`) and toggle survivorship filter on Wald's WWII aircraft."
+          "caption": "Run the Repeated Readings Explorer (`statistics/error`) and toggle survivorship filter on Wald's WWII aircraft."
         },
         {
           "title": "2. Spot the Invariant ('Aha!')",
@@ -4033,7 +4033,7 @@
       "watchSteps": [
         {
           "title": "1. Concrete Touch",
-          "caption": "Run the @saxster/atlas Repeated Readings Explorer (`statistics/error`) and toggle survivorship filter on Wald's WWII aircraft."
+          "caption": "Run the Repeated Readings Explorer (`statistics/error`) and toggle survivorship filter on Wald's WWII aircraft."
         },
         {
           "title": "2. Spot the Invariant ('Aha!')",
@@ -4129,7 +4129,7 @@
       "watchSteps": [
         {
           "title": "1. Concrete Touch",
-          "caption": "Open the @saxster/atlas Galton Pegboard Explorer (`statistics/galton`): predict the slot distribution and drop 500 seeded balls."
+          "caption": "Open the Galton Pegboard Explorer (`statistics/galton`): predict the slot distribution and drop 500 seeded balls."
         },
         {
           "title": "2. Spot the Invariant ('Aha!')",
@@ -4161,7 +4161,7 @@
       "watchSteps": [
         {
           "title": "1. Concrete Touch",
-          "caption": "Open the @saxster/atlas Galton Pegboard Explorer (`statistics/galton`): predict the slot distribution and drop 500 seeded balls."
+          "caption": "Open the Galton Pegboard Explorer (`statistics/galton`): predict the slot distribution and drop 500 seeded balls."
         },
         {
           "title": "2. Spot the Invariant ('Aha!')",
@@ -4193,7 +4193,7 @@
       "watchSteps": [
         {
           "title": "1. Concrete Touch",
-          "caption": "Open the @saxster/atlas Bayes Unit-Square Explorer (`statistics/bayes`): set prevalence p = 2%, sensitivity = 95%, false-positive rate = 5%, and screen 1,000 people."
+          "caption": "Open the Bayes Unit-Square Explorer (`statistics/bayes`): set prevalence p = 2%, sensitivity = 95%, false-positive rate = 5%, and screen 1,000 people."
         },
         {
           "title": "2. Spot the Invariant ('Aha!')",
@@ -4225,7 +4225,7 @@
       "watchSteps": [
         {
           "title": "1. Concrete Touch",
-          "caption": "Open the @saxster/atlas Bayes Unit-Square Explorer (`statistics/bayes`): set prevalence p = 2%, sensitivity = 95%, false-positive rate = 5%, and screen 1,000 people."
+          "caption": "Open the Bayes Unit-Square Explorer (`statistics/bayes`): set prevalence p = 2%, sensitivity = 95%, false-positive rate = 5%, and screen 1,000 people."
         },
         {
           "title": "2. Spot the Invariant ('Aha!')",
@@ -4257,7 +4257,7 @@
       "watchSteps": [
         {
           "title": "1. Concrete Touch",
-          "caption": "Open @saxster/atlas Calculus (`maths/calculus` pp. 0–2) and slide point Q toward P(1, ½) on f(x) = ½x², or expand a square of side x by dx."
+          "caption": "Open the Atlas Calculus (`maths/calculus` pp. 0–2) and slide point Q toward P(1, ½) on f(x) = ½x², or expand a square of side x by dx."
         },
         {
           "title": "2. Spot the Invariant ('Aha!')",
@@ -4289,7 +4289,7 @@
       "watchSteps": [
         {
           "title": "1. Concrete Touch",
-          "caption": "Open @saxster/atlas Calculus (`maths/calculus` pp. 0–2) and slide point Q toward P(1, ½) on f(x) = ½x², or expand a square of side x by dx."
+          "caption": "Open the Atlas Calculus (`maths/calculus` pp. 0–2) and slide point Q toward P(1, ½) on f(x) = ½x², or expand a square of side x by dx."
         },
         {
           "title": "2. Spot the Invariant ('Aha!')",
@@ -4321,7 +4321,7 @@
       "watchSteps": [
         {
           "title": "1. Concrete Touch",
-          "caption": "Open @saxster/atlas Calculus (`maths/calculus` pp. 3–5) and compare the blue area under f′(t) = t from 0 to x with the red height of the parabola f(x) = ½x²."
+          "caption": "Open the Atlas Calculus (`maths/calculus` pp. 3–5) and compare the blue area under f′(t) = t from 0 to x with the red height of the parabola f(x) = ½x²."
         },
         {
           "title": "2. Spot the Invariant ('Aha!')",
@@ -4353,7 +4353,7 @@
       "watchSteps": [
         {
           "title": "1. Concrete Touch",
-          "caption": "Open @saxster/atlas Calculus (`maths/calculus` pp. 3–5) and compare the blue area under f′(t) = t from 0 to x with the red height of the parabola f(x) = ½x²."
+          "caption": "Open the Atlas Calculus (`maths/calculus` pp. 3–5) and compare the blue area under f′(t) = t from 0 to x with the red height of the parabola f(x) = ½x²."
         },
         {
           "title": "2. Spot the Invariant ('Aha!')",
@@ -4449,7 +4449,7 @@
       "watchSteps": [
         {
           "title": "1. Concrete Touch",
-          "caption": "Open the @saxster/atlas 2×2 Matrix Sandbox (`maths/matrix-sandbox`) and drag the red tip of Aî = (a, c) and blue tip of Aĵ = (b, d) directly in 3D."
+          "caption": "Open the 2×2 Matrix Sandbox (`maths/matrix-sandbox`) and drag the red tip of Aî = (a, c) and blue tip of Aĵ = (b, d) directly in 3D."
         },
         {
           "title": "2. Spot the Invariant ('Aha!')",
@@ -4481,7 +4481,7 @@
       "watchSteps": [
         {
           "title": "1. Concrete Touch",
-          "caption": "Open the @saxster/atlas 2×2 Matrix Sandbox (`maths/matrix-sandbox`) and drag the red tip of Aî = (a, c) and blue tip of Aĵ = (b, d) directly in 3D."
+          "caption": "Open the 2×2 Matrix Sandbox (`maths/matrix-sandbox`) and drag the red tip of Aî = (a, c) and blue tip of Aĵ = (b, d) directly in 3D."
         },
         {
           "title": "2. Spot the Invariant ('Aha!')",
@@ -4730,7 +4730,7 @@
             ],
             "summary": "Two negative signs rotate 180° twice (+); odd count of negatives gives negative.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 1.1.",
+              "Draw the bar model or a sketch before you write the formula for 1.1.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -4752,7 +4752,7 @@
             ],
             "summary": "Prime factor powers must be multiples of 2 for squares and multiples of 3 for cubes.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 1.2.",
+              "Draw the bar model or a sketch before you write the formula for 1.2.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -4774,7 +4774,7 @@
             ],
             "summary": "aᵐ × aⁿ = aᵐ⁺ⁿ, aᵐ ÷ aⁿ = aᵐ⁻ⁿ, (aᵐ)ⁿ = aᵐⁿ, a⁰ = 1, a⁻ⁿ = 1/aⁿ.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 1.3.",
+              "Draw the bar model or a sketch before you write the formula for 1.3.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -4796,7 +4796,7 @@
             ],
             "summary": "Venn diagram of prime factors: intersection = HCF, union = LCM, HCF × LCM = a × b.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 1.4.",
+              "Draw the bar model or a sketch before you write the formula for 1.4.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -4818,7 +4818,7 @@
             ],
             "summary": "BIDMAS/BODMAS hierarchy; note −3² = −9 whereas (−3)² = +9.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 1.5.",
+              "Draw the bar model or a sketch before you write the formula for 1.5.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -4840,7 +4840,7 @@
             ],
             "summary": "ℕ ⊂ ℤ ⊂ ℚ ⊂ ℝ; rational numbers a/b terminate or recur; √2 is irrational.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 1.6.",
+              "Draw the bar model or a sketch before you write the formula for 1.6.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           }
@@ -4889,7 +4889,7 @@
             "bridgeIds": [],
             "summary": "Distinguish an expression (no =), an equation (true for specific x), and an identity (true for all x).",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 2.1.",
+              "Draw the bar model or a sketch before you write the formula for 2.1.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -4909,7 +4909,7 @@
             "bridgeIds": [],
             "summary": "Area-array model: a(b + c) = ab + ac and (x + a)(x + b) = x² + (a + b)x + ab.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 2.2.",
+              "Draw the bar model or a sketch before you write the formula for 2.2.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -4929,7 +4929,7 @@
             "bridgeIds": [],
             "summary": "Extract the full HCF of coefficients and powers; spot a² − b² = (a − b)(a + b).",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 2.3.",
+              "Draw the bar model or a sketch before you write the formula for 2.3.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -4949,7 +4949,7 @@
             "bridgeIds": [],
             "summary": "Wrap negative substituted values in brackets before squaring or multiplying.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 2.4.",
+              "Draw the bar model or a sketch before you write the formula for 2.4.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           }
@@ -5002,7 +5002,7 @@
             ],
             "summary": "Classify by diagonal properties: rhombus & kite diagonals cross at 90°; rectangle diagonals are equal.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 3.1.",
+              "Draw the bar model or a sketch before you write the formula for 3.1.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5024,7 +5024,7 @@
             ],
             "summary": "Prisms, pyramids, nets, plans & elevations, and Euler's invariant V − E + F = 2.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 3.2.",
+              "Draw the bar model or a sketch before you write the formula for 3.2.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5046,7 +5046,7 @@
             ],
             "summary": "Measure clockwise from North in 3 digits (000°–360°); back-bearing adds or subtracts 180°.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 3.3.",
+              "Draw the bar model or a sketch before you write the formula for 3.3.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5068,7 +5068,7 @@
             ],
             "summary": "SSS, SAS, ASA triangle constructions with ruler and compass; keep construction arcs visible.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 3.4.",
+              "Draw the bar model or a sketch before you write the formula for 3.4.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5090,7 +5090,7 @@
             ],
             "summary": "Perpendicular bisector = locus equidistant from A and B; angle bisector = locus equidistant from two lines.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 3.5.",
+              "Draw the bar model or a sketch before you write the formula for 3.5.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           }
@@ -5139,7 +5139,7 @@
             "bridgeIds": [],
             "summary": "Primary vs secondary data, questionnaires, two-way tally tables, and avoiding leading questions.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 4.1.",
+              "Draw the bar model or a sketch before you write the formula for 4.1.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5159,7 +5159,7 @@
             "bridgeIds": [],
             "summary": "Simple random, systematic, and stratified sampling nᵢ = n(Nᵢ/N); survivorship and selection bias.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 4.2.",
+              "Draw the bar model or a sketch before you write the formula for 4.2.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           }
@@ -5212,7 +5212,7 @@
             ],
             "summary": "C = πd = 2πr and sector rearrangement A = πr²; arc length & sector area by θ/360°.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 5.1.",
+              "Draw the bar model or a sketch before you write the formula for 5.1.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5234,7 +5234,7 @@
             ],
             "summary": "Use perpendicular height h: parallelogram A = bh; trapezium A = ½(a + b)h.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 5.2.",
+              "Draw the bar model or a sketch before you write the formula for 5.2.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5256,7 +5256,7 @@
             ],
             "summary": "V = Cross-sectional Area × Length = (½bh) × L; Cylinder V = πr²h.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 5.3.",
+              "Draw the bar model or a sketch before you write the formula for 5.3.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5278,7 +5278,7 @@
             ],
             "summary": "Unfold 3D net; use Pythagoras to find slant height of triangular faces.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 5.4.",
+              "Draw the bar model or a sketch before you write the formula for 5.4.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5300,7 +5300,7 @@
             ],
             "summary": "Miles ↔ km (5 miles ≈ 8 km), inches ↔ cm, pints ↔ litres, pounds ↔ kg.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 5.5.",
+              "Draw the bar model or a sketch before you write the formula for 5.5.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           }
@@ -5353,7 +5353,7 @@
             ],
             "summary": "Scale numerator and denominator by 10ᵏ so the divisor is a whole number.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 6.1.",
+              "Draw the bar model or a sketch before you write the formula for 6.1.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5375,7 +5375,7 @@
             ],
             "summary": "Count from the first non-zero digit; round only at the final step of a calculation.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 6.2.",
+              "Draw the bar model or a sketch before you write the formula for 6.2.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5397,7 +5397,7 @@
             ],
             "summary": "Prime denominators with only 2s and 5s terminate; others recur; convert via (10ᵏ − 1)x.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 6.3.",
+              "Draw the bar model or a sketch before you write the formula for 6.3.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5419,7 +5419,7 @@
             ],
             "summary": "Convert to improper fractions or borrow 1 whole as d/d when the fraction part is larger.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 6.4.",
+              "Draw the bar model or a sketch before you write the formula for 6.4.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5441,7 +5441,7 @@
             ],
             "summary": "Cross-cancel common factors before multiplying; divide by multiplying by the reciprocal.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 6.5.",
+              "Draw the bar model or a sketch before you write the formula for 6.5.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           }
@@ -5494,7 +5494,7 @@
             ],
             "summary": "Translate Singapore bar models and geometric perimeters/areas into algebraic formulae.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 7.1.",
+              "Draw the bar model or a sketch before you write the formula for 7.1.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5516,7 +5516,7 @@
             ],
             "summary": "Solve linear equations with brackets, fractions, and unknowns on both sides.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 7.2.",
+              "Draw the bar model or a sketch before you write the formula for 7.2.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5538,7 +5538,7 @@
             ],
             "summary": "Reverse order of operations; factor out the target variable when it appears twice.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 7.3.",
+              "Draw the bar model or a sketch before you write the formula for 7.3.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5560,7 +5560,7 @@
             ],
             "summary": "Open circle (<, >) vs closed circle (≤, ≥); reverse inequality sign when multiplying/dividing by a negative.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 7.4.",
+              "Draw the bar model or a sketch before you write the formula for 7.4.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           }
@@ -5609,7 +5609,7 @@
             "bridgeIds": [],
             "summary": "The exterior angle of a triangle equals the sum of the two opposite interior angles (α + β).",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 8.1.",
+              "Draw the bar model or a sketch before you write the formula for 8.1.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5629,7 +5629,7 @@
             "bridgeIds": [],
             "summary": "Alternate (Z) equal, corresponding (F) equal, co-interior (C) add to 180°, vertically opposite equal.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 8.2.",
+              "Draw the bar model or a sketch before you write the formula for 8.2.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5649,7 +5649,7 @@
             "bridgeIds": [],
             "summary": "Midpoint M = ((x₁ + x₂)/2, (y₁ + y₂)/2) is the coordinate average of endpoints.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 8.3.",
+              "Draw the bar model or a sketch before you write the formula for 8.3.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           }
@@ -5702,7 +5702,7 @@
             ],
             "summary": "Multiplying by a decimal between 0 and 1 makes a positive number smaller.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 9.1.",
+              "Draw the bar model or a sketch before you write the formula for 9.1.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5724,7 +5724,7 @@
             ],
             "summary": "Dividing by 0.1, 0.01, or 0.25 scales the number up (÷ 0.25 = × 4).",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 9.2.",
+              "Draw the bar model or a sketch before you write the formula for 9.2.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5746,7 +5746,7 @@
             ],
             "summary": "Use single multipliers (1 ± r); reverse percentages divide by (1 ± r); compound growth P(1+r)ⁿ.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 9.3.",
+              "Draw the bar model or a sketch before you write the formula for 9.3.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5768,7 +5768,7 @@
             ],
             "summary": "Convert between benchmark fractions, decimals, and percentages for rapid cancellation.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 9.4.",
+              "Draw the bar model or a sketch before you write the formula for 9.4.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           }
@@ -5817,7 +5817,7 @@
             "bridgeIds": [],
             "summary": "Plot time on the horizontal axis, identify seasonal cycles, and compute moving-average trends.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 10.1.",
+              "Draw the bar model or a sketch before you write the formula for 10.1.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5837,7 +5837,7 @@
             "bridgeIds": [],
             "summary": "Ordered leaves, mandatory key (e.g. 4 | 2 = 42), back-to-back comparison of median and IQR.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 10.2.",
+              "Draw the bar model or a sketch before you write the formula for 10.2.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5857,7 +5857,7 @@
             "bridgeIds": [],
             "summary": "Continuous bars with zero gaps; for unequal class widths, height = Frequency Density = f / Δx.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 10.3.",
+              "Draw the bar model or a sketch before you write the formula for 10.3.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5877,7 +5877,7 @@
             "bridgeIds": [],
             "summary": "Compare distributions using a measure of central tendency (mean/median) AND spread (IQR/σ).",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 10.4.",
+              "Draw the bar model or a sketch before you write the formula for 10.4.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           }
@@ -5932,7 +5932,7 @@
             ],
             "summary": "Term-to-term vs position-to-term rules; arithmetic, geometric, Fibonacci, and quadratic sequences.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 11.1.",
+              "Draw the bar model or a sketch before you write the formula for 11.1.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -5955,7 +5955,7 @@
             ],
             "summary": "Linear Tₙ = dn + (a₁ − d); quadratic Tₙ = an² + bn + c where 2nd difference = 2a; Gauss sum Sₙ.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 11.2.",
+              "Draw the bar model or a sketch before you write the formula for 11.2.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           }
@@ -6010,7 +6010,7 @@
             ],
             "summary": "Area conversions square the linear factor (1 m² = 10,000 cm²); volume conversions cube it (1 m³ = 10⁶ cm³).",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 12.1.",
+              "Draw the bar model or a sketch before you write the formula for 12.1.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -6033,7 +6033,7 @@
             ],
             "summary": "Convert to the same units first; write in simplest integer form or unitary form 1 : n.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 12.2.",
+              "Draw the bar model or a sketch before you write the formula for 12.2.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -6056,7 +6056,7 @@
             ],
             "summary": "Singapore Bar Model: find 1 unit = Total ÷ ∑ parts, or from a known difference between parts.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 12.3.",
+              "Draw the bar model or a sketch before you write the formula for 12.3.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -6079,7 +6079,7 @@
             ],
             "summary": "Direct proportion y = kx vs inverse proportion y = k/x (where x · y = constant).",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 12.4.",
+              "Draw the bar model or a sketch before you write the formula for 12.4.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           }
@@ -6134,7 +6134,7 @@
             ],
             "summary": "Specify by column vector (dx, dy); orientation and size remain invariant.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 13.1.",
+              "Draw the bar model or a sketch before you write the formula for 13.1.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -6157,7 +6157,7 @@
             ],
             "summary": "Mirror line is the perpendicular bisector of every point P and its image P′ (y = x swaps coordinates).",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 13.2.",
+              "Draw the bar model or a sketch before you write the formula for 13.2.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -6180,7 +6180,7 @@
             ],
             "summary": "Specify angle, direction (clockwise/anticlockwise), and centre of rotation (x₀, y₀).",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 13.3.",
+              "Draw the bar model or a sketch before you write the formula for 13.3.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -6203,7 +6203,7 @@
             ],
             "summary": "Lines of reflection symmetry and order of rotational symmetry in 2D polygons and 3D solids.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 13.4.",
+              "Draw the bar model or a sketch before you write the formula for 13.4.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -6226,7 +6226,7 @@
             ],
             "summary": "Multiply ray distances from centre of enlargement by scale factor k; area scales by k².",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 13.5.",
+              "Draw the bar model or a sketch before you write the formula for 13.5.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           }
@@ -6281,7 +6281,7 @@
             ],
             "summary": "One-step and two-step function machines f(x), domain/range mappings, and inverse functions f⁻¹(x).",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 14.1.",
+              "Draw the bar model or a sketch before you write the formula for 14.1.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -6304,7 +6304,7 @@
             ],
             "summary": "y = mx + c, gradient m = Δy/Δx, intercepts, parallel lines (m₁ = m₂), and graphical simultaneous equations.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 14.2.",
+              "Draw the bar model or a sketch before you write the formula for 14.2.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -6327,7 +6327,7 @@
             ],
             "summary": "Distance-time gradient = speed; speed-time gradient = acceleration and area = distance travelled.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 14.3.",
+              "Draw the bar model or a sketch before you write the formula for 14.3.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           }
@@ -6382,7 +6382,7 @@
             ],
             "summary": "Probability scale [0, 1], mutually exclusive events ∑ P(Eᵢ) = 1, complement P(A′) = 1 − P(A).",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 15.1.",
+              "Draw the bar model or a sketch before you write the formula for 15.1.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -6405,7 +6405,7 @@
             ],
             "summary": "Relative frequency = successes ÷ trials; Law of Large Numbers converges toward theoretical probability.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 15.2.",
+              "Draw the bar model or a sketch before you write the formula for 15.2.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -6428,7 +6428,7 @@
             ],
             "summary": "Equally likely outcomes P(A) = |A| / |ξ|, permutations nPr, combinations nCr.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 15.3.",
+              "Draw the bar model or a sketch before you write the formula for 15.3.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -6451,7 +6451,7 @@
             ],
             "summary": "Sample-space diagrams, probability trees, conditional probability, and Bayes' theorem P(D|+).",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 15.4.",
+              "Draw the bar model or a sketch before you write the formula for 15.4.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           }
@@ -6508,7 +6508,7 @@
             ],
             "summary": "Scalar vs vector, column notation (x, y)ᵀ, equal/negative vectors, scalar multiples, magnitude √(x²+y²).",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 16.1.",
+              "Draw the bar model or a sketch before you write the formula for 16.1.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           },
@@ -6532,7 +6532,7 @@
             ],
             "summary": "Triangle law AB + BC = AC, position vectors, proving collinearity and parallel midsegments, 2×2 matrices.",
             "cambridgeWatchouts": [
-              "Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for 16.2.",
+              "Draw the bar model or a sketch before you write the formula for 16.2.",
               "Check units, negative signs, and significant figures at the final step."
             ]
           }
@@ -10492,7 +10492,7 @@
       "subtitle": "Select a heuristic: Draw a Bar Model, Try a Simpler Case, Work Backwards, or Look for Symmetry",
       "symbol": "map.fill",
       "prompts": [
-        "Can I draw a Concrete → Pictorial bar model or auxiliary geometric line?",
+        "Can I draw a bar model, or add a helper line to the figure?",
         "What happens in a tiny case (n = 1, 2, 3) — does a pattern of differences emerge?",
         "Can I work backwards from the target or use an extreme case (h → 0, θ = 0° or 90°)?"
       ],
@@ -10735,7 +10735,7 @@
       "id": "tip-pythag-trig",
       "title": "Why sin²θ + cos²θ = 1 for Every Angle",
       "chapter": 12,
-      "visualIntuition": "On the @saxster/atlas unit circle of radius 1, level light casts vertical shadow sin θ and top light casts horizontal shadow cos θ.",
+      "visualIntuition": "On the unit circle of radius 1, level light casts vertical shadow sin θ and top light casts horizontal shadow cos θ.",
       "ahaMoment": "Those two shadows are the legs of a right triangle with hypotenuse 1 — so their squares always add to 1² = 1!",
       "formula": "cos²θ + sin²θ = 1² = 1"
     },
@@ -10743,7 +10743,7 @@
       "id": "tip-bayes-square",
       "title": "Why a Positive Result from a 95% Accurate Test Is Wrong 72% of the Time",
       "chapter": 16,
-      "visualIntuition": "In the @saxster/atlas 1,000-person unit square at 2% prevalence, only 20 people are sick while 980 are healthy.",
+      "visualIntuition": "In the 1,000-person unit square at 2% prevalence, only 20 people are sick while 980 are healthy.",
       "ahaMoment": "5% false alarms on 980 healthy people creates 49 false positives (amber), dwarfing the 19 true positives (red)!",
       "formula": "P(D | +) = TP / (TP + FP) = 19 / (19 + 49) ≈ 27.9%"
     },
@@ -10759,7 +10759,7 @@
       "id": "tip-matrix-det",
       "title": "Why det(A) = ad − bc Is Area",
       "chapter": 20,
-      "visualIntuition": "Drag the red basis vector Aî = (a, c) and blue basis vector Aĵ = (b, d) in the @saxster/atlas 2×2 Matrix Sandbox.",
+      "visualIntuition": "Drag the red basis vector Aî = (a, c) and blue basis vector Aĵ = (b, d) in the 2×2 Matrix Sandbox.",
       "ahaMoment": "The unit 1×1 square deforms into a parallelogram whose bounding box (a+b)(c+d), minus four right triangles and two b×c rectangles, leaves exact area ad − bc!",
       "formula": "Area(A · Square) = det(A) = ad − bc"
     }

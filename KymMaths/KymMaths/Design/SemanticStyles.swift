@@ -84,19 +84,21 @@ enum MathsFigureRadius {
 /// Fixed colours of the figure plates: they are printed on drafting paper, so they don't follow
 /// the theme.
 enum MathsFigureColor {
-    /// Drafting rag paper behind every plate.
-    static let paper = Color(red: 0.965, green: 0.953, blue: 0.925)
+    /// Drafting rag paper behind every plate: the Figma `paper/page`.
+    static let paper = Color(red: 0.965, green: 0.945, blue: 0.906)
     /// A callout pin's number, on its red or green disc.
     static let pinNumber = Color(white: 1)
     /// A callout pin's capsule, lifted off the plate.
     static let pinCapsule = Color(white: 1).opacity(0.92)
 
-    /// 4-colour semantic geometry palette (PLAYBOOK §1.2) on drafting paper (`MathsFigureColor.paper`).
-    static let red = Color(red: 0.78, green: 0.25, blue: 0.18)
-    static let blue = Color(red: 0.14, green: 0.36, blue: 0.58)
-    static let amber = Color(red: 0.72, green: 0.45, blue: 0.10)
-    static let green = Color(red: 0.18, green: 0.48, blue: 0.31)
-    static let ink = Color(red: 0.16, green: 0.14, blue: 0.20)
+    /// Byrne's palette on drafting paper, the Paper values of `PatternedPalette`: red moves, amber
+    /// (Byrne's yellow) stays the same, blue is given. Green marks a proven result.
+    /// Amber is a fill colour; a thin amber line or label needs an ink edge to read on paper.
+    static let red = Color(red: 0.765, green: 0.212, blue: 0.169)
+    static let blue = Color(red: 0.137, green: 0.318, blue: 0.612)
+    static let amber = Color(red: 0.886, green: 0.643, blue: 0.110)
+    static let green = Color(red: 0.310, green: 0.420, blue: 0.271)
+    static let ink = Color(red: 0.118, green: 0.110, blue: 0.094)
 
     static func roleColor(_ role: String) -> Color {
         switch role.lowercased() {

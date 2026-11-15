@@ -747,8 +747,8 @@ public struct LiveMentorCallSurface: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: Spacing.xs) {
                         ForEach(LiveMentorVoiceProvider.allCases) { voiceProvider in
-                            MathsFilterChip(
-                                title: voiceProvider.displayName,
+                            PatternedChip(
+                                voiceProvider.displayName,
                                 systemImage: "waveform",
                                 isSelected: controller.provider == voiceProvider
                             ) {

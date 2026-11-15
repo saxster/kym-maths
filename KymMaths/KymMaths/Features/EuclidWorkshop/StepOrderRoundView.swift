@@ -1,9 +1,10 @@
 import SwiftUI
 
-/// The "in your head" round. The finished figure sits dimmed for reference; the proof's steps
-/// come shuffled, and she puts them back in order by tapping or dragging, then picks each
+/// The "in your head" round. The finished figure sits beside the proof for reference; the proof's
+/// steps come shuffled, and she puts them back in order by tapping or dragging, then picks each
 /// step's reason from three.
 struct StepOrderRoundView: View {
+    @Environment(\.standardTheme) private var theme
     @Bindable var store: AppStore
     let id: PropositionID
 
@@ -13,210 +14,284 @@ struct StepOrderRoundView: View {
     @State private var refused: Int?
     @State private var width: CGFloat = 0
 
-    private static let sideBySide: CGFloat = 860
+    private static let threeColumns: CGFloat = 960
+    private static let twoColumns: CGFloat = 600
 
     var body: some View {
-        JournalPage(title: "", column: .calendar) {
-            EuclidMapBackButton(store: store)
-            if let proposition = EuclidSpine.proposition(id) {
-                EditorialHeader(
-                    eyebrow: "Euclid's Workshop · In your head",
-                    title: "\(proposition.id) · Put the proof in order",
-                    subtitle: "The steps are shuffled. Tap the one that comes next, or drag it into the proof, then pick its reason."
-                )
-            }
+        EuclidPage(
+            eyebrow: "Euclid's Workshop · \(id.raw) · In your head",
+            title: "Put the proof in order",
+            subtitle: "The steps are shuffled. Tap the one that comes next, or drag it into the proof, then pick its reason.",
+            back: { store.euclidRoute = .map }
+        ) {
             if round != nil, outline != nil {
                 content
+                footer
             } else {
-                JournalEmptyState(title: "No proof to order", systemImage: "list.number",
-                                  message: "\(id) has no steps to put in order.")
+                Text("\(id) has no proof steps to put in order.")
+                    .patternedType(.readingDefault)
+                    .foregroundStyle(theme.mute(theme.ink))
+                    .paperCard()
             }
         }
         .onAppear { start() }
     }
 
-    private var roundBinding: Binding<StepOrderRound> { Binding(get: { round! }, set: { round = $0 }) }
     private var outlineBinding: Binding<EuclidWorkshopSession> { Binding(get: { outline! }, set: { outline = $0 }) }
 
     @ViewBuilder
     private var content: some View {
         Group {
-            if width >= Self.sideBySide {
-                HStack(alignment: .top, spacing: Spacing.md) {
-                    VStack(alignment: .leading, spacing: Spacing.md) {
-                        figureCard
-                        if !round!.pool.isEmpty { poolCard }
+            if width >= Self.threeColumns {
+                HStack(alignment: .top, spacing: StandardSpacing.lg) {
+                    figureColumn.frame(width: 250)
+                    poolColumn.frame(maxWidth: .infinity)
+                    proofColumn.frame(maxWidth: .infinity)
+                }
+            } else if width >= Self.twoColumns {
+                VStack(alignment: .leading, spacing: StandardSpacing.lg) {
+                    HStack(alignment: .top, spacing: StandardSpacing.lg) {
+                        figureColumn.frame(width: 240)
+                        poolColumn.frame(maxWidth: .infinity)
                     }
-                    .frame(width: 380)
-                    proofCard.frame(maxWidth: .infinity)
+                    proofColumn
                 }
             } else {
-                VStack(alignment: .leading, spacing: Spacing.md) {
-                    figureCard
-                    proofCard
-                    if !round!.pool.isEmpty { poolCard }
+                VStack(alignment: .leading, spacing: StandardSpacing.lg) {
+                    figureColumn
+                    proofColumn
+                    poolColumn
                 }
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width = $0 }
-    }
-
-    private var figureCard: some View {
-        JournalCard {
-            VStack(alignment: .leading, spacing: Spacing.xs) {
-                Text("THE FIGURE")
-                    .font(Typography.eyebrow)
-                    .foregroundStyle(Color.kymaiaPrimary)
-                EuclidBoardCanvas(session: outline!) { _, _ in }
-                    .frame(height: 260)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: MathsFigureRadius.frame, style: .continuous)
-                            .fill(MathsFigureColor.paper.opacity(0.45))
-                    )
-                    .allowsHitTesting(false)
-                Text("Tap a picture in a step to find it here.")
-                    .font(Typography.caption)
-                    .foregroundStyle(Color.kymaiaMutedInk)
-            }
-        }
-    }
-
-    private var poolCard: some View {
-        JournalCard {
-            VStack(alignment: .leading, spacing: Spacing.sm) {
-                Text("STEPS TO PLACE")
-                    .font(Typography.eyebrow)
-                    .foregroundStyle(Color.kymaiaPrimary)
-                ForEach(round!.pool, id: \.self) { index in
-                    ClaimLine(claim: round!.steps[index].claim, session: outlineBinding)
-                        .padding(Spacing.sm)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .quietPanelBackground()
-                        .overlay(
-                            RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
-                                .strokeBorder(Color.kymaiaWarning, lineWidth: refused == index ? 2 : 0)
-                        )
-                        .contentShape(Rectangle())
-                        .onTapGesture { place(index) }
-                        .draggable(String(index))
-                        .accessibilityAddTraits(.isButton)
-                        .accessibilityHint("Places this step next in the proof")
-                }
-            }
-        }
-    }
-
-    private var proofCard: some View {
-        JournalCard {
-            VStack(alignment: .leading, spacing: Spacing.sm) {
-                HStack {
-                    Text("YOUR PROOF")
-                        .font(Typography.eyebrow)
-                        .foregroundStyle(Color.kymaiaPrimary)
-                    Spacer()
-                    Text(round!.mistakes == 1 ? "1 slip" : "\(round!.mistakes) slips")
-                        .font(Typography.caption)
-                        .foregroundStyle(round!.mistakes > StepOrderRound.allowedMistakes ? Color.kymaiaWarning : Color.kymaiaMutedInk)
-                }
-                ForEach(Array(round!.placed.enumerated()), id: \.element) { position, index in
-                    placedRow(position: position, index: index)
-                }
-                if round!.isComplete {
-                    finished
-                } else if !round!.pool.isEmpty {
-                    dropZone
-                    Button {
-                        round!.revealNext()
-                    } label: {
-                        Label("Show me the next one", systemImage: "eye")
-                    }
-                    .buttonStyle(JournalSecondaryButtonStyle())
-                    .help("Shows the next step and its reason. The round then counts as practice.")
-                }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-        }
         .onChange(of: round?.isComplete) { _, _ in recordIfDone() }
+    }
+
+    // MARK: - The figure and the slips
+
+    private var figureColumn: some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+            EuclidColumnLabel(title: "The figure")
+            VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+                EuclidBoardCanvas(session: outline!, framed: false) { _, _ in }
+                    .frame(height: 200)
+                    .allowsHitTesting(false)
+                Rectangle().fill(theme.hairline()).frame(height: 1)
+                Text("Tap a pair of letters in a step to find it here.")
+                    .standardType(.uiCaption)
+                    .foregroundStyle(theme.mute(theme.ink))
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .paperCard(padding: StandardSpacing.md)
+            slipsCard
+        }
+    }
+
+    private var slipsCard: some View {
+        let slips = round!.mistakes
+        let over = slips > StepOrderRound.allowedMistakes
+        return HStack(alignment: .center, spacing: StandardSpacing.md) {
+            Text("\(slips)")
+                .patternedType(.numeral)
+                .foregroundStyle(over ? theme.patterned.assistedColor : theme.ink)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(slips == 1 ? "slip" : "slips")
+                    .standardType(.uiHeadline)
+                    .foregroundStyle(theme.ink)
+                Text(over
+                     ? "More than \(StepOrderRound.allowedMistakes), so this round is practice. A fresh shuffle will count."
+                     : "A step that goes in too early bounces back. Slips are how you find the order.")
+                    .standardType(.uiCaption)
+                    .foregroundStyle(theme.mute(theme.ink))
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+        .paperCard(padding: StandardSpacing.md)
+        .accessibilityElement(children: .combine)
+    }
+
+    // MARK: - Steps to place
+
+    private var poolColumn: some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+            EuclidColumnLabel(title: "Steps to place", trailing: "\(round!.pool.count) left")
+            ForEach(round!.pool, id: \.self) { index in
+                HStack(alignment: .top, spacing: StandardSpacing.sm) {
+                    Image(systemName: "square.grid.2x2")
+                        .foregroundStyle(theme.mute(theme.ink))
+                        .padding(.top, 4)
+                        .accessibilityHidden(true)
+                    ClaimLine(claim: round!.steps[index].claim, session: outlineBinding)
+                }
+                .paperCard(padding: StandardSpacing.md)
+                .overlay(
+                    RoundedRectangle(cornerRadius: StandardRadius.xl, style: .continuous)
+                        .strokeBorder(theme.patterned.assistedColor, lineWidth: refused == index ? 1.5 : 0)
+                )
+                .contentShape(Rectangle())
+                .onTapGesture { place(index) }
+                .draggable(String(index))
+                .accessibilityAddTraits(.isButton)
+                .accessibilityHint("Places this step next in the proof")
+            }
+            if round!.pool.isEmpty {
+                Text("Every step is in the proof.")
+                    .patternedType(.readingSmall)
+                    .foregroundStyle(theme.mute(theme.ink))
+            } else {
+                EuclidRuledNote(text: "A step can only use what the steps above it have already shown.")
+                    .padding(.top, StandardSpacing.xs)
+            }
+        }
+    }
+
+    // MARK: - Your proof
+
+    private var proofColumn: some View {
+        let total = round!.steps.count
+        return VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+            EuclidColumnLabel(title: "Your proof", trailing: "\(round!.placed.count) of \(total) placed")
+            ForEach(Array(round!.placed.enumerated()), id: \.element) { position, index in
+                placedRow(position: position, index: index)
+            }
+            if round!.isComplete {
+                finished
+            } else {
+                ForEach(round!.placed.count..<total, id: \.self) { position in
+                    slot(position: position, isNext: position == round!.placed.count)
+                }
+            }
+        }
     }
 
     private func placedRow(position: Int, index: Int) -> some View {
         let step = round!.steps[index]
         let isJustified = round!.justified.contains(index)
-        return HStack(alignment: .firstTextBaseline, spacing: Spacing.sm) {
-            Text("\(position + 1).")
-                .font(Typography.subheadline.weight(.bold))
-                .foregroundStyle(Color.kymaiaMutedInk)
-            VStack(alignment: .leading, spacing: Spacing.xs) {
+        return HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.sm) {
+            Text("\(position + 1)")
+                .patternedType(.mathInline)
+                .foregroundStyle(theme.mute(theme.ink))
+                .frame(minWidth: 14, alignment: .leading)
+            VStack(alignment: .leading, spacing: StandardSpacing.xs) {
                 ClaimLine(claim: step.claim, session: outlineBinding)
                 if isJustified {
-                    JustificationChip(justification: step.because) { _ in }
+                    HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.xxs) {
+                        Image(systemName: "checkmark").imageScale(.small)
+                        Text(step.because.meaning)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    .standardType(.uiCaption)
+                    .foregroundStyle(theme.patterned.provenColor)
                 } else {
-                    Text("Why is this true?")
-                        .font(Typography.caption.weight(.semibold))
-                        .foregroundStyle(Color.kymaiaPrimary)
-                    ForEach(round!.options[index], id: \.self) { reason in
-                        Button {
-                            round!.justify(index, with: reason)
-                        } label: {
-                            Text(reason.meaning)
-                                .font(Typography.caption)
-                                .multilineTextAlignment(.leading)
+                    Kicker("Why is this true?")
+                        .padding(.top, StandardSpacing.xxs)
+                    FlowLayout(spacing: StandardSpacing.xs) {
+                        ForEach(round!.options[index], id: \.self) { reason in
+                            Button(reason.meaning) {
+                                round!.justify(index, with: reason)
+                            }
+                            .buttonStyle(EuclidChipStyle())
                         }
-                        .buttonStyle(JournalSecondaryButtonStyle())
                     }
                 }
             }
         }
-        .padding(.vertical, Spacing.xxs)
+        .paperCard(padding: StandardSpacing.md)
+        .overlay(
+            RoundedRectangle(cornerRadius: StandardRadius.xl, style: .continuous)
+                .strokeBorder(theme.brass, lineWidth: isJustified ? 0 : 1)
+        )
     }
 
-    private var dropZone: some View {
-        Text(round!.placed.isEmpty ? "Tap or drag the first step here" : "Tap or drag the next step here")
-            .font(Typography.caption)
-            .foregroundStyle(Color.kymaiaMutedInk)
-            .frame(maxWidth: .infinity, minHeight: 44)
-            .overlay(
-                RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
-                    .strokeBorder(Color.kymaiaMutedInk.opacity(0.5), style: StrokeStyle(lineWidth: 1, dash: [5, 4]))
-            )
-            .dropDestination(for: String.self) { items, _ in
-                guard let index = items.first.flatMap(Int.init) else { return false }
-                return place(index)
-            }
+    /// A place still empty. The next one takes a dropped step.
+    private func slot(position: Int, isNext: Bool) -> some View {
+        HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.sm) {
+            Text("\(position + 1)")
+                .patternedType(.mathInline)
+            Text(isNext ? "Tap or drag step \(position + 1) here" : "Step \(position + 1) goes here")
+                .standardType(.uiBody)
+        }
+        .foregroundStyle(theme.mute(theme.ink).opacity(isNext ? 1 : 0.6))
+        .padding(.horizontal, StandardSpacing.md)
+        .frame(maxWidth: .infinity, minHeight: 52, alignment: .leading)
+        .overlay(
+            RoundedRectangle(cornerRadius: StandardRadius.xl, style: .continuous)
+                .strokeBorder(isNext ? theme.faint(theme.ink) : theme.hairline(), style: StrokeStyle(lineWidth: 1, dash: [5, 4]))
+        )
+        .dropDestination(for: String.self) { items, _ in
+            guard isNext, let index = items.first.flatMap(Int.init) else { return false }
+            return place(index)
+        }
     }
 
     @ViewBuilder
     private var finished: some View {
-        VStack(alignment: .leading, spacing: Spacing.xs) {
+        VStack(alignment: .leading, spacing: StandardSpacing.sm) {
             switch recorded {
             case .advanced?:
-                JournalBadge(text: "In your head: lamp lit", symbol: "lightbulb.fill", tone: .positive)
+                StatusTag(.proven, label: "In your head: lamp lit")
                 Text("Next comes knowing when to use it. A word problem for it will turn up in the Daily Flow.")
             case .assisted?:
-                JournalBadge(text: "Done with help", symbol: "hand.raised.fill", tone: .warning)
+                StatusTag(.withHelp, label: "Done with help")
                 Text("A step was shown, so the lamp stays off. Try a fresh shuffle without peeking.")
             default:
                 if round!.mistakes > StepOrderRound.allowedMistakes {
-                    JournalBadge(text: "Practice round", symbol: "arrow.clockwise", tone: .info)
+                    StatusTag(.working, label: "Practice round")
                     Text("More than \(StepOrderRound.allowedMistakes) slips, so this one was practice. A fresh shuffle will count.")
                 } else {
-                    JournalBadge(text: "In order", symbol: "checkmark.seal.fill", tone: .positive)
+                    StatusTag(.proven, label: "In order")
                     Text("Every step is in place with its reason.")
                 }
             }
-            HStack(spacing: Spacing.xs) {
-                Button("New shuffle") { start(seed: UInt64(Date().timeIntervalSince1970 * 1000)) }
-                    .buttonStyle(JournalSecondaryButtonStyle())
-                Button("Back to the map") { store.euclidRoute = .map }
-                    .buttonStyle(JournalSecondaryButtonStyle())
+            Button("Back to the map") { store.euclidRoute = .map }
+                .buttonStyle(TextLinkButtonStyle())
+        }
+        .patternedType(.readingDefault)
+        .foregroundStyle(theme.ink)
+        .fixedSize(horizontal: false, vertical: true)
+        .paperCard(padding: StandardSpacing.md)
+    }
+
+    // MARK: - Footer
+
+    private var footer: some View {
+        let record = store.euclidProgress.record(for: id)
+        return ViewThatFits(in: .horizontal) {
+            HStack(spacing: StandardSpacing.md) {
+                lamps(record)
+                Spacer(minLength: StandardSpacing.md)
+                footerActions
+            }
+            VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+                lamps(record)
+                HStack(spacing: StandardSpacing.md) { footerActions }
             }
         }
-        .font(Typography.body)
-        .foregroundStyle(Color.kymaiaInk)
-        .padding(Spacing.sm)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .quietPanelBackground()
+        .padding(.top, StandardSpacing.sm)
+    }
+
+    private func lamps(_ record: EuclidSkillRecord) -> some View {
+        HStack(spacing: StandardSpacing.sm) {
+            SkillLamps(lit: record.litLamps)
+            Text(record.highest.map { $0 >= .head } == true
+                 ? "“\(SkillLevel.head.lampName)” is lit"
+                 : "Order it right to light “\(SkillLevel.head.lampName)”")
+                .standardType(.uiCaption)
+                .foregroundStyle(theme.mute(theme.ink))
+        }
+    }
+
+    @ViewBuilder
+    private var footerActions: some View {
+        if !round!.isComplete, !round!.pool.isEmpty || round!.placed.contains(where: { !round!.justified.contains($0) }) {
+            Button("Show me the next one") { round!.revealNext() }
+                .buttonStyle(TextLinkButtonStyle(arrow: false))
+                .help("Shows the next step and its reason. The round then counts as practice.")
+        }
+        Button("New shuffle") { start(seed: UInt64(Date().timeIntervalSince1970 * 1000)) }
+            .buttonStyle(OutlineButtonStyle())
     }
 
     // MARK: - Actions
@@ -244,10 +319,14 @@ struct StepOrderRoundView: View {
         recorded = nil
         refused = nil
         #if DEBUG
-        let placedCount = UserDefaults.standard.integer(forKey: "EuclidPlaced")
-        for _ in 0..<placedCount {
+        // `-EuclidPlaced n` places the first n steps, and `-EuclidJustified n` gives the first n their reasons.
+        let defaults = UserDefaults.standard
+        for _ in 0..<defaults.integer(forKey: "EuclidPlaced") {
             guard let next = round?.acceptableNext.min() else { break }
             round?.place(next)
+        }
+        for index in (round?.placed ?? []).prefix(defaults.integer(forKey: "EuclidJustified")) {
+            round?.justify(index, with: round!.steps[index].because)
         }
         #endif
     }

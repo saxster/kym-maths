@@ -27,10 +27,11 @@ enum Typography {
 
 // MARK: - Button Styles
 
+/// Every room's secondary action. It draws as the Patterned outline button, so rooms not yet
+/// redrawn already lose their tinted capsules.
 struct JournalSecondaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
-        JournalCapsuleButtonStyle(prominence: .tinted, size: .small)
-            .makeBody(configuration: configuration)
+        OutlineButtonStyle().makeBody(configuration: configuration)
     }
 }
 
@@ -113,30 +114,33 @@ struct MathSymbolToken: Identifiable, Hashable, Sendable {
     ]
 }
 
+/// A row of maths keys above a text field: tap one and its symbol goes into the text.
 struct MathSymbolRibbon: View {
+    @Environment(\.standardTheme) private var theme
     @Binding var text: String
     var tokens: [MathSymbolToken] = MathSymbolToken.standardTokens
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: Spacing.xxs) {
+            HStack(spacing: StandardSpacing.xxs) {
                 ForEach(tokens) { token in
                     Button {
                         text.append(token.insertion)
                     } label: {
                         Text(token.label)
-                            .font(Typography.mono.weight(.semibold))
-                            .foregroundStyle(Color.kymaiaInk)
-                            .padding(.horizontal, Spacing.xs)
-                            .padding(.vertical, 4)
+                            .patternedType(.mathInline)
+                            .foregroundStyle(theme.ink)
+                            .padding(.horizontal, StandardSpacing.xs)
+                            .frame(minWidth: StandardAccessibility.touchTarget, minHeight: StandardAccessibility.touchTarget)
                             .background(
-                                RoundedRectangle(cornerRadius: Spacing.radiusSM, style: .continuous)
-                                    .fill(Color.kymaiaElevatedSurface)
+                                RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous)
+                                    .fill(theme.surface)
                             )
                             .overlay(
-                                RoundedRectangle(cornerRadius: Spacing.radiusSM, style: .continuous)
-                                    .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
+                                RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous)
+                                    .strokeBorder(theme.hairline(), lineWidth: 1)
                             )
+                            .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
                     .accessibilityLabel("Insert \(token.accessibilityName)")
@@ -147,7 +151,10 @@ struct MathSymbolRibbon: View {
     }
 }
 
+/// Where the reader writes in her own words. What she types shows in her handwriting, in Byrne
+/// blue, on the sunk margin paper, as in the Figma "Your turn" and "Your working" boxes.
 struct LearnerTextInput: View {
+    @Environment(\.standardTheme) private var theme
     let title: String
     let placeholder: String
     @Binding var text: String
@@ -155,11 +162,12 @@ struct LearnerTextInput: View {
     var showMathRibbon: Bool = true
 
     var body: some View {
-        VStack(alignment: .leading, spacing: Spacing.xs) {
+        VStack(alignment: .leading, spacing: StandardSpacing.xs) {
             if !title.isEmpty {
                 Text(title)
-                    .font(Typography.caption.weight(.semibold))
-                    .foregroundStyle(Color.kymaiaInk)
+                    .patternedType(.readingDefault)
+                    .foregroundStyle(theme.ink)
+                    .fixedSize(horizontal: false, vertical: true)
             }
             if showMathRibbon {
                 MathSymbolRibbon(text: $text)
@@ -167,33 +175,103 @@ struct LearnerTextInput: View {
             ZStack(alignment: .topLeading) {
                 TextEditor(text: $text)
                     .learnerTextInput(.retrieval)
-                    .font(Typography.body)
+                    .patternedType(.hand)
+                    .foregroundStyle(theme.patterned.color(.given))
+                    .scrollContentBackground(.hidden)
                     .frame(minHeight: minHeight)
-                    .padding(Spacing.xs)
+                    .padding(StandardSpacing.xs)
                     .background(
-                        RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
-                            .fill(Color.kymaiaSurface)
+                        RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                            .fill(theme.patterned.marginColor)
                     )
                     .overlay(
-                        RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
-                            .strokeBorder(Color.kymaiaControlBorder, lineWidth: 1)
+                        RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                            .strokeBorder(theme.hairline(), lineWidth: 1)
                     )
+                    .accessibilityLabel(title.isEmpty ? placeholder : title)
                 if text.isEmpty && !placeholder.isEmpty {
                     Text(placeholder)
-                        .font(Typography.caption)
-                        .foregroundStyle(Color.kymaiaTertiaryInk)
-                        .padding(.horizontal, Spacing.sm)
-                        .padding(.vertical, Spacing.sm)
+                        .patternedType(.readingSmall)
+                        .foregroundStyle(theme.mute(theme.ink))
+                        .padding(.horizontal, StandardSpacing.md)
+                        .padding(.vertical, StandardSpacing.md)
                         .allowsHitTesting(false)
+                        .accessibilityHidden(true)
                 }
             }
         }
     }
 }
 
+// MARK: - Term colours
+
+/// The colour a seed-pack term takes, by its role. Red, amber and blue are Byrne's: red moves,
+/// amber (his yellow) stays the same, blue is given. Green is not one of Byrne's; the figures use
+/// it for a settled result, so it takes the proven tone. Yellow type is too pale to read, so a
+/// yellow term keeps the ink colour and sits on its wash, as `ByrneText` does.
+private struct TermTone {
+    let swatch: Color
+    let text: Color
+    let wash: Color
+    let marksWithWash: Bool
+
+    init(role: String, theme: StandardTheme) {
+        let palette = theme.patterned
+        switch role.lowercased() {
+        case "red":
+            swatch = palette.color(.moves); text = swatch; wash = palette.wash(.moves); marksWithWash = false
+        case "blue":
+            swatch = palette.color(.given); text = swatch; wash = palette.wash(.given); marksWithWash = false
+        case "amber", "yellow":
+            swatch = palette.color(.stays); text = theme.ink; wash = palette.wash(.stays); marksWithWash = true
+        case "green":
+            swatch = palette.provenColor; text = swatch; wash = palette.provenWashColor; marksWithWash = false
+        default:
+            swatch = theme.ink; text = theme.ink; wash = palette.sunkColor; marksWithWash = false
+        }
+    }
+}
+
+private extension TermTone {
+    static func byrne(_ role: ByrneRole, theme: StandardTheme) -> TermTone {
+        TermTone(role: role == .moves ? "red" : role == .stays ? "amber" : "blue", theme: theme)
+    }
+}
+
+/// "What stays the same" in Byrne yellow: the one idea that holds whatever moves.
+private struct StaysTheSameNote: View {
+    @Environment(\.standardTheme) private var theme
+    let label: String
+    let text: String
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+            Text(label)
+                .patternedType(.kicker)
+                .foregroundStyle(theme.mute(theme.ink))
+            Text(text)
+                .patternedType(.readingDefault)
+                .foregroundStyle(theme.ink)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(.horizontal, StandardSpacing.md)
+        .padding(.vertical, StandardSpacing.sm)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                .fill(theme.patterned.wash(.stays))
+        )
+        .accessibilityElement(children: .combine)
+    }
+}
+
 // MARK: - Shared Intuition -> Formula Bridge Card
 
+/// The picture-to-formula card: the formula in display maths with each term in its figure colour,
+/// the action to try, what stays the same, and a "What if…?" check on one term (a perturbation
+/// probe, after Brilliant's micro-checks).
 struct IntuitionFormulaBridgeCard: View {
+    @Environment(\.standardTheme) private var theme
     let bridge: IntuitionToFormulaBridge
     @Binding var selectedTermSymbol: String?
     var onSelectTerm: ((FormulaTermMapping) -> Void)? = nil
@@ -208,146 +286,211 @@ struct IntuitionFormulaBridgeCard: View {
     }
 
     var body: some View {
-        JournalCard {
-            VStack(alignment: .leading, spacing: Spacing.sm) {
-                HStack {
-                    JournalBadge(text: "Intuition → Formula Bridge", symbol: "function", tone: .info)
-                    Spacer()
-                    Text("Tap any term to highlight its visual geometry")
-                        .font(Typography.caption)
-                        .foregroundStyle(Color.kymaiaMutedInk)
+        VStack(alignment: .leading, spacing: StandardSpacing.md) {
+            ViewThatFits(in: .horizontal) {
+                HStack(alignment: .firstTextBaseline) {
+                    Kicker("See why it's true")
+                    Spacer(minLength: StandardSpacing.sm)
+                    hint
                 }
-
-                Text(bridge.formulaDisplay)
-                    .font(Typography.numericFormula)
-                    .foregroundStyle(Color.kymaiaInk)
-                    .padding(Spacing.xs)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color.kymaiaElevatedSurface)
-                    .clipShape(RoundedRectangle(cornerRadius: Spacing.radiusSM))
-
-                Text("1. Concrete Visual Action: \(bridge.concreteAction)")
-                    .font(Typography.body)
-                    .foregroundStyle(Color.kymaiaInk)
-
-                Text("2. The \"Aha!\" Invariant: \(bridge.ahaInvariant)")
-                    .font(Typography.caption.weight(.semibold))
-                    .foregroundStyle(Color.kymaiaSuccess)
-
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: Spacing.xs) {
-                        ForEach(bridge.termMappings) { term in
-                            let roleAccent = KymaiaSemanticStyle.roleAccent(term.colorRole)
-                            let figureSwatch = MathsFigureColor.roleColor(term.colorRole)
-                            let isSelected = (activeTerm?.symbol == term.symbol)
-                            Button {
-                                selectedTermSymbol = term.symbol
-                                onSelectTerm?(term)
-                            } label: {
-                                HStack(spacing: Spacing.xxs) {
-                                    Circle()
-                                        .fill(figureSwatch)
-                                        .frame(width: 8, height: 8)
-                                        .overlay(
-                                            Circle()
-                                                .strokeBorder(MathsFigureColor.paper, lineWidth: 1)
-                                        )
-                                    Text(term.symbol)
-                                        .font(Typography.mono.weight(.bold))
-                                        .foregroundStyle(roleAccent)
-                                    Text("↔ \(term.visualPart)")
-                                        .font(Typography.caption)
-                                        .foregroundStyle(Color.kymaiaInk)
-                                }
-                                .padding(.horizontal, Spacing.xs)
-                                .padding(.vertical, 6)
-                                .background(roleAccent.opacity(isSelected ? 0.18 : 0.08))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: Spacing.radiusSM)
-                                        .strokeBorder(isSelected ? roleAccent : roleAccent.opacity(0.35), lineWidth: isSelected ? 1.5 : 1)
-                                )
-                                .clipShape(RoundedRectangle(cornerRadius: Spacing.radiusSM))
-                            }
-                            .buttonStyle(.plain)
-                        }
-                    }
-                }
-
-                if let term = activeTerm {
-                    let roleAccent = KymaiaSemanticStyle.roleAccent(term.colorRole)
-                    let isPerturbationRevealed = revealedPerturbationSymbols.contains(term.symbol)
-                    VStack(alignment: .leading, spacing: Spacing.xs) {
-                        HStack(alignment: .top, spacing: Spacing.xs) {
-                            Image(systemName: "viewfinder.circle.fill")
-                                .foregroundStyle(roleAccent)
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text("Selected Term: \(term.symbol) ↔ \(term.visualPart) (\(term.colorRole.uppercased()))")
-                                    .font(Typography.caption.weight(.bold))
-                                    .foregroundStyle(roleAccent)
-                                Text(term.meaning)
-                                    .font(Typography.caption)
-                                    .foregroundStyle(Color.kymaiaInk)
-                            }
-                        }
-
-                        Divider()
-
-                        // Brilliant-Style Perturbation Micro-Check
-                        HStack(alignment: .top, spacing: Spacing.xs) {
-                            Image(systemName: "sparkles.rectangle.stack")
-                                .foregroundStyle(Color.kymaiaPrimary)
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(bridge.perturbationPrompt(for: term))
-                                    .font(Typography.caption.weight(.semibold))
-                                    .foregroundStyle(Color.kymaiaInk)
-
-                                Button(isPerturbationRevealed ? "Hide Perturbation Effect" : "Reveal Perturbation Effect") {
-                                    if isPerturbationRevealed {
-                                        revealedPerturbationSymbols.remove(term.symbol)
-                                    } else {
-                                        revealedPerturbationSymbols.insert(term.symbol)
-                                    }
-                                }
-                                .buttonStyle(JournalSecondaryButtonStyle())
-
-                                if isPerturbationRevealed {
-                                    Text(bridge.perturbationExplanation(for: term))
-                                        .font(Typography.caption)
-                                        .foregroundStyle(Color.kymaiaSuccess)
-                                }
-                            }
-                        }
-                    }
-                    .padding(Spacing.xs)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(roleAccent.opacity(0.10))
-                    .clipShape(RoundedRectangle(cornerRadius: Spacing.radiusSM))
+                VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+                    Kicker("See why it's true")
+                    hint
                 }
             }
+
+            VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+                ForEach(Array(Self.formulaLines(bridge.formulaDisplay).enumerated()), id: \.offset) { _, line in
+                    Text(formulaText(line))
+                        .patternedType(.mathDisplay)
+                        .foregroundStyle(theme.ink)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+            .accessibilityElement(children: .combine)
+
+            Text(bridge.concreteAction)
+                .patternedType(.readingDefault)
+                .foregroundStyle(theme.ink)
+                .fixedSize(horizontal: false, vertical: true)
+
+            StaysTheSameNote(label: "What stays the same", text: bridge.ahaInvariant)
+
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: StandardSpacing.xs) {
+                    ForEach(bridge.termMappings) { term in
+                        termChip(term)
+                    }
+                }
+                .padding(.vertical, 2)
+            }
+
+            if let term = activeTerm {
+                termDetail(term)
+            }
         }
+        .paperCard()
         .onChange(of: bridge.formulaDisplay) { _, _ in
             revealedPerturbationSymbols.removeAll()
         }
     }
+
+    private var hint: some View {
+        Text("Tap a part below to find it in the picture")
+            .standardType(.uiCaption)
+            .foregroundStyle(theme.mute(theme.ink))
+    }
+
+    private func termChip(_ term: FormulaTermMapping) -> some View {
+        let tone = TermTone(role: term.colorRole, theme: theme)
+        let isSelected = (activeTerm?.symbol == term.symbol)
+        return Button {
+            selectedTermSymbol = term.symbol
+            onSelectTerm?(term)
+        } label: {
+            HStack(spacing: StandardSpacing.xs) {
+                Circle()
+                    .fill(tone.swatch)
+                    .frame(width: 9, height: 9)
+                Text(term.symbol)
+                    .patternedType(.mathInline)
+                    .foregroundStyle(tone.text)
+                    .lineLimit(1)
+            }
+            .padding(.horizontal, StandardSpacing.sm)
+            .frame(minHeight: StandardAccessibility.touchTarget)
+            .background(
+                Capsule().fill(isSelected ? tone.wash : theme.surface)
+            )
+            .overlay(
+                Capsule().strokeBorder(isSelected ? tone.swatch : theme.hairline(), lineWidth: isSelected ? 1.5 : 1)
+            )
+            .contentShape(Capsule())
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel("\(term.symbol): \(term.visualPart)")
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
+    }
+
+    private func termDetail(_ term: FormulaTermMapping) -> some View {
+        let tone = TermTone(role: term.colorRole, theme: theme)
+        let isRevealed = revealedPerturbationSymbols.contains(term.symbol)
+        return VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+            VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+                HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.xs) {
+                    Text(term.symbol)
+                        .patternedType(.mathInline)
+                        .foregroundStyle(tone.text)
+                    Text("is the \(term.visualPart)")
+                        .patternedType(.readingDefault)
+                        .foregroundStyle(theme.ink)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                Text(term.meaning)
+                    .patternedType(.readingSmall)
+                    .foregroundStyle(theme.mute(theme.ink))
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .accessibilityElement(children: .combine)
+
+            Rectangle().fill(theme.hairline()).frame(height: 1)
+
+            VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                Kicker("What if…?")
+                Text("What if you changed \(term.symbol) and kept everything else the same?")
+                    .patternedType(.readingDefault)
+                    .foregroundStyle(theme.ink)
+                    .fixedSize(horizontal: false, vertical: true)
+                if isRevealed {
+                    Text("In the picture, the \(term.visualPart) changes with it. Everything else holds still, and what stays the same is still true.")
+                        .patternedType(.readingSmall)
+                        .foregroundStyle(theme.ink)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                Button(isRevealed ? "Hide what happens" : "Show me what happens") {
+                    if isRevealed {
+                        revealedPerturbationSymbols.remove(term.symbol)
+                    } else {
+                        revealedPerturbationSymbols.insert(term.symbol)
+                    }
+                }
+                .buttonStyle(OutlineButtonStyle())
+            }
+        }
+        .padding(StandardSpacing.md)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                .fill(theme.patterned.marginColor)
+        )
+        .overlay(alignment: .leading) {
+            UnevenRoundedRectangle(topLeadingRadius: StandardRadius.lg, bottomLeadingRadius: StandardRadius.lg)
+                .fill(tone.swatch)
+                .frame(width: 3)
+        }
+    }
+
+    /// The seed pack strings several formulas into one line with wide gaps between them; one per
+    /// line reads better at display size.
+    static func formulaLines(_ formula: String) -> [String] {
+        let separator = #/,\s{2,}|;\s{2,}|\s{3,}and\s{3,}/#
+        let lines = formula.split(separator: separator)
+            .map { $0.trimmingCharacters(in: .whitespaces) }
+            .filter { !$0.isEmpty }
+        return lines.isEmpty ? [formula] : lines
+    }
+
+    /// One formula line with each term in its colour. A term is coloured only where it appears
+    /// exactly once in the whole formula, so a single letter that recurs never lights the wrong
+    /// place. The chosen term also sits on its wash.
+    private func formulaText(_ line: String) -> AttributedString {
+        var text = AttributedString(line)
+        for term in bridge.termMappings {
+            guard !term.symbol.isEmpty,
+                  bridge.formulaDisplay.ranges(of: term.symbol).count == 1,
+                  let range = text.range(of: term.symbol)
+            else { continue }
+            let tone = TermTone(role: term.colorRole, theme: theme)
+            text[range].foregroundColor = tone.text
+            if tone.marksWithWash || term.symbol == activeTerm?.symbol {
+                text[range].backgroundColor = tone.wash
+            }
+        }
+        return text
+    }
 }
 
+/// A short numeric answer. Digits are serif with tabular figures so a column of answers lines up.
 struct NumericKeypadField: View {
+    @Environment(\.standardTheme) private var theme
+    @ScaledMetric(relativeTo: .title2) private var answerSize: CGFloat = 24
     let label: String
     let unitLabel: String
     @Binding var text: String
     var onSubmit: () -> Void
 
     var body: some View {
-        HStack(spacing: Spacing.xs) {
+        HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.xs) {
             TextField(label, text: $text)
                 .learnerTextInput(.retrieval)
-                .textFieldStyle(.roundedBorder)
-                .font(Typography.mono)
+                .textFieldStyle(.plain)
+                .font(PatternedType.readingDefault.font(size: answerSize).monospacedDigit())
+                .foregroundStyle(theme.ink)
                 .onSubmit(onSubmit)
+                .padding(.horizontal, StandardSpacing.md)
+                .frame(minHeight: StandardAccessibility.touchTarget + 8)
+                .background(
+                    RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                        .fill(theme.surface)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                        .strokeBorder(theme.ink, lineWidth: 1.5)
+                )
             if !unitLabel.isEmpty {
                 Text(unitLabel)
-                    .font(Typography.mono)
-                    .foregroundStyle(Color.kymaiaMutedInk)
+                    .patternedType(.readingDefault)
+                    .foregroundStyle(theme.mute(theme.ink))
             }
         }
     }
@@ -355,87 +498,105 @@ struct NumericKeypadField: View {
 
 // MARK: - Shared CPA Interactive Manipulative Sandbox Card
 
+/// The concrete-pictorial-abstract sandbox: two sliders move a drawn model, and the sum it shows
+/// can be copied into the reader's working. The first slider is the thing that moves (red), the
+/// second the given (blue), as in Byrne.
 struct CPAManipulativeSandboxCard: View {
+    @Environment(\.standardTheme) private var theme
     let spec: CPAManipulativeSpec
     @Binding var state: CPAManipulativeState
     var onStampToWorking: ((String) -> Void)? = nil
 
-    var body: some View {
-        JournalCard {
-            VStack(alignment: .leading, spacing: Spacing.sm) {
-                HStack {
-                    JournalBadge(text: spec.kind.title, symbol: spec.kind.badgeSymbol, tone: .accent)
-                    Spacer()
-                    if let onStampToWorking {
-                        Button("Stamp Equation to Working") {
-                            onStampToWorking(state.liveReadout(for: spec))
-                        }
-                        .buttonStyle(JournalSecondaryButtonStyle())
-                    }
-                }
+    private var moves: TermTone { .byrne(.moves, theme: theme) }
+    private var given: TermTone { .byrne(.given, theme: theme) }
+    private var stays: TermTone { .byrne(.stays, theme: theme) }
 
-                Text(spec.instruction)
-                    .font(Typography.caption)
-                    .foregroundStyle(Color.kymaiaInk)
-
-                cpaVisualCanvas
-                    .frame(height: 118)
-                    .background(MathsFigureColor.paper)
-                    .clipShape(RoundedRectangle(cornerRadius: Spacing.radiusSM))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: Spacing.radiusSM)
-                            .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
-                    )
-
-                HStack(spacing: Spacing.md) {
-                    VStack(alignment: .leading, spacing: 2) {
-                        HStack {
-                            Text(spec.primaryLabel)
-                                .font(Typography.caption.weight(.semibold))
-                                .foregroundStyle(Color.kymaiaInk)
-                            Spacer()
-                            Text("\(Int(state.primaryValue.rounded()))")
-                                .font(Typography.mono.weight(.bold))
-                                .foregroundStyle(MathsFigureColor.red)
-                        }
-                        Slider(
-                            value: $state.primaryValue,
-                            in: spec.primaryRange,
-                            step: spec.primaryStep
-                        )
-                    }
-
-                    VStack(alignment: .leading, spacing: 2) {
-                        HStack {
-                            Text(spec.secondaryLabel)
-                                .font(Typography.caption.weight(.semibold))
-                                .foregroundStyle(Color.kymaiaInk)
-                            Spacer()
-                            Text("\(Int(state.secondaryValue.rounded()))")
-                                .font(Typography.mono.weight(.bold))
-                                .foregroundStyle(MathsFigureColor.blue)
-                        }
-                        Slider(
-                            value: $state.secondaryValue,
-                            in: spec.secondaryRange,
-                            step: spec.secondaryStep
-                        )
-                    }
-                }
-
-                Text(state.liveReadout(for: spec))
-                    .font(Typography.mono.weight(.semibold))
-                    .foregroundStyle(Color.kymaiaPrimary)
-                    .padding(Spacing.xs)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color.kymaiaElevatedSurface)
-                    .clipShape(RoundedRectangle(cornerRadius: Spacing.radiusSM))
-
-                Text("Invariant: \(spec.invariantSummary)")
-                    .font(Typography.caption)
-                    .foregroundStyle(Color.kymaiaMutedInk)
-            }
+    /// A name a twelve-year-old would use for each model.
+    private var modelName: String {
+        switch spec.kind {
+        case .singaporeBarPartition: "Bar model"
+        case .alKhwarizmiAreaBox: "Area square"
+        case .geometricAngleVectorBalance: "Angles and turns"
         }
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.md) {
+            HStack(alignment: .top) {
+                VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+                    Kicker("Move it and see")
+                    Text(modelName)
+                        .standardType(.headlineSm)
+                        .foregroundStyle(theme.ink)
+                }
+                Spacer(minLength: StandardSpacing.sm)
+                if let onStampToWorking {
+                    Button("Copy into my working") {
+                        onStampToWorking(state.liveReadout(for: spec))
+                    }
+                    .buttonStyle(OutlineButtonStyle())
+                }
+            }
+
+            Text(spec.instruction)
+                .patternedType(.readingDefault)
+                .foregroundStyle(theme.ink)
+                .fixedSize(horizontal: false, vertical: true)
+
+            cpaVisualCanvas
+                .frame(height: 150)
+                .frame(maxWidth: .infinity)
+                .background(theme.patterned.marginColor)
+                .clipShape(RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous))
+                .overlay(
+                    RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                        .strokeBorder(theme.hairline(), lineWidth: 1)
+                )
+
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: StandardSpacing.lg) { sliders }
+                VStack(spacing: StandardSpacing.sm) { sliders }
+            }
+
+            Text(state.liveReadout(for: spec))
+                .patternedType(.mathInline)
+                .foregroundStyle(theme.ink)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+            StaysTheSameNote(label: "What stays the same", text: spec.invariantSummary)
+        }
+        .paperCard()
+    }
+
+    @ViewBuilder private var sliders: some View {
+        slider(spec.primaryLabel, value: $state.primaryValue, range: spec.primaryRange, step: spec.primaryStep, tone: moves)
+        slider(spec.secondaryLabel, value: $state.secondaryValue, range: spec.secondaryRange, step: spec.secondaryStep, tone: given)
+    }
+
+    private func slider(
+        _ label: String,
+        value: Binding<Double>,
+        range: ClosedRange<Double>,
+        step: Double,
+        tone: TermTone
+    ) -> some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+            HStack(alignment: .firstTextBaseline) {
+                Text(label)
+                    .standardType(.uiBody)
+                    .foregroundStyle(theme.ink)
+                Spacer()
+                Text("\(Int(value.wrappedValue.rounded()))")
+                    .patternedType(.mathInline)
+                    .monospacedDigit()
+                    .foregroundStyle(tone.text)
+            }
+            Slider(value: value, in: range, step: step)
+                .tint(tone.swatch)
+                .accessibilityLabel(label)
+        }
+        .frame(maxWidth: .infinity)
     }
 
     @ViewBuilder
@@ -444,33 +605,35 @@ struct CPAManipulativeSandboxCard: View {
         case .singaporeBarPartition:
             let count = max(1, Int(state.primaryValue.rounded()))
             let unitVal = Int(state.secondaryValue.rounded())
-            VStack(spacing: Spacing.xs) {
-                HStack(spacing: 4) {
+            VStack(spacing: StandardSpacing.xs) {
+                HStack(spacing: 3) {
                     ForEach(0..<count, id: \.self) { idx in
                         VStack(spacing: 2) {
                             Text("\(unitVal)")
-                                .font(MathsFigureType.unitTile)
-                                .foregroundStyle(MathsFigureColor.ink)
-                            Text("u\(idx + 1)")
-                                .font(MathsFigureType.axisTick)
-                                .foregroundStyle(Color.kymaiaMutedInk)
+                                .patternedType(.mathInline)
+                                .foregroundStyle(given.text)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.5)
+                            Text("\(idx + 1)")
+                                .patternedType(.sidenote)
+                                .foregroundStyle(theme.mute(theme.ink))
                         }
-                        .frame(maxWidth: .infinity, minHeight: 52)
+                        .frame(maxWidth: .infinity, minHeight: 64)
                         .background(
-                            RoundedRectangle(cornerRadius: MathsFigureRadius.bar)
-                                .fill((idx % 2 == 0 ? MathsFigureColor.blue : MathsFigureColor.amber).opacity(0.22))
+                            RoundedRectangle(cornerRadius: StandardRadius.sm)
+                                .fill(given.wash)
                         )
                         .overlay(
-                            RoundedRectangle(cornerRadius: MathsFigureRadius.bar)
-                                .strokeBorder(idx % 2 == 0 ? MathsFigureColor.blue : MathsFigureColor.amber, lineWidth: 1.5)
+                            RoundedRectangle(cornerRadius: StandardRadius.sm)
+                                .strokeBorder(given.swatch, lineWidth: 1.5)
                         )
                     }
                 }
-                Text("Total Brace = \(count) units × \(unitVal) = \(count * unitVal)")
-                    .font(MathsFigureType.labelMono)
-                    .foregroundStyle(MathsFigureColor.red)
+                Text("\(count) parts × \(unitVal) = \(count * unitVal)")
+                    .patternedType(.mathInline)
+                    .foregroundStyle(moves.text)
             }
-            .padding(Spacing.sm)
+            .padding(StandardSpacing.md)
 
         case .alKhwarizmiAreaBox:
             let a = max(1, state.primaryValue)
@@ -485,42 +648,12 @@ struct CPAManipulativeSandboxCard: View {
                 let hB = max(24, h - hA)
                 VStack(spacing: 2) {
                     HStack(spacing: 2) {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: MathsFigureRadius.tile)
-                                .fill(MathsFigureColor.red.opacity(0.22))
-                            Text("a² = \(Int((a * a).rounded()))")
-                                .font(MathsFigureType.labelMono)
-                                .foregroundStyle(MathsFigureColor.red)
-                        }
-                        .frame(width: wA, height: hA)
-
-                        ZStack {
-                            RoundedRectangle(cornerRadius: MathsFigureRadius.tile)
-                                .fill(MathsFigureColor.amber.opacity(0.22))
-                            Text("ab = \(Int((a * b).rounded()))")
-                                .font(MathsFigureType.noteMono)
-                                .foregroundStyle(MathsFigureColor.amber)
-                        }
-                        .frame(width: wB, height: hA)
+                        areaTile("a² = \(Int((a * a).rounded()))", tone: moves, width: wA, height: hA)
+                        areaTile("ab = \(Int((a * b).rounded()))", tone: stays, width: wB, height: hA)
                     }
                     HStack(spacing: 2) {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: MathsFigureRadius.tile)
-                                .fill(MathsFigureColor.amber.opacity(0.22))
-                            Text("ab = \(Int((a * b).rounded()))")
-                                .font(MathsFigureType.noteMono)
-                                .foregroundStyle(MathsFigureColor.amber)
-                        }
-                        .frame(width: wA, height: hB)
-
-                        ZStack {
-                            RoundedRectangle(cornerRadius: MathsFigureRadius.tile)
-                                .fill(MathsFigureColor.blue.opacity(0.22))
-                            Text("b² = \(Int((b * b).rounded()))")
-                                .font(MathsFigureType.noteMono)
-                                .foregroundStyle(MathsFigureColor.blue)
-                        }
-                        .frame(width: wB, height: hB)
+                        areaTile("ab = \(Int((a * b).rounded()))", tone: stays, width: wA, height: hB)
+                        areaTile("b² = \(Int((b * b).rounded()))", tone: given, width: wB, height: hB)
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -530,45 +663,66 @@ struct CPAManipulativeSandboxCard: View {
             let deg = state.primaryValue
             let supp = 180.0 - deg
             let turns = max(3, Int(state.secondaryValue.rounded()))
-            HStack(spacing: Spacing.md) {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Straight-Line Supplement")
-                        .font(MathsFigureType.label)
-                        .foregroundStyle(MathsFigureColor.ink)
-                    HStack(spacing: 4) {
-                        Text("θ = \(Int(deg.rounded()))°")
-                            .font(MathsFigureType.labelMono)
-                            .foregroundStyle(MathsFigureColor.red)
-                            .padding(.horizontal, Spacing.xs)
-                            .padding(.vertical, 4)
-                            .background(MathsFigureColor.red.opacity(0.16))
-                            .clipShape(RoundedRectangle(cornerRadius: MathsFigureRadius.tile))
+            HStack(alignment: .top, spacing: StandardSpacing.lg) {
+                VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                    Text("Angles on a straight line")
+                        .standardType(.uiCaption)
+                        .foregroundStyle(theme.mute(theme.ink))
+                    HStack(spacing: StandardSpacing.xxs) {
+                        mathChip("θ = \(Int(deg.rounded()))°", tone: moves)
                         Text("+")
-                            .font(MathsFigureType.labelMono)
-                        Text("\(Int(supp.rounded()))° = 180°")
-                            .font(MathsFigureType.labelMono)
-                            .foregroundStyle(MathsFigureColor.blue)
-                            .padding(.horizontal, Spacing.xs)
-                            .padding(.vertical, 4)
-                            .background(MathsFigureColor.blue.opacity(0.16))
-                            .clipShape(RoundedRectangle(cornerRadius: MathsFigureRadius.tile))
+                            .patternedType(.mathInline)
+                            .foregroundStyle(theme.ink)
+                        mathChip("\(Int(supp.rounded()))°", tone: given)
+                        Text("= 180°")
+                            .patternedType(.mathInline)
+                            .foregroundStyle(theme.ink)
                     }
                 }
-                Divider()
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Regular \(turns)-gon Turns")
-                        .font(MathsFigureType.label)
-                        .foregroundStyle(MathsFigureColor.ink)
-                    Text("Exterior = 360°/\(turns) = \(Int((360.0 / Double(turns)).rounded()))°")
-                        .font(MathsFigureType.noteMono)
-                        .foregroundStyle(MathsFigureColor.amber)
-                    Text("Interior = \(Int((180.0 - 360.0 / Double(turns)).rounded()))°")
-                        .font(MathsFigureType.noteMono)
-                        .foregroundStyle(MathsFigureColor.green)
+                Rectangle().fill(theme.hairline()).frame(width: 1)
+                VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                    Text("Walking round a \(turns)-sided shape")
+                        .standardType(.uiCaption)
+                        .foregroundStyle(theme.mute(theme.ink))
+                    mathChip("turn at each corner = 360° ÷ \(turns) = \(Int((360.0 / Double(turns)).rounded()))°", tone: stays)
+                    Text("angle inside = \(Int((180.0 - 360.0 / Double(turns)).rounded()))°")
+                        .patternedType(.mathInline)
+                        .foregroundStyle(theme.ink)
                 }
             }
-            .padding(Spacing.sm)
+            .padding(StandardSpacing.md)
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
+    }
+
+    private func areaTile(_ label: String, tone: TermTone, width: CGFloat, height: CGFloat) -> some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: StandardRadius.sm)
+                .fill(tone.wash)
+            RoundedRectangle(cornerRadius: StandardRadius.sm)
+                .strokeBorder(tone.swatch, lineWidth: 1.5)
+            Text(label)
+                .patternedType(.mathInline)
+                .foregroundStyle(tone.text)
+                .lineLimit(1)
+                .minimumScaleFactor(0.4)
+                .padding(.horizontal, 4)
+        }
+        .frame(width: width, height: height)
+    }
+
+    private func mathChip(_ text: String, tone: TermTone) -> some View {
+        Text(text)
+            .patternedType(.mathInline)
+            .foregroundStyle(tone.text)
+            .lineLimit(1)
+            .minimumScaleFactor(0.6)
+            .padding(.horizontal, StandardSpacing.xs)
+            .padding(.vertical, 2)
+            .background(
+                RoundedRectangle(cornerRadius: StandardRadius.sm)
+                    .fill(tone.wash)
+            )
     }
 }
 
@@ -687,39 +841,57 @@ public final class ChapterAudioNarrator: NSObject, AVSpeechSynthesizerDelegate {
 
 // MARK: - Shared Buggy-Rule Trap Banner
 
+/// Shown when an answer matches a known wrong rule (a buggy-rule diagnosis): what the trap is,
+/// why it tempts, and a picture that fixes it. Said kindly, in the "with help" tone, never red.
 struct BuggyRuleTrapBanner: View {
+    @Environment(\.standardTheme) private var theme
     let trap: BuggyRuleTrap
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            JournalBadge(
-                text: "Buggy-Rule Trap Caught: \(trap.trapName)",
-                symbol: "exclamationmark.shield.fill",
-                tone: .warning
-            )
+        VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+            Text("A tempting trap · \(trap.trapName)")
+                .patternedType(.kicker)
+                .foregroundStyle(theme.patterned.assistedColor)
+                .accessibilityAddTraits(.isHeader)
             Text(trap.diagnosticWhy)
-                .font(Typography.caption.weight(.semibold))
-                .foregroundStyle(Color.kymaiaInk)
+                .patternedType(.readingDefault)
+                .foregroundStyle(theme.ink)
+                .fixedSize(horizontal: false, vertical: true)
             if !trap.visualFixNudge.isEmpty && trap.visualFixNudge != trap.diagnosticWhy {
-                HStack(alignment: .top, spacing: Spacing.xxs) {
-                    Image(systemName: "eye.trianglebadge.exclamationmark")
-                        .foregroundStyle(Color.kymaiaPrimary)
-                    Text("Visual Fix: \(trap.visualFixNudge)")
-                        .font(Typography.caption)
-                        .foregroundStyle(Color.kymaiaPrimary)
+                HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.xs) {
+                    Image(systemName: "eye")
+                        .foregroundStyle(theme.brass)
+                        .accessibilityHidden(true)
+                    Text("Picture it: \(trap.visualFixNudge)")
+                        .patternedType(.readingSmall)
+                        .foregroundStyle(theme.ink)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
         }
-        .padding(Spacing.xs)
+        .padding(.leading, StandardSpacing.md)
+        .padding(.trailing, StandardSpacing.md)
+        .padding(.vertical, StandardSpacing.sm)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.kymaiaWarning.opacity(0.12))
-        .clipShape(RoundedRectangle(cornerRadius: Spacing.radiusSM))
+        .background(
+            RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                .fill(theme.patterned.marginColor)
+        )
+        .overlay(alignment: .leading) {
+            UnevenRoundedRectangle(topLeadingRadius: StandardRadius.lg, bottomLeadingRadius: StandardRadius.lg)
+                .fill(theme.patterned.assistedColor)
+                .frame(width: 3)
+        }
     }
 }
 
 // MARK: - Shared Mathematical Debate Card ("Who Is Right & Why?")
 
+/// Two friends disagree; the reader picks whose reasoning holds. A wrong pick gets a
+/// counter-example (Socratic rebuttal) and a second go. People are drawn in ink, not Byrne colours,
+/// which stay for the maths.
 struct MathematicalDebateCardView: View {
+    @Environment(\.standardTheme) private var theme
     let scenario: MathematicalDebateScenario
     var initialSelectedChoiceId: String? = nil
     var onChoiceSelected: ((MathematicalDebateChoice, Bool) -> Void)? = nil
@@ -744,104 +916,166 @@ struct MathematicalDebateCardView: View {
     }
 
     var body: some View {
-        JournalCard {
-            VStack(alignment: .leading, spacing: Spacing.sm) {
-                HStack {
-                    JournalBadge(text: "Mathematical Debate · Who Is Right?", symbol: "person.2.wave.2.fill", tone: .warning)
-                    Spacer()
-                    Text("Ch \(scenario.chapterNumber) · OUP Unit \(scenario.oupUnitNumber)")
-                        .font(Typography.caption)
-                        .foregroundStyle(Color.kymaiaMutedInk)
-                }
+        VStack(alignment: .leading, spacing: StandardSpacing.md) {
+            HStack(alignment: .firstTextBaseline) {
+                Kicker("Who's right?")
+                Spacer(minLength: StandardSpacing.sm)
+                Text("Chapter \(scenario.chapterNumber) · School book unit \(scenario.oupUnitNumber)")
+                    .standardType(.uiCaption)
+                    .foregroundStyle(theme.mute(theme.ink))
+            }
 
+            VStack(alignment: .leading, spacing: StandardSpacing.xs) {
                 Text(scenario.title)
-                    .font(Typography.headline)
-                    .foregroundStyle(Color.kymaiaInk)
-
+                    .standardType(.headlineSm)
+                    .foregroundStyle(theme.ink)
                 Text(scenario.contextPrompt)
-                    .font(Typography.body)
-                    .foregroundStyle(Color.kymaiaInk)
+                    .patternedType(.readingDefault)
+                    .foregroundStyle(theme.ink)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
 
-                HStack(alignment: .top, spacing: Spacing.sm) {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("\(scenario.speakerAName)'s Claim")
-                            .font(Typography.caption.weight(.bold))
-                            .foregroundStyle(Color.kymaiaError)
-                        Text("\"\(scenario.speakerAClaim)\"")
-                            .font(Typography.caption)
-                            .foregroundStyle(Color.kymaiaInk)
-                    }
-                    .padding(Spacing.xs)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color.kymaiaError.opacity(0.08))
-                    .clipShape(RoundedRectangle(cornerRadius: Spacing.radiusSM))
+            ViewThatFits(in: .horizontal) {
+                HStack(alignment: .top, spacing: StandardSpacing.sm) { claims }
+                VStack(alignment: .leading, spacing: StandardSpacing.sm) { claims }
+            }
 
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("\(scenario.speakerBName)'s Claim")
-                            .font(Typography.caption.weight(.bold))
-                            .foregroundStyle(Color.kymaiaSecondary)
-                        Text("\"\(scenario.speakerBClaim)\"")
-                            .font(Typography.caption)
-                            .foregroundStyle(Color.kymaiaInk)
+            VStack(spacing: StandardSpacing.xs) {
+                let isAnswered = (selectedChoice != nil)
+                ForEach(scenario.choices) { choice in
+                    let isChosen = (activeChoiceId == choice.id)
+                    let tone = QuizOptionTone.resolve(
+                        isAnswered: isAnswered,
+                        isCorrectOption: choice.isCorrect,
+                        isChosen: isChosen
+                    )
+                    choiceRow(choice, tone: tone, isChosen: isChosen) {
+                        selectedChoiceId = choice.id
+                        onChoiceSelected?(choice, choice.isCorrect)
+                        onResolved?(choice.isCorrect)
                     }
-                    .padding(Spacing.xs)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color.kymaiaSecondary.opacity(0.08))
-                    .clipShape(RoundedRectangle(cornerRadius: Spacing.radiusSM))
-                }
-
-                VStack(spacing: Spacing.xs) {
-                    let isAnswered = (selectedChoice != nil)
-                    ForEach(scenario.choices) { choice in
-                        let isChosen = (activeChoiceId == choice.id)
-                        let tone = QuizOptionTone.resolve(
-                            isAnswered: isAnswered,
-                            isCorrectOption: choice.isCorrect,
-                            isChosen: isChosen
-                        )
-                        QuizAnswerOption(
-                            text: "\(choice.speakerLabel) — \(choice.reasoningStatement)",
-                            tone: tone,
-                            isChosen: isChosen
-                        ) {
-                            selectedChoiceId = choice.id
-                            onChoiceSelected?(choice, choice.isCorrect)
-                            onResolved?(choice.isCorrect)
-                        }
-                    }
-                }
-
-                if let chosen = selectedChoice {
-                    VStack(alignment: .leading, spacing: 4) {
-                        HStack {
-                            Image(systemName: chosen.isCorrect ? "checkmark.seal.fill" : "lightbulb.fill")
-                                .foregroundStyle(chosen.isCorrect ? Color.kymaiaSuccess : Color.kymaiaWarning)
-                            Text(chosen.isCorrect ? "Debate Resolved — Invariant Verified!" : "Socratic Counter-Example:")
-                                .font(Typography.caption.weight(.bold))
-                                .foregroundStyle(chosen.isCorrect ? Color.kymaiaSuccess : Color.kymaiaWarning)
-                            Spacer()
-                            if !chosen.isCorrect {
-                                Button("Try Again") {
-                                    selectedChoiceId = nil
-                                }
-                                .buttonStyle(JournalSecondaryButtonStyle())
-                            }
-                        }
-                        Text(chosen.socraticRebuttal)
-                            .font(Typography.caption)
-                            .foregroundStyle(Color.kymaiaInk)
-                        Text("Key Takeaway: \(scenario.invariantTakeaway)")
-                            .font(Typography.caption.weight(.semibold))
-                            .foregroundStyle(Color.kymaiaPrimary)
-                    }
-                    .padding(Spacing.xs)
-                    .background((chosen.isCorrect ? Color.kymaiaSuccess : Color.kymaiaWarning).opacity(0.10))
-                    .clipShape(RoundedRectangle(cornerRadius: Spacing.radiusSM))
                 }
             }
+
+            if let chosen = selectedChoice {
+                resolution(chosen)
+            }
         }
+        .paperCard()
         .onChange(of: scenario.id) { _, _ in
             selectedChoiceId = nil
+        }
+    }
+
+    @ViewBuilder private var claims: some View {
+        claim(name: scenario.speakerAName, text: scenario.speakerAClaim)
+        claim(name: scenario.speakerBName, text: scenario.speakerBClaim)
+    }
+
+    private func claim(name: String, text: String) -> some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+            Text("\(name) says")
+                .patternedType(.kicker)
+                .foregroundStyle(theme.mute(theme.ink))
+            Text("“\(text)”")
+                .italic()
+                .patternedType(.readingDefault)
+                .foregroundStyle(theme.ink)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(StandardSpacing.md)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                .fill(theme.patterned.marginColor)
+        )
+        .accessibilityElement(children: .combine)
+    }
+
+    private func choiceRow(
+        _ choice: MathematicalDebateChoice,
+        tone: QuizOptionTone,
+        isChosen: Bool,
+        action: @escaping () -> Void
+    ) -> some View {
+        let palette = theme.patterned
+        let edge: Color = switch tone {
+        case .correct: palette.provenColor
+        case .wrong: palette.assistedColor
+        case .idle: theme.hairline()
+        case .dimmed: theme.hairline().opacity(0.6)
+        }
+        let fill: Color = switch tone {
+        case .correct: palette.provenWashColor
+        case .wrong: palette.marginColor
+        case .idle, .dimmed: theme.surface
+        }
+        let mark: Color = switch tone {
+        case .correct: palette.provenColor
+        case .wrong: palette.assistedColor
+        case .idle, .dimmed: theme.mute(theme.ink)
+        }
+        return Button(action: action) {
+            HStack(alignment: .top, spacing: StandardSpacing.sm) {
+                Image(systemName: tone.icon)
+                    .foregroundStyle(mark)
+                    .frame(width: 22)
+                    .accessibilityHidden(true)
+                Text(Self.choiceText(choice))
+                    .patternedType(.readingDefault)
+                    .foregroundStyle(tone == .dimmed ? theme.mute(theme.ink) : theme.ink)
+                    .multilineTextAlignment(.leading)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            // Padding plus one line of reading text is taller than a touch target, so no
+            // minimum-height frame: one would let a squeezed stack crush a two-line row.
+            .padding(StandardSpacing.md)
+            .background(
+                RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous).fill(fill)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous)
+                    .strokeBorder(edge, lineWidth: isChosen || tone == .correct ? 1.5 : 1)
+            )
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .allowsHitTesting(tone == .idle)
+        .accessibilityValue(tone.accessibilityValue)
+    }
+
+    /// The speaker in bold, then their reasoning, as one run of text so it wraps as one paragraph.
+    private static func choiceText(_ choice: MathematicalDebateChoice) -> AttributedString {
+        var speaker = AttributedString(choice.speakerLabel)
+        speaker.inlinePresentationIntent = .stronglyEmphasized
+        return speaker + AttributedString(" — \(choice.reasoningStatement)")
+    }
+
+    private func resolution(_ chosen: MathematicalDebateChoice) -> some View {
+        let palette = theme.patterned
+        let tint = chosen.isCorrect ? palette.provenColor : palette.assistedColor
+        return VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+            HStack(alignment: .firstTextBaseline) {
+                Image(systemName: chosen.isCorrect ? "checkmark.circle.fill" : "lightbulb")
+                    .foregroundStyle(tint)
+                    .accessibilityHidden(true)
+                Text(chosen.isCorrect ? "That's the reasoning that holds" : "Here's a case that breaks it")
+                    .standardType(.uiHeadline)
+                    .foregroundStyle(tint)
+                Spacer()
+                if !chosen.isCorrect {
+                    Button("Try again") {
+                        selectedChoiceId = nil
+                    }
+                    .buttonStyle(OutlineButtonStyle())
+                }
+            }
+            Text(chosen.socraticRebuttal)
+                .patternedType(.readingDefault)
+                .foregroundStyle(theme.ink)
+                .fixedSize(horizontal: false, vertical: true)
+            StaysTheSameNote(label: "The big idea", text: scenario.invariantTakeaway)
         }
     }
 }

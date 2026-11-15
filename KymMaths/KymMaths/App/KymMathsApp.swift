@@ -33,35 +33,16 @@ struct KymMathsApp: App {
 
 struct KymMathsRootView: View {
     @Bindable var store: AppStore
-
-    // iOS lists only take an optional selection; the sidebar never clears the room.
-    private var roomSelection: Binding<AppRoom?> {
-        Binding(
-            get: { store.activeRoom },
-            set: { if let room = $0 { store.activeRoom = room } }
-        )
-    }
+    @Environment(\.standardTheme) private var theme
+    @State private var columns: NavigationSplitViewVisibility = .all
 
     var body: some View {
-        NavigationSplitView {
-            List(AppRoom.allCases, selection: roomSelection) { room in
-                Label(room.title, systemImage: room.systemImage)
-                    .tag(room)
-            }
-            .navigationTitle("KymMaths")
-            .toolbar {
-                ToolbarItem(placement: .automatic) {
-                    StandardThemeMenu()
-                }
-                ToolbarItem(placement: .automatic) {
-                    Button {
-                        store.showSettingsSheet = true
-                    } label: {
-                        Image(systemName: "gearshape.fill")
-                    }
-                    .help("Settings & Customisation")
-                }
-            }
+        NavigationSplitView(columnVisibility: $columns) {
+            PatternedSidebar(store: store)
+                .navigationSplitViewColumnWidth(min: 240, ideal: 264, max: 300)
+                #if os(iOS)
+                .toolbar(.hidden, for: .navigationBar)
+                #endif
         } detail: {
             Group {
                 switch store.activeRoom {
@@ -83,29 +64,32 @@ struct KymMathsRootView: View {
                     EuclidWorkshopView(store: store)
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(theme.bg)
             .navigationTitle(store.activeRoom.title)
-            .toolbar {
-                ToolbarItemGroup(placement: .automatic) {
-                    StandardThemeMenu()
-                    Button {
-                        store.showCalendarSheet = true
-                    } label: {
-                        Label("Deadlines", systemImage: "calendar")
-                    }
-                    Button {
-                        store.showSettingsSheet = true
-                    } label: {
-                        Label("Settings", systemImage: "slider.horizontal.3")
-                    }
-                }
-            }
+            #if os(iOS)
+            .toolbar(.hidden, for: .navigationBar)
+            #endif
         }
-        .tint(Color.kymaiaPrimary)
+        .navigationSplitViewStyle(.balanced)
+        .tint(theme.brass)
+        // The proof studio opens from Today, School book and Coach, so it hangs off the root.
+        .sheet(item: $store.activePracticeQuestion) { question in
+            QuestionProofPracticeView(question: question, store: store)
+        }
         .sheet(isPresented: $store.showCalendarSheet) {
             CalendarHomeView(store: store)
+                .pageSizedSheet()
         }
         .sheet(isPresented: $store.showSettingsSheet) {
             MathsSettingsSheet(store: store)
+                .pageSizedSheet()
         }
+        #if DEBUG
+        .sheet(isPresented: $store.showPatternedGallery) {
+            PatternedGallery()
+                .pageSizedSheet()
+        }
+        #endif
     }
 }

@@ -13,6 +13,9 @@ public struct TutorCanvasView: View {
     public let canvas: TutorCanvas
     public var allowEditing: Bool
     public var onInteractiveStateChange: ((TutorCanvasEditState) -> Void)?
+    public var kicker: String
+
+    @Environment(\.standardTheme) private var theme
 
     public enum InteractionTool: String, CaseIterable, Identifiable {
         case move
@@ -23,14 +26,14 @@ public struct TutorCanvasView: View {
         public var title: String {
             switch self {
             case .move: return "Move"
-            case .ink: return "Sketch"
+            case .ink: return "Draw"
             }
         }
 
         public var icon: String {
             switch self {
-            case .move: return "hand.point.up.left.fill"
-            case .ink: return "pencil.tip"
+            case .move: return "hand.raised"
+            case .ink: return "pencil"
             }
         }
     }
@@ -45,10 +48,12 @@ public struct TutorCanvasView: View {
     public init(
         canvas: TutorCanvas,
         allowEditing: Bool = true,
+        kicker: String = "Shared board",
         onInteractiveStateChange: ((TutorCanvasEditState) -> Void)? = nil
     ) {
         self.canvas = canvas
         self.allowEditing = allowEditing
+        self.kicker = kicker
         self.onInteractiveStateChange = onInteractiveStateChange
         self._history = State(
             initialValue: TutorCanvasEditHistory(
@@ -62,17 +67,17 @@ public struct TutorCanvasView: View {
     }
 
     public var body: some View {
-        VStack(alignment: .leading, spacing: Spacing.sm) {
+        VStack(alignment: .leading, spacing: StandardSpacing.md) {
             headerBar
 
             GeometryReader { geo in
                 let size = geo.size
                 ZStack {
                     RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
-                        .fill(Color.kymaiaPaper)
+                        .fill(theme.bg)
                         .overlay(
                             RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
-                                .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
+                                .strokeBorder(theme.hairline(), lineWidth: 1)
                         )
 
                     if effectiveShowGrid {
@@ -109,20 +114,32 @@ public struct TutorCanvasView: View {
                 }
             }
             .aspectRatio(TutorCanvasSpace.aspectRatio, contentMode: .fit)
-            .frame(minHeight: 240, maxHeight: 420)
+            .frame(minHeight: 200, maxHeight: 420)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel("Board: \(canvas.title)")
 
-            if let caption = canvas.caption, !caption.isEmpty {
-                Text(caption)
-                    .font(.kymaiaCaption)
-                    .foregroundStyle(Color.kymaiaMutedInk)
+            VStack(spacing: 2) {
+                Text(canvas.title)
+                    .standardType(.uiBody)
+                    .foregroundStyle(theme.ink)
+                if let caption = canvas.caption, !caption.isEmpty {
+                    Text(caption)
+                        .standardType(.uiCaption)
+                        .foregroundStyle(theme.mute(theme.ink))
+                }
             }
+            .multilineTextAlignment(.center)
+            .frame(maxWidth: .infinity)
+            .fixedSize(horizontal: false, vertical: true)
         }
-        .padding(Spacing.md)
-        .background(Color.kymaiaSurface)
-        .clipShape(RoundedRectangle(cornerRadius: CornerRadius.card, style: .continuous))
+        .padding(StandardSpacing.lg)
+        .background(
+            RoundedRectangle(cornerRadius: StandardRadius.xl, style: .continuous)
+                .fill(theme.surface)
+        )
         .overlay(
-            RoundedRectangle(cornerRadius: CornerRadius.card, style: .continuous)
-                .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
+            RoundedRectangle(cornerRadius: StandardRadius.xl, style: .continuous)
+                .strokeBorder(theme.hairline(), lineWidth: 1)
         )
         .onChange(of: canvas) { _, newValue in
             var updated = history.current
@@ -133,86 +150,92 @@ public struct TutorCanvasView: View {
     }
 
     private var headerBar: some View {
-        HStack(spacing: Spacing.sm) {
-            Label(canvas.title, systemImage: "rectangle.and.pencil.and.ellipsis")
-                .font(.kymaiaHeadline)
-                .foregroundStyle(Color.kymaiaInk)
+        ViewThatFits(in: .horizontal) {
+            HStack(spacing: StandardSpacing.sm) {
+                Kicker(kicker, muted: true)
+                Spacer(minLength: StandardSpacing.xs)
+                if allowEditing { tools }
+            }
+            VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+                Kicker(kicker, muted: true)
+                if allowEditing { tools }
+            }
+        }
+    }
 
-            Spacer()
+    private var tools: some View {
+        HStack(spacing: StandardSpacing.xs) {
+            ForEach(InteractionTool.allCases) { tool in
+                let isOn = selectedTool == tool
+                Button {
+                    selectedTool = tool
+                } label: {
+                    Label(tool.title, systemImage: tool.icon)
+                        .standardType(.uiBody)
+                        .fontWeight(isOn ? .semibold : .regular)
+                        .padding(.horizontal, StandardSpacing.sm)
+                        .frame(minHeight: 36)
+                        .background(Capsule().fill(isOn ? theme.ink : theme.surface))
+                        .overlay(Capsule().strokeBorder(isOn ? Color.clear : theme.hairline(), lineWidth: 1))
+                        .foregroundStyle(isOn ? theme.bg : theme.ink)
+                        .frame(minHeight: StandardAccessibility.touchTarget)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityAddTraits(isOn ? .isSelected : [])
+            }
 
-            if allowEditing {
-                HStack(spacing: 6) {
-                    ForEach(InteractionTool.allCases) { tool in
-                        Button {
-                            selectedTool = tool
-                        } label: {
-                            Label(tool.title, systemImage: tool.icon)
-                                .font(.kymaiaCaption.weight(.semibold))
-                                .padding(.horizontal, 10)
-                                .padding(.vertical, 6)
-                                .background(
-                                    Capsule()
-                                        .fill(selectedTool == tool ? Color.kymaiaInk : Color.clear)
-                                )
-                                .overlay(
-                                    Capsule()
-                                        .stroke(selectedTool == tool ? Color.clear : Color.kymaiaHairline, lineWidth: 1)
-                                )
-                                .foregroundStyle(selectedTool == tool ? Color.kymaiaBackground : Color.kymaiaInk)
-                        }
-                        .buttonStyle(.plain)
-                    }
+            Button {
+                history.undo()
+                onInteractiveStateChange?(history.current)
+            } label: {
+                Label("Undo", systemImage: "arrow.uturn.backward")
+                    .standardType(.uiBody)
+                    .padding(.horizontal, StandardSpacing.sm)
+                    .frame(minHeight: 36)
+                    .overlay(Capsule().strokeBorder(theme.hairline(), lineWidth: 1))
+                    .foregroundStyle(theme.ink)
+                    .frame(minHeight: StandardAccessibility.touchTarget)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .disabled(!history.canUndo)
+            .opacity(history.canUndo ? 1 : 0.45)
 
-                    Button {
-                        showGridOverride = !effectiveShowGrid
-                    } label: {
-                        Image(systemName: effectiveShowGrid ? "grid" : "square.dashed")
-                            .font(.kymaiaCaption.weight(.semibold))
-                            .padding(6)
-                            .background(Circle().fill(Color.kymaiaPaper))
-                    }
-                    .buttonStyle(.plain)
-                    .help("Toggle Math Grid")
+            Menu {
+                Button {
+                    history.redo()
+                    onInteractiveStateChange?(history.current)
+                } label: {
+                    Label("Redo", systemImage: "arrow.uturn.forward")
+                }
+                .disabled(!history.canRedo)
 
-                    Button {
-                        history.undo()
+                Button {
+                    showGridOverride = !effectiveShowGrid
+                } label: {
+                    Label(effectiveShowGrid ? "Hide the grid" : "Show the grid", systemImage: effectiveShowGrid ? "square.dashed" : "grid")
+                }
+
+                if !history.current.strokes.isEmpty {
+                    Button(role: .destructive) {
+                        var state = history.current
+                        state.strokes.removeAll()
+                        history.record(state)
                         onInteractiveStateChange?(history.current)
                     } label: {
-                        Image(systemName: "arrow.uturn.backward")
-                            .font(.kymaiaCaption.weight(.semibold))
-                            .padding(6)
-                            .background(Circle().fill(Color.kymaiaPaper))
-                    }
-                    .buttonStyle(.plain)
-                    .disabled(!history.canUndo)
-
-                    Button {
-                        history.redo()
-                        onInteractiveStateChange?(history.current)
-                    } label: {
-                        Image(systemName: "arrow.uturn.forward")
-                            .font(.kymaiaCaption.weight(.semibold))
-                            .padding(6)
-                            .background(Circle().fill(Color.kymaiaPaper))
-                    }
-                    .buttonStyle(.plain)
-                    .disabled(!history.canRedo)
-
-                    if !history.current.strokes.isEmpty {
-                        Button {
-                            var state = history.current
-                            state.strokes.removeAll()
-                            history.record(state)
-                            onInteractiveStateChange?(history.current)
-                        } label: {
-                            Label("Clear Ink", systemImage: "eraser")
-                                .font(.kymaiaCaption)
-                        }
-                        .buttonStyle(.plain)
-                        .foregroundStyle(Color.kymaiaMutedInk)
+                        Label("Rub out my drawing", systemImage: "eraser")
                     }
                 }
+            } label: {
+                Image(systemName: "ellipsis")
+                    .foregroundStyle(theme.ink)
+                    .frame(width: StandardAccessibility.touchTarget, height: StandardAccessibility.touchTarget)
+                    .contentShape(Rectangle())
             }
+            .menuStyle(.button)
+            .buttonStyle(.plain)
+            .accessibilityLabel("More board tools")
         }
     }
 
@@ -259,7 +282,7 @@ public struct TutorCanvasView: View {
 
     private func drawShapes(in context: inout GraphicsContext, size: CGSize) {
         for shape in history.current.shapes {
-            let color = shape.color.swiftUIColor
+            let color = boardColor(shape.color)
             let isSelected = shape.id == selectedShapeID
 
             switch shape.kind {
@@ -275,7 +298,7 @@ public struct TutorCanvasView: View {
                 context.stroke(path, with: .color(color), lineWidth: isSelected ? 3 : 2)
                 if let label = shape.text, !label.isEmpty {
                     context.draw(
-                        Text(label).font(.kymaiaCaption.weight(.semibold)).foregroundStyle(Color.kymaiaInk),
+                        Text(label).font(StandardType.uiCaption.weight(.semibold)).foregroundStyle(theme.ink),
                         at: CGPoint(x: rect.midX, y: rect.midY)
                     )
                 }
@@ -292,7 +315,7 @@ public struct TutorCanvasView: View {
                 context.stroke(path, with: .color(color), lineWidth: isSelected ? 3 : 2)
                 if let label = shape.text, !label.isEmpty {
                     context.draw(
-                        Text(label).font(.kymaiaCaption.weight(.semibold)).foregroundStyle(Color.kymaiaInk),
+                        Text(label).font(StandardType.uiCaption.weight(.semibold)).foregroundStyle(theme.ink),
                         at: CGPoint(x: rect.midX, y: rect.midY)
                     )
                 }
@@ -328,7 +351,7 @@ public struct TutorCanvasView: View {
                 if let label = shape.text, !label.isEmpty {
                     let mid = CGPoint(x: (start.x + end.x) / 2, y: (start.y + end.y) / 2 - 12)
                     context.draw(
-                        Text(label).font(.kymaiaCaption.weight(.semibold)).foregroundStyle(color),
+                        Text(label).font(StandardType.uiCaption.weight(.semibold)).foregroundStyle(color),
                         at: mid
                     )
                 }
@@ -338,7 +361,7 @@ public struct TutorCanvasView: View {
                 let content = shape.text ?? (shape.kind == .sticker ? "★" : "Note")
                 context.draw(
                     Text(content)
-                        .font(shape.kind == .sticker ? .title2 : .kymaiaBody.weight(.semibold))
+                        .font(shape.kind == .sticker ? .title2 : .body.weight(.semibold))
                         .foregroundStyle(color),
                     at: pt,
                     anchor: .topLeading
@@ -381,21 +404,21 @@ public struct TutorCanvasView: View {
 
             if payload.marks.contains(value) {
                 let dotRect = CGRect(x: xPos - 5, y: start.y - 5, width: 10, height: 10)
-                context.fill(Path(ellipseIn: dotRect), with: .color(Color.kymaiaPrimary))
+                context.fill(Path(ellipseIn: dotRect), with: .color(theme.patterned.color(.moves)))
             }
 
             let formatted = value.truncatingRemainder(dividingBy: 1) == 0
                 ? String(Int(value))
                 : String(format: "%.2f", value)
             context.draw(
-                Text(formatted).font(.kymaiaCaption.monospacedDigit()).foregroundStyle(Color.kymaiaInk),
+                Text(formatted).font(StandardType.uiCaption.monospacedDigit()).foregroundStyle(theme.ink),
                 at: CGPoint(x: xPos, y: start.y + 20)
             )
         }
 
         if let label = payload.label ?? shape.text, !label.isEmpty {
             context.draw(
-                Text(label).font(.kymaiaCaption.weight(.semibold)).foregroundStyle(color),
+                Text(label).font(StandardType.uiCaption.weight(.semibold)).foregroundStyle(color),
                 at: CGPoint(x: start.x, y: start.y - 22),
                 anchor: .leading
             )
@@ -431,7 +454,7 @@ public struct TutorCanvasView: View {
 
         if let label = payload.label ?? shape.text, !label.isEmpty {
             context.draw(
-                Text(label).font(.kymaiaCaption.weight(.semibold)).foregroundStyle(Color.kymaiaInk),
+                Text(label).font(StandardType.uiCaption.weight(.semibold)).foregroundStyle(theme.ink),
                 at: CGPoint(x: topLeft.x, y: topLeft.y - 14),
                 anchor: .leading
             )
@@ -446,7 +469,7 @@ public struct TutorCanvasView: View {
             for pt in stroke.dropFirst() {
                 path.addLine(to: TutorCanvasSpace.toView(pt, in: size))
             }
-            context.stroke(path, with: .color(Color.kymaiaPrimary), lineWidth: 2.5)
+            context.stroke(path, with: .color(theme.patterned.color(.given)), lineWidth: 2.5)
         }
 
         if activeStroke.count >= 2 {
@@ -455,12 +478,29 @@ public struct TutorCanvasView: View {
             for pt in activeStroke.dropFirst() {
                 livePath.addLine(to: pt)
             }
-            context.stroke(livePath, with: .color(Color.kymaiaLive), lineWidth: 2.5)
+            context.stroke(livePath, with: .color(theme.patterned.color(.given).opacity(0.7)), lineWidth: 2.5)
+        }
+    }
+}
+
+extension TutorCanvasView {
+    /// The board draws in Byrne's colours: what moves in red, what is given in blue, what stays in
+    /// yellow. Her own ink is blue, like her handwriting elsewhere.
+    func boardColor(_ role: TutorCanvasColorRole) -> Color {
+        switch role {
+        case .accent, .error: return theme.patterned.color(.moves)
+        case .secondary: return theme.patterned.color(.given)
+        case .warning: return theme.patterned.color(.stays)
+        case .success: return theme.patterned.provenColor
+        case .ink: return theme.ink
+        case .muted: return theme.mute(theme.ink)
         }
     }
 }
 
 private struct CanvasGridBackground: View {
+    @Environment(\.standardTheme) private var theme
+
     var body: some View {
         Canvas { context, size in
             let step: CGFloat = 28
@@ -477,7 +517,7 @@ private struct CanvasGridBackground: View {
                 path.addLine(to: CGPoint(x: size.width, y: y))
                 y += step
             }
-            context.stroke(path, with: .color(Color.kymaiaPaperRule.opacity(0.55)), lineWidth: 0.75)
+            context.stroke(path, with: .color(theme.hairline().opacity(0.5)), lineWidth: 0.75)
         }
     }
 }
@@ -497,13 +537,13 @@ public enum LiveMentorChalkboardTemplate: String, CaseIterable, Identifiable, Se
 
     public var title: String {
         switch self {
-        case .blank: return "Blank Math Grid"
-        case .singaporeBarModel: return "Singapore Bar Model"
-        case .numberLine: return "Number Line"
-        case .coordinatePlane: return "Coordinate Axes"
-        case .unitCircleTrig: return "Unit Circle Trig"
-        case .bayesEikosogram: return "Bayes 1,000-Grid"
-        case .matrixDeterminant: return "2×2 Matrix Area"
+        case .blank: return "Blank grid"
+        case .singaporeBarModel: return "Bar model"
+        case .numberLine: return "Number line"
+        case .coordinatePlane: return "Axes"
+        case .unitCircleTrig: return "Unit circle"
+        case .bayesEikosogram: return "1,000-person square"
+        case .matrixDeterminant: return "Matrix area"
         }
     }
 
@@ -523,14 +563,14 @@ public enum LiveMentorChalkboardTemplate: String, CaseIterable, Identifiable, Se
         switch self {
         case .blank:
             return TutorCanvas(
-                title: "Shared Chalkboard",
-                caption: "Drag shapes or sketch directly; both you and the Mentor can update this board.",
+                title: "Blank board",
+                caption: "Drag shapes or draw. You and the coach can both change this board.",
                 showGrid: true,
                 shapes: []
             )
         case .singaporeBarModel:
             return TutorCanvas(
-                title: "Singapore Unitary Bar Model",
+                title: "Bar model",
                 caption: "Equal units stay equal across the ratio change.",
                 showGrid: true,
                 shapes: [
@@ -741,40 +781,40 @@ public struct LiveMentorChalkboardPane: View {
     }
 
     public var body: some View {
-        VStack(alignment: .leading, spacing: Spacing.sm) {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: Spacing.xs) {
-                    ForEach(LiveMentorChalkboardTemplate.allCases) { template in
-                        PillButton(template.title, action: {
-                            model.applyTemplate(template)
-                        }, icon: {
-                            Image(systemName: template.icon)
-                        })
-                    }
-
-                    if let onSendBoardToMentor {
-                        Button {
-                            let summary = TutorCanvasSnapshotRenderer.stateSummary(
-                                canvas: model.canvas,
-                                editState: model.latestEditState
-                            )
-                            let jpeg = TutorCanvasSnapshotRenderer.jpegData(canvas: model.canvas)
-                            onSendBoardToMentor(summary, jpeg)
-                        } label: {
-                            Label("Share Board with Mentor", systemImage: "paperplane.fill")
-                                .font(.kymaiaCaption.weight(.semibold))
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 7)
-                                .background(Capsule().fill(Color.kymaiaPrimary))
-                                .foregroundStyle(Color.kymaiaBackground)
-                        }
-                        .buttonStyle(.plain)
-                    }
-                }
-            }
-
+        VStack(alignment: .leading, spacing: StandardSpacing.sm) {
             TutorCanvasView(canvas: model.canvas, allowEditing: true) { newState in
                 model.updateInteractiveState(newState)
+            }
+
+            HStack(spacing: StandardSpacing.sm) {
+                Menu {
+                    ForEach(LiveMentorChalkboardTemplate.allCases) { template in
+                        Button {
+                            model.applyTemplate(template)
+                        } label: {
+                            Label(template.title, systemImage: template.icon)
+                        }
+                    }
+                } label: {
+                    Label("Start from", systemImage: "square.on.square")
+                }
+                .buttonStyle(OutlineButtonStyle())
+                .accessibilityLabel("Start the board from a picture")
+
+                if let onSendBoardToMentor {
+                    Button {
+                        let summary = TutorCanvasSnapshotRenderer.stateSummary(
+                            canvas: model.canvas,
+                            editState: model.latestEditState
+                        )
+                        let jpeg = TutorCanvasSnapshotRenderer.jpegData(canvas: model.canvas)
+                        onSendBoardToMentor(summary, jpeg)
+                    } label: {
+                        Label("Show the coach", systemImage: "paperplane")
+                    }
+                    .buttonStyle(OutlineButtonStyle())
+                    .accessibilityLabel("Show the coach this board")
+                }
             }
         }
     }
