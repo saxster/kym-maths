@@ -19,11 +19,29 @@ struct KymMathsSeedPack: Codable, Sendable {
     let speedMathDecks: [SpeedMathDeck]
     let visualMathTips: [VisualMathTip]
     let misconceptions: [Misconception]
+    let footings: [Footing]
 }
 
 struct Misconception: Codable, Identifiable, Equatable, Sendable {
     let id: String
     let name: String
+    /// The footing this slip rests on, checked when the slip comes back.
+    let standsOn: String
+}
+
+/// The smaller skill a slip rests on, with three quick probes that check it.
+struct Footing: Codable, Identifiable, Equatable, Sendable {
+    let id: String
+    let skill: String
+    let teach: String
+    let probes: [FootingProbe]
+}
+
+struct FootingProbe: Codable, Identifiable, Equatable, Sendable {
+    let id: String
+    let prompt: String
+    let answer: String
+    let answerKey: AnswerKey
 }
 
 // MARK: - The Patterned World (21 Chapters, 5 Volumes, Intuition-to-Formula Bridges)
@@ -470,7 +488,8 @@ enum SeedPackLoader {
             polyaStages: [],
             speedMathDecks: [],
             visualMathTips: [],
-            misconceptions: []
+            misconceptions: [],
+            footings: []
         )
     }
 }

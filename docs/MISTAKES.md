@@ -10,7 +10,7 @@ When Kym's answer to a school question is wrong in a way we expected, the app na
 | She can do, device off (the check) | Shown "(−2) × 8 = 16", she names the slip ("the minus sign got lost") and the rule that fixes it ("a negative times a positive is negative"). |
 | Why it matters | Checking an answer against the two or three usual slips for that question type before handing it in is how marks are saved in exams. |
 | Stands on | The topic skill itself: she can't name a slip in a method she can't do. |
-| Unlocks | Walking back to a missing prerequisite when the same slip repeats (the next feature, which reads `lastMistakeId`), and checking her own work. |
+| Unlocks | Find the step underneath (below), and checking her own work. |
 
 ## Three levels
 
@@ -77,3 +77,52 @@ When Kym's answer to a school question is wrong in a way we expected, the app na
 | `order-mixed` | You mixed up whether order matters | ch15-wb-focus, ch15-wb-challenge |
 | `with-replacement` | You forgot the first marble stays out | ch15-wb-practice |
 | `vector-combined-wrongly` | You combined the vectors the wrong way | ch16-wb-focus, ch16-wb-practice |
+
+# Find the step underneath
+
+When the same named slip comes back a second time, on the same question after the repair failed or on another question, the app stops and walks back to the smaller skill the slip rests on: its footing. Hand in on that question stays shut until she has checked the footing with three short probes. Two right in a row passes; three probes end it either way, and a miss shows the footing's teach line and the answer. A pass resets the count; a miss lets her go back to the question but keeps the count, so the next same slip walks back again.
+
+The footings live in `source/export_kymmaths_pack.py` (`FOOTINGS`, and `STANDS_ON` maps each slip to one). `source/splice_pack_sections.py` writes them and the misconception registry into the seed pack without a full export. The count lives in `slip_tallies` in `state.sqlite`; the rule is `WalkBackRule`. `KymMaths/Tests/WalkBackTests.swift` fails when a slip has no footing, a probe's own answer is marked wrong, or a teach line gives away a probe's answer.
+
+## Skill card
+
+| Field | |
+|---|---|
+| Skill | Find the step underneath |
+| She can do, device off (the check) | When a slip comes back twice, she names the smaller skill it rests on and checks it on paper with a tiny example before going on. Losing the minus sign twice, she says "it rests on multiplying negatives", writes (−3) × (−2) = 6 and 6 ÷ (−3) = −2, then goes back to the question. |
+| Why it matters | A slip that repeats is rarely carelessness: it shows a gap in an earlier skill. Fixing that skill stops the slip in every topic built on it, not just the question in front of her. |
+| Stands on | Name the slip (above): she can't find what a slip rests on until she can name the slip. |
+| Unlocks | The "Stuck?" micro-worksheet (feature #3). |
+
+## Three levels
+
+1. **With the picture.** The app names the footing and runs the three probes. *Built.*
+2. **In her head.** On the second slip she names the footing before the app does. *Not built.*
+3. **Knows when.** She checks the footing unprompted when a slip repeats. *Not built.* `slip_tallies` keeps each slip's count and the last check's result as the evidence.
+
+## Footings
+
+| id | Skill | Slips that stand on it |
+|---|---|---|
+| `negative-numbers` | Multiply and divide negative numbers | `sign-of-product`, `dropped-minus`, `inequality-not-flipped` |
+| `inverse-operations` | Undo each step with its inverse | `rearranged-sign`, `inverse-wrong-order`, `inverse-as-reciprocal` |
+| `distributive-law` | Multiply every term inside a bracket | `expand-first-term-only`, `square-of-difference` |
+| `factors-and-multiples` | Find the HCF and LCM, and cancel fully | `lcm-as-product`, `hcf-lcm-swapped`, `common-factor-left` |
+| `squares-and-roots` | Square a number and undo it with a square root | `forgot-square-root`, `added-sides`, `power-as-multiply` |
+| `fractions` | Use a common denominator and improper fractions | `added-denominators`, `split-mixed-number` |
+| `rounding` | Round to decimal places and significant figures | `truncated`, `decimal-places-not-sf` |
+| `place-value` | Multiply and divide by 10, 100 and decimals | `place-value-shift`, `recurring-as-terminating` |
+| `multiply-or-divide` | Choose multiply or divide, and which way round | `multiplied-instead-of-divided`, `divided-wrong-way-round` |
+| `ratio-and-proportion` | Work out what one part is worth | `equal-split`, `direct-for-inverse`, `unmatched-middle`, `wrong-units-for-difference` |
+| `percentages` | Use a multiplier for a percentage change | `percent-of-wrong-amount`, `percentages-cancel`, `simple-not-compound` |
+| `units-and-scale` | Convert units, and square the factor for areas | `unit-slip`, `area-by-length-factor` |
+| `area-and-perimeter` | Use the right lengths in area and perimeter | `forgot-half`, `height-slant-mixed`, `radius-diameter-mixed`, `missing-edges` |
+| `angle-facts` | Use angle facts for parallel lines, polygons and bearings | `co-interior-as-equal`, `interior-for-exterior`, `back-bearing` |
+| `coordinates-and-gradient` | Find a midpoint and a gradient from coordinates | `swapped-coordinates`, `half-difference`, `perpendicular-gradient` |
+| `transformations` | Reflect, rotate and enlarge a point | `centre-ignored`, `wrong-mirror-line`, `wrong-turn-direction` |
+| `equally-likely-outcomes` | List equally likely outcomes and count each once | `unequal-outcomes`, `order-mixed` |
+| `the-right-total` | Use the right total for a probability | `conditional-reversed`, `wrong-total`, `with-replacement` |
+| `spread-and-density` | Find class width, frequency density and quartiles | `density-as-frequency`, `boundary-for-width`, `range-for-iqr` |
+| `vectors` | Add and subtract column vectors | `vector-combined-wrongly` |
+| `nth-term` | Find and use the nth term of a sequence | `off-by-one` |
+| `answer-the-question` | Check you answered what was asked | `stopped-early` |

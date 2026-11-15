@@ -191,6 +191,9 @@ final class AppStore {
     var deadlines: [SchoolDeadlineRecord] = []
     var capturedPages: [CapturedTextbookPageRecord] = []
     var calloutResponses: [String: CalloutResponseRecord] = [:]
+    var slipTalliesById: [String: SlipTally] = [:]
+    /// Set when a named slip comes back. Hand in on that question waits until the walk-back is finished.
+    var pendingWalkBack: WalkBack?
 
     init(db: DatabaseManager = .shared) {
         self.db = db
@@ -360,6 +363,8 @@ final class AppStore {
         capturedPages = (try? db.fetchCapturedPages()) ?? []
         let callouts = (try? db.fetchCalloutResponses()) ?? []
         calloutResponses = Dictionary(uniqueKeysWithValues: callouts.map { ($0.id, $0) })
+        let tallies = (try? db.fetchSlipTallies()) ?? []
+        slipTalliesById = Dictionary(uniqueKeysWithValues: tallies.map { ($0.id, $0) })
 
         SystemSurfaceSnapshotStore.writeSnapshot(from: self)
     }
@@ -521,8 +526,33 @@ final class AppStore {
             try? db.saveBKTSkill(updatedSkill)
         }
 
+        if let mistake = eval.mistake {
+            recordSlip(mistake.misconception, on: question.id)
+        }
+
         refreshState()
         return eval
+    }
+
+    private func recordSlip(_ misconceptionId: String, on questionId: String) {
+        let tally = WalkBackRule.recordingSlip(
+            misconceptionId, on: questionId, at: Date(), onto: slipTalliesById[misconceptionId]
+        )
+        try? db.saveSlipTally(tally)
+        guard WalkBackRule.isDue(tally),
+              let misconception = seedPack.misconceptions.first(where: { $0.id == misconceptionId }),
+              let footing = seedPack.footings.first(where: { $0.id == misconception.standsOn })
+        else { return }
+        pendingWalkBack = WalkBack(questionId: questionId, misconception: misconception, footing: footing)
+    }
+
+    func finishWalkBack(passed: Bool) {
+        guard let walkBack = pendingWalkBack else { return }
+        pendingWalkBack = nil
+        if let tally = slipTalliesById[walkBack.misconception.id] {
+            try? db.saveSlipTally(WalkBackRule.recordingCheck(tally, passed: passed, at: Date()))
+        }
+        refreshState()
     }
 
     func reviewFSRSCard(_ card: FSRSCardRecord, rating: FSRSRating) {

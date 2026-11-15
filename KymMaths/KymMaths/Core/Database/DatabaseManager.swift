@@ -189,6 +189,22 @@ struct CalloutResponseRecord: Codable, FetchableRecord, PersistableRecord, Ident
     var confidencePercent: Int = 75
 }
 
+/// How often one named slip has happened, and when its footing was last checked.
+struct SlipTally: Codable, FetchableRecord, PersistableRecord, Identifiable, Equatable, Sendable {
+    static let databaseTableName = "slip_tallies"
+
+    var misconceptionId: String
+    /// Slips since the footing was last passed.
+    var sinceCheck: Int
+    var total: Int
+    var lastQuestionId: String
+    var lastSeenAt: Date
+    var lastCheckedAt: Date?
+    var lastCheckPassed: Bool?
+
+    var id: String { misconceptionId }
+}
+
 public struct PropositionNodeRecord: Codable, FetchableRecord, PersistableRecord, Identifiable, Equatable, Sendable {
     public static let databaseTableName = "proposition_nodes"
 
@@ -506,6 +522,17 @@ final class DatabaseManager: Sendable {
                 t.add(column: "lastMistakeId", .text).notNull().defaults(to: "")
             }
         }
+        migrator.registerMigration("v4_state_slip_tallies") { db in
+            try db.create(table: SlipTally.databaseTableName) { t in
+                t.primaryKey("misconceptionId", .text)
+                t.column("sinceCheck", .integer).notNull()
+                t.column("total", .integer).notNull()
+                t.column("lastQuestionId", .text).notNull()
+                t.column("lastSeenAt", .datetime).notNull()
+                t.column("lastCheckedAt", .datetime)
+                t.column("lastCheckPassed", .boolean)
+            }
+        }
         try migrator.migrate(writer)
     }
 
@@ -786,6 +813,18 @@ final class DatabaseManager: Sendable {
     func saveQuestionProof(_ record: QuestionProofRecord) throws {
         try statePool.write { db in
             try record.save(db)
+        }
+    }
+
+    func fetchSlipTallies() throws -> [SlipTally] {
+        try statePool.read { db in
+            try SlipTally.fetchAll(db)
+        }
+    }
+
+    func saveSlipTally(_ tally: SlipTally) throws {
+        try statePool.write { db in
+            try tally.save(db)
         }
     }
 
