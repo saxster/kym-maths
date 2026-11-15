@@ -62,4 +62,90 @@ struct StuckSheetTests {
         #expect(lastShown.next(in: Self.sheet) == .finished(afterRight: false))
         #expect(StuckSheetState.finished(afterRight: false).step == nil)
     }
+
+    // MARK: The sheets in the pack
+
+    static var sheets: [(question: SchoolMathsQuestion, sheet: StuckSheet)] {
+        pack.schoolQuestions.compactMap { question in question.stuck.map { (question, $0) } }
+    }
+
+    static func givesAway(_ text: String, to key: AnswerKey) -> Bool {
+        if key.mark(text).isCorrect { return true }
+        let shown = AnswerText(text)
+        return key.parts.flatMap(\.anyOf).contains { matcher in
+            switch matcher {
+            case .words: false
+            case let .number(value, tolerance, simplest):
+                matcher.matches(shown) || AnswerMatcher.number(value: value.negated(), tolerance: tolerance, simplest: simplest).matches(shown)
+            default: matcher.matches(shown)
+            }
+        }
+    }
+
+    @Test("Every question marked by a number, sequence or form has a sheet of 3 to 5 steps")
+    func everyMarkedQuestionHasASheet() {
+        let worded: Set = ["q-oup-ch03-wb-practice", "q-oup-ch04-wb-practice", "q-oup-ch11-wb-focus"]
+        for question in Self.pack.schoolQuestions where !worded.contains(question.id) {
+            #expect(question.stuck != nil, "\(question.id) has no stuck sheet")
+        }
+        #expect(Self.sheets.count == 63)
+        for (question, sheet) in Self.sheets {
+            #expect((3...5).contains(sheet.steps.count), "\(question.id) has \(sheet.steps.count) steps")
+            #expect(sheet.steps.allSatisfy { $0.working.hasSuffix(".") }, "\(question.id) has a working with no full stop")
+        }
+        let ids = Self.sheets.flatMap { $0.sheet.steps.map(\.id) }
+        #expect(Set(ids).count == ids.count)
+    }
+
+    @Test("Each step marks its own answer right and its wrong samples wrong")
+    func stepsMarkTheirOwnAnswers() {
+        for step in Self.sheets.flatMap(\.sheet.steps) {
+            let key = step.answerKey
+            for answer in [step.answer] + key.accepts {
+                let marking = key.mark(answer)
+                #expect(marking.isCorrect, "\(step.id) rejects \"\(answer)\"")
+                #expect(marking.mistake == nil, "\(step.id) \"\(answer)\" carries a mistake")
+            }
+            for answer in key.rejects + ["", step.prompt] {
+                #expect(!key.mark(answer).isCorrect, "\(step.id) accepts \"\(answer)\"")
+            }
+            #expect(key.rejects.count >= 3, "\(step.id) needs more wrong samples")
+        }
+    }
+
+    @Test("A step's mistake examples name that mistake, and its next step does not give the step away")
+    func stepMistakesNameThemselves() {
+        let steps = Self.sheets.flatMap(\.sheet.steps)
+        #expect(steps.filter { !$0.answerKey.mistakes.isEmpty }.count >= 63, "most steps should name a slip")
+        for (question, sheet) in Self.sheets where question.id != "q-oup-ch04-wb-practice" {
+            #expect(sheet.steps.contains { !$0.answerKey.mistakes.isEmpty }, "\(question.id) sheet names no slip")
+        }
+        for step in steps {
+            let matchers = step.answerKey.parts.flatMap(\.anyOf)
+            let answerNumbers = matchers.reduce(into: Set<AnswerNumber>()) { $0.formUnion(MistakeTests.magnitudes(in: $1)) }
+            for mistake in step.answerKey.mistakes {
+                for example in mistake.examples {
+                    #expect(step.answerKey.mark(example).mistake?.misconception == mistake.misconception,
+                            "\(step.id) \"\(example)\" does not name \(mistake.misconception)")
+                }
+                let next = AnswerText(mistake.nextStep)
+                let shared = answerNumbers.intersection(next.numbers.map { $0.value.numerator < 0 ? $0.value.negated() : $0.value })
+                #expect(shared.isEmpty, "\(step.id) \(mistake.misconception) next step shows \(shared.map(\.text))")
+                #expect(!matchers.contains { $0.matches(next) }, "\(step.id) \(mistake.misconception) next step is a right answer")
+            }
+        }
+    }
+
+    @Test("Nothing on a sheet shows the original question's answer")
+    func sheetsKeepTheOriginalHidden() {
+        for (question, sheet) in Self.sheets {
+            var shown = [sheet.sister]
+            for step in sheet.steps {
+                shown += [step.prompt, step.answer, step.working] + step.answerKey.mistakes.map(\.nextStep)
+            }
+            for text in shown {
+                #expect(!Self.givesAway(text, to: question.answerKey), "\(question.id) sheet shows its answer: \(text)")
+            }
+        }
+    }
 }
