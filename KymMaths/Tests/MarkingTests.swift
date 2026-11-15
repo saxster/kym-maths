@@ -62,6 +62,27 @@ struct MarkingTests {
         }
     }
 
+    @Test("Every concept card check and every turn step marks its own sample answers the way its key says")
+    func cardChecksAndTurnStepsMarkTheirOwnSamples() {
+        let pack = SeedPackLoader.load()
+        let checks = pack.concepts.map { ($0.check.id, $0.check.answer, $0.check.answerKey) }
+        let turns = pack.chapters.flatMap(\.sections).flatMap(\.teachingSteps).filter { $0.kind == .turn }
+            .compactMap { step in step.answerKey.map { (step.id, step.answer ?? "", $0) } }
+        #expect(checks.count == 11)
+        #expect(turns.count == 5)
+        // Not the prompt itself, as above: a check that asks her to pick from a list ("21, 23 or 27")
+        // has the answer among its numbers, and the marker looks for the number anywhere.
+        for (id, answer, key) in checks + turns {
+            #expect(!key.accepts.isEmpty && key.rejects.count >= 2, "\(id) needs more sample answers")
+            for sample in key.accepts + [answer] {
+                #expect(key.mark(sample).isCorrect, "\(id) rejects \"\(sample)\"")
+            }
+            for sample in key.rejects + ["", "   ", "I have no idea about this, can you check"] {
+                #expect(!key.mark(sample).isCorrect, "\(id) accepts \"\(sample)\"")
+            }
+        }
+    }
+
     @Test("Feedback names the missing part, never the answer")
     func feedbackNamesThePartNotTheAnswer() throws {
         let question = try #require(Self.questions.first { $0.id == "q-oup-ch01-sb" })

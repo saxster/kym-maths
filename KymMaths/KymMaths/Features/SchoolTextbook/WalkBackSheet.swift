@@ -49,6 +49,7 @@ struct WalkBackSheet: View {
             .padding(.vertical, StandardSpacing.lg)
         }
         .background(theme.bg)
+        .conceptLinks()
         .onAppear { typing = true }
     }
 
@@ -67,7 +68,7 @@ struct WalkBackSheet: View {
 
             if missed {
                 Rectangle().fill(theme.hairline()).frame(height: 1)
-                Text(footing.teach)
+                ConceptText(footing.teach)
                     .patternedType(.readingDefault)
                     .foregroundStyle(theme.ink)
                     .fixedSize(horizontal: false, vertical: true)
@@ -91,7 +92,7 @@ struct WalkBackSheet: View {
                     .patternedType(.readingDefault)
                     .foregroundStyle(theme.ink)
             } else {
-                Text(footing.teach)
+                ConceptText(footing.teach)
                     .patternedType(.readingDefault)
                     .foregroundStyle(theme.ink)
                     .fixedSize(horizontal: false, vertical: true)

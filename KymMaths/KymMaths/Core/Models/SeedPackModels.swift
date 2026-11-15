@@ -20,6 +20,80 @@ struct KymMathsSeedPack: Codable, Sendable {
     let visualMathTips: [VisualMathTip]
     let misconceptions: [Misconception]
     let footings: [Footing]
+    let concepts: [ConceptCard]
+    /// Phrases that contain a card's alias but mean something else ("scale factor"); they never link.
+    let conceptStopPhrases: [String]
+}
+
+// MARK: - Concept cards
+
+/// A short page that reminds Kym of one idea. Any learner text that uses one of its aliases links to it.
+struct ConceptCard: Codable, Identifiable, Equatable, Sendable {
+    let id: String
+    let name: String
+    let short: String?
+    let symbol: String?
+    let aliases: [String]
+    let oneSentence: String
+    let picture: String
+    let steps: [String]
+    let bigNumbers: String?
+    let workedExample: String
+    let check: ConceptCheck
+    let mixUp: ConceptMixUp
+    let standsOn: [String]
+    let footing: String?
+    let usedIn: [ConceptUse]
+}
+
+struct ConceptCheck: Codable, Identifiable, Equatable, Sendable {
+    let id: String
+    let prompt: String
+    let answer: String
+    let answerKey: AnswerKey
+}
+
+/// The idea she is most likely to confuse a card with: another card (`with`) or a plain name.
+struct ConceptMixUp: Codable, Equatable, Sendable {
+    let with: String?
+    let name: String?
+    let how: String
+}
+
+/// Where a card is needed: a chapter that teaches it, or a card that stands on it.
+enum ConceptUse: Codable, Equatable, Sendable {
+    case chapter(Int, label: String)
+    case concept(String, label: String)
+
+    private enum CodingKeys: String, CodingKey { case chapter, concept, label }
+
+    var label: String {
+        switch self {
+        case let .chapter(_, label), let .concept(_, label): label
+        }
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let label = try container.decode(String.self, forKey: .label)
+        if let number = try container.decodeIfPresent(Int.self, forKey: .chapter) {
+            self = .chapter(number, label: label)
+        } else {
+            self = .concept(try container.decode(String.self, forKey: .concept), label: label)
+        }
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        switch self {
+        case let .chapter(number, label):
+            try container.encode(number, forKey: .chapter)
+            try container.encode(label, forKey: .label)
+        case let .concept(id, label):
+            try container.encode(id, forKey: .concept)
+            try container.encode(label, forKey: .label)
+        }
+    }
 }
 
 struct Misconception: Codable, Identifiable, Equatable, Sendable {
@@ -100,17 +174,72 @@ struct PatternedWorldChapter: Codable, Identifiable, Equatable, Sendable {
     let title: String
     let subtitle: String
     let hookSummary: String
+    /// What she can do afterwards with the device off. Present on chapters rewritten to the content brief.
+    let skillCard: ChapterSkillCard?
     let intuitionToFormula: IntuitionToFormulaBridge
     let sections: [PatternedWorldSection]
     let callouts: [PatternedWorldCallout]
     let keyTerms: [String]
     let widgets: [String]
+
+    /// A chapter rewritten to the content brief links its concept names to their cards; the others
+    /// read as they always have.
+    var linksConcepts: Bool { sections.contains { $0.steps != nil } }
+}
+
+struct ChapterSkillCard: Codable, Equatable, Sendable {
+    struct DeviceOffCheck: Codable, Equatable, Sendable {
+        let prompt: String
+        let answer: String
+    }
+
+    let skill: String
+    let sheCan: DeviceOffCheck
+    let whyItMatters: String
+    let standsOn: [String]
+    let unlocks: [String]
 }
 
 struct PatternedWorldSection: Codable, Identifiable, Equatable, Sendable {
     let id: String
     let heading: String
+    /// The section's one paragraph; on a rewritten section, the text of its `idea` step.
     let excerpt: String
+    /// The concept cards whose names this section's `name` step introduces.
+    let teaches: [String]?
+    /// The nine teaching steps of a rewritten section; absent on the others.
+    let steps: [TeachingStep]?
+
+    var teachingSteps: [TeachingStep] { steps ?? [] }
+}
+
+/// The nine moves a rewritten section makes, in this order.
+enum TeachingStepKind: String, Codable, CaseIterable, Sendable {
+    case question, idea, picture, reason, name, example, mistake, turn, sayBack
+
+    /// The small label over the step. The question has none; it is the section's lead.
+    var label: String? {
+        switch self {
+        case .question: nil
+        case .idea: "The idea"
+        case .picture: "Picture it"
+        case .reason: "Why it works"
+        case .name: "What it's called"
+        case .example: "Worked example"
+        case .mistake: "The tempting mistake"
+        case .turn: "Your turn"
+        case .sayBack: "Say it back"
+        }
+    }
+}
+
+struct TeachingStep: Codable, Identifiable, Equatable, Sendable {
+    let id: String
+    let kind: TeachingStepKind
+    let text: String
+    /// Present on the `turn` step.
+    let answer: String?
+    let answerKey: AnswerKey?
 }
 
 struct PatternedWorldCallout: Codable, Identifiable, Equatable, Sendable {
@@ -122,9 +251,9 @@ struct PatternedWorldCallout: Codable, Identifiable, Equatable, Sendable {
     var badgeText: String {
         switch kind {
         case "predict": return "Predict first"
-        case "check": return "Intuition → Formula"
+        case "check": return "Check your understanding"
         case "recall": return "Recall"
-        case "careful": return "Algebraic trap"
+        case "careful": return "Watch out"
         case "school": return "Cambridge syllabus"
         case "home": return "Try on paper"
         case "case": return "Historical proof"
@@ -511,7 +640,9 @@ enum SeedPackLoader {
             speedMathDecks: [],
             visualMathTips: [],
             misconceptions: [],
-            footings: []
+            footings: [],
+            concepts: [],
+            conceptStopPhrases: []
         )
     }
 }

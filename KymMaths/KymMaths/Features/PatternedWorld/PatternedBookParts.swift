@@ -289,6 +289,7 @@ struct YourTurnCard: View {
     @Binding var text: String
     let isSaved: Bool
     let isPrimary: Bool
+    var linksConcepts = false
     let save: () -> Void
 
     private var isPrediction: Bool { callout.kind == "predict" }
@@ -306,7 +307,7 @@ struct YourTurnCard: View {
                     note
                 }
             }
-            ByrneText(callout.body)
+            ConceptText(callout.body, linking: linksConcepts)
                 .patternedType(.readingDefault)
                 .foregroundStyle(theme.ink)
                 .fixedSize(horizontal: false, vertical: true)

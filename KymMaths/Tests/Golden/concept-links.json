@@ -1,0 +1,2943 @@
+[
+  {
+    "text": "Negative numbers, primes and powers",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "negative-number",
+        "text": "Negative numbers",
+        "offset": 0
+      },
+      {
+        "concept": "prime-number",
+        "text": "primes",
+        "offset": 18
+      },
+      {
+        "concept": "power",
+        "text": "powers",
+        "offset": 29
+      }
+    ]
+  },
+  {
+    "text": "School book chapter 1 · Why minus times minus is plus, how every number is built from primes, and the rules for powers",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "prime-number",
+        "text": "primes",
+        "offset": 86
+      },
+      {
+        "concept": "power",
+        "text": "powers",
+        "offset": 112
+      }
+    ]
+  },
+  {
+    "text": "Why does a minus times a minus make a plus?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Signs, primes and powers",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "prime-number",
+        "text": "primes",
+        "offset": 7
+      },
+      {
+        "concept": "power",
+        "text": "powers",
+        "offset": 18
+      }
+    ]
+  },
+  {
+    "text": "With no calculator: work out (−2)³ × (−3). Then find the HCF and the LCM of 12 and 20.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 57
+      },
+      {
+        "concept": "lcm",
+        "text": "LCM",
+        "offset": 69
+      }
+    ]
+  },
+  {
+    "text": "(−2)³ × (−3) = 24. The HCF is 4 and the LCM is 60.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 23
+      },
+      {
+        "concept": "lcm",
+        "text": "LCM",
+        "offset": 40
+      }
+    ]
+  },
+  {
+    "text": "Simplifying a fraction is finding an HCF. Adding fractions is finding an LCM. Powers are how growth, interest and computer memory are counted.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 37
+      },
+      {
+        "concept": "lcm",
+        "text": "LCM",
+        "offset": 73
+      },
+      {
+        "concept": "power",
+        "text": "Powers",
+        "offset": 78
+      }
+    ]
+  },
+  {
+    "text": "Times tables to 12 × 12",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Dividing with remainders",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The number line below zero",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 2: fractions and recurring decimals",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 4: taking out a common factor in algebra",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "common factor",
+        "offset": 24
+      }
+    ]
+  },
+  {
+    "text": "Chapter 12: Pythagoras, which needs square roots",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "square-root",
+        "text": "square roots",
+        "offset": 36
+      }
+    ]
+  },
+  {
+    "text": "Stand an arrow at 0 on the number line, pointing at the positive numbers. Multiply by −1 and the arrow turns to face the other way. Set the turns to 0, 1 and 2 and watch where it points.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The length of the arrow never changes. Only its direction does. Two turns put it back where it started, so (−1) × (−1) = +1.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "(−1) × (−1) = +1,   HCF × LCM = a × b",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 20
+      },
+      {
+        "concept": "lcm",
+        "text": "LCM",
+        "offset": 26
+      }
+    ]
+  },
+  {
+    "text": "(−1) × (−1)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The arrow, turned twice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Two about-turns leave it facing forward",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "HCF",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "The blue bar",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The biggest number that divides into both a and b",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "LCM",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "lcm",
+        "text": "LCM",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "The amber bar",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The smallest number that both a and b divide into",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "1.1 Minus times minus",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "1.2 Every number has an ingredients list",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "1.3 What two numbers share",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "1.4 A shorthand for repeated multiplying",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "1.5 The number no fraction can reach",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Predict first",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Before you touch the figure: what is (−1) × (−1)? Write your answer and one reason for it.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Explain it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A friend says a minus times a minus should be an even bigger minus. Explain in your own words why it is a plus.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Watch out for 1",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "1 is not a prime number. A prime has exactly two factors, and 1 has only one.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "prime-number",
+        "text": "prime number",
+        "offset": 11
+      },
+      {
+        "concept": "factor",
+        "text": "factors",
+        "offset": 49
+      }
+    ]
+  },
+  {
+    "text": "Negative number",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "negative-number",
+        "text": "Negative number",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Factor",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "factor",
+        "text": "Factor",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Prime number",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "prime-number",
+        "text": "Prime number",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Prime factors",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "prime-factors",
+        "text": "Prime factors",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Multiple",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Highest common factor",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "Highest common factor",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Lowest common multiple",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "lcm",
+        "text": "Lowest common multiple",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Power",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "power",
+        "text": "Power",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Laws of indices",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "index-laws",
+        "text": "Laws of indices",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Square root",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "square-root",
+        "text": "Square root",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Irrational number",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "irrational-number",
+        "text": "Irrational number",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Turning round on the number line",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Predict where the arrow points after 0, 1 and 2 turns. Then set the turns and check.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Each × (−1) turns the arrow to face the other way. Its length stays the same. Two turns bring it back, so (−1) × (−1) = +1.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The rule: (−1) × (−1) = +1",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "1. Try it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the turns to 1. The arrow faces the negative numbers.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "negative-number",
+        "text": "negative numbers",
+        "offset": 40
+      }
+    ]
+  },
+  {
+    "text": "2. Notice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the turns to 2. The arrow faces forward again, the same length as before.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3. Match the colours",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The green arrow faces the positive numbers. The red arrow faces the negative numbers.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "negative-number",
+        "text": "negative numbers",
+        "offset": 68
+      }
+    ]
+  },
+  {
+    "text": "4. Push it further",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "On paper, try 3 turns and then 4. Odd counts face backward. Even counts face forward.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "5. Draw it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Sketch the number line and the two turns in your journal.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "What two numbers share",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the two numbers to 24 and 36. Predict the HCF and the LCM, then read the bars.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 46
+      },
+      {
+        "concept": "lcm",
+        "text": "LCM",
+        "offset": 58
+      }
+    ]
+  },
+  {
+    "text": "24 = 2 × 2 × 2 × 3 and 36 = 2 × 2 × 3 × 3. The shared primes give the HCF, 12. Every prime either number needs gives the LCM, 72.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "prime-number",
+        "text": "primes",
+        "offset": 54
+      },
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 70
+      },
+      {
+        "concept": "lcm",
+        "text": "LCM",
+        "offset": 121
+      }
+    ]
+  },
+  {
+    "text": "The check: HCF × LCM = 12 × 72 = 864 = 24 × 36",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 11
+      },
+      {
+        "concept": "lcm",
+        "text": "LCM",
+        "offset": 17
+      }
+    ]
+  },
+  {
+    "text": "1. Try it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the first number to 24 and the second to 36.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2. Notice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The blue bar shows the HCF, 12. The amber bar shows the LCM, 72.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 23
+      },
+      {
+        "concept": "lcm",
+        "text": "LCM",
+        "offset": 56
+      }
+    ]
+  },
+  {
+    "text": "3. Match the colours",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Blue is what the two numbers share. Amber is the smallest number both divide into.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "4. Push it further",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set both numbers to 24. The HCF and the LCM are both 24. Can you say why?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 28
+      },
+      {
+        "concept": "lcm",
+        "text": "LCM",
+        "offset": 40
+      }
+    ]
+  },
+  {
+    "text": "5. Draw it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw the factor trees for 24 and 36 in your journal and circle the shared primes.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "prime-factors",
+        "text": "factor trees",
+        "offset": 9
+      },
+      {
+        "concept": "prime-number",
+        "text": "primes",
+        "offset": 74
+      }
+    ]
+  },
+  {
+    "text": "The doubling staircase",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "On paper, write 2¹ to 2¹⁰ as a staircase, each step double the one before. Use it to check that 2³ × 2⁴ = 2⁷ without multiplying it out.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Going up one step multiplies by 2. Going up 3 steps and then 4 more is 7 steps. That is why the indices add.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "power",
+        "text": "indices",
+        "offset": 96
+      }
+    ]
+  },
+  {
+    "text": "The rule: 2³ × 2⁴ = 2⁷",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "1. Try it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write the staircase: 2, 4, 8, 16, 32, 64, 128, 256, 512, 1,024.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2. Notice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2³ is 8 and 2⁴ is 16. 8 × 16 = 128, which is the 7th step.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3. Match the rule",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3 steps and then 4 more steps make 7 steps: 2³ × 2⁴ = 2⁷.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "4. Push it further",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Go down instead. 2⁷ ÷ 2⁴ is 4 steps down from the 7th step. Where do you land?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "5. Draw it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw the staircase in your journal and mark the jump from 2³ to 2⁷.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 1 · Turning round on the number line",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "What does multiplying by −1 do to a number?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "It keeps the size and turns the direction round. 3 becomes −3, and −3 becomes 3.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The rule: (−1) × (−1) = +1",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why does a minus times a minus make a plus?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 1 · What two numbers share",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "How do the HCF and the LCM of 24 and 36 come from their prime factors?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 11
+      },
+      {
+        "concept": "lcm",
+        "text": "LCM",
+        "offset": 23
+      },
+      {
+        "concept": "prime-factors",
+        "text": "prime factors",
+        "offset": 56
+      }
+    ]
+  },
+  {
+    "text": "24 = 2 × 2 × 2 × 3 and 36 = 2 × 2 × 3 × 3. The shared primes give the HCF, 12. Every prime either number needs gives the LCM, 72.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "prime-number",
+        "text": "primes",
+        "offset": 54
+      },
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 70
+      },
+      {
+        "concept": "lcm",
+        "text": "LCM",
+        "offset": 121
+      }
+    ]
+  },
+  {
+    "text": "The check: HCF × LCM = 12 × 72 = 864 = 24 × 36",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 11
+      },
+      {
+        "concept": "lcm",
+        "text": "LCM",
+        "offset": 17
+      }
+    ]
+  },
+  {
+    "text": "Why does a minus times a minus make a plus?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 1 · Why the check always works",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why does HCF × LCM equal the two numbers multiplied together?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 9
+      },
+      {
+        "concept": "lcm",
+        "text": "LCM",
+        "offset": 15
+      }
+    ]
+  },
+  {
+    "text": "24 × 36 uses every prime of both numbers. The LCM takes each prime the most times it appears in either number. The HCF takes the shared ones, which are exactly the primes the LCM left out. Between them they use every prime once.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "prime-number",
+        "text": "prime",
+        "offset": 19
+      },
+      {
+        "concept": "lcm",
+        "text": "LCM",
+        "offset": 46
+      },
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 115
+      }
+    ]
+  },
+  {
+    "text": "The rule: HCF × LCM = a × b",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 10
+      },
+      {
+        "concept": "lcm",
+        "text": "LCM",
+        "offset": 16
+      }
+    ]
+  },
+  {
+    "text": "Why does a minus times a minus make a plus?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why minus times minus is plus",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Multiplying by −1 turns you round on the number line.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Two about-turns leave you facing the way you started.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "(−1) × (−1) = +1",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A shop owes its supplier ₹50 on each of 3 bills. The supplier cancels all 3 bills. Is the shop better or worse off, and by how much?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Losing a debt is a gain. Take away 3 debts of ₹50 and the shop is ₹150 better off. That is what (−3) × (−50) = +150 says: three lots of owing fifty, removed.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Stand at 0 on a number line, facing the positive numbers. Multiplying by −1 means turn around. Turn around once and you face the negative numbers. Turn around twice and you face forward again. In the figure, set the turns to 0, 1 and 2 and watch the arrow.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "negative-number",
+        "text": "negative numbers",
+        "offset": 129
+      }
+    ]
+  },
+  {
+    "text": "Why must the answer be positive? Follow this pattern. 3 × (−2) = −6. 2 × (−2) = −4. 1 × (−2) = −2. 0 × (−2) = 0. Each answer is 2 more than the one before. Keep going, and the pattern forces (−1) × (−2) = +2 and (−2) × (−2) = +4. Any other answer would break the pattern.",
+    "exclude": null,
+    "linked": [
+      "negative-number"
+    ],
+    "links": []
+  },
+  {
+    "text": "Numbers with a direction, like +5 and −5, are called directed numbers. The rule has two parts. Same signs give a positive answer. Different signs give a negative answer. Dividing follows the same rule, because dividing undoes multiplying.",
+    "exclude": null,
+    "linked": [
+      "negative-number"
+    ],
+    "links": []
+  },
+  {
+    "text": "Work out (−4) × 6 ÷ (−3). First the size: 4 × 6 = 24, and 24 ÷ 3 = 8. Now the signs. There are two minus signs, which is two about-turns. You finish facing forward, so the answer is +8.",
+    "exclude": null,
+    "linked": [
+      "negative-number"
+    ],
+    "links": []
+  },
+  {
+    "text": "The rule is for multiplying and dividing only. −3 − 4 is not +7. It is −7, because you start at −3 and move 4 further left. The saying “two minuses make a plus” tempts you to use the rule where it does not belong. When you add or subtract, walk it on the number line.",
+    "exclude": null,
+    "linked": [
+      "negative-number"
+    ],
+    "links": []
+  },
+  {
+    "text": "Work out (−6) × (−3) ÷ (−9).",
+    "exclude": null,
+    "linked": [
+      "negative-number"
+    ],
+    "links": []
+  },
+  {
+    "text": "Multiplying by a negative number is an about-turn, so two of them leave you facing forward.",
+    "exclude": null,
+    "linked": [
+      "negative-number"
+    ],
+    "links": []
+  },
+  {
+    "text": "A class of 24 can line up in equal rows in many ways. A class of 23 cannot, however you try. What makes 23 so awkward?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "24 splits into equal rows of 2, 3, 4, 6, 8 or 12. 23 only works as one long row. Some numbers break into smaller pieces. Others refuse to break at all.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Break 60 into two pieces that multiply to make it: 6 × 10. Break those again. 6 is 2 × 3 and 10 is 2 × 5. Now nothing breaks any further. You are left with 2 × 2 × 3 × 5. Drawn on paper, this looks like a tree with 60 at the top.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Start a different way: 60 = 4 × 15. Then 4 is 2 × 2 and 15 is 3 × 5. You get 2 × 2 × 3 × 5 again. Whichever way you break a number, you finish with the same unbreakable pieces. They are the number's ingredients list, and every number has exactly one.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A number that divides exactly into another is called a factor. 6 and 10 are factors of 60. A number with exactly two factors, 1 and itself, is a prime number. The unbreakable pieces of 60 are its prime factors, and the drawing is a factor tree. 1 is not prime, because it has only one factor.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "factor",
+        "text": "factor",
+        "offset": 55
+      },
+      {
+        "concept": "prime-number",
+        "text": "prime number",
+        "offset": 145
+      },
+      {
+        "concept": "prime-factors",
+        "text": "prime factors",
+        "offset": 196
+      }
+    ]
+  },
+  {
+    "text": "Write 84 as a product of prime factors. 84 = 2 × 42. 42 = 2 × 21. 21 = 3 × 7. Every piece is now prime. So 84 = 2 × 2 × 3 × 7. Check by multiplying back: 4 × 21 = 84.",
+    "exclude": null,
+    "linked": [
+      "factor",
+      "prime-factors",
+      "prime-number"
+    ],
+    "links": []
+  },
+  {
+    "text": "It is tempting to stop too early. 84 = 4 × 21 is true, but 4 and 21 can both still break. Keep going until every piece is prime. A second trap is to think every odd number is prime. 9, 15 and 21 are odd, and none of them is prime.",
+    "exclude": null,
+    "linked": [
+      "factor",
+      "prime-factors",
+      "prime-number"
+    ],
+    "links": []
+  },
+  {
+    "text": "Write 90 as a product of prime factors.",
+    "exclude": null,
+    "linked": [
+      "factor",
+      "prime-factors",
+      "prime-number"
+    ],
+    "links": []
+  },
+  {
+    "text": "Every whole number bigger than 1 is either prime or built from primes in exactly one way.",
+    "exclude": null,
+    "linked": [
+      "factor",
+      "prime-factors",
+      "prime-number"
+    ],
+    "links": []
+  },
+  {
+    "text": "A florist has 24 roses and 36 marigolds. She wants identical bunches with no flowers left over. What is the largest number of bunches she can make?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The number of bunches must divide exactly into 24 and into 36. 2 bunches work. So do 3, 4, 6 and 12. The biggest that works is 12, with 2 roses and 3 marigolds in each bunch.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Use the ingredients lists. 24 = 2 × 2 × 2 × 3 and 36 = 2 × 2 × 3 × 3. Both lists contain two 2s and one 3. Those shared pieces multiply to 2 × 2 × 3 = 12. In the figure, set the two numbers to 24 and 36 and read the blue bar.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why do the shared pieces give the biggest answer? A number divides into 24 only if all its pieces are in 24's list. To divide into both numbers, its pieces must be in both lists. Take every shared piece and you have the biggest such number.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The biggest number that divides into both is the highest common factor, or HCF. Now turn the question round. The numbers in a times table are called multiples. 24, 48 and 72 are multiples of 24. The smallest number in both times tables is the lowest common multiple, or LCM. For 24 and 36 it is 72, the amber bar.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "highest common factor",
+        "offset": 49
+      },
+      {
+        "concept": "multiple",
+        "text": "multiples",
+        "offset": 149
+      },
+      {
+        "concept": "lcm",
+        "text": "lowest common multiple",
+        "offset": 243
+      }
+    ]
+  },
+  {
+    "text": "Two buses leave the depot together. One leaves every 12 minutes and the other every 18. When do they next leave together? The multiples of 12 are 12, 24, 36. The multiples of 18 are 18, 36. They meet at 36 minutes, so the LCM of 12 and 18 is 36. With prime factors: 12 = 2 × 2 × 3 and 18 = 2 × 3 × 3. Take each prime the most times it appears in either list. That gives 2 × 2 × 3 × 3 = 36.",
+    "exclude": null,
+    "linked": [
+      "hcf",
+      "lcm",
+      "multiple"
+    ],
+    "links": [
+      {
+        "concept": "prime-factors",
+        "text": "prime factors",
+        "offset": 251
+      },
+      {
+        "concept": "prime-number",
+        "text": "prime",
+        "offset": 311
+      }
+    ]
+  },
+  {
+    "text": "The tempting shortcut for the LCM is to multiply the two numbers. 12 × 18 = 216 is a common multiple, but it is not the lowest. Multiplying counts the shared pieces twice. In fact HCF × LCM always equals the two numbers multiplied together. Here 6 × 36 = 216 = 12 × 18.",
+    "exclude": null,
+    "linked": [
+      "hcf",
+      "lcm",
+      "multiple",
+      "prime-factors",
+      "prime-number"
+    ],
+    "links": []
+  },
+  {
+    "text": "Find the LCM of 8 and 12.",
+    "exclude": null,
+    "linked": [
+      "hcf",
+      "lcm",
+      "multiple",
+      "prime-factors",
+      "prime-number"
+    ],
+    "links": []
+  },
+  {
+    "text": "The HCF is built from the prime pieces two numbers share, and the LCM from every piece either one needs.",
+    "exclude": null,
+    "linked": [
+      "hcf",
+      "lcm",
+      "multiple",
+      "prime-factors",
+      "prime-number"
+    ],
+    "links": []
+  },
+  {
+    "text": "You forward a message to 2 friends. Each of them forwards it to 2 more, and so on. How many people receive it in the 10th round?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Each round doubles the one before: 2, 4, 8, 16. Round 10 is 2 × 2 × 2 × 2 × 2 × 2 × 2 × 2 × 2 × 2, which is 1,024 people. Writing ten 2s is slow and hard to check. We need a shorthand.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write the count of 2s as a small raised number: 2¹⁰. Now look at 2³ × 2². Written out, that is (2 × 2 × 2) × (2 × 2). Count the 2s. There are five, so 2³ × 2² = 2⁵.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Multiplying joins two chains of 2s into one longer chain, so the counts add. Dividing cancels 2s from the chain, so the counts subtract. 2⁵ ÷ 2² removes two of the five 2s and leaves 2³.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2¹⁰ is called a power of 2. The 2 is the base and the small 10 is the index. The plural of index is indices. The counting shortcuts are the laws of indices. To multiply powers of the same base, add the indices. To divide, subtract them.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "power",
+        "text": "power",
+        "offset": 16
+      },
+      {
+        "concept": "index-laws",
+        "text": "laws of indices",
+        "offset": 140
+      }
+    ]
+  },
+  {
+    "text": "Simplify 3⁴ × 3² ÷ 3³. Multiplying adds: 4 + 2 = 6, giving 3⁶. Dividing subtracts: 6 − 3 = 3, giving 3³. And 3³ = 3 × 3 × 3 = 27. Now try 5² ÷ 5². Subtracting the indices gives 5⁰. But any number divided by itself is 1. So 5⁰ = 1.",
+    "exclude": null,
+    "linked": [
+      "index-laws",
+      "power"
+    ],
+    "links": []
+  },
+  {
+    "text": "There are two traps. First, 2³ is not 2 × 3. It is 2 × 2 × 2 = 8. Second, the laws need the same base. 2³ × 3² is two different chains, so work out each one: 8 × 9 = 72.",
+    "exclude": null,
+    "linked": [
+      "index-laws",
+      "power"
+    ],
+    "links": []
+  },
+  {
+    "text": "Write 7³ × 7⁵ as a single power of 7.",
+    "exclude": null,
+    "linked": [
+      "index-laws",
+      "power"
+    ],
+    "links": []
+  },
+  {
+    "text": "A power counts how many times a number is multiplied by itself, so multiplying powers adds the counts.",
+    "exclude": null,
+    "linked": [
+      "index-laws",
+      "power"
+    ],
+    "links": []
+  },
+  {
+    "text": "A square garden has an area of 49 square metres. How long is each side? Now make the area 2 square metres. How long is each side this time?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "For 49, you need a number that multiplies by itself to give 49. That is 7. For 2, try 1.4. 1.4 × 1.4 = 1.96, which is a little too small. Try 1.5. 1.5 × 1.5 = 2.25, which is too big. The side is somewhere between.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Zoom in. 1.41 × 1.41 = 1.9881. 1.42 × 1.42 = 2.0164. So the side is between 1.41 and 1.42. Each extra decimal place gets closer to 2. None of them ever lands on it exactly.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Could some fraction land on it exactly? Suppose one did, written in its lowest terms. Then top × top would equal 2 × bottom × bottom. That makes top × top even, so top is even. Write top as 2 × something, and the same line shows that bottom is even too. But a fraction in its lowest terms cannot have both parts even. So no fraction works. This argument is more than 2,000 years old.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The number that multiplies by itself to give 49 is the square root of 49, written √49 = 7. Numbers that can be written as fractions are called rational. Numbers that cannot, like √2, are called irrational numbers. Their decimals never end and never repeat.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "square-root",
+        "text": "square root",
+        "offset": 55
+      },
+      {
+        "concept": "irrational-number",
+        "text": "irrational numbers",
+        "offset": 194
+      }
+    ]
+  },
+  {
+    "text": "Between which two whole numbers does √50 lie? 7 × 7 = 49 and 8 × 8 = 64. 50 is between 49 and 64, so √50 is between 7 and 8. It is only a little above 7, because 50 is only a little above 49.",
+    "exclude": null,
+    "linked": [
+      "irrational-number",
+      "square-root"
+    ],
+    "links": []
+  },
+  {
+    "text": "√16 is 4, not 8. Halving is tempting because it also makes a number smaller. Check by multiplying back: 4 × 4 = 16, but 8 × 8 = 64.",
+    "exclude": null,
+    "linked": [
+      "irrational-number",
+      "square-root"
+    ],
+    "links": []
+  },
+  {
+    "text": "√30 lies between two whole numbers. What is the smaller one?",
+    "exclude": null,
+    "linked": [
+      "irrational-number",
+      "square-root"
+    ],
+    "links": []
+  },
+  {
+    "text": "A square root asks what number times itself gives this one, and most of the answers cannot be written as fractions.",
+    "exclude": null,
+    "linked": [
+      "irrational-number",
+      "square-root"
+    ],
+    "links": []
+  },
+  {
+    "text": "Negative number",
+    "exclude": "negative-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A number less than zero, written with a minus sign in front.",
+    "exclude": "negative-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The night temperature in Shimla is 2 °C. It drops by 5 degrees. It passes zero and lands on −3 °C. On a number line, negative numbers sit to the left of 0.",
+    "exclude": "negative-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Work out (−6) × 5. The size is 6 × 5 = 30. There is one minus sign, so the answer is negative. (−6) × 5 = −30.",
+    "exclude": "negative-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "To add a negative number, move left. 4 + (−6) = −2.",
+    "exclude": "negative-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "To subtract a negative number, move right. 4 − (−6) = 10.",
+    "exclude": "negative-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "To multiply or divide, work out the size first. Then count the minus signs.",
+    "exclude": "negative-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "An even count of minus signs gives a positive answer. An odd count gives a negative answer.",
+    "exclude": "negative-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Work out (−8) ÷ (−2).",
+    "exclude": "negative-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "4",
+    "exclude": "negative-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "the take-away sign",
+    "exclude": "negative-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "In 7 − 3 the sign is an instruction to take away. In −3 it is part of the number.",
+    "exclude": "negative-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 1 · Negative numbers, primes and powers",
+    "exclude": "negative-number",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prime-number",
+        "text": "primes",
+        "offset": 30
+      },
+      {
+        "concept": "power",
+        "text": "powers",
+        "offset": 41
+      }
+    ]
+  },
+  {
+    "text": "Factor",
+    "exclude": "factor",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A number that divides exactly into another number, with nothing left over.",
+    "exclude": "factor",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "24 students can line up in 4 equal rows of 6. So 4 and 6 are both factors of 24. They cannot make 5 equal rows, so 5 is not a factor of 24.",
+    "exclude": "factor",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find the factors of 18. The pairs are 1 × 18, 2 × 9 and 3 × 6. 4 and 5 do not divide exactly. The next pair would be 6 × 3, which repeats. So the factors are 1, 2, 3, 6, 9 and 18.",
+    "exclude": "factor",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Try dividing by 1, 2, 3 and so on.",
+    "exclude": "factor",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Each time it divides exactly, write down the pair. For 24: 1 × 24, 2 × 12, 3 × 8, 4 × 6.",
+    "exclude": "factor",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Stop when the pairs start to repeat. The factors of 24 are 1, 2, 3, 4, 6, 8, 12 and 24.",
+    "exclude": "factor",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "How many factors does 12 have?",
+    "exclude": "factor",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "6",
+    "exclude": "factor",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The factors of 12 are 12 or smaller. The multiples of 12 are 12 or bigger.",
+    "exclude": "factor",
+    "linked": [],
+    "links": [
+      {
+        "concept": "multiple",
+        "text": "multiples",
+        "offset": 41
+      }
+    ]
+  },
+  {
+    "text": "Chapter 1 · Negative numbers, primes and powers",
+    "exclude": "factor",
+    "linked": [],
+    "links": [
+      {
+        "concept": "negative-number",
+        "text": "Negative numbers",
+        "offset": 12
+      },
+      {
+        "concept": "prime-number",
+        "text": "primes",
+        "offset": 30
+      },
+      {
+        "concept": "power",
+        "text": "powers",
+        "offset": 41
+      }
+    ]
+  },
+  {
+    "text": "Prime number",
+    "exclude": "factor",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prime-number",
+        "text": "Prime number",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Prime factors",
+    "exclude": "factor",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prime-factors",
+        "text": "Prime factors",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Highest common factor",
+    "exclude": "factor",
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "Highest common factor",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Multiple",
+    "exclude": "multiple",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "What you get when you multiply a number by 1, 2, 3 and so on.",
+    "exclude": "multiple",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A bus leaves every 6 minutes. It leaves at 6, 12, 18 and 24 minutes past the hour. Those times are the multiples of 6.",
+    "exclude": "multiple",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Is 42 a multiple of 6? 6 × 7 = 42, so yes. Is 44? 44 ÷ 6 leaves 2 over, so no.",
+    "exclude": "multiple",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write the number.",
+    "exclude": "multiple",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Keep adding the same number: 6, 12, 18, 24, 30.",
+    "exclude": "multiple",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "That list is its times table, and it never ends.",
+    "exclude": "multiple",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "What is the 5th multiple of 7?",
+    "exclude": "multiple",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "35",
+    "exclude": "multiple",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Multiples of 6 are 6 or bigger: 6, 12, 18. Factors of 6 are 6 or smaller: 1, 2, 3, 6.",
+    "exclude": "multiple",
+    "linked": [],
+    "links": [
+      {
+        "concept": "factor",
+        "text": "Factors",
+        "offset": 43
+      }
+    ]
+  },
+  {
+    "text": "Chapter 1 · Negative numbers, primes and powers",
+    "exclude": "multiple",
+    "linked": [],
+    "links": [
+      {
+        "concept": "negative-number",
+        "text": "Negative numbers",
+        "offset": 12
+      },
+      {
+        "concept": "prime-number",
+        "text": "primes",
+        "offset": 30
+      },
+      {
+        "concept": "power",
+        "text": "powers",
+        "offset": 41
+      }
+    ]
+  },
+  {
+    "text": "Lowest common multiple",
+    "exclude": "multiple",
+    "linked": [],
+    "links": [
+      {
+        "concept": "lcm",
+        "text": "Lowest common multiple",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Prime number",
+    "exclude": "prime-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A whole number with exactly two factors, 1 and itself.",
+    "exclude": "prime-number",
+    "linked": [],
+    "links": [
+      {
+        "concept": "factor",
+        "text": "factors",
+        "offset": 32
+      }
+    ]
+  },
+  {
+    "text": "7 students can only line up as 1 row of 7 or 7 rows of 1. No other equal rows work, so 7 is prime. 6 students can make 2 rows of 3, so 6 is not.",
+    "exclude": "prime-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Is 29 prime? It is odd, so 2 does not divide it. 29 ÷ 3 leaves 2 over. 29 ÷ 5 leaves 4 over. 6 × 6 is already more than 29, so there is nothing bigger to check. 29 is prime.",
+    "exclude": "prime-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Try dividing by 2, 3, 5, 7 and so on.",
+    "exclude": "prime-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "If nothing divides exactly before the pairs repeat, the number is prime.",
+    "exclude": "prime-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Remember that 1 is not prime. It has only one factor.",
+    "exclude": "prime-number",
+    "linked": [],
+    "links": [
+      {
+        "concept": "factor",
+        "text": "factor",
+        "offset": 46
+      }
+    ]
+  },
+  {
+    "text": "The first few primes are 2, 3, 5, 7, 11, 13, 17 and 19.",
+    "exclude": "prime-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Which of these is prime: 21, 23 or 27?",
+    "exclude": "prime-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "23",
+    "exclude": "prime-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "odd numbers",
+    "exclude": "prime-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "9, 15 and 21 are odd but not prime. And 2 is prime but not odd.",
+    "exclude": "prime-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 1 · Negative numbers, primes and powers",
+    "exclude": "prime-number",
+    "linked": [],
+    "links": [
+      {
+        "concept": "negative-number",
+        "text": "Negative numbers",
+        "offset": 12
+      },
+      {
+        "concept": "power",
+        "text": "powers",
+        "offset": 41
+      }
+    ]
+  },
+  {
+    "text": "Prime factors",
+    "exclude": "prime-number",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prime-factors",
+        "text": "Prime factors",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Prime factors",
+    "exclude": "prime-factors",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The prime numbers that multiply together to make a number.",
+    "exclude": "prime-factors",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prime-number",
+        "text": "prime numbers",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "Think of primes as bricks that cannot be split. 12 is built from the bricks 2, 2 and 3, because 2 × 2 × 3 = 12. No other set of prime bricks makes 12.",
+    "exclude": "prime-factors",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prime-number",
+        "text": "primes",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "Write 84 as a product of primes. 84 = 2 × 42. 42 = 2 × 21. 21 = 3 × 7. So 84 = 2 × 2 × 3 × 7. Starting with 84 = 7 × 12 gives the same four primes.",
+    "exclude": "prime-factors",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prime-number",
+        "text": "primes",
+        "offset": 140
+      }
+    ]
+  },
+  {
+    "text": "Split the number into any two factors. 60 = 6 × 10.",
+    "exclude": "prime-factors",
+    "linked": [],
+    "links": [
+      {
+        "concept": "factor",
+        "text": "factors",
+        "offset": 30
+      }
+    ]
+  },
+  {
+    "text": "Split each part again until every part is prime. 6 = 2 × 3 and 10 = 2 × 5.",
+    "exclude": "prime-factors",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prime-number",
+        "text": "prime",
+        "offset": 42
+      }
+    ]
+  },
+  {
+    "text": "Write the primes in order. 60 = 2 × 2 × 3 × 5.",
+    "exclude": "prime-factors",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prime-number",
+        "text": "primes",
+        "offset": 10
+      }
+    ]
+  },
+  {
+    "text": "Check by multiplying back. 2 × 2 × 3 × 5 = 60.",
+    "exclude": "prime-factors",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write 30 as a product of prime factors.",
+    "exclude": "prime-factors",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2 × 3 × 5",
+    "exclude": "prime-factors",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The factors of 12 are 1, 2, 3, 4, 6 and 12. Its prime factors are only 2, 2 and 3.",
+    "exclude": "prime-factors",
+    "linked": [],
+    "links": [
+      {
+        "concept": "factor",
+        "text": "factors",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "Chapter 1 · Negative numbers, primes and powers",
+    "exclude": "prime-factors",
+    "linked": [],
+    "links": [
+      {
+        "concept": "negative-number",
+        "text": "Negative numbers",
+        "offset": 12
+      },
+      {
+        "concept": "prime-number",
+        "text": "primes",
+        "offset": 30
+      },
+      {
+        "concept": "power",
+        "text": "powers",
+        "offset": 41
+      }
+    ]
+  },
+  {
+    "text": "Highest common factor",
+    "exclude": "prime-factors",
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "Highest common factor",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Lowest common multiple",
+    "exclude": "prime-factors",
+    "linked": [],
+    "links": [
+      {
+        "concept": "lcm",
+        "text": "Lowest common multiple",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Highest common factor",
+    "exclude": "hcf",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The biggest number that divides exactly into both numbers.",
+    "exclude": "hcf",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "You have 12 samosas and 18 jalebis. You want identical plates with nothing left over. The most plates you can make is 6, each with 2 samosas and 3 jalebis. So the HCF of 12 and 18 is 6.",
+    "exclude": "hcf",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find the HCF of 16 and 40. 16 = 2 × 2 × 2 × 2 and 40 = 2 × 2 × 2 × 5. They share three 2s. 2 × 2 × 2 = 8, so the HCF is 8.",
+    "exclude": "hcf",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "HCF",
+    "exclude": "hcf",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Break each number into prime factors. 12 = 2 × 2 × 3 and 18 = 2 × 3 × 3. They share one 2 and one 3. Multiply what they share: 2 × 3 = 6.",
+    "exclude": "hcf",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prime-factors",
+        "text": "prime factors",
+        "offset": 23
+      }
+    ]
+  },
+  {
+    "text": "List the factors of each number. 12: 1, 2, 3, 4, 6, 12. 18: 1, 2, 3, 6, 9, 18.",
+    "exclude": "hcf",
+    "linked": [],
+    "links": [
+      {
+        "concept": "factor",
+        "text": "factors",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "Find the ones in both lists: 1, 2, 3 and 6.",
+    "exclude": "hcf",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Take the biggest: 6.",
+    "exclude": "hcf",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "What is the HCF of 20 and 30?",
+    "exclude": "hcf",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "10",
+    "exclude": "hcf",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The HCF is never bigger than the smaller number. The LCM is never smaller than the bigger number.",
+    "exclude": "hcf",
+    "linked": [],
+    "links": [
+      {
+        "concept": "lcm",
+        "text": "LCM",
+        "offset": 53
+      }
+    ]
+  },
+  {
+    "text": "Chapter 1 · Negative numbers, primes and powers",
+    "exclude": "hcf",
+    "linked": [],
+    "links": [
+      {
+        "concept": "negative-number",
+        "text": "Negative numbers",
+        "offset": 12
+      },
+      {
+        "concept": "prime-number",
+        "text": "primes",
+        "offset": 30
+      },
+      {
+        "concept": "power",
+        "text": "powers",
+        "offset": 41
+      }
+    ]
+  },
+  {
+    "text": "Lowest common multiple",
+    "exclude": "lcm",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The smallest number that both numbers divide into exactly.",
+    "exclude": "lcm",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "One bus leaves every 4 minutes and another every 6 minutes. They leave together now. They next leave together 12 minutes later. So the LCM of 4 and 6 is 12.",
+    "exclude": "lcm",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find the LCM of 6 and 15. The multiples of 15 are 15, 30, 45. Does 6 divide into 15? No. Into 30? Yes, 6 × 5 = 30. The LCM is 30. Notice that it is not 6 × 15 = 90.",
+    "exclude": "lcm",
+    "linked": [],
+    "links": [
+      {
+        "concept": "multiple",
+        "text": "multiples",
+        "offset": 30
+      }
+    ]
+  },
+  {
+    "text": "LCM",
+    "exclude": "lcm",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Break each number into prime factors. 12 = 2 × 2 × 3 and 18 = 2 × 3 × 3. Take each prime the most times it appears in either number. That is two 2s and two 3s. 2 × 2 × 3 × 3 = 36.",
+    "exclude": "lcm",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prime-factors",
+        "text": "prime factors",
+        "offset": 23
+      },
+      {
+        "concept": "prime-number",
+        "text": "prime",
+        "offset": 83
+      }
+    ]
+  },
+  {
+    "text": "List the multiples of each number. 4: 4, 8, 12, 16. 6: 6, 12, 18.",
+    "exclude": "lcm",
+    "linked": [],
+    "links": [
+      {
+        "concept": "multiple",
+        "text": "multiples",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "Find the first number in both lists: 12.",
+    "exclude": "lcm",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "What is the LCM of 6 and 8?",
+    "exclude": "lcm",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "24",
+    "exclude": "lcm",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The LCM is the bigger answer. Both numbers divide into it. The HCF is the smaller answer. It divides into both numbers.",
+    "exclude": "lcm",
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 63
+      }
+    ]
+  },
+  {
+    "text": "Chapter 1 · Negative numbers, primes and powers",
+    "exclude": "lcm",
+    "linked": [],
+    "links": [
+      {
+        "concept": "negative-number",
+        "text": "Negative numbers",
+        "offset": 12
+      },
+      {
+        "concept": "prime-number",
+        "text": "primes",
+        "offset": 30
+      },
+      {
+        "concept": "power",
+        "text": "powers",
+        "offset": 41
+      }
+    ]
+  },
+  {
+    "text": "Power",
+    "exclude": "power",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A short way to write a number multiplied by itself several times.",
+    "exclude": "power",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "You forward a message to 3 people. Each of them forwards it to 3 more. In the 4th round it reaches 3 × 3 × 3 × 3 = 81 people. We write that as 3⁴.",
+    "exclude": "power",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Work out 5³. The base is 5 and it appears 3 times. 5 × 5 × 5 = 25 × 5 = 125.",
+    "exclude": "power",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The big number is the base. It is the number being multiplied.",
+    "exclude": "power",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The small raised number is the index. It says how many times the base appears.",
+    "exclude": "power",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write it out and multiply. 2⁵ = 2 × 2 × 2 × 2 × 2 = 32.",
+    "exclude": "power",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Work out 2⁴.",
+    "exclude": "power",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "16",
+    "exclude": "power",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "multiplying",
+    "exclude": "power",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3⁴ is not 3 × 4. 3 × 4 = 12, but 3⁴ = 3 × 3 × 3 × 3 = 81.",
+    "exclude": "power",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 1 · Negative numbers, primes and powers",
+    "exclude": "power",
+    "linked": [],
+    "links": [
+      {
+        "concept": "negative-number",
+        "text": "Negative numbers",
+        "offset": 12
+      },
+      {
+        "concept": "prime-number",
+        "text": "primes",
+        "offset": 30
+      }
+    ]
+  },
+  {
+    "text": "Laws of indices",
+    "exclude": "power",
+    "linked": [],
+    "links": [
+      {
+        "concept": "index-laws",
+        "text": "Laws of indices",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Square root",
+    "exclude": "power",
+    "linked": [],
+    "links": [
+      {
+        "concept": "square-root",
+        "text": "Square root",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Laws of indices",
+    "exclude": "index-laws",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Shortcuts for multiplying and dividing powers of the same number.",
+    "exclude": "index-laws",
+    "linked": [],
+    "links": [
+      {
+        "concept": "power",
+        "text": "powers",
+        "offset": 39
+      }
+    ]
+  },
+  {
+    "text": "2³ × 2² is (2 × 2 × 2) × (2 × 2). Count the 2s. There are five, so 2³ × 2² = 2⁵.",
+    "exclude": "index-laws",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Simplify 3⁴ × 3² ÷ 3³. Multiplying adds the indices, giving 3⁶. Dividing subtracts them, giving 3³. And 3³ = 27.",
+    "exclude": "index-laws",
+    "linked": [],
+    "links": [
+      {
+        "concept": "power",
+        "text": "indices",
+        "offset": 44
+      }
+    ]
+  },
+  {
+    "text": "Check that the bases match. The laws only work for the same base.",
+    "exclude": "index-laws",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "To multiply, add the indices. 2³ × 2² = 2⁵.",
+    "exclude": "index-laws",
+    "linked": [],
+    "links": [
+      {
+        "concept": "power",
+        "text": "indices",
+        "offset": 21
+      }
+    ]
+  },
+  {
+    "text": "To divide, subtract the indices. 2⁵ ÷ 2² = 2³.",
+    "exclude": "index-laws",
+    "linked": [],
+    "links": [
+      {
+        "concept": "power",
+        "text": "indices",
+        "offset": 24
+      }
+    ]
+  },
+  {
+    "text": "For a power of a power, multiply the indices. (2³)² = 2⁶.",
+    "exclude": "index-laws",
+    "linked": [],
+    "links": [
+      {
+        "concept": "power",
+        "text": "power",
+        "offset": 6
+      }
+    ]
+  },
+  {
+    "text": "5² × 5⁴ is a single power of 5. What is its index?",
+    "exclude": "index-laws",
+    "linked": [],
+    "links": [
+      {
+        "concept": "power",
+        "text": "power",
+        "offset": 20
+      }
+    ]
+  },
+  {
+    "text": "6",
+    "exclude": "index-laws",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "different bases",
+    "exclude": "index-laws",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2³ × 3² has two different bases, so no law joins it. Work out each part: 8 × 9 = 72.",
+    "exclude": "index-laws",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 1 · Negative numbers, primes and powers",
+    "exclude": "index-laws",
+    "linked": [],
+    "links": [
+      {
+        "concept": "negative-number",
+        "text": "Negative numbers",
+        "offset": 12
+      },
+      {
+        "concept": "prime-number",
+        "text": "primes",
+        "offset": 30
+      },
+      {
+        "concept": "power",
+        "text": "powers",
+        "offset": 41
+      }
+    ]
+  },
+  {
+    "text": "Square root",
+    "exclude": "square-root",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The number that, multiplied by itself, gives the number you started with.",
+    "exclude": "square-root",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A square floor has 49 tiles. Each side must be 7 tiles long, because 7 × 7 = 49. So the square root of 49 is 7, written √49 = 7.",
+    "exclude": "square-root",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find √144. 10 × 10 = 100 is too small. 12 × 12 = 144. So √144 = 12.",
+    "exclude": "square-root",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "√",
+    "exclude": "square-root",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Ask what number times itself gives this one.",
+    "exclude": "square-root",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Use the square numbers you know: 1, 4, 9, 16, 25, 36, 49, 64, 81, 100.",
+    "exclude": "square-root",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "If the number sits between two of them, so does its root. √30 is between 5 and 6.",
+    "exclude": "square-root",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "What is √81?",
+    "exclude": "square-root",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "9",
+    "exclude": "square-root",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "halving",
+    "exclude": "square-root",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "√16 is 4, not 8. Halving asks what you add to itself. A square root asks what you multiply by itself.",
+    "exclude": "square-root",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 1 · Negative numbers, primes and powers",
+    "exclude": "square-root",
+    "linked": [],
+    "links": [
+      {
+        "concept": "negative-number",
+        "text": "Negative numbers",
+        "offset": 12
+      },
+      {
+        "concept": "prime-number",
+        "text": "primes",
+        "offset": 30
+      },
+      {
+        "concept": "power",
+        "text": "powers",
+        "offset": 41
+      }
+    ]
+  },
+  {
+    "text": "Irrational number",
+    "exclude": "square-root",
+    "linked": [],
+    "links": [
+      {
+        "concept": "irrational-number",
+        "text": "Irrational number",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Irrational number",
+    "exclude": "irrational-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A number that cannot be written as a fraction of two whole numbers.",
+    "exclude": "irrational-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Type √2 into a calculator. It shows 1.41421356 and then runs out of screen. The digits never end and never settle into a repeating pattern. No fraction lands exactly on it.",
+    "exclude": "irrational-number",
+    "linked": [],
+    "links": [
+      {
+        "concept": "square-root",
+        "text": "√",
+        "offset": 5
+      }
+    ]
+  },
+  {
+    "text": "Is √36 irrational? No. √36 = 6, a whole number. Is √40 irrational? 40 is not a square number, so yes.",
+    "exclude": "irrational-number",
+    "linked": [],
+    "links": [
+      {
+        "concept": "square-root",
+        "text": "√",
+        "offset": 3
+      }
+    ]
+  },
+  {
+    "text": "If a number can be written as a fraction, like 0.75 = 3/4, it is rational.",
+    "exclude": "irrational-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A decimal that stops, or repeats for ever, can always be written as a fraction.",
+    "exclude": "irrational-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The square root of a whole number that is not a square number is irrational. √2, √3 and √5 are.",
+    "exclude": "irrational-number",
+    "linked": [],
+    "links": [
+      {
+        "concept": "square-root",
+        "text": "square root",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "Only one of √16, √20 and √25 is irrational. Which number is under its root sign?",
+    "exclude": "irrational-number",
+    "linked": [],
+    "links": [
+      {
+        "concept": "square-root",
+        "text": "√",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "20",
+    "exclude": "irrational-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "a long decimal",
+    "exclude": "irrational-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "0.333… goes on for ever, but it repeats and equals 1/3. It is rational. An irrational number never repeats.",
+    "exclude": "irrational-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 1 · Negative numbers, primes and powers",
+    "exclude": "irrational-number",
+    "linked": [],
+    "links": [
+      {
+        "concept": "negative-number",
+        "text": "Negative numbers",
+        "offset": 12
+      },
+      {
+        "concept": "prime-number",
+        "text": "primes",
+        "offset": 30
+      },
+      {
+        "concept": "power",
+        "text": "powers",
+        "offset": 41
+      }
+    ]
+  },
+  {
+    "text": "Find the Highest Common Factor (HCF) and Lowest Common Multiple (LCM) of 72 and 120 using prime factorisation, and verify that HCF × LCM = 72 × 120.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "Highest Common Factor",
+        "offset": 9
+      },
+      {
+        "concept": "lcm",
+        "text": "Lowest Common Multiple",
+        "offset": 41
+      },
+      {
+        "concept": "prime-factors",
+        "text": "prime factorisation",
+        "offset": 90
+      }
+    ]
+  },
+  {
+    "text": "Step 1 (Prime Factor Trees): 72 = 2³ × 3² and 120 = 2³ × 3¹ × 5¹.\nStep 2 (Venn Intersection = HCF): Take min powers: 2³ × 3¹ = 24.\nStep 3 (Venn Union = LCM): Take max powers: 2³ × 3² × 5¹ = 360.\nStep 4 (Invariant Check): 24 × 360 = 8640 = 72 × 120.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "prime-factors",
+        "text": "Prime Factor",
+        "offset": 8
+      },
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 94
+      },
+      {
+        "concept": "power",
+        "text": "powers",
+        "offset": 109
+      },
+      {
+        "concept": "lcm",
+        "text": "LCM",
+        "offset": 152
+      }
+    ]
+  },
+  {
+    "text": "Evaluate (−6) × (−4) ÷ (−3) + (−2)³.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Apply the core invariant of 1.4 step by step.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Two Colaba lighthouses flash every 18 seconds and 24 seconds. They flash together at 19:00:00. After how many seconds will they next flash together?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Sketch the Singapore Bar Model or geometric diagram first, then solve: 72 seconds.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Given that HCF(a, b) = 12, LCM(a, b) = 180, and a = 36, find b using the prime-Venn invariant HCF × LCM = a × b.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 11
+      },
+      {
+        "concept": "lcm",
+        "text": "LCM",
+        "offset": 27
+      },
+      {
+        "concept": "prime-number",
+        "text": "prime",
+        "offset": 73
+      }
+    ]
+  },
+  {
+    "text": "Bridge from visual intuition to the symbolic invariant: b = 60.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Same signs make a positive and different signs make a negative, so (−3) × (−2) = 6 and 6 ÷ (−3) = −2, and a minus sign stays with its number through every step. Multiplying or dividing both sides of an inequality by a negative number turns the sign round: −x < 2 becomes x > −2.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "negative-number",
+        "text": "negative number",
+        "offset": 218
+      }
+    ]
+  },
+  {
+    "text": "Undo the last step first and do the same to both sides: for x/2 + 3 = 8, take 3 from both sides to get x/2 = 5, then multiply by 2 to get x = 10. An inverse function f⁻¹ makes those undo steps; it is not 1 ÷ f.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The number outside a bracket multiplies each term inside it: −3(x − 4) = −3x + 12. A squared bracket is two brackets, so (x + 2)² = (x + 2)(x + 2) = x² + 4x + 4, not x² + 4.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The HCF is the biggest number that divides both, and the LCM is the smallest number both divide into: for 4 and 10, the HCF is 2 and the LCM is 20, not 4 × 10 = 40. Cancel a fraction by the HCF so nothing common is left, as in 10/15 = 2/3.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 4
+      },
+      {
+        "concept": "lcm",
+        "text": "LCM",
+        "offset": 57
+      }
+    ]
+  },
+  {
+    "text": "Squaring multiplies a number by itself, so 5² = 5 × 5 = 25, not 10, and a square root undoes it: √25 = 5. In a right-angled triangle, square the two shorter sides, add, then take the square root: 3² + 4² = 25, so the longest side is 5.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "square-root",
+        "text": "square root",
+        "offset": 74
+      }
+    ]
+  },
+  {
+    "text": "Add or subtract fractions only once they share a denominator: 1/2 + 1/3 = 3/6 + 2/6 = 5/6, never 2/5. Turn a mixed number into an improper fraction first, so 1 1/2 is 3/2.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Look at the digit after the last one you keep and round up if it is 5 or more, so 2.367 to 2 decimal places is 2.37, not 2.36. Significant figures start at the first digit that is not zero: 0.005281 to 2 significant figures is 0.0053.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Multiplying by 100 moves every digit two places to the left, so 0.47 × 100 = 47, and a recurring decimal never stops, so 10 × 0.333… take away 0.333… is exactly 3. To divide by a decimal, multiply both numbers by 10 until it is whole: 12 ÷ 0.3 = 120 ÷ 3 = 40.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Ask what one of something is worth: if 4 pens cost £6, one pen costs 6 ÷ 4 = £1.50, and the amount you share out goes first. Dividing by a number less than 1 gives a bigger answer, so 2 ÷ 0.5 = 4.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find one part first: to share 45 in the ratio 4 : 5, there are 9 parts, so one part is 5 and the shares are 20 and 25. If more workers do the same job, it takes less time: 2 workers taking 6 hours means 1 worker takes 12 hours.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A percentage change is one multiplication: a 30% decrease is × 0.7 and a 5% increase is × 1.05. Two changes multiply, so up 40% then down 40% is × 1.4 × 0.6 = × 0.84, and to undo a change you divide by its multiplier.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Change every length to the same unit before you calculate: 1 m = 100 cm, so 3.2 m = 320 cm. An area scales by the square of the length factor, so 1 m² = 100 × 100 = 10,000 cm², and doubling every length makes an area 4 times as big.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "factor",
+        "text": "factor",
+        "offset": 135
+      }
+    ]
+  },
+  {
+    "text": "A triangle's area is half of base × perpendicular height, so base 6 cm and height 4 cm give 12 cm², and a slanted side is never the height. Use the radius in πr², and add every edge for a perimeter: a quarter circle of radius 2 cm has perimeter π + 4.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Co-interior angles between parallel lines add to 180°, and an exterior angle of a polygon is 180° take away the interior angle, so an interior angle of 108° has exterior angle 72°. A back-bearing is the bearing plus 180°, or minus 180° if that passes 360°: the back-bearing of 050° is 230°.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The midpoint averages the x-coordinates and then the y-coordinates, keeping x first: the midpoint of (1, 2) and (5, 10) is (3, 6). Gradient is change in y ÷ change in x, and a perpendicular gradient flips it and changes its sign, so 2/3 becomes −3/2.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Check the mirror line or centre before you move: reflecting (3, 4) in the y-axis gives (−3, 4), and a 90° turn clockwise about the origin takes (x, y) to (y, −x). To enlarge about a centre, multiply the step from the centre to the point, then add it back on: (3, 2) from centre (1, 1) by scale factor 3 is (7, 4).",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "List every outcome so each one is equally likely: a coin and a spinner numbered 1 to 3 give H1, H2, H3, T1, T2 and T3, six outcomes. When order does not matter, a pair like AB is the same as BA, so count it once.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The total is the group you are picking from at that moment. If 1 of 10 sweets is eaten, the next pick is out of 9, and if you are told the person wears glasses, the total is only the people who wear glasses.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Class width is the upper boundary take away the lower one, and frequency density is frequency ÷ class width: 10 ≤ x < 40 has width 30, so frequency 60 gives density 2. The interquartile range is the upper quartile minus the lower quartile, not the largest value minus the smallest.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Add or subtract the top numbers, then the bottom numbers: (2, 5) − (3, 1) = (−1, 4). To go from P to Q, go back to O and then out again, so PQ = −p + q.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Sequences start at n = 1, so test a rule by putting n = 1 and n = 2 back in: for 2, 7, 12, … the rule 5n − 3 gives 2, then 7. Counting from 3 to 6 including both ends gives 4 numbers, not 3.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Before you write the answer, reread the last line of the question. If a = 5 and it asks for 3a − 2, then 5 is only a step and 13 is the answer.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  }
+]

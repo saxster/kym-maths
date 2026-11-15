@@ -60,6 +60,8 @@ struct AnswerCheckRow: View {
     @Environment(\.standardTheme) private var theme
     @Binding var typed: String
     var typing: FocusState<Bool>.Binding
+    /// False on a page that already has its one filled button, such as a chapter's "Your turn".
+    var filled = true
     let check: () -> Void
 
     private var isEmpty: Bool { typed.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
@@ -78,9 +80,15 @@ struct AnswerCheckRow: View {
                 .overlay(RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous).strokeBorder(theme.hairline(), lineWidth: 1))
                 .accessibilityLabel("Your answer")
                 .onSubmit { if !isEmpty { check() } }
-            Button("Check") { check() }
-                .buttonStyle(InkButtonStyle())
-                .disabled(isEmpty)
+            if filled {
+                Button("Check") { check() }
+                    .buttonStyle(InkButtonStyle())
+                    .disabled(isEmpty)
+            } else {
+                Button("Check") { check() }
+                    .buttonStyle(OutlineButtonStyle())
+                    .disabled(isEmpty)
+            }
         }
     }
 }

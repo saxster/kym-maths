@@ -86,6 +86,8 @@ final class AppStore {
     var showDailyFlowSheet: Bool = false
     /// The DEBUG-only sheet that draws every Patterned component (`kymmaths://gallery`).
     var showPatternedGallery: Bool = false
+    /// The concept card a `kymmaths://concept/<id>` link opened.
+    var deepLinkedConcept: ConceptRequest?
     /// Path parts a deep link did not use, for the room it opened (`school/3/scanner` leaves `["scanner"]`).
     var deepLinkTail: [String] = []
     var euclidRoute: EuclidRoute = .map
@@ -1003,6 +1005,8 @@ final class AppStore {
             showSettingsSheet = true
         case "gallery":
             showPatternedGallery = true
+        case "concept":
+            if let id = pathParts.first { deepLinkedConcept = ConceptRequest(id: id) }
         default:
             break
         }

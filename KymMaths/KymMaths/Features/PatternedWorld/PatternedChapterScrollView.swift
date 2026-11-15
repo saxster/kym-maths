@@ -68,7 +68,8 @@ struct PatternedChapterScrollView: View {
                 get: { reading.calloutDrafts[callout.id] ?? saved?.responseText ?? "" },
                 set: { reading.calloutDrafts[callout.id] = $0 }
             )
-            YourTurnCard(callout: callout, text: draft, isSaved: saved?.isUnlocked == true, isPrimary: false) {
+            YourTurnCard(callout: callout, text: draft, isSaved: saved?.isUnlocked == true, isPrimary: false,
+                         linksConcepts: chapter.linksConcepts) {
                 let typed = draft.wrappedValue.trimmingCharacters(in: .whitespacesAndNewlines)
                 store.saveCalloutResponse(
                     calloutId: callout.id,
@@ -116,7 +117,7 @@ struct PatternedChapterScrollView: View {
     private func stepPanel(kicker: String, text: String) -> some View {
         VStack(alignment: .leading, spacing: StandardSpacing.xs) {
             Kicker(kicker)
-            ByrneText(PatternedBook.byrneMarked(text, terms: terms))
+            ConceptText(PatternedBook.byrneMarked(text, terms: terms), linking: chapter.linksConcepts)
                 .patternedType(.readingDefault)
                 .foregroundStyle(theme.ink)
                 .fixedSize(horizontal: false, vertical: true)
@@ -156,10 +157,15 @@ struct PatternedChapterScrollView: View {
                     Text(PatternedBook.stripCode(section.heading))
                         .standardType(.headlineMd)
                         .foregroundStyle(theme.ink)
-                    ByrneText(PatternedBook.byrneMarked(section.excerpt, terms: terms))
-                        .patternedType(.reading)
-                        .foregroundStyle(theme.ink)
-                        .fixedSize(horizontal: false, vertical: true)
+                    if section.teachingSteps.isEmpty {
+                        ByrneText(PatternedBook.byrneMarked(section.excerpt, terms: terms))
+                            .patternedType(.reading)
+                            .foregroundStyle(theme.ink)
+                            .fixedSize(horizontal: false, vertical: true)
+                    } else {
+                        TeachingStepsView(steps: section.teachingSteps, terms: terms)
+                            .padding(.top, StandardSpacing.xs)
+                    }
                 }
             }
         }
@@ -216,7 +222,7 @@ struct PatternedChapterScrollView: View {
                     .buttonStyle(OutlineButtonStyle())
                 }
             } else {
-                ByrneText(PatternedBook.byrneMarked(callout.body, terms: terms))
+                ConceptText(PatternedBook.byrneMarked(callout.body, terms: terms), linking: chapter.linksConcepts)
                     .patternedType(.readingDefault)
                     .foregroundStyle(theme.ink)
                     .fixedSize(horizontal: false, vertical: true)

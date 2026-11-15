@@ -11,13 +11,167 @@ Compiles the KymMaths Seed Pack (`kymmaths-seed-pack.json`) and Interactive Book
 """
 
 import json
+import sys
 from pathlib import Path
 
 import answer_marking as marking
+import concept_links
+import content_checks
+from book import ch01 as book_ch01
+from book import concepts as book_concepts
 
 ROOT = Path(__file__).resolve().parent.parent
 PACK_OUT = ROOT / "KymMaths" / "KymMaths" / "Resources" / "ContentPacks" / "kymmaths-seed-pack.json"
 BOOK_OUT = ROOT / "KymMaths" / "KymMaths" / "Resources" / "PatternedWorldBook" / "index.html"
+GOLDEN_OUT = ROOT / "KymMaths" / "Tests" / "Golden" / "concept-links.json"
+
+# Chapters rewritten by hand to docs/CONTENT_BRIEF.md. The content checks apply to these.
+BOOK_CHAPTERS = (book_ch01,)
+# Saved learner responses key on callout ids, so a rewritten chapter keeps the old ids.
+CALLOUT_ID_SUFFIX = {"predict": "predict", "check": "aha", "careful": "trap"}
+
+
+def helpers():
+    """This module, which the book files take as `k` for its answer-key helpers."""
+    return sys.modules[__name__]
+
+
+def book_specs():
+    return {spec["number"]: spec for spec in (module.build(helpers()) for module in BOOK_CHAPTERS)}
+
+
+def rewritten_chapters():
+    return set(book_specs())
+
+
+def book_chapter_record(spec, volumes):
+    num = spec["number"]
+    volume = next(v for v in volumes if num in v["chapters"])
+    sections = []
+    for index, section in enumerate(spec["sections"], start=1):
+        section_id = f"ch{num:02d}-s{index}"
+        steps = []
+        for step in section["steps"]:
+            record = {"id": f"{section_id}-{step['kind']}", "kind": step["kind"], "text": step["text"]}
+            if "answerKey" in step:
+                record["answer"] = step["answer"]
+                record["answerKey"] = step["answerKey"]
+            steps.append(record)
+        idea = next(step["text"] for step in section["steps"] if step["kind"] == "idea")
+        sections.append({
+            "id": section_id,
+            "heading": section["heading"],
+            "excerpt": idea,
+            "teaches": section["teaches"],
+            "steps": steps,
+        })
+    return {
+        "id": f"ch{num:02d}",
+        "number": num,
+        "volumeNumber": volume["number"],
+        "volumeTitle": volume["title"],
+        "title": spec["title"],
+        "subtitle": spec["subtitle"],
+        "hookSummary": spec["hookSummary"],
+        "skillCard": spec["skillCard"],
+        "intuitionToFormula": spec["intuitionToFormula"],
+        "sections": sections,
+        "callouts": [
+            {"id": f"ch{num:02d}-c-{CALLOUT_ID_SUFFIX[callout['kind']]}", **callout} for callout in spec["callouts"]
+        ],
+        "keyTerms": spec["keyTerms"],
+        "widgets": spec["widgets"],
+    }
+
+
+def book_widget_text():
+    return {wid: text for spec in book_specs().values() for wid, text in spec["widgetText"].items()}
+
+
+def book_atlas_lessons():
+    """Atlas lesson id → the fields the book file writes for it."""
+    return {
+        f"atlas-ch{num:02d}-{index}": lesson
+        for num, spec in book_specs().items()
+        for index, lesson in enumerate(spec["atlasLessons"], start=1)
+    }
+
+
+def book_tips():
+    return {tid: tip for spec in book_specs().values() for tid, tip in spec["visualMathTips"].items()}
+
+
+def build_concepts(chapters):
+    """The concept cards, each with `usedIn`: the rewritten chapters that list it as a key term, then the cards that stand on it."""
+    cards = book_concepts.build(helpers())
+    concepts = []
+    for cid, card in cards.items():
+        used_in = [
+            {"chapter": ch["number"], "label": f"Chapter {ch['number']} · {ch['title']}"}
+            for ch in chapters
+            if "skillCard" in ch and card["name"] in ch["keyTerms"]
+        ]
+        used_in += [{"concept": other, "label": cards[other]["name"]}
+                    for other, other_card in cards.items() if cid in other_card["standsOn"]]
+        record = {"id": cid}
+        for field in ("name", "short", "symbol", "aliases", "oneSentence", "picture", "steps", "bigNumbers",
+                      "workedExample"):
+            if field in card:
+                record[field] = card[field]
+        record["check"] = {"id": f"{cid}-check", **card["check"]}
+        record["mixUp"] = card["mixUp"]
+        record["standsOn"] = card["standsOn"]
+        if "footing" in card:
+            record["footing"] = card["footing"]
+        record["usedIn"] = used_in
+        concepts.append(record)
+    return concepts
+
+
+def build_concept_stop_phrases():
+    return list(book_concepts.STOP_PHRASES)
+
+
+def concept_link_golden(pack):
+    """Texts and the links the Python linker finds in them, which the app's ConceptLinker must reproduce.
+
+    A section's steps share one scope, as they do on screen, so `linked` lists the concepts already
+    linked by the steps before it.
+    """
+    linker = content_checks.linker_for(pack)
+    entries = []
+
+    def add(text, exclude=None, linked=()):
+        links = linker.links(text, exclude=exclude, linked=linked)
+        entries.append({"text": text, "exclude": exclude, "linked": sorted(linked), "links": links})
+        return {link["concept"] for link in links}
+
+    for number in sorted(rewritten_chapters()):
+        chapter = next(ch for ch in pack["chapters"] if ch["number"] == number)
+        step_ids = {step["id"] for section in chapter["sections"] for step in section.get("steps", [])}
+        for where, text in content_checks.chapter_strings(pack, number):
+            if where not in step_ids:
+                add(text)
+        for section in chapter["sections"]:
+            linked = set()
+            for step in section.get("steps", []):
+                linked |= add(step["text"], linked=linked)
+    for card in pack["concepts"]:
+        for _, text in content_checks.card_strings(card):
+            add(text, exclude=card["id"])
+    for question in pack["schoolQuestions"]:
+        if question["unitNumber"] == 1:
+            add(question["prompt"])
+            add(question["workedExample"])
+    for footing in pack["footings"]:
+        add(footing["teach"])
+    return entries
+
+
+def write_golden(pack):
+    GOLDEN_OUT.parent.mkdir(parents=True, exist_ok=True)
+    GOLDEN_OUT.write_text(json.dumps(concept_link_golden(pack), indent=2, ensure_ascii=False) + "\n",
+                          encoding="utf-8")
 
 
 def build_volumes():
@@ -72,22 +226,6 @@ def build_chapters():
             "maths/ch00-sets-logic/index.html",
             ["Set", "Subset ⊆", "Union ∪", "Intersection ∩", "Complement A′", "Power Set P(A)", "Implication p ⇒ q", "Contrapositive ¬q ⇒ ¬p", "De Morgan's Laws"],
             ["w_venn_inclusion_exclusion", "w_truth_table_logic_gates", "w_quantifier_counterexample"]
-        ),
-        (
-            1, 1, "The Directed Number Line, Primes & The Laws of Indices",
-            "OUP Ch 1 · Negative integer rotation, prime factor trees, HCF × LCM = ab, index laws & √2 irrationality",
-            "Multiplying by −1 is a 180° half-turn on the number line; two half-turns bring you back to positive.",
-            "Rotate a vector on the number line by 180° for each negative sign, and stack prime-exponent bars for HCF and LCM.",
-            "Two 180° rotations equal 360° (+1), and for any two integers a and b, taking min(exponents) for HCF and max(exponents) for LCM guarantees min + max = total!",
-            "(−a)(−b) = +ab,   aᵐ · aⁿ = aᵐ⁺ⁿ,   HCF(a, b) × LCM(a, b) = a × b",
-            [
-                {"symbol": "−1 × −1 = +1", "visualPart": "Two 180° arc turns on the number line", "colorRole": "red", "meaning": "Reversing a reversal restores forward direction"},
-                {"symbol": "HCF(a,b)", "visualPart": "Blue shared prime-factor overlap A ∩ B", "colorRole": "blue", "meaning": "Product of lowest shared prime powers"},
-                {"symbol": "LCM(a,b)", "visualPart": "Amber full prime-factor union A ∪ B", "colorRole": "amber", "meaning": "Product of highest prime powers across both numbers"}
-            ],
-            "maths/ch01-number-primes/index.html",
-            ["Integer", "Directed Number", "Prime Factorisation", "HCF", "LCM", "Index Laws", "Zero & Negative Indices", "Rational vs Irrational (√2)"],
-            ["w_negative_rotation_line", "w_prime_venn_hcf_lcm", "w_index_staircase_surds"]
         ),
         (
             2, 1, "Fractions, Recurring Decimals & The Scaling Engine",
@@ -459,7 +597,8 @@ def build_chapters():
             "keyTerms": key_terms,
             "widgets": widgets,
         })
-    return chapters
+    chapters += [book_chapter_record(spec, build_volumes()) for spec in book_specs().values()]
+    return sorted(chapters, key=lambda ch: ch["number"])
 
 
 def build_explorers():
@@ -550,6 +689,7 @@ def widget_title(wid):
 
 
 def build_widgets(chapters):
+    book_text = book_widget_text()
     widgets = []
     for ch in chapters:
         ch_num = ch["number"]
@@ -574,11 +714,13 @@ def build_widgets(chapters):
                     {"title": "5. Stamp & Sketch in Journal", "caption": "Freeze the state into your Cornell Proof & Construction Journal."},
                 ],
                 **WIDGET_OVERRIDES.get(wid, {}),
+                **book_text.get(wid, {}),
             })
     return widgets
 
 
 def build_atlas_lessons(chapters):
+    book_lessons = book_atlas_lessons()
     lessons = []
     for ch in chapters:
         ch_num = ch["number"]
@@ -590,8 +732,9 @@ def build_atlas_lessons(chapters):
             ("Symbolic Formula Lockstep", f"How does the picture translate term-by-term into {bridge['formulaDisplay']}?", f"Every term in {bridge['formulaDisplay']} corresponds to a colour-coded geometric part in {bridge['atlasFigureRef']}."),
         ]
         for s_idx, (stage_name, q, exp) in enumerate(stages, start=1):
+            lesson_id = f"atlas-ch{ch_num:02d}-{s_idx}"
             lessons.append({
-                "id": f"atlas-ch{ch_num:02d}-{s_idx}",
+                "id": lesson_id,
                 "widget": w0,
                 "title": f"Ch {ch_num}.{s_idx} · {ch['title']} ({stage_name})",
                 "chapter": ch_num,
@@ -599,8 +742,9 @@ def build_atlas_lessons(chapters):
                 "question": q,
                 "explanation": exp,
                 "limits": f"Formula: {bridge['formulaDisplay']}",
-                "sources": ["Oxford Complete Mathematics 8 (2nd Ed.)", "@saxster/atlas Visualisations"],
+                "sources": ["Oxford Complete Mathematics 8 (2nd Ed.)", "Atlas figures"],
                 "stories": [ch["hookSummary"]],
+                **book_lessons.get(lesson_id, {}),
             })
     return lessons
 
@@ -4344,6 +4488,11 @@ def build_speed_math_decks():
 
 
 def build_visual_math_tips():
+    overrides = book_tips()
+    return [{**tip, **overrides.get(tip["id"], {})} for tip in _visual_math_tips()]
+
+
+def _visual_math_tips():
     return [
         {
             "id": "tip-neg-mult",
@@ -4688,7 +4837,7 @@ const COMPANION_BOOKS = {{
 
 const CH_SLIDERS = {{
   0:  [{{lbl:'|A| count:',min:8,max:22,step:1,val:16,u:''}}, {{lbl:'|B| count:',min:6,max:20,step:1,val:14,u:''}}, {{lbl:'Overlap |A∩B|:',min:1,max:10,step:1,val:6,u:''}}],
-  1:  [{{lbl:'Integer a:',min:6,max:48,step:6,val:24,u:''}}, {{lbl:'Integer b:',min:6,max:60,step:6,val:36,u:''}}, {{lbl:'180° −1 Flips:',min:0,max:2,step:1,val:2,u:'×180°'}}],
+  1:  [{{lbl:'First number:',min:6,max:48,step:6,val:24,u:''}}, {{lbl:'Second number:',min:6,max:60,step:6,val:36,u:''}}, {{lbl:'Turns:',min:0,max:2,step:1,val:2,u:''}}],
   2:  [{{lbl:'Repeating block:',min:9,max:81,step:9,val:36,u:''}}, {{lbl:'Whole units N:',min:1,max:5,step:1,val:3,u:''}}, {{lbl:'Denominator b:',min:2,max:6,step:1,val:4,u:''}}],
   3:  [{{lbl:'Ratio parts A:',min:1,max:6,step:1,val:3,u:'u'}}, {{lbl:'Ratio parts B:',min:2,max:8,step:1,val:5,u:'u'}}, {{lbl:'Compound rate r:',min:4,max:15,step:1,val:8,u:'%'}}],
   4:  [{{lbl:'Square side x:',min:2,max:6,step:0.5,val:4,u:''}}, {{lbl:'Strip width a:',min:1,max:4,step:0.5,val:2,u:''}}, {{lbl:'Strip height b:',min:1,max:4,step:0.5,val:3,u:''}}],
@@ -4877,7 +5026,7 @@ function drawSandbox() {{
       break;
     }}
     case 1: {{
-      // Ch 1: 180° Negative Rotation & HCF × LCM = a × b
+      // Ch 1: turning round on the number line, and the HCF and LCM bars
       const A = Math.round(a), B = Math.round(b), flips = Math.round(c);
       const hcf = gcd(A, B), lcm = (A * B) / hcf;
       const yLine = 88, cx = w * 0.5;
@@ -4889,7 +5038,8 @@ function drawSandbox() {{
         ctx.strokeStyle = amber; ctx.lineWidth = 2;
         ctx.beginPath(); ctx.arc(cx, yLine, 42 + f * 18, f * Math.PI, (f + 1) * Math.PI, true); ctx.stroke();
       }}
-      ctx.fillStyle = amber; ctx.fillText(`${{flips}} × 180° = ${{flips * 180}}° (${{dir > 0 ? '+Positive' : '−Negative'}})`, 36, 34);
+      const facing = `${{flips}} turn${{flips === 1 ? '' : 's'}}: facing ${{dir > 0 ? 'forward (+)' : 'backward (−)'}}`;
+      ctx.fillStyle = amber; ctx.fillText(facing, 36, 34);
       // HCF & LCM bars
       ctx.fillStyle = blue + '33'; ctx.strokeStyle = blue; ctx.lineWidth = 2;
       ctx.fillRect(48, 155, 190, 44); ctx.strokeRect(48, 155, 190, 44);
@@ -4897,8 +5047,8 @@ function drawSandbox() {{
       ctx.fillStyle = amber + '33'; ctx.strokeStyle = amber;
       ctx.fillRect(260, 155, 240, 44); ctx.strokeRect(260, 155, 240, 44);
       ctx.fillStyle = amber; ctx.fillText(`LCM(${{A}}, ${{B}}) = ${{lcm}}`, 276, 182);
-      ctx.fillStyle = green; ctx.fillText(`Invariant Check: HCF × LCM = ${{hcf}} × ${{lcm}} = ${{hcf * lcm}} = a × b`, 48, 232);
-      readoutHtml = `Rotation: (−1)^${{flips}} = <b>${{dir > 0 ? '+1' : '−1'}}</b> · Prime Invariant: <b>HCF(${{A}},${{B}}) × LCM(${{A}},${{B}}) = ${{hcf}} × ${{lcm}} = ${{A * B}}</b>`;
+      ctx.fillStyle = green; ctx.fillText(`Check: HCF × LCM = ${{hcf}} × ${{lcm}} = ${{hcf * lcm}} = ${{A}} × ${{B}}`, 48, 232);
+      readoutHtml = `${{facing}} · <b>HCF(${{A}}, ${{B}}) = ${{hcf}}</b> and <b>LCM(${{A}}, ${{B}}) = ${{lcm}}</b> · Check: HCF × LCM = ${{hcf}} × ${{lcm}} = ${{hcf * lcm}} = ${{A}} × ${{B}}`;
       break;
     }}
     case 2: {{
@@ -5406,7 +5556,11 @@ def main():
         "visualMathTips": visual_math_tips,
         "misconceptions": build_misconceptions(),
         "footings": build_footings(),
+        "concepts": build_concepts(chapters),
+        "conceptStopPhrases": build_concept_stop_phrases(),
     }
+    content_checks.require_clean(pack, rewritten_chapters())
+    write_golden(pack)
 
     PACK_OUT.parent.mkdir(parents=True, exist_ok=True)
     PACK_OUT.write_text(json.dumps(pack, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")

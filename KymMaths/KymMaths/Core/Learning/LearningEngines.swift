@@ -541,6 +541,8 @@ struct ChapterInteractiveBeat: Identifiable, Equatable, Sendable {
     let formulaBridge: IntuitionToFormulaBridge?
     let debateScenario: MathematicalDebateScenario?
     let requiresInteractionToUnlock: Bool
+    /// A rewritten section's steps, whose texts are also `bodyParagraphs`.
+    var teachingSteps: [TeachingStep] = []
 
     var spokenScript: String {
         var parts: [String] = [eyebrow, title]
@@ -585,13 +587,15 @@ enum ChapterInteractiveBeatEngine {
 
         // Beats for narrative sections & non-predict callouts interleaved
         let otherCallouts = chapter.callouts.filter { $0.kind != "predict" }
+        var stepsByBeat: [Int: [TeachingStep]] = [:]
         for (secIdx, section) in chapter.sections.enumerated() {
             let pairedCallout = secIdx < otherCallouts.count ? otherCallouts[secIdx] : nil
+            if !section.teachingSteps.isEmpty { stepsByBeat[rawBeats.count] = section.teachingSteps }
             rawBeats.append((
                 kind: pairedCallout != nil ? .calloutGate : .proseInsight,
                 eyebrow: pairedCallout != nil ? "TEACH & CHECK GATE" : "CONCEPT DISCOVERY",
                 title: section.heading,
-                bodyParagraphs: [section.excerpt],
+                bodyParagraphs: section.teachingSteps.isEmpty ? [section.excerpt] : section.teachingSteps.map(\.text),
                 callout: pairedCallout,
                 widgetIds: [],
                 formulaBridge: nil,
@@ -658,7 +662,8 @@ enum ChapterInteractiveBeatEngine {
                 widgetIds: item.widgetIds,
                 formulaBridge: item.formulaBridge,
                 debateScenario: item.debateScenario,
-                requiresInteractionToUnlock: item.requiresInteractionToUnlock
+                requiresInteractionToUnlock: item.requiresInteractionToUnlock,
+                teachingSteps: stepsByBeat[idx] ?? []
             )
         }
     }
@@ -754,36 +759,36 @@ public enum MathematicalDebateCatalog {
             id: "debate-ch01-primes",
             chapterNumber: 1,
             oupUnitNumber: 1,
-            title: "Dadar Local Train Synchronisation",
-            contextPrompt: "Fast trains leave Dadar every 12 minutes and slow trains leave every 18 minutes. Both leave together at 8:00 AM. Kabir and Meera debate when they next leave together:",
+            title: "Two trains from Dadar",
+            contextPrompt: "Fast trains leave Dadar every 12 minutes. Slow trains leave every 18 minutes. Both leave together at 8:00 AM. Kabir and Meera disagree about when they next leave together.",
             speakerAName: "Kabir",
-            speakerAClaim: "We multiply the two intervals: 12 × 18 = 216 minutes later!",
+            speakerAClaim: "Multiply the two gaps. 12 × 18 = 216, so it is 216 minutes later.",
             speakerBName: "Meera",
-            speakerBClaim: "12 and 18 share HCF = 6 in the Venn intersection, so LCM = (12 × 18) ÷ 6 = 36 minutes later.",
+            speakerBClaim: "Count on in 12s and in 18s. The first number in both lists is 36, so it is 36 minutes later.",
             choices: [
                 MathematicalDebateChoice(
                     id: "ch01-a",
                     speakerLabel: "Kabir is right (216 minutes)",
-                    reasoningStatement: "Common multiples are always found by multiplying the two numbers directly.",
+                    reasoningStatement: "To find when two things next happen together, multiply the two gaps.",
                     isCorrect: false,
-                    socraticRebuttal: "216 is a common multiple, but not the LOWEST one! Multiplying 12 × 18 double-counts their shared factor of 6."
+                    socraticRebuttal: "The trains do leave together after 216 minutes. But they have already left together five times before that. The first time is after 36 minutes."
                 ),
                 MathematicalDebateChoice(
                     id: "ch01-b",
                     speakerLabel: "Meera is right (36 minutes)",
-                    reasoningStatement: "Dividing the product 12 × 18 by HCF(12, 18) = 6 removes the duplicate overlap factor.",
+                    reasoningStatement: "The 12s go 12, 24, 36. The 18s go 18, 36. The first number in both lists is 36.",
                     isCorrect: true,
-                    socraticRebuttal: "Exact! 36 = 3 × 12 and 36 = 2 × 18, so both trains align at 8:36 AM."
+                    socraticRebuttal: "Yes. 36 = 3 × 12 and 36 = 2 × 18, so both trains leave at 8:36 AM."
                 ),
                 MathematicalDebateChoice(
                     id: "ch01-c",
-                    speakerLabel: "Neither — it is every 6 minutes (HCF)",
-                    reasoningStatement: "We should use the Highest Common Factor 6.",
+                    speakerLabel: "Neither. It is 6 minutes.",
+                    reasoningStatement: "6 is the biggest number that divides into both 12 and 18.",
                     isCorrect: false,
-                    socraticRebuttal: "At 6 minutes, neither the 12-minute train nor the 18-minute train has even completed one cycle!"
+                    socraticRebuttal: "6 does divide into both. But after 6 minutes neither train has left again. The answer must be a number that 12 and 18 both divide into."
                 )
             ],
-            invariantTakeaway: "HCF × LCM = a × b because the Venn union plus intersection accounts for every prime factor."
+            invariantTakeaway: "Multiplying two numbers always gives a number in both lists. It is often not the first one."
         ),
         // Ch 2 -> OUP Ch 1 (Indices & Standard Form)
         MathematicalDebateScenario(
