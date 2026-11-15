@@ -165,7 +165,7 @@ struct TextbookPageScannerSheet: View {
                 TextEditor(text: $ocrText)
                     .learnerTextInput(.retrieval)
                     .scrollContentBackground(.hidden)
-                    .patternedType(.readingDefault)
+                    .patternedType(.readingDefault, measured: false)
                     .foregroundStyle(theme.ink)
                     .frame(minHeight: 120)
                     .padding(StandardSpacing.sm)
