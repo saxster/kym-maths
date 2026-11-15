@@ -8,6 +8,40 @@ import Testing
 struct SharedScreenTests {
     static let pack = SeedPackLoader.load()
 
+    // Who is right?
+
+    @Test("Try again clears a wrong pick, even one saved on an earlier visit")
+    func tryAgainClearsASavedPick() {
+        let ids = ["a", "b", "c"]
+        var pick = DebatePick()
+        #expect(pick.active(saved: nil, among: ids) == nil)
+
+        // The card saves each pick, so the saved pick is the wrong one by the time she taps Try again.
+        pick.choose("a")
+        #expect(pick.active(saved: "a", among: ids) == "a")
+        pick.tryAgain()
+        #expect(pick.active(saved: "a", among: ids) == nil)
+
+        pick.choose("b")
+        #expect(pick.active(saved: "b", among: ids) == "b")
+    }
+
+    @Test("A pick saved on an earlier visit shows when the card opens, and ids from another card do not")
+    func savedPickShowsOnOpening() {
+        let pick = DebatePick()
+        #expect(pick.active(saved: "b", among: ["a", "b"]) == "b")
+        #expect(pick.active(saved: "z", among: ["a", "b"]) == nil)
+    }
+
+    @Test("A wrong pick marks only itself, so the right answer is still hers to find")
+    func wrongPickDoesNotShowTheAnswer() {
+        #expect(DebatePick.tone(isChosen: false, pickedIsCorrect: nil) == .idle)
+        #expect(DebatePick.tone(isChosen: true, pickedIsCorrect: false) == .wrong)
+        #expect(DebatePick.tone(isChosen: false, pickedIsCorrect: false) == .dimmed)
+        #expect(DebatePick.tone(isChosen: true, pickedIsCorrect: true) == .correct)
+        #expect(DebatePick.tone(isChosen: false, pickedIsCorrect: true) == .dimmed)
+    }
+
     // The whole chapter in one scroll
 
     @Test("The whole-chapter contents list names only parts the page has a heading for, in page order")

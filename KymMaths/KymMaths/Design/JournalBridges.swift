@@ -900,18 +900,10 @@ struct MathematicalDebateCardView: View {
     var initialSelectedChoiceId: String? = nil
     var onChoiceSelected: ((MathematicalDebateChoice, Bool) -> Void)? = nil
     var onResolved: ((Bool) -> Void)? = nil
-    @State private var selectedChoiceId: String? = nil
+    @State private var pick = DebatePick()
 
     private var activeChoiceId: String? {
-        if let id = selectedChoiceId,
-           scenario.choices.contains(where: { $0.id == id }) {
-            return id
-        }
-        if let initId = initialSelectedChoiceId,
-           scenario.choices.contains(where: { $0.id == initId }) {
-            return initId
-        }
-        return nil
+        pick.active(saved: initialSelectedChoiceId, among: scenario.choices.map(\.id))
     }
 
     private var selectedChoice: MathematicalDebateChoice? {
@@ -924,7 +916,7 @@ struct MathematicalDebateCardView: View {
             HStack(alignment: .firstTextBaseline) {
                 Kicker("Who's right?")
                 Spacer(minLength: StandardSpacing.sm)
-                Text("Chapter \(scenario.chapterNumber) · School book unit \(scenario.oupUnitNumber)")
+                Text("Chapter \(scenario.chapterNumber) · School book chapter \(scenario.oupUnitNumber)")
                     .standardType(.uiCaption)
                     .foregroundStyle(theme.mute(theme.ink))
             }
@@ -945,16 +937,12 @@ struct MathematicalDebateCardView: View {
             }
 
             VStack(spacing: StandardSpacing.xs) {
-                let isAnswered = (selectedChoice != nil)
+                let picked = selectedChoice
                 ForEach(scenario.choices) { choice in
                     let isChosen = (activeChoiceId == choice.id)
-                    let tone = QuizOptionTone.resolve(
-                        isAnswered: isAnswered,
-                        isCorrectOption: choice.isCorrect,
-                        isChosen: isChosen
-                    )
+                    let tone = DebatePick.tone(isChosen: isChosen, pickedIsCorrect: picked?.isCorrect)
                     choiceRow(choice, tone: tone, isChosen: isChosen) {
-                        selectedChoiceId = choice.id
+                        pick.choose(choice.id)
                         onChoiceSelected?(choice, choice.isCorrect)
                         onResolved?(choice.isCorrect)
                     }
@@ -967,7 +955,7 @@ struct MathematicalDebateCardView: View {
         }
         .paperCard()
         .onChange(of: scenario.id) { _, _ in
-            selectedChoiceId = nil
+            pick = DebatePick()
         }
     }
 
@@ -1049,11 +1037,11 @@ struct MathematicalDebateCardView: View {
         .accessibilityValue(tone.accessibilityValue)
     }
 
-    /// The speaker in bold, then their reasoning, as one run of text so it wraps as one paragraph.
+    /// The speaker in bold on the first line, then their reasoning under it, as one run of text.
     private static func choiceText(_ choice: MathematicalDebateChoice) -> AttributedString {
         var speaker = AttributedString(choice.speakerLabel)
         speaker.inlinePresentationIntent = .stronglyEmphasized
-        return speaker + AttributedString(" — \(choice.reasoningStatement)")
+        return speaker + AttributedString("\n\(choice.reasoningStatement)")
     }
 
     private func resolution(_ chosen: MathematicalDebateChoice) -> some View {
@@ -1070,7 +1058,7 @@ struct MathematicalDebateCardView: View {
                 Spacer()
                 if !chosen.isCorrect {
                     Button("Try again") {
-                        selectedChoiceId = nil
+                        pick.tryAgain()
                     }
                     .buttonStyle(OutlineButtonStyle())
                 }
@@ -1081,5 +1069,36 @@ struct MathematicalDebateCardView: View {
                 .fixedSize(horizontal: false, vertical: true)
             StaysTheSameNote(label: "The big idea", text: scenario.invariantTakeaway)
         }
+    }
+}
+
+/// Which choice of a "Who is right?" shows as picked. A pick saved on an earlier visit shows until
+/// Kym picks again or asks to try again; without `isRetrying`, "Try again" fell back to the saved pick.
+struct DebatePick: Equatable {
+    private(set) var picked: String?
+    private(set) var isRetrying = false
+
+    mutating func choose(_ id: String) {
+        picked = id
+        isRetrying = false
+    }
+
+    mutating func tryAgain() {
+        picked = nil
+        isRetrying = true
+    }
+
+    func active(saved: String?, among ids: [String]) -> String? {
+        if let picked, ids.contains(picked) { return picked }
+        if !isRetrying, let saved, ids.contains(saved) { return saved }
+        return nil
+    }
+
+    /// How a row looks. A wrong pick marks only itself, so the right answer is still hers to find on
+    /// the second go; `pickedIsCorrect` is nil before any pick.
+    static func tone(isChosen: Bool, pickedIsCorrect: Bool?) -> QuizOptionTone {
+        guard let pickedIsCorrect else { return .idle }
+        guard isChosen else { return .dimmed }
+        return pickedIsCorrect ? .correct : .wrong
     }
 }
