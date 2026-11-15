@@ -44,6 +44,21 @@ struct FootingProbe: Codable, Identifiable, Equatable, Sendable {
     let answerKey: AnswerKey
 }
 
+/// A smaller question solved by the same method, broken into steps. It never shows the original's answer.
+struct StuckSheet: Codable, Equatable, Sendable {
+    let sister: String
+    let steps: [StuckStep]
+}
+
+struct StuckStep: Codable, Identifiable, Equatable, Sendable {
+    let id: String
+    let prompt: String
+    let answer: String
+    /// The step done in one sentence, shown when Kym misses it.
+    let working: String
+    let answerKey: AnswerKey
+}
+
 // MARK: - The Patterned World (21 Chapters, 5 Volumes, Intuition-to-Formula Bridges)
 
 struct PatternedWorldVolume: Codable, Identifiable, Equatable, Sendable {
@@ -339,6 +354,8 @@ struct SchoolMathsQuestion: Codable, Identifiable, Equatable, Sendable {
     let answerKey: AnswerKey
     let linkedChapter: Int
     let linkedWidget: String
+    /// Absent where no smaller twin can be solved without giving the answer away.
+    let stuck: StuckSheet?
 
     /// The named parts of a multi-part answer ("HCF and LCM"); nil when the answer is one thing.
     var answerPartsPhrase: String? {

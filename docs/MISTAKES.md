@@ -92,7 +92,7 @@ The footings live in `source/export_kymmaths_pack.py` (`FOOTINGS`, and `STANDS_O
 | She can do, device off (the check) | When a slip comes back twice, she names the smaller skill it rests on and checks it on paper with a tiny example before going on. Losing the minus sign twice, she says "it rests on multiplying negatives", writes (−3) × (−2) = 6 and 6 ÷ (−3) = −2, then goes back to the question. |
 | Why it matters | A slip that repeats is rarely carelessness: it shows a gap in an earlier skill. Fixing that skill stops the slip in every topic built on it, not just the question in front of her. |
 | Stands on | Name the slip (above): she can't find what a slip rests on until she can name the slip. |
-| Unlocks | The "Stuck?" micro-worksheet (feature #3). |
+| Unlocks | Do a smaller one first (below). |
 
 ## Three levels
 
@@ -126,3 +126,25 @@ The footings live in `source/export_kymmaths_pack.py` (`FOOTINGS`, and `STANDS_O
 | `vectors` | Add and subtract column vectors | `vector-combined-wrongly` |
 | `nth-term` | Find and use the nth term of a sequence | `off-by-one` |
 | `answer-the-question` | Check you answered what was asked | `stopped-early` |
+
+# Do a smaller one first
+
+When she is stuck on a school question, "Stuck? Try a smaller one first" opens a sister question: the same method with smaller, friendlier numbers, cut into 3 to 5 short steps she answers one at a time. A right step moves on. A named slip gets the slip's name, its next step and one retry. Any other miss shows the step's working and its answer. The sheet ends by sending her back to her own question. It opens from the top of the hint ladder, and from the result card after a miss when no walk-back is waiting. Finishing it does not count as help, and nothing is recorded.
+
+The sheets live in `source/export_kymmaths_pack.py` (`STUCK_SHEETS`), and `source/splice_pack_sections.py` adds each one to its school question in the seed pack as `stuck`. `source/answer_marking.py` is a Python reading of the app's marker, so the exporter can refuse a sheet whose step keys reject their own answers, or whose text shows the original question's answer. `KymMaths/Tests/StuckSheetTests.swift` runs the same checks with the real marker. 63 of the 64 questions have a sheet. ch03-wb-practice has none, because any sister of a locus question restates the locus fact, which is its answer.
+
+## Skill card
+
+| Field | |
+|---|---|
+| Skill | Do a smaller one first |
+| She can do, device off (the check) | Stuck on a question, she makes up a smaller version with friendly numbers, solves it step by step, then uses the same steps on the real question. Stuck on the HCF and LCM of 72 and 120, she does 12 and 18 first: 2² × 3 and 2 × 3², lower powers for the HCF, higher powers for the LCM. Then she does the same with 72 and 120. |
+| Why it matters | Being stuck in an exam usually means the numbers are hiding the method. A smaller version shows the method without the noise, and she can make one herself when no one is there to give a hint. |
+| Stands on | Name the slip and Find the step underneath (above): she checks each small step for the usual slips, and knows which smaller skill each one rests on. |
+| Unlocks | Working through a full exam question unaided, and the Pólya "related problem" stage: solving a simpler problem to find the way into a harder one. |
+
+## Three levels
+
+1. **With the picture.** The app gives the sister question and its steps. *Built.*
+2. **In her head.** She makes up the smaller version herself and the app checks it uses the same method. *Not built.*
+3. **Knows when.** She reaches for a smaller version unprompted when she is stuck. *Not built.* Nothing records use of the sheet yet, so there is no evidence for this level.
