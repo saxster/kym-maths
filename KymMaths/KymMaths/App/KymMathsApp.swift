@@ -16,6 +16,9 @@ struct KymMathsApp: App {
         WindowGroup {
             StandardIdiomReader {
                 KymMathsRootView(store: store)
+                    // The iPad's lower pixel density makes the same point size read larger and
+                    // looser than on iPhone, so iPad type runs 10% smaller.
+                    .environment(\.padScale, DeviceIdiom.isPad ? 0.9 : 1)
                     .standardThemeHost()
                     .onOpenURL { url in
                         store.openDeepLink(url)
