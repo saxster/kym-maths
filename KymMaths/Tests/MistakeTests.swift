@@ -50,6 +50,20 @@ struct MistakeTests {
         }
     }
 
+    @Test("Every question marked by a number, sequence or form names at least one mistake")
+    func everyMarkedQuestionHasAMistake() {
+        func isWorded(_ question: SchoolMathsQuestion) -> Bool {
+            question.answerKey.parts.contains { part in
+                part.anyOf.allSatisfy { if case .words = $0 { true } else { false } }
+            }
+        }
+        let worded = Set(Self.questions.filter(isWorded).map(\.id))
+        #expect(worded == ["q-oup-ch03-wb-practice", "q-oup-ch04-wb-practice", "q-oup-ch11-wb-focus"])
+        for question in Self.questions where !worded.contains(question.id) {
+            #expect(!question.answerKey.mistakes.isEmpty, "\(question.id) names no mistake")
+        }
+    }
+
     @Test("A next step never gives away a number or form from the right answer")
     func nextStepsDoNotGiveAwayTheAnswer() {
         for question in Self.questions {
