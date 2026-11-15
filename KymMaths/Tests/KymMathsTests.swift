@@ -963,3 +963,29 @@ struct KymMathsTests {
         #expect((store.readingProgressByChapter[6]?.readFraction ?? 0) >= 0.4)
     }
 }
+
+@Suite("Foothold problems")
+struct FootholdCatalogTests {
+    @Test("Every foothold problem has a unique id")
+    func idsAreUnique() {
+        let ids = FootholdCatalog.all.map(\.id)
+        #expect(Set(ids).count == ids.count)
+    }
+
+    @Test("Every problem offers a foothold and at least two dead ends")
+    func exactlyOneFootholdAmongThreeOrMorePieces() {
+        for problem in FootholdCatalog.all {
+            #expect(problem.pieces.count >= 3, "\(problem.id)")
+            #expect(problem.pieces.indices.contains(problem.footholdIndex), "\(problem.id) points at a piece that isn't there")
+            #expect(problem.pieces.indices.filter(problem.isFoothold).count == 1, "\(problem.id)")
+        }
+    }
+
+    @Test("Every problem builds back up to a ticked check")
+    func buildAndCheck() {
+        for problem in FootholdCatalog.all {
+            #expect(!problem.build.isEmpty, "\(problem.id)")
+            #expect(problem.check.hasSuffix("✓"), "\(problem.id)")
+        }
+    }
+}

@@ -10475,57 +10475,58 @@
       "id": "polya-1-understand",
       "phaseNumber": 1,
       "title": "1. Understand the Problem",
-      "subtitle": "Isolate the unknown, the given data, and the governing condition",
+      "subtitle": "Name what you want, what you're given, and the smaller questions hiding inside",
       "symbol": "magnifyingglass.circle.fill",
       "prompts": [
-        "What is the unknown? Can I name it or draw it as a Singapore bar segment?",
-        "What are the data and units? Are any quantities hidden in words like 'bisects', 'regular', or 'independent'?",
-        "What is the invariant condition linking the data to the unknown? Is it enough to determine the unknown?"
+        "What am I trying to find? Can I name it, or draw it as a bar?",
+        "What facts am I given, and what stays the same? Look for facts hiding in words like 'constant', 'bisects' or 'regular'.",
+        "What smaller questions hide inside this one? List the pieces."
       ],
       "exampleProblem": "A train passes a 300 m platform in 24 seconds and passes a standing lamp-post in 9 seconds at constant speed. Find the length of the train.",
-      "phaseBreakdown": "Unknown: Train length L. Data: Lamp-post time = 9 s (covers L only); Platform time = 24 s (covers L + 300 m). Invariant: Speed v is constant!"
+      "phaseBreakdown": "Want: the train's length L. Given: the lamp-post takes 9 s (the train's own length), the platform takes 24 s (the train plus 300 m), and the speed never changes. Pieces: the train's speed, and how long the 300 m takes on its own."
     },
     {
       "id": "polya-2-plan",
       "phaseNumber": 2,
       "title": "2. Devise a Plan",
-      "subtitle": "Select a heuristic: Draw a Bar Model, Try a Simpler Case, Work Backwards, or Look for Symmetry",
+      "subtitle": "Pick the piece you can crack right now. If none gives, change the picture: a bar model, a smaller version, working backwards, or symmetry",
       "symbol": "map.fill",
       "prompts": [
-        "Can I draw a bar model, or add a helper line to the figure?",
-        "What happens in a tiny case (n = 1, 2, 3) — does a pattern of differences emerge?",
-        "Can I work backwards from the target or use an extreme case (h → 0, θ = 0° or 90°)?"
+        "Which piece can I solve right now, with only what I'm given? Start there.",
+        "If no piece gives way, can I draw a bar model, or add a helper line to the figure?",
+        "Can I try a smaller version first (n = 1, 2, 3), or work backwards from what I want?"
       ],
-      "exampleProblem": "Compare the two journeys of the train on a single Singapore distance bar.",
-      "phaseBreakdown": "Draw two bars: Bar 1 = [Train L] takes 9 s. Bar 2 = [Train L] + [300 m] takes 24 s. The extra 300 m alone takes 24 − 9 = 15 s!"
+      "exampleProblem": "Put the train's two journeys on one bar and look for a piece you can solve.",
+      "phaseBreakdown": "Piece found: the extra 300 m. Bar 1 is [train] and takes 9 s. Bar 2 is [train] + [300 m] and takes 24 s. So the 300 m on its own takes 24 − 9 = 15 s. We can crack that now: it's the foothold."
     },
     {
       "id": "polya-3-execute",
       "phaseNumber": 3,
       "title": "3. Carry Out the Plan",
-      "subtitle": "Execute each algebraic or geometric step and check that every step is reversible",
+      "subtitle": "Crack the foothold, then use its answer to open the next piece, until the whole problem gives",
       "symbol": "hammer.fill",
       "prompts": [
-        "Can I prove that each step follows from the line above it?",
-        "Did I keep units and signs consistent across every operation?",
-        "Can I see the geometric meaning of the intermediate number?"
+        "What did my first piece give me, and which piece does it open next?",
+        "Does each step follow from the line above it?",
+        "Are my units and signs still right? Can I say what each middle number means?"
       ],
-      "exampleProblem": "Compute the train's speed from the 15-second difference and find L.",
-      "phaseBreakdown": "Speed v = 300 m ÷ 15 s = 20 m/s. Since passing the lamp-post takes 9 s, Train length L = 20 m/s × 9 s = 180 m."
+      "exampleProblem": "Use the 15-second piece to find the speed, then the speed to find L.",
+      "phaseBreakdown": "Piece solved: 300 m in 15 s, so the speed is 300 ÷ 15 = 20 m/s. Piece used: the lamp-post takes 9 s at 20 m/s. Whole solved: L = 20 × 9 = 180 m."
     },
     {
       "id": "polya-4-look-back",
       "phaseNumber": 4,
       "title": "4. Look Back & Generalise",
-      "subtitle": "Sanity-check dimensions, test a second method, and turn the result into a reusable formula",
+      "subtitle": "Check the answer, check the pieces fit back together, and keep the move for next time",
       "symbol": "sparkles.rectangle.stack.fill",
       "prompts": [
-        "Does the answer survive a substitution check in the original problem?",
-        "Can I derive the general formula for any platform length P and times t₁, t₂?",
-        "Where else can I use this 'subtract the two states to isolate the difference' trick?"
+        "Does the answer work in the original problem?",
+        "Did my pieces fit back together? Which piece was the key one, and how did I spot it?",
+        "Can I write a rule for any platform length P and times t₁ and t₂?",
+        "Where else could 'compare two cases and subtract' find me a foothold?"
       ],
-      "exampleProblem": "Verify L = 180 m and write the universal formula.",
-      "phaseBreakdown": "Check: (180 + 300) m ÷ 20 m/s = 480 ÷ 20 = 24 s ✓. General Formula: L = P · t₁ / (t₂ − t₁)."
+      "exampleProblem": "Check L = 180 m, name the key piece, and write the rule.",
+      "phaseBreakdown": "Check: (180 + 300) ÷ 20 = 24 s ✓. Key piece: the extra 300 m, found by comparing the two journeys. Rule: L = P · t₁ ÷ (t₂ − t₁)."
     }
   ],
   "speedMathDecks": [
