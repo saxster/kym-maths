@@ -37,7 +37,7 @@ def build(k):
                             "Powers are how growth, interest and computer memory are counted.",
             "standsOn": ["Times tables to 12 × 12", "Dividing with remainders", "The number line below zero"],
             "unlocks": [
-                "Chapter 2: fractions and recurring decimals",
+                "Chapter 2: fractions and decimals that repeat",
                 "Chapter 4: taking out a common factor in algebra",
                 "Chapter 12: Pythagoras, which needs square roots",
             ],

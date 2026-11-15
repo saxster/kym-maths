@@ -19,6 +19,7 @@ import concept_links
 import content_checks
 from book import ch00 as book_ch00
 from book import ch01 as book_ch01
+from book import ch02 as book_ch02
 from book import concepts as book_concepts
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -27,7 +28,7 @@ BOOK_OUT = ROOT / "KymMaths" / "KymMaths" / "Resources" / "PatternedWorldBook" /
 GOLDEN_OUT = ROOT / "KymMaths" / "Tests" / "Golden" / "concept-links.json"
 
 # Chapters rewritten by hand to docs/CONTENT_BRIEF.md. The content checks apply to these.
-BOOK_CHAPTERS = (book_ch00, book_ch01)
+BOOK_CHAPTERS = (book_ch00, book_ch01, book_ch02)
 # Saved learner responses key on callout ids, so a rewritten chapter keeps the old ids.
 CALLOUT_ID_SUFFIX = {"predict": "predict", "check": "aha", "careful": "trap"}
 
@@ -111,6 +112,35 @@ def book_tips():
     return {tid: tip for spec in book_specs().values() for tid, tip in spec["visualMathTips"].items()}
 
 
+# The school question fields a chapter file may rewrite. Answer keys, model answers and stuck sheets stay here.
+SCHOOL_QUESTION_FIELDS = {"workedExample", "fadedPrompt"}
+
+
+def _merge_school_text(key):
+    merged = {}
+    for num, spec in sorted(book_specs().items()):
+        for item_id, value in spec.get(key, {}).items():
+            if item_id in merged:
+                raise SystemExit(f"{key} \"{item_id}\" is written by two chapter files; chapter {num} is the second")
+            merged[item_id] = value
+    return merged
+
+
+def book_school_topics():
+    """School topic code → the `summary` a chapter file writes for it."""
+    return _merge_school_text("schoolTopics")
+
+
+def book_school_questions():
+    """School question id → the `workedExample` and `fadedPrompt` a chapter file writes for it."""
+    return _merge_school_text("schoolQuestions")
+
+
+def book_school_authored():
+    """The school topic codes and question ids a chapter file writes, which the content checks also read."""
+    return {"topics": set(book_school_topics()), "questions": set(book_school_questions())}
+
+
 def build_concepts(chapters):
     """The concept cards, each with `usedIn`: the rewritten chapters that list it as a key term, then the cards that stand on it."""
     cards = book_concepts.build(helpers())
@@ -169,10 +199,18 @@ def concept_link_golden(pack):
     for card in pack["concepts"]:
         for _, text in content_checks.card_strings(card):
             add(text, exclude=card["id"])
+    authored_questions = book_school_questions()
     for question in pack["schoolQuestions"]:
-        if question["unitNumber"] == 1:
-            add(question["prompt"])
-            add(question["workedExample"])
+        fields = ["prompt", "workedExample"] if question["unitNumber"] == 1 else []
+        if question["id"] in authored_questions:
+            fields += [field for field in ("prompt", "workedExample", "fadedPrompt") if field not in fields]
+        for field in fields:
+            add(question[field])
+    authored_topics = book_school_topics()
+    for unit in pack["schoolTextbook"]["units"]:
+        for topic in unit["topics"]:
+            if topic["code"] in authored_topics:
+                add(topic["summary"])
     for footing in pack["footings"]:
         add(footing["teach"])
     return entries
@@ -223,22 +261,6 @@ def build_volumes():
 
 def build_chapters():
     raw_specs = [
-        (
-            2, 1, "Fractions, Recurring Decimals & The Scaling Engine",
-            "OUP Ch 6 · Multiplying & dividing fractions, significant figures & 10ᵏx − x recurring decimal proofs",
-            "Dividing by a fraction a/b asks how many b-sized pieces fit inside — which scales by b/a.",
-            "Slide a 10ᵏ multiplier bar against a repeating decimal tail 0.ababab… and watch the infinite tails align.",
-            "Multiplying x = 0.abab… by 10ᵏ shifts the decimal point by one full period k, so subtracting x cancels the entire infinite tail in one stroke!",
-            "x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1)",
-            [
-                {"symbol": "10ᵏ x", "visualPart": "Red shifted bar with whole period ahead of decimal", "colorRole": "red", "meaning": "Shifts repeating block k places left"},
-                {"symbol": "− x", "visualPart": "Blue original infinite tail", "colorRole": "blue", "meaning": "Identical infinite tail after the decimal point cancels to 0"},
-                {"symbol": "10ᵏ − 1", "visualPart": "Green denominator of k nines (9, 99, 999)", "colorRole": "green", "meaning": "Exact rational denominator"}
-            ],
-            "maths/ch02-fractions-decimals/index.html",
-            ["Recurring Decimal", "Terminating Decimal", "Significant Figures", "Reciprocal", "Mixed Numbers", "Area Fraction Model"],
-            ["w_recurring_decimal_tail_canceller", "w_fraction_area_division"]
-        ),
         (
             3, 1, "Ratios, Percentages & Exponential Compounding",
             "OUP Ch 9 & Ch 12 · Singapore unitary bar models, percentage multipliers & 20-year rupee compounding",
@@ -1008,6 +1030,11 @@ def build_school_textbook():
         ),
     ]
 
+    summaries = book_school_topics()
+    unknown = sorted(set(summaries) - {code for unit in raw_units for code, *_ in unit[-1]})
+    if unknown:
+        raise SystemExit(f"schoolTopics for unknown topic codes: {unknown}")
+
     units = []
     for u_num, title, strand, status, p_start, p_end, pw_chaps, bridges, topics in raw_units:
         wb_start = (u_num - 1) * 12 + 1
@@ -1024,7 +1051,7 @@ def build_school_textbook():
                 "livingWorldChapters": pw_chaps,
                 "linkedWidgets": [wid],
                 "bridgeIds": bridges,
-                "summary": summary,
+                "summary": summaries.get(code, summary),
                 "cambridgeWatchouts": [
                     f"Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for {code}.",
                     "Check units, negative signs, and significant figures at the final step.",
@@ -4186,6 +4213,18 @@ def build_school_questions():
             "linkedWidget": wid,
         })
     question_ids = {question["id"] for question in questions}
+    # A chapter file's worked example and faded prompt replace these before the answer keys and stuck sheets are attached.
+    authored = book_school_questions()
+    unknown = sorted(set(authored) - question_ids)
+    if unknown:
+        raise SystemExit(f"schoolQuestions for unknown question ids: {unknown}")
+    for qid, fields in sorted(authored.items()):
+        extra = sorted(set(fields) - SCHOOL_QUESTION_FIELDS)
+        if extra:
+            raise SystemExit(f"schoolQuestions \"{qid}\" writes {extra}; a chapter file may write only "
+                             f"{sorted(SCHOOL_QUESTION_FIELDS)}")
+    for question in questions:
+        question.update(authored.get(question["id"], {}))
     if question_ids != set(ANSWER_KEYS):
         raise SystemExit(f"Answer keys and questions differ: {sorted(question_ids ^ set(ANSWER_KEYS))}")
     for question in questions:
@@ -4835,8 +4874,8 @@ const COMPANION_BOOKS = {{
 const CH_SLIDERS = {{
   0:  [{{lbl:'In A (cricket):',min:8,max:22,step:1,val:18,u:''}}, {{lbl:'In B (football):',min:6,max:20,step:1,val:15,u:''}}, {{lbl:'In both:',min:0,max:20,step:1,val:7,u:''}}],
   1:  [{{lbl:'First number:',min:6,max:48,step:6,val:24,u:''}}, {{lbl:'Second number:',min:6,max:60,step:6,val:36,u:''}}, {{lbl:'Turns:',min:0,max:2,step:1,val:2,u:''}}],
-  2:  [{{lbl:'Repeating block:',min:9,max:81,step:9,val:36,u:''}}, {{lbl:'Whole units N:',min:1,max:5,step:1,val:3,u:''}}, {{lbl:'Denominator b:',min:2,max:6,step:1,val:4,u:''}}],
-  3:  [{{lbl:'Ratio parts A:',min:1,max:6,step:1,val:3,u:'u'}}, {{lbl:'Ratio parts B:',min:2,max:8,step:1,val:5,u:'u'}}, {{lbl:'Compound rate r:',min:4,max:15,step:1,val:8,u:'%'}}],
+  2:  [{{lbl:'Repeating digits:',min:9,max:81,step:9,val:36,u:''}}, {{lbl:'Whole number:',min:1,max:5,step:1,val:3,u:''}}, {{lbl:'Bottom of the fraction:',min:2,max:6,step:1,val:4,u:''}}],
+  3:  [{{lbl:'Parts for A:',min:1,max:6,step:1,val:3,u:''}}, {{lbl:'Parts for B:',min:2,max:8,step:1,val:5,u:''}}, {{lbl:'Interest rate:',min:4,max:15,step:1,val:8,u:'%'}}],
   4:  [{{lbl:'Square side x:',min:2,max:6,step:0.5,val:4,u:''}}, {{lbl:'Strip width a:',min:1,max:4,step:0.5,val:2,u:''}}, {{lbl:'Strip height b:',min:1,max:4,step:0.5,val:3,u:''}}],
   5:  [{{lbl:'Left x-coeff a:',min:2,max:6,step:1,val:4,u:'x'}}, {{lbl:'Left const b:',min:1,max:10,step:1,val:3,u:''}}, {{lbl:'Right const d:',min:7,max:25,step:3,val:15,u:''}}],
   6:  [{{lbl:'Stair steps n:',min:3,max:8,step:1,val:6,u:''}}, {{lbl:'First term a₁:',min:1,max:4,step:1,val:1,u:''}}, {{lbl:'Step diff d:',min:1,max:3,step:1,val:1,u:''}}],
@@ -5060,42 +5099,44 @@ function drawSandbox() {{
       break;
     }}
     case 2: {{
-      // Ch 2: 100x - x Recurring Decimal Tail Canceller & Reciprocal Division
+      // Ch 2: take the number away from 100 lots of it, and count how many pieces of a fraction fit
       const blk = Math.round(a), g = gcd(blk, 99), sNum = blk / g, sDen = 99 / g;
       const bStr = String(blk).padStart(2, '0');
       ctx.fillStyle = red + '28'; ctx.strokeStyle = red; ctx.lineWidth = 2;
       ctx.fillRect(42, 42, w - 84, 42); ctx.strokeRect(42, 42, w - 84, 42);
-      ctx.fillStyle = red; ctx.fillText(`100x = ${{bStr}} . ${{bStr}} ${{bStr}} ${{bStr}} … (infinite tail)`, 56, 68);
+      ctx.fillStyle = red; ctx.fillText(`100 × the number = ${{blk}}.${{bStr}}${{bStr}}${{bStr}}…`, 56, 68);
       ctx.fillStyle = blue + '28'; ctx.strokeStyle = blue;
       ctx.fillRect(118, 96, w - 160, 42); ctx.strokeRect(118, 96, w - 160, 42);
-      ctx.fillStyle = blue; ctx.fillText(`−   x =  0 . ${{bStr}} ${{bStr}} ${{bStr}} … (aligned tail cancels!)`, 128, 122);
+      ctx.fillStyle = blue; ctx.fillText(`− 1 × the number = 0.${{bStr}}${{bStr}}${{bStr}}…`, 128, 122);
       ctx.fillStyle = green + '28'; ctx.strokeStyle = green;
-      ctx.fillRect(42, 154, 260, 44); ctx.strokeRect(42, 154, 260, 44);
-      ctx.fillStyle = green; ctx.fillText(`99x = ${{blk}}  ⇒  x = ${{blk}}/99 = ${{sNum}}/${{sDen}}`, 56, 181);
+      ctx.fillRect(42, 154, w - 84, 44); ctx.strokeRect(42, 154, w - 84, 44);
+      ctx.fillStyle = green; ctx.fillText(`99 × the number = ${{blk}}, so it is ${{blk}}/99 = ${{sNum}}/${{sDen}}`, 56, 181);
       const q = (b * c) / 2;
-      ctx.fillStyle = amber; ctx.fillText(`Reciprocal Division: ${{b}} ÷ (2/${{c}}) = ${{b}} × (${{c}}/2) = ${{q.toFixed(1)}}`, 42, 235);
-      readoutHtml = `Tail Subtraction: 100x − x = 99x = ${{blk}} ⇒ <b>0.${{bStr}}${{bStr}}… = ${{sNum}}/${{sDen}}</b> · Division: <b>${{b}} ÷ (2/${{c}}) = ${{q.toFixed(2)}}</b>`;
+      ctx.fillStyle = amber; ctx.fillText(`How many pieces of 2/${{c}} fit in ${{b}}? ${{b}} ÷ 2/${{c}} = ${{b}} × ${{c}}/2 = ${{q}}`, 42, 235);
+      readoutHtml = `100 lots take away 1 lot leaves 99 lots, so 99 × the number = ${{blk}} and <b>0.${{bStr}}${{bStr}}… = ${{sNum}}/${{sDen}}</b> · Dividing: <b>${{b}} ÷ 2/${{c}} = ${{b}} × ${{c}}/2 = ${{q}}</b>`;
       break;
     }}
     case 3: {{
-      // Ch 3: Singapore Ratio Bar Model & 20-Year Compound Growth
+      // Ch 3: sharing in a ratio with bars of equal parts, and ₹1,000 left for 20 years
       const pA = Math.round(a), pB = Math.round(b), rate = c / 100;
       const uW = 34, yA = 42, yB = 92;
       for (let i = 0; i < pA; i++) {{
         ctx.fillStyle = red + '30'; ctx.strokeStyle = red; ctx.lineWidth = 2;
         ctx.fillRect(46 + i * (uW + 4), yA, uW, 34); ctx.strokeRect(46 + i * (uW + 4), yA, uW, 34);
       }}
-      ctx.fillStyle = red; ctx.fillText(`A (${{pA}}u = ₹${{pA * 40}})`, 54 + pA * (uW + 4), yA + 22);
+      ctx.fillStyle = red; ctx.fillText(`A: ${{pA}} parts = ₹${{pA * 40}}`, 54 + pA * (uW + 4), yA + 22);
       for (let i = 0; i < pB; i++) {{
         ctx.fillStyle = blue + '30'; ctx.strokeStyle = blue; ctx.lineWidth = 2;
         ctx.fillRect(46 + i * (uW + 4), yB, uW, 34); ctx.strokeRect(46 + i * (uW + 4), yB, uW, 34);
       }}
-      ctx.fillStyle = blue; ctx.fillText(`B (${{pB}}u = ₹${{pB * 40}})`, 54 + pB * (uW + 4), yB + 22);
-      // Mini compound bars on bottom
+      ctx.fillStyle = blue; ctx.fillText(`B: ${{pB}} parts = ₹${{pB * 40}}`, 54 + pB * (uW + 4), yB + 22);
+      ctx.fillStyle = muted; ctx.fillText(`1 part = ₹40 · A : B = ${{pA}} : ${{pB}} · together ₹${{(pA + pB) * 40}}`, 46, 148);
+      // What ₹1,000 grows to in 20 years
       const simp20 = 1000 * (1 + 20 * rate), comp20 = 1000 * Math.pow(1 + rate, 20);
-      ctx.fillStyle = amber; ctx.fillText(`20 yrs @ ${{c}}%: Simple = ₹${{simp20.toFixed(0)}} vs Compound P(1+r)²⁰ = ₹${{comp20.toFixed(0)}}`, 46, 175);
-      ctx.fillStyle = green; ctx.fillText(`+20% then −20% trap: 1.20 × 0.80 = 0.96 (4% net loss!)`, 46, 208);
-      readoutHtml = `Singapore Bar (${{pA}}:${{pB}}, 1u=₹40): A=<b>₹${{pA*40}}</b>, B=<b>₹${{pB*40}}</b> · 20-yr Compound @ ${{c}}%: <b>₹${{comp20.toFixed(0)}}</b>`;
+      const rupees = (x) => '₹' + Math.round(x).toLocaleString('en-IN');
+      ctx.fillStyle = amber; ctx.fillText(`₹1,000 for 20 years at ${{c}}%: ${{rupees(simp20)}} with simple interest · ${{rupees(comp20)}} with compound`, 46, 175);
+      ctx.fillStyle = green; ctx.fillText('Up 20%, then down 20%: 1.20 × 0.80 = 0.96, which is a 4% loss', 46, 208);
+      readoutHtml = `A : B = ${{pA}} : ${{pB}} and 1 part = ₹40, so A gets <b>₹${{pA * 40}}</b> and B gets <b>₹${{pB * 40}}</b> · ₹1,000 at ${{c}}% for 20 years: <b>${{rupees(comp20)}}</b> with compound interest, ${{rupees(simp20)}} with simple interest`;
       break;
     }}
     case 4: {{
@@ -5588,7 +5629,7 @@ def main():
         "concepts": build_concepts(chapters),
         "conceptStopPhrases": build_concept_stop_phrases(),
     }
-    content_checks.require_clean(pack, rewritten_chapters())
+    content_checks.require_clean(pack, rewritten_chapters(), book_school_authored())
     write_golden(pack)
 
     PACK_OUT.parent.mkdir(parents=True, exist_ok=True)

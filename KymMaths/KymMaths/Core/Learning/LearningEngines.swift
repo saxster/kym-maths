@@ -765,42 +765,6 @@ public enum MathematicalDebateEngine {
 
 public enum MathematicalDebateCatalog {
     public static let all: [MathematicalDebateScenario] = [
-        // Ch 2 -> OUP Ch 1 (Indices & Standard Form)
-        MathematicalDebateScenario(
-            id: "debate-ch02-indices",
-            chapterNumber: 2,
-            oupUnitNumber: 1,
-            title: "Doubling Bacteria Colonies",
-            contextPrompt: "A petri dish has 2⁴ bacteria groups, each containing 2³ cells. Rohan and Diya debate the total number of cells:",
-            speakerAName: "Rohan",
-            speakerAClaim: "2⁴ × 2³ = 2^(4 × 3) = 2¹² cells, because we are multiplying!",
-            speakerBName: "Diya",
-            speakerBClaim: "2⁴ × 2³ chains four 2s next to three 2s: (2×2×2×2) × (2×2×2) = 2^(4 + 3) = 2⁷ cells.",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch02-a",
-                    speakerLabel: "Rohan is right (2¹²)",
-                    reasoningStatement: "Multiplication of powers multiplies the exponents.",
-                    isCorrect: false,
-                    socraticRebuttal: "Multiplying exponents happens only when raising a power to a power, like (2⁴)³. Here we are concatenating two factor chains."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch02-b",
-                    speakerLabel: "Diya is right (2⁷)",
-                    reasoningStatement: "Joining a chain of 4 twos with a chain of 3 twos produces a chain of 4 + 3 = 7 twos.",
-                    isCorrect: true,
-                    socraticRebuttal: "Spot on! 16 × 8 = 128 = 2⁷."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch02-c",
-                    speakerLabel: "Neither — it is 4⁷ (multiply bases AND add exponents)",
-                    reasoningStatement: "Multiply 2 × 2 = 4 and add 4 + 3 = 7.",
-                    isCorrect: false,
-                    socraticRebuttal: "The base 2 is the repeating factor itself—it stays 2 while the count of factors increases to 7."
-                )
-            ],
-            invariantTakeaway: "a^m × a^n = a^(m + n) because exponents count how many factors of base a are chained together."
-        ),
         // Ch 3 -> OUP Ch 2 (Algebraic Expressions & Area Models)
         MathematicalDebateScenario(
             id: "debate-ch03-algebra",

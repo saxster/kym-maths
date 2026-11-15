@@ -1915,6 +1915,11 @@
     "linked": [],
     "links": [
       {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 14
+      },
+      {
         "concept": "hcf",
         "text": "HCF",
         "offset": 37
@@ -1950,10 +1955,16 @@
     "links": []
   },
   {
-    "text": "Chapter 2: fractions and recurring decimals",
+    "text": "Chapter 2: fractions and decimals that repeat",
     "exclude": null,
     "linked": [],
-    "links": []
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fractions",
+        "offset": 11
+      }
+    ]
   },
   {
     "text": "Chapter 4: taking out a common factor in algebra",
@@ -2102,7 +2113,13 @@
     "text": "1.5 The number no fraction can reach",
     "exclude": null,
     "linked": [],
-    "links": []
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 18
+      }
+    ]
   },
   {
     "text": "Predict first",
@@ -3257,18 +3274,35 @@
     "text": "Zoom in. 1.41 × 1.41 = 1.9881. 1.42 × 1.42 = 2.0164. So the side is between 1.41 and 1.42. Each extra decimal place gets closer to 2. None of them ever lands on it exactly.",
     "exclude": null,
     "linked": [],
-    "links": []
+    "links": [
+      {
+        "concept": "decimal-place",
+        "text": "decimal place",
+        "offset": 102
+      }
+    ]
   },
   {
     "text": "Could some fraction land on it exactly? Suppose one did, written in its lowest terms. Then top × top would equal 2 × bottom × bottom. That makes top × top even, so top is even. Write top as 2 × something, and the same line shows that bottom is even too. But a fraction in its lowest terms cannot have both parts even. So no fraction works. This argument is more than 2,000 years old.",
     "exclude": null,
-    "linked": [],
-    "links": []
+    "linked": [
+      "decimal-place"
+    ],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 11
+      }
+    ]
   },
   {
     "text": "The number that multiplies by itself to give 49 is the square root of 49, written √49 = 7. Numbers that can be written as fractions are called rational. Numbers that cannot, like √2, are called irrational numbers. Their decimals never end and never repeat.",
     "exclude": null,
-    "linked": [],
+    "linked": [
+      "decimal-place",
+      "fraction"
+    ],
     "links": [
       {
         "concept": "square-root",
@@ -3286,6 +3320,8 @@
     "text": "Between which two whole numbers does √50 lie? 7 × 7 = 49 and 8 × 8 = 64. 50 is between 49 and 64, so √50 is between 7 and 8. It is only a little above 7, because 50 is only a little above 49.",
     "exclude": null,
     "linked": [
+      "decimal-place",
+      "fraction",
       "irrational-number",
       "square-root"
     ],
@@ -3295,6 +3331,8 @@
     "text": "√16 is 4, not 8. Halving is tempting because it also makes a number smaller. Check by multiplying back: 4 × 4 = 16, but 8 × 8 = 64.",
     "exclude": null,
     "linked": [
+      "decimal-place",
+      "fraction",
       "irrational-number",
       "square-root"
     ],
@@ -3304,6 +3342,8 @@
     "text": "√30 lies between two whole numbers. What is the smaller one?",
     "exclude": null,
     "linked": [
+      "decimal-place",
+      "fraction",
       "irrational-number",
       "square-root"
     ],
@@ -3313,8 +3353,1501 @@
     "text": "A square root asks what number times itself gives this one, and most of the answers cannot be written as fractions.",
     "exclude": null,
     "linked": [
+      "decimal-place",
+      "fraction",
       "irrational-number",
       "square-root"
+    ],
+    "links": []
+  },
+  {
+    "text": "Fractions and recurring decimals",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "Fractions",
+        "offset": 0
+      },
+      {
+        "concept": "recurring-decimal",
+        "text": "recurring decimals",
+        "offset": 14
+      }
+    ]
+  },
+  {
+    "text": "School book chapter 6 · Fractions that share a name, why you flip to divide, and decimals that never end",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "Fractions",
+        "offset": 24
+      }
+    ]
+  },
+  {
+    "text": "How can 0.333… go on for ever and still be exactly one third?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Fractions and decimals, both ways",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "Fractions",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "With no calculator: work out 5 1/2 − 2 2/3 and 9 ÷ 3/5. Then write 0.454545… as a fraction.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 82
+      }
+    ]
+  },
+  {
+    "text": "5 1/2 − 2 2/3 = 2 5/6. 9 ÷ 3/5 = 15. 0.454545… = 5/11.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Recipes, prices and measurements are rarely whole numbers. Almost every chapter after this one divides something, and dividing makes fractions.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fractions",
+        "offset": 133
+      }
+    ]
+  },
+  {
+    "text": "Chapter 1: factors, multiples, the HCF and the LCM",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "factor",
+        "text": "factors",
+        "offset": 11
+      },
+      {
+        "concept": "multiple",
+        "text": "multiples",
+        "offset": 20
+      },
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 35
+      },
+      {
+        "concept": "lcm",
+        "text": "LCM",
+        "offset": 47
+      }
+    ]
+  },
+  {
+    "text": "Place value down to thousandths",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Dividing by a one-digit number, with remainders",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 3: sharing in parts, percentages and growth",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 4: algebra, where the same fraction rules work on letters",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 35
+      }
+    ]
+  },
+  {
+    "text": "Chapter 15: counting chances, which are written as fractions",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fractions",
+        "offset": 51
+      }
+    ]
+  },
+  {
+    "text": "Set the repeating digits to 36. The red row is 100 lots of the number 0.3636… The blue row is 1 lot of it. Take the blue row away from the red row.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The digits after the decimal point are the same in both rows, so they cancel. What is left is a whole number: 99 lots make 36. So the number is 36/99, which is 4/11.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "100x − x = 99x,   a ÷ b/c = a × c/b",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "100x",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The red row",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "100 lots of the number, which moves every digit two places to the left",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "x",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The blue row",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "1 lot of the number, the recurring decimal itself",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "recurring-decimal",
+        "text": "recurring decimal",
+        "offset": 25
+      }
+    ]
+  },
+  {
+    "text": "99x",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The green box",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "What is left after taking away, which is a whole number",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "a ÷ b/c",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The amber line",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "How many pieces of size b/c fit into a",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2.1 One amount, many names",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2.2 Taking away pieces of different sizes",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2.3 Why you flip to divide",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2.4 Where the decimal point goes",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2.5 How many digits to keep",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2.6 Decimals that never end",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Predict first",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Before you touch the figure: is 3 ÷ 2/4 bigger or smaller than 3? Decide, and write down why you think so.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Explain it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A friend says 1/3 cannot equal 0.333… because the 3s never finish. Explain in your own words why the two are the same number.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Watch out for the flip",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "When you divide by a fraction, flip only the fraction you divide by. The first number stays as it is.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 21
+      }
+    ]
+  },
+  {
+    "text": "Fraction",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "Fraction",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Numerator and denominator",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "numerator-denominator",
+        "text": "Numerator",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Equivalent fractions",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "equivalent-fractions",
+        "text": "Equivalent fractions",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Simplest form",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "simplest-form",
+        "text": "Simplest form",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Common denominator",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "common-denominator",
+        "text": "Common denominator",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Improper fraction",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "improper-fraction",
+        "text": "Improper fraction",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Mixed number",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "mixed-number",
+        "text": "Mixed number",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Reciprocal",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "reciprocal",
+        "text": "Reciprocal",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Decimal place",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "decimal-place",
+        "text": "Decimal place",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Significant figures",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "significant-figures",
+        "text": "Significant figures",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Terminating decimal",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "terminating-decimal",
+        "text": "Terminating decimal",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Recurring decimal",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "recurring-decimal",
+        "text": "Recurring decimal",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Half-litre bottles",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A juice stall has 6 litres of nimbu pani. It sells it in bottles of 1/2 a litre. Riya and Arjun disagree about how many bottles it can fill.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Riya",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "6 ÷ 1/2 means half of 6. That is 3 bottles.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Arjun",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Each litre fills 2 bottles, so 6 litres fill 12 bottles.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Riya is right (3 bottles)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Dividing makes a number smaller, so the answer must be less than 6.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Half of 6 is 6 × 1/2, which is 3. But 3 bottles of half a litre hold only 1 1/2 litres. Where did the other 4 1/2 litres go?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Arjun is right (12 bottles)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Two half-litre bottles fill from each litre, and there are 6 litres.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Yes. 6 ÷ 1/2 = 6 × 2 = 12. Check it: 12 bottles of half a litre hold 6 litres.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Neither. It is 1/12 of a bottle.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Flip the 6 to get 1/6, then multiply by 1/2.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "That flips the wrong number. One litre alone fills 2 bottles, so 1/12 of a bottle cannot be right. Flip only the 1/2.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Dividing by a number less than 1 gives an answer bigger than the number you started with.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Lining up the repeating digits",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the repeating digits to 36. Predict what is left when the blue row is taken from the red row. Then read the green box.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The red row is 100 lots of 0.3636… and the blue row is 1 lot. Their digits after the point match, so they cancel. 99 lots are left, and they make 36.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The result: 0.3636… = 36/99 = 4/11",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "1. Try it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the repeating digits to 36. The red row shows 36.3636… and the blue row shows 0.3636…",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2. Notice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "After the decimal point the two rows are identical. Taking one from the other leaves exactly 36.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3. Match the colours",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Red is 100 lots of the number. Blue is 1 lot. Green is the 99 lots left over.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "4. Push it further",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the repeating digits to 18. The green box gives 18/99, which is 2/11. Divide 2 by 11 on paper to check.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "5. Draw it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write the three rows for 0.3636… in your journal, with the matching digits lined up.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "How many pieces fit?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the whole number to 4 and the bottom of the fraction to 3. Predict how many pieces of 2/3 fit into 4. Then read the amber line.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 48
+      }
+    ]
+  },
+  {
+    "text": "4 wholes cut into thirds make 12 thirds. Each piece uses 2 of them, so 6 pieces fit. That is 4 × 3 ÷ 2, which is 4 × 3/2.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The rule: 4 ÷ 2/3 = 4 × 3/2 = 6",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "1. Try it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the whole number to 4 and the bottom of the fraction to 3.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 48
+      }
+    ]
+  },
+  {
+    "text": "2. Notice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The amber line counts the pieces. 6 pieces of 2/3 fit into 4.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3. Match the rule",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Multiplying by 3 counts the thirds. Dividing by 2 groups them. Together that is × 3/2.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "4. Push it further",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Keep the whole number at 4 and set the bottom to 6. The pieces are smaller, so more fit. How many?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "5. Draw it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw 4 bars cut into thirds in your journal and circle the groups of 2.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 2 · Lining up the repeating digits",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why does multiplying 0.3636… by 100 help to turn it into a fraction?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 59
+      }
+    ]
+  },
+  {
+    "text": "Multiplying by 100 moves every digit two places to the left. The digits after the point still read 3636…, as they did before. Subtracting the original number removes them all and leaves the whole number 36.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The result: 99 × the number = 36, so the number is 4/11",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "How can 0.333… go on for ever and still be exactly one third?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 2 · How many pieces fit?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why is dividing by 2/3 the same as multiplying by 3/2?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Cutting each whole into thirds multiplies the count by 3. Grouping the thirds in twos divides it by 2. Doing both is multiplying by 3/2.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The rule: 4 ÷ 2/3 = 4 × 3/2 = 6",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "How can 0.333… go on for ever and still be exactly one third?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 2 · The decimal that is secretly 1",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "What fraction is 0.999…?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 5
+      }
+    ]
+  },
+  {
+    "text": "Ten lots of it are 9.999…, and one lot is 0.999…, with the same tail. Take one lot from ten lots and nine lots are exactly 9. So the number is 9/9, which is 1. 0.999… and 1 are two names for one number.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The result: 0.999… = 1",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "How can 0.333… go on for ever and still be exactly one third?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Kym eats 2 slices of a pizza cut into 4 equal slices. Aarav has a pizza of the same size, cut into 8 equal slices, and eats 4. Who ate more?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "They ate the same amount: half a pizza each. Cutting every slice in two doubles the number of slices and doubles how many you eat. The amount of pizza does not change. So 2/4 and 4/8 are two names for one amount.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw a bar and split it into 4 equal parts. Shade 2 of them. Now draw a line through the middle of every part. The bar has 8 parts and 4 are shaded. The shaded length has not moved.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why does this work? Multiplying the top and the bottom by 2 is multiplying by 2/2. And 2/2 is 1 whole. Multiplying by 1 never changes an amount. Dividing the top and the bottom by the same number undoes it, so that is safe too.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The top number of a fraction is the numerator and the bottom number is the denominator. Fractions that name the same amount, like 2/4 and 4/8, are equivalent fractions. Divide the top and the bottom by their highest common factor and you reach the simplest form. For 2/4 and 4/8 that is 1/2.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 20
+      },
+      {
+        "concept": "numerator-denominator",
+        "text": "numerator",
+        "offset": 36
+      },
+      {
+        "concept": "equivalent-fractions",
+        "text": "equivalent fractions",
+        "offset": 147
+      },
+      {
+        "concept": "hcf",
+        "text": "highest common factor",
+        "offset": 208
+      },
+      {
+        "concept": "simplest-form",
+        "text": "simplest form",
+        "offset": 248
+      }
+    ]
+  },
+  {
+    "text": "Write 18/24 in its simplest form. The HCF of 18 and 24 is 6. 18 ÷ 6 = 3 and 24 ÷ 6 = 4. So 18/24 = 3/4. Check: 3 and 4 share no factor except 1, so you cannot go further.",
+    "exclude": null,
+    "linked": [
+      "equivalent-fractions",
+      "fraction",
+      "hcf",
+      "numerator-denominator",
+      "simplest-form"
+    ],
+    "links": [
+      {
+        "concept": "factor",
+        "text": "factor",
+        "offset": 128
+      }
+    ]
+  },
+  {
+    "text": "It is tempting to add the same number to the top and the bottom. Try it: 1/2 would become 2/3. But half a pizza is not two thirds of a pizza. Adding changes the amount. Only multiplying or dividing both parts keeps it the same.",
+    "exclude": null,
+    "linked": [
+      "equivalent-fractions",
+      "factor",
+      "fraction",
+      "hcf",
+      "numerator-denominator",
+      "simplest-form"
+    ],
+    "links": []
+  },
+  {
+    "text": "Write 24/36 in its simplest form.",
+    "exclude": null,
+    "linked": [
+      "equivalent-fractions",
+      "factor",
+      "fraction",
+      "hcf",
+      "numerator-denominator",
+      "simplest-form"
+    ],
+    "links": []
+  },
+  {
+    "text": "Multiplying or dividing the top and the bottom by the same number gives a new name for the same amount.",
+    "exclude": null,
+    "linked": [
+      "equivalent-fractions",
+      "factor",
+      "fraction",
+      "hcf",
+      "numerator-denominator",
+      "simplest-form"
+    ],
+    "links": []
+  },
+  {
+    "text": "Kym has 3 1/4 metres of ribbon. She cuts off 1 2/3 metres to wrap a gift. How much ribbon is left?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Quarters and thirds are pieces of different sizes, so you cannot take one from the other yet. Cut both into twelfths. A quarter is 3 twelfths and a third is 4 twelfths. Now every piece is the same size, and you can count them.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Think of 3 1/4 as 3 whole metres and 1 quarter. Each whole metre is 4 quarters, so that is 13 quarters. In the same way, 1 2/3 is 5 thirds. In twelfths, 13 quarters is 39 twelfths and 5 thirds is 20 twelfths.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why twelfths? The new denominator must be in the 4 times table and in the 3 times table. The lowest common multiple of 4 and 3 is 12. Any common multiple would work, but the lowest keeps the numbers small.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "numerator-denominator",
+        "text": "denominator",
+        "offset": 22
+      },
+      {
+        "concept": "lcm",
+        "text": "lowest common multiple",
+        "offset": 93
+      }
+    ]
+  },
+  {
+    "text": "A denominator that both fractions can share is a common denominator. Here it is 12. A fraction whose top is bigger than its bottom, like 13/4, is an improper fraction. A whole number with a fraction beside it, like 3 1/4, is a mixed number.",
+    "exclude": null,
+    "linked": [
+      "lcm",
+      "numerator-denominator"
+    ],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fractions",
+        "offset": 24
+      },
+      {
+        "concept": "common-denominator",
+        "text": "common denominator",
+        "offset": 49
+      },
+      {
+        "concept": "improper-fraction",
+        "text": "improper fraction",
+        "offset": 149
+      },
+      {
+        "concept": "mixed-number",
+        "text": "mixed number",
+        "offset": 227
+      }
+    ]
+  },
+  {
+    "text": "Work out 3 1/4 − 1 2/3. Write both as improper fractions: 13/4 and 5/3. Give both the common denominator 12: 39/12 and 20/12. Take away the numerators: 39 − 20 = 19, so the answer is 19/12. 12 twelfths make 1 whole, which leaves 7 twelfths. The ribbon left is 1 7/12 metres.",
+    "exclude": null,
+    "linked": [
+      "common-denominator",
+      "fraction",
+      "improper-fraction",
+      "lcm",
+      "mixed-number",
+      "numerator-denominator"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting way is to take away the tops and the bottoms separately. For 3/4 − 1/3 that gives 2/1, which is 2. But you started with less than 1 whole, so 2 cannot be right. The denominator names the size of the piece. It is not something you take away.",
+    "exclude": null,
+    "linked": [
+      "common-denominator",
+      "fraction",
+      "improper-fraction",
+      "lcm",
+      "mixed-number",
+      "numerator-denominator"
+    ],
+    "links": []
+  },
+  {
+    "text": "Work out 2 1/2 − 1 2/3. Give your answer as a fraction in its simplest form.",
+    "exclude": null,
+    "linked": [
+      "common-denominator",
+      "fraction",
+      "improper-fraction",
+      "lcm",
+      "mixed-number",
+      "numerator-denominator"
+    ],
+    "links": [
+      {
+        "concept": "simplest-form",
+        "text": "simplest form",
+        "offset": 62
+      }
+    ]
+  },
+  {
+    "text": "To add or take away fractions, first cut them into pieces of the same size, then count the pieces.",
+    "exclude": null,
+    "linked": [
+      "common-denominator",
+      "fraction",
+      "improper-fraction",
+      "lcm",
+      "mixed-number",
+      "numerator-denominator",
+      "simplest-form"
+    ],
+    "links": []
+  },
+  {
+    "text": "A jug holds 4 litres of lassi. Each glass takes 2/3 of a litre. How many glasses can you fill?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Dividing asks how many times one amount fits into another. Start by counting thirds. Each litre holds 3 thirds, so 4 litres hold 12 thirds. Each glass uses 2 of them. 12 ÷ 2 = 6, so you can fill 6 glasses.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw 4 bars for the 4 litres and cut each into 3 equal parts. That makes 12 parts. Circle them in groups of 2, and you get 6 groups. In the figure, set the whole number to 4 and the bottom of the fraction to 3. Read the amber line.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 196
+      }
+    ]
+  },
+  {
+    "text": "Look at what you did. You multiplied 4 by 3 to count the thirds. Then you divided by 2 to make the groups. Multiplying by 3 and dividing by 2 is the same as multiplying by 3/2. So 4 ÷ 2/3 = 4 × 3/2.",
+    "exclude": null,
+    "linked": [
+      "fraction"
+    ],
+    "links": []
+  },
+  {
+    "text": "Turn a fraction upside down and you get its reciprocal. The reciprocal of 2/3 is 3/2. Dividing by a fraction is the same as multiplying by its reciprocal. Multiplying fractions is the short part: multiply the numerators, then multiply the denominators. So 1/2 × 3/4 = 3/8, which is half of three quarters.",
+    "exclude": null,
+    "linked": [
+      "fraction"
+    ],
+    "links": [
+      {
+        "concept": "reciprocal",
+        "text": "reciprocal",
+        "offset": 44
+      },
+      {
+        "concept": "numerator-denominator",
+        "text": "numerators",
+        "offset": 209
+      }
+    ]
+  },
+  {
+    "text": "Work out 1 1/2 ÷ 3/8. Write 1 1/2 as the improper fraction 3/2. The reciprocal of 3/8 is 8/3, so work out 3/2 × 8/3. Multiply the numerators and the denominators: 24/6, which is 4. Check with the meaning. Four pieces of 3/8 make 12/8, and 12/8 is 1 1/2.",
+    "exclude": null,
+    "linked": [
+      "fraction",
+      "numerator-denominator",
+      "reciprocal"
+    ],
+    "links": [
+      {
+        "concept": "improper-fraction",
+        "text": "improper fraction",
+        "offset": 41
+      }
+    ]
+  },
+  {
+    "text": "Dividing does not always make a number smaller. 4 ÷ 2/3 = 6, which is bigger than 4. That feels wrong until you remember the question: how many small pieces fit? A second trap is flipping the wrong fraction. Only the one you divide by gets flipped.",
+    "exclude": null,
+    "linked": [
+      "fraction",
+      "improper-fraction",
+      "numerator-denominator",
+      "reciprocal"
+    ],
+    "links": []
+  },
+  {
+    "text": "A tailor has 6 metres of cloth. Each scarf needs 3/4 of a metre. Work out 6 ÷ 3/4.",
+    "exclude": null,
+    "linked": [
+      "fraction",
+      "improper-fraction",
+      "numerator-denominator",
+      "reciprocal"
+    ],
+    "links": []
+  },
+  {
+    "text": "Dividing by a fraction asks how many of that piece fit, so you multiply by the fraction turned upside down.",
+    "exclude": null,
+    "linked": [
+      "fraction",
+      "improper-fraction",
+      "numerator-denominator",
+      "reciprocal"
+    ],
+    "links": []
+  },
+  {
+    "text": "A floor tile is 0.3 m long and 0.2 m wide. Is its area 0.6 square metres, or 0.06?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "0.3 is 3 tenths and 0.2 is 2 tenths. 3 × 2 = 6. But tenths times tenths are hundredths, so the area is 6 hundredths. That is 0.06 square metres, ten times smaller than 0.6.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw a square 1 m by 1 m and cut it into a 10 by 10 grid. That makes 100 small squares. The tile reaches 3 squares one way and 2 the other. It covers 6 small squares out of 100.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "As fractions, 0.3 × 0.2 is 3/10 × 2/10. Multiply the numerators to get 6. Multiply the denominators to get 100. The answer is 6/100. Each digit after a decimal point brings one more division by 10 into the answer.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fractions",
+        "offset": 3
+      },
+      {
+        "concept": "numerator-denominator",
+        "text": "numerators",
+        "offset": 53
+      }
+    ]
+  },
+  {
+    "text": "The positions after the decimal point are called decimal places. 0.3 has one decimal place and 0.06 has two. To multiply decimals, multiply them as whole numbers first. Then give the answer as many decimal places as the two numbers had between them.",
+    "exclude": null,
+    "linked": [
+      "fraction",
+      "numerator-denominator"
+    ],
+    "links": [
+      {
+        "concept": "decimal-place",
+        "text": "decimal places",
+        "offset": 49
+      }
+    ]
+  },
+  {
+    "text": "Work out 4.5 ÷ 0.15. Dividing by a decimal is awkward, so change the question. Multiply both numbers by 100 to get 450 ÷ 15. The answer does not change, for the same reason that equivalent fractions are equal. 45 ÷ 15 = 3, so 450 ÷ 15 = 30. Check: 30 × 0.15 = 4.5.",
+    "exclude": null,
+    "linked": [
+      "decimal-place",
+      "fraction",
+      "numerator-denominator"
+    ],
+    "links": [
+      {
+        "concept": "equivalent-fractions",
+        "text": "equivalent fractions",
+        "offset": 178
+      }
+    ]
+  },
+  {
+    "text": "Multiplying does not always make a number bigger. 8 × 0.5 = 4, because 0.5 of something is half of it. And dividing by a number less than 1 makes it bigger: 8 ÷ 0.5 = 16. Ask how many halves fit into 8.",
+    "exclude": null,
+    "linked": [
+      "decimal-place",
+      "equivalent-fractions",
+      "fraction",
+      "numerator-denominator"
+    ],
+    "links": []
+  },
+  {
+    "text": "Work out 0.4 × 0.06.",
+    "exclude": null,
+    "linked": [
+      "decimal-place",
+      "equivalent-fractions",
+      "fraction",
+      "numerator-denominator"
+    ],
+    "links": []
+  },
+  {
+    "text": "Multiply decimals as whole numbers and then place the point. To divide by a decimal, scale both numbers until you divide by a whole number.",
+    "exclude": null,
+    "linked": [
+      "decimal-place",
+      "equivalent-fractions",
+      "fraction",
+      "numerator-denominator"
+    ],
+    "links": []
+  },
+  {
+    "text": "A cricket ground counts a crowd of 32,846. The newspaper prints 33,000. Has the newspaper made a mistake?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "No. The first two digits carry almost all the information. 33,000 is the nearest thousand to 32,846, and it is easier to remember. The newspaper kept the digits that matter most and rounded the rest.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Mark 32,000 and 33,000 on a number line. 32,846 sits between them, much closer to 33,000. The halfway mark is 32,500. Anything at or past halfway rounds up.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Now take a tiny number: 0.004718 kg of saffron. The zeros at the front only hold the digits in place. They vanish if you write the mass as 4.718 g. The digits that measure anything start at the 4.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The digits that carry the size of a number are its significant figures. Count them from the first digit that is not zero. 32,846 to 2 significant figures is 33,000, and 0.004718 is 0.0047. Decimal places are different: they are counted from the decimal point.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "significant-figures",
+        "text": "significant figures",
+        "offset": 51
+      },
+      {
+        "concept": "decimal-place",
+        "text": "Decimal places",
+        "offset": 189
+      }
+    ]
+  },
+  {
+    "text": "Round 0.03064 to 3 significant figures. The first significant figure is the 3. The zero after the 3 counts, because it sits between measured digits. So the three figures are 3, 0 and 6. The next digit is 4, which is less than 5, so the 6 stays. The answer is 0.0306.",
+    "exclude": null,
+    "linked": [
+      "decimal-place",
+      "significant-figures"
+    ],
+    "links": []
+  },
+  {
+    "text": "There are two traps. First, 0.0306 to 2 decimal places is 0.03, which throws most of the number away. Decimal places and significant figures are different counts. Second, keep the size. 32,846 to 2 significant figures is 33,000, not 33. The zeros hold the place of each digit.",
+    "exclude": null,
+    "linked": [
+      "decimal-place",
+      "significant-figures"
+    ],
+    "links": []
+  },
+  {
+    "text": "Round 0.05093 to 2 significant figures.",
+    "exclude": null,
+    "linked": [
+      "decimal-place",
+      "significant-figures"
+    ],
+    "links": []
+  },
+  {
+    "text": "Significant figures are counted from the first digit that is not zero, so they work for huge and tiny numbers alike.",
+    "exclude": null,
+    "linked": [
+      "decimal-place",
+      "significant-figures"
+    ],
+    "links": []
+  },
+  {
+    "text": "Share ₹1 equally among 4 friends and each gets ₹0.25. Share ₹1 among 3 friends and the calculator shows 0.3333333. What went wrong with 3?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Nothing went wrong. Divide 1 by 3 by hand. 10 tenths shared among 3 is 3 each, with 1 tenth left over. That 1 tenth becomes 10 hundredths, and the same step happens again. The remainder is always 1, so the 3s never stop.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Now divide 1 by 7 by hand. The remainder at each step can only be 1, 2, 3, 4, 5 or 6. After at most six steps, one of them must come back. From then on the digits repeat: 1 ÷ 7 = 0.142857142857…",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why does 1/4 stop when 1/3 does not? A decimal that stops is a fraction over 10, 100 or 1,000. Those denominators are built only from the primes 2 and 5. 1/4 fits, because it is 25/100. But no power of 10 is a multiple of 3, so 1/3 can never stop.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 63
+      },
+      {
+        "concept": "numerator-denominator",
+        "text": "denominators",
+        "offset": 101
+      },
+      {
+        "concept": "prime-number",
+        "text": "primes",
+        "offset": 138
+      },
+      {
+        "concept": "power",
+        "text": "power of",
+        "offset": 193
+      },
+      {
+        "concept": "multiple",
+        "text": "multiple of",
+        "offset": 210
+      }
+    ]
+  },
+  {
+    "text": "A decimal that stops, like 0.25, is a terminating decimal. A decimal whose digits repeat for ever, like 0.333…, is a recurring decimal. The three dots mean the pattern goes on. Some books put a dot over the repeating digits instead.",
+    "exclude": null,
+    "linked": [
+      "fraction",
+      "multiple",
+      "numerator-denominator",
+      "power",
+      "prime-number"
+    ],
+    "links": [
+      {
+        "concept": "terminating-decimal",
+        "text": "terminating decimal",
+        "offset": 38
+      },
+      {
+        "concept": "recurring-decimal",
+        "text": "recurring decimal",
+        "offset": 117
+      }
+    ]
+  },
+  {
+    "text": "Write 0.333… as a fraction. Ten lots of it are 3.333…, and one lot is 0.333…, with the same tail of digits. Take one lot from ten lots and the tails cancel, so nine lots are exactly 3. The number is 3/9, which is 1/3. Now try 0.3636…, where two digits repeat. Write x for the number, so that 100x = 36.3636… and the tails match again. Subtract x and 99x = 36, so x = 36/99 = 4/11. In the figure, set the repeating digits to 36 and follow the three rows.",
+    "exclude": null,
+    "linked": [
+      "fraction",
+      "multiple",
+      "numerator-denominator",
+      "power",
+      "prime-number",
+      "recurring-decimal",
+      "terminating-decimal"
+    ],
+    "links": []
+  },
+  {
+    "text": "0.3 and 0.333… are different numbers. 0.3 is 3/10, and 0.333… is 1/3, which is a little more. If you cut a recurring decimal short, you have rounded it. A second trap: when two digits repeat, multiplying by 10 does not line the tails up. Multiply by 100.",
+    "exclude": null,
+    "linked": [
+      "fraction",
+      "multiple",
+      "numerator-denominator",
+      "power",
+      "prime-number",
+      "recurring-decimal",
+      "terminating-decimal"
+    ],
+    "links": []
+  },
+  {
+    "text": "Write 0.151515… as a fraction in its simplest form.",
+    "exclude": null,
+    "linked": [
+      "fraction",
+      "multiple",
+      "numerator-denominator",
+      "power",
+      "prime-number",
+      "recurring-decimal",
+      "terminating-decimal"
+    ],
+    "links": [
+      {
+        "concept": "simplest-form",
+        "text": "simplest form",
+        "offset": 37
+      }
+    ]
+  },
+  {
+    "text": "Multiply a recurring decimal so the repeating tails line up, subtract, and a fraction is left.",
+    "exclude": null,
+    "linked": [
+      "fraction",
+      "multiple",
+      "numerator-denominator",
+      "power",
+      "prime-number",
+      "recurring-decimal",
+      "simplest-form",
+      "terminating-decimal"
     ],
     "links": []
   },
@@ -3734,6 +5267,293 @@
       {
         "concept": "square-root",
         "text": "Square root",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Fraction",
+    "exclude": "fraction",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A number that says how many equal parts of a whole you have.",
+    "exclude": "fraction",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Cut a roti into 4 equal pieces and eat 3. You have eaten 3/4 of the roti. The 4 says how many pieces make the whole. The 3 says how many you took.",
+    "exclude": "fraction",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "What fraction of an hour is 20 minutes? An hour has 60 minutes, so it is 20/60. Divide the top and the bottom by 20. It is 1/3 of an hour.",
+    "exclude": "fraction",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The bottom number says how many equal parts make one whole.",
+    "exclude": "fraction",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The top number says how many of those parts you have.",
+    "exclude": "fraction",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A fraction is also a division. 3/4 means 3 ÷ 4, which is 0.75.",
+    "exclude": "fraction",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "When the top equals the bottom, you have exactly 1 whole. 4/4 = 1.",
+    "exclude": "fraction",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A bar of chocolate has 8 equal squares. You eat 3. What fraction is left?",
+    "exclude": "fraction",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "5/8",
+    "exclude": "fraction",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "two separate numbers",
+    "exclude": "fraction",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3/4 is one number, a little less than 1. It is not a 3 and a 4 sitting side by side.",
+    "exclude": "fraction",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 2 · Fractions and recurring decimals",
+    "exclude": "fraction",
+    "linked": [],
+    "links": [
+      {
+        "concept": "recurring-decimal",
+        "text": "recurring decimals",
+        "offset": 26
+      }
+    ]
+  },
+  {
+    "text": "Numerator and denominator",
+    "exclude": "fraction",
+    "linked": [],
+    "links": [
+      {
+        "concept": "numerator-denominator",
+        "text": "Numerator",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Equivalent fractions",
+    "exclude": "fraction",
+    "linked": [],
+    "links": [
+      {
+        "concept": "equivalent-fractions",
+        "text": "Equivalent fractions",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Improper fraction",
+    "exclude": "fraction",
+    "linked": [],
+    "links": [
+      {
+        "concept": "improper-fraction",
+        "text": "Improper fraction",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Reciprocal",
+    "exclude": "fraction",
+    "linked": [],
+    "links": [
+      {
+        "concept": "reciprocal",
+        "text": "Reciprocal",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Terminating decimal",
+    "exclude": "fraction",
+    "linked": [],
+    "links": [
+      {
+        "concept": "terminating-decimal",
+        "text": "Terminating decimal",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Recurring decimal",
+    "exclude": "fraction",
+    "linked": [],
+    "links": [
+      {
+        "concept": "recurring-decimal",
+        "text": "Recurring decimal",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Decimal place",
+    "exclude": "decimal-place",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A position for a digit to the right of the decimal point.",
+    "exclude": "decimal-place",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A price of ₹12.75 has two digits after the point. The 7 is in the first decimal place and stands for 7 tenths. The 5 is in the second and stands for 5 hundredths.",
+    "exclude": "decimal-place",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Round 3.14159 to 2 decimal places. Keep 3.14 and look at the next digit, which is 1. It is less than 5, so the answer is 3.14.",
+    "exclude": "decimal-place",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "d.p.",
+    "exclude": "decimal-place",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The first place after the point is tenths. The second is hundredths. The third is thousandths.",
+    "exclude": "decimal-place",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "To count decimal places, count the digits after the point. 3.142 has three.",
+    "exclude": "decimal-place",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "To round to 2 decimal places, keep two digits after the point and look at the third.",
+    "exclude": "decimal-place",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "If that third digit is 5 or more, round the last kept digit up.",
+    "exclude": "decimal-place",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Round 7.286 to 2 decimal places.",
+    "exclude": "decimal-place",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "7.29",
+    "exclude": "decimal-place",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Decimal places are counted from the decimal point. Significant figures are counted from the first digit that is not zero.",
+    "exclude": "decimal-place",
+    "linked": [],
+    "links": [
+      {
+        "concept": "significant-figures",
+        "text": "Significant figures",
+        "offset": 51
+      }
+    ]
+  },
+  {
+    "text": "Chapter 2 · Fractions and recurring decimals",
+    "exclude": "decimal-place",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "Fractions",
+        "offset": 12
+      },
+      {
+        "concept": "recurring-decimal",
+        "text": "recurring decimals",
+        "offset": 26
+      }
+    ]
+  },
+  {
+    "text": "Significant figures",
+    "exclude": "decimal-place",
+    "linked": [],
+    "links": [
+      {
+        "concept": "significant-figures",
+        "text": "Significant figures",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Terminating decimal",
+    "exclude": "decimal-place",
+    "linked": [],
+    "links": [
+      {
+        "concept": "terminating-decimal",
+        "text": "Terminating decimal",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Recurring decimal",
+    "exclude": "decimal-place",
+    "linked": [],
+    "links": [
+      {
+        "concept": "recurring-decimal",
+        "text": "Recurring decimal",
         "offset": 0
       }
     ]
@@ -5937,6 +7757,18 @@
     ]
   },
   {
+    "text": "Simplest form",
+    "exclude": "hcf",
+    "linked": [],
+    "links": [
+      {
+        "concept": "simplest-form",
+        "text": "Simplest form",
+        "offset": 0
+      }
+    ]
+  },
+  {
     "text": "Lowest common multiple",
     "exclude": "lcm",
     "linked": [],
@@ -6050,6 +7882,18 @@
         "concept": "power",
         "text": "powers",
         "offset": 41
+      }
+    ]
+  },
+  {
+    "text": "Common denominator",
+    "exclude": "lcm",
+    "linked": [],
+    "links": [
+      {
+        "concept": "common-denominator",
+        "text": "Common denominator",
+        "offset": 0
       }
     ]
   },
@@ -6299,7 +8143,13 @@
     "text": "A number that cannot be written as a fraction of two whole numbers.",
     "exclude": "irrational-number",
     "linked": [],
-    "links": []
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 37
+      }
+    ]
   },
   {
     "text": "Type √2 into a calculator. It shows 1.41421356 and then runs out of screen. The digits never end and never settle into a repeating pattern. No fraction lands exactly on it.",
@@ -6310,6 +8160,11 @@
         "concept": "square-root",
         "text": "√",
         "offset": 5
+      },
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 143
       }
     ]
   },
@@ -6329,13 +8184,25 @@
     "text": "If a number can be written as a fraction, like 0.75 = 3/4, it is rational.",
     "exclude": "irrational-number",
     "linked": [],
-    "links": []
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 32
+      }
+    ]
   },
   {
     "text": "A decimal that stops, or repeats for ever, can always be written as a fraction.",
     "exclude": "irrational-number",
     "linked": [],
-    "links": []
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 70
+      }
+    ]
   },
   {
     "text": "The square root of a whole number that is not a square number is irrational. √2, √3 and √5 are.",
@@ -6398,6 +8265,1202 @@
         "concept": "power",
         "text": "powers",
         "offset": 41
+      }
+    ]
+  },
+  {
+    "text": "Numerator and denominator",
+    "exclude": "numerator-denominator",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The top and bottom numbers of a fraction: how many parts you have, and how many make a whole.",
+    "exclude": "numerator-denominator",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 32
+      }
+    ]
+  },
+  {
+    "text": "In 3/8 of a pizza, the 8 is the denominator. It tells you the pizza was cut into 8 equal slices. The 3 is the numerator. It tells you that you have 3 of them.",
+    "exclude": "numerator-denominator",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Which is bigger, 3/8 or 5/8? The denominators match, so the pieces are the same size. 5 pieces is more than 3 pieces, so 5/8 is bigger.",
+    "exclude": "numerator-denominator",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Read the bottom number first. It names the size of the piece: halves, thirds, quarters, eighths.",
+    "exclude": "numerator-denominator",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Then read the top number. It counts the pieces.",
+    "exclude": "numerator-denominator",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A bigger denominator means smaller pieces. 1/8 is less than 1/4.",
+    "exclude": "numerator-denominator",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "What is the denominator of 7/12?",
+    "exclude": "numerator-denominator",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "12",
+    "exclude": "numerator-denominator",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "which one is which",
+    "exclude": "numerator-denominator",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Denominator starts with d, like down. It is the number down below, and it names the pieces.",
+    "exclude": "numerator-denominator",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 2 · Fractions and recurring decimals",
+    "exclude": "numerator-denominator",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "Fractions",
+        "offset": 12
+      },
+      {
+        "concept": "recurring-decimal",
+        "text": "recurring decimals",
+        "offset": 26
+      }
+    ]
+  },
+  {
+    "text": "Equivalent fractions",
+    "exclude": "numerator-denominator",
+    "linked": [],
+    "links": [
+      {
+        "concept": "equivalent-fractions",
+        "text": "Equivalent fractions",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Improper fraction",
+    "exclude": "numerator-denominator",
+    "linked": [],
+    "links": [
+      {
+        "concept": "improper-fraction",
+        "text": "Improper fraction",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Equivalent fractions",
+    "exclude": "equivalent-fractions",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Fractions that look different but name the same amount.",
+    "exclude": "equivalent-fractions",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "Fractions",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Half a pizza is 1 slice out of 2, or 2 out of 4, or 4 out of 8. The slices get smaller and you get more of them. The amount of pizza is the same.",
+    "exclude": "equivalent-fractions",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Fill the gap: 3/5 = ?/20. The denominator went from 5 to 20, which is × 4. Do the same to the numerator. 3 × 4 = 12, so 3/5 = 12/20.",
+    "exclude": "equivalent-fractions",
+    "linked": [],
+    "links": [
+      {
+        "concept": "numerator-denominator",
+        "text": "denominator",
+        "offset": 30
+      }
+    ]
+  },
+  {
+    "text": "Multiply the numerator and the denominator by the same number. 1/2 = 2/4 = 3/6.",
+    "exclude": "equivalent-fractions",
+    "linked": [],
+    "links": [
+      {
+        "concept": "numerator-denominator",
+        "text": "numerator",
+        "offset": 13
+      }
+    ]
+  },
+  {
+    "text": "Or divide both by the same number. 6/8 = 3/4.",
+    "exclude": "equivalent-fractions",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "To test two fractions, multiply across. 2/3 and 8/12 match because 2 × 12 = 3 × 8.",
+    "exclude": "equivalent-fractions",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fractions",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "2/3 is the same amount as how many twelfths?",
+    "exclude": "equivalent-fractions",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "8",
+    "exclude": "equivalent-fractions",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "adding the same number to both parts",
+    "exclude": "equivalent-fractions",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "1/2 and 2/3 are not equivalent. Adding 1 to the top and the bottom changes the amount. Only multiplying or dividing keeps it.",
+    "exclude": "equivalent-fractions",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 2 · Fractions and recurring decimals",
+    "exclude": "equivalent-fractions",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "Fractions",
+        "offset": 12
+      },
+      {
+        "concept": "recurring-decimal",
+        "text": "recurring decimals",
+        "offset": 26
+      }
+    ]
+  },
+  {
+    "text": "Simplest form",
+    "exclude": "equivalent-fractions",
+    "linked": [],
+    "links": [
+      {
+        "concept": "simplest-form",
+        "text": "Simplest form",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Common denominator",
+    "exclude": "equivalent-fractions",
+    "linked": [],
+    "links": [
+      {
+        "concept": "common-denominator",
+        "text": "Common denominator",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Simplest form",
+    "exclude": "simplest-form",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The version of a fraction with the smallest numbers, where top and bottom share no factor except 1.",
+    "exclude": "simplest-form",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 17
+      },
+      {
+        "concept": "factor",
+        "text": "factor",
+        "offset": 83
+      }
+    ]
+  },
+  {
+    "text": "12 of the 16 panels of a wall are painted. Group the panels in fours and it is 3 groups out of 4. 3/4 says the same thing with smaller numbers.",
+    "exclude": "simplest-form",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write 20/30 in simplest form. The HCF of 20 and 30 is 10. 20 ÷ 10 = 2 and 30 ÷ 10 = 3. So 20/30 = 2/3.",
+    "exclude": "simplest-form",
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 34
+      }
+    ]
+  },
+  {
+    "text": "If you cannot see the HCF, divide by any common factor and repeat. 84/126 = 42/63 = 6/9 = 2/3.",
+    "exclude": "simplest-form",
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 22
+      }
+    ]
+  },
+  {
+    "text": "Find the highest common factor of the numerator and the denominator. For 12/16 it is 4.",
+    "exclude": "simplest-form",
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "highest common factor",
+        "offset": 9
+      },
+      {
+        "concept": "numerator-denominator",
+        "text": "numerator",
+        "offset": 38
+      }
+    ]
+  },
+  {
+    "text": "Divide both by it. 12 ÷ 4 = 3 and 16 ÷ 4 = 4.",
+    "exclude": "simplest-form",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Check that the new numbers share no factor except 1. 3/4 is in simplest form.",
+    "exclude": "simplest-form",
+    "linked": [],
+    "links": [
+      {
+        "concept": "factor",
+        "text": "factor",
+        "offset": 36
+      }
+    ]
+  },
+  {
+    "text": "Write 15/25 in simplest form.",
+    "exclude": "simplest-form",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3/5",
+    "exclude": "simplest-form",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "a smaller amount",
+    "exclude": "simplest-form",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3/4 has smaller numbers than 12/16, but it is the same amount. Simplifying changes the name, not the size.",
+    "exclude": "simplest-form",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 2 · Fractions and recurring decimals",
+    "exclude": "simplest-form",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "Fractions",
+        "offset": 12
+      },
+      {
+        "concept": "recurring-decimal",
+        "text": "recurring decimals",
+        "offset": 26
+      }
+    ]
+  },
+  {
+    "text": "Common denominator",
+    "exclude": "common-denominator",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A denominator that two or more fractions can share, so their pieces are the same size.",
+    "exclude": "common-denominator",
+    "linked": [],
+    "links": [
+      {
+        "concept": "numerator-denominator",
+        "text": "denominator",
+        "offset": 2
+      },
+      {
+        "concept": "fraction",
+        "text": "fractions",
+        "offset": 31
+      }
+    ]
+  },
+  {
+    "text": "You cannot add half a paratha to a third of a paratha by counting pieces. Cut both into sixths. Now it is 3 sixths and 2 sixths, which is 5 sixths.",
+    "exclude": "common-denominator",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Work out 3/4 − 1/6. The LCM of 4 and 6 is 12. 3/4 = 9/12 and 1/6 = 2/12. 9 − 2 = 7, so the answer is 7/12.",
+    "exclude": "common-denominator",
+    "linked": [],
+    "links": [
+      {
+        "concept": "lcm",
+        "text": "LCM",
+        "offset": 24
+      }
+    ]
+  },
+  {
+    "text": "Find the lowest common multiple of the denominators. For 1/2 and 1/3 it is 6.",
+    "exclude": "common-denominator",
+    "linked": [],
+    "links": [
+      {
+        "concept": "lcm",
+        "text": "lowest common multiple",
+        "offset": 9
+      },
+      {
+        "concept": "numerator-denominator",
+        "text": "denominators",
+        "offset": 39
+      }
+    ]
+  },
+  {
+    "text": "Change each fraction into an equivalent fraction with that denominator. 1/2 = 3/6 and 1/3 = 2/6.",
+    "exclude": "common-denominator",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 12
+      },
+      {
+        "concept": "equivalent-fractions",
+        "text": "equivalent fraction",
+        "offset": 29
+      },
+      {
+        "concept": "numerator-denominator",
+        "text": "denominator",
+        "offset": 59
+      }
+    ]
+  },
+  {
+    "text": "Add or subtract the numerators and keep the denominator. 3/6 + 2/6 = 5/6.",
+    "exclude": "common-denominator",
+    "linked": [],
+    "links": [
+      {
+        "concept": "numerator-denominator",
+        "text": "numerators",
+        "offset": 20
+      }
+    ]
+  },
+  {
+    "text": "Work out 1/4 + 1/6 as a fraction in simplest form.",
+    "exclude": "common-denominator",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 24
+      },
+      {
+        "concept": "simplest-form",
+        "text": "simplest form",
+        "offset": 36
+      }
+    ]
+  },
+  {
+    "text": "5/12",
+    "exclude": "common-denominator",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "adding the denominators",
+    "exclude": "common-denominator",
+    "linked": [],
+    "links": [
+      {
+        "concept": "numerator-denominator",
+        "text": "denominators",
+        "offset": 11
+      }
+    ]
+  },
+  {
+    "text": "1/2 + 1/3 is not 2/5. 2/5 is less than 1/2, and adding a third cannot make a half smaller.",
+    "exclude": "common-denominator",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 2 · Fractions and recurring decimals",
+    "exclude": "common-denominator",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "Fractions",
+        "offset": 12
+      },
+      {
+        "concept": "recurring-decimal",
+        "text": "recurring decimals",
+        "offset": 26
+      }
+    ]
+  },
+  {
+    "text": "Improper fraction",
+    "exclude": "improper-fraction",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A fraction whose numerator is at least as big as its denominator, so it is worth 1 whole or more.",
+    "exclude": "improper-fraction",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 2
+      },
+      {
+        "concept": "numerator-denominator",
+        "text": "numerator",
+        "offset": 17
+      }
+    ]
+  },
+  {
+    "text": "Seven friends each eat half a dosa. That is 7 halves, written 7/2. Seven halves make 3 whole dosas and 1 half more.",
+    "exclude": "improper-fraction",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write 2 3/5 as an improper fraction. 2 wholes are 2 × 5 = 10 fifths. Add the 3 fifths to get 13 fifths. So 2 3/5 = 13/5.",
+    "exclude": "improper-fraction",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "To turn a mixed number into an improper fraction, multiply the whole number by the denominator.",
+    "exclude": "improper-fraction",
+    "linked": [],
+    "links": [
+      {
+        "concept": "mixed-number",
+        "text": "mixed number",
+        "offset": 10
+      },
+      {
+        "concept": "numerator-denominator",
+        "text": "denominator",
+        "offset": 83
+      }
+    ]
+  },
+  {
+    "text": "Add the numerator. For 3 1/2: 3 × 2 = 6, and 6 + 1 = 7.",
+    "exclude": "improper-fraction",
+    "linked": [],
+    "links": [
+      {
+        "concept": "numerator-denominator",
+        "text": "numerator",
+        "offset": 8
+      }
+    ]
+  },
+  {
+    "text": "Write the total over the same denominator: 7/2.",
+    "exclude": "improper-fraction",
+    "linked": [],
+    "links": [
+      {
+        "concept": "numerator-denominator",
+        "text": "denominator",
+        "offset": 30
+      }
+    ]
+  },
+  {
+    "text": "Write 4 2/3 as an improper fraction.",
+    "exclude": "improper-fraction",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "14/3",
+    "exclude": "improper-fraction",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "7/2 and 3 1/2 are the same amount. The improper fraction is easier to calculate with. The mixed number is easier to picture.",
+    "exclude": "improper-fraction",
+    "linked": [],
+    "links": [
+      {
+        "concept": "mixed-number",
+        "text": "mixed number",
+        "offset": 90
+      }
+    ]
+  },
+  {
+    "text": "Chapter 2 · Fractions and recurring decimals",
+    "exclude": "improper-fraction",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "Fractions",
+        "offset": 12
+      },
+      {
+        "concept": "recurring-decimal",
+        "text": "recurring decimals",
+        "offset": 26
+      }
+    ]
+  },
+  {
+    "text": "Mixed number",
+    "exclude": "improper-fraction",
+    "linked": [],
+    "links": [
+      {
+        "concept": "mixed-number",
+        "text": "Mixed number",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Mixed number",
+    "exclude": "mixed-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A whole number and a fraction written side by side, like 2 1/2.",
+    "exclude": "mixed-number",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 21
+      }
+    ]
+  },
+  {
+    "text": "A recipe asks for 2 1/2 cups of rice. That is 2 full cups and half a cup more. The whole number and the fraction are added together.",
+    "exclude": "mixed-number",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 104
+      }
+    ]
+  },
+  {
+    "text": "Write 23/4 as a mixed number. 23 ÷ 4 = 5, with 3 left over. So 23/4 = 5 3/4. Check: 5 × 4 + 3 = 23.",
+    "exclude": "mixed-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "To turn an improper fraction into a mixed number, divide the numerator by the denominator.",
+    "exclude": "mixed-number",
+    "linked": [],
+    "links": [
+      {
+        "concept": "improper-fraction",
+        "text": "improper fraction",
+        "offset": 11
+      },
+      {
+        "concept": "numerator-denominator",
+        "text": "numerator",
+        "offset": 61
+      }
+    ]
+  },
+  {
+    "text": "The whole-number answer is the whole part. For 17/5: 17 ÷ 5 = 3, with 2 left over.",
+    "exclude": "mixed-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The remainder goes over the same denominator: 3 2/5.",
+    "exclude": "mixed-number",
+    "linked": [],
+    "links": [
+      {
+        "concept": "numerator-denominator",
+        "text": "denominator",
+        "offset": 33
+      }
+    ]
+  },
+  {
+    "text": "Write 11/3 as a mixed number.",
+    "exclude": "mixed-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3 2/3",
+    "exclude": "mixed-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "multiplying",
+    "exclude": "mixed-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2 1/2 means 2 + 1/2, not 2 × 1/2. A mixed number is the one place where side by side means add.",
+    "exclude": "mixed-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 2 · Fractions and recurring decimals",
+    "exclude": "mixed-number",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "Fractions",
+        "offset": 12
+      },
+      {
+        "concept": "recurring-decimal",
+        "text": "recurring decimals",
+        "offset": 26
+      }
+    ]
+  },
+  {
+    "text": "Reciprocal",
+    "exclude": "reciprocal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "What you get when you turn a fraction upside down.",
+    "exclude": "reciprocal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 29
+      }
+    ]
+  },
+  {
+    "text": "A glass holds 1/4 of a litre, so 4 glasses fill 1 litre. 1/4 and 4 are reciprocals. Multiply any number by its reciprocal and you get exactly 1.",
+    "exclude": "reciprocal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Work out 2/3 ÷ 4/5. The reciprocal of 4/5 is 5/4. 2/3 × 5/4 = 10/12. In simplest form that is 5/6.",
+    "exclude": "reciprocal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "simplest-form",
+        "text": "simplest form",
+        "offset": 72
+      }
+    ]
+  },
+  {
+    "text": "Write the number as a fraction. A whole number like 5 is 5/1.",
+    "exclude": "reciprocal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 22
+      }
+    ]
+  },
+  {
+    "text": "Swap the numerator and the denominator. The reciprocal of 5/1 is 1/5.",
+    "exclude": "reciprocal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "numerator-denominator",
+        "text": "numerator",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "Check by multiplying. 5 × 1/5 = 1.",
+    "exclude": "reciprocal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "To divide by a fraction, multiply by its reciprocal. 6 ÷ 3/4 = 6 × 4/3 = 8.",
+    "exclude": "reciprocal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 15
+      }
+    ]
+  },
+  {
+    "text": "What is the reciprocal of 2/7?",
+    "exclude": "reciprocal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "7/2",
+    "exclude": "reciprocal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The reciprocal of 2 is 1/2, not −2. A reciprocal turns a number upside down. A minus sign turns it to face the other way.",
+    "exclude": "reciprocal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 2 · Fractions and recurring decimals",
+    "exclude": "reciprocal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "Fractions",
+        "offset": 12
+      },
+      {
+        "concept": "recurring-decimal",
+        "text": "recurring decimals",
+        "offset": 26
+      }
+    ]
+  },
+  {
+    "text": "Significant figures",
+    "exclude": "significant-figures",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The digits that carry the size of a number, counted from the first digit that is not zero.",
+    "exclude": "significant-figures",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A stadium holds 32,846 people. A reporter writes 33,000. She kept 2 significant figures, the digits that matter most, and rounded the rest.",
+    "exclude": "significant-figures",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Round 0.006194 to 2 significant figures. The first significant figure is the 6. The two figures are 6 and 1. The next digit is 9, so the 1 rounds up. The answer is 0.0062.",
+    "exclude": "significant-figures",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "s.f.",
+    "exclude": "significant-figures",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find the first digit that is not zero. That is the first significant figure.",
+    "exclude": "significant-figures",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Count along as many figures as you need. Zeros between them or after them count.",
+    "exclude": "significant-figures",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Look at the next digit. If it is 5 or more, round the last kept digit up.",
+    "exclude": "significant-figures",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Fill with zeros to keep the size. 32,846 becomes 33,000, not 33.",
+    "exclude": "significant-figures",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Round 47,360 to 2 significant figures.",
+    "exclude": "significant-figures",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "47,000",
+    "exclude": "significant-figures",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "0.004718 to 2 decimal places is 0.00. To 2 significant figures it is 0.0047. Significant figures keep a small number alive.",
+    "exclude": "significant-figures",
+    "linked": [],
+    "links": [
+      {
+        "concept": "decimal-place",
+        "text": "decimal places",
+        "offset": 14
+      }
+    ]
+  },
+  {
+    "text": "Chapter 2 · Fractions and recurring decimals",
+    "exclude": "significant-figures",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "Fractions",
+        "offset": 12
+      },
+      {
+        "concept": "recurring-decimal",
+        "text": "recurring decimals",
+        "offset": 26
+      }
+    ]
+  },
+  {
+    "text": "Terminating decimal",
+    "exclude": "terminating-decimal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A decimal that stops after a certain number of digits.",
+    "exclude": "terminating-decimal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "₹1 shared among 4 friends is 25 paise each, or ₹0.25. The division finishes with nothing left over, so the decimal stops.",
+    "exclude": "terminating-decimal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Does 7/20 give a terminating decimal? 20 = 2 × 2 × 5, so yes. Make the denominator 100: 7/20 = 35/100 = 0.35.",
+    "exclude": "terminating-decimal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "numerator-denominator",
+        "text": "denominator",
+        "offset": 71
+      }
+    ]
+  },
+  {
+    "text": "Write the fraction in simplest form.",
+    "exclude": "terminating-decimal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 10
+      },
+      {
+        "concept": "simplest-form",
+        "text": "simplest form",
+        "offset": 22
+      }
+    ]
+  },
+  {
+    "text": "Break the denominator into prime factors.",
+    "exclude": "terminating-decimal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "numerator-denominator",
+        "text": "denominator",
+        "offset": 10
+      },
+      {
+        "concept": "prime-factors",
+        "text": "prime factors",
+        "offset": 27
+      }
+    ]
+  },
+  {
+    "text": "If the only primes are 2s and 5s, the decimal stops. 3/40 stops because 40 = 2 × 2 × 2 × 5.",
+    "exclude": "terminating-decimal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prime-number",
+        "text": "primes",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "If any other prime appears, the digits repeat for ever. 1/6 does, because 6 = 2 × 3.",
+    "exclude": "terminating-decimal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prime-number",
+        "text": "prime",
+        "offset": 13
+      }
+    ]
+  },
+  {
+    "text": "Which of these gives a terminating decimal: 1/3, 1/8 or 1/9?",
+    "exclude": "terminating-decimal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "1/8",
+    "exclude": "terminating-decimal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "0.25 stops. 0.2525… goes on for ever. The dots, or a dot over the digits, tell you which one you have.",
+    "exclude": "terminating-decimal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 2 · Fractions and recurring decimals",
+    "exclude": "terminating-decimal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "Fractions",
+        "offset": 12
+      },
+      {
+        "concept": "recurring-decimal",
+        "text": "recurring decimals",
+        "offset": 26
+      }
+    ]
+  },
+  {
+    "text": "Recurring decimal",
+    "exclude": "recurring-decimal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A decimal whose digits repeat in the same pattern for ever.",
+    "exclude": "recurring-decimal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Share ₹1 among 3 friends. Each gets 33 paise and 1 paisa is left. Share that paisa and the same thing happens again. On a calculator, 1 ÷ 3 = 0.3333333, and the 3s never stop.",
+    "exclude": "recurring-decimal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write 0.777… as a fraction. One digit repeats, so multiply by 10 to get 7.777… Subtract 0.777… and 9 lots are exactly 7. The number is 7/9.",
+    "exclude": "recurring-decimal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 18
+      }
+    ]
+  },
+  {
+    "text": "Count how many digits repeat. In 0.2424… two digits repeat.",
+    "exclude": "recurring-decimal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Multiply by 10 for one repeating digit, by 100 for two, by 1,000 for three.",
+    "exclude": "recurring-decimal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Subtract the original number, so the repeating parts cancel. 24.2424… − 0.2424… = 24.",
+    "exclude": "recurring-decimal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "You took 1 lot from 100 lots, so 99 lots are 24. The number is 24/99 = 8/33.",
+    "exclude": "recurring-decimal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write 0.111… as a fraction.",
+    "exclude": "recurring-decimal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 18
+      }
+    ]
+  },
+  {
+    "text": "1/9",
+    "exclude": "recurring-decimal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A recurring decimal goes on for ever but repeats, so it is a fraction. An irrational number goes on for ever and never repeats.",
+    "exclude": "recurring-decimal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 61
+      },
+      {
+        "concept": "irrational-number",
+        "text": "irrational number",
+        "offset": 74
+      }
+    ]
+  },
+  {
+    "text": "Chapter 2 · Fractions and recurring decimals",
+    "exclude": "recurring-decimal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "Fractions",
+        "offset": 12
       }
     ]
   },
@@ -6513,6 +9576,274 @@
     "links": []
   },
   {
+    "text": "Prove algebraically that the recurring decimal x = 0.272727… (0.2̇7̇) equals 3/11 in simplest form.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "recurring-decimal",
+        "text": "recurring decimal",
+        "offset": 29
+      },
+      {
+        "concept": "simplest-form",
+        "text": "simplest form",
+        "offset": 85
+      }
+    ]
+  },
+  {
+    "text": "Step 1: Two digits repeat, so multiply x by 100. This gives 100x = 27.2727… with the same tail as x.\nStep 2: Subtract x = 0.2727… and the tails cancel. So 99x = 27.\nStep 3: Divide both sides by 99. So x = 27/99.\nStep 4: Divide the top and the bottom by 9, their highest common factor. So x = 3/11.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "highest common factor",
+        "offset": 262
+      }
+    ]
+  },
+  {
+    "text": "100x = 27.2727… and x = 0.2727…, so 99x = 27. Then x = 27/99, which in simplest form is ___.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "simplest-form",
+        "text": "simplest form",
+        "offset": 71
+      }
+    ]
+  },
+  {
+    "text": "Round 0.0040862 to 3 significant figures.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "significant-figures",
+        "text": "significant figures",
+        "offset": 21
+      }
+    ]
+  },
+  {
+    "text": "Step 1: Find the first digit that is not zero. It is the 4, so start counting there.\nStep 2: Count three significant figures: 4, 0 and 8. The zero between them counts.\nStep 3: Look at the next digit, which is 6. It is 5 or more, so the 8 rounds up to 9.\nStep 4: Keep the zeros at the front, because they hold the digits in place. The answer is 0.00409.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "significant-figures",
+        "text": "significant figures",
+        "offset": 105
+      }
+    ]
+  },
+  {
+    "text": "The three significant figures are 4, 0 and 8, and the next digit is 6. Rounded, the number is ___.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "significant-figures",
+        "text": "significant figures",
+        "offset": 10
+      }
+    ]
+  },
+  {
+    "text": "Work out 4 1/6 − 1 3/4 as a mixed number in simplest form.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "mixed-number",
+        "text": "mixed number",
+        "offset": 28
+      },
+      {
+        "concept": "simplest-form",
+        "text": "simplest form",
+        "offset": 44
+      }
+    ]
+  },
+  {
+    "text": "Step 1: Write both as improper fractions. 4 1/6 = 25/6 and 1 3/4 = 7/4.\nStep 2: The lowest common multiple of 6 and 4 is 12, so use twelfths. 25/6 = 50/12 and 7/4 = 21/12.\nStep 3: Subtract the numerators. 50 − 21 = 29, so the answer is 29/12.\nStep 4: 24 twelfths make 2 wholes, which leaves 5 twelfths. The answer is 2 5/12.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "improper-fraction",
+        "text": "improper fractions",
+        "offset": 22
+      },
+      {
+        "concept": "lcm",
+        "text": "lowest common multiple",
+        "offset": 84
+      },
+      {
+        "concept": "numerator-denominator",
+        "text": "numerators",
+        "offset": 193
+      }
+    ]
+  },
+  {
+    "text": "50/12 − 21/12 = 29/12. As a mixed number, 29/12 = ___.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "mixed-number",
+        "text": "mixed number",
+        "offset": 28
+      }
+    ]
+  },
+  {
+    "text": "Find the exact value of (2 2/5 ÷ 1 1/15) × 5/9.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Step 1: Write the mixed numbers as improper fractions. 2 2/5 = 12/5 and 1 1/15 = 16/15.\nStep 2: To divide by 16/15, multiply by its reciprocal, 15/16. 12/5 × 15/16 = 180/80 = 9/4.\nStep 3: Multiply by 5/9. 9/4 × 5/9 = 45/36.\nStep 4: Divide the top and the bottom by 9. The answer is 5/4, which is 1 1/4.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "mixed-number",
+        "text": "mixed numbers",
+        "offset": 18
+      },
+      {
+        "concept": "improper-fraction",
+        "text": "improper fractions",
+        "offset": 35
+      },
+      {
+        "concept": "reciprocal",
+        "text": "reciprocal",
+        "offset": 132
+      }
+    ]
+  },
+  {
+    "text": "12/5 × 15/16 = 9/4, and 9/4 × 5/9 = 45/36. In simplest form, 45/36 = ___.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "simplest-form",
+        "text": "simplest form",
+        "offset": 46
+      }
+    ]
+  },
+  {
+    "text": "Multiply decimals as whole numbers, then count the decimal places back in. To divide by a decimal, first multiply both numbers by 10 or 100 so you divide by a whole number.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "decimal-place",
+        "text": "decimal places",
+        "offset": 51
+      }
+    ]
+  },
+  {
+    "text": "Significant figures are counted from the first digit that is not zero. Round once, at the end of a calculation.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "significant-figures",
+        "text": "Significant figures",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "A fraction in simplest form gives a decimal that stops only when its denominator is built from 2s and 5s. Otherwise the digits repeat. To turn a recurring decimal into a fraction, multiply so the repeating tails line up, then subtract.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 2
+      },
+      {
+        "concept": "simplest-form",
+        "text": "simplest form",
+        "offset": 14
+      },
+      {
+        "concept": "numerator-denominator",
+        "text": "denominator",
+        "offset": 69
+      },
+      {
+        "concept": "recurring-decimal",
+        "text": "recurring decimal",
+        "offset": 145
+      }
+    ]
+  },
+  {
+    "text": "Write both mixed numbers as improper fractions. Give them a common denominator, then subtract the numerators.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "mixed-number",
+        "text": "mixed numbers",
+        "offset": 11
+      },
+      {
+        "concept": "improper-fraction",
+        "text": "improper fractions",
+        "offset": 28
+      },
+      {
+        "concept": "common-denominator",
+        "text": "common denominator",
+        "offset": 60
+      },
+      {
+        "concept": "numerator-denominator",
+        "text": "numerators",
+        "offset": 98
+      }
+    ]
+  },
+  {
+    "text": "To multiply fractions, multiply the numerators and multiply the denominators. To divide by a fraction, multiply by its reciprocal.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fractions",
+        "offset": 12
+      },
+      {
+        "concept": "numerator-denominator",
+        "text": "numerators",
+        "offset": 36
+      },
+      {
+        "concept": "reciprocal",
+        "text": "reciprocal",
+        "offset": 119
+      }
+    ]
+  },
+  {
     "text": "Same signs make a positive and different signs make a negative, so (−3) × (−2) = 6 and 6 ÷ (−3) = −2, and a minus sign stays with its number through every step. Multiplying or dividing both sides of an inequality by a negative number turns the sign round: −x < 2 becomes x > −2.",
     "exclude": null,
     "linked": [],
@@ -6550,6 +9881,11 @@
         "concept": "lcm",
         "text": "LCM",
         "offset": 57
+      },
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 174
       }
     ]
   },
@@ -6569,19 +9905,57 @@
     "text": "Add or subtract fractions only once they share a denominator: 1/2 + 1/3 = 3/6 + 2/6 = 5/6, never 2/5. Turn a mixed number into an improper fraction first, so 1 1/2 is 3/2.",
     "exclude": null,
     "linked": [],
-    "links": []
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fractions",
+        "offset": 16
+      },
+      {
+        "concept": "numerator-denominator",
+        "text": "denominator",
+        "offset": 49
+      },
+      {
+        "concept": "mixed-number",
+        "text": "mixed number",
+        "offset": 109
+      },
+      {
+        "concept": "improper-fraction",
+        "text": "improper fraction",
+        "offset": 130
+      }
+    ]
   },
   {
     "text": "Look at the digit after the last one you keep and round up if it is 5 or more, so 2.367 to 2 decimal places is 2.37, not 2.36. Significant figures start at the first digit that is not zero: 0.005281 to 2 significant figures is 0.0053.",
     "exclude": null,
     "linked": [],
-    "links": []
+    "links": [
+      {
+        "concept": "decimal-place",
+        "text": "decimal places",
+        "offset": 93
+      },
+      {
+        "concept": "significant-figures",
+        "text": "Significant figures",
+        "offset": 127
+      }
+    ]
   },
   {
     "text": "Multiplying by 100 moves every digit two places to the left, so 0.47 × 100 = 47, and a recurring decimal never stops, so 10 × 0.333… take away 0.333… is exactly 3. To divide by a decimal, multiply both numbers by 10 until it is whole: 12 ÷ 0.3 = 120 ÷ 3 = 40.",
     "exclude": null,
     "linked": [],
-    "links": []
+    "links": [
+      {
+        "concept": "recurring-decimal",
+        "text": "recurring decimal",
+        "offset": 87
+      }
+    ]
   },
   {
     "text": "Ask what one of something is worth: if 4 pens cost £6, one pen costs 6 ÷ 4 = £1.50, and the amount you share out goes first. Dividing by a number less than 1 gives a bigger answer, so 2 ÷ 0.5 = 4.",
