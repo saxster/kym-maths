@@ -499,9 +499,23 @@ struct SchoolMathsQuestion: Codable, Identifiable, Equatable, Sendable {
     /// Absent where no smaller twin can be solved without giving the answer away.
     let stuck: StuckSheet?
 
-    /// The named parts of a multi-part answer ("HCF and LCM"); nil when the answer is one thing.
+    /// The named parts of a multi-part answer ("HCF and LCM", "a, b and c"); nil when the answer is one thing.
     var answerPartsPhrase: String? {
-        answerKey.parts.count > 1 ? answerKey.parts.map(\.label).joined(separator: " and ") : nil
+        let labels = answerKey.parts.map(\.label)
+        guard labels.count > 1, let last = labels.last else { return nil }
+        return labels.dropLast().joined(separator: ", ") + " and " + last
+    }
+
+    /// "The answer has two parts: HCF and LCM." Nil when the answer is one thing.
+    var answerPartsLine: String? {
+        answerPartsPhrase.map { "The answer has \(Self.spelled(answerKey.parts.count)) parts: \($0)." }
+    }
+
+    private static func spelled(_ count: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .spellOut
+        formatter.locale = Locale(identifier: "en_GB")
+        return formatter.string(from: NSNumber(value: count)) ?? "\(count)"
     }
 
     var sourceBadgeTitle: String {

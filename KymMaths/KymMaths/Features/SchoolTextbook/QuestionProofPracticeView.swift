@@ -165,7 +165,7 @@ struct QuestionProofPracticeView: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .accessibilityAddTraits(.isHeader)
 
-            Text("\(stageTitle). \(recommendedCPAStage.coachDirective)")
+            Text(stageAdvice)
                 .patternedType(.readingDefault)
                 .foregroundStyle(theme.mute(theme.ink))
                 .fixedSize(horizontal: false, vertical: true)
@@ -226,11 +226,12 @@ struct QuestionProofPracticeView: View {
         }
     }
 
-    private var stageTitle: String {
+    /// How to begin, said to Kym. It follows how much of this topic she has already got right.
+    private var stageAdvice: String {
         switch recommendedCPAStage {
-        case .concrete: "Start with something real"
-        case .semiAbstract: "Draw it first"
-        case .abstract: "Write it in symbols"
+        case .concrete: "Picture it first. Turn the numbers into things you can count or measure, then write the maths."
+        case .semiAbstract: "Draw it first. Sketch a bar, a box or a number line, and label the equal parts."
+        case .abstract: "Go straight to the symbols. Write one step on each line, and say why each step is true."
         }
     }
 
@@ -301,10 +302,23 @@ struct QuestionProofPracticeView: View {
     }
 
     private var answerAndConfidence: some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+            // The parts go in a line that can wrap. As the box's placeholder a long one was cut off.
+            if let partsLine = question.answerPartsLine {
+                Text(partsLine)
+                    .standardType(.uiBody)
+                    .foregroundStyle(theme.mute(theme.ink))
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            answerRow
+        }
+    }
+
+    private var answerRow: some View {
         HStack(alignment: .bottom, spacing: StandardSpacing.lg) {
             VStack(alignment: .leading, spacing: StandardSpacing.xs) {
                 Kicker("Answer", muted: true)
-                TextField("", text: $finalAnswer, prompt: Text(question.answerPartsPhrase ?? "Your answer"))
+                TextField("", text: $finalAnswer, prompt: Text("Your answer"))
                     .focused($typingIn, equals: .answer)
                     .learnerTextInput(.retrieval)
                     .textFieldStyle(.plain)
