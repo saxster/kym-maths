@@ -6,6 +6,12 @@ struct ConceptLink: Equatable, Sendable {
     let text: String
     let offset: Int
     let length: Int
+
+    /// How much of the phrase is drawn as the link. "power of" and "multiple of" are aliases so that
+    /// the bare words link only in their maths sense; the "of" is not part of the name and stays plain.
+    var shownLength: Int {
+        ConceptLinker.fold(text).suffix(3).elementsEqual(" of".unicodeScalars) ? length - 3 : length
+    }
 }
 
 /// Finds the concept-card links in learner text. `source/concept_links.py` implements the same rule and

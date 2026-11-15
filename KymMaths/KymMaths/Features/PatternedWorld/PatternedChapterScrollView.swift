@@ -262,7 +262,7 @@ struct PatternedChapterScrollView: View {
         )
         LearnerTextInput(
             title: "",
-            placeholder: "Say what stays the same, and the rule it gives you…",
+            placeholder: YourTurnCard.answerPlaceholder,
             text: answer,
             minHeight: 72
         )

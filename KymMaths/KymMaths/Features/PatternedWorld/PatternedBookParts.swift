@@ -359,6 +359,10 @@ struct YourTurnCard: View {
 
     private var isPrediction: Bool { callout.kind == "predict" }
 
+    /// For a check's box in either reading mode. It names no kind of answer, because the checks ask
+    /// different things: what went wrong, why two numbers are the same, why a share is not a half.
+    static let answerPlaceholder = "Write your answer in your own words…"
+
     var body: some View {
         VStack(alignment: .leading, spacing: StandardSpacing.sm) {
             ViewThatFits(in: .horizontal) {
@@ -378,7 +382,7 @@ struct YourTurnCard: View {
                 .fixedSize(horizontal: false, vertical: true)
             LearnerTextInput(
                 title: "",
-                placeholder: isPrediction ? "Write what you think will happen…" : "Say why it works, in your own words…",
+                placeholder: isPrediction ? "Write what you think will happen…" : Self.answerPlaceholder,
                 text: $text,
                 minHeight: 64
             )
