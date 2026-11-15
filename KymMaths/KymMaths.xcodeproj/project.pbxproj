@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00FABC5C42C20EFA388CDF08 /* StuckSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC574021641256698F8FDCA5 /* StuckSheetView.swift */; };
 		01D23B864B841308DD9FF108 /* JournalPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8354EF0023AF306FE6783B6E /* JournalPaper.swift */; };
 		035F3553E20B86D77D526FE7 /* LiveMentorVoiceEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CFAB6A642E6B4183DB6DEA /* LiveMentorVoiceEngine.swift */; };
 		0536A15085F0C93E1868A5C9 /* MotifScenes.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC86FFD5B5264B1612673EB /* MotifScenes.swift */; };
@@ -156,6 +157,7 @@
 		AD931726ED23CF29EEF3A99E /* KymDesignExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9580C4310B6A226F00755883 /* KymDesignExport.swift */; };
 		AE418FACA3CAC65982B02F4D /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C53EB16B46F825B1999FFE4 /* ColorExtensions.swift */; };
 		AE6EBE3D0B4C0E2077286811 /* AdvancedAIPedagogyEngines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF8CBF631D51D7A89E2B7 /* AdvancedAIPedagogyEngines.swift */; };
+		AF3D878AF2BED0D8C748E080 /* StuckSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC574021641256698F8FDCA5 /* StuckSheetView.swift */; };
 		AFA8B4106D99CF4EC0468A0A /* KymMathsWidgetViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02B9F0D1042BC7376621ADA /* KymMathsWidgetViews.swift */; };
 		AFFE5AF7E40EDA81A485ED78 /* ByrneText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD8998C1ED56D415508E8C4 /* ByrneText.swift */; };
 		B03D45860B53981BAD9DE627 /* EuclidSpineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D6F93FF6B4E188F4F577B7 /* EuclidSpineTests.swift */; };
@@ -370,6 +372,7 @@
 		F84648813F20D787FBC24AA5 /* SchoolPatternedPieces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolPatternedPieces.swift; sourceTree = "<group>"; };
 		F9DE74E29002D70EDD1DA74B /* PatternedGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternedGallery.swift; sourceTree = "<group>"; };
 		FAC31109B41192EECAF7F5A3 /* EuclidRounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuclidRounds.swift; sourceTree = "<group>"; };
+		FC574021641256698F8FDCA5 /* StuckSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StuckSheetView.swift; sourceTree = "<group>"; };
 		FC5E968CEEE19955E9CB2DAE /* ContentPacks */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ContentPacks; path = KymMaths/Resources/ContentPacks; sourceTree = SOURCE_ROOT; };
 		FE9B4278F3D9928DF5AA2C5D /* MotifPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotifPageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -774,6 +777,7 @@
 				86B46C98F303914A0F5C6D18 /* QuestionProofPracticeView.swift */,
 				BA29A7C3025EB034F6E598F8 /* SchoolMathsHomeView.swift */,
 				F84648813F20D787FBC24AA5 /* SchoolPatternedPieces.swift */,
+				FC574021641256698F8FDCA5 /* StuckSheetView.swift */,
 				EE35C047793940C45E3ED616 /* TextbookPageScannerSheet.swift */,
 				1864315E9EDA42434023756E /* WalkBackSheet.swift */,
 			);
@@ -1020,6 +1024,7 @@
 				9663DADCB09A00F7B3ACEC71 /* SpeedMathAnswerCheck.swift in Sources */,
 				9789D46385EFF21CD2164D92 /* StepOrderRoundView.swift in Sources */,
 				C1FD5617BD8CCBDA295C3B22 /* StuckSheetState.swift in Sources */,
+				AF3D878AF2BED0D8C748E080 /* StuckSheetView.swift in Sources */,
 				4D6562E368EF353768BB0F43 /* SystemSurfaceSnapshotStore.swift in Sources */,
 				DBDE25C92F8F55F016FC2138 /* TextbookPageScannerSheet.swift in Sources */,
 				F103CB51BE1A8EFF5B4BA30A /* TodayHomeView.swift in Sources */,
@@ -1148,6 +1153,7 @@
 				0A1A4CEBDAD07D15C764CF81 /* SpeedMathAnswerCheck.swift in Sources */,
 				1998B70C869C719A9E394707 /* StepOrderRoundView.swift in Sources */,
 				E146395D169398F81FF82BD0 /* StuckSheetState.swift in Sources */,
+				00FABC5C42C20EFA388CDF08 /* StuckSheetView.swift in Sources */,
 				FF165C37C861FBFCB7CD0C69 /* SystemSurfaceSnapshotStore.swift in Sources */,
 				D2BC7F559FC255D2A9111CDC /* TextbookPageScannerSheet.swift in Sources */,
 				11AAD67FD9418B435D5654F1 /* TodayHomeView.swift in Sources */,

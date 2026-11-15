@@ -78,23 +78,7 @@ struct WalkBackSheet: View {
                 Button("Next", action: next)
                     .buttonStyle(InkButtonStyle())
             } else {
-                HStack(spacing: StandardSpacing.sm) {
-                    TextField("Your answer", text: $typed)
-                        .focused($typing)
-                        .learnerTextInput(.retrieval)
-                        .textFieldStyle(.plain)
-                        .patternedType(.mathInline)
-                        .foregroundStyle(theme.ink)
-                        .padding(.horizontal, StandardSpacing.sm)
-                        .frame(minHeight: StandardAccessibility.touchTarget)
-                        .background(RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous).fill(theme.bg))
-                        .overlay(RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous).strokeBorder(theme.hairline(), lineWidth: 1))
-                        .accessibilityLabel("Your answer")
-                        .onSubmit { check(probe) }
-                    Button("Check") { check(probe) }
-                        .buttonStyle(InkButtonStyle())
-                        .disabled(typed.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                }
+                AnswerCheckRow(typed: $typed, typing: $typing) { check(probe) }
             }
         }
         .paperCard()

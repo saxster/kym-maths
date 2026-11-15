@@ -54,3 +54,33 @@ struct ToolIconButton: View {
         .accessibilityAddTraits(isOn ? .isSelected : [])
     }
 }
+
+/// One short answer and its Check button. Return checks too.
+struct AnswerCheckRow: View {
+    @Environment(\.standardTheme) private var theme
+    @Binding var typed: String
+    var typing: FocusState<Bool>.Binding
+    let check: () -> Void
+
+    private var isEmpty: Bool { typed.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+
+    var body: some View {
+        HStack(spacing: StandardSpacing.sm) {
+            TextField("Your answer", text: $typed)
+                .focused(typing)
+                .learnerTextInput(.retrieval)
+                .textFieldStyle(.plain)
+                .patternedType(.mathInline)
+                .foregroundStyle(theme.ink)
+                .padding(.horizontal, StandardSpacing.sm)
+                .frame(minHeight: StandardAccessibility.touchTarget)
+                .background(RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous).fill(theme.bg))
+                .overlay(RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous).strokeBorder(theme.hairline(), lineWidth: 1))
+                .accessibilityLabel("Your answer")
+                .onSubmit { if !isEmpty { check() } }
+            Button("Check") { check() }
+                .buttonStyle(InkButtonStyle())
+                .disabled(isEmpty)
+        }
+    }
+}
