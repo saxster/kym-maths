@@ -205,6 +205,20 @@ struct SlipTally: Codable, FetchableRecord, PersistableRecord, Identifiable, Equ
     var id: String { misconceptionId }
 }
 
+/// One finished 20-second fact sprint. `missed` holds the fact ids that come first next time.
+struct FactSprintRecord: Codable, FetchableRecord, PersistableRecord, Identifiable, Equatable, Sendable {
+    static let databaseTableName = "fact_sprints"
+
+    var id: String
+    var family: FactFamily
+    /// The local calendar day, yyyy-MM-dd.
+    var day: String
+    var right: Int
+    var wrong: Int
+    var missed: [String]
+    var finishedAt: Date
+}
+
 public struct PropositionNodeRecord: Codable, FetchableRecord, PersistableRecord, Identifiable, Equatable, Sendable {
     public static let databaseTableName = "proposition_nodes"
 
@@ -533,6 +547,17 @@ final class DatabaseManager: Sendable {
                 t.column("lastCheckPassed", .boolean)
             }
         }
+        migrator.registerMigration("v5_state_fact_sprints") { db in
+            try db.create(table: FactSprintRecord.databaseTableName) { t in
+                t.primaryKey("id", .text)
+                t.column("family", .text).notNull()
+                t.column("day", .text).notNull()
+                t.column("right", .integer).notNull()
+                t.column("wrong", .integer).notNull()
+                t.column("missed", .text).notNull()
+                t.column("finishedAt", .datetime).notNull()
+            }
+        }
         try migrator.migrate(writer)
     }
 
@@ -825,6 +850,18 @@ final class DatabaseManager: Sendable {
     func saveSlipTally(_ tally: SlipTally) throws {
         try statePool.write { db in
             try tally.save(db)
+        }
+    }
+
+    func fetchFactSprints() throws -> [FactSprintRecord] {
+        try statePool.read { db in
+            try FactSprintRecord.order(Column("finishedAt")).fetchAll(db)
+        }
+    }
+
+    func saveFactSprint(_ record: FactSprintRecord) throws {
+        try statePool.write { db in
+            try record.save(db)
         }
     }
 

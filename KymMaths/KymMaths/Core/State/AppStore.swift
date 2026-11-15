@@ -192,6 +192,8 @@ final class AppStore {
     var capturedPages: [CapturedTextbookPageRecord] = []
     var calloutResponses: [String: CalloutResponseRecord] = [:]
     var slipTalliesById: [String: SlipTally] = [:]
+    /// Every finished fact sprint, oldest first.
+    var factSprints: [FactSprintRecord] = []
     /// Set when a named slip comes back. Hand in on that question waits until the walk-back is finished.
     var pendingWalkBack: WalkBack?
 
@@ -365,6 +367,7 @@ final class AppStore {
         calloutResponses = Dictionary(uniqueKeysWithValues: callouts.map { ($0.id, $0) })
         let tallies = (try? db.fetchSlipTallies()) ?? []
         slipTalliesById = Dictionary(uniqueKeysWithValues: tallies.map { ($0.id, $0) })
+        factSprints = (try? db.fetchFactSprints()) ?? []
 
         SystemSurfaceSnapshotStore.writeSnapshot(from: self)
     }
@@ -553,6 +556,43 @@ final class AppStore {
             try? db.saveSlipTally(WalkBackRule.recordingCheck(tally, passed: passed, at: Date()))
         }
         refreshState()
+    }
+
+    // MARK: Fact sprints
+
+    @discardableResult
+    func recordFactSprint(_ run: FactSprintRun, family: FactFamily, at date: Date) -> FactSprintRecord {
+        let record = FactSprintRecord(
+            id: UUID().uuidString,
+            family: family,
+            day: QuestionProofService.dayKey(for: date),
+            right: run.right.count,
+            wrong: run.missed.count,
+            missed: run.missed.map(\.id),
+            finishedAt: date
+        )
+        try? db.saveFactSprint(record)
+        refreshState()
+        return record
+    }
+
+    func todaysFactSprint(_ family: FactFamily, now: Date = .now) -> FactSprintRecord? {
+        let today = QuestionProofService.dayKey(for: now)
+        return factSprints.last { $0.family == family && $0.day == today }
+    }
+
+    /// "Last time": the latest sprint in this family that finished before `date`.
+    func factSprint(_ family: FactFamily, before date: Date) -> FactSprintRecord? {
+        factSprints.last { $0.family == family && $0.finishedAt < date }
+    }
+
+    func missedLastTime(_ family: FactFamily) -> [String] {
+        factSprints.last { $0.family == family }?.missed ?? []
+    }
+
+    /// The first family with no sprint today, or nil when all four are done.
+    func nextFactFamily(now: Date = .now) -> FactFamily? {
+        FactFamily.allCases.first { todaysFactSprint($0, now: now) == nil }
     }
 
     func reviewFSRSCard(_ card: FSRSCardRecord, rating: FSRSRating) {
