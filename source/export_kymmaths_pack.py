@@ -971,12 +971,36 @@ def part(label, *matchers):
     return {"label": label, "anyOf": any_of}
 
 
-def key(parts, accepts, rejects):
-    return {"parts": parts, "accepts": accepts, "rejects": rejects}
+MISCONCEPTIONS = {
+    "sign-of-product": "You got a sign wrong multiplying or dividing",
+    "hcf-lcm-swapped": "You mixed up HCF and LCM",
+    "lcm-as-product": "You took the LCM as the numbers multiplied together",
+    "stopped-early": "You stopped one step too soon",
+}
 
 
-def one(*matchers, accepts, rejects):
-    return key([part("answer", *matchers)], accepts, rejects)
+def mistake(misconception_id, *matchers, next_step, examples):
+    if misconception_id not in MISCONCEPTIONS:
+        raise SystemExit(f"Unknown misconception id: {misconception_id}")
+    if not examples:
+        raise SystemExit(f"Mistake {misconception_id} has no examples")
+    if not next_step.endswith("."):
+        raise SystemExit(f"Mistake {misconception_id} next step must be one sentence ending in a full stop")
+    return {
+        "misconception": misconception_id,
+        "name": MISCONCEPTIONS[misconception_id],
+        "anyOf": part("", *matchers)["anyOf"],
+        "nextStep": next_step,
+        "examples": list(examples),
+    }
+
+
+def key(parts, accepts, rejects, mistakes=()):
+    return {"parts": parts, "accepts": accepts, "rejects": rejects, "mistakes": list(mistakes)}
+
+
+def one(*matchers, accepts, rejects, mistakes=()):
+    return key([part("answer", *matchers)], accepts, rejects, mistakes)
 
 
 DECREASE_WORDS = ["decrease", "decreases", "decreased", "down", "less", "lower", "loss", "fall", "falls",
@@ -992,15 +1016,36 @@ ANSWER_KEYS = {
     "q-oup-ch01-wb-focus": one(
         num("-16"),
         accepts=["-16", "−16", "= -16"],
-        rejects=["16", "−160", "-1.6", "-8"]),
+        rejects=["16", "−160", "-1.6", "-8"],
+        mistakes=[
+            mistake("sign-of-product", num("16"), num("0"),
+                    next_step="Count the minus signs in each multiplication and division: an odd number of them makes the result negative.",
+                    examples=["16", "0"]),  # 24 ÷ (−3) taken as +8 and (−2)³ as +8 give 16; one of the two gives 0
+        ]),
     "q-oup-ch01-wb-practice": one(
         num("72"),
         accepts=["72", "72 seconds", "72s", "after 72 seconds"],
-        rejects=["432", "6", "42 seconds", "7.2"]),
+        rejects=["432", "6", "42 seconds", "7.2"],
+        mistakes=[
+            mistake("hcf-lcm-swapped", num("6"),
+                    next_step="They flash together at a time both cycles reach, so look for a shared multiple, not a shared factor.",
+                    examples=["6", "6 seconds"]),  # HCF(18, 24) = 6
+            mistake("lcm-as-product", num("432"),
+                    next_step="Multiplying gives a common multiple, but list the multiples of each and look for an earlier one they share.",
+                    examples=["432"]),  # 18 × 24 = 432
+        ]),
     "q-oup-ch01-wb-challenge": one(
         num("60"),
         accepts=["60", "b = 60", "b=60"],
-        rejects=["b = 15", "6", "600", "2160"]),
+        rejects=["b = 15", "6", "600", "2160"],
+        mistakes=[
+            mistake("stopped-early", num("2160"),
+                    next_step="HCF × LCM equals a × b, so there is one more step to get b on its own.",
+                    examples=["2160"]),  # 12 × 180 = 2160, never divided by a
+            mistake("lcm-as-product", num("5"),
+                    next_step="a × b equals HCF × LCM, not the LCM alone, so put the HCF back into the equation.",
+                    examples=["b = 5"]),  # 180 ÷ 36 = 5, taking LCM = a × b
+        ]),
     # Chapter 2
     "q-oup-ch02-sb": one(
         forms("5x+3", "3+5x"),
@@ -1595,7 +1640,14 @@ def build_school_questions():
         raise SystemExit(f"Answer keys and questions differ: {sorted(question_ids ^ set(ANSWER_KEYS))}")
     for question in questions:
         question["answerKey"] = ANSWER_KEYS[question["id"]]
+    used = {m["misconception"] for answer_key in ANSWER_KEYS.values() for m in answer_key["mistakes"]}
+    if used != set(MISCONCEPTIONS):
+        raise SystemExit(f"Misconceptions no question uses: {sorted(set(MISCONCEPTIONS) - used)}")
     return questions
+
+
+def build_misconceptions():
+    return [{"id": misconception_id, "name": name} for misconception_id, name in MISCONCEPTIONS.items()]
 
 
 def build_diagram_plates():
@@ -2915,6 +2967,7 @@ def main():
         "polyaStages": polya_stages,
         "speedMathDecks": speed_math_decks,
         "visualMathTips": visual_math_tips,
+        "misconceptions": build_misconceptions(),
     }
 
     PACK_OUT.parent.mkdir(parents=True, exist_ok=True)

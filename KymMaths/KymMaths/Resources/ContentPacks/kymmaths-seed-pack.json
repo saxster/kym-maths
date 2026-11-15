@@ -6588,7 +6588,8 @@
           "24",
           "360",
           "HCF = 240, LCM = 3600"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -6629,6 +6630,27 @@
           "−160",
           "-1.6",
           "-8"
+        ],
+        "mistakes": [
+          {
+            "misconception": "sign-of-product",
+            "name": "You got a sign wrong multiplying or dividing",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "16"
+              },
+              {
+                "kind": "number",
+                "value": "0"
+              }
+            ],
+            "nextStep": "Count the minus signs in each multiplication and division: an odd number of them makes the result negative.",
+            "examples": [
+              "16",
+              "0"
+            ]
+          }
         ]
       }
     },
@@ -6671,6 +6693,37 @@
           "6",
           "42 seconds",
           "7.2"
+        ],
+        "mistakes": [
+          {
+            "misconception": "hcf-lcm-swapped",
+            "name": "You mixed up HCF and LCM",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "6"
+              }
+            ],
+            "nextStep": "They flash together at a time both cycles reach, so look for a shared multiple, not a shared factor.",
+            "examples": [
+              "6",
+              "6 seconds"
+            ]
+          },
+          {
+            "misconception": "lcm-as-product",
+            "name": "You took the LCM as the numbers multiplied together",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "432"
+              }
+            ],
+            "nextStep": "Multiplying gives a common multiple, but list the multiples of each and look for an earlier one they share.",
+            "examples": [
+              "432"
+            ]
+          }
         ]
       }
     },
@@ -6712,6 +6765,36 @@
           "6",
           "600",
           "2160"
+        ],
+        "mistakes": [
+          {
+            "misconception": "stopped-early",
+            "name": "You stopped one step too soon",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "2160"
+              }
+            ],
+            "nextStep": "HCF × LCM equals a × b, so there is one more step to get b on its own.",
+            "examples": [
+              "2160"
+            ]
+          },
+          {
+            "misconception": "lcm-as-product",
+            "name": "You took the LCM as the numbers multiplied together",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "5"
+              }
+            ],
+            "nextStep": "a × b equals HCF × LCM, not the LCM alone, so put the HCF back into the equation.",
+            "examples": [
+              "b = 5"
+            ]
+          }
         ]
       }
     },
@@ -6759,7 +6842,8 @@
           "5x",
           "11x + 3",
           "5x+3x"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -6829,7 +6913,8 @@
           "6ab(3a + 2b)",
           "3ab(6a − 4b)",
           "6ab"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -6879,7 +6964,8 @@
           "8x",
           "16x + 38",
           "8x − 38"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -6920,7 +7006,8 @@
           "4050",
           "8",
           "81000"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -6961,7 +7048,8 @@
           "112",
           "292",
           "68"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -7002,7 +7090,8 @@
           "14",
           "2",
           "120"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -7070,7 +7159,8 @@
           "angle C, the midpoint of AB",
           "BAC",
           "90"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -7112,7 +7202,8 @@
           "4",
           "400",
           "200"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -7164,7 +7255,8 @@
           "20, 15",
           "15, 15, 20",
           "24, 18, 18"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -7205,7 +7297,8 @@
           "600",
           "3",
           "12000"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -7276,7 +7369,8 @@
           "it is too early in the morning",
           "Mumbai is a big city",
           "I do not know"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -7334,7 +7428,8 @@
           "double it",
           "16",
           "half"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -7377,7 +7472,8 @@
           "37.5 litres",
           "3750",
           "0.375"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -7429,7 +7525,8 @@
           "154",
           "C = 22, A = 154",
           "C = 44, A = 49"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -7479,7 +7576,8 @@
           "48 and 140",
           "112",
           "24 and 112"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -7520,7 +7618,8 @@
           "31",
           "30",
           "20.5"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -7575,7 +7674,8 @@
           "27/99",
           "99x = 27, x = 27/99",
           "it equals 3/11 because 3 ÷ 11 = 0.2727"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -7616,7 +7716,8 @@
           "0.00408",
           "0.004086",
           "409"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -7663,7 +7764,8 @@
           "5/12",
           "3 5/12",
           "2 7/12"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -7706,7 +7808,8 @@
           "1/4",
           "36/25",
           "125"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -7780,7 +7883,8 @@
           "u = √(v² + 2as) = 7",
           "u = v² − 2as = 49",
           "u = √(v² − 2as)"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -7823,7 +7927,8 @@
           "x = -3",
           "3x",
           "x = 13/7"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -7870,7 +7975,8 @@
           "x < 4",
           "x ≤ -4",
           "x = 4"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -7927,7 +8033,8 @@
           "x = y + 2 / y − 3",
           "x = (y + 2) / (3 − y)",
           "x = (3x + 2) / (x − 1)"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -7977,7 +8084,8 @@
           "155",
           "x = 40, ACD = 165",
           "x = 20, ACD = 75"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -8023,7 +8131,8 @@
           "(3, -2)",
           "(6, 4)",
           "(-7, 5)"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -8064,7 +8173,8 @@
           "175",
           "y = 17",
           "3.5"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -8107,7 +8217,8 @@
           "12",
           "16",
           "150"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -8150,7 +8261,8 @@
           "1734",
           "240",
           "24000"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -8191,7 +8303,8 @@
           "2.4",
           "5.4",
           "2400"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -8274,7 +8387,8 @@
           "4% increase",
           "-40%",
           "0"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -8317,7 +8431,8 @@
           "₹66,550",
           "1655",
           "16500"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -8369,7 +8484,8 @@
           "30 and 25",
           "0.67 and 0.4",
           "15 and 25"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -8420,7 +8536,8 @@
           "median 17, IQR 14",
           "20 and 19",
           "median 24, IQR 12"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -8480,7 +8597,8 @@
           "2",
           "4",
           "σ = 8"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -8522,7 +8640,8 @@
           "80",
           "4.8",
           "32"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -8578,7 +8697,8 @@
           "4n + 7, 900",
           "4n + 3, 830",
           "n + 4, 900"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -8658,7 +8778,8 @@
           "yes because 147/4 is not whole",
           "Yes, n = 36.75",
           "no because it is too big"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -8724,7 +8845,8 @@
           "n² + 2n + 1",
           "2n + 1",
           "n^2"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -8766,7 +8888,8 @@
           "2010",
           "201",
           "20200"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -8808,7 +8931,8 @@
           "432",
           "2160",
           "4,300"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -8850,7 +8974,8 @@
           "350000",
           "0.00035",
           "35"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -8893,7 +9018,8 @@
           "25 hours",
           "2.5",
           "10"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -8940,7 +9066,8 @@
           "9 : 12",
           "3 : 6 : 7",
           "14 : 12 : 9"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -8994,7 +9121,8 @@
           "(6, 9), 54",
           "(4, 7), 18",
           "(7, 4), 54"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -9040,7 +9168,8 @@
           "(5, 3)",
           "(-5, 3)",
           "(3, 5)"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -9085,7 +9214,8 @@
           "(1, 4)",
           "(-4, 1)",
           "(4, -1)"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -9130,7 +9260,8 @@
           "(1, 0)",
           "(-4, -2)",
           "(-10, -6)"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -9186,7 +9317,8 @@
           "y = 2x + 5, x = 2.5",
           "y = 2x + 3, −1.5",
           "y = 12x + 5, -2.5"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -9257,7 +9389,8 @@
           "x + 7 / 3",
           "(x + 7) / 3x",
           "1 / (3x − 7)"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -9337,7 +9470,8 @@
           "y = −2x + 3",
           "y = −½x + 5",
           "y = -1/2x"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -9396,7 +9530,8 @@
           "x = 2",
           "(3, 7)",
           "(-2, 4)"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -9463,7 +9598,8 @@
           "20, 49, 29%",
           "19, 49, 95%",
           "19, 49, 19/49"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -9509,7 +9645,8 @@
           "4",
           "5/36",
           "1/36"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -9554,7 +9691,8 @@
           "15/56",
           "3/28",
           "0.4"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -9596,7 +9734,8 @@
           "512",
           "5.6",
           "28"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -9651,7 +9790,8 @@
           "(0, 11), 25",
           "(0, 5), 5",
           "(0, 11), 7"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -9697,7 +9837,8 @@
           "(3, 9)",
           "(-4, -14)",
           "(3, -5)"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -9789,7 +9930,8 @@
           "½(a + b)",
           "2(b − a)",
           "½ab"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -9840,7 +9982,8 @@
           "det = 14, area = 70",
           "det = 10, area = 15",
           "10, 5"
-        ]
+        ],
+        "mistakes": []
       }
     }
   ],
@@ -10763,6 +10906,24 @@
       "visualIntuition": "Drag the red basis vector Aî = (a, c) and blue basis vector Aĵ = (b, d) in the 2×2 Matrix Sandbox.",
       "ahaMoment": "The unit 1×1 square deforms into a parallelogram whose bounding box (a+b)(c+d), minus four right triangles and two b×c rectangles, leaves exact area ad − bc!",
       "formula": "Area(A · Square) = det(A) = ad − bc"
+    }
+  ],
+  "misconceptions": [
+    {
+      "id": "sign-of-product",
+      "name": "You got a sign wrong multiplying or dividing"
+    },
+    {
+      "id": "hcf-lcm-swapped",
+      "name": "You mixed up HCF and LCM"
+    },
+    {
+      "id": "lcm-as-product",
+      "name": "You took the LCM as the numbers multiplied together"
+    },
+    {
+      "id": "stopped-early",
+      "name": "You stopped one step too soon"
     }
   ]
 }

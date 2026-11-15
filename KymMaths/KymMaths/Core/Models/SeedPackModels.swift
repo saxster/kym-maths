@@ -18,6 +18,12 @@ struct KymMathsSeedPack: Codable, Sendable {
     let polyaStages: [PolyaStageSpec]
     let speedMathDecks: [SpeedMathDeck]
     let visualMathTips: [VisualMathTip]
+    let misconceptions: [Misconception]
+}
+
+struct Misconception: Codable, Identifiable, Equatable, Sendable {
+    let id: String
+    let name: String
 }
 
 // MARK: - The Patterned World (21 Chapters, 5 Volumes, Intuition-to-Formula Bridges)
@@ -463,7 +469,8 @@ enum SeedPackLoader {
             diagramPlates: [],
             polyaStages: [],
             speedMathDecks: [],
-            visualMathTips: []
+            visualMathTips: [],
+            misconceptions: []
         )
     }
 }
