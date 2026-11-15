@@ -220,14 +220,20 @@ The work is finished when A1 to A12 hold for the whole pack and the brief's "Don
 | Ch | Slice done | Checks pass | Walk-through | Read aloud | Commit |
 |---|---|---|---|---|---|
 | 1 | yes | yes | yes (iPad) | waiting | `e416fa8` |
-| Stage 0 | yes (G1 to G12, A8) | yes: 44 Python, 216 Swift | n/a | n/a | not committed |
-| 0 | yes (7 sections, 14 cards) | yes | yes (iPad both modes, iPhone shots, Mac build, A12 upgrade) | waiting: no notes for chapter 0 or chapter 1 yet | not committed |
-| 2 to 20 | | | | | |
+| Stage 0 | yes (G1 to G12, A8) | yes: 44 Python, 216 Swift | n/a | n/a | `9d28408` |
+| 0 | yes (7 sections, 14 cards) | yes | yes (iPad both modes, iPhone shots, Mac build, A12 upgrade) | waiting: no notes for chapter 0 or chapter 1 yet | `8116746` |
+| 2 | yes (6 sections, 10 cards, 2 bedrock cards, school unit 6) | yes: 61 Python, 216 Swift | yes (iPad both modes; two faults found and fixed, then one fresh screenshot, not a second walk) | waiting | `fcadb73` |
+| 3 | yes (6 sections, 9 cards, 1 bedrock card, school units 9 and 12) | yes: 61 Python, 216 Swift | yes (iPad both modes; two faults found and fixed: figure lines that ran off the canvas, and two sentences that named an earlier example with no reminder. The figure was then checked again on the iPad and the iPhone with the sliders at both ends. Not a second full walk) | waiting | the commit after `fcadb73` on `claude/content-ch2-ch3-e0b3d0` ("Rewrite chapter 3, ratio, percentages and growth, to the content brief") |
+| Gate: Volume I | chapters 0, 1, 2 and 3 are ready to read | | Mac build exit 0 (`xcodebuild build -scheme KymMaths`, built only, app not opened); iPhone shots of chapters 0 to 3 read by a verifier | owed: Kym reads one of 0, 2, 3 aloud | |
+| 4 to 20 | | | | | |
 
 ## Contract amendments
 
 | Revision | Reason and evidence | Changed cases, scope or checks | Accepted by |
 |---|---|---|---|
+| 1. Slice step 6 gets a route into the pack (proposed in session 2, with chapter 2) | Step 6 says to rewrite a school unit's worked examples, faded prompts and topic summaries, but nothing carried that text from a chapter file into the pack. The splice only copied stuck sheets, so the rewritten text had nowhere to go without a hand edit of the JSON, which the constraints forbid. | A chapter file may now carry `schoolTopics` (topic code to summary) and `schoolQuestions` (question id to `workedExample` and `fadedPrompt`). The splice copies only those fields; answer keys, stuck sheets and every other field stay as they are. Content checks 3 and 4 read the authored text. Covered by `source/test_school_text.py` (17 tests). | waiting for the owner |
+| 2. Slice step 9 names the count tests (proposed in session 2) | Each chapter changes numbers that three tests state outright: the card and turn counts in `KymMaths/Tests/ConceptLinkTests.swift` and `KymMaths/Tests/MarkingTests.swift`, and the card ids in `source/test_content_checks.py`. Chapter 2 failed 4 Python tests and 9 Swift checks until they were updated. Each chapter also deletes its old "Who is right?" entry from `LearningEngines.swift`. | Step 9 should list these three test files and the Swift deletion as part of every slice, so a parallel writer does not read the failures as a content fault. No check changes. | waiting for the owner |
+| 3. Slice step 8 moves a "Who is right?" entry when deleting it would leave a school unit with none (proposed in session 2, with chapter 3) | The Swift catalog in `LearningEngines.swift` is numbered one chapter off the pack: its chapter 3 entry is the algebra debate for school unit 2, and its chapter 4 entry was a fractions debate for unit 6. Chapter 3 now has its own debate for unit 9, so step 8 says to delete the chapter 3 entry. That would leave unit 2 with no debate, and the test "every chapter has one Who is right?, and so does every OUP unit" fails. | For chapter 3 the algebra entry was kept and given `chapterNumber: 4`, where the pack's algebra chapter sits, and the chapter 4 fractions entry was deleted, because chapter 2's own debate now covers unit 6. Its id `debate-ch03-algebra` is unchanged. Step 8 should say: before deleting a catalog entry, check that its school unit still has a debate; if not, move the entry to the chapter that carries that unit. No check changes. | waiting for the owner |
 
 ## Audit receipt
 

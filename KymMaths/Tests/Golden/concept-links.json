@@ -3480,7 +3480,13 @@
     "text": "Chapter 3: sharing in parts, percentages and growth",
     "exclude": null,
     "linked": [],
-    "links": []
+    "links": [
+      {
+        "concept": "percentage",
+        "text": "percentages",
+        "offset": 29
+      }
+    ]
   },
   {
     "text": "Chapter 4: algebra, where the same fraction rules work on letters",
@@ -4852,6 +4858,1429 @@
     "links": []
   },
   {
+    "text": "Ratio, percentages and growth",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "Ratio",
+        "offset": 0
+      },
+      {
+        "concept": "percentage",
+        "text": "percentages",
+        "offset": 7
+      }
+    ]
+  },
+  {
+    "text": "School book chapters 9 and 12 · Sharing in parts, a percentage change as one multiplication, and money that grows on itself",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage",
+        "text": "percentage",
+        "offset": 52
+      }
+    ]
+  },
+  {
+    "text": "A price goes up by 20% and then down by 20%. Why is it not back where it started?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Sharing, scaling and growing amounts",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "With no calculator: share ₹720 in the ratio 4 : 5. A phone costs ₹6,900 after a 15% rise. What did it cost before? About how many years does money take to double at 3% a year?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "ratio",
+        "offset": 38
+      }
+    ]
+  },
+  {
+    "text": "₹320 and ₹400. ₹6,000. About 24 years.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Prices, recipes, maps, discounts and savings all work by multiplying. Someone who can read a percentage change is hard to fool in a shop or a bank.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage",
+        "text": "percentage",
+        "offset": 93
+      }
+    ]
+  },
+  {
+    "text": "Chapter 2: fractions, decimals and dividing by a decimal",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fractions",
+        "offset": 11
+      }
+    ]
+  },
+  {
+    "text": "Multiplying and dividing by 10, 100 and 1,000",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Finding 10% and 50% of an amount",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 5: finding an unknown amount by working backwards",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 11: making a shape bigger, where every length is multiplied by the same number",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 15: chances, which are compared as fractions and percentages",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fractions",
+        "offset": 43
+      },
+      {
+        "concept": "percentage",
+        "text": "percentages",
+        "offset": 57
+      }
+    ]
+  },
+  {
+    "text": "Set the interest rate to 8%. The amber lines show what ₹1,000 becomes after 20 years. They give two totals: one for simple interest and one for compound interest.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "simple-interest",
+        "text": "simple interest",
+        "offset": 116
+      },
+      {
+        "concept": "compound-growth",
+        "text": "compound interest",
+        "offset": 144
+      }
+    ]
+  },
+  {
+    "text": "Simple interest adds ₹80 every year, so 20 years add ₹1,600. Compound interest multiplies by 1.08 every year, so each year adds more than the last. Adding gives ₹2,600. Multiplying gives ₹4,661.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "simple-interest",
+        "text": "Simple interest",
+        "offset": 0
+      },
+      {
+        "concept": "compound-growth",
+        "text": "Compound interest",
+        "offset": 61
+      }
+    ]
+  },
+  {
+    "text": "1 part = total ÷ (a + b),   A = P × mⁿ",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "a + b",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The red and blue boxes",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "All the parts of the ratio, counted together",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "ratio",
+        "offset": 21
+      }
+    ]
+  },
+  {
+    "text": "P",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The ₹1,000 in the first amber line",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The amount at the start",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "m",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The interest rate slider",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The multiplier for one year, which is 1.08 for a rate of 8%",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage-multiplier",
+        "text": "multiplier",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "n",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The 20 years",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The number of years, so the number of times you multiply",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The compound total",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The amount at the end",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3.1 Sharing in parts",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3.2 Find one first",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3.3 When more means less",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3.4 One multiplication for a change",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3.5 Working backwards",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3.6 Growth on growth",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Predict first",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Before you touch the figure: ₹1,000 is left for 20 years at 8%. Guess the total with compound interest. Then compare your guess with the amber lines.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "compound-growth",
+        "text": "compound interest",
+        "offset": 85
+      }
+    ]
+  },
+  {
+    "text": "Explain it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Explain to a friend why sharing ₹90 in the ratio 1 : 2 does not give anyone ₹45.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "ratio",
+        "offset": 43
+      }
+    ]
+  },
+  {
+    "text": "Watch out for the wrong 100%",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A percentage is always a percentage of something. Before you calculate, ask which amount is the 100%: the old price or the new one.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage",
+        "text": "percentage",
+        "offset": 2
+      }
+    ]
+  },
+  {
+    "text": "Percentage",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage",
+        "text": "Percentage",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Ratio",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "Ratio",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Unitary method",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "unitary-method",
+        "text": "Unitary method",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Direct proportion",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "direct-proportion",
+        "text": "Direct proportion",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Inverse proportion",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "inverse-proportion",
+        "text": "Inverse proportion",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Percentage multiplier",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage-multiplier",
+        "text": "Percentage multiplier",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Reverse percentage",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "reverse-percentage",
+        "text": "Reverse percentage",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Simple interest",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "simple-interest",
+        "text": "Simple interest",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Compound growth",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "compound-growth",
+        "text": "Compound growth",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Rule of 72",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "rule-of-72",
+        "text": "Rule of 72",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "The price before the rise",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "After a 25% rise, a month's bus pass costs ₹1,000. Ishaan and Tara each work out what it cost before the rise.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Ishaan",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "25% of ₹1,000 is ₹250. Take it off, and the old price was ₹750.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Tara",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The new price is 125% of the old one. ₹1,000 ÷ 1.25 = ₹800.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Ishaan is right (₹750)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A 25% rise is undone by a 25% cut.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Test it by going forwards. ₹750 × 1.25 = ₹937.50, not ₹1,000. The 25% in the question was 25% of the old price. Is that the same as 25% of ₹1,000?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Tara is right (₹800)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The rise multiplied the old price by 1.25, so dividing by 1.25 undoes it.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Yes. Check it forwards: 25% of ₹800 is ₹200, and ₹800 + ₹200 = ₹1,000.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Neither. It was ₹975.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "25% means 25, so take ₹25 off.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "25% is not ₹25. It is 25 out of every 100, so its size depends on the price. What is 25% of ₹800?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "To undo a percentage change, divide by its multiplier. Taking the same percentage off does not work.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage",
+        "text": "percentage",
+        "offset": 10
+      },
+      {
+        "concept": "percentage-multiplier",
+        "text": "multiplier",
+        "offset": 43
+      }
+    ]
+  },
+  {
+    "text": "Sharing in a ratio",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "ratio",
+        "offset": 13
+      }
+    ]
+  },
+  {
+    "text": "Set the parts for A to 2 and the parts for B to 6. Every part is worth ₹40. Predict how much A and B each get. Then read the two bars.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Every box is 1 part and holds ₹40. A has 2 boxes and B has 6, so A gets ₹80 and B gets ₹240. Together that is 8 parts, which is ₹320.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The rule: 1 part = total ÷ number of parts",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "1. Try it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the parts for A to 3 and the parts for B to 5.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2. Notice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Every box is the same size and holds ₹40. A has 3 boxes and B has 5.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3. Match the rule",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "There are 3 + 5 = 8 parts and ₹320 in all. ₹320 ÷ 8 = ₹40 for one part.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "4. Push it further",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set A to 6 and B to 2. The total is still ₹320. Who gets more now, and how much?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "5. Draw it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw the two bars for 3 : 5 in your journal and write ₹40 in every box.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Adding or multiplying, for 20 years",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the interest rate to 10%. Predict what ₹1,000 becomes in 20 years with simple interest. Then guess the compound total, and read the amber lines.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "simple-interest",
+        "text": "simple interest",
+        "offset": 75
+      }
+    ]
+  },
+  {
+    "text": "Simple interest adds the same ₹100 every year, so 20 years add ₹2,000. Compound interest multiplies by 1.1 every year. Twenty multiplications turn ₹1,000 into ₹6,727.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "simple-interest",
+        "text": "Simple interest",
+        "offset": 0
+      },
+      {
+        "concept": "compound-growth",
+        "text": "Compound interest",
+        "offset": 71
+      }
+    ]
+  },
+  {
+    "text": "The rule: multiply by the same number once for each year",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "1. Try it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the interest rate to 8%. The amber lines show ₹2,600 with simple interest and ₹4,661 with compound.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "simple-interest",
+        "text": "simple interest",
+        "offset": 62
+      }
+    ]
+  },
+  {
+    "text": "2. Notice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Compound interest gives ₹2,061 more, from the same ₹1,000 and the same rate.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "compound-growth",
+        "text": "Compound interest",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "3. Match the rule",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Simple interest adds 20 lots of ₹80. Compound interest multiplies by 1.08 twenty times.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "simple-interest",
+        "text": "Simple interest",
+        "offset": 0
+      },
+      {
+        "concept": "compound-growth",
+        "text": "Compound interest",
+        "offset": 37
+      }
+    ]
+  },
+  {
+    "text": "4. Push it further",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the rate to 12%. The rule of 72 says the money doubles every 6 years. Is the compound total more than ₹8,000?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "rule-of-72",
+        "text": "rule of 72",
+        "offset": 25
+      }
+    ]
+  },
+  {
+    "text": "5. Draw it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Copy the first three years at 8% into your journal: ₹1,080, ₹1,166.40 and ₹1,259.71.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 3 · Sharing in a ratio",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "ratio",
+        "offset": 25
+      }
+    ]
+  },
+  {
+    "text": "Why do you add the parts of a ratio before you share?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "ratio",
+        "offset": 30
+      }
+    ]
+  },
+  {
+    "text": "The amount is cut into equal parts, and the ratio says how many parts each person takes. Adding tells you how many parts there are in all. Dividing by that number gives the size of one part.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "ratio",
+        "offset": 44
+      }
+    ]
+  },
+  {
+    "text": "The rule: 1 part = total ÷ number of parts",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A price goes up by 20% and then down by 20%. Why is it not back where it started?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 3 · Up 20%, then down 20%",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why does a 20% rise followed by a 20% fall leave you with less?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The rise multiplies by 1.2 and the fall multiplies by 0.8. Together they multiply by 0.96. The fall is 20% of the bigger amount, so it takes off more than the rise put on.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The result: 1.2 × 0.8 = 0.96, a 4% fall",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A price goes up by 20% and then down by 20%. Why is it not back where it started?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 3 · The doubling rule",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why does money at 8% a year double in about 9 years?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Each year multiplies the money by 1.08. Nine of those multiplications come to almost exactly 2. The rule of 72 finds the 9 without the long sum: 72 ÷ 8 = 9.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "rule-of-72",
+        "text": "rule of 72",
+        "offset": 100
+      }
+    ]
+  },
+  {
+    "text": "The result: 1.08 multiplied nine times is about 2",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A price goes up by 20% and then down by 20%. Why is it not back where it started?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Kym and Aarav sell lemonade at a fair and make ₹320. Kym worked for 3 hours and Aarav for 5. Splitting the money in half would not be fair. How should they share it?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Pay for each hour worked. There were 3 + 5 = 8 hours in all, so cut the ₹320 into 8 equal parts. Each part is ₹40. Kym gets 3 parts and Aarav gets 5 parts.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw a bar of 3 equal boxes for Kym. Under it, draw a bar of 5 boxes of the same size for Aarav. The 8 boxes together hold ₹320, so each box holds ₹40. In the figure, set the parts for A to 3 and the parts for B to 5.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why add the 3 and the 5 first? The money is shared among all the parts, not among the two people. Once you know what 1 part is worth, each share is a multiplication. Kym gets 3 × ₹40 = ₹120 and Aarav gets 5 × ₹40 = ₹200. Check: ₹120 + ₹200 = ₹320.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A comparison like 3 to 5 is called a ratio, and it is written 3 : 5. It does not say how much each person gets. It says how the amounts compare. You can simplify a ratio the way you simplify a fraction: divide every part by a common factor. So 6 : 10 is the same ratio as 3 : 5.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "ratio",
+        "offset": 37
+      },
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 193
+      },
+      {
+        "concept": "hcf",
+        "text": "common factor",
+        "offset": 226
+      }
+    ]
+  },
+  {
+    "text": "Share ₹4,500 among three cousins in the ratio 2 : 3 : 4. There are 2 + 3 + 4 = 9 parts. One part is ₹4,500 ÷ 9 = ₹500. The shares are 2 × ₹500 = ₹1,000, 3 × ₹500 = ₹1,500 and 4 × ₹500 = ₹2,000. Check: the three shares add up to ₹4,500.",
+    "exclude": null,
+    "linked": [
+      "fraction",
+      "hcf",
+      "ratio"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting step is to divide by one of the numbers in the ratio, such as ₹320 ÷ 3. But 3 is not the number of parts. There are 8. A second trap is to read 3 : 5 as the fraction 3/5. Kym gets 3 parts out of 8, which is 3/8 of the money.",
+    "exclude": null,
+    "linked": [
+      "fraction",
+      "hcf",
+      "ratio"
+    ],
+    "links": []
+  },
+  {
+    "text": "Meera and Zoya share 42 stickers in the ratio 2 : 5. How many stickers does Zoya get?",
+    "exclude": null,
+    "linked": [
+      "fraction",
+      "hcf",
+      "ratio"
+    ],
+    "links": []
+  },
+  {
+    "text": "To share in a ratio, add the parts, find what one part is worth, then multiply.",
+    "exclude": null,
+    "linked": [
+      "fraction",
+      "hcf",
+      "ratio"
+    ],
+    "links": []
+  },
+  {
+    "text": "A recipe for 4 people needs 300 g of paneer. Kym is cooking for 10 people. How much paneer does she need?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find the amount for 1 person first. 300 g ÷ 4 = 75 g each. Then multiply by the number of people: 10 × 75 g = 750 g. Going through one turns every question of this kind into the same two steps.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw two number lines, one above the other. The top line counts people: 0, 1, 4 and 10. The bottom line shows the paneer: 0 g, 75 g, 300 g and 750 g. Each number on the bottom line is 75 times the number above it.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why is this allowed? Each person eats the same amount, so the paneer grows in step with the people. Multiply the people by 2.5 and the paneer is multiplied by 2.5 too. You can check: 4 × 2.5 = 10 and 300 × 2.5 = 750.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Finding the value of one first is called the unitary method. Two amounts are in direct proportion when multiplying one by a number multiplies the other by the same number. Here the paneer is directly proportional to the people. The amount for one, 75 g, stays the same all the way along.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "unitary-method",
+        "text": "unitary method",
+        "offset": 45
+      },
+      {
+        "concept": "direct-proportion",
+        "text": "direct proportion",
+        "offset": 80
+      }
+    ]
+  },
+  {
+    "text": "5 notebooks cost ₹180. What do 8 cost? One notebook costs ₹180 ÷ 5 = ₹36. So 8 notebooks cost 8 × ₹36 = ₹288. Check that the answer is sensible: 8 is less than double 5, and ₹288 is less than double ₹180.",
+    "exclude": null,
+    "linked": [
+      "direct-proportion",
+      "unitary-method"
+    ],
+    "links": []
+  },
+  {
+    "text": "A common slip is to divide the wrong way round and work out 5 ÷ 180. Say what you want in words first. Rupees for each notebook means rupees ÷ notebooks. A second trap: not everything doubles together. A taxi charges ₹50 to start and ₹15 for each kilometre. A 2 km trip costs ₹80 and a 4 km trip costs ₹110, not ₹160.",
+    "exclude": null,
+    "linked": [
+      "direct-proportion",
+      "unitary-method"
+    ],
+    "links": []
+  },
+  {
+    "text": "6 pencils cost ₹45. How much do 10 pencils cost?",
+    "exclude": null,
+    "linked": [
+      "direct-proportion",
+      "unitary-method"
+    ],
+    "links": []
+  },
+  {
+    "text": "Find what one is worth, then multiply by how many you need.",
+    "exclude": null,
+    "linked": [
+      "direct-proportion",
+      "unitary-method"
+    ],
+    "links": []
+  },
+  {
+    "text": "4 painters can paint the school hall in 6 days. The head teacher hires 8 painters instead. Will the job take 12 days?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "No. More painters share the same work, so the job takes less time, not more. The hall needs 4 × 6 = 24 days of one painter's work. Shared among 8 painters, that is 24 ÷ 8 = 3 days.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Think of the hall as 24 squares of wall. One painter paints one square a day. 4 painters cover 4 squares a day and finish in 6 days. 8 painters cover 8 squares a day and finish in 3 days. The 24 squares never change.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why multiply here, when the last section divided? Ask what stays the same. For the paneer, the amount for each person stayed the same, so you divided to find it. For the painters, the whole job stays the same, so you multiply to find it.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Two amounts are in inverse proportion when multiplying one by a number divides the other by the same number. Double the painters and the time halves. Multiply the two amounts together and the answer is always the same. Here it is 24.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "inverse-proportion",
+        "text": "inverse proportion",
+        "offset": 19
+      }
+    ]
+  },
+  {
+    "text": "A sack of rice feeds 12 hostel students for 10 days. How long does it feed 15 students? The sack holds 12 × 10 = 120 days of rice for one student. Shared among 15 students, it lasts 120 ÷ 15 = 8 days. Check that the answer is sensible: more students, so fewer days.",
+    "exclude": null,
+    "linked": [
+      "inverse-proportion"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting step is the unitary method in its usual order: 10 ÷ 12, then × 15. That gives 12.5 days, which says more students make the rice last longer. Before any sum, ask one question. If this number goes up, does the other go up or down?",
+    "exclude": null,
+    "linked": [
+      "inverse-proportion"
+    ],
+    "links": [
+      {
+        "concept": "unitary-method",
+        "text": "unitary method",
+        "offset": 25
+      }
+    ]
+  },
+  {
+    "text": "A tank of water lasts 20 goats for 9 days. How many days does it last 30 goats?",
+    "exclude": null,
+    "linked": [
+      "inverse-proportion",
+      "unitary-method"
+    ],
+    "links": []
+  },
+  {
+    "text": "When more of one thing means less of the other, find the total first, then share it out.",
+    "exclude": null,
+    "linked": [
+      "inverse-proportion",
+      "unitary-method"
+    ],
+    "links": []
+  },
+  {
+    "text": "A pair of shoes costs ₹2,000. In June the price goes up by 20%. In the July sale it comes down by 20%. Is it back to ₹2,000?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "No. The rise is 20% of ₹2,000, which is ₹400, so the price becomes ₹2,400. The cut is 20% of ₹2,400, which is ₹480. The sale price is ₹1,920. The second 20% was taken from a bigger amount, so it took off more.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw a bar of 10 boxes for ₹2,000. A 20% rise adds 2 boxes, which makes 12. Now cut the new bar into 10 equal pieces and take 2 of them away. Each piece is bigger than an old box, so you take away more than you added.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "There is a shorter way to see it. After a 20% rise you have 100% + 20% = 120% of the price. 120% is 120/100, which is 1.2. So a 20% rise is the same as multiplying by 1.2. After a 20% cut you have 80% left, so you multiply by 0.8. Both changes together: 1.2 × 0.8 = 0.96.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The one number you multiply by to make a percentage change is called the percentage multiplier. For a rise, add the percentage to 100% and write the result as a decimal. For a fall, take it away from 100%. A 5% rise has the multiplier 1.05 and a 30% fall has the multiplier 0.7.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage",
+        "text": "percentage",
+        "offset": 41
+      },
+      {
+        "concept": "percentage-multiplier",
+        "text": "percentage multiplier",
+        "offset": 73
+      }
+    ]
+  },
+  {
+    "text": "A phone costs ₹15,000 and its price rises by 8%. The multiplier is 1.08. ₹15,000 × 1.08 = ₹16,200. Now go back to the ₹2,000 shoes, which went up 20% and then down 20%. The multiplier for both changes together is 0.96. ₹2,000 × 0.96 = ₹1,920, which matches. 0.96 is 96%, so the two changes make a 4% fall. In the figure, read the green line.",
+    "exclude": null,
+    "linked": [
+      "percentage",
+      "percentage-multiplier"
+    ],
+    "links": []
+  },
+  {
+    "text": "There are two traps. First, a 5% rise is × 1.05, not × 1.5 and not × 0.05. Multiplying by 0.05 finds the 5% on its own. Second, percentages in a row do not add. Two rises of 10% are not a rise of 20%. They make 1.1 × 1.1 = 1.21, which is a 21% rise.",
+    "exclude": null,
+    "linked": [
+      "percentage",
+      "percentage-multiplier"
+    ],
+    "links": []
+  },
+  {
+    "text": "A bag costs ₹800. Its price is cut by 15%. What is the new price?",
+    "exclude": null,
+    "linked": [
+      "percentage",
+      "percentage-multiplier"
+    ],
+    "links": []
+  },
+  {
+    "text": "A percentage change is one multiplication, and changes in a row multiply.",
+    "exclude": null,
+    "linked": [
+      "percentage",
+      "percentage-multiplier"
+    ],
+    "links": []
+  },
+  {
+    "text": "In a sale, everything is 20% off. A kurta costs ₹1,200 in the sale. What did it cost before?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "It is tempting to add 20% of ₹1,200, which gives ₹1,440. But the 20% was taken off the old price, not the sale price. The sale price is 80% of the old price. So 80% is ₹1,200, 10% is ₹150 and 100% is ₹1,500.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw a bar of 10 boxes for the old price. Cross out 2 boxes for the 20% off. The 8 boxes left hold ₹1,200, so each box holds ₹150. All 10 boxes hold ₹1,500.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The sale multiplied the old price by 0.8. To undo a multiplication, you divide. ₹1,200 ÷ 0.8 = ₹1,500. Adding 20% back does not undo it, because that multiplies by 1.2. And 0.8 × 1.2 = 0.96, not 1.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Finding the amount before a percentage change is called a reverse percentage. Work out the multiplier for the change, then divide the new amount by it. Dividing by the multiplier always takes you back to the start.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage",
+        "text": "percentage",
+        "offset": 28
+      },
+      {
+        "concept": "reverse-percentage",
+        "text": "reverse percentage",
+        "offset": 58
+      },
+      {
+        "concept": "percentage-multiplier",
+        "text": "multiplier",
+        "offset": 91
+      }
+    ]
+  },
+  {
+    "text": "After a 12% rise, a month's rent is ₹5,600. What was the old rent? The multiplier for a 12% rise is 1.12, so work out ₹5,600 ÷ 1.12. Multiply both numbers by 100 to get 560,000 ÷ 112, which is 5,000. The old rent was ₹5,000. Check forwards: ₹5,000 × 1.12 = ₹5,600.",
+    "exclude": null,
+    "linked": [
+      "percentage",
+      "percentage-multiplier",
+      "reverse-percentage"
+    ],
+    "links": []
+  },
+  {
+    "text": "The trap is to take the percentage of the wrong amount. 12% of ₹5,600 is ₹672, and ₹5,600 − ₹672 = ₹4,928. Test that answer by going forwards. ₹4,928 × 1.12 = ₹5,519.36, which is not ₹5,600. The 12% in the question was 12% of the old rent, the number you are looking for.",
+    "exclude": null,
+    "linked": [
+      "percentage",
+      "percentage-multiplier",
+      "reverse-percentage"
+    ],
+    "links": []
+  },
+  {
+    "text": "After a 10% rise, a cinema ticket costs ₹330. What did it cost before the rise?",
+    "exclude": null,
+    "linked": [
+      "percentage",
+      "percentage-multiplier",
+      "reverse-percentage"
+    ],
+    "links": []
+  },
+  {
+    "text": "To undo a percentage change, divide by its multiplier.",
+    "exclude": null,
+    "linked": [
+      "percentage",
+      "percentage-multiplier",
+      "reverse-percentage"
+    ],
+    "links": []
+  },
+  {
+    "text": "Kym's grandmother puts ₹1,000 in a bank that pays 8% interest a year. She leaves it there for 20 years. Kym says the bank adds ₹80 a year, so it will grow to ₹2,600. Is she right?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Only if the bank pays on the first ₹1,000 each year and nothing more. Most banks do better than that. They add the interest to the account, and the next year they pay 8% on the new, bigger amount. Year 1 ends on ₹1,080. Year 2 adds 8% of ₹1,080, which is ₹86.40, not ₹80.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Make a table with one row for each year, starting from ₹1,000. Each row is the row above × 1.08: ₹1,080, then ₹1,166.40, then ₹1,259.71. The steps get bigger every year, because each one is 8% of a bigger number.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Each year multiplies by 1.08, so 20 years multiply by 1.08 twenty times. A calculator gives that as about 4.66. So the ₹1,000 becomes about ₹4,661. That is far more than ₹2,600, and the only difference is interest earning interest.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Interest paid only on the starting amount is simple interest. It adds the same sum every year. Interest paid on the growing total is compound interest, and growth of this kind is compound growth. It multiplies by the same number every year. A quick guide is the rule of 72: divide 72 by the yearly percentage to estimate the years needed to double.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "simple-interest",
+        "text": "simple interest",
+        "offset": 45
+      },
+      {
+        "concept": "compound-growth",
+        "text": "compound interest",
+        "offset": 133
+      },
+      {
+        "concept": "rule-of-72",
+        "text": "rule of 72",
+        "offset": 262
+      },
+      {
+        "concept": "percentage",
+        "text": "percentage",
+        "offset": 298
+      }
+    ]
+  },
+  {
+    "text": "₹20,000 is saved at 5% compound interest for 2 years. The multiplier is 1.05 each year. ₹20,000 × 1.05 = ₹21,000, and ₹21,000 × 1.05 = ₹22,050. The interest earned is ₹2,050. Simple interest would have paid 2 × ₹1,000 = ₹2,000. Now use the rule of 72 on the ₹1,000 that Kym's grandmother saved at 8%. 72 ÷ 8 = 9, so her money doubles about every 9 years. In the figure, set the interest rate to 8% and read the amber lines.",
+    "exclude": null,
+    "linked": [
+      "compound-growth",
+      "percentage",
+      "rule-of-72",
+      "simple-interest"
+    ],
+    "links": [
+      {
+        "concept": "percentage-multiplier",
+        "text": "multiplier",
+        "offset": 58
+      }
+    ]
+  },
+  {
+    "text": "The trap is to treat compound growth as adding. 8% a year for 20 years is not 160% in total. It is × 1.08 twenty times, which is a rise of about 366%. The same trap works against you with a loan. A debt at 24% a year doubles in about 3 years.",
+    "exclude": null,
+    "linked": [
+      "compound-growth",
+      "percentage",
+      "percentage-multiplier",
+      "rule-of-72",
+      "simple-interest"
+    ],
+    "links": []
+  },
+  {
+    "text": "₹2,000 is saved at 5% compound interest a year. How much is in the account after 2 years?",
+    "exclude": null,
+    "linked": [
+      "compound-growth",
+      "percentage",
+      "percentage-multiplier",
+      "rule-of-72",
+      "simple-interest"
+    ],
+    "links": []
+  },
+  {
+    "text": "Compound growth multiplies by the same number each year, so the growth itself grows.",
+    "exclude": null,
+    "linked": [
+      "compound-growth",
+      "percentage",
+      "percentage-multiplier",
+      "rule-of-72",
+      "simple-interest"
+    ],
+    "links": []
+  },
+  {
     "text": "Negative number",
     "exclude": "negative-number",
     "linked": [],
@@ -5065,6 +6494,18 @@
     ]
   },
   {
+    "text": "Ratio",
+    "exclude": "factor",
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "Ratio",
+        "offset": 0
+      }
+    ]
+  },
+  {
     "text": "Multiple",
     "exclude": "multiple",
     "linked": [],
@@ -5272,6 +6713,18 @@
     ]
   },
   {
+    "text": "Compound growth",
+    "exclude": "power",
+    "linked": [],
+    "links": [
+      {
+        "concept": "compound-growth",
+        "text": "Compound growth",
+        "offset": 0
+      }
+    ]
+  },
+  {
     "text": "Fraction",
     "exclude": "fraction",
     "linked": [],
@@ -5428,6 +6881,18 @@
     ]
   },
   {
+    "text": "Ratio",
+    "exclude": "fraction",
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "Ratio",
+        "offset": 0
+      }
+    ]
+  },
+  {
     "text": "Decimal place",
     "exclude": "decimal-place",
     "linked": [],
@@ -5554,6 +7019,120 @@
       {
         "concept": "recurring-decimal",
         "text": "Recurring decimal",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Percentage",
+    "exclude": "percentage",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A number out of 100, written with the sign %.",
+    "exclude": "percentage",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A test has 100 marks and you score 73. That is 73%. A phone showing 40% battery has 40 parts left out of every 100.",
+    "exclude": "percentage",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find 35% of ₹800. 10% is ₹80, so 30% is ₹240. 5% is half of 10%, which is ₹40. 35% is ₹240 + ₹40 = ₹280.",
+    "exclude": "percentage",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Per cent means out of 100. So 25% is 25/100, which is 1/4 or 0.25.",
+    "exclude": "percentage",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "To find 10% of an amount, divide it by 10. 10% of ₹350 is ₹35.",
+    "exclude": "percentage",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Build other amounts from 10% and 1%. 30% is three lots of 10%, and 5% is half of 10%.",
+    "exclude": "percentage",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "To write a fraction as a percentage, make its bottom number 100. 3/5 = 60/100 = 60%.",
+    "exclude": "percentage",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 11
+      }
+    ]
+  },
+  {
+    "text": "What is 20% of 250?",
+    "exclude": "percentage",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "50",
+    "exclude": "percentage",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "the amount itself",
+    "exclude": "percentage",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "20% is not 20. It is 20 out of every 100, so 20% of 50 is 10 and 20% of 500 is 100.",
+    "exclude": "percentage",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 3 · Ratio, percentages and growth",
+    "exclude": "percentage",
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "Ratio",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Percentage multiplier",
+    "exclude": "percentage",
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage-multiplier",
+        "text": "Percentage multiplier",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Simple interest",
+    "exclude": "percentage",
+    "linked": [],
+    "links": [
+      {
+        "concept": "simple-interest",
+        "text": "Simple interest",
         "offset": 0
       }
     ]
@@ -9465,6 +11044,964 @@
     ]
   },
   {
+    "text": "Ratio",
+    "exclude": "ratio",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A way to compare two or more amounts by saying how many parts each one has.",
+    "exclude": "ratio",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A glass of nimbu pani uses 1 part lemon juice to 4 parts water, so the ratio is 1 : 4. A big jug with 3 cups of juice and 12 cups of water tastes the same.",
+    "exclude": "ratio",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Share 60 sweets in the ratio 2 : 3. There are 2 + 3 = 5 parts. One part is 60 ÷ 5 = 12 sweets. The shares are 2 × 12 = 24 and 3 × 12 = 36.",
+    "exclude": "ratio",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write the amounts in the same unit, in the order the question names them.",
+    "exclude": "ratio",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Divide every part by a common factor to simplify. 12 : 18 becomes 2 : 3.",
+    "exclude": "ratio",
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "common factor",
+        "offset": 23
+      }
+    ]
+  },
+  {
+    "text": "To share an amount in a ratio, add the parts and find what one part is worth.",
+    "exclude": "ratio",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Multiply that by each person's number of parts.",
+    "exclude": "ratio",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "₹35 is shared in the ratio 2 : 5. How many rupees is the smaller share?",
+    "exclude": "ratio",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "₹10",
+    "exclude": "ratio",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The ratio 2 : 3 compares one part with the other. As a fraction of the whole, the first share is 2/5, not 2/3.",
+    "exclude": "ratio",
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "fraction",
+        "offset": 55
+      }
+    ]
+  },
+  {
+    "text": "Chapter 3 · Ratio, percentages and growth",
+    "exclude": "ratio",
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage",
+        "text": "percentages",
+        "offset": 19
+      }
+    ]
+  },
+  {
+    "text": "Unitary method",
+    "exclude": "ratio",
+    "linked": [],
+    "links": [
+      {
+        "concept": "unitary-method",
+        "text": "Unitary method",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Direct proportion",
+    "exclude": "ratio",
+    "linked": [],
+    "links": [
+      {
+        "concept": "direct-proportion",
+        "text": "Direct proportion",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Inverse proportion",
+    "exclude": "ratio",
+    "linked": [],
+    "links": [
+      {
+        "concept": "inverse-proportion",
+        "text": "Inverse proportion",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Unitary method",
+    "exclude": "unitary-method",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Solving a problem by first finding what one of something is worth.",
+    "exclude": "unitary-method",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Six samosas cost ₹90 and you want four. First find the price of one: ₹90 ÷ 6 = ₹15. Then four samosas cost 4 × ₹15 = ₹60.",
+    "exclude": "unitary-method",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A car uses 15 litres of petrol to travel 240 km. How far does it go on 4 litres? On 1 litre it goes 240 ÷ 15 = 16 km. On 4 litres it goes 4 × 16 = 64 km.",
+    "exclude": "unitary-method",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write down what you know: how many items, and how much in total.",
+    "exclude": "unitary-method",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Divide to find the amount for one.",
+    "exclude": "unitary-method",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Multiply by the number you need.",
+    "exclude": "unitary-method",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Check that the answer is sensible. More items should cost more.",
+    "exclude": "unitary-method",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "5 mangoes cost ₹150. What do 7 mangoes cost, in rupees?",
+    "exclude": "unitary-method",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "₹210",
+    "exclude": "unitary-method",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "dividing the wrong way round",
+    "exclude": "unitary-method",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Say what you want in words first. Rupees for each mango means rupees ÷ mangoes: 150 ÷ 5, not 5 ÷ 150.",
+    "exclude": "unitary-method",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 3 · Ratio, percentages and growth",
+    "exclude": "unitary-method",
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "Ratio",
+        "offset": 12
+      },
+      {
+        "concept": "percentage",
+        "text": "percentages",
+        "offset": 19
+      }
+    ]
+  },
+  {
+    "text": "Direct proportion",
+    "exclude": "unitary-method",
+    "linked": [],
+    "links": [
+      {
+        "concept": "direct-proportion",
+        "text": "Direct proportion",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Direct proportion",
+    "exclude": "direct-proportion",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Two amounts are in direct proportion when multiplying one by a number multiplies the other by the same number.",
+    "exclude": "direct-proportion",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Petrol costs ₹100 a litre. 2 litres cost ₹200 and 10 litres cost ₹1,000. Whatever happens to the litres, the same thing happens to the cost.",
+    "exclude": "direct-proportion",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A map shows 3 cm for every 12 km of road. How long is a road that measures 5 cm on the map? 1 cm stands for 12 ÷ 3 = 4 km. So 5 cm stands for 5 × 4 = 20 km.",
+    "exclude": "direct-proportion",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Test the link: if one amount doubles, does the other double too?",
+    "exclude": "direct-proportion",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Divide to find the amount for one.",
+    "exclude": "direct-proportion",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Multiply by the new number.",
+    "exclude": "direct-proportion",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Or find what one amount was multiplied by, and multiply the other amount by the same number.",
+    "exclude": "direct-proportion",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "8 identical tiles weigh 20 kg. How many kilograms do 12 tiles weigh?",
+    "exclude": "direct-proportion",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "30 kg",
+    "exclude": "direct-proportion",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "In direct proportion both amounts go up together. In inverse proportion one goes up as the other comes down, like workers and the days a job takes.",
+    "exclude": "direct-proportion",
+    "linked": [],
+    "links": [
+      {
+        "concept": "inverse-proportion",
+        "text": "inverse proportion",
+        "offset": 53
+      }
+    ]
+  },
+  {
+    "text": "Chapter 3 · Ratio, percentages and growth",
+    "exclude": "direct-proportion",
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "Ratio",
+        "offset": 12
+      },
+      {
+        "concept": "percentage",
+        "text": "percentages",
+        "offset": 19
+      }
+    ]
+  },
+  {
+    "text": "Inverse proportion",
+    "exclude": "direct-proportion",
+    "linked": [],
+    "links": [
+      {
+        "concept": "inverse-proportion",
+        "text": "Inverse proportion",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Inverse proportion",
+    "exclude": "inverse-proportion",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Two amounts are in inverse proportion when multiplying one by a number divides the other by the same number.",
+    "exclude": "inverse-proportion",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A box of 24 laddoos is shared equally. With 4 friends, each gets 6. With 8 friends, each gets 3. Twice the friends means half the laddoos each.",
+    "exclude": "inverse-proportion",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "5 machines print a newspaper run in 6 hours. How long do 3 machines take? The job is 5 × 6 = 30 hours of work for one machine. 3 machines take 30 ÷ 3 = 10 hours. Fewer machines, so more time.",
+    "exclude": "inverse-proportion",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Test the link: if one amount doubles, does the other halve?",
+    "exclude": "inverse-proportion",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Multiply the pair you know. That total never changes.",
+    "exclude": "inverse-proportion",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Divide the total by the new number.",
+    "exclude": "inverse-proportion",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A stack of hay lasts 12 cows for 10 days. How many days does it last 8 cows?",
+    "exclude": "inverse-proportion",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "15 days",
+    "exclude": "inverse-proportion",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Ask what happens when one amount goes up. If the other goes down, it is inverse proportion. Finding the amount for one by dividing will then give nonsense.",
+    "exclude": "inverse-proportion",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 3 · Ratio, percentages and growth",
+    "exclude": "inverse-proportion",
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "Ratio",
+        "offset": 12
+      },
+      {
+        "concept": "percentage",
+        "text": "percentages",
+        "offset": 19
+      }
+    ]
+  },
+  {
+    "text": "Percentage multiplier",
+    "exclude": "percentage-multiplier",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The one number you multiply by to raise or lower an amount by a percentage.",
+    "exclude": "percentage-multiplier",
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage",
+        "text": "percentage",
+        "offset": 64
+      }
+    ]
+  },
+  {
+    "text": "A ₹500 shirt is 10% off, so you pay 90% of the price. 90% is 0.9. The sale price is ₹500 × 0.9 = ₹450, in one multiplication.",
+    "exclude": "percentage-multiplier",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A ₹1,200 bill has 18% tax added. 100% + 18% = 118%, so the multiplier is 1.18. ₹1,200 × 1.18 = ₹1,416.",
+    "exclude": "percentage-multiplier",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Start from 100%. For a rise, add the percentage. For a fall, take it away.",
+    "exclude": "percentage-multiplier",
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage",
+        "text": "percentage",
+        "offset": 37
+      }
+    ]
+  },
+  {
+    "text": "Divide by 100 to write the result as a decimal. 112% is 1.12 and 85% is 0.85.",
+    "exclude": "percentage-multiplier",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Multiply the amount by that decimal.",
+    "exclude": "percentage-multiplier",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "For changes one after another, multiply by each multiplier in turn.",
+    "exclude": "percentage-multiplier",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "What is the multiplier for a 35% fall?",
+    "exclude": "percentage-multiplier",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "0.65",
+    "exclude": "percentage-multiplier",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "the percentage on its own",
+    "exclude": "percentage-multiplier",
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage",
+        "text": "percentage",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "Multiplying by 0.18 finds the tax alone. Multiplying by 1.18 finds the bill with the tax already added.",
+    "exclude": "percentage-multiplier",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 3 · Ratio, percentages and growth",
+    "exclude": "percentage-multiplier",
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "Ratio",
+        "offset": 12
+      },
+      {
+        "concept": "percentage",
+        "text": "percentages",
+        "offset": 19
+      }
+    ]
+  },
+  {
+    "text": "Reverse percentage",
+    "exclude": "percentage-multiplier",
+    "linked": [],
+    "links": [
+      {
+        "concept": "reverse-percentage",
+        "text": "Reverse percentage",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Compound growth",
+    "exclude": "percentage-multiplier",
+    "linked": [],
+    "links": [
+      {
+        "concept": "compound-growth",
+        "text": "Compound growth",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Reverse percentage",
+    "exclude": "reverse-percentage",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Working back from the amount after a percentage change to the amount before it.",
+    "exclude": "reverse-percentage",
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage",
+        "text": "percentage",
+        "offset": 37
+      }
+    ]
+  },
+  {
+    "text": "A shop adds 10% to every price, and a toy now costs ₹220. The ₹220 is 110% of the old price. So 10% is ₹20, and the old price was ₹200.",
+    "exclude": "reverse-percentage",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "After a 30% cut, a kite costs ₹140. The multiplier is 0.7. ₹140 ÷ 0.7 = ₹200. Check: 30% of ₹200 is ₹60, and ₹200 − ₹60 = ₹140.",
+    "exclude": "reverse-percentage",
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage-multiplier",
+        "text": "multiplier",
+        "offset": 40
+      }
+    ]
+  },
+  {
+    "text": "Decide which amount is the 100%. It is the amount before the change.",
+    "exclude": "reverse-percentage",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find the multiplier for the change. A 10% rise is × 1.1.",
+    "exclude": "reverse-percentage",
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage-multiplier",
+        "text": "multiplier",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "Divide the new amount by the multiplier.",
+    "exclude": "reverse-percentage",
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage-multiplier",
+        "text": "multiplier",
+        "offset": 29
+      }
+    ]
+  },
+  {
+    "text": "Check by going forwards from your answer.",
+    "exclude": "reverse-percentage",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "After a 50% rise, a ticket costs ₹60. What did it cost before, in rupees?",
+    "exclude": "reverse-percentage",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "₹40",
+    "exclude": "reverse-percentage",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "taking the same percentage off",
+    "exclude": "reverse-percentage",
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage",
+        "text": "percentage",
+        "offset": 16
+      }
+    ]
+  },
+  {
+    "text": "Taking 10% off ₹220 gives ₹198, not ₹200. The 10% that was added was 10% of the old price.",
+    "exclude": "reverse-percentage",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 3 · Ratio, percentages and growth",
+    "exclude": "reverse-percentage",
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "Ratio",
+        "offset": 12
+      },
+      {
+        "concept": "percentage",
+        "text": "percentages",
+        "offset": 19
+      }
+    ]
+  },
+  {
+    "text": "Simple interest",
+    "exclude": "simple-interest",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Interest worked out on the starting amount only, so it adds the same sum every year.",
+    "exclude": "simple-interest",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "You lend a cousin ₹1,000 at 5% simple interest. Every year the interest is 5% of ₹1,000, which is ₹50. After 3 years it comes to ₹150.",
+    "exclude": "simple-interest",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "₹4,000 earns 6% simple interest for 5 years. One year's interest is 6% of ₹4,000, which is ₹240. Five years give 5 × ₹240 = ₹1,200. The total is ₹4,000 + ₹1,200 = ₹5,200.",
+    "exclude": "simple-interest",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find the interest for one year: the percentage of the starting amount.",
+    "exclude": "simple-interest",
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage",
+        "text": "percentage",
+        "offset": 36
+      }
+    ]
+  },
+  {
+    "text": "Multiply by the number of years.",
+    "exclude": "simple-interest",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Add the starting amount if the question asks for the total.",
+    "exclude": "simple-interest",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "₹2,000 earns 5% simple interest a year. How many rupees of interest is that in 3 years?",
+    "exclude": "simple-interest",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "₹300",
+    "exclude": "simple-interest",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Simple interest pays on the starting amount only. Compound interest also pays on the interest already earned.",
+    "exclude": "simple-interest",
+    "linked": [],
+    "links": [
+      {
+        "concept": "compound-growth",
+        "text": "Compound interest",
+        "offset": 50
+      }
+    ]
+  },
+  {
+    "text": "Chapter 3 · Ratio, percentages and growth",
+    "exclude": "simple-interest",
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "Ratio",
+        "offset": 12
+      },
+      {
+        "concept": "percentage",
+        "text": "percentages",
+        "offset": 19
+      }
+    ]
+  },
+  {
+    "text": "Compound growth",
+    "exclude": "compound-growth",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Growth where each increase is worked out on the new, bigger total.",
+    "exclude": "compound-growth",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "You put ₹2,000 in a bank at 10% a year. Year 1 adds ₹200. Year 2 adds ₹220, because the bank now pays on ₹2,200. The interest earns interest.",
+    "exclude": "compound-growth",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "₹8,000 grows at 5% compound interest for 2 years. The multiplier is 1.05. ₹8,000 × 1.05 = ₹8,400, and ₹8,400 × 1.05 = ₹8,820. The interest is ₹8,820 − ₹8,000 = ₹820.",
+    "exclude": "compound-growth",
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage-multiplier",
+        "text": "multiplier",
+        "offset": 54
+      }
+    ]
+  },
+  {
+    "text": "Find the multiplier for one year. For 10% growth it is 1.1.",
+    "exclude": "compound-growth",
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage-multiplier",
+        "text": "multiplier",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "Multiply the starting amount by it once for each year.",
+    "exclude": "compound-growth",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "For many years, a calculator's power key does the repeated multiplying.",
+    "exclude": "compound-growth",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Take away the starting amount if the question asks for the interest alone.",
+    "exclude": "compound-growth",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "₹1,000 grows by 20% a year, compounded. How many rupees is it after 2 years?",
+    "exclude": "compound-growth",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "₹1,440",
+    "exclude": "compound-growth",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Simple interest on ₹1,000 at 20% adds ₹200 a year, which gives ₹1,400 after 2 years. Compound growth gives ₹1,440, because year 2 also pays on the first ₹200.",
+    "exclude": "compound-growth",
+    "linked": [],
+    "links": [
+      {
+        "concept": "simple-interest",
+        "text": "Simple interest",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Chapter 3 · Ratio, percentages and growth",
+    "exclude": "compound-growth",
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "Ratio",
+        "offset": 12
+      },
+      {
+        "concept": "percentage",
+        "text": "percentages",
+        "offset": 19
+      }
+    ]
+  },
+  {
+    "text": "Rule of 72",
+    "exclude": "compound-growth",
+    "linked": [],
+    "links": [
+      {
+        "concept": "rule-of-72",
+        "text": "Rule of 72",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Rule of 72",
+    "exclude": "rule-of-72",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A quick estimate: divide 72 by the yearly percentage growth to get the years needed to double.",
+    "exclude": "rule-of-72",
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage",
+        "text": "percentage",
+        "offset": 42
+      }
+    ]
+  },
+  {
+    "text": "A bank pays 6% a year. 72 ÷ 6 = 12, so savings double in about 12 years. At 12% a year they double in about 6 years. Double the rate, half the wait.",
+    "exclude": "rule-of-72",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Prices rise by 4% a year. How long until they double? 72 ÷ 4 = 18, so about 18 years. The long sum agrees: 1.04 multiplied 18 times is about 2.03.",
+    "exclude": "rule-of-72",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Take the percentage growth for one year.",
+    "exclude": "rule-of-72",
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage",
+        "text": "percentage",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "Divide 72 by it.",
+    "exclude": "rule-of-72",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The answer is roughly the number of years the amount takes to double.",
+    "exclude": "rule-of-72",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "It is an estimate. It works best for rates between about 4% and 12%.",
+    "exclude": "rule-of-72",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Money grows at 9% a year. About how many years does it take to double?",
+    "exclude": "rule-of-72",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "8 years",
+    "exclude": "rule-of-72",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "an exact answer",
+    "exclude": "rule-of-72",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "At 8% the rule says 9 years, and 1.08 multiplied 9 times is 1.999, which is very close. At 36% the rule says 2 years, but the money has only grown 1.85 times by then.",
+    "exclude": "rule-of-72",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 3 · Ratio, percentages and growth",
+    "exclude": "rule-of-72",
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "Ratio",
+        "offset": 12
+      },
+      {
+        "concept": "percentage",
+        "text": "percentages",
+        "offset": 19
+      }
+    ]
+  },
+  {
     "text": "Find the Highest Common Factor (HCF) and Lowest Common Multiple (LCM) of 72 and 120 using prime factorisation, and verify that HCF × LCM = 72 × 120.",
     "exclude": null,
     "linked": [],
@@ -9744,6 +12281,226 @@
     ]
   },
   {
+    "text": "After a 15% monsoon discount, a jacket costs ₹2,040. Using a reverse-percentage multiplier, find its original price before the discount.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage-multiplier",
+        "text": "percentage multiplier",
+        "offset": 69
+      }
+    ]
+  },
+  {
+    "text": "Step 1: A 15% discount leaves 100% − 15% = 85% of the old price. The multiplier is 0.85.\nStep 2: So the old price × 0.85 = ₹2,040.\nStep 3: To undo × 0.85, divide by 0.85. Multiply both numbers by 100 first: 204,000 ÷ 85 = 2,400.\nStep 4: The old price was ₹2,400. Check forwards: ₹2,400 × 0.85 = ₹2,040.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage-multiplier",
+        "text": "multiplier",
+        "offset": 69
+      }
+    ]
+  },
+  {
+    "text": "The old price × 0.85 = ₹2,040, so the old price is ₹2,040 ÷ 0.85 = ___.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Evaluate 36 ÷ 0.15 without a calculator.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Step 1: You are dividing by a number less than 1, so expect an answer bigger than 36.\nStep 2: Multiply both numbers by 100 to clear the decimal. 36 ÷ 0.15 becomes 3,600 ÷ 15.\nStep 3: 15 × 24 = 360, so 360 ÷ 15 = 24 and 3,600 ÷ 15 = 240.\nStep 4: Check: 240 × 0.15 = 36.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "36 ÷ 0.15 is the same as 3,600 ÷ 15, which is ___.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A price increases by 20% and then decreases by 20%. What is the net percentage change?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage",
+        "text": "percentage",
+        "offset": 68
+      }
+    ]
+  },
+  {
+    "text": "Step 1: A 20% rise has the multiplier 1.2.\nStep 2: A 20% fall has the multiplier 0.8.\nStep 3: Changes in a row multiply. 1.2 × 0.8 = 0.96.\nStep 4: 0.96 is 96% of the starting price, so the price has fallen by 4%. The overall change is −4%.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage-multiplier",
+        "text": "multiplier",
+        "offset": 27
+      }
+    ]
+  },
+  {
+    "text": "The two multipliers are 1.2 and 0.8. Multiply them and compare with 1. The overall change is ___.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage-multiplier",
+        "text": "multipliers",
+        "offset": 8
+      }
+    ]
+  },
+  {
+    "text": "₹50,000 is invested at 10% per annum compound interest for 3 years. Find the total interest earned.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "compound-growth",
+        "text": "compound interest",
+        "offset": 37
+      }
+    ]
+  },
+  {
+    "text": "Step 1: The multiplier for 10% growth is 1.1.\nStep 2: Year 1: ₹50,000 × 1.1 = ₹55,000.\nStep 3: Year 2: ₹55,000 × 1.1 = ₹60,500. Year 3: ₹60,500 × 1.1 = ₹66,550.\nStep 4: The interest is the final amount take away the start. ₹66,550 − ₹50,000 = ₹16,550.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage-multiplier",
+        "text": "multiplier",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "After 3 years the ₹50,000 has grown to ₹66,550. The interest earned is ___.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Kym, Aarav, and Meera share a prize in the ratio 3 : 5 : 8. Given that Meera receives ₹1,350 more than Kym, find the total prize using a Singapore Bar Model.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "ratio",
+        "offset": 43
+      }
+    ]
+  },
+  {
+    "text": "Step 1: Meera has 8 parts and Kym has 3 parts, so Meera has 8 − 3 = 5 parts more.\nStep 2: Those 5 parts are the ₹1,350. So 1 part = ₹1,350 ÷ 5 = ₹270.\nStep 3: There are 3 + 5 + 8 = 16 parts in all.\nStep 4: The total prize is 16 × ₹270 = ₹4,320.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "5 parts = ₹1,350, so 1 part = ₹270. All 16 parts together make ___.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Convert 3.5 m² into cm².",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Step 1: 1 m = 100 cm.\nStep 2: A square 1 m by 1 m is 100 cm by 100 cm. So 1 m² = 100 × 100 = 10,000 cm².\nStep 3: Multiply the area by 10,000. 3.5 × 10,000 = 35,000.\nStep 4: 3.5 m² = 35,000 cm².",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "1 m² = 10,000 cm², so 3.5 m² = ___.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "6 pumps working together empty a flooded basement in 10 hours. How long will 15 identical pumps take?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Step 1: More pumps share the same job, so the time goes down. This is inverse proportion.\nStep 2: Find the whole job. 6 pumps × 10 hours = 60 hours of work for one pump.\nStep 3: Share the job among 15 pumps. 60 ÷ 15 = 4.\nStep 4: 15 pumps take 4 hours. Check: 15 × 4 = 60, the same job.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "inverse-proportion",
+        "text": "inverse proportion",
+        "offset": 70
+      }
+    ]
+  },
+  {
+    "text": "The job is 6 × 10 = 60 hours of work for one pump. With 15 pumps it takes ___.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The ratio A : B = 3 : 4 and B : C = 6 : 7. Find the combined three-way ratio A : B : C in simplest integer form.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "ratio",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "Step 1: B is 4 in one ratio and 6 in the other. The lowest common multiple of 4 and 6 is 12.\nStep 2: Multiply both parts of 3 : 4 by 3, so that B becomes 12. A : B = 9 : 12.\nStep 3: Multiply both parts of 6 : 7 by 2, so that B becomes 12. B : C = 12 : 14.\nStep 4: B now matches, so join them. A : B : C = 9 : 12 : 14. No factor divides all three, so stop.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "ratio",
+        "offset": 22
+      },
+      {
+        "concept": "lcm",
+        "text": "lowest common multiple",
+        "offset": 52
+      },
+      {
+        "concept": "factor",
+        "text": "factor",
+        "offset": 321
+      }
+    ]
+  },
+  {
+    "text": "A : B = 9 : 12 and B : C = 12 : 14, so A : B : C = ___.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
     "text": "Multiply decimals as whole numbers, then count the decimal places back in. To divide by a decimal, first multiply both numbers by 10 or 100 so you divide by a whole number.",
     "exclude": null,
     "linked": [],
@@ -9840,6 +12597,98 @@
         "concept": "reciprocal",
         "text": "reciprocal",
         "offset": 119
+      }
+    ]
+  },
+  {
+    "text": "Multiplying by a number between 0 and 1 makes a positive amount smaller. 0.4 of something is less than all of it.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Dividing by a number between 0 and 1 makes a positive amount bigger. Scale both numbers up until you divide by a whole number: 7 ÷ 0.25 is 700 ÷ 25.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A percentage change is one multiplication. A 15% rise is × 1.15 and a 15% fall is × 0.85. To go back to the old amount, divide by the multiplier. Changes in a row multiply.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "percentage",
+        "text": "percentage",
+        "offset": 2
+      },
+      {
+        "concept": "percentage-multiplier",
+        "text": "multiplier",
+        "offset": 134
+      }
+    ]
+  },
+  {
+    "text": "Fractions, decimals and percentages are three ways to write one number: 1/4 = 0.25 = 25%. Pick the form that makes the sum shortest.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "fraction",
+        "text": "Fractions",
+        "offset": 0
+      },
+      {
+        "concept": "percentage",
+        "text": "percentages",
+        "offset": 24
+      }
+    ]
+  },
+  {
+    "text": "A length in metres is 100 times as many centimetres. An area has two lengths, so multiply by 100 twice: 1 m² = 10,000 cm². A volume has three, so 1 m³ = 1,000,000 cm³.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Put both amounts in the same unit first. Then divide every part of the ratio by a common factor until no more will go.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "ratio",
+        "offset": 71
+      },
+      {
+        "concept": "hcf",
+        "text": "common factor",
+        "offset": 82
+      }
+    ]
+  },
+  {
+    "text": "Add the parts, find what one part is worth, then multiply for each share. If you are told a difference and not the total, match it to the difference in parts.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "In direct proportion, both amounts are multiplied by the same number. In inverse proportion, one is multiplied and the other is divided, so multiplying them together always gives the same answer.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "direct-proportion",
+        "text": "direct proportion",
+        "offset": 3
+      },
+      {
+        "concept": "inverse-proportion",
+        "text": "inverse proportion",
+        "offset": 73
       }
     ]
   },
@@ -9967,13 +12816,30 @@
     "text": "Find one part first: to share 45 in the ratio 4 : 5, there are 9 parts, so one part is 5 and the shares are 20 and 25. If more workers do the same job, it takes less time: 2 workers taking 6 hours means 1 worker takes 12 hours.",
     "exclude": null,
     "linked": [],
-    "links": []
+    "links": [
+      {
+        "concept": "ratio",
+        "text": "ratio",
+        "offset": 40
+      }
+    ]
   },
   {
     "text": "A percentage change is one multiplication: a 30% decrease is × 0.7 and a 5% increase is × 1.05. Two changes multiply, so up 40% then down 40% is × 1.4 × 0.6 = × 0.84, and to undo a change you divide by its multiplier.",
     "exclude": null,
     "linked": [],
-    "links": []
+    "links": [
+      {
+        "concept": "percentage",
+        "text": "percentage",
+        "offset": 2
+      },
+      {
+        "concept": "percentage-multiplier",
+        "text": "multiplier",
+        "offset": 206
+      }
+    ]
   },
   {
     "text": "Change every length to the same unit before you calculate: 1 m = 100 cm, so 3.2 m = 320 cm. An area scales by the square of the length factor, so 1 m² = 100 × 100 = 10,000 cm², and doubling every length makes an area 4 times as big.",

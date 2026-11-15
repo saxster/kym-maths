@@ -162,6 +162,32 @@ def cards(k):
             "standsOn": [],
             "footing": "place-value",
         },
+        "percentage": {
+            "name": "Percentage",
+            "aliases": ["percentage", "percentages", "per cent", "percent"],
+            "oneSentence": "A number out of 100, written with the sign %.",
+            "picture": "A test has 100 marks and you score 73. That is 73%. "
+                       "A phone showing 40% battery has 40 parts left out of every 100.",
+            "steps": [
+                "Per cent means out of 100. So 25% is 25/100, which is 1/4 or 0.25.",
+                "To find 10% of an amount, divide it by 10. 10% of ₹350 is ₹35.",
+                "Build other amounts from 10% and 1%. 30% is three lots of 10%, and 5% is half of 10%.",
+                "To write a fraction as a percentage, make its bottom number 100. 3/5 = 60/100 = 60%.",
+            ],
+            "workedExample": "Find 35% of ₹800. 10% is ₹80, so 30% is ₹240. 5% is half of 10%, which is ₹40. "
+                             "35% is ₹240 + ₹40 = ₹280.",
+            "check": {
+                "prompt": "What is 20% of 250?",
+                "answer": "50",
+                "answerKey": k.one(k.num("50"), accepts=["50", "= 50"], rejects=["5", "25", "500", "12.5"]),
+            },
+            "mixUp": {
+                "name": "the amount itself",
+                "how": "20% is not 20. It is 20 out of every 100, so 20% of 50 is 10 and 20% of 500 is 100.",
+            },
+            "standsOn": [],
+            "footing": "percentages",
+        },
     }
 
 
@@ -216,6 +242,15 @@ def sums():
         ("3.14159 to 2 decimal places", round_dp("3.14159", 2), Fraction("3.14")),
         ("the digit after 3.14 is 1", "3.14159"[4], "1"),
         ("7.286 to 2 decimal places", round_dp("7.286", 2), Fraction("7.29")),
+        # percentage
+        ("25%", (Fraction(25, 100), Fraction(25, 100)), (Fraction(1, 4), Fraction("0.25"))),
+        ("10% of ₹350", Fraction(350, 10), 35),
+        ("30% and 5% from 10%", (3 * 10, Fraction(10, 2)), (30, 5)),
+        ("3/5 as a percentage", (Fraction(3, 5), Fraction(3, 5) * 100), (Fraction(60, 100), 60)),
+        ("35% of ₹800 in pieces", (800 // 10, 3 * 80, 80 // 2, 240 + 40), (80, 240, 40, 280)),
+        ("35% of ₹800", Fraction(35, 100) * 800, 280),
+        ("20% of 250", Fraction(20, 100) * 250, 50),
+        ("20% of 50 and of 500", (Fraction(20, 100) * 50, Fraction(20, 100) * 500), (10, 100)),
     ]
 
 
@@ -228,4 +263,5 @@ def answers():
         "power-check": 2 ** 4,
         "fraction-check": Fraction(8 - 3, 8),
         "decimal-place-check": round_dp("7.286", 2),
+        "percentage-check": Fraction(20, 100) * 250,
     }

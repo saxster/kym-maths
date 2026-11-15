@@ -765,10 +765,10 @@ public enum MathematicalDebateEngine {
 
 public enum MathematicalDebateCatalog {
     public static let all: [MathematicalDebateScenario] = [
-        // Ch 3 -> OUP Ch 2 (Algebraic Expressions & Area Models)
+        // Ch 4 -> OUP Ch 2 (Algebraic Expressions & Area Models). The id keeps its old number.
         MathematicalDebateScenario(
             id: "debate-ch03-algebra",
-            chapterNumber: 3,
+            chapterNumber: 4,
             oupUnitNumber: 2,
             title: "The Freshman's Dream Tile Trap",
             contextPrompt: "An architect expands a square courtyard of side x meters by adding 3 meters to both length and width. Vivaan and Ananya debate the new area (x + 3)²:",
@@ -800,42 +800,6 @@ public enum MathematicalDebateCatalog {
                 )
             ],
             invariantTakeaway: "(a + b)² = a² + 2ab + b²; the two cross-rectangles 2ab only vanish when one sign is negative, as in (a + b)(a − b)."
-        ),
-        // Ch 4 -> OUP Ch 6 (Fractions, Decimals & Recurring Tails)
-        MathematicalDebateScenario(
-            id: "debate-ch04-fractions",
-            chapterNumber: 4,
-            oupUnitNumber: 6,
-            title: "Shearing the Infinite Tail",
-            contextPrompt: "To convert x = 0.272727... (with a 2-digit repeating block) into a fraction, Dev and Sana compare their first algebraic step:",
-            speakerAName: "Dev",
-            speakerAClaim: "Multiply by 10 to get 10x = 2.72727..., then subtract x!",
-            speakerBName: "Sana",
-            speakerBClaim: "Because TWO digits ('27') repeat, multiply by 10² = 100 so 100x = 27.2727... lines up its decimal places with x = 0.2727...!",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch04-a",
-                    speakerLabel: "Dev is right (use 10x − x)",
-                    reasoningStatement: "Every recurring decimal converts using 9x.",
-                    isCorrect: false,
-                    socraticRebuttal: "If you line up 2.7272... above 0.2727..., the tenths digit 7 sits over 2—the infinite tail doesn't cancel!"
-                ),
-                MathematicalDebateChoice(
-                    id: "ch04-b",
-                    speakerLabel: "Sana is right (use 100x − x = 99x)",
-                    reasoningStatement: "Shifting by 2 decimal places (×100) shifts the repeating period by one full cycle so the tails match.",
-                    isCorrect: true,
-                    socraticRebuttal: "Exact! 99x = 27 ⇒ x = 27/99 = 3/11."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch04-c",
-                    speakerLabel: "Neither — just write 27/100",
-                    reasoningStatement: "Two digits after the decimal point always means hundredths.",
-                    isCorrect: false,
-                    socraticRebuttal: "27/100 is 0.27000... (terminating), which is slightly smaller than 0.272727..."
-                )
-            ],
-            invariantTakeaway: "For a k-digit repeating block, multiply by 10^k so subtracting x shears off the infinite tail cleanly."
         ),
         // Ch 5 -> OUP Ch 7 (Linear Equations & Inequalities)
         MathematicalDebateScenario(

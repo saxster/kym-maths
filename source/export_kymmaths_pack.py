@@ -20,6 +20,7 @@ import content_checks
 from book import ch00 as book_ch00
 from book import ch01 as book_ch01
 from book import ch02 as book_ch02
+from book import ch03 as book_ch03
 from book import concepts as book_concepts
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -28,7 +29,7 @@ BOOK_OUT = ROOT / "KymMaths" / "KymMaths" / "Resources" / "PatternedWorldBook" /
 GOLDEN_OUT = ROOT / "KymMaths" / "Tests" / "Golden" / "concept-links.json"
 
 # Chapters rewritten by hand to docs/CONTENT_BRIEF.md. The content checks apply to these.
-BOOK_CHAPTERS = (book_ch00, book_ch01, book_ch02)
+BOOK_CHAPTERS = (book_ch00, book_ch01, book_ch02, book_ch03)
 # Saved learner responses key on callout ids, so a rewritten chapter keeps the old ids.
 CALLOUT_ID_SUFFIX = {"predict": "predict", "check": "aha", "careful": "trap"}
 
@@ -261,22 +262,6 @@ def build_volumes():
 
 def build_chapters():
     raw_specs = [
-        (
-            3, 1, "Ratios, Percentages & Exponential Compounding",
-            "OUP Ch 9 & Ch 12 · Singapore unitary bar models, percentage multipliers & 20-year rupee compounding",
-            "A percentage change is a multiplicative scale factor (1 ± r); repeated changes multiply, they never add.",
-            "Run the @saxster/atlas ₹1,000/month at 8% machine over 20 years and compare white savings, red simple interest, and amber compound interest.",
-            "A +20% rise followed by a −20% drop lands at 1.2 × 0.8 = 0.96 (a 4% loss!), while compounding multiplies by (1 + r)ⁿ so interest itself earns interest!",
-            "A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ)",
-            [
-                {"symbol": "P", "visualPart": "Blue initial principal bar", "colorRole": "blue", "meaning": "Starting value (100% reference unit)"},
-                {"symbol": "(1 + r)ⁿ", "visualPart": "Red & Amber compounding stack columns", "colorRole": "amber", "meaning": "Exponential multiplier over n periods"},
-                {"symbol": "wᵢ / ∑ wⱼ", "visualPart": "Green unitary bar-model box", "colorRole": "green", "meaning": "Value of 1 equal unit × k parts"}
-            ],
-            "maths/ch03-ratios-compounding/index.html",
-            ["Unitary Method", "Ratio Partition", "Percentage Multiplier", "Reverse Percentage", "Compound Growth", "Rule of 72"],
-            ["w_singapore_ratio_bar_model", "w_compound_multiplier_machine"]
-        ),
         (
             4, 2, "From Bar Models to Algebraic Expressions",
             "OUP Ch 2 · Expanding brackets, factorising by HCF, quadratics & Difference of Two Squares",
@@ -5119,23 +5104,28 @@ function drawSandbox() {{
     case 3: {{
       // Ch 3: sharing in a ratio with bars of equal parts, and ₹1,000 left for 20 years
       const pA = Math.round(a), pB = Math.round(b), rate = c / 100;
-      const uW = 34, yA = 42, yB = 92;
+      // Each bar's label sits above it, and every text line is short, so nothing runs off a phone's narrow canvas
+      const uW = 26, yA = 40, yB = 96;
+      const parts = (n) => `${{n}} ${{n === 1 ? 'part' : 'parts'}}`;
+      ctx.fillStyle = red; ctx.fillText(`A: ${{parts(pA)}} = ₹${{pA * 40}}`, 46, yA - 8);
       for (let i = 0; i < pA; i++) {{
         ctx.fillStyle = red + '30'; ctx.strokeStyle = red; ctx.lineWidth = 2;
-        ctx.fillRect(46 + i * (uW + 4), yA, uW, 34); ctx.strokeRect(46 + i * (uW + 4), yA, uW, 34);
+        ctx.fillRect(46 + i * (uW + 4), yA, uW, uW); ctx.strokeRect(46 + i * (uW + 4), yA, uW, uW);
       }}
-      ctx.fillStyle = red; ctx.fillText(`A: ${{pA}} parts = ₹${{pA * 40}}`, 54 + pA * (uW + 4), yA + 22);
+      ctx.fillStyle = blue; ctx.fillText(`B: ${{parts(pB)}} = ₹${{pB * 40}}`, 46, yB - 8);
       for (let i = 0; i < pB; i++) {{
         ctx.fillStyle = blue + '30'; ctx.strokeStyle = blue; ctx.lineWidth = 2;
-        ctx.fillRect(46 + i * (uW + 4), yB, uW, 34); ctx.strokeRect(46 + i * (uW + 4), yB, uW, 34);
+        ctx.fillRect(46 + i * (uW + 4), yB, uW, uW); ctx.strokeRect(46 + i * (uW + 4), yB, uW, uW);
       }}
-      ctx.fillStyle = blue; ctx.fillText(`B: ${{pB}} parts = ₹${{pB * 40}}`, 54 + pB * (uW + 4), yB + 22);
-      ctx.fillStyle = muted; ctx.fillText(`1 part = ₹40 · A : B = ${{pA}} : ${{pB}} · together ₹${{(pA + pB) * 40}}`, 46, 148);
+      ctx.fillStyle = muted; ctx.fillText(`1 part = ₹40 · ${{pA + pB}} parts = ₹${{(pA + pB) * 40}}`, 46, 150);
       // What ₹1,000 grows to in 20 years
       const simp20 = 1000 * (1 + 20 * rate), comp20 = 1000 * Math.pow(1 + rate, 20);
       const rupees = (x) => '₹' + Math.round(x).toLocaleString('en-IN');
-      ctx.fillStyle = amber; ctx.fillText(`₹1,000 for 20 years at ${{c}}%: ${{rupees(simp20)}} with simple interest · ${{rupees(comp20)}} with compound`, 46, 175);
-      ctx.fillStyle = green; ctx.fillText('Up 20%, then down 20%: 1.20 × 0.80 = 0.96, which is a 4% loss', 46, 208);
+      ctx.fillStyle = amber; ctx.fillText(`₹1,000 for 20 years at ${{c}}%`, 46, 178);
+      ctx.fillText(`simple interest: ${{rupees(simp20)}}`, 46, 196);
+      ctx.fillText(`compound interest: ${{rupees(comp20)}}`, 46, 214);
+      ctx.fillStyle = green; ctx.fillText('Up 20%, then down 20%:', 46, 242);
+      ctx.fillText('1.2 × 0.8 = 0.96', 46, 260);
       readoutHtml = `A : B = ${{pA}} : ${{pB}} and 1 part = ₹40, so A gets <b>₹${{pA * 40}}</b> and B gets <b>₹${{pB * 40}}</b> · ₹1,000 at ${{c}}% for 20 years: <b>${{rupees(comp20)}}</b> with compound interest, ${{rupees(simp20)}} with simple interest`;
       break;
     }}
