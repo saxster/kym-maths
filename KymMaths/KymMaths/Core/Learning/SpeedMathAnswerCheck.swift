@@ -15,6 +15,7 @@ enum SpeedMathAnswerCheck {
         text.lowercased()
             .replacingOccurrences(of: "−", with: "-")
             .replacingOccurrences(of: "pi", with: "π")
+            .replacingOccurrences(of: "%", with: "")
             .filter { !$0.isWhitespace }
     }
 }

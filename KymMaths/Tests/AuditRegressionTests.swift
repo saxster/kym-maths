@@ -62,7 +62,9 @@ struct AuditRegressionTests {
         ("6√2", "6√2", true),
         ("-43", "-43", true),
         ("−43", "-43", true),
-        ("43", "-43", false)
+        ("43", "-43", false),
+        ("60%", "60", true),
+        ("6/8", "3/4", false)
     ])
     func speedCheckIsExact(typed: String, expected: String, correct: Bool) {
         #expect(SpeedMathAnswerCheck.isCorrect(typed: typed, expected: expected) == correct)
