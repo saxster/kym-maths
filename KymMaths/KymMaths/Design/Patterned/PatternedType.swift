@@ -110,15 +110,17 @@ extension View {
 private struct PatternedTypeModifier: ViewModifier {
     let style: PatternedType
     let measured: Bool
-    @ScaledMetric private var size: CGFloat
+    @ScaledMetric private var dynamicSize: CGFloat
+    @Environment(\.padScale) private var padScale
 
     init(style: PatternedType, measured: Bool) {
         self.style = style
         self.measured = measured
-        _size = ScaledMetric(wrappedValue: style.size, relativeTo: style.textStyle)
+        _dynamicSize = ScaledMetric(wrappedValue: style.size, relativeTo: style.textStyle)
     }
 
     func body(content: Content) -> some View {
+        let size = dynamicSize * padScale
         let scale = size / style.size
         content
             .font(style.font(size: size))
