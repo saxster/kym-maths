@@ -49,10 +49,10 @@ class ContentChecksTest(unittest.TestCase):
     def test_2_card_missing_field_dangling_link_loop_and_shared_alias(self):
         pack = self.fixture()
         del card(pack, "hcf")["oneSentence"]
-        card(pack, "lcm")["standsOn"].append("ratio")
+        card(pack, "lcm")["standsOn"].append("no-such-card")
         card(pack, "power")["standsOn"] = ["square-root"]
         card(pack, "factor")["aliases"].append("multiples")
-        self.assertFails(pack, "hcf has no oneSentence", 'lcm stands on "ratio"', "power stands on a loop",
+        self.assertFails(pack, "hcf has no oneSentence", 'lcm stands on "no-such-card"', "power stands on a loop",
                          'alias "multiples" belongs to factor, multiple')
 
     def test_2_card_too_far_from_what_she_knows(self):
@@ -204,9 +204,16 @@ class CardFilesTest(unittest.TestCase):
     """Cards live in the file of the chapter that teaches them, and bedrock cards in book/bedrock.py (risk R5)."""
 
     def test_cards_built_from_their_chapter_files_equal_the_pack(self):
-        from book import bedrock, ch01
+        from book import bedrock, ch01, ch02, ch03
         k = exporter.helpers()
-        self.assertEqual(set(bedrock.cards(k)), {"negative-number", "factor", "multiple", "power"})
+        self.assertEqual(set(bedrock.cards(k)), {"negative-number", "factor", "multiple", "power", "fraction",
+                                                 "decimal-place", "percentage"})
+        self.assertEqual(set(ch02.cards(k)), {"numerator-denominator", "equivalent-fractions", "simplest-form",
+                                              "common-denominator", "improper-fraction", "mixed-number", "reciprocal",
+                                              "significant-figures", "terminating-decimal", "recurring-decimal"})
+        self.assertEqual(set(ch03.cards(k)), {"ratio", "unitary-method", "direct-proportion", "inverse-proportion",
+                                              "percentage-multiplier", "reverse-percentage", "simple-interest",
+                                              "compound-growth", "rule-of-72"})
         self.assertEqual(set(ch01.cards(k)), {"prime-number", "prime-factors", "hcf", "lcm", "index-laws",
                                               "square-root", "irrational-number"})
         self.assertTrue(all(card["standsOn"] == [] for card in bedrock.cards(k).values()))

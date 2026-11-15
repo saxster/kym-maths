@@ -793,7 +793,7 @@
           "The number line below zero"
         ],
         "unlocks": [
-          "Chapter 2: fractions and recurring decimals",
+          "Chapter 2: fractions and decimals that repeat",
           "Chapter 4: taking out a common factor in algebra",
           "Chapter 12: Pythagoras, which needs square roots"
         ]
@@ -1376,31 +1376,56 @@
       "number": 2,
       "volumeNumber": 1,
       "volumeTitle": "Volume I · The Grammar of Truth, Sets & Number Architecture",
-      "title": "Fractions, Recurring Decimals & The Scaling Engine",
-      "subtitle": "School book Ch 6 · Multiplying & dividing fractions, significant figures & 10ᵏx − x recurring decimal proofs",
-      "hookSummary": "Dividing by a fraction a/b asks how many b-sized pieces fit inside — which scales by b/a.",
+      "title": "Fractions and recurring decimals",
+      "subtitle": "School book chapter 6 · Fractions that share a name, why you flip to divide, and decimals that never end",
+      "hookSummary": "How can 0.333… go on for ever and still be exactly one third?",
+      "beyondSchoolBook": false,
+      "skillCard": {
+        "skill": "Fractions and decimals, both ways",
+        "sheCan": {
+          "prompt": "With no calculator: work out 5 1/2 − 2 2/3 and 9 ÷ 3/5. Then write 0.454545… as a fraction.",
+          "answer": "5 1/2 − 2 2/3 = 2 5/6. 9 ÷ 3/5 = 15. 0.454545… = 5/11."
+        },
+        "whyItMatters": "Recipes, prices and measurements are rarely whole numbers. Almost every chapter after this one divides something, and dividing makes fractions.",
+        "standsOn": [
+          "Chapter 1: factors, multiples, the HCF and the LCM",
+          "Place value down to thousandths",
+          "Dividing by a one-digit number, with remainders"
+        ],
+        "unlocks": [
+          "Chapter 3: sharing in parts, percentages and growth",
+          "Chapter 4: algebra, where the same fraction rules work on letters",
+          "Chapter 15: counting chances, which are written as fractions"
+        ]
+      },
       "intuitionToFormula": {
-        "concreteAction": "Slide a 10ᵏ multiplier bar against a repeating decimal tail 0.ababab… and watch the infinite tails align.",
-        "ahaInvariant": "Multiplying x = 0.abab… by 10ᵏ shifts the decimal point by one full period k, so subtracting x cancels the entire infinite tail in one stroke!",
-        "formulaDisplay": "x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1)",
+        "concreteAction": "Set the repeating digits to 36. The red row is 100 lots of the number 0.3636… The blue row is 1 lot of it. Take the blue row away from the red row.",
+        "ahaInvariant": "The digits after the decimal point are the same in both rows, so they cancel. What is left is a whole number: 99 lots make 36. So the number is 36/99, which is 4/11.",
+        "formulaDisplay": "100x − x = 99x,   a ÷ b/c = a × c/b",
         "termMappings": [
           {
-            "symbol": "10ᵏ x",
-            "visualPart": "Red shifted bar with whole period ahead of decimal",
+            "symbol": "100x",
+            "visualPart": "The red row",
             "colorRole": "red",
-            "meaning": "Shifts repeating block k places left"
+            "meaning": "100 lots of the number, which moves every digit two places to the left"
           },
           {
-            "symbol": "− x",
-            "visualPart": "Blue original infinite tail",
+            "symbol": "x",
+            "visualPart": "The blue row",
             "colorRole": "blue",
-            "meaning": "Identical infinite tail after the decimal point cancels to 0"
+            "meaning": "1 lot of the number, the recurring decimal itself"
           },
           {
-            "symbol": "10ᵏ − 1",
-            "visualPart": "Green denominator of k nines (9, 99, 999)",
+            "symbol": "99x",
+            "visualPart": "The green box",
             "colorRole": "green",
-            "meaning": "Exact rational denominator"
+            "meaning": "What is left after taking away, which is a whole number"
+          },
+          {
+            "symbol": "a ÷ b/c",
+            "visualPart": "The amber line",
+            "colorRole": "amber",
+            "meaning": "How many pieces of size b/c fit into a"
           }
         ],
         "atlasFigureRef": "maths/ch02-fractions-decimals/index.html"
@@ -1408,83 +1433,631 @@
       "sections": [
         {
           "id": "ch02-s1",
-          "heading": "2.1 See it in a picture",
-          "excerpt": "Slide a 10ᵏ multiplier bar against a repeating decimal tail 0.ababab… and watch the infinite tails align. Multiplying x = 0.abab… by 10ᵏ shifts the decimal point by one full period k, so subtracting x cancels the entire infinite tail in one stroke!"
+          "heading": "2.1 One amount, many names",
+          "excerpt": "They ate the same amount: half a pizza each. Cutting every slice in two doubles the number of slices and doubles how many you eat. The amount of pizza does not change. So 2/4 and 4/8 are two names for one amount.",
+          "teaches": [
+            "numerator-denominator",
+            "equivalent-fractions",
+            "simplest-form"
+          ],
+          "steps": [
+            {
+              "id": "ch02-s1-question",
+              "kind": "question",
+              "text": "Kym eats 2 slices of a pizza cut into 4 equal slices. Aarav has a pizza of the same size, cut into 8 equal slices, and eats 4. Who ate more?"
+            },
+            {
+              "id": "ch02-s1-idea",
+              "kind": "idea",
+              "text": "They ate the same amount: half a pizza each. Cutting every slice in two doubles the number of slices and doubles how many you eat. The amount of pizza does not change. So 2/4 and 4/8 are two names for one amount."
+            },
+            {
+              "id": "ch02-s1-picture",
+              "kind": "picture",
+              "text": "Draw a bar and split it into 4 equal parts. Shade 2 of them. Now draw a line through the middle of every part. The bar has 8 parts and 4 are shaded. The shaded length has not moved."
+            },
+            {
+              "id": "ch02-s1-reason",
+              "kind": "reason",
+              "text": "Why does this work? Multiplying the top and the bottom by 2 is multiplying by 2/2. And 2/2 is 1 whole. Multiplying by 1 never changes an amount. Dividing the top and the bottom by the same number undoes it, so that is safe too."
+            },
+            {
+              "id": "ch02-s1-name",
+              "kind": "name",
+              "text": "The top number of a fraction is the numerator and the bottom number is the denominator. Fractions that name the same amount, like 2/4 and 4/8, are equivalent fractions. Divide the top and the bottom by their highest common factor and you reach the simplest form. For 2/4 and 4/8 that is 1/2."
+            },
+            {
+              "id": "ch02-s1-example",
+              "kind": "example",
+              "text": "Write 18/24 in its simplest form. The HCF of 18 and 24 is 6. 18 ÷ 6 = 3 and 24 ÷ 6 = 4. So 18/24 = 3/4. Check: 3 and 4 share no factor except 1, so you cannot go further."
+            },
+            {
+              "id": "ch02-s1-mistake",
+              "kind": "mistake",
+              "text": "It is tempting to add the same number to the top and the bottom. Try it: 1/2 would become 2/3. But half a pizza is not two thirds of a pizza. Adding changes the amount. Only multiplying or dividing both parts keeps it the same."
+            },
+            {
+              "id": "ch02-s1-turn",
+              "kind": "turn",
+              "text": "Write 24/36 in its simplest form.",
+              "answer": "2/3",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "2/3",
+                        "simplest": true
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "2/3",
+                  "= 2/3"
+                ],
+                "rejects": [
+                  "4/6",
+                  "12/18",
+                  "3/2"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch02-s1-sayBack",
+              "kind": "sayBack",
+              "text": "Multiplying or dividing the top and the bottom by the same number gives a new name for the same amount."
+            }
+          ]
         },
         {
           "id": "ch02-s2",
-          "heading": "2.2 Write it in symbols",
-          "excerpt": "Every piece of the geometry locks onto a symbol in x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1). Once you see why each term exists, you never have to guess a sign or denominator."
+          "heading": "2.2 Taking away pieces of different sizes",
+          "excerpt": "Quarters and thirds are pieces of different sizes, so you cannot take one from the other yet. Cut both into twelfths. A quarter is 3 twelfths and a third is 4 twelfths. Now every piece is the same size, and you can count them.",
+          "teaches": [
+            "common-denominator",
+            "improper-fraction",
+            "mixed-number"
+          ],
+          "steps": [
+            {
+              "id": "ch02-s2-question",
+              "kind": "question",
+              "text": "Kym has 3 1/4 metres of ribbon. She cuts off 1 2/3 metres to wrap a gift. How much ribbon is left?"
+            },
+            {
+              "id": "ch02-s2-idea",
+              "kind": "idea",
+              "text": "Quarters and thirds are pieces of different sizes, so you cannot take one from the other yet. Cut both into twelfths. A quarter is 3 twelfths and a third is 4 twelfths. Now every piece is the same size, and you can count them."
+            },
+            {
+              "id": "ch02-s2-picture",
+              "kind": "picture",
+              "text": "Think of 3 1/4 as 3 whole metres and 1 quarter. Each whole metre is 4 quarters, so that is 13 quarters. In the same way, 1 2/3 is 5 thirds. In twelfths, 13 quarters is 39 twelfths and 5 thirds is 20 twelfths."
+            },
+            {
+              "id": "ch02-s2-reason",
+              "kind": "reason",
+              "text": "Why twelfths? The new denominator must be in the 4 times table and in the 3 times table. The lowest common multiple of 4 and 3 is 12. Any common multiple would work, but the lowest keeps the numbers small."
+            },
+            {
+              "id": "ch02-s2-name",
+              "kind": "name",
+              "text": "A denominator that both fractions can share is a common denominator. Here it is 12. A fraction whose top is bigger than its bottom, like 13/4, is an improper fraction. A whole number with a fraction beside it, like 3 1/4, is a mixed number."
+            },
+            {
+              "id": "ch02-s2-example",
+              "kind": "example",
+              "text": "Work out 3 1/4 − 1 2/3. Write both as improper fractions: 13/4 and 5/3. Give both the common denominator 12: 39/12 and 20/12. Take away the numerators: 39 − 20 = 19, so the answer is 19/12. 12 twelfths make 1 whole, which leaves 7 twelfths. The ribbon left is 1 7/12 metres."
+            },
+            {
+              "id": "ch02-s2-mistake",
+              "kind": "mistake",
+              "text": "The tempting way is to take away the tops and the bottoms separately. For 3/4 − 1/3 that gives 2/1, which is 2. But you started with less than 1 whole, so 2 cannot be right. The denominator names the size of the piece. It is not something you take away."
+            },
+            {
+              "id": "ch02-s2-turn",
+              "kind": "turn",
+              "text": "Work out 2 1/2 − 1 2/3. Give your answer as a fraction in its simplest form.",
+              "answer": "5/6",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "5/6",
+                        "simplest": true
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "5/6",
+                  "= 5/6"
+                ],
+                "rejects": [
+                  "1 1/6",
+                  "1/6",
+                  "10/12"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch02-s2-sayBack",
+              "kind": "sayBack",
+              "text": "To add or take away fractions, first cut them into pieces of the same size, then count the pieces."
+            }
+          ]
         },
         {
           "id": "ch02-s3",
-          "heading": "2.3 Bar models and stretch problems",
-          "excerpt": "Apply Fractions, Recurring Decimals & The Scaling Engine across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
+          "heading": "2.3 Why you flip to divide",
+          "excerpt": "Dividing asks how many times one amount fits into another. Start by counting thirds. Each litre holds 3 thirds, so 4 litres hold 12 thirds. Each glass uses 2 of them. 12 ÷ 2 = 6, so you can fill 6 glasses.",
+          "teaches": [
+            "reciprocal"
+          ],
+          "steps": [
+            {
+              "id": "ch02-s3-question",
+              "kind": "question",
+              "text": "A jug holds 4 litres of lassi. Each glass takes 2/3 of a litre. How many glasses can you fill?"
+            },
+            {
+              "id": "ch02-s3-idea",
+              "kind": "idea",
+              "text": "Dividing asks how many times one amount fits into another. Start by counting thirds. Each litre holds 3 thirds, so 4 litres hold 12 thirds. Each glass uses 2 of them. 12 ÷ 2 = 6, so you can fill 6 glasses."
+            },
+            {
+              "id": "ch02-s3-picture",
+              "kind": "picture",
+              "text": "Draw 4 bars for the 4 litres and cut each into 3 equal parts. That makes 12 parts. Circle them in groups of 2, and you get 6 groups. In the figure, set the whole number to 4 and the bottom of the fraction to 3. Read the amber line."
+            },
+            {
+              "id": "ch02-s3-reason",
+              "kind": "reason",
+              "text": "Look at what you did. You multiplied 4 by 3 to count the thirds. Then you divided by 2 to make the groups. Multiplying by 3 and dividing by 2 is the same as multiplying by 3/2. So 4 ÷ 2/3 = 4 × 3/2."
+            },
+            {
+              "id": "ch02-s3-name",
+              "kind": "name",
+              "text": "Turn a fraction upside down and you get its reciprocal. The reciprocal of 2/3 is 3/2. Dividing by a fraction is the same as multiplying by its reciprocal. Multiplying fractions is the short part: multiply the numerators, then multiply the denominators. So 1/2 × 3/4 = 3/8, which is half of three quarters."
+            },
+            {
+              "id": "ch02-s3-example",
+              "kind": "example",
+              "text": "Work out 1 1/2 ÷ 3/8. Write 1 1/2 as the improper fraction 3/2. The reciprocal of 3/8 is 8/3, so work out 3/2 × 8/3. Multiply the numerators and the denominators: 24/6, which is 4. Check with the meaning. Four pieces of 3/8 make 12/8, and 12/8 is 1 1/2."
+            },
+            {
+              "id": "ch02-s3-mistake",
+              "kind": "mistake",
+              "text": "Dividing does not always make a number smaller. 4 ÷ 2/3 = 6, which is bigger than 4. That feels wrong until you remember the question: how many small pieces fit? A second trap is flipping the wrong fraction. Only the one you divide by gets flipped."
+            },
+            {
+              "id": "ch02-s3-turn",
+              "kind": "turn",
+              "text": "A tailor has 6 metres of cloth. Each scarf needs 3/4 of a metre. Work out 6 ÷ 3/4.",
+              "answer": "8",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "8"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "8",
+                  "= 8",
+                  "8 scarves"
+                ],
+                "rejects": [
+                  "4.5",
+                  "9/2",
+                  "2",
+                  "1/8"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch02-s3-sayBack",
+              "kind": "sayBack",
+              "text": "Dividing by a fraction asks how many of that piece fit, so you multiply by the fraction turned upside down."
+            }
+          ],
+          "figure": true
+        },
+        {
+          "id": "ch02-s4",
+          "heading": "2.4 Where the decimal point goes",
+          "excerpt": "0.3 is 3 tenths and 0.2 is 2 tenths. 3 × 2 = 6. But tenths times tenths are hundredths, so the area is 6 hundredths. That is 0.06 square metres, ten times smaller than 0.6.",
+          "teaches": [
+            "decimal-place"
+          ],
+          "steps": [
+            {
+              "id": "ch02-s4-question",
+              "kind": "question",
+              "text": "A floor tile is 0.3 m long and 0.2 m wide. Is its area 0.6 square metres, or 0.06?"
+            },
+            {
+              "id": "ch02-s4-idea",
+              "kind": "idea",
+              "text": "0.3 is 3 tenths and 0.2 is 2 tenths. 3 × 2 = 6. But tenths times tenths are hundredths, so the area is 6 hundredths. That is 0.06 square metres, ten times smaller than 0.6."
+            },
+            {
+              "id": "ch02-s4-picture",
+              "kind": "picture",
+              "text": "Draw a square 1 m by 1 m and cut it into a 10 by 10 grid. That makes 100 small squares. The tile reaches 3 squares one way and 2 the other. It covers 6 small squares out of 100."
+            },
+            {
+              "id": "ch02-s4-reason",
+              "kind": "reason",
+              "text": "As fractions, 0.3 × 0.2 is 3/10 × 2/10. Multiply the numerators to get 6. Multiply the denominators to get 100. The answer is 6/100. Each digit after a decimal point brings one more division by 10 into the answer."
+            },
+            {
+              "id": "ch02-s4-name",
+              "kind": "name",
+              "text": "The positions after the decimal point are called decimal places. 0.3 has one decimal place and 0.06 has two. To multiply decimals, multiply them as whole numbers first. Then give the answer as many decimal places as the two numbers had between them."
+            },
+            {
+              "id": "ch02-s4-example",
+              "kind": "example",
+              "text": "Work out 4.5 ÷ 0.15. Dividing by a decimal is awkward, so change the question. Multiply both numbers by 100 to get 450 ÷ 15. The answer does not change, for the same reason that equivalent fractions are equal. 45 ÷ 15 = 3, so 450 ÷ 15 = 30. Check: 30 × 0.15 = 4.5."
+            },
+            {
+              "id": "ch02-s4-mistake",
+              "kind": "mistake",
+              "text": "Multiplying does not always make a number bigger. 8 × 0.5 = 4, because 0.5 of something is half of it. And dividing by a number less than 1 makes it bigger: 8 ÷ 0.5 = 16. Ask how many halves fit into 8."
+            },
+            {
+              "id": "ch02-s4-turn",
+              "kind": "turn",
+              "text": "Work out 0.4 × 0.06.",
+              "answer": "0.024",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "0.024"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "0.024",
+                  ".024",
+                  "= 0.024"
+                ],
+                "rejects": [
+                  "0.24",
+                  "0.0024",
+                  "2.4"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch02-s4-sayBack",
+              "kind": "sayBack",
+              "text": "Multiply decimals as whole numbers and then place the point. To divide by a decimal, scale both numbers until you divide by a whole number."
+            }
+          ]
+        },
+        {
+          "id": "ch02-s5",
+          "heading": "2.5 How many digits to keep",
+          "excerpt": "No. The first two digits carry almost all the information. 33,000 is the nearest thousand to 32,846, and it is easier to remember. The newspaper kept the digits that matter most and rounded the rest.",
+          "teaches": [
+            "significant-figures"
+          ],
+          "steps": [
+            {
+              "id": "ch02-s5-question",
+              "kind": "question",
+              "text": "A cricket ground counts a crowd of 32,846. The newspaper prints 33,000. Has the newspaper made a mistake?"
+            },
+            {
+              "id": "ch02-s5-idea",
+              "kind": "idea",
+              "text": "No. The first two digits carry almost all the information. 33,000 is the nearest thousand to 32,846, and it is easier to remember. The newspaper kept the digits that matter most and rounded the rest."
+            },
+            {
+              "id": "ch02-s5-picture",
+              "kind": "picture",
+              "text": "Mark 32,000 and 33,000 on a number line. 32,846 sits between them, much closer to 33,000. The halfway mark is 32,500. Anything at or past halfway rounds up."
+            },
+            {
+              "id": "ch02-s5-reason",
+              "kind": "reason",
+              "text": "Now take a tiny number: 0.004718 kg of saffron. The zeros at the front only hold the digits in place. They vanish if you write the mass as 4.718 g. The digits that measure anything start at the 4."
+            },
+            {
+              "id": "ch02-s5-name",
+              "kind": "name",
+              "text": "The digits that carry the size of a number are its significant figures. Count them from the first digit that is not zero. 32,846 to 2 significant figures is 33,000, and 0.004718 is 0.0047. Decimal places are different: they are counted from the decimal point."
+            },
+            {
+              "id": "ch02-s5-example",
+              "kind": "example",
+              "text": "Round 0.03064 to 3 significant figures. The first significant figure is the 3. The zero after the 3 counts, because it sits between measured digits. So the three figures are 3, 0 and 6. The next digit is 4, which is less than 5, so the 6 stays. The answer is 0.0306."
+            },
+            {
+              "id": "ch02-s5-mistake",
+              "kind": "mistake",
+              "text": "There are two traps. First, 0.0306 to 2 decimal places is 0.03, which throws most of the number away. Decimal places and significant figures are different counts. Second, keep the size. 32,846 to 2 significant figures is 33,000, not 33. The zeros hold the place of each digit."
+            },
+            {
+              "id": "ch02-s5-turn",
+              "kind": "turn",
+              "text": "Round 0.05093 to 2 significant figures.",
+              "answer": "0.051",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "0.051"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "0.051",
+                  ".051",
+                  "= 0.051"
+                ],
+                "rejects": [
+                  "0.05",
+                  "0.0509",
+                  "0.06",
+                  "51"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch02-s5-sayBack",
+              "kind": "sayBack",
+              "text": "Significant figures are counted from the first digit that is not zero, so they work for huge and tiny numbers alike."
+            }
+          ]
+        },
+        {
+          "id": "ch02-s6",
+          "heading": "2.6 Decimals that never end",
+          "excerpt": "Nothing went wrong. Divide 1 by 3 by hand. 10 tenths shared among 3 is 3 each, with 1 tenth left over. That 1 tenth becomes 10 hundredths, and the same step happens again. The remainder is always 1, so the 3s never stop.",
+          "teaches": [
+            "terminating-decimal",
+            "recurring-decimal"
+          ],
+          "steps": [
+            {
+              "id": "ch02-s6-question",
+              "kind": "question",
+              "text": "Share ₹1 equally among 4 friends and each gets ₹0.25. Share ₹1 among 3 friends and the calculator shows 0.3333333. What went wrong with 3?"
+            },
+            {
+              "id": "ch02-s6-idea",
+              "kind": "idea",
+              "text": "Nothing went wrong. Divide 1 by 3 by hand. 10 tenths shared among 3 is 3 each, with 1 tenth left over. That 1 tenth becomes 10 hundredths, and the same step happens again. The remainder is always 1, so the 3s never stop."
+            },
+            {
+              "id": "ch02-s6-picture",
+              "kind": "picture",
+              "text": "Now divide 1 by 7 by hand. The remainder at each step can only be 1, 2, 3, 4, 5 or 6. After at most six steps, one of them must come back. From then on the digits repeat: 1 ÷ 7 = 0.142857142857…"
+            },
+            {
+              "id": "ch02-s6-reason",
+              "kind": "reason",
+              "text": "Why does 1/4 stop when 1/3 does not? A decimal that stops is a fraction over 10, 100 or 1,000. Those denominators are built only from the primes 2 and 5. 1/4 fits, because it is 25/100. But no power of 10 is a multiple of 3, so 1/3 can never stop."
+            },
+            {
+              "id": "ch02-s6-name",
+              "kind": "name",
+              "text": "A decimal that stops, like 0.25, is a terminating decimal. A decimal whose digits repeat for ever, like 0.333…, is a recurring decimal. The three dots mean the pattern goes on. Some books put a dot over the repeating digits instead."
+            },
+            {
+              "id": "ch02-s6-example",
+              "kind": "example",
+              "text": "Write 0.333… as a fraction. Ten lots of it are 3.333…, and one lot is 0.333…, with the same tail of digits. Take one lot from ten lots and the tails cancel, so nine lots are exactly 3. The number is 3/9, which is 1/3. Now try 0.3636…, where two digits repeat. Write x for the number, so that 100x = 36.3636… and the tails match again. Subtract x and 99x = 36, so x = 36/99 = 4/11. In the figure, set the repeating digits to 36 and follow the three rows."
+            },
+            {
+              "id": "ch02-s6-mistake",
+              "kind": "mistake",
+              "text": "0.3 and 0.333… are different numbers. 0.3 is 3/10, and 0.333… is 1/3, which is a little more. If you cut a recurring decimal short, you have rounded it. A second trap: when two digits repeat, multiplying by 10 does not line the tails up. Multiply by 100."
+            },
+            {
+              "id": "ch02-s6-turn",
+              "kind": "turn",
+              "text": "Write 0.151515… as a fraction in its simplest form.",
+              "answer": "5/33",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "5/33",
+                        "simplest": true
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "5/33",
+                  "x = 5/33",
+                  "= 5/33"
+                ],
+                "rejects": [
+                  "15/99",
+                  "15/100",
+                  "3/20",
+                  "1/6"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch02-s6-sayBack",
+              "kind": "sayBack",
+              "text": "Multiply a recurring decimal so the repeating tails line up, subtract, and a fraction is left."
+            }
+          ],
+          "figure": true
         }
       ],
       "callouts": [
         {
           "id": "ch02-c-predict",
           "kind": "predict",
-          "title": "Predict Before You Drag",
-          "body": "Before moving the slider in Recurring Decimal Tail Canceller, predict which geometric quantity changes and which invariant stays locked."
+          "title": "Predict first",
+          "body": "Before you touch the figure: is 3 ÷ 2/4 bigger or smaller than 3? Decide, and write down why you think so."
         },
         {
           "id": "ch02-c-aha",
           "kind": "check",
-          "title": "The Intuition → Formula Bridge",
-          "body": "Multiplying x = 0.abab… by 10ᵏ shifts the decimal point by one full period k, so subtracting x cancels the entire infinite tail in one stroke! Formula: x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1)"
+          "title": "Explain it",
+          "body": "A friend says 1/3 cannot equal 0.333… because the 3s never finish. Explain in your own words why the two are the same number."
         },
         {
           "id": "ch02-c-trap",
           "kind": "careful",
-          "title": "Classic Algebraic Trap to Avoid",
-          "body": "Whenever a formula in Chapter 2 looks tempting to shortcut, test a concrete 2×2 area or small integer example (x = 2, y = 3) first!"
+          "title": "Watch out for the flip",
+          "body": "When you divide by a fraction, flip only the fraction you divide by. The first number stays as it is."
         }
       ],
       "keyTerms": [
-        "Recurring Decimal",
-        "Terminating Decimal",
-        "Significant Figures",
+        "Fraction",
+        "Numerator and denominator",
+        "Equivalent fractions",
+        "Simplest form",
+        "Common denominator",
+        "Improper fraction",
+        "Mixed number",
         "Reciprocal",
-        "Mixed Numbers",
-        "Area Fraction Model"
+        "Decimal place",
+        "Significant figures",
+        "Terminating decimal",
+        "Recurring decimal"
       ],
       "widgets": [
         "w_recurring_decimal_tail_canceller",
         "w_fraction_area_division"
-      ]
+      ],
+      "debate": {
+        "id": "debate-ch02-fractions",
+        "chapterNumber": 2,
+        "oupUnitNumber": 6,
+        "title": "Half-litre bottles",
+        "contextPrompt": "A juice stall has 6 litres of nimbu pani. It sells it in bottles of 1/2 a litre. Riya and Arjun disagree about how many bottles it can fill.",
+        "speakerAName": "Riya",
+        "speakerAClaim": "6 ÷ 1/2 means half of 6. That is 3 bottles.",
+        "speakerBName": "Arjun",
+        "speakerBClaim": "Each litre fills 2 bottles, so 6 litres fill 12 bottles.",
+        "choices": [
+          {
+            "id": "ch02-a",
+            "speakerLabel": "Riya is right (3 bottles)",
+            "reasoningStatement": "Dividing makes a number smaller, so the answer must be less than 6.",
+            "isCorrect": false,
+            "socraticRebuttal": "Half of 6 is 6 × 1/2, which is 3. But 3 bottles of half a litre hold only 1 1/2 litres. Where did the other 4 1/2 litres go?"
+          },
+          {
+            "id": "ch02-b",
+            "speakerLabel": "Arjun is right (12 bottles)",
+            "reasoningStatement": "Two half-litre bottles fill from each litre, and there are 6 litres.",
+            "isCorrect": true,
+            "socraticRebuttal": "Yes. 6 ÷ 1/2 = 6 × 2 = 12. Check it: 12 bottles of half a litre hold 6 litres."
+          },
+          {
+            "id": "ch02-c",
+            "speakerLabel": "Neither. It is 1/12 of a bottle.",
+            "reasoningStatement": "Flip the 6 to get 1/6, then multiply by 1/2.",
+            "isCorrect": false,
+            "socraticRebuttal": "That flips the wrong number. One litre alone fills 2 bottles, so 1/12 of a bottle cannot be right. Flip only the 1/2."
+          }
+        ],
+        "invariantTakeaway": "Dividing by a number less than 1 gives an answer bigger than the number you started with."
+      }
     },
     {
       "id": "ch03",
       "number": 3,
       "volumeNumber": 1,
       "volumeTitle": "Volume I · The Grammar of Truth, Sets & Number Architecture",
-      "title": "Ratios, Percentages & Exponential Compounding",
-      "subtitle": "School book Ch 9 & Ch 12 · Singapore unitary bar models, percentage multipliers & 20-year rupee compounding",
-      "hookSummary": "A percentage change is a multiplicative scale factor (1 ± r); repeated changes multiply, they never add.",
+      "title": "Ratio, percentages and growth",
+      "subtitle": "School book chapters 9 and 12 · Sharing in parts, a percentage change as one multiplication, and money that grows on itself",
+      "hookSummary": "A price goes up by 20% and then down by 20%. Why is it not back where it started?",
+      "beyondSchoolBook": false,
+      "skillCard": {
+        "skill": "Sharing, scaling and growing amounts",
+        "sheCan": {
+          "prompt": "With no calculator: share ₹720 in the ratio 4 : 5. A phone costs ₹6,900 after a 15% rise. What did it cost before? About how many years does money take to double at 3% a year?",
+          "answer": "₹320 and ₹400. ₹6,000. About 24 years."
+        },
+        "whyItMatters": "Prices, recipes, maps, discounts and savings all work by multiplying. Someone who can read a percentage change is hard to fool in a shop or a bank.",
+        "standsOn": [
+          "Chapter 2: fractions, decimals and dividing by a decimal",
+          "Multiplying and dividing by 10, 100 and 1,000",
+          "Finding 10% and 50% of an amount"
+        ],
+        "unlocks": [
+          "Chapter 5: finding an unknown amount by working backwards",
+          "Chapter 11: making a shape bigger, where every length is multiplied by the same number",
+          "Chapter 15: chances, which are compared as fractions and percentages"
+        ]
+      },
       "intuitionToFormula": {
-        "concreteAction": "Run the ₹1,000/month at 8% machine over 20 years and compare white savings, red simple interest, and amber compound interest.",
-        "ahaInvariant": "A +20% rise followed by a −20% drop lands at 1.2 × 0.8 = 0.96 (a 4% loss!), while compounding multiplies by (1 + r)ⁿ so interest itself earns interest!",
-        "formulaDisplay": "A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ)",
+        "concreteAction": "Set the interest rate to 8%. The amber lines show what ₹1,000 becomes after 20 years. They give two totals: one for simple interest and one for compound interest.",
+        "ahaInvariant": "Simple interest adds ₹80 every year, so 20 years add ₹1,600. Compound interest multiplies by 1.08 every year, so each year adds more than the last. Adding gives ₹2,600. Multiplying gives ₹4,661.",
+        "formulaDisplay": "1 part = total ÷ (a + b),   A = P × mⁿ",
         "termMappings": [
           {
+            "symbol": "a + b",
+            "visualPart": "The red and blue boxes",
+            "colorRole": "red",
+            "meaning": "All the parts of the ratio, counted together"
+          },
+          {
             "symbol": "P",
-            "visualPart": "Blue initial principal bar",
-            "colorRole": "blue",
-            "meaning": "Starting value (100% reference unit)"
-          },
-          {
-            "symbol": "(1 + r)ⁿ",
-            "visualPart": "Red & Amber compounding stack columns",
+            "visualPart": "The ₹1,000 in the first amber line",
             "colorRole": "amber",
-            "meaning": "Exponential multiplier over n periods"
+            "meaning": "The amount at the start"
           },
           {
-            "symbol": "wᵢ / ∑ wⱼ",
-            "visualPart": "Green unitary bar-model box",
-            "colorRole": "green",
-            "meaning": "Value of 1 equal unit × k parts"
+            "symbol": "m",
+            "visualPart": "The interest rate slider",
+            "colorRole": "amber",
+            "meaning": "The multiplier for one year, which is 1.08 for a rate of 8%"
+          },
+          {
+            "symbol": "n",
+            "visualPart": "The 20 years",
+            "colorRole": "amber",
+            "meaning": "The number of years, so the number of times you multiply"
+          },
+          {
+            "symbol": "A",
+            "visualPart": "The compound total",
+            "colorRole": "amber",
+            "meaning": "The amount at the end"
           }
         ],
         "atlasFigureRef": "maths/ch03-ratios-compounding/index.html"
@@ -1492,52 +2065,568 @@
       "sections": [
         {
           "id": "ch03-s1",
-          "heading": "3.1 See it in a picture",
-          "excerpt": "Run the ₹1,000/month at 8% machine over 20 years and compare white savings, red simple interest, and amber compound interest. A +20% rise followed by a −20% drop lands at 1.2 × 0.8 = 0.96 (a 4% loss!), while compounding multiplies by (1 + r)ⁿ so interest itself earns interest!"
+          "heading": "3.1 Sharing in parts",
+          "excerpt": "Pay for each hour worked. There were 3 + 5 = 8 hours in all, so cut the ₹320 into 8 equal parts. Each part is ₹40. Kym gets 3 parts and Aarav gets 5 parts.",
+          "teaches": [
+            "ratio"
+          ],
+          "steps": [
+            {
+              "id": "ch03-s1-question",
+              "kind": "question",
+              "text": "Kym and Aarav sell lemonade at a fair and make ₹320. Kym worked for 3 hours and Aarav for 5. Splitting the money in half would not be fair. How should they share it?"
+            },
+            {
+              "id": "ch03-s1-idea",
+              "kind": "idea",
+              "text": "Pay for each hour worked. There were 3 + 5 = 8 hours in all, so cut the ₹320 into 8 equal parts. Each part is ₹40. Kym gets 3 parts and Aarav gets 5 parts."
+            },
+            {
+              "id": "ch03-s1-picture",
+              "kind": "picture",
+              "text": "Draw a bar of 3 equal boxes for Kym. Under it, draw a bar of 5 boxes of the same size for Aarav. The 8 boxes together hold ₹320, so each box holds ₹40. In the figure, set the parts for A to 3 and the parts for B to 5."
+            },
+            {
+              "id": "ch03-s1-reason",
+              "kind": "reason",
+              "text": "Why add the 3 and the 5 first? The money is shared among all the parts, not among the two people. Once you know what 1 part is worth, each share is a multiplication. Kym gets 3 × ₹40 = ₹120 and Aarav gets 5 × ₹40 = ₹200. Check: ₹120 + ₹200 = ₹320."
+            },
+            {
+              "id": "ch03-s1-name",
+              "kind": "name",
+              "text": "A comparison like 3 to 5 is called a ratio, and it is written 3 : 5. It does not say how much each person gets. It says how the amounts compare. You can simplify a ratio the way you simplify a fraction: divide every part by a common factor. So 6 : 10 is the same ratio as 3 : 5."
+            },
+            {
+              "id": "ch03-s1-example",
+              "kind": "example",
+              "text": "Share ₹4,500 among three cousins in the ratio 2 : 3 : 4. There are 2 + 3 + 4 = 9 parts. One part is ₹4,500 ÷ 9 = ₹500. The shares are 2 × ₹500 = ₹1,000, 3 × ₹500 = ₹1,500 and 4 × ₹500 = ₹2,000. Check: the three shares add up to ₹4,500."
+            },
+            {
+              "id": "ch03-s1-mistake",
+              "kind": "mistake",
+              "text": "The tempting step is to divide by one of the numbers in the ratio, such as ₹320 ÷ 3. But 3 is not the number of parts. There are 8. A second trap is to read 3 : 5 as the fraction 3/5. Kym gets 3 parts out of 8, which is 3/8 of the money."
+            },
+            {
+              "id": "ch03-s1-turn",
+              "kind": "turn",
+              "text": "Meera and Zoya share 42 stickers in the ratio 2 : 5. How many stickers does Zoya get?",
+              "answer": "30",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "30"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "30",
+                  "30 stickers",
+                  "= 30"
+                ],
+                "rejects": [
+                  "12",
+                  "6",
+                  "21",
+                  "105"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch03-s1-sayBack",
+              "kind": "sayBack",
+              "text": "To share in a ratio, add the parts, find what one part is worth, then multiply."
+            }
+          ],
+          "figure": true
         },
         {
           "id": "ch03-s2",
-          "heading": "3.2 Write it in symbols",
-          "excerpt": "Every piece of the geometry locks onto a symbol in A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ). Once you see why each term exists, you never have to guess a sign or denominator."
+          "heading": "3.2 Find one first",
+          "excerpt": "Find the amount for 1 person first. 300 g ÷ 4 = 75 g each. Then multiply by the number of people: 10 × 75 g = 750 g. Going through one turns every question of this kind into the same two steps.",
+          "teaches": [
+            "unitary-method",
+            "direct-proportion"
+          ],
+          "steps": [
+            {
+              "id": "ch03-s2-question",
+              "kind": "question",
+              "text": "A recipe for 4 people needs 300 g of paneer. Kym is cooking for 10 people. How much paneer does she need?"
+            },
+            {
+              "id": "ch03-s2-idea",
+              "kind": "idea",
+              "text": "Find the amount for 1 person first. 300 g ÷ 4 = 75 g each. Then multiply by the number of people: 10 × 75 g = 750 g. Going through one turns every question of this kind into the same two steps."
+            },
+            {
+              "id": "ch03-s2-picture",
+              "kind": "picture",
+              "text": "Draw two number lines, one above the other. The top line counts people: 0, 1, 4 and 10. The bottom line shows the paneer: 0 g, 75 g, 300 g and 750 g. Each number on the bottom line is 75 times the number above it."
+            },
+            {
+              "id": "ch03-s2-reason",
+              "kind": "reason",
+              "text": "Why is this allowed? Each person eats the same amount, so the paneer grows in step with the people. Multiply the people by 2.5 and the paneer is multiplied by 2.5 too. You can check: 4 × 2.5 = 10 and 300 × 2.5 = 750."
+            },
+            {
+              "id": "ch03-s2-name",
+              "kind": "name",
+              "text": "Finding the value of one first is called the unitary method. Two amounts are in direct proportion when multiplying one by a number multiplies the other by the same number. Here the paneer is directly proportional to the people. The amount for one, 75 g, stays the same all the way along."
+            },
+            {
+              "id": "ch03-s2-example",
+              "kind": "example",
+              "text": "5 notebooks cost ₹180. What do 8 cost? One notebook costs ₹180 ÷ 5 = ₹36. So 8 notebooks cost 8 × ₹36 = ₹288. Check that the answer is sensible: 8 is less than double 5, and ₹288 is less than double ₹180."
+            },
+            {
+              "id": "ch03-s2-mistake",
+              "kind": "mistake",
+              "text": "A common slip is to divide the wrong way round and work out 5 ÷ 180. Say what you want in words first. Rupees for each notebook means rupees ÷ notebooks. A second trap: not everything doubles together. A taxi charges ₹50 to start and ₹15 for each kilometre. A 2 km trip costs ₹80 and a 4 km trip costs ₹110, not ₹160."
+            },
+            {
+              "id": "ch03-s2-turn",
+              "kind": "turn",
+              "text": "6 pencils cost ₹45. How much do 10 pencils cost?",
+              "answer": "₹75",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "75"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "75",
+                  "₹75",
+                  "75 rupees"
+                ],
+                "rejects": [
+                  "7.5",
+                  "49",
+                  "450",
+                  "27"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch03-s2-sayBack",
+              "kind": "sayBack",
+              "text": "Find what one is worth, then multiply by how many you need."
+            }
+          ]
         },
         {
           "id": "ch03-s3",
-          "heading": "3.3 Bar models and stretch problems",
-          "excerpt": "Apply Ratios, Percentages & Exponential Compounding across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
+          "heading": "3.3 When more means less",
+          "excerpt": "No. More painters share the same work, so the job takes less time, not more. The hall needs 4 × 6 = 24 days of one painter's work. Shared among 8 painters, that is 24 ÷ 8 = 3 days.",
+          "teaches": [
+            "inverse-proportion"
+          ],
+          "steps": [
+            {
+              "id": "ch03-s3-question",
+              "kind": "question",
+              "text": "4 painters can paint the school hall in 6 days. The head teacher hires 8 painters instead. Will the job take 12 days?"
+            },
+            {
+              "id": "ch03-s3-idea",
+              "kind": "idea",
+              "text": "No. More painters share the same work, so the job takes less time, not more. The hall needs 4 × 6 = 24 days of one painter's work. Shared among 8 painters, that is 24 ÷ 8 = 3 days."
+            },
+            {
+              "id": "ch03-s3-picture",
+              "kind": "picture",
+              "text": "Think of the hall as 24 squares of wall. One painter paints one square a day. 4 painters cover 4 squares a day and finish in 6 days. 8 painters cover 8 squares a day and finish in 3 days. The 24 squares never change."
+            },
+            {
+              "id": "ch03-s3-reason",
+              "kind": "reason",
+              "text": "Why multiply here, when the last section divided? Ask what stays the same. For the paneer, the amount for each person stayed the same, so you divided to find it. For the painters, the whole job stays the same, so you multiply to find it."
+            },
+            {
+              "id": "ch03-s3-name",
+              "kind": "name",
+              "text": "Two amounts are in inverse proportion when multiplying one by a number divides the other by the same number. Double the painters and the time halves. Multiply the two amounts together and the answer is always the same. Here it is 24."
+            },
+            {
+              "id": "ch03-s3-example",
+              "kind": "example",
+              "text": "A sack of rice feeds 12 hostel students for 10 days. How long does it feed 15 students? The sack holds 12 × 10 = 120 days of rice for one student. Shared among 15 students, it lasts 120 ÷ 15 = 8 days. Check that the answer is sensible: more students, so fewer days."
+            },
+            {
+              "id": "ch03-s3-mistake",
+              "kind": "mistake",
+              "text": "The tempting step is the unitary method in its usual order: 10 ÷ 12, then × 15. That gives 12.5 days, which says more students make the rice last longer. Before any sum, ask one question. If this number goes up, does the other go up or down?"
+            },
+            {
+              "id": "ch03-s3-turn",
+              "kind": "turn",
+              "text": "A tank of water lasts 20 goats for 9 days. How many days does it last 30 goats?",
+              "answer": "6 days",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "6"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "6",
+                  "6 days",
+                  "= 6"
+                ],
+                "rejects": [
+                  "13.5",
+                  "9",
+                  "180",
+                  "4"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch03-s3-sayBack",
+              "kind": "sayBack",
+              "text": "When more of one thing means less of the other, find the total first, then share it out."
+            }
+          ]
+        },
+        {
+          "id": "ch03-s4",
+          "heading": "3.4 One multiplication for a change",
+          "excerpt": "No. The rise is 20% of ₹2,000, which is ₹400, so the price becomes ₹2,400. The cut is 20% of ₹2,400, which is ₹480. The sale price is ₹1,920. The second 20% was taken from a bigger amount, so it took off more.",
+          "teaches": [
+            "percentage-multiplier"
+          ],
+          "steps": [
+            {
+              "id": "ch03-s4-question",
+              "kind": "question",
+              "text": "A pair of shoes costs ₹2,000. In June the price goes up by 20%. In the July sale it comes down by 20%. Is it back to ₹2,000?"
+            },
+            {
+              "id": "ch03-s4-idea",
+              "kind": "idea",
+              "text": "No. The rise is 20% of ₹2,000, which is ₹400, so the price becomes ₹2,400. The cut is 20% of ₹2,400, which is ₹480. The sale price is ₹1,920. The second 20% was taken from a bigger amount, so it took off more."
+            },
+            {
+              "id": "ch03-s4-picture",
+              "kind": "picture",
+              "text": "Draw a bar of 10 boxes for ₹2,000. A 20% rise adds 2 boxes, which makes 12. Now cut the new bar into 10 equal pieces and take 2 of them away. Each piece is bigger than an old box, so you take away more than you added."
+            },
+            {
+              "id": "ch03-s4-reason",
+              "kind": "reason",
+              "text": "There is a shorter way to see it. After a 20% rise you have 100% + 20% = 120% of the price. 120% is 120/100, which is 1.2. So a 20% rise is the same as multiplying by 1.2. After a 20% cut you have 80% left, so you multiply by 0.8. Both changes together: 1.2 × 0.8 = 0.96."
+            },
+            {
+              "id": "ch03-s4-name",
+              "kind": "name",
+              "text": "The one number you multiply by to make a percentage change is called the percentage multiplier. For a rise, add the percentage to 100% and write the result as a decimal. For a fall, take it away from 100%. A 5% rise has the multiplier 1.05 and a 30% fall has the multiplier 0.7."
+            },
+            {
+              "id": "ch03-s4-example",
+              "kind": "example",
+              "text": "A phone costs ₹15,000 and its price rises by 8%. The multiplier is 1.08. ₹15,000 × 1.08 = ₹16,200. Now go back to the ₹2,000 shoes, which went up 20% and then down 20%. The multiplier for both changes together is 0.96. ₹2,000 × 0.96 = ₹1,920, which matches. 0.96 is 96%, so the two changes make a 4% fall. In the figure, read the green line."
+            },
+            {
+              "id": "ch03-s4-mistake",
+              "kind": "mistake",
+              "text": "There are two traps. First, a 5% rise is × 1.05, not × 1.5 and not × 0.05. Multiplying by 0.05 finds the 5% on its own. Second, percentages in a row do not add. Two rises of 10% are not a rise of 20%. They make 1.1 × 1.1 = 1.21, which is a 21% rise."
+            },
+            {
+              "id": "ch03-s4-turn",
+              "kind": "turn",
+              "text": "A bag costs ₹800. Its price is cut by 15%. What is the new price?",
+              "answer": "₹680",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "680"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "680",
+                  "₹680",
+                  "680 rupees"
+                ],
+                "rejects": [
+                  "120",
+                  "785",
+                  "920",
+                  "68"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch03-s4-sayBack",
+              "kind": "sayBack",
+              "text": "A percentage change is one multiplication, and changes in a row multiply."
+            }
+          ],
+          "figure": true
+        },
+        {
+          "id": "ch03-s5",
+          "heading": "3.5 Working backwards",
+          "excerpt": "It is tempting to add 20% of ₹1,200, which gives ₹1,440. But the 20% was taken off the old price, not the sale price. The sale price is 80% of the old price. So 80% is ₹1,200, 10% is ₹150 and 100% is ₹1,500.",
+          "teaches": [
+            "reverse-percentage"
+          ],
+          "steps": [
+            {
+              "id": "ch03-s5-question",
+              "kind": "question",
+              "text": "In a sale, everything is 20% off. A kurta costs ₹1,200 in the sale. What did it cost before?"
+            },
+            {
+              "id": "ch03-s5-idea",
+              "kind": "idea",
+              "text": "It is tempting to add 20% of ₹1,200, which gives ₹1,440. But the 20% was taken off the old price, not the sale price. The sale price is 80% of the old price. So 80% is ₹1,200, 10% is ₹150 and 100% is ₹1,500."
+            },
+            {
+              "id": "ch03-s5-picture",
+              "kind": "picture",
+              "text": "Draw a bar of 10 boxes for the old price. Cross out 2 boxes for the 20% off. The 8 boxes left hold ₹1,200, so each box holds ₹150. All 10 boxes hold ₹1,500."
+            },
+            {
+              "id": "ch03-s5-reason",
+              "kind": "reason",
+              "text": "The sale multiplied the old price by 0.8. To undo a multiplication, you divide. ₹1,200 ÷ 0.8 = ₹1,500. Adding 20% back does not undo it, because that multiplies by 1.2. And 0.8 × 1.2 = 0.96, not 1."
+            },
+            {
+              "id": "ch03-s5-name",
+              "kind": "name",
+              "text": "Finding the amount before a percentage change is called a reverse percentage. Work out the multiplier for the change, then divide the new amount by it. Dividing by the multiplier always takes you back to the start."
+            },
+            {
+              "id": "ch03-s5-example",
+              "kind": "example",
+              "text": "After a 12% rise, a month's rent is ₹5,600. What was the old rent? The multiplier for a 12% rise is 1.12, so work out ₹5,600 ÷ 1.12. Multiply both numbers by 100 to get 560,000 ÷ 112, which is 5,000. The old rent was ₹5,000. Check forwards: ₹5,000 × 1.12 = ₹5,600."
+            },
+            {
+              "id": "ch03-s5-mistake",
+              "kind": "mistake",
+              "text": "The trap is to take the percentage of the wrong amount. 12% of ₹5,600 is ₹672, and ₹5,600 − ₹672 = ₹4,928. Test that answer by going forwards. ₹4,928 × 1.12 = ₹5,519.36, which is not ₹5,600. The 12% in the question was 12% of the old rent, the number you are looking for."
+            },
+            {
+              "id": "ch03-s5-turn",
+              "kind": "turn",
+              "text": "After a 10% rise, a cinema ticket costs ₹330. What did it cost before the rise?",
+              "answer": "₹300",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "300"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "300",
+                  "₹300",
+                  "300 rupees"
+                ],
+                "rejects": [
+                  "297",
+                  "363",
+                  "33",
+                  "320"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch03-s5-sayBack",
+              "kind": "sayBack",
+              "text": "To undo a percentage change, divide by its multiplier."
+            }
+          ]
+        },
+        {
+          "id": "ch03-s6",
+          "heading": "3.6 Growth on growth",
+          "excerpt": "Only if the bank pays on the first ₹1,000 each year and nothing more. Most banks do better than that. They add the interest to the account, and the next year they pay 8% on the new, bigger amount. Year 1 ends on ₹1,080. Year 2 adds 8% of ₹1,080, which is ₹86.40, not ₹80.",
+          "teaches": [
+            "simple-interest",
+            "compound-growth",
+            "rule-of-72"
+          ],
+          "steps": [
+            {
+              "id": "ch03-s6-question",
+              "kind": "question",
+              "text": "Kym's grandmother puts ₹1,000 in a bank that pays 8% interest a year. She leaves it there for 20 years. Kym says the bank adds ₹80 a year, so it will grow to ₹2,600. Is she right?"
+            },
+            {
+              "id": "ch03-s6-idea",
+              "kind": "idea",
+              "text": "Only if the bank pays on the first ₹1,000 each year and nothing more. Most banks do better than that. They add the interest to the account, and the next year they pay 8% on the new, bigger amount. Year 1 ends on ₹1,080. Year 2 adds 8% of ₹1,080, which is ₹86.40, not ₹80."
+            },
+            {
+              "id": "ch03-s6-picture",
+              "kind": "picture",
+              "text": "Make a table with one row for each year, starting from ₹1,000. Each row is the row above × 1.08: ₹1,080, then ₹1,166.40, then ₹1,259.71. The steps get bigger every year, because each one is 8% of a bigger number."
+            },
+            {
+              "id": "ch03-s6-reason",
+              "kind": "reason",
+              "text": "Each year multiplies by 1.08, so 20 years multiply by 1.08 twenty times. A calculator gives that as about 4.66. So the ₹1,000 becomes about ₹4,661. That is far more than ₹2,600, and the only difference is interest earning interest."
+            },
+            {
+              "id": "ch03-s6-name",
+              "kind": "name",
+              "text": "Interest paid only on the starting amount is simple interest. It adds the same sum every year. Interest paid on the growing total is compound interest, and growth of this kind is compound growth. It multiplies by the same number every year. A quick guide is the rule of 72: divide 72 by the yearly percentage to estimate the years needed to double."
+            },
+            {
+              "id": "ch03-s6-example",
+              "kind": "example",
+              "text": "₹20,000 is saved at 5% compound interest for 2 years. The multiplier is 1.05 each year. ₹20,000 × 1.05 = ₹21,000, and ₹21,000 × 1.05 = ₹22,050. The interest earned is ₹2,050. Simple interest would have paid 2 × ₹1,000 = ₹2,000. Now use the rule of 72 on the ₹1,000 that Kym's grandmother saved at 8%. 72 ÷ 8 = 9, so her money doubles about every 9 years. In the figure, set the interest rate to 8% and read the amber lines."
+            },
+            {
+              "id": "ch03-s6-mistake",
+              "kind": "mistake",
+              "text": "The trap is to treat compound growth as adding. 8% a year for 20 years is not 160% in total. It is × 1.08 twenty times, which is a rise of about 366%. The same trap works against you with a loan. A debt at 24% a year doubles in about 3 years."
+            },
+            {
+              "id": "ch03-s6-turn",
+              "kind": "turn",
+              "text": "₹2,000 is saved at 5% compound interest a year. How much is in the account after 2 years?",
+              "answer": "₹2,205",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "2205"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "2205",
+                  "₹2,205",
+                  "2,205"
+                ],
+                "rejects": [
+                  "2200",
+                  "2100",
+                  "205",
+                  "2210"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch03-s6-sayBack",
+              "kind": "sayBack",
+              "text": "Compound growth multiplies by the same number each year, so the growth itself grows."
+            }
+          ],
+          "figure": true
         }
       ],
       "callouts": [
         {
           "id": "ch03-c-predict",
           "kind": "predict",
-          "title": "Predict Before You Drag",
-          "body": "Before moving the slider in Singapore Ratio Bar Model, predict which geometric quantity changes and which invariant stays locked."
+          "title": "Predict first",
+          "body": "Before you touch the figure: ₹1,000 is left for 20 years at 8%. Guess the total with compound interest. Then compare your guess with the amber lines."
         },
         {
           "id": "ch03-c-aha",
           "kind": "check",
-          "title": "The Intuition → Formula Bridge",
-          "body": "A +20% rise followed by a −20% drop lands at 1.2 × 0.8 = 0.96 (a 4% loss!), while compounding multiplies by (1 + r)ⁿ so interest itself earns interest! Formula: A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ)"
+          "title": "Explain it",
+          "body": "Explain to a friend why sharing ₹90 in the ratio 1 : 2 does not give anyone ₹45."
         },
         {
           "id": "ch03-c-trap",
           "kind": "careful",
-          "title": "Classic Algebraic Trap to Avoid",
-          "body": "Whenever a formula in Chapter 3 looks tempting to shortcut, test a concrete 2×2 area or small integer example (x = 2, y = 3) first!"
+          "title": "Watch out for the wrong 100%",
+          "body": "A percentage is always a percentage of something. Before you calculate, ask which amount is the 100%: the old price or the new one."
         }
       ],
       "keyTerms": [
-        "Unitary Method",
-        "Ratio Partition",
-        "Percentage Multiplier",
-        "Reverse Percentage",
-        "Compound Growth",
+        "Percentage",
+        "Ratio",
+        "Unitary method",
+        "Direct proportion",
+        "Inverse proportion",
+        "Percentage multiplier",
+        "Reverse percentage",
+        "Simple interest",
+        "Compound growth",
         "Rule of 72"
       ],
       "widgets": [
         "w_singapore_ratio_bar_model",
         "w_compound_multiplier_machine"
-      ]
+      ],
+      "debate": {
+        "id": "debate-ch03-percentages",
+        "chapterNumber": 3,
+        "oupUnitNumber": 9,
+        "title": "The price before the rise",
+        "contextPrompt": "After a 25% rise, a month's bus pass costs ₹1,000. Ishaan and Tara each work out what it cost before the rise.",
+        "speakerAName": "Ishaan",
+        "speakerAClaim": "25% of ₹1,000 is ₹250. Take it off, and the old price was ₹750.",
+        "speakerBName": "Tara",
+        "speakerBClaim": "The new price is 125% of the old one. ₹1,000 ÷ 1.25 = ₹800.",
+        "choices": [
+          {
+            "id": "ch03-a",
+            "speakerLabel": "Ishaan is right (₹750)",
+            "reasoningStatement": "A 25% rise is undone by a 25% cut.",
+            "isCorrect": false,
+            "socraticRebuttal": "Test it by going forwards. ₹750 × 1.25 = ₹937.50, not ₹1,000. The 25% in the question was 25% of the old price. Is that the same as 25% of ₹1,000?"
+          },
+          {
+            "id": "ch03-b",
+            "speakerLabel": "Tara is right (₹800)",
+            "reasoningStatement": "The rise multiplied the old price by 1.25, so dividing by 1.25 undoes it.",
+            "isCorrect": true,
+            "socraticRebuttal": "Yes. Check it forwards: 25% of ₹800 is ₹200, and ₹800 + ₹200 = ₹1,000."
+          },
+          {
+            "id": "ch03-c",
+            "speakerLabel": "Neither. It was ₹975.",
+            "reasoningStatement": "25% means 25, so take ₹25 off.",
+            "isCorrect": false,
+            "socraticRebuttal": "25% is not ₹25. It is 25 out of every 100, so its size depends on the price. What is 25% of ₹800?"
+          }
+        ],
+        "invariantTakeaway": "To undo a percentage change, divide by its multiplier. Taking the same percentage off does not work."
+      }
     },
     {
       "id": "ch04",
@@ -3164,103 +4253,103 @@
     {
       "id": "atlas-ch02-1",
       "widget": "w_recurring_decimal_tail_canceller",
-      "title": "Ch 2.1 · Fractions, Recurring Decimals & The Scaling Engine (Concrete Manipulation)",
+      "title": "Chapter 2 · Lining up the repeating digits",
       "chapter": 2,
       "figure": "maths/ch02-fractions-decimals/index.html",
-      "question": "How does touching the geometry of Fractions, Recurring Decimals & The Scaling Engine reveal its structure?",
-      "explanation": "Slide a 10ᵏ multiplier bar against a repeating decimal tail 0.ababab… and watch the infinite tails align.",
-      "limits": "Formula: x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1)",
+      "question": "Why does multiplying 0.3636… by 100 help to turn it into a fraction?",
+      "explanation": "Multiplying by 100 moves every digit two places to the left. The digits after the point still read 3636…, as they did before. Subtracting the original number removes them all and leaves the whole number 36.",
+      "limits": "The result: 99 × the number = 36, so the number is 4/11",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
         "Atlas figures"
       ],
       "stories": [
-        "Dividing by a fraction a/b asks how many b-sized pieces fit inside — which scales by b/a."
+        "How can 0.333… go on for ever and still be exactly one third?"
       ]
     },
     {
       "id": "atlas-ch02-2",
       "widget": "w_recurring_decimal_tail_canceller",
-      "title": "Ch 2.2 · Fractions, Recurring Decimals & The Scaling Engine (The Visual 'Aha!' Invariant)",
+      "title": "Chapter 2 · How many pieces fit?",
       "chapter": 2,
       "figure": "maths/ch02-fractions-decimals/index.html",
-      "question": "What stays constant in Fractions, Recurring Decimals & The Scaling Engine when you deform or slice the figure?",
-      "explanation": "Multiplying x = 0.abab… by 10ᵏ shifts the decimal point by one full period k, so subtracting x cancels the entire infinite tail in one stroke!",
-      "limits": "Formula: x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1)",
+      "question": "Why is dividing by 2/3 the same as multiplying by 3/2?",
+      "explanation": "Cutting each whole into thirds multiplies the count by 3. Grouping the thirds in twos divides it by 2. Doing both is multiplying by 3/2.",
+      "limits": "The rule: 4 ÷ 2/3 = 4 × 3/2 = 6",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
         "Atlas figures"
       ],
       "stories": [
-        "Dividing by a fraction a/b asks how many b-sized pieces fit inside — which scales by b/a."
+        "How can 0.333… go on for ever and still be exactly one third?"
       ]
     },
     {
       "id": "atlas-ch02-3",
       "widget": "w_recurring_decimal_tail_canceller",
-      "title": "Ch 2.3 · Fractions, Recurring Decimals & The Scaling Engine (Symbolic Formula Lockstep)",
+      "title": "Chapter 2 · The decimal that is secretly 1",
       "chapter": 2,
       "figure": "maths/ch02-fractions-decimals/index.html",
-      "question": "How does the picture translate term-by-term into x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1)?",
-      "explanation": "Every term in x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1) corresponds to a colour-coded geometric part in maths/ch02-fractions-decimals/index.html.",
-      "limits": "Formula: x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1)",
+      "question": "What fraction is 0.999…?",
+      "explanation": "Ten lots of it are 9.999…, and one lot is 0.999…, with the same tail. Take one lot from ten lots and nine lots are exactly 9. So the number is 9/9, which is 1. 0.999… and 1 are two names for one number.",
+      "limits": "The result: 0.999… = 1",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
         "Atlas figures"
       ],
       "stories": [
-        "Dividing by a fraction a/b asks how many b-sized pieces fit inside — which scales by b/a."
+        "How can 0.333… go on for ever and still be exactly one third?"
       ]
     },
     {
       "id": "atlas-ch03-1",
       "widget": "w_singapore_ratio_bar_model",
-      "title": "Ch 3.1 · Ratios, Percentages & Exponential Compounding (Concrete Manipulation)",
+      "title": "Chapter 3 · Sharing in a ratio",
       "chapter": 3,
       "figure": "maths/ch03-ratios-compounding/index.html",
-      "question": "How does touching the geometry of Ratios, Percentages & Exponential Compounding reveal its structure?",
-      "explanation": "Run the ₹1,000/month at 8% machine over 20 years and compare white savings, red simple interest, and amber compound interest.",
-      "limits": "Formula: A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ)",
+      "question": "Why do you add the parts of a ratio before you share?",
+      "explanation": "The amount is cut into equal parts, and the ratio says how many parts each person takes. Adding tells you how many parts there are in all. Dividing by that number gives the size of one part.",
+      "limits": "The rule: 1 part = total ÷ number of parts",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
         "Atlas figures"
       ],
       "stories": [
-        "A percentage change is a multiplicative scale factor (1 ± r); repeated changes multiply, they never add."
+        "A price goes up by 20% and then down by 20%. Why is it not back where it started?"
       ]
     },
     {
       "id": "atlas-ch03-2",
       "widget": "w_singapore_ratio_bar_model",
-      "title": "Ch 3.2 · Ratios, Percentages & Exponential Compounding (The Visual 'Aha!' Invariant)",
+      "title": "Chapter 3 · Up 20%, then down 20%",
       "chapter": 3,
       "figure": "maths/ch03-ratios-compounding/index.html",
-      "question": "What stays constant in Ratios, Percentages & Exponential Compounding when you deform or slice the figure?",
-      "explanation": "A +20% rise followed by a −20% drop lands at 1.2 × 0.8 = 0.96 (a 4% loss!), while compounding multiplies by (1 + r)ⁿ so interest itself earns interest!",
-      "limits": "Formula: A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ)",
+      "question": "Why does a 20% rise followed by a 20% fall leave you with less?",
+      "explanation": "The rise multiplies by 1.2 and the fall multiplies by 0.8. Together they multiply by 0.96. The fall is 20% of the bigger amount, so it takes off more than the rise put on.",
+      "limits": "The result: 1.2 × 0.8 = 0.96, a 4% fall",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
         "Atlas figures"
       ],
       "stories": [
-        "A percentage change is a multiplicative scale factor (1 ± r); repeated changes multiply, they never add."
+        "A price goes up by 20% and then down by 20%. Why is it not back where it started?"
       ]
     },
     {
       "id": "atlas-ch03-3",
       "widget": "w_singapore_ratio_bar_model",
-      "title": "Ch 3.3 · Ratios, Percentages & Exponential Compounding (Symbolic Formula Lockstep)",
+      "title": "Chapter 3 · The doubling rule",
       "chapter": 3,
       "figure": "maths/ch03-ratios-compounding/index.html",
-      "question": "How does the picture translate term-by-term into A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ)?",
-      "explanation": "Every term in A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ) corresponds to a colour-coded geometric part in maths/ch03-ratios-compounding/index.html.",
-      "limits": "Formula: A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ)",
+      "question": "Why does money at 8% a year double in about 9 years?",
+      "explanation": "Each year multiplies the money by 1.08. Nine of those multiplications come to almost exactly 2. The rule of 72 finds the 9 without the long sum: 72 ÷ 8 = 9.",
+      "limits": "The result: 1.08 multiplied nine times is about 2",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
         "Atlas figures"
       ],
       "stories": [
-        "A percentage change is a multiplicative scale factor (1 ± r); repeated changes multiply, they never add."
+        "A price goes up by 20% and then down by 20%. Why is it not back where it started?"
       ]
     },
     {
@@ -4326,129 +5415,129 @@
     },
     {
       "id": "w_recurring_decimal_tail_canceller",
-      "title": "Recurring Decimal Tail Canceller",
+      "title": "Lining up the repeating digits",
       "chapter": 2,
       "is3D": false,
       "atlasRoute": "maths/ch02-fractions-decimals/index.html",
-      "challengePrompt": "Manipulate Recurring Decimal Tail Canceller until the visual invariant locks in, then verify x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1).",
-      "cutaway": "Intuition → Formula Lockstep: Multiplying x = 0.abab… by 10ᵏ shifts the decimal point by one full period k, so subtracting x cancels the entire infinite tail in one stroke!",
-      "idealised": "Formula Anatomy: x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1)",
+      "challengePrompt": "Set the repeating digits to 36. Predict what is left when the blue row is taken from the red row. Then read the green box.",
+      "cutaway": "The red row is 100 lots of 0.3636… and the blue row is 1 lot. Their digits after the point match, so they cancel. 99 lots are left, and they make 36.",
+      "idealised": "The result: 0.3636… = 36/99 = 4/11",
       "watchSteps": [
         {
-          "title": "1. Concrete Touch",
-          "caption": "Slide a 10ᵏ multiplier bar against a repeating decimal tail 0.ababab… and watch the infinite tails align."
+          "title": "1. Try it",
+          "caption": "Set the repeating digits to 36. The red row shows 36.3636… and the blue row shows 0.3636…"
         },
         {
-          "title": "2. Spot the Invariant ('Aha!')",
-          "caption": "Multiplying x = 0.abab… by 10ᵏ shifts the decimal point by one full period k, so subtracting x cancels the entire infinite tail in one stroke!"
+          "title": "2. Notice",
+          "caption": "After the decimal point the two rows are identical. Taking one from the other leaves exactly 36."
         },
         {
-          "title": "3. Colour-Map the Symbols",
-          "caption": "Match red, blue, amber, and green geometry to x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1)."
+          "title": "3. Match the colours",
+          "caption": "Red is 100 lots of the number. Blue is 1 lot. Green is the 99 lots left over."
         },
         {
-          "title": "4. Test a Boundary Case",
-          "caption": "Push the slider to 0, 1, or 90° and verify that the formula predicts the exact extreme state."
+          "title": "4. Push it further",
+          "caption": "Set the repeating digits to 18. The green box gives 18/99, which is 2/11. Divide 2 by 11 on paper to check."
         },
         {
-          "title": "5. Stamp & Sketch in Journal",
-          "caption": "Freeze the state into your Cornell Proof & Construction Journal."
+          "title": "5. Draw it",
+          "caption": "Write the three rows for 0.3636… in your journal, with the matching digits lined up."
         }
       ]
     },
     {
       "id": "w_fraction_area_division",
-      "title": "Fraction Area Division",
+      "title": "How many pieces fit?",
       "chapter": 2,
       "is3D": false,
       "atlasRoute": "maths/ch02-fractions-decimals/index.html",
-      "challengePrompt": "Manipulate Fraction Area Division until the visual invariant locks in, then verify x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1).",
-      "cutaway": "Intuition → Formula Lockstep: Multiplying x = 0.abab… by 10ᵏ shifts the decimal point by one full period k, so subtracting x cancels the entire infinite tail in one stroke!",
-      "idealised": "Formula Anatomy: x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1)",
+      "challengePrompt": "Set the whole number to 4 and the bottom of the fraction to 3. Predict how many pieces of 2/3 fit into 4. Then read the amber line.",
+      "cutaway": "4 wholes cut into thirds make 12 thirds. Each piece uses 2 of them, so 6 pieces fit. That is 4 × 3 ÷ 2, which is 4 × 3/2.",
+      "idealised": "The rule: 4 ÷ 2/3 = 4 × 3/2 = 6",
       "watchSteps": [
         {
-          "title": "1. Concrete Touch",
-          "caption": "Slide a 10ᵏ multiplier bar against a repeating decimal tail 0.ababab… and watch the infinite tails align."
+          "title": "1. Try it",
+          "caption": "Set the whole number to 4 and the bottom of the fraction to 3."
         },
         {
-          "title": "2. Spot the Invariant ('Aha!')",
-          "caption": "Multiplying x = 0.abab… by 10ᵏ shifts the decimal point by one full period k, so subtracting x cancels the entire infinite tail in one stroke!"
+          "title": "2. Notice",
+          "caption": "The amber line counts the pieces. 6 pieces of 2/3 fit into 4."
         },
         {
-          "title": "3. Colour-Map the Symbols",
-          "caption": "Match red, blue, amber, and green geometry to x = 0.d₁d₂…dₖ (repeating)  ⇒  (10ᵏ − 1)x = d₁d₂…dₖ  ⇒  x = d₁d₂…dₖ / (10ᵏ − 1)."
+          "title": "3. Match the rule",
+          "caption": "Multiplying by 3 counts the thirds. Dividing by 2 groups them. Together that is × 3/2."
         },
         {
-          "title": "4. Test a Boundary Case",
-          "caption": "Push the slider to 0, 1, or 90° and verify that the formula predicts the exact extreme state."
+          "title": "4. Push it further",
+          "caption": "Keep the whole number at 4 and set the bottom to 6. The pieces are smaller, so more fit. How many?"
         },
         {
-          "title": "5. Stamp & Sketch in Journal",
-          "caption": "Freeze the state into your Cornell Proof & Construction Journal."
+          "title": "5. Draw it",
+          "caption": "Draw 4 bars cut into thirds in your journal and circle the groups of 2."
         }
       ]
     },
     {
       "id": "w_singapore_ratio_bar_model",
-      "title": "Singapore Ratio Bar Model",
+      "title": "Sharing in a ratio",
       "chapter": 3,
       "is3D": true,
       "atlasRoute": "maths/ch03-ratios-compounding/index.html",
-      "challengePrompt": "Manipulate Singapore Ratio Bar Model until the visual invariant locks in, then verify A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ).",
-      "cutaway": "Intuition → Formula Lockstep: A +20% rise followed by a −20% drop lands at 1.2 × 0.8 = 0.96 (a 4% loss!), while compounding multiplies by (1 + r)ⁿ so interest itself earns interest!",
-      "idealised": "Formula Anatomy: A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ)",
+      "challengePrompt": "Set the parts for A to 2 and the parts for B to 6. Every part is worth ₹40. Predict how much A and B each get. Then read the two bars.",
+      "cutaway": "Every box is 1 part and holds ₹40. A has 2 boxes and B has 6, so A gets ₹80 and B gets ₹240. Together that is 8 parts, which is ₹320.",
+      "idealised": "The rule: 1 part = total ÷ number of parts",
       "watchSteps": [
         {
-          "title": "1. Concrete Touch",
-          "caption": "Run the ₹1,000/month at 8% machine over 20 years and compare white savings, red simple interest, and amber compound interest."
+          "title": "1. Try it",
+          "caption": "Set the parts for A to 3 and the parts for B to 5."
         },
         {
-          "title": "2. Spot the Invariant ('Aha!')",
-          "caption": "A +20% rise followed by a −20% drop lands at 1.2 × 0.8 = 0.96 (a 4% loss!), while compounding multiplies by (1 + r)ⁿ so interest itself earns interest!"
+          "title": "2. Notice",
+          "caption": "Every box is the same size and holds ₹40. A has 3 boxes and B has 5."
         },
         {
-          "title": "3. Colour-Map the Symbols",
-          "caption": "Match red, blue, amber, and green geometry to A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ)."
+          "title": "3. Match the rule",
+          "caption": "There are 3 + 5 = 8 parts and ₹320 in all. ₹320 ÷ 8 = ₹40 for one part."
         },
         {
-          "title": "4. Test a Boundary Case",
-          "caption": "Push the slider to 0, 1, or 90° and verify that the formula predicts the exact extreme state."
+          "title": "4. Push it further",
+          "caption": "Set A to 6 and B to 2. The total is still ₹320. Who gets more now, and how much?"
         },
         {
-          "title": "5. Stamp & Sketch in Journal",
-          "caption": "Freeze the state into your Cornell Proof & Construction Journal."
+          "title": "5. Draw it",
+          "caption": "Draw the two bars for 3 : 5 in your journal and write ₹40 in every box."
         }
       ]
     },
     {
       "id": "w_compound_multiplier_machine",
-      "title": "Compound Multiplier Machine",
+      "title": "Adding or multiplying, for 20 years",
       "chapter": 3,
       "is3D": true,
       "atlasRoute": "maths/ch03-ratios-compounding/index.html",
-      "challengePrompt": "Manipulate Compound Multiplier Machine until the visual invariant locks in, then verify A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ).",
-      "cutaway": "Intuition → Formula Lockstep: A +20% rise followed by a −20% drop lands at 1.2 × 0.8 = 0.96 (a 4% loss!), while compounding multiplies by (1 + r)ⁿ so interest itself earns interest!",
-      "idealised": "Formula Anatomy: A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ)",
+      "challengePrompt": "Set the interest rate to 10%. Predict what ₹1,000 becomes in 20 years with simple interest. Then guess the compound total, and read the amber lines.",
+      "cutaway": "Simple interest adds the same ₹100 every year, so 20 years add ₹2,000. Compound interest multiplies by 1.1 every year. Twenty multiplications turn ₹1,000 into ₹6,727.",
+      "idealised": "The rule: multiply by the same number once for each year",
       "watchSteps": [
         {
-          "title": "1. Concrete Touch",
-          "caption": "Run the ₹1,000/month at 8% machine over 20 years and compare white savings, red simple interest, and amber compound interest."
+          "title": "1. Try it",
+          "caption": "Set the interest rate to 8%. The amber lines show ₹2,600 with simple interest and ₹4,661 with compound."
         },
         {
-          "title": "2. Spot the Invariant ('Aha!')",
-          "caption": "A +20% rise followed by a −20% drop lands at 1.2 × 0.8 = 0.96 (a 4% loss!), while compounding multiplies by (1 + r)ⁿ so interest itself earns interest!"
+          "title": "2. Notice",
+          "caption": "Compound interest gives ₹2,061 more, from the same ₹1,000 and the same rate."
         },
         {
-          "title": "3. Colour-Map the Symbols",
-          "caption": "Match red, blue, amber, and green geometry to A(n) = P(1 + r)ⁿ,   Ratio shareᵢ = Total × (wᵢ / ∑ wⱼ)."
+          "title": "3. Match the rule",
+          "caption": "Simple interest adds 20 lots of ₹80. Compound interest multiplies by 1.08 twenty times."
         },
         {
-          "title": "4. Test a Boundary Case",
-          "caption": "Push the slider to 0, 1, or 90° and verify that the formula predicts the exact extreme state."
+          "title": "4. Push it further",
+          "caption": "Set the rate to 12%. The rule of 72 says the money doubles every 6 years. Is the compound total more than ₹8,000?"
         },
         {
-          "title": "5. Stamp & Sketch in Journal",
-          "caption": "Freeze the state into your Cornell Proof & Construction Journal."
+          "title": "5. Draw it",
+          "caption": "Copy the first three years at 8% into your journal: ₹1,080, ₹1,166.40 and ₹1,259.71."
         }
       ]
     },
@@ -6486,7 +7575,7 @@
             "bridgeIds": [
               "bridge-music-fourier-harmonics"
             ],
-            "summary": "Scale numerator and denominator by 10ᵏ so the divisor is a whole number.",
+            "summary": "Multiply decimals as whole numbers, then count the decimal places back in. To divide by a decimal, first multiply both numbers by 10 or 100 so you divide by a whole number.",
             "cambridgeWatchouts": [
               "Draw the bar model or a sketch before you write the formula for 6.1.",
               "Check units, negative signs, and significant figures at the final step."
@@ -6508,7 +7597,7 @@
             "bridgeIds": [
               "bridge-music-fourier-harmonics"
             ],
-            "summary": "Count from the first non-zero digit; round only at the final step of a calculation.",
+            "summary": "Significant figures are counted from the first digit that is not zero. Round once, at the end of a calculation.",
             "cambridgeWatchouts": [
               "Draw the bar model or a sketch before you write the formula for 6.2.",
               "Check units, negative signs, and significant figures at the final step."
@@ -6530,7 +7619,7 @@
             "bridgeIds": [
               "bridge-music-fourier-harmonics"
             ],
-            "summary": "Prime denominators with only 2s and 5s terminate; others recur; convert via (10ᵏ − 1)x.",
+            "summary": "A fraction in simplest form gives a decimal that stops only when its denominator is built from 2s and 5s. Otherwise the digits repeat. To turn a recurring decimal into a fraction, multiply so the repeating tails line up, then subtract.",
             "cambridgeWatchouts": [
               "Draw the bar model or a sketch before you write the formula for 6.3.",
               "Check units, negative signs, and significant figures at the final step."
@@ -6552,7 +7641,7 @@
             "bridgeIds": [
               "bridge-music-fourier-harmonics"
             ],
-            "summary": "Convert to improper fractions or borrow 1 whole as d/d when the fraction part is larger.",
+            "summary": "Write both mixed numbers as improper fractions. Give them a common denominator, then subtract the numerators.",
             "cambridgeWatchouts": [
               "Draw the bar model or a sketch before you write the formula for 6.4.",
               "Check units, negative signs, and significant figures at the final step."
@@ -6574,7 +7663,7 @@
             "bridgeIds": [
               "bridge-music-fourier-harmonics"
             ],
-            "summary": "Cross-cancel common factors before multiplying; divide by multiplying by the reciprocal.",
+            "summary": "To multiply fractions, multiply the numerators and multiply the denominators. To divide by a fraction, multiply by its reciprocal.",
             "cambridgeWatchouts": [
               "Draw the bar model or a sketch before you write the formula for 6.5.",
               "Check units, negative signs, and significant figures at the final step."
@@ -6835,7 +7924,7 @@
             "bridgeIds": [
               "bridge-econ-compound-rupees"
             ],
-            "summary": "Multiplying by a decimal between 0 and 1 makes a positive number smaller.",
+            "summary": "Multiplying by a number between 0 and 1 makes a positive amount smaller. 0.4 of something is less than all of it.",
             "cambridgeWatchouts": [
               "Draw the bar model or a sketch before you write the formula for 9.1.",
               "Check units, negative signs, and significant figures at the final step."
@@ -6857,7 +7946,7 @@
             "bridgeIds": [
               "bridge-econ-compound-rupees"
             ],
-            "summary": "Dividing by 0.1, 0.01, or 0.25 scales the number up (÷ 0.25 = × 4).",
+            "summary": "Dividing by a number between 0 and 1 makes a positive amount bigger. Scale both numbers up until you divide by a whole number: 7 ÷ 0.25 is 700 ÷ 25.",
             "cambridgeWatchouts": [
               "Draw the bar model or a sketch before you write the formula for 9.2.",
               "Check units, negative signs, and significant figures at the final step."
@@ -6879,7 +7968,7 @@
             "bridgeIds": [
               "bridge-econ-compound-rupees"
             ],
-            "summary": "Use single multipliers (1 ± r); reverse percentages divide by (1 ± r); compound growth P(1+r)ⁿ.",
+            "summary": "A percentage change is one multiplication. A 15% rise is × 1.15 and a 15% fall is × 0.85. To go back to the old amount, divide by the multiplier. Changes in a row multiply.",
             "cambridgeWatchouts": [
               "Draw the bar model or a sketch before you write the formula for 9.3.",
               "Check units, negative signs, and significant figures at the final step."
@@ -6901,7 +7990,7 @@
             "bridgeIds": [
               "bridge-econ-compound-rupees"
             ],
-            "summary": "Convert between benchmark fractions, decimals, and percentages for rapid cancellation.",
+            "summary": "Fractions, decimals and percentages are three ways to write one number: 1/4 = 0.25 = 25%. Pick the form that makes the sum shortest.",
             "cambridgeWatchouts": [
               "Draw the bar model or a sketch before you write the formula for 9.4.",
               "Check units, negative signs, and significant figures at the final step."
@@ -7143,7 +8232,7 @@
               "bridge-bio-sa-vol",
               "bridge-chem-stoichiometry-ratios"
             ],
-            "summary": "Area conversions square the linear factor (1 m² = 10,000 cm²); volume conversions cube it (1 m³ = 10⁶ cm³).",
+            "summary": "A length in metres is 100 times as many centimetres. An area has two lengths, so multiply by 100 twice: 1 m² = 10,000 cm². A volume has three, so 1 m³ = 1,000,000 cm³.",
             "cambridgeWatchouts": [
               "Draw the bar model or a sketch before you write the formula for 12.1.",
               "Check units, negative signs, and significant figures at the final step."
@@ -7166,7 +8255,7 @@
               "bridge-bio-sa-vol",
               "bridge-chem-stoichiometry-ratios"
             ],
-            "summary": "Convert to the same units first; write in simplest integer form or unitary form 1 : n.",
+            "summary": "Put both amounts in the same unit first. Then divide every part of the ratio by a common factor until no more will go.",
             "cambridgeWatchouts": [
               "Draw the bar model or a sketch before you write the formula for 12.2.",
               "Check units, negative signs, and significant figures at the final step."
@@ -7189,7 +8278,7 @@
               "bridge-bio-sa-vol",
               "bridge-chem-stoichiometry-ratios"
             ],
-            "summary": "Singapore Bar Model: find 1 unit = Total ÷ ∑ parts, or from a known difference between parts.",
+            "summary": "Add the parts, find what one part is worth, then multiply for each share. If you are told a difference and not the total, match it to the difference in parts.",
             "cambridgeWatchouts": [
               "Draw the bar model or a sketch before you write the formula for 12.3.",
               "Check units, negative signs, and significant figures at the final step."
@@ -7212,7 +8301,7 @@
               "bridge-bio-sa-vol",
               "bridge-chem-stoichiometry-ratios"
             ],
-            "summary": "Direct proportion y = kx vs inverse proportion y = k/x (where x · y = constant).",
+            "summary": "In direct proportion, both amounts are multiplied by the same number. In inverse proportion, one is multiplied and the other is divided, so multiplying them together always gives the same answer.",
             "cambridgeWatchouts": [
               "Draw the bar model or a sketch before you write the formula for 12.4.",
               "Check units, negative signs, and significant figures at the final step."
@@ -12339,8 +13428,8 @@
       "commandWord": "Calculate & Prove",
       "marks": 3,
       "prompt": "Prove algebraically that the recurring decimal x = 0.272727… (0.2̇7̇) equals 3/11 in simplest form.",
-      "workedExample": "Step 1: Let x = 0.272727… (period k = 2 digits).\nStep 2: Multiply by 10² = 100: 100x = 27.272727…\nStep 3: Subtract x: 99x = 27 ⇒ x = 27/99 = 3/11.",
-      "fadedPrompt": "100x = 27.2727… and x = 0.2727…, so 99x = 27 and x = 27/99 = ___.",
+      "workedExample": "Step 1: Two digits repeat, so multiply x by 100. This gives 100x = 27.2727… with the same tail as x.\nStep 2: Subtract x = 0.2727… and the tails cancel. So 99x = 27.\nStep 3: Divide both sides by 99. So x = 27/99.\nStep 4: Divide the top and the bottom by 9, their highest common factor. So x = 3/11.",
+      "fadedPrompt": "100x = 27.2727… and x = 0.2727…, so 99x = 27. Then x = 27/99, which in simplest form is ___.",
       "fadedAnswer": "3/11",
       "modelAnswer": "3/11 because 100x − x = 99x = 27, so x = 27/99 which simplifies on dividing by 9 to 3/11.",
       "linkedChapter": 2,
@@ -12538,8 +13627,8 @@
       "commandWord": "Work out",
       "marks": 2,
       "prompt": "Round 0.0040862 to 3 significant figures.",
-      "workedExample": "Apply the core invariant of 6.3 step by step.",
-      "fadedPrompt": "Target result for 6.3: ___",
+      "workedExample": "Step 1: Find the first digit that is not zero. It is the 4, so start counting there.\nStep 2: Count three significant figures: 4, 0 and 8. The zero between them counts.\nStep 3: Look at the next digit, which is 6. It is 5 or more, so the 8 rounds up to 9.\nStep 4: Keep the zeros at the front, because they hold the digits in place. The answer is 0.00409.",
+      "fadedPrompt": "The three significant figures are 4, 0 and 8, and the next digit is 6. Rounded, the number is ___.",
       "fadedAnswer": "0.00409",
       "modelAnswer": "0.00409",
       "linkedChapter": 2,
@@ -12771,8 +13860,8 @@
       "commandWord": "Model & Solve",
       "marks": 3,
       "prompt": "Work out 4 1/6 − 1 3/4 as a mixed number in simplest form.",
-      "workedExample": "Sketch the Singapore Bar Model or geometric diagram first, then solve: 2 5/12.",
-      "fadedPrompt": "Singapore Bar-Model solution: ___",
+      "workedExample": "Step 1: Write both as improper fractions. 4 1/6 = 25/6 and 1 3/4 = 7/4.\nStep 2: The lowest common multiple of 6 and 4 is 12, so use twelfths. 25/6 = 50/12 and 7/4 = 21/12.\nStep 3: Subtract the numerators. 50 − 21 = 29, so the answer is 29/12.\nStep 4: 24 twelfths make 2 wholes, which leaves 5 twelfths. The answer is 2 5/12.",
+      "fadedPrompt": "50/12 − 21/12 = 29/12. As a mixed number, 29/12 = ___.",
       "fadedAnswer": "2 5/12",
       "modelAnswer": "2 5/12",
       "linkedChapter": 2,
@@ -13002,8 +14091,8 @@
       "commandWord": "Prove & Generalise",
       "marks": 4,
       "prompt": "Find the exact value of (2 2/5 ÷ 1 1/15) × 5/9.",
-      "workedExample": "Bridge from visual intuition to the symbolic invariant: 5/4 or 1 1/4.",
-      "fadedPrompt": "Horizon invariant result: ___",
+      "workedExample": "Step 1: Write the mixed numbers as improper fractions. 2 2/5 = 12/5 and 1 1/15 = 16/15.\nStep 2: To divide by 16/15, multiply by its reciprocal, 15/16. 12/5 × 15/16 = 180/80 = 9/4.\nStep 3: Multiply by 5/9. 9/4 × 5/9 = 45/36.\nStep 4: Divide the top and the bottom by 9. The answer is 5/4, which is 1 1/4.",
+      "fadedPrompt": "12/5 × 15/16 = 9/4, and 9/4 × 5/9 = 45/36. In simplest form, 45/36 = ___.",
       "fadedAnswer": "5/4 or 1 1/4",
       "modelAnswer": "5/4 or 1 1/4",
       "linkedChapter": 2,
@@ -15283,8 +16372,8 @@
       "commandWord": "Calculate & Prove",
       "marks": 3,
       "prompt": "After a 15% monsoon discount, a jacket costs ₹2,040. Using a reverse-percentage multiplier, find its original price before the discount.",
-      "workedExample": "Step 1: A 15% decrease leaves 100% − 15% = 85% = 0.85 of the original price P.\nStep 2: 0.85 × P = 2040.\nStep 3: Divide by 0.85: P = 2040 ÷ 0.85 = 204000 ÷ 85 = ₹2,400.",
-      "fadedPrompt": "0.85 × Original = 2040 ⇒ Original = 2040 ÷ 0.85 = ₹___.",
+      "workedExample": "Step 1: A 15% discount leaves 100% − 15% = 85% of the old price. The multiplier is 0.85.\nStep 2: So the old price × 0.85 = ₹2,040.\nStep 3: To undo × 0.85, divide by 0.85. Multiply both numbers by 100 first: 204,000 ÷ 85 = 2,400.\nStep 4: The old price was ₹2,400. Check forwards: ₹2,400 × 0.85 = ₹2,040.",
+      "fadedPrompt": "The old price × 0.85 = ₹2,040, so the old price is ₹2,040 ÷ 0.85 = ___.",
       "fadedAnswer": "₹2,400",
       "modelAnswer": "₹2,400 because a 15% reduction corresponds to multiplying the original price by 0.85, so dividing ₹2,040 by 0.85 restores ₹2,400.",
       "linkedChapter": 3,
@@ -15488,8 +16577,8 @@
       "commandWord": "Work out",
       "marks": 2,
       "prompt": "Evaluate 36 ÷ 0.15 without a calculator.",
-      "workedExample": "Apply the core invariant of 9.3 step by step.",
-      "fadedPrompt": "Target result for 9.3: ___",
+      "workedExample": "Step 1: You are dividing by a number less than 1, so expect an answer bigger than 36.\nStep 2: Multiply both numbers by 100 to clear the decimal. 36 ÷ 0.15 becomes 3,600 ÷ 15.\nStep 3: 15 × 24 = 360, so 360 ÷ 15 = 24 and 3,600 ÷ 15 = 240.\nStep 4: Check: 240 × 0.15 = 36.",
+      "fadedPrompt": "36 ÷ 0.15 is the same as 3,600 ÷ 15, which is ___.",
       "fadedAnswer": "240",
       "modelAnswer": "240",
       "linkedChapter": 3,
@@ -15728,8 +16817,8 @@
       "commandWord": "Model & Solve",
       "marks": 3,
       "prompt": "A price increases by 20% and then decreases by 20%. What is the net percentage change?",
-      "workedExample": "Sketch the Singapore Bar Model or geometric diagram first, then solve: −4% (a 4% decrease, since 1.2 × 0.8 = 0.96).",
-      "fadedPrompt": "Singapore Bar-Model solution: ___",
+      "workedExample": "Step 1: A 20% rise has the multiplier 1.2.\nStep 2: A 20% fall has the multiplier 0.8.\nStep 3: Changes in a row multiply. 1.2 × 0.8 = 0.96.\nStep 4: 0.96 is 96% of the starting price, so the price has fallen by 4%. The overall change is −4%.",
+      "fadedPrompt": "The two multipliers are 1.2 and 0.8. Multiply them and compare with 1. The overall change is ___.",
       "fadedAnswer": "−4% (a 4% decrease, since 1.2 × 0.8 = 0.96)",
       "modelAnswer": "−4% (a 4% decrease, since 1.2 × 0.8 = 0.96)",
       "linkedChapter": 3,
@@ -16053,8 +17142,8 @@
       "commandWord": "Prove & Generalise",
       "marks": 4,
       "prompt": "₹50,000 is invested at 10% per annum compound interest for 3 years. Find the total interest earned.",
-      "workedExample": "Bridge from visual intuition to the symbolic invariant: ₹16,550 (Total = ₹66,550).",
-      "fadedPrompt": "Horizon invariant result: ___",
+      "workedExample": "Step 1: The multiplier for 10% growth is 1.1.\nStep 2: Year 1: ₹50,000 × 1.1 = ₹55,000.\nStep 3: Year 2: ₹55,000 × 1.1 = ₹60,500. Year 3: ₹60,500 × 1.1 = ₹66,550.\nStep 4: The interest is the final amount take away the start. ₹66,550 − ₹50,000 = ₹16,550.",
+      "fadedPrompt": "After 3 years the ₹50,000 has grown to ₹66,550. The interest earned is ___.",
       "fadedAnswer": "₹16,550 (Total = ₹66,550)",
       "modelAnswer": "₹16,550 (Total = ₹66,550)",
       "linkedChapter": 3,
@@ -18274,8 +19363,8 @@
       "commandWord": "Calculate & Prove",
       "marks": 3,
       "prompt": "Kym, Aarav, and Meera share a prize in the ratio 3 : 5 : 8. Given that Meera receives ₹1,350 more than Kym, find the total prize using a Singapore Bar Model.",
-      "workedExample": "Step 1: Meera has 8 units and Kym has 3 units; difference = 8 − 3 = 5 units.\nStep 2: 5 units = ₹1,350 ⇒ 1 unit = 1350 ÷ 5 = ₹270.\nStep 3: Total units = 3 + 5 + 8 = 16 units ⇒ Total prize = 16 × ₹270 = ₹4,320.",
-      "fadedPrompt": "8 − 3 = 5 units = ₹1,350 ⇒ 1 unit = ₹270 ⇒ 16 units = ₹___.",
+      "workedExample": "Step 1: Meera has 8 parts and Kym has 3 parts, so Meera has 8 − 3 = 5 parts more.\nStep 2: Those 5 parts are the ₹1,350. So 1 part = ₹1,350 ÷ 5 = ₹270.\nStep 3: There are 3 + 5 + 8 = 16 parts in all.\nStep 4: The total prize is 16 × ₹270 = ₹4,320.",
+      "fadedPrompt": "5 parts = ₹1,350, so 1 part = ₹270. All 16 parts together make ___.",
       "fadedAnswer": "₹4,320",
       "modelAnswer": "₹4,320 because the 5-unit difference between Meera (8) and Kym (3) equals ₹1,350, making 1 unit = ₹270 and all 16 units = ₹4,320.",
       "linkedChapter": 3,
@@ -18504,8 +19593,8 @@
       "commandWord": "Work out",
       "marks": 2,
       "prompt": "Convert 3.5 m² into cm².",
-      "workedExample": "Apply the core invariant of 12.3 step by step.",
-      "fadedPrompt": "Target result for 12.3: ___",
+      "workedExample": "Step 1: 1 m = 100 cm.\nStep 2: A square 1 m by 1 m is 100 cm by 100 cm. So 1 m² = 100 × 100 = 10,000 cm².\nStep 3: Multiply the area by 10,000. 3.5 × 10,000 = 35,000.\nStep 4: 3.5 m² = 35,000 cm².",
+      "fadedPrompt": "1 m² = 10,000 cm², so 3.5 m² = ___.",
       "fadedAnswer": "35,000 cm² (multiply by 100² = 10,000)",
       "modelAnswer": "35,000 cm² (multiply by 100² = 10,000)",
       "linkedChapter": 3,
@@ -18684,8 +19773,8 @@
       "commandWord": "Model & Solve",
       "marks": 3,
       "prompt": "6 pumps working together empty a flooded basement in 10 hours. How long will 15 identical pumps take?",
-      "workedExample": "Sketch the Singapore Bar Model or geometric diagram first, then solve: 4 hours (inverse proportion: 6 × 10 = 60 pump-hours ÷ 15 = 4).",
-      "fadedPrompt": "Singapore Bar-Model solution: ___",
+      "workedExample": "Step 1: More pumps share the same job, so the time goes down. This is inverse proportion.\nStep 2: Find the whole job. 6 pumps × 10 hours = 60 hours of work for one pump.\nStep 3: Share the job among 15 pumps. 60 ÷ 15 = 4.\nStep 4: 15 pumps take 4 hours. Check: 15 × 4 = 60, the same job.",
+      "fadedPrompt": "The job is 6 × 10 = 60 hours of work for one pump. With 15 pumps it takes ___.",
       "fadedAnswer": "4 hours (inverse proportion: 6 × 10 = 60 pump-hours ÷ 15 = 4)",
       "modelAnswer": "4 hours (inverse proportion: 6 × 10 = 60 pump-hours ÷ 15 = 4)",
       "linkedChapter": 3,
@@ -18864,8 +19953,8 @@
       "commandWord": "Prove & Generalise",
       "marks": 4,
       "prompt": "The ratio A : B = 3 : 4 and B : C = 6 : 7. Find the combined three-way ratio A : B : C in simplest integer form.",
-      "workedExample": "Bridge from visual intuition to the symbolic invariant: 9 : 12 : 14.",
-      "fadedPrompt": "Horizon invariant result: ___",
+      "workedExample": "Step 1: B is 4 in one ratio and 6 in the other. The lowest common multiple of 4 and 6 is 12.\nStep 2: Multiply both parts of 3 : 4 by 3, so that B becomes 12. A : B = 9 : 12.\nStep 3: Multiply both parts of 6 : 7 by 2, so that B becomes 12. B : C = 12 : 14.\nStep 4: B now matches, so join them. A : B : C = 9 : 12 : 14. No factor divides all three, so stop.",
+      "fadedPrompt": "A : B = 9 : 12 and B : C = 12 : 14, so A : B : C = ___.",
       "fadedAnswer": "9 : 12 : 14",
       "modelAnswer": "9 : 12 : 14",
       "linkedChapter": 3,
@@ -26958,6 +28047,10 @@
         {
           "concept": "hcf",
           "label": "Highest common factor"
+        },
+        {
+          "concept": "ratio",
+          "label": "Ratio"
         }
       ]
     },
@@ -27083,6 +28176,234 @@
         {
           "concept": "square-root",
           "label": "Square root"
+        },
+        {
+          "concept": "compound-growth",
+          "label": "Compound growth"
+        }
+      ]
+    },
+    {
+      "id": "fraction",
+      "name": "Fraction",
+      "aliases": [
+        "fraction",
+        "fractions"
+      ],
+      "oneSentence": "A number that says how many equal parts of a whole you have.",
+      "picture": "Cut a roti into 4 equal pieces and eat 3. You have eaten 3/4 of the roti. The 4 says how many pieces make the whole. The 3 says how many you took.",
+      "steps": [
+        "The bottom number says how many equal parts make one whole.",
+        "The top number says how many of those parts you have.",
+        "A fraction is also a division. 3/4 means 3 ÷ 4, which is 0.75.",
+        "When the top equals the bottom, you have exactly 1 whole. 4/4 = 1."
+      ],
+      "workedExample": "What fraction of an hour is 20 minutes? An hour has 60 minutes, so it is 20/60. Divide the top and the bottom by 20. It is 1/3 of an hour.",
+      "check": {
+        "id": "fraction-check",
+        "prompt": "A bar of chocolate has 8 equal squares. You eat 3. What fraction is left?",
+        "answer": "5/8",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "5/8"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "5/8",
+            "= 5/8"
+          ],
+          "rejects": [
+            "3/8",
+            "5/3",
+            "8/5"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "two separate numbers",
+        "how": "3/4 is one number, a little less than 1. It is not a 3 and a 4 sitting side by side."
+      },
+      "standsOn": [],
+      "footing": "fractions",
+      "usedIn": [
+        {
+          "chapter": 2,
+          "label": "Chapter 2 · Fractions and recurring decimals"
+        },
+        {
+          "concept": "numerator-denominator",
+          "label": "Numerator and denominator"
+        },
+        {
+          "concept": "equivalent-fractions",
+          "label": "Equivalent fractions"
+        },
+        {
+          "concept": "improper-fraction",
+          "label": "Improper fraction"
+        },
+        {
+          "concept": "reciprocal",
+          "label": "Reciprocal"
+        },
+        {
+          "concept": "terminating-decimal",
+          "label": "Terminating decimal"
+        },
+        {
+          "concept": "recurring-decimal",
+          "label": "Recurring decimal"
+        },
+        {
+          "concept": "ratio",
+          "label": "Ratio"
+        }
+      ]
+    },
+    {
+      "id": "decimal-place",
+      "name": "Decimal place",
+      "short": "d.p.",
+      "aliases": [
+        "decimal place",
+        "decimal places",
+        "d.p."
+      ],
+      "oneSentence": "A position for a digit to the right of the decimal point.",
+      "picture": "A price of ₹12.75 has two digits after the point. The 7 is in the first decimal place and stands for 7 tenths. The 5 is in the second and stands for 5 hundredths.",
+      "steps": [
+        "The first place after the point is tenths. The second is hundredths. The third is thousandths.",
+        "To count decimal places, count the digits after the point. 3.142 has three.",
+        "To round to 2 decimal places, keep two digits after the point and look at the third.",
+        "If that third digit is 5 or more, round the last kept digit up."
+      ],
+      "workedExample": "Round 3.14159 to 2 decimal places. Keep 3.14 and look at the next digit, which is 1. It is less than 5, so the answer is 3.14.",
+      "check": {
+        "id": "decimal-place-check",
+        "prompt": "Round 7.286 to 2 decimal places.",
+        "answer": "7.29",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "7.29"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "7.29",
+            "= 7.29"
+          ],
+          "rejects": [
+            "7.28",
+            "7.3",
+            "7.286"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "significant-figures",
+        "how": "Decimal places are counted from the decimal point. Significant figures are counted from the first digit that is not zero."
+      },
+      "standsOn": [],
+      "footing": "place-value",
+      "usedIn": [
+        {
+          "chapter": 2,
+          "label": "Chapter 2 · Fractions and recurring decimals"
+        },
+        {
+          "concept": "significant-figures",
+          "label": "Significant figures"
+        },
+        {
+          "concept": "terminating-decimal",
+          "label": "Terminating decimal"
+        },
+        {
+          "concept": "recurring-decimal",
+          "label": "Recurring decimal"
+        }
+      ]
+    },
+    {
+      "id": "percentage",
+      "name": "Percentage",
+      "aliases": [
+        "percentage",
+        "percentages",
+        "per cent",
+        "percent"
+      ],
+      "oneSentence": "A number out of 100, written with the sign %.",
+      "picture": "A test has 100 marks and you score 73. That is 73%. A phone showing 40% battery has 40 parts left out of every 100.",
+      "steps": [
+        "Per cent means out of 100. So 25% is 25/100, which is 1/4 or 0.25.",
+        "To find 10% of an amount, divide it by 10. 10% of ₹350 is ₹35.",
+        "Build other amounts from 10% and 1%. 30% is three lots of 10%, and 5% is half of 10%.",
+        "To write a fraction as a percentage, make its bottom number 100. 3/5 = 60/100 = 60%."
+      ],
+      "workedExample": "Find 35% of ₹800. 10% is ₹80, so 30% is ₹240. 5% is half of 10%, which is ₹40. 35% is ₹240 + ₹40 = ₹280.",
+      "check": {
+        "id": "percentage-check",
+        "prompt": "What is 20% of 250?",
+        "answer": "50",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "50"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "50",
+            "= 50"
+          ],
+          "rejects": [
+            "5",
+            "25",
+            "500",
+            "12.5"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "the amount itself",
+        "how": "20% is not 20. It is 20 out of every 100, so 20% of 50 is 10 and 20% of 500 is 100."
+      },
+      "standsOn": [],
+      "footing": "percentages",
+      "usedIn": [
+        {
+          "chapter": 3,
+          "label": "Chapter 3 · Ratio, percentages and growth"
+        },
+        {
+          "concept": "percentage-multiplier",
+          "label": "Percentage multiplier"
+        },
+        {
+          "concept": "simple-interest",
+          "label": "Simple interest"
         }
       ]
     },
@@ -28211,6 +29532,10 @@
         {
           "chapter": 1,
           "label": "Chapter 1 · Negative numbers, primes and powers"
+        },
+        {
+          "concept": "simplest-form",
+          "label": "Simplest form"
         }
       ]
     },
@@ -28274,6 +29599,10 @@
         {
           "chapter": 1,
           "label": "Chapter 1 · Negative numbers, primes and powers"
+        },
+        {
+          "concept": "common-denominator",
+          "label": "Common denominator"
         }
       ]
     },
@@ -28452,6 +29781,1205 @@
         {
           "chapter": 1,
           "label": "Chapter 1 · Negative numbers, primes and powers"
+        }
+      ]
+    },
+    {
+      "id": "numerator-denominator",
+      "name": "Numerator and denominator",
+      "aliases": [
+        "numerator",
+        "numerators",
+        "denominator",
+        "denominators"
+      ],
+      "oneSentence": "The top and bottom numbers of a fraction: how many parts you have, and how many make a whole.",
+      "picture": "In 3/8 of a pizza, the 8 is the denominator. It tells you the pizza was cut into 8 equal slices. The 3 is the numerator. It tells you that you have 3 of them.",
+      "steps": [
+        "Read the bottom number first. It names the size of the piece: halves, thirds, quarters, eighths.",
+        "Then read the top number. It counts the pieces.",
+        "A bigger denominator means smaller pieces. 1/8 is less than 1/4."
+      ],
+      "workedExample": "Which is bigger, 3/8 or 5/8? The denominators match, so the pieces are the same size. 5 pieces is more than 3 pieces, so 5/8 is bigger.",
+      "check": {
+        "id": "numerator-denominator-check",
+        "prompt": "What is the denominator of 7/12?",
+        "answer": "12",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "12"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "12",
+            "= 12"
+          ],
+          "rejects": [
+            "7",
+            "19",
+            "7/12"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "which one is which",
+        "how": "Denominator starts with d, like down. It is the number down below, and it names the pieces."
+      },
+      "standsOn": [
+        "fraction"
+      ],
+      "usedIn": [
+        {
+          "chapter": 2,
+          "label": "Chapter 2 · Fractions and recurring decimals"
+        },
+        {
+          "concept": "equivalent-fractions",
+          "label": "Equivalent fractions"
+        },
+        {
+          "concept": "improper-fraction",
+          "label": "Improper fraction"
+        }
+      ]
+    },
+    {
+      "id": "equivalent-fractions",
+      "name": "Equivalent fractions",
+      "aliases": [
+        "equivalent fractions",
+        "equivalent fraction"
+      ],
+      "oneSentence": "Fractions that look different but name the same amount.",
+      "picture": "Half a pizza is 1 slice out of 2, or 2 out of 4, or 4 out of 8. The slices get smaller and you get more of them. The amount of pizza is the same.",
+      "steps": [
+        "Multiply the numerator and the denominator by the same number. 1/2 = 2/4 = 3/6.",
+        "Or divide both by the same number. 6/8 = 3/4.",
+        "To test two fractions, multiply across. 2/3 and 8/12 match because 2 × 12 = 3 × 8."
+      ],
+      "workedExample": "Fill the gap: 3/5 = ?/20. The denominator went from 5 to 20, which is × 4. Do the same to the numerator. 3 × 4 = 12, so 3/5 = 12/20.",
+      "check": {
+        "id": "equivalent-fractions-check",
+        "prompt": "2/3 is the same amount as how many twelfths?",
+        "answer": "8",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "8"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "8",
+            "= 8",
+            "8 twelfths"
+          ],
+          "rejects": [
+            "4",
+            "11",
+            "6"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "adding the same number to both parts",
+        "how": "1/2 and 2/3 are not equivalent. Adding 1 to the top and the bottom changes the amount. Only multiplying or dividing keeps it."
+      },
+      "standsOn": [
+        "fraction",
+        "numerator-denominator"
+      ],
+      "usedIn": [
+        {
+          "chapter": 2,
+          "label": "Chapter 2 · Fractions and recurring decimals"
+        },
+        {
+          "concept": "simplest-form",
+          "label": "Simplest form"
+        },
+        {
+          "concept": "common-denominator",
+          "label": "Common denominator"
+        }
+      ]
+    },
+    {
+      "id": "simplest-form",
+      "name": "Simplest form",
+      "aliases": [
+        "simplest form",
+        "simplest terms"
+      ],
+      "oneSentence": "The version of a fraction with the smallest numbers, where top and bottom share no factor except 1.",
+      "picture": "12 of the 16 panels of a wall are painted. Group the panels in fours and it is 3 groups out of 4. 3/4 says the same thing with smaller numbers.",
+      "steps": [
+        "Find the highest common factor of the numerator and the denominator. For 12/16 it is 4.",
+        "Divide both by it. 12 ÷ 4 = 3 and 16 ÷ 4 = 4.",
+        "Check that the new numbers share no factor except 1. 3/4 is in simplest form."
+      ],
+      "bigNumbers": "If you cannot see the HCF, divide by any common factor and repeat. 84/126 = 42/63 = 6/9 = 2/3.",
+      "workedExample": "Write 20/30 in simplest form. The HCF of 20 and 30 is 10. 20 ÷ 10 = 2 and 30 ÷ 10 = 3. So 20/30 = 2/3.",
+      "check": {
+        "id": "simplest-form-check",
+        "prompt": "Write 15/25 in simplest form.",
+        "answer": "3/5",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "3/5",
+                  "simplest": true
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "3/5",
+            "= 3/5"
+          ],
+          "rejects": [
+            "15/25",
+            "5/3",
+            "1/5"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "a smaller amount",
+        "how": "3/4 has smaller numbers than 12/16, but it is the same amount. Simplifying changes the name, not the size."
+      },
+      "standsOn": [
+        "equivalent-fractions",
+        "hcf"
+      ],
+      "usedIn": [
+        {
+          "chapter": 2,
+          "label": "Chapter 2 · Fractions and recurring decimals"
+        }
+      ]
+    },
+    {
+      "id": "common-denominator",
+      "name": "Common denominator",
+      "aliases": [
+        "common denominator",
+        "common denominators",
+        "lowest common denominator"
+      ],
+      "oneSentence": "A denominator that two or more fractions can share, so their pieces are the same size.",
+      "picture": "You cannot add half a paratha to a third of a paratha by counting pieces. Cut both into sixths. Now it is 3 sixths and 2 sixths, which is 5 sixths.",
+      "steps": [
+        "Find the lowest common multiple of the denominators. For 1/2 and 1/3 it is 6.",
+        "Change each fraction into an equivalent fraction with that denominator. 1/2 = 3/6 and 1/3 = 2/6.",
+        "Add or subtract the numerators and keep the denominator. 3/6 + 2/6 = 5/6."
+      ],
+      "workedExample": "Work out 3/4 − 1/6. The LCM of 4 and 6 is 12. 3/4 = 9/12 and 1/6 = 2/12. 9 − 2 = 7, so the answer is 7/12.",
+      "check": {
+        "id": "common-denominator-check",
+        "prompt": "Work out 1/4 + 1/6 as a fraction in simplest form.",
+        "answer": "5/12",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "5/12",
+                  "simplest": true
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "5/12",
+            "= 5/12"
+          ],
+          "rejects": [
+            "2/10",
+            "1/5",
+            "10/24"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "adding the denominators",
+        "how": "1/2 + 1/3 is not 2/5. 2/5 is less than 1/2, and adding a third cannot make a half smaller."
+      },
+      "standsOn": [
+        "equivalent-fractions",
+        "lcm"
+      ],
+      "usedIn": [
+        {
+          "chapter": 2,
+          "label": "Chapter 2 · Fractions and recurring decimals"
+        }
+      ]
+    },
+    {
+      "id": "improper-fraction",
+      "name": "Improper fraction",
+      "aliases": [
+        "improper fraction",
+        "improper fractions",
+        "top-heavy fraction",
+        "top-heavy fractions"
+      ],
+      "oneSentence": "A fraction whose numerator is at least as big as its denominator, so it is worth 1 whole or more.",
+      "picture": "Seven friends each eat half a dosa. That is 7 halves, written 7/2. Seven halves make 3 whole dosas and 1 half more.",
+      "steps": [
+        "To turn a mixed number into an improper fraction, multiply the whole number by the denominator.",
+        "Add the numerator. For 3 1/2: 3 × 2 = 6, and 6 + 1 = 7.",
+        "Write the total over the same denominator: 7/2."
+      ],
+      "workedExample": "Write 2 3/5 as an improper fraction. 2 wholes are 2 × 5 = 10 fifths. Add the 3 fifths to get 13 fifths. So 2 3/5 = 13/5.",
+      "check": {
+        "id": "improper-fraction-check",
+        "prompt": "Write 4 2/3 as an improper fraction.",
+        "answer": "14/3",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "form",
+                  "value": "14/3"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "14/3",
+            "= 14/3"
+          ],
+          "rejects": [
+            "4 2/3",
+            "12/3",
+            "8/3",
+            "42/3"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "mixed-number",
+        "how": "7/2 and 3 1/2 are the same amount. The improper fraction is easier to calculate with. The mixed number is easier to picture."
+      },
+      "standsOn": [
+        "fraction",
+        "numerator-denominator"
+      ],
+      "usedIn": [
+        {
+          "chapter": 2,
+          "label": "Chapter 2 · Fractions and recurring decimals"
+        },
+        {
+          "concept": "mixed-number",
+          "label": "Mixed number"
+        }
+      ]
+    },
+    {
+      "id": "mixed-number",
+      "name": "Mixed number",
+      "aliases": [
+        "mixed number",
+        "mixed numbers"
+      ],
+      "oneSentence": "A whole number and a fraction written side by side, like 2 1/2.",
+      "picture": "A recipe asks for 2 1/2 cups of rice. That is 2 full cups and half a cup more. The whole number and the fraction are added together.",
+      "steps": [
+        "To turn an improper fraction into a mixed number, divide the numerator by the denominator.",
+        "The whole-number answer is the whole part. For 17/5: 17 ÷ 5 = 3, with 2 left over.",
+        "The remainder goes over the same denominator: 3 2/5."
+      ],
+      "workedExample": "Write 23/4 as a mixed number. 23 ÷ 4 = 5, with 3 left over. So 23/4 = 5 3/4. Check: 5 × 4 + 3 = 23.",
+      "check": {
+        "id": "mixed-number-check",
+        "prompt": "Write 11/3 as a mixed number.",
+        "answer": "3 2/3",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "form",
+                  "value": "3 2/3"
+                },
+                {
+                  "kind": "form",
+                  "value": "3 and 2/3"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "3 2/3",
+            "3 and 2/3",
+            "= 3 2/3"
+          ],
+          "rejects": [
+            "11/3",
+            "3 1/3",
+            "2 2/3"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "multiplying",
+        "how": "2 1/2 means 2 + 1/2, not 2 × 1/2. A mixed number is the one place where side by side means add."
+      },
+      "standsOn": [
+        "improper-fraction"
+      ],
+      "usedIn": [
+        {
+          "chapter": 2,
+          "label": "Chapter 2 · Fractions and recurring decimals"
+        }
+      ]
+    },
+    {
+      "id": "reciprocal",
+      "name": "Reciprocal",
+      "aliases": [
+        "reciprocal",
+        "reciprocals"
+      ],
+      "oneSentence": "What you get when you turn a fraction upside down.",
+      "picture": "A glass holds 1/4 of a litre, so 4 glasses fill 1 litre. 1/4 and 4 are reciprocals. Multiply any number by its reciprocal and you get exactly 1.",
+      "steps": [
+        "Write the number as a fraction. A whole number like 5 is 5/1.",
+        "Swap the numerator and the denominator. The reciprocal of 5/1 is 1/5.",
+        "Check by multiplying. 5 × 1/5 = 1.",
+        "To divide by a fraction, multiply by its reciprocal. 6 ÷ 3/4 = 6 × 4/3 = 8."
+      ],
+      "workedExample": "Work out 2/3 ÷ 4/5. The reciprocal of 4/5 is 5/4. 2/3 × 5/4 = 10/12. In simplest form that is 5/6.",
+      "check": {
+        "id": "reciprocal-check",
+        "prompt": "What is the reciprocal of 2/7?",
+        "answer": "7/2",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "7/2"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "7/2",
+            "3 1/2",
+            "3.5"
+          ],
+          "rejects": [
+            "2/7",
+            "-2/7",
+            "5/7"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "negative-number",
+        "how": "The reciprocal of 2 is 1/2, not −2. A reciprocal turns a number upside down. A minus sign turns it to face the other way."
+      },
+      "standsOn": [
+        "fraction"
+      ],
+      "usedIn": [
+        {
+          "chapter": 2,
+          "label": "Chapter 2 · Fractions and recurring decimals"
+        }
+      ]
+    },
+    {
+      "id": "significant-figures",
+      "name": "Significant figures",
+      "short": "s.f.",
+      "aliases": [
+        "significant figures",
+        "significant figure",
+        "s.f."
+      ],
+      "oneSentence": "The digits that carry the size of a number, counted from the first digit that is not zero.",
+      "picture": "A stadium holds 32,846 people. A reporter writes 33,000. She kept 2 significant figures, the digits that matter most, and rounded the rest.",
+      "steps": [
+        "Find the first digit that is not zero. That is the first significant figure.",
+        "Count along as many figures as you need. Zeros between them or after them count.",
+        "Look at the next digit. If it is 5 or more, round the last kept digit up.",
+        "Fill with zeros to keep the size. 32,846 becomes 33,000, not 33."
+      ],
+      "workedExample": "Round 0.006194 to 2 significant figures. The first significant figure is the 6. The two figures are 6 and 1. The next digit is 9, so the 1 rounds up. The answer is 0.0062.",
+      "check": {
+        "id": "significant-figures-check",
+        "prompt": "Round 47,360 to 2 significant figures.",
+        "answer": "47,000",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "47000"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "47,000",
+            "47000"
+          ],
+          "rejects": [
+            "47",
+            "48,000",
+            "47,400"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "decimal-place",
+        "how": "0.004718 to 2 decimal places is 0.00. To 2 significant figures it is 0.0047. Significant figures keep a small number alive."
+      },
+      "standsOn": [
+        "decimal-place"
+      ],
+      "footing": "rounding",
+      "usedIn": [
+        {
+          "chapter": 2,
+          "label": "Chapter 2 · Fractions and recurring decimals"
+        }
+      ]
+    },
+    {
+      "id": "terminating-decimal",
+      "name": "Terminating decimal",
+      "aliases": [
+        "terminating decimal",
+        "terminating decimals"
+      ],
+      "oneSentence": "A decimal that stops after a certain number of digits.",
+      "picture": "₹1 shared among 4 friends is 25 paise each, or ₹0.25. The division finishes with nothing left over, so the decimal stops.",
+      "steps": [
+        "Write the fraction in simplest form.",
+        "Break the denominator into prime factors.",
+        "If the only primes are 2s and 5s, the decimal stops. 3/40 stops because 40 = 2 × 2 × 2 × 5.",
+        "If any other prime appears, the digits repeat for ever. 1/6 does, because 6 = 2 × 3."
+      ],
+      "workedExample": "Does 7/20 give a terminating decimal? 20 = 2 × 2 × 5, so yes. Make the denominator 100: 7/20 = 35/100 = 0.35.",
+      "check": {
+        "id": "terminating-decimal-check",
+        "prompt": "Which of these gives a terminating decimal: 1/3, 1/8 or 1/9?",
+        "answer": "1/8",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "1/8"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "1/8",
+            "0.125"
+          ],
+          "rejects": [
+            "1/3",
+            "1/9"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "recurring-decimal",
+        "how": "0.25 stops. 0.2525… goes on for ever. The dots, or a dot over the digits, tell you which one you have."
+      },
+      "standsOn": [
+        "decimal-place",
+        "fraction"
+      ],
+      "usedIn": [
+        {
+          "chapter": 2,
+          "label": "Chapter 2 · Fractions and recurring decimals"
+        }
+      ]
+    },
+    {
+      "id": "recurring-decimal",
+      "name": "Recurring decimal",
+      "aliases": [
+        "recurring decimal",
+        "recurring decimals",
+        "recurring",
+        "repeating decimal",
+        "repeating decimals"
+      ],
+      "oneSentence": "A decimal whose digits repeat in the same pattern for ever.",
+      "picture": "Share ₹1 among 3 friends. Each gets 33 paise and 1 paisa is left. Share that paisa and the same thing happens again. On a calculator, 1 ÷ 3 = 0.3333333, and the 3s never stop.",
+      "steps": [
+        "Count how many digits repeat. In 0.2424… two digits repeat.",
+        "Multiply by 10 for one repeating digit, by 100 for two, by 1,000 for three.",
+        "Subtract the original number, so the repeating parts cancel. 24.2424… − 0.2424… = 24.",
+        "You took 1 lot from 100 lots, so 99 lots are 24. The number is 24/99 = 8/33."
+      ],
+      "workedExample": "Write 0.777… as a fraction. One digit repeats, so multiply by 10 to get 7.777… Subtract 0.777… and 9 lots are exactly 7. The number is 7/9.",
+      "check": {
+        "id": "recurring-decimal-check",
+        "prompt": "Write 0.111… as a fraction.",
+        "answer": "1/9",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "1/9",
+                  "simplest": true
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "1/9",
+            "= 1/9"
+          ],
+          "rejects": [
+            "1/10",
+            "11/100",
+            "1/11"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "irrational-number",
+        "how": "A recurring decimal goes on for ever but repeats, so it is a fraction. An irrational number goes on for ever and never repeats."
+      },
+      "standsOn": [
+        "decimal-place",
+        "fraction"
+      ],
+      "usedIn": [
+        {
+          "chapter": 2,
+          "label": "Chapter 2 · Fractions and recurring decimals"
+        }
+      ]
+    },
+    {
+      "id": "ratio",
+      "name": "Ratio",
+      "aliases": [
+        "ratio",
+        "ratios"
+      ],
+      "oneSentence": "A way to compare two or more amounts by saying how many parts each one has.",
+      "picture": "A glass of nimbu pani uses 1 part lemon juice to 4 parts water, so the ratio is 1 : 4. A big jug with 3 cups of juice and 12 cups of water tastes the same.",
+      "steps": [
+        "Write the amounts in the same unit, in the order the question names them.",
+        "Divide every part by a common factor to simplify. 12 : 18 becomes 2 : 3.",
+        "To share an amount in a ratio, add the parts and find what one part is worth.",
+        "Multiply that by each person's number of parts."
+      ],
+      "workedExample": "Share 60 sweets in the ratio 2 : 3. There are 2 + 3 = 5 parts. One part is 60 ÷ 5 = 12 sweets. The shares are 2 × 12 = 24 and 3 × 12 = 36.",
+      "check": {
+        "id": "ratio-check",
+        "prompt": "₹35 is shared in the ratio 2 : 5. How many rupees is the smaller share?",
+        "answer": "₹10",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "10"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "10",
+            "₹10",
+            "= 10"
+          ],
+          "rejects": [
+            "25",
+            "5",
+            "17.5",
+            "7"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "fraction",
+        "how": "The ratio 2 : 3 compares one part with the other. As a fraction of the whole, the first share is 2/5, not 2/3."
+      },
+      "standsOn": [
+        "fraction",
+        "factor"
+      ],
+      "footing": "ratio-and-proportion",
+      "usedIn": [
+        {
+          "chapter": 3,
+          "label": "Chapter 3 · Ratio, percentages and growth"
+        },
+        {
+          "concept": "unitary-method",
+          "label": "Unitary method"
+        },
+        {
+          "concept": "direct-proportion",
+          "label": "Direct proportion"
+        },
+        {
+          "concept": "inverse-proportion",
+          "label": "Inverse proportion"
+        }
+      ]
+    },
+    {
+      "id": "unitary-method",
+      "name": "Unitary method",
+      "aliases": [
+        "unitary method"
+      ],
+      "oneSentence": "Solving a problem by first finding what one of something is worth.",
+      "picture": "Six samosas cost ₹90 and you want four. First find the price of one: ₹90 ÷ 6 = ₹15. Then four samosas cost 4 × ₹15 = ₹60.",
+      "steps": [
+        "Write down what you know: how many items, and how much in total.",
+        "Divide to find the amount for one.",
+        "Multiply by the number you need.",
+        "Check that the answer is sensible. More items should cost more."
+      ],
+      "workedExample": "A car uses 15 litres of petrol to travel 240 km. How far does it go on 4 litres? On 1 litre it goes 240 ÷ 15 = 16 km. On 4 litres it goes 4 × 16 = 64 km.",
+      "check": {
+        "id": "unitary-method-check",
+        "prompt": "5 mangoes cost ₹150. What do 7 mangoes cost, in rupees?",
+        "answer": "₹210",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "210"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "210",
+            "₹210",
+            "= 210"
+          ],
+          "rejects": [
+            "30",
+            "152",
+            "1050"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "dividing the wrong way round",
+        "how": "Say what you want in words first. Rupees for each mango means rupees ÷ mangoes: 150 ÷ 5, not 5 ÷ 150."
+      },
+      "standsOn": [
+        "ratio"
+      ],
+      "footing": "multiply-or-divide",
+      "usedIn": [
+        {
+          "chapter": 3,
+          "label": "Chapter 3 · Ratio, percentages and growth"
+        },
+        {
+          "concept": "direct-proportion",
+          "label": "Direct proportion"
+        }
+      ]
+    },
+    {
+      "id": "direct-proportion",
+      "name": "Direct proportion",
+      "aliases": [
+        "direct proportion",
+        "directly proportional"
+      ],
+      "oneSentence": "Two amounts are in direct proportion when multiplying one by a number multiplies the other by the same number.",
+      "picture": "Petrol costs ₹100 a litre. 2 litres cost ₹200 and 10 litres cost ₹1,000. Whatever happens to the litres, the same thing happens to the cost.",
+      "steps": [
+        "Test the link: if one amount doubles, does the other double too?",
+        "Divide to find the amount for one.",
+        "Multiply by the new number.",
+        "Or find what one amount was multiplied by, and multiply the other amount by the same number."
+      ],
+      "workedExample": "A map shows 3 cm for every 12 km of road. How long is a road that measures 5 cm on the map? 1 cm stands for 12 ÷ 3 = 4 km. So 5 cm stands for 5 × 4 = 20 km.",
+      "check": {
+        "id": "direct-proportion-check",
+        "prompt": "8 identical tiles weigh 20 kg. How many kilograms do 12 tiles weigh?",
+        "answer": "30 kg",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "30"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "30",
+            "30 kg",
+            "= 30"
+          ],
+          "rejects": [
+            "24",
+            "2.5",
+            "240"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "inverse-proportion",
+        "how": "In direct proportion both amounts go up together. In inverse proportion one goes up as the other comes down, like workers and the days a job takes."
+      },
+      "standsOn": [
+        "ratio",
+        "unitary-method"
+      ],
+      "footing": "ratio-and-proportion",
+      "usedIn": [
+        {
+          "chapter": 3,
+          "label": "Chapter 3 · Ratio, percentages and growth"
+        },
+        {
+          "concept": "inverse-proportion",
+          "label": "Inverse proportion"
+        }
+      ]
+    },
+    {
+      "id": "inverse-proportion",
+      "name": "Inverse proportion",
+      "aliases": [
+        "inverse proportion",
+        "inversely proportional"
+      ],
+      "oneSentence": "Two amounts are in inverse proportion when multiplying one by a number divides the other by the same number.",
+      "picture": "A box of 24 laddoos is shared equally. With 4 friends, each gets 6. With 8 friends, each gets 3. Twice the friends means half the laddoos each.",
+      "steps": [
+        "Test the link: if one amount doubles, does the other halve?",
+        "Multiply the pair you know. That total never changes.",
+        "Divide the total by the new number."
+      ],
+      "workedExample": "5 machines print a newspaper run in 6 hours. How long do 3 machines take? The job is 5 × 6 = 30 hours of work for one machine. 3 machines take 30 ÷ 3 = 10 hours. Fewer machines, so more time.",
+      "check": {
+        "id": "inverse-proportion-check",
+        "prompt": "A stack of hay lasts 12 cows for 10 days. How many days does it last 8 cows?",
+        "answer": "15 days",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "15"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "15",
+            "15 days",
+            "= 15"
+          ],
+          "rejects": [
+            "6.67",
+            "10",
+            "120",
+            "6"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "direct-proportion",
+        "how": "Ask what happens when one amount goes up. If the other goes down, it is inverse proportion. Finding the amount for one by dividing will then give nonsense."
+      },
+      "standsOn": [
+        "ratio",
+        "direct-proportion"
+      ],
+      "footing": "ratio-and-proportion",
+      "usedIn": [
+        {
+          "chapter": 3,
+          "label": "Chapter 3 · Ratio, percentages and growth"
+        }
+      ]
+    },
+    {
+      "id": "percentage-multiplier",
+      "name": "Percentage multiplier",
+      "aliases": [
+        "percentage multiplier",
+        "percentage multipliers",
+        "multiplier",
+        "multipliers"
+      ],
+      "oneSentence": "The one number you multiply by to raise or lower an amount by a percentage.",
+      "picture": "A ₹500 shirt is 10% off, so you pay 90% of the price. 90% is 0.9. The sale price is ₹500 × 0.9 = ₹450, in one multiplication.",
+      "steps": [
+        "Start from 100%. For a rise, add the percentage. For a fall, take it away.",
+        "Divide by 100 to write the result as a decimal. 112% is 1.12 and 85% is 0.85.",
+        "Multiply the amount by that decimal.",
+        "For changes one after another, multiply by each multiplier in turn."
+      ],
+      "workedExample": "A ₹1,200 bill has 18% tax added. 100% + 18% = 118%, so the multiplier is 1.18. ₹1,200 × 1.18 = ₹1,416.",
+      "check": {
+        "id": "percentage-multiplier-check",
+        "prompt": "What is the multiplier for a 35% fall?",
+        "answer": "0.65",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "0.65"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "0.65",
+            ".65",
+            "= 0.65"
+          ],
+          "rejects": [
+            "0.35",
+            "1.35",
+            "35",
+            "65"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "the percentage on its own",
+        "how": "Multiplying by 0.18 finds the tax alone. Multiplying by 1.18 finds the bill with the tax already added."
+      },
+      "standsOn": [
+        "percentage"
+      ],
+      "footing": "percentages",
+      "usedIn": [
+        {
+          "chapter": 3,
+          "label": "Chapter 3 · Ratio, percentages and growth"
+        },
+        {
+          "concept": "reverse-percentage",
+          "label": "Reverse percentage"
+        },
+        {
+          "concept": "compound-growth",
+          "label": "Compound growth"
+        }
+      ]
+    },
+    {
+      "id": "reverse-percentage",
+      "name": "Reverse percentage",
+      "aliases": [
+        "reverse percentage",
+        "reverse percentages"
+      ],
+      "oneSentence": "Working back from the amount after a percentage change to the amount before it.",
+      "picture": "A shop adds 10% to every price, and a toy now costs ₹220. The ₹220 is 110% of the old price. So 10% is ₹20, and the old price was ₹200.",
+      "steps": [
+        "Decide which amount is the 100%. It is the amount before the change.",
+        "Find the multiplier for the change. A 10% rise is × 1.1.",
+        "Divide the new amount by the multiplier.",
+        "Check by going forwards from your answer."
+      ],
+      "workedExample": "After a 30% cut, a kite costs ₹140. The multiplier is 0.7. ₹140 ÷ 0.7 = ₹200. Check: 30% of ₹200 is ₹60, and ₹200 − ₹60 = ₹140.",
+      "check": {
+        "id": "reverse-percentage-check",
+        "prompt": "After a 50% rise, a ticket costs ₹60. What did it cost before, in rupees?",
+        "answer": "₹40",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "40"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "40",
+            "₹40",
+            "= 40"
+          ],
+          "rejects": [
+            "30",
+            "90",
+            "120"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "taking the same percentage off",
+        "how": "Taking 10% off ₹220 gives ₹198, not ₹200. The 10% that was added was 10% of the old price."
+      },
+      "standsOn": [
+        "percentage-multiplier"
+      ],
+      "footing": "percentages",
+      "usedIn": [
+        {
+          "chapter": 3,
+          "label": "Chapter 3 · Ratio, percentages and growth"
+        }
+      ]
+    },
+    {
+      "id": "simple-interest",
+      "name": "Simple interest",
+      "aliases": [
+        "simple interest"
+      ],
+      "oneSentence": "Interest worked out on the starting amount only, so it adds the same sum every year.",
+      "picture": "You lend a cousin ₹1,000 at 5% simple interest. Every year the interest is 5% of ₹1,000, which is ₹50. After 3 years it comes to ₹150.",
+      "steps": [
+        "Find the interest for one year: the percentage of the starting amount.",
+        "Multiply by the number of years.",
+        "Add the starting amount if the question asks for the total."
+      ],
+      "workedExample": "₹4,000 earns 6% simple interest for 5 years. One year's interest is 6% of ₹4,000, which is ₹240. Five years give 5 × ₹240 = ₹1,200. The total is ₹4,000 + ₹1,200 = ₹5,200.",
+      "check": {
+        "id": "simple-interest-check",
+        "prompt": "₹2,000 earns 5% simple interest a year. How many rupees of interest is that in 3 years?",
+        "answer": "₹300",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "300"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "300",
+            "₹300",
+            "= 300"
+          ],
+          "rejects": [
+            "100",
+            "2300",
+            "315.25",
+            "30"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "compound-growth",
+        "how": "Simple interest pays on the starting amount only. Compound interest also pays on the interest already earned."
+      },
+      "standsOn": [
+        "percentage"
+      ],
+      "usedIn": [
+        {
+          "chapter": 3,
+          "label": "Chapter 3 · Ratio, percentages and growth"
+        }
+      ]
+    },
+    {
+      "id": "compound-growth",
+      "name": "Compound growth",
+      "aliases": [
+        "compound growth",
+        "compound interest",
+        "compounding"
+      ],
+      "oneSentence": "Growth where each increase is worked out on the new, bigger total.",
+      "picture": "You put ₹2,000 in a bank at 10% a year. Year 1 adds ₹200. Year 2 adds ₹220, because the bank now pays on ₹2,200. The interest earns interest.",
+      "steps": [
+        "Find the multiplier for one year. For 10% growth it is 1.1.",
+        "Multiply the starting amount by it once for each year.",
+        "For many years, a calculator's power key does the repeated multiplying.",
+        "Take away the starting amount if the question asks for the interest alone."
+      ],
+      "workedExample": "₹8,000 grows at 5% compound interest for 2 years. The multiplier is 1.05. ₹8,000 × 1.05 = ₹8,400, and ₹8,400 × 1.05 = ₹8,820. The interest is ₹8,820 − ₹8,000 = ₹820.",
+      "check": {
+        "id": "compound-growth-check",
+        "prompt": "₹1,000 grows by 20% a year, compounded. How many rupees is it after 2 years?",
+        "answer": "₹1,440",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "1440"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "1440",
+            "₹1,440",
+            "1,440"
+          ],
+          "rejects": [
+            "1400",
+            "1200",
+            "440",
+            "1040"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "simple-interest",
+        "how": "Simple interest on ₹1,000 at 20% adds ₹200 a year, which gives ₹1,400 after 2 years. Compound growth gives ₹1,440, because year 2 also pays on the first ₹200."
+      },
+      "standsOn": [
+        "percentage-multiplier",
+        "power"
+      ],
+      "usedIn": [
+        {
+          "chapter": 3,
+          "label": "Chapter 3 · Ratio, percentages and growth"
+        },
+        {
+          "concept": "rule-of-72",
+          "label": "Rule of 72"
+        }
+      ]
+    },
+    {
+      "id": "rule-of-72",
+      "name": "Rule of 72",
+      "aliases": [
+        "rule of 72"
+      ],
+      "oneSentence": "A quick estimate: divide 72 by the yearly percentage growth to get the years needed to double.",
+      "picture": "A bank pays 6% a year. 72 ÷ 6 = 12, so savings double in about 12 years. At 12% a year they double in about 6 years. Double the rate, half the wait.",
+      "steps": [
+        "Take the percentage growth for one year.",
+        "Divide 72 by it.",
+        "The answer is roughly the number of years the amount takes to double.",
+        "It is an estimate. It works best for rates between about 4% and 12%."
+      ],
+      "workedExample": "Prices rise by 4% a year. How long until they double? 72 ÷ 4 = 18, so about 18 years. The long sum agrees: 1.04 multiplied 18 times is about 2.03.",
+      "check": {
+        "id": "rule-of-72-check",
+        "prompt": "Money grows at 9% a year. About how many years does it take to double?",
+        "answer": "8 years",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "8"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "8",
+            "8 years",
+            "about 8"
+          ],
+          "rejects": [
+            "9",
+            "81",
+            "648",
+            "18"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "an exact answer",
+        "how": "At 8% the rule says 9 years, and 1.08 multiplied 9 times is 1.999, which is very close. At 36% the rule says 2 years, but the money has only grown 1.85 times by then."
+      },
+      "standsOn": [
+        "compound-growth"
+      ],
+      "usedIn": [
+        {
+          "chapter": 3,
+          "label": "Chapter 3 · Ratio, percentages and growth"
         }
       ]
     }

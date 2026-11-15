@@ -2,8 +2,8 @@
 The seven checks from docs/CONTENT_BRIEF.md, and the ones docs/CONTENT_PLAN.md adds, run before the exporter or the splice script writes anything.
 
 They apply to rewritten content: the chapters that come from source/book/, their widget, Atlas and tip
-text, and every concept card. `problems(pack, rewritten)` lists every failure; `require_clean` stops
-the run when there is one.
+text, every concept card, and the school topic summaries and question text a chapter file writes.
+`problems(pack, rewritten, authored)` lists every failure; `require_clean` stops the run when there is one.
 """
 
 import re
@@ -117,9 +117,35 @@ def card_strings(card):
     return out
 
 
-def rewritten_strings(pack, rewritten):
+def school_strings(pack, authored=None):
+    """(where, text) for the school text a chapter file rewrites.
+
+    `authored` is {"topics": codes, "questions": ids}. Each authored topic gives its summary; each authored
+    question gives its worked example, faded prompt and the text of its stuck sheet.
+    """
+    authored = authored or {}
+    topics, question_ids = authored.get("topics", set()), authored.get("questions", set())
+    out = [(f"topic {topic['code']} summary", topic["summary"])
+           for unit in pack["schoolTextbook"]["units"] for topic in unit["topics"] if topic["code"] in topics]
+    for question in pack["schoolQuestions"]:
+        qid = question["id"]
+        if qid not in question_ids:
+            continue
+        out += [(f"{qid} {field}", question[field]) for field in ("workedExample", "fadedPrompt")]
+        sheet = question.get("stuck")
+        if not sheet:
+            continue
+        out.append((f"{qid} stuck.sister", sheet["sister"]))
+        for step in sheet["steps"]:
+            out += [(f"{step['id']} {field}", step[field]) for field in ("prompt", "answer", "working")]
+            out += [(f"{step['id']} {slip['misconception']} nextStep", slip["nextStep"])
+                    for slip in step["answerKey"]["mistakes"]]
+    return out
+
+
+def rewritten_strings(pack, rewritten, authored=None):
     out = [item for number in sorted(rewritten) for item in chapter_strings(pack, number)]
-    return out + [item for card in pack["concepts"] for item in card_strings(card)]
+    return out + [item for card in pack["concepts"] for item in card_strings(card)] + school_strings(pack, authored)
 
 
 def linker_for(pack):
@@ -321,16 +347,18 @@ def check_figures(pack, rewritten):
     return out
 
 
-def problems(pack, rewritten):
-    strings = rewritten_strings(pack, rewritten)
+def problems(pack, rewritten, authored=None):
+    """Every failure. `authored` is {"topics": codes, "questions": ids} of school text a chapter file writes;
+    checks 3 and 4 read it too. Leaving it out means none."""
+    strings = rewritten_strings(pack, rewritten, authored)
     return (check_terms_are_cards(pack, rewritten) + check_cards(pack) + check_banned_words(strings)
             + check_sentence_length(strings) + check_shared_sentences(pack, rewritten)
             + check_order(pack, rewritten) + check_skill_cards(pack, rewritten) + check_ambiguous_aliases(pack)
             + check_figures(pack, rewritten))
 
 
-def require_clean(pack, rewritten):
-    found = problems(pack, rewritten)
+def require_clean(pack, rewritten, authored=None):
+    found = problems(pack, rewritten, authored)
     if found:
         raise SystemExit("Content checks failed; nothing was written:\n" + "\n".join(f"  {line}" for line in found))
 

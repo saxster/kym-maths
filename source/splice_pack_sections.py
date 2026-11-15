@@ -3,6 +3,8 @@
 Rewrites only the parts of the seed pack the exporter now owns, and leaves the rest as it is:
 the `misconceptions`, `footings`, `concepts` and `conceptStopPhrases` sections, the `stuck` sheet of
 each school question, and each chapter rewritten in source/book/ with its widgets, Atlas lessons and tip.
+A chapter file's `schoolQuestions` (worked example, faded prompt) and `schoolTopics` (a topic's summary)
+are taken too; a topic's other fields stay as the pack has them.
 
 The checked-in pack has hand edits the full exporter does not reproduce, so a full export would
 overwrite them. This runs the exporter's builders and the content checks, then splices those parts into
@@ -51,7 +53,9 @@ def new_link_lines(old_entries, new_entries):
     return lines
 
 
-def splice_stuck(pack_questions, built_questions):
+def splice_stuck(pack_questions, built_questions, authored=None):
+    """Takes each question's stuck sheet, and its `authored[id]` fields, from the build; reports where the rest differ."""
+    authored = authored or {}
     built = {question["id"]: question for question in built_questions}
     drift = []
     for question in pack_questions:
@@ -59,7 +63,10 @@ def splice_stuck(pack_questions, built_questions):
         if source is None:
             drift.append(f"{question['id']}: not built by the exporter")
             continue
-        fields = sorted(field for field in (set(question) | set(source)) - {"stuck"}
+        taken = set(authored.get(question["id"], ()))
+        for field in sorted(taken):
+            question[field] = source[field]
+        fields = sorted(field for field in (set(question) | set(source)) - {"stuck"} - taken
                         if question.get(field) != source.get(field))
         if fields:
             drift.append(f"{question['id']}: {', '.join(fields)}")
@@ -67,6 +74,15 @@ def splice_stuck(pack_questions, built_questions):
         if "stuck" in source:
             question["stuck"] = source["stuck"]
     return drift
+
+
+def splice_topic_summaries(pack_textbook, built_textbook, codes):
+    """Takes only `summary` from the build for each topic code in `codes`. The pack's other topic fields hold hand edits."""
+    built = {topic["code"]: topic for unit in built_textbook["units"] for topic in unit["topics"]}
+    for unit in pack_textbook["units"]:
+        for topic in unit["topics"]:
+            if topic["code"] in codes:
+                topic["summary"] = built[topic["code"]]["summary"]
 
 
 def splice_records(pack_records, built_records, authored):
@@ -107,7 +123,11 @@ def main():
     pack["footings"] = exporter.build_footings()
     pack["concepts"] = exporter.build_concepts(chapters)
     pack["conceptStopPhrases"] = exporter.build_concept_stop_phrases()
-    drift = splice_stuck(pack["schoolQuestions"], questions)
+    school_questions = exporter.book_school_questions()
+    school_topics = exporter.book_school_topics()
+    drift = splice_stuck(pack["schoolQuestions"], questions,
+                         {qid: set(fields) for qid, fields in school_questions.items()})
+    splice_topic_summaries(pack["schoolTextbook"], exporter.build_school_textbook(), set(school_topics))
 
     widget_text = exporter.book_widget_text()
     drift += splice_records(pack["widgets"], exporter.build_widgets(chapters),
@@ -119,7 +139,7 @@ def main():
     drift += splice_records(pack["visualMathTips"], exporter.build_visual_math_tips(),
                             {tid: set(tip) for tid, tip in tips.items()})
 
-    content_checks.require_clean(pack, rewritten)
+    content_checks.require_clean(pack, rewritten, exporter.book_school_authored())
     old_golden = json.loads(exporter.GOLDEN_OUT.read_text(encoding="utf-8")) if exporter.GOLDEN_OUT.exists() else []
     new_links = new_link_lines(old_golden, exporter.write_golden(pack))
     exporter.PACK_OUT.write_text(json.dumps(pack, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -129,7 +149,8 @@ def main():
     sheets = sum("stuck" in q for q in pack["schoolQuestions"])
     print(f"Spliced {len(pack['misconceptions'])} misconceptions, {len(pack['footings'])} footings ({probes} probes), "
           f"{sheets} stuck sheets, {len(pack['concepts'])} concept cards, chapters {sorted(rewritten)} with "
-          f"{len(widget_text)} widgets, {len(lessons)} Atlas lessons and {len(tips)} visual tip(s). Content checks passed.")
+          f"{len(widget_text)} widgets, {len(lessons)} Atlas lessons and {len(tips)} visual tip(s), "
+          f"school text for {len(school_questions)} questions and {len(school_topics)} topics. Content checks passed.")
     for line in drift:
         print(f"Left as it is in the pack, differs from the exporter: {line}")
     print(f"New links since the last splice: {len(new_links)}. Read each one for a link on an everyday word.")
