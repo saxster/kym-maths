@@ -34,6 +34,15 @@ struct StuckSheetTests {
         ]
     )
 
+    @Test("A letter x between two numbers is read as times, and x as a letter still works")
+    func letterXBetweenNumbersIsTimes() throws {
+        let sheet = try #require(Self.pack.schoolQuestions.first { $0.id == "q-oup-ch01-sb" }?.stuck)
+        #expect(sheet.steps[0].answerKey.mark("2^2 x 3").isCorrect)
+        #expect(sheet.steps[0].answerKey.mark("2^2x3").isCorrect)
+        let line = try #require(Self.pack.schoolQuestions.first { $0.id == "q-oup-ch14-sb" }?.stuck)
+        #expect(line.steps[2].answerKey.mark("y = 3x + 6").isCorrect)
+    }
+
     @Test("A right answer moves to the next step and says so, and the last one ends the sheet")
     func rightAdvances() {
         let second = StuckSheetState.start.checking("-6", in: Self.sheet)

@@ -57,6 +57,7 @@ def tighten(text):
     text = re.sub(" squared", "^2", text)
     text = re.sub(" cubed", "^3", text)
     text = re.sub(r"(?<=[0-9]) ?(cm|mm|km|kg|ml|litres?|liters?|seconds?|secs?|hours?|hrs?|units?)(\^[0-9])?(?![a-z])", "", text)
+    text = re.sub("(?<=[0-9]) ?x ?(?=[0-9])", "*", text)
     text = re.sub(" +- +", "-", text)
     text = re.sub("(?<=[^ ])- +", "-", text)
     text = re.sub(r" *([+*/^=<>≤≥√]) *", r"\1", text)
