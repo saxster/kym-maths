@@ -640,12 +640,12 @@ struct QuestionProofPracticeView: View {
                 .patternedType(.readingDefault)
                 .foregroundStyle(theme.ink)
                 .fixedSize(horizontal: false, vertical: true)
-            Text(diagnosis(eval.diagnosticCell))
+            Text(diagnosis(eval.diagnosticCell, slipNamed: eval.mistake != nil))
                 .standardType(.uiHeadline)
                 .foregroundStyle(theme.ink)
 
             if let grad = graduatedFeedback, !declinedToGuess, eval.mistake == nil {
-                Text("\(feedbackTitle(grad.tier)). \(grad.headline) \(grad.socraticNudge)")
+                Text("\(feedbackTitle(grad.tier)). \(grad.headline). \(grad.socraticNudge)")
                     .patternedType(.readingSmall)
                     .foregroundStyle(theme.mute(theme.ink))
                     .fixedSize(horizontal: false, vertical: true)
@@ -660,7 +660,7 @@ struct QuestionProofPracticeView: View {
                     .foregroundStyle(theme.patterned.assistedColor)
             }
 
-            if eval.diagnosticCell == .committedMisconception {
+            if eval.diagnosticCell == .committedMisconception, eval.mistake == nil {
                 spotTheFlaw
             }
 
@@ -768,10 +768,11 @@ struct QuestionProofPracticeView: View {
         }
     }
 
-    private func diagnosis(_ cell: ConfidenceVerdictCell) -> String {
+    private func diagnosis(_ cell: ConfidenceVerdictCell, slipNamed: Bool) -> String {
         switch cell {
         case .solidKnowledge: "Right, and you were sure. That is solid."
         case .fragileOrLuckyGuess: "Right, but you weren't sure. Say why it works."
+        case .committedMisconception where slipNamed: "You were sure, but it isn't right yet. Fix the slip named above."
         case .committedMisconception: "You were sure, but it isn't right yet. Find the slip below."
         case .shakyNearMiss: "Not yet, and you weren't sure. Come back to it soon."
         case .honestGap: "An honest “not yet”. Start from the first rung."
