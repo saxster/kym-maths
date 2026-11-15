@@ -381,7 +381,7 @@ struct IntuitionFormulaBridgeCard: View {
                     Text(term.symbol)
                         .patternedType(.mathInline)
                         .foregroundStyle(tone.text)
-                    Text("is the \(term.visualPart)")
+                    Text("is " + term.visualPart.prefix(1).lowercased() + term.visualPart.dropFirst())
                         .patternedType(.readingDefault)
                         .foregroundStyle(theme.ink)
                         .fixedSize(horizontal: false, vertical: true)

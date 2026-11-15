@@ -157,7 +157,7 @@ struct MathsCoachView: View {
             }
         default:
             CoachBubble(speaker: "Coach", isLearner: false, note: turn.guidanceStyle == .adaptive ? nil : turn.guidanceStyle.title) {
-                Text(turn.text)
+                ConceptText(turn.text)
                     .patternedType(.readingDefault)
                     .foregroundStyle(theme.ink)
                     .fixedSize(horizontal: false, vertical: true)

@@ -266,7 +266,7 @@ struct ChapterFigure: View {
                     RoundedRectangle(cornerRadius: StandardRadius.xl, style: .continuous)
                         .strokeBorder(theme.hairline(), lineWidth: 1)
                 )
-                Text("Figure \(chapter.number) · Move the sliders and watch what changes and what stays the same. Below it, the same idea turns in 3D.")
+                Text("Figure \(chapter.number) · Move the sliders and watch what changes and what stays the same.")
                     .patternedType(.readingSmall)
                     .foregroundStyle(theme.mute(theme.ink))
                     .fixedSize(horizontal: false, vertical: true)
@@ -276,6 +276,71 @@ struct ChapterFigure: View {
             }
             .buttonStyle(TextLinkButtonStyle(arrow: false))
         }
+    }
+}
+
+// MARK: - The skill card
+
+/// The chapter's first screen says what she will be able to do afterwards: the skill, one check to
+/// try with the device off (its answer behind a tap), why it matters and what it stands on. A
+/// chapter no school unit teaches says so first.
+struct SkillCardPanel: View {
+    @Environment(\.standardTheme) private var theme
+    let card: ChapterSkillCard?
+    let beyondSchoolLine: String?
+    var linksConcepts = false
+
+    @State private var showsAnswer = false
+
+    var body: some View {
+        if card != nil || beyondSchoolLine != nil {
+            VStack(alignment: .leading, spacing: StandardSpacing.md) {
+                if let beyondSchoolLine {
+                    prose(beyondSchoolLine)
+                }
+                if let card {
+                    VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                        Kicker("After this chapter you can")
+                        Text(card.skill)
+                            .standardType(.headlineSm)
+                            .foregroundStyle(theme.ink)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    part("Try it with the device off") {
+                        prose(card.sheCan.prompt)
+                        if showsAnswer {
+                            prose(card.sheCan.answer)
+                        }
+                        Button(showsAnswer ? "Hide the answer" : "Show the answer") {
+                            showsAnswer.toggle()
+                        }
+                        .buttonStyle(TextLinkButtonStyle(arrow: false))
+                    }
+                    part("Why it matters") { prose(card.whyItMatters) }
+                    if !card.standsOn.isEmpty {
+                        part("It stands on") {
+                            ForEach(card.standsOn, id: \.self) { prose($0) }
+                        }
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .paperCard(padding: StandardSpacing.md)
+        }
+    }
+
+    private func part<Content: View>(_ title: String, @ViewBuilder content: () -> Content) -> some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+            Kicker(title, muted: true)
+            content()
+        }
+    }
+
+    private func prose(_ text: String) -> some View {
+        ConceptText(text, linking: linksConcepts)
+            .patternedType(.readingDefault)
+            .foregroundStyle(theme.ink)
+            .fixedSize(horizontal: false, vertical: true)
     }
 }
 
@@ -289,6 +354,7 @@ struct YourTurnCard: View {
     @Binding var text: String
     let isSaved: Bool
     let isPrimary: Bool
+    var linksConcepts = false
     let save: () -> Void
 
     private var isPrediction: Bool { callout.kind == "predict" }
@@ -306,7 +372,7 @@ struct YourTurnCard: View {
                     note
                 }
             }
-            ByrneText(callout.body)
+            ConceptText(callout.body, linking: linksConcepts)
                 .patternedType(.readingDefault)
                 .foregroundStyle(theme.ink)
                 .fixedSize(horizontal: false, vertical: true)

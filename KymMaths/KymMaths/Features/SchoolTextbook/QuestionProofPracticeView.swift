@@ -99,6 +99,7 @@ struct QuestionProofPracticeView: View {
             .readWidth($pageWidth)
         }
         .background(theme.bg)
+        .conceptLinks()
         .pageSizedSheet()
         .onAppear {
             cpaState = CPAManipulativeEngine.initialState(for: question)
@@ -158,7 +159,7 @@ struct QuestionProofPracticeView: View {
                 tag("Topic \(question.topicCode)")
             }
 
-            Text(question.prompt)
+            ConceptText(question.prompt)
                 .standardType(question.prompt.count > 70 ? .headlineLg : .display)
                 .foregroundStyle(theme.ink)
                 .fixedSize(horizontal: false, vertical: true)
@@ -444,7 +445,7 @@ struct QuestionProofPracticeView: View {
                 Spacer()
                 StatusTag(.withHelp, label: "Counts as help")
             }
-            Text(question.workedExample)
+            ConceptText(question.workedExample)
                 .patternedType(.readingDefault)
                 .foregroundStyle(theme.ink)
                 .fixedSize(horizontal: false, vertical: true)
@@ -741,7 +742,7 @@ struct QuestionProofPracticeView: View {
             Rectangle().fill(theme.hairline()).frame(height: 1)
             if eval.isPass {
                 Kicker("A model answer", muted: true)
-                Text(question.workedExample)
+                ConceptText(question.workedExample)
                     .patternedType(.readingSmall)
                     .foregroundStyle(theme.mute(theme.ink))
                     .fixedSize(horizontal: false, vertical: true)

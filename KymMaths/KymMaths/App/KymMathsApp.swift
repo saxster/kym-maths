@@ -81,6 +81,7 @@ struct KymMathsRootView: View {
         }
         .navigationSplitViewStyle(.balanced)
         .tint(theme.brass)
+        .conceptLinks()
         // The proof studio opens from Today, School book and Coach, so it hangs off the root.
         .sheet(item: $store.activePracticeQuestion) { question in
             QuestionProofPracticeView(question: question, store: store)
@@ -88,6 +89,9 @@ struct KymMathsRootView: View {
         .sheet(isPresented: $store.showCalendarSheet) {
             CalendarHomeView(store: store)
                 .pageSizedSheet()
+        }
+        .sheet(item: $store.deepLinkedConcept) { request in
+            ConceptCardSheet(start: request.id)
         }
         .sheet(isPresented: $store.showSettingsSheet) {
             MathsSettingsSheet(store: store)

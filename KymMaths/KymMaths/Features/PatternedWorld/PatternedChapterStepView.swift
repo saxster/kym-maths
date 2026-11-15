@@ -31,11 +31,18 @@ struct PatternedChapterStepView: View {
                 }
             }
 
-            ForEach(paragraphs, id: \.self) { paragraph in
-                ByrneText(PatternedBook.byrneMarked(paragraph, terms: terms))
-                    .patternedType(.reading)
-                    .foregroundStyle(theme.ink)
-                    .fixedSize(horizontal: false, vertical: true)
+            SkillCardPanel(card: beat.skillCard, beyondSchoolLine: beat.beyondSchoolLine,
+                           linksConcepts: chapter.linksConcepts)
+
+            if beat.teachingSteps.isEmpty {
+                ForEach(paragraphs, id: \.self) { paragraph in
+                    ConceptText(PatternedBook.byrneMarked(paragraph, terms: terms), linking: chapter.linksConcepts)
+                        .patternedType(.reading)
+                        .foregroundStyle(theme.ink)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            } else {
+                TeachingStepsView(steps: beat.teachingSteps, terms: terms)
             }
 
             if let bridge = beat.formulaBridge {
@@ -47,16 +54,18 @@ struct PatternedChapterStepView: View {
                 }
             }
 
-            ChapterFigure(
-                chapter: chapter,
-                isShown: $reading.showEmbeddedWebStage,
-                highlightedColorRole: reading.highlightedColorRole,
-                onTermHighlighted: { role, symbol in
-                    reading.highlightedColorRole = role
-                    if !symbol.isEmpty { reading.selectedTermSymbol = symbol }
-                },
-                store: store
-            )
+            if beat.showsFigure {
+                ChapterFigure(
+                    chapter: chapter,
+                    isShown: $reading.showEmbeddedWebStage,
+                    highlightedColorRole: reading.highlightedColorRole,
+                    onTermHighlighted: { role, symbol in
+                        reading.highlightedColorRole = role
+                        if !symbol.isEmpty { reading.selectedTermSymbol = symbol }
+                    },
+                    store: store
+                )
+            }
 
             if let callout = beat.callout {
                 calloutBlock(callout)
@@ -135,7 +144,8 @@ struct PatternedChapterStepView: View {
                 callout: callout,
                 text: draft,
                 isSaved: saved?.isUnlocked == true,
-                isPrimary: !isUnlocked
+                isPrimary: !isUnlocked,
+                linksConcepts: chapter.linksConcepts
             ) {
                 let typed = draft.wrappedValue.trimmingCharacters(in: .whitespacesAndNewlines)
                 store.saveCalloutResponse(
@@ -154,7 +164,7 @@ struct PatternedChapterStepView: View {
                 Text(callout.title)
                     .standardType(.headlineSm)
                     .foregroundStyle(theme.ink)
-                ByrneText(PatternedBook.byrneMarked(callout.body, terms: terms))
+                ConceptText(PatternedBook.byrneMarked(callout.body, terms: terms), linking: chapter.linksConcepts)
                     .patternedType(.readingDefault)
                     .foregroundStyle(theme.ink)
                     .fixedSize(horizontal: false, vertical: true)

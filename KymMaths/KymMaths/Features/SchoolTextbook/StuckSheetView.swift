@@ -19,7 +19,7 @@ struct StuckSheetView: View {
 
                 VStack(alignment: .leading, spacing: StandardSpacing.xs) {
                     Kicker("A smaller one first")
-                    Text(sheet.sister)
+                    ConceptText(sheet.sister)
                         .patternedType(.question)
                         .foregroundStyle(theme.ink)
                         .fixedSize(horizontal: false, vertical: true)
@@ -39,6 +39,7 @@ struct StuckSheetView: View {
             .padding(.vertical, StandardSpacing.lg)
         }
         .background(theme.bg)
+        .conceptLinks()
         .onAppear { typing = true }
     }
 
@@ -50,7 +51,7 @@ struct StuckSheetView: View {
                     .standardType(.uiBody)
                     .foregroundStyle(theme.patterned.provenColor)
             }
-            Text(step.prompt)
+            ConceptText(step.prompt)
                 .patternedType(.question)
                 .foregroundStyle(theme.ink)
                 .fixedSize(horizontal: false, vertical: true)
@@ -64,7 +65,7 @@ struct StuckSheetView: View {
                 AnswerCheckRow(typed: $typed, typing: $typing, check: check)
             case .shown:
                 Rectangle().fill(theme.hairline()).frame(height: 1)
-                Text(step.working)
+                ConceptText(step.working)
                     .patternedType(.readingDefault)
                     .foregroundStyle(theme.ink)
                     .fixedSize(horizontal: false, vertical: true)

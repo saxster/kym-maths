@@ -541,15 +541,31 @@ struct ChapterInteractiveBeat: Identifiable, Equatable, Sendable {
     let formulaBridge: IntuitionToFormulaBridge?
     let debateScenario: MathematicalDebateScenario?
     let requiresInteractionToUnlock: Bool
+    /// A rewritten section's steps, whose texts are also `bodyParagraphs`.
+    var teachingSteps: [TeachingStep] = []
+    /// Whether the chapter's figure sits beside this step.
+    var showsFigure = true
+    /// On the first step: what she can do after the chapter.
+    var skillCard: ChapterSkillCard? = nil
+    /// On the first step of a chapter no school unit teaches: says so, and names what it stands on.
+    var beyondSchoolLine: String? = nil
 
     var spokenScript: String {
         var parts: [String] = [eyebrow, title]
+        if let beyondSchoolLine {
+            parts.append(beyondSchoolLine)
+        }
+        if let card = skillCard {
+            parts.append("After this chapter you can: \(card.skill)")
+            parts.append("Try this with the device off: \(card.sheCan.prompt)")
+            parts.append("Why it matters: \(card.whyItMatters)")
+        }
         parts.append(contentsOf: bodyParagraphs)
         if let callout {
             parts.append("\(callout.title). \(callout.body)")
         }
         if let bridge = formulaBridge {
-            parts.append("Formula Bridge: \(bridge.formulaDisplay). \(bridge.concreteAction) Key Invariant: \(bridge.ahaInvariant)")
+            parts.append("The rule: \(bridge.formulaDisplay). \(bridge.concreteAction) What stays the same: \(bridge.ahaInvariant)")
         }
         return parts.joined(separator: ". ")
     }
@@ -557,110 +573,144 @@ struct ChapterInteractiveBeat: Identifiable, Equatable, Sendable {
 
 enum ChapterInteractiveBeatEngine {
     static func beats(for chapter: PatternedWorldChapter) -> [ChapterInteractiveBeat] {
-        var rawBeats: [(
-            kind: ChapterInteractiveBeatKind,
+        var rawBeats: [ChapterInteractiveBeat] = []
+
+        func add(
+            _ kind: ChapterInteractiveBeatKind,
             eyebrow: String,
             title: String,
-            bodyParagraphs: [String],
-            callout: PatternedWorldCallout?,
-            widgetIds: [String],
-            formulaBridge: IntuitionToFormulaBridge?,
-            debateScenario: MathematicalDebateScenario?,
-            requiresInteractionToUnlock: Bool
-        )] = []
-
-        // Beat 1: Everyday Mumbai Hook + Predict First Gate
-        let predictCallout = chapter.callouts.first(where: { $0.kind == "predict" })
-        rawBeats.append((
-            kind: .everydayHook,
-            eyebrow: "BEAT 1 · EVERYDAY HOOK & PREDICTION",
-            title: chapter.title,
-            bodyParagraphs: [chapter.hookSummary, chapter.subtitle],
-            callout: predictCallout,
-            widgetIds: [],
-            formulaBridge: nil,
-            debateScenario: nil,
-            requiresInteractionToUnlock: predictCallout != nil
-        ))
-
-        // Beats for narrative sections & non-predict callouts interleaved
-        let otherCallouts = chapter.callouts.filter { $0.kind != "predict" }
-        for (secIdx, section) in chapter.sections.enumerated() {
-            let pairedCallout = secIdx < otherCallouts.count ? otherCallouts[secIdx] : nil
-            rawBeats.append((
-                kind: pairedCallout != nil ? .calloutGate : .proseInsight,
-                eyebrow: pairedCallout != nil ? "TEACH & CHECK GATE" : "CONCEPT DISCOVERY",
-                title: section.heading,
-                bodyParagraphs: [section.excerpt],
-                callout: pairedCallout,
-                widgetIds: [],
-                formulaBridge: nil,
-                debateScenario: nil,
-                requiresInteractionToUnlock: pairedCallout?.kind == "check"
+            body: [String],
+            callout: PatternedWorldCallout? = nil,
+            widgetIds: [String] = [],
+            formulaBridge: IntuitionToFormulaBridge? = nil,
+            debate: MathematicalDebateScenario? = nil,
+            gated: Bool,
+            steps: [TeachingStep] = [],
+            showsFigure: Bool = true,
+            skillCard: ChapterSkillCard? = nil,
+            beyondSchoolLine: String? = nil
+        ) {
+            rawBeats.append(ChapterInteractiveBeat(
+                id: "ch\(chapter.number)-beat-\(rawBeats.count)",
+                index: rawBeats.count,
+                totalBeats: 0,
+                kind: kind,
+                eyebrow: eyebrow,
+                title: title,
+                bodyParagraphs: body,
+                callout: callout,
+                widgetIds: widgetIds,
+                formulaBridge: formulaBridge,
+                debateScenario: debate,
+                requiresInteractionToUnlock: gated,
+                teachingSteps: steps,
+                showsFigure: showsFigure,
+                skillCard: skillCard,
+                beyondSchoolLine: beyondSchoolLine
             ))
         }
 
-        // Interactive Lab & Formula Bridge Beat
-        rawBeats.append((
-            kind: .interactiveLabAndFormula,
-            eyebrow: "HANDS-ON LAB & FORMULA BRIDGE",
-            title: "Visual Intuition → Symbolic Formula",
-            bodyParagraphs: [
-                chapter.intuitionToFormula.concreteAction,
-                chapter.intuitionToFormula.ahaInvariant
-            ],
-            callout: nil,
-            widgetIds: chapter.widgets,
-            formulaBridge: chapter.intuitionToFormula,
-            debateScenario: nil,
-            requiresInteractionToUnlock: false
-        ))
+        // The opening question, the skill card and the prediction.
+        let predictCallout = chapter.callouts.first(where: { $0.kind == "predict" })
+        add(
+            .everydayHook,
+            eyebrow: "Start here",
+            title: chapter.title,
+            body: [chapter.hookSummary, chapter.subtitle],
+            callout: predictCallout,
+            gated: predictCallout != nil,
+            skillCard: chapter.skillCard,
+            beyondSchoolLine: beyondSchoolLine(for: chapter)
+        )
 
-        // Misconception Immunity Debate Beat
-        let debate = MathematicalDebateEngine.scenario(forChapter: chapter.number)
-        rawBeats.append((
-            kind: .misconceptionDebate,
-            eyebrow: "PEER DEBATE · SPOT THE FLAW",
-            title: debate.title,
-            bodyParagraphs: [debate.contextPrompt],
-            callout: nil,
-            widgetIds: [],
-            formulaBridge: nil,
-            debateScenario: debate,
-            requiresInteractionToUnlock: true
-        ))
-
-        // Final Synthesis Beat
-        let keyTermsLine = chapter.keyTerms.isEmpty ? "" : "Key Vocabulary: " + chapter.keyTerms.joined(separator: " · ")
-        rawBeats.append((
-            kind: .chapterSynthesis,
-            eyebrow: "CHAPTER SYNTHESIS",
-            title: "Locking In Chapter \(chapter.number): \(chapter.title)",
-            bodyParagraphs: [chapter.hookSummary, chapter.intuitionToFormula.ahaInvariant, keyTermsLine].filter { !$0.isEmpty },
-            callout: nil,
-            widgetIds: [],
-            formulaBridge: nil,
-            debateScenario: nil,
-            requiresInteractionToUnlock: false
-        ))
-
-        let total = rawBeats.count
-        return rawBeats.enumerated().map { idx, item in
-            ChapterInteractiveBeat(
-                id: "ch\(chapter.number)-beat-\(idx)",
-                index: idx,
-                totalBeats: total,
-                kind: item.kind,
-                eyebrow: item.eyebrow,
-                title: item.title,
-                bodyParagraphs: item.bodyParagraphs,
-                callout: item.callout,
-                widgetIds: item.widgetIds,
-                formulaBridge: item.formulaBridge,
-                debateScenario: item.debateScenario,
-                requiresInteractionToUnlock: item.requiresInteractionToUnlock
+        // The sections, each paired with a non-predict callout in turn.
+        let otherCallouts = chapter.callouts.filter { $0.kind != "predict" }
+        for (secIdx, section) in chapter.sections.enumerated() {
+            let pairedCallout = secIdx < otherCallouts.count ? otherCallouts[secIdx] : nil
+            add(
+                pairedCallout != nil ? .calloutGate : .proseInsight,
+                eyebrow: pairedCallout != nil ? "Read, then check yourself" : "Read and think",
+                title: section.heading,
+                body: section.teachingSteps.isEmpty ? [section.excerpt] : section.teachingSteps.map(\.text),
+                callout: pairedCallout,
+                gated: pairedCallout?.kind == "check",
+                steps: section.teachingSteps,
+                showsFigure: section.showsFigure
             )
         }
+
+        // The figure and the rule it gives.
+        add(
+            .interactiveLabAndFormula,
+            eyebrow: "Try the figure",
+            title: "From the picture to the rule",
+            body: [chapter.intuitionToFormula.concreteAction, chapter.intuitionToFormula.ahaInvariant],
+            widgetIds: chapter.widgets,
+            formulaBridge: chapter.intuitionToFormula,
+            gated: false
+        )
+
+        // Who is right?
+        let debate = MathematicalDebateEngine.scenario(for: chapter)
+        add(
+            .misconceptionDebate,
+            eyebrow: "Who is right?",
+            title: debate.title,
+            body: [debate.contextPrompt],
+            debate: debate,
+            gated: true
+        )
+
+        // The chapter in a nutshell.
+        let keyTermsLine = chapter.keyTerms.isEmpty ? "" : "Words from this chapter: " + chapter.keyTerms.joined(separator: " · ")
+        add(
+            .chapterSynthesis,
+            eyebrow: "In a nutshell",
+            title: "Chapter \(chapter.number) in a nutshell: \(chapter.title)",
+            body: [chapter.hookSummary, chapter.intuitionToFormula.ahaInvariant, keyTermsLine].filter { !$0.isEmpty },
+            gated: false
+        )
+
+        let total = rawBeats.count
+        return rawBeats.map { beat in
+            ChapterInteractiveBeat(
+                id: beat.id,
+                index: beat.index,
+                totalBeats: total,
+                kind: beat.kind,
+                eyebrow: beat.eyebrow,
+                title: beat.title,
+                bodyParagraphs: beat.bodyParagraphs,
+                callout: beat.callout,
+                widgetIds: beat.widgetIds,
+                formulaBridge: beat.formulaBridge,
+                debateScenario: beat.debateScenario,
+                requiresInteractionToUnlock: beat.requiresInteractionToUnlock,
+                teachingSteps: beat.teachingSteps,
+                showsFigure: beat.showsFigure,
+                skillCard: beat.skillCard,
+                beyondSchoolLine: beat.beyondSchoolLine
+            )
+        }
+    }
+
+    /// "This chapter goes past your school book. It builds on times tables to 12 × 12, …" for a
+    /// chapter no school unit teaches; nil for the others.
+    static func beyondSchoolLine(for chapter: PatternedWorldChapter) -> String? {
+        guard chapter.goesBeyondSchoolBook else { return nil }
+        let opening = "This chapter goes past your school book."
+        let standsOn = (chapter.skillCard?.standsOn ?? []).map(lowercasedStart)
+        guard let last = standsOn.last else { return opening }
+        let list = standsOn.count == 1 ? last : standsOn.dropLast().joined(separator: ", ") + " and " + last
+        return "\(opening) It builds on \(list)."
+    }
+
+    /// "Times tables" becomes "times tables" mid-sentence; "HCF" and "Chapter 2" keep their capitals.
+    private static func lowercasedStart(_ text: String) -> String {
+        let letters = Array(text)
+        guard letters.count > 1, letters[0].isUppercase, letters[1].isLowercase,
+              !text.hasPrefix("Chapter ") else { return text }
+        return letters[0].lowercased() + String(letters.dropFirst())
     }
 }
 
@@ -689,18 +739,20 @@ public struct MathematicalDebateScenario: Identifiable, Codable, Equatable, Send
 }
 
 public enum MathematicalDebateEngine {
-    public static func scenario(forChapter chapterNumber: Int) -> MathematicalDebateScenario {
-        if let match = MathematicalDebateCatalog.all.first(where: { $0.chapterNumber == chapterNumber }) {
-            return match
-        }
-        return MathematicalDebateCatalog.all[0]
+    /// The chapter's own "Who is right?" from its pack record, or the catalog's while the chapter
+    /// is not yet rewritten.
+    static func scenario(for chapter: PatternedWorldChapter) -> MathematicalDebateScenario {
+        chapter.debate
+            ?? MathematicalDebateCatalog.all.first { $0.chapterNumber == chapter.number }
+            ?? MathematicalDebateCatalog.all[0]
     }
 
-    public static func scenario(forOUPUnit unitNumber: Int) -> MathematicalDebateScenario {
-        if let match = MathematicalDebateCatalog.all.first(where: { $0.oupUnitNumber == unitNumber }) {
-            return match
-        }
-        return MathematicalDebateCatalog.all[0]
+    /// The first chapter's debate, in chapter order, that maps to this school unit.
+    static func scenario(forOUPUnit unitNumber: Int, in chapters: [PatternedWorldChapter]) -> MathematicalDebateScenario {
+        let scenarios = chapters.sorted { $0.number < $1.number }.map(scenario(for:))
+        return scenarios.first { $0.oupUnitNumber == unitNumber }
+            ?? scenarios.first
+            ?? MathematicalDebateCatalog.all[0]
     }
 
     public static func evaluateChoice(
@@ -713,78 +765,6 @@ public enum MathematicalDebateEngine {
 
 public enum MathematicalDebateCatalog {
     public static let all: [MathematicalDebateScenario] = [
-        // Ch 0 -> OUP Ch 1 (Sets & Venn Logic)
-        MathematicalDebateScenario(
-            id: "debate-ch00-sets",
-            chapterNumber: 0,
-            oupUnitNumber: 1,
-            title: "The Club Overlap Paradox",
-            contextPrompt: "In a Mumbai Grade 8 homeroom of 40 students, 24 play Cricket (C), 20 play Football (F), and 4 play neither. Aarav and Zoya debate how many play BOTH sports:",
-            speakerAName: "Aarav",
-            speakerAClaim: "24 + 20 = 44, and since there are 40 students in class, 44 − 40 = 4 students must play both!",
-            speakerBName: "Zoya",
-            speakerBClaim: "Wait—4 students are outside both circles! So the union |C ∪ F| is 40 − 4 = 36, which means 44 − 36 = 8 students play both.",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch00-a",
-                    speakerLabel: "Aarav is right (4 students)",
-                    reasoningStatement: "Subtracting the total class size 40 from |C| + |F| = 44 always gives the overlap.",
-                    isCorrect: false,
-                    socraticRebuttal: "Check the 4 students who play neither sport! If only 4 played both, then 20 + 4 + 16 = 40 would play a sport, leaving 0 outside the circles."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch00-b",
-                    speakerLabel: "Zoya is right (8 students)",
-                    reasoningStatement: "First remove the 4 'neither' students to get |C ∪ F| = 36, then subtract 36 from |C| + |F| = 44.",
-                    isCorrect: true,
-                    socraticRebuttal: "Spot on! Only C = 16, Both = 8, Only F = 12, Neither = 4, and 16 + 8 + 12 + 4 = 40."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch00-c",
-                    speakerLabel: "Neither — the overlap is 24 − 20 = 4",
-                    reasoningStatement: "The intersection of two sets is the difference between their sizes.",
-                    isCorrect: false,
-                    socraticRebuttal: "|C| − |F| compares circle sizes, not how deeply the two circles overlap inside the universal box."
-                )
-            ],
-            invariantTakeaway: "|A ∪ B| = Total − Neither, and |A ∩ B| = |A| + |B| − |A ∪ B|."
-        ),
-        // Ch 1 -> OUP Ch 1 (Prime Factors, HCF & LCM)
-        MathematicalDebateScenario(
-            id: "debate-ch01-primes",
-            chapterNumber: 1,
-            oupUnitNumber: 1,
-            title: "Dadar Local Train Synchronisation",
-            contextPrompt: "Fast trains leave Dadar every 12 minutes and slow trains leave every 18 minutes. Both leave together at 8:00 AM. Kabir and Meera debate when they next leave together:",
-            speakerAName: "Kabir",
-            speakerAClaim: "We multiply the two intervals: 12 × 18 = 216 minutes later!",
-            speakerBName: "Meera",
-            speakerBClaim: "12 and 18 share HCF = 6 in the Venn intersection, so LCM = (12 × 18) ÷ 6 = 36 minutes later.",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch01-a",
-                    speakerLabel: "Kabir is right (216 minutes)",
-                    reasoningStatement: "Common multiples are always found by multiplying the two numbers directly.",
-                    isCorrect: false,
-                    socraticRebuttal: "216 is a common multiple, but not the LOWEST one! Multiplying 12 × 18 double-counts their shared factor of 6."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch01-b",
-                    speakerLabel: "Meera is right (36 minutes)",
-                    reasoningStatement: "Dividing the product 12 × 18 by HCF(12, 18) = 6 removes the duplicate overlap factor.",
-                    isCorrect: true,
-                    socraticRebuttal: "Exact! 36 = 3 × 12 and 36 = 2 × 18, so both trains align at 8:36 AM."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch01-c",
-                    speakerLabel: "Neither — it is every 6 minutes (HCF)",
-                    reasoningStatement: "We should use the Highest Common Factor 6.",
-                    isCorrect: false,
-                    socraticRebuttal: "At 6 minutes, neither the 12-minute train nor the 18-minute train has even completed one cycle!"
-                )
-            ],
-            invariantTakeaway: "HCF × LCM = a × b because the Venn union plus intersection accounts for every prime factor."
-        ),
         // Ch 2 -> OUP Ch 1 (Indices & Standard Form)
         MathematicalDebateScenario(
             id: "debate-ch02-indices",
@@ -1556,7 +1536,7 @@ enum DailyFlowSessionEngine {
             ?? beats[0]
 
         // Stage 3: Misconception Immunity Debate + Quantitative Trap Problem
-        let debate = MathematicalDebateEngine.scenario(forChapter: chapter.number)
+        let debate = MathematicalDebateEngine.scenario(for: chapter)
         let template = QuantitativeTemplateKind.allCases.first(where: { $0.patternedWorldChapter == chapter.number })
             ?? .setInclusionExclusion
         let trapProblem = QuantitativeMathsEngine.generate(template: template, seed: max(1, chapter.number + 1))

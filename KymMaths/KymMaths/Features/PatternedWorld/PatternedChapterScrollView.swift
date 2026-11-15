@@ -56,6 +56,10 @@ struct PatternedChapterScrollView: View {
             if isRead {
                 StatusTag(.proven, label: "Read")
             }
+            SkillCardPanel(card: chapter.skillCard,
+                           beyondSchoolLine: ChapterInteractiveBeatEngine.beyondSchoolLine(for: chapter),
+                           linksConcepts: chapter.linksConcepts)
+                .padding(.top, StandardSpacing.xs)
         }
     }
 
@@ -68,7 +72,8 @@ struct PatternedChapterScrollView: View {
                 get: { reading.calloutDrafts[callout.id] ?? saved?.responseText ?? "" },
                 set: { reading.calloutDrafts[callout.id] = $0 }
             )
-            YourTurnCard(callout: callout, text: draft, isSaved: saved?.isUnlocked == true, isPrimary: false) {
+            YourTurnCard(callout: callout, text: draft, isSaved: saved?.isUnlocked == true, isPrimary: false,
+                         linksConcepts: chapter.linksConcepts) {
                 let typed = draft.wrappedValue.trimmingCharacters(in: .whitespacesAndNewlines)
                 store.saveCalloutResponse(
                     calloutId: callout.id,
@@ -100,7 +105,7 @@ struct PatternedChapterScrollView: View {
                 }
             } else {
                 LockedNote("The rule this picture gives you opens after you predict.")
-                Button("Just show me the rule") {
+                Button("Show me the rule now") {
                     reading.bypassedPredictionChapters.insert(chapter.number)
                 }
                 .buttonStyle(TextLinkButtonStyle())
@@ -116,7 +121,7 @@ struct PatternedChapterScrollView: View {
     private func stepPanel(kicker: String, text: String) -> some View {
         VStack(alignment: .leading, spacing: StandardSpacing.xs) {
             Kicker(kicker)
-            ByrneText(PatternedBook.byrneMarked(text, terms: terms))
+            ConceptText(PatternedBook.byrneMarked(text, terms: terms), linking: chapter.linksConcepts)
                 .patternedType(.readingDefault)
                 .foregroundStyle(theme.ink)
                 .fixedSize(horizontal: false, vertical: true)
@@ -127,7 +132,7 @@ struct PatternedChapterScrollView: View {
     // MARK: Who is right?
 
     private var debate: some View {
-        let scenario = MathematicalDebateEngine.scenario(forChapter: chapter.number)
+        let scenario = MathematicalDebateEngine.scenario(for: chapter)
         return VStack(alignment: .leading, spacing: StandardSpacing.sm) {
             Kicker("Who is right, and why?")
             MathematicalDebateCardView(
@@ -156,10 +161,15 @@ struct PatternedChapterScrollView: View {
                     Text(PatternedBook.stripCode(section.heading))
                         .standardType(.headlineMd)
                         .foregroundStyle(theme.ink)
-                    ByrneText(PatternedBook.byrneMarked(section.excerpt, terms: terms))
-                        .patternedType(.reading)
-                        .foregroundStyle(theme.ink)
-                        .fixedSize(horizontal: false, vertical: true)
+                    if section.teachingSteps.isEmpty {
+                        ByrneText(PatternedBook.byrneMarked(section.excerpt, terms: terms))
+                            .patternedType(.reading)
+                            .foregroundStyle(theme.ink)
+                            .fixedSize(horizontal: false, vertical: true)
+                    } else {
+                        TeachingStepsView(steps: section.teachingSteps, terms: terms)
+                            .padding(.top, StandardSpacing.xs)
+                    }
                 }
             }
         }
@@ -216,7 +226,7 @@ struct PatternedChapterScrollView: View {
                     .buttonStyle(OutlineButtonStyle())
                 }
             } else {
-                ByrneText(PatternedBook.byrneMarked(callout.body, terms: terms))
+                ConceptText(PatternedBook.byrneMarked(callout.body, terms: terms), linking: chapter.linksConcepts)
                     .patternedType(.readingDefault)
                     .foregroundStyle(theme.ink)
                     .fixedSize(horizontal: false, vertical: true)

@@ -566,7 +566,7 @@ struct SchoolMathsHomeView: View {
     // MARK: Who is right?
 
     private func debate(_ unit: SchoolMathsUnit) -> some View {
-        let scenario = MathematicalDebateEngine.scenario(forOUPUnit: unit.unitNumber)
+        let scenario = MathematicalDebateEngine.scenario(forOUPUnit: unit.unitNumber, in: store.seedPack.chapters)
         return VStack(alignment: .leading, spacing: StandardSpacing.sm) {
             Kicker("Who is right, and why?")
             Text("Two classmates disagree. Spot the tempting mistake before it catches you.")
