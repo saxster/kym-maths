@@ -1,9 +1,10 @@
 import SwiftUI
 
-// MARK: - Room 7: Constitutional AI Mathematics Mentor & Offline FTS5 Socratic Coach (Ported from ../kym_tutor)
+// MARK: - Room 7: the coach, a patient tutor in the margin of her work
 
 struct MathsCoachView: View {
     @Bindable var store: AppStore
+    @Environment(\.standardTheme) private var theme
 
     @State private var queryText: String = ""
     @State private var workingDraftText: String = ""
@@ -11,6 +12,8 @@ struct MathsCoachView: View {
     @State private var liveVoiceController = LiveMentorVoiceController()
     @State private var safetyEvalReport: SafetyEvalSuiteReport = ChildSafetyEvalHarness.runFullSuite()
     @State private var latestCouncilVerdict: AdversarialCouncil.CouncilVerdict?
+    @State private var showWorkings = false
+    @State private var roomWidth: CGFloat = 700
 
     private let starterPrompts = [
         "Why does HCF × LCM = a × b?",
@@ -21,361 +24,343 @@ struct MathsCoachView: View {
         "Just explain how to expand 5(2x + 3) − 3(x − 4)"
     ]
 
+    private var topic: String { store.selectedUnit.title }
+
     var body: some View {
-        let activeSoul = store.activeSoul
+        ScrollView {
+            VStack(alignment: .leading, spacing: StandardSpacing.xl) {
+                EditorialHeader(
+                    eyebrow: "Coach",
+                    title: "Think it through out loud",
+                    subtitle: "The coach asks before it tells. You can always ask it to just explain."
+                )
 
-        JournalPage {
-            EditorialHeader(
-                eyebrow: "Maths Coach",
-                title: "Constitutional Mathematics Mentor · \(activeSoul.displayName)",
-                subtitle: activeSoul.subtitle + " · " + store.currentUnderstandingPhase.badgeSubtitle
+                Group {
+                    if roomWidth >= 760 {
+                        HStack(alignment: .top, spacing: StandardSpacing.lg) {
+                            conversationCard.frame(maxWidth: .infinity)
+                            boardColumn.frame(width: min(440, roomWidth * 0.42))
+                        }
+                    } else {
+                        VStack(alignment: .leading, spacing: StandardSpacing.lg) {
+                            conversationCard
+                            boardColumn
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .readWidth($roomWidth)
+            }
+            .padding(StandardSpacing.xl)
+            .frame(maxWidth: 1100, alignment: .leading)
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .background(theme.bg)
+        .sheet(isPresented: $showWorkings) {
+            CoachWorkingsSheet(
+                store: store,
+                voice: liveVoiceController,
+                bracketDrafts: $bracketDrafts,
+                safetyEvalReport: safetyEvalReport,
+                latestCouncilVerdict: latestCouncilVerdict
             )
+            .pageSizedSheet()
+        }
+        .onAppear {
+            if store.deepLinkTail.contains("how") { showWorkings = true }
+        }
+    }
 
-            // 1. Constitutional Guardrail & 4-Phase Understanding Banner
-            JournalCard {
-                VStack(alignment: .leading, spacing: Spacing.md) {
-                    HStack(spacing: Spacing.xs) {
-                        JournalBadge(
-                            text: "Constitution \(TutorConstitution.version)",
-                            symbol: "checkmark.shield.fill",
-                            tone: .positive
-                        )
-                        JournalBadge(
-                            text: "Phase: \(store.currentUnderstandingPhase.title)",
-                            symbol: "chart.line.uptrend.xyaxis",
-                            tone: .accent
-                        )
-                        JournalBadge(
-                            text: store.aiFeaturePolicy.displayName,
-                            symbol: "cpu",
-                            tone: .info
-                        )
-                        Spacer()
-                        Text("Policy SHA-256: \(String(TutorConstitution.policyHash.prefix(10)))…")
-                            .font(Typography.caption)
-                            .foregroundStyle(Color.kymaiaMutedInk)
-                    }
+    // MARK: The conversation
 
-                    // Soul Persona Selector
-                    VStack(alignment: .leading, spacing: Spacing.xs) {
-                        Text("CHOOSE YOUR MENTOR SOUL PERSONA")
-                            .font(Typography.eyebrow)
-                            .foregroundStyle(Color.kymaiaPrimary)
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: Spacing.xs) {
-                                ForEach(AgentSoulCatalog.all) { soul in
-                                    MathsFilterChip(
-                                        title: soul.displayName,
-                                        systemImage: soul.icon,
-                                        isSelected: store.selectedSoulId == soul.personaId
-                                    ) {
-                                        store.selectedSoulId = soul.personaId
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    // Guidance Style Selector (TutorGuidanceStyle)
-                    VStack(alignment: .leading, spacing: Spacing.xs) {
-                        Text("COACHING & GUIDANCE STYLE (SAY \"JUST EXPLAIN\" ANYTIME TO OPT OUT)")
-                            .font(Typography.eyebrow)
-                            .foregroundStyle(Color.kymaiaPrimary)
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: Spacing.xs) {
-                                ForEach(TutorGuidanceStyle.allCases) { style in
-                                    MathsFilterChip(
-                                        title: style.title,
-                                        systemImage: style.icon,
-                                        isSelected: store.requestedGuidanceStyle == style
-                                    ) {
-                                        store.requestedGuidanceStyle = style
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    // Starter Prompts
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: Spacing.xs) {
-                            ForEach(starterPrompts, id: \.self) { prompt in
-                                PillButton(prompt, action: {
-                                    Task {
-                                        await store.sendMentorMessage(
-                                            prompt,
-                                            activeQuestion: store.activePracticeQuestion,
-                                            learnerDraft: workingDraftText
-                                        )
-                                    }
-                                }, icon: {
-                                    Image(systemName: "sparkles")
-                                })
-                            }
-                        }
-                    }
-
-                    // Input & Share Scratchpad Working
-                    HStack(spacing: Spacing.sm) {
-                        TextField(
-                            "Ask \(activeSoul.displayName) (or say 'just explain' for a direct breakdown)...",
-                            text: $queryText
-                        )
-                        .textFieldStyle(.roundedBorder)
-                        .onSubmit {
-                            sendCurrentQuery()
-                        }
-
-                        Button("Ask Mentor") {
-                            sendCurrentQuery()
-                        }
-                        .buttonStyle(BrassButtonStyle())
-
-                        if let activeQ = store.activePracticeQuestion,
-                           let savedPad = store.loadScratchpad(questionId: activeQ.id) {
-                            Button("Share Saved Working") {
-                                Task {
-                                    await store.shareScratchpadWithCoach(
-                                        pngData: savedPad.previewPNGData,
-                                        activeQuestion: activeQ
-                                    )
-                                }
-                            }
-                            .buttonStyle(JournalSecondaryButtonStyle())
-                        }
-                    }
-
-                    Text("Epistemic Honesty Rule: Coach conversations help you build intuition, but only the deterministic Question Proof & Exact Polynomial Checker (\(STEMVerification.checker)) certifies mastery.")
-                        .font(Typography.caption)
-                        .foregroundStyle(Color.kymaiaMutedInk)
-                }
-            }
-
-            // 1B. Live Bidirectional Voice & Interactive Shared Chalkboard (Ported from ../kym_tutor)
-            JournalSection(
-                title: "Live Socratic Voice & Shared Chalkboard",
-                eyebrow: "Gemini 3.8 Live / OpenAI Realtime · Turn-Gated Safety · 1000×640 TutorCanvas"
-            ) {
-                LiveMentorCallSurface(
-                    controller: liveVoiceController,
-                    topic: store.selectedUnit.title,
-                    soulID: store.selectedSoulId,
-                    overrides: store.soulParentOverrides,
-                    guidanceStyle: store.requestedGuidanceStyle,
-                    mathContextSummary: store.activePracticeQuestion?.prompt
-                ) { takeaway in
-                    store.saveVoiceTakeawayFlashcard(takeaway)
-                }
-            }
-
-            // 1C. Prerequisite Bracket Prober & Minimal Dependency Tree (Ported from LearnHarness)
-            JournalSection(
-                title: "Prerequisite Bracket Prober & Minimal Dependency Tree",
-                eyebrow: "Binary-Search Prerequisite Strands · Prune Fluent Roots Before Teaching"
-            ) {
-                JournalCard {
-                    VStack(alignment: .leading, spacing: Spacing.md) {
-                        HStack {
-                            JournalBadge(
-                                text: "Role: \(store.activeMentorRole.title)",
-                                symbol: "point.3.connected.trianglepath.dotted",
-                                tone: .accent
-                            )
-                            Spacer()
-                            ForEach(AgentPromptRole.allCases) { role in
-                                MathsFilterChip(
-                                    title: role.rawValue.capitalized,
-                                    systemImage: "sparkles",
-                                    isSelected: store.activeMentorRole == role
-                                ) {
-                                    store.activeMentorRole = role
-                                }
-                            }
-                        }
-
-                        ForEach(store.prerequisiteBrackets) { bracket in
-                            let binding = Binding<String>(
-                                get: { bracketDrafts[bracket.id] ?? bracket.learnerResponse },
-                                set: { bracketDrafts[bracket.id] = $0 }
-                            )
-                            VStack(alignment: .leading, spacing: 6) {
-                                HStack {
-                                    Text(bracket.strandTitle)
-                                        .font(Typography.subheadline.weight(.bold))
-                                        .foregroundStyle(Color.kymaiaInk)
-                                    Spacer()
-                                    JournalBadge(
-                                        text: bracket.depthLevel.rawValue,
-                                        symbol: bracket.depthLevel == .symbolicFluent ? "checkmark.seal.fill" : "questionmark.circle",
-                                        tone: bracket.depthLevel == .symbolicFluent ? .positive : .info
-                                    )
-                                }
-                                Text(bracket.diagnosticProbeQuestion)
-                                    .font(Typography.caption)
-                                    .foregroundStyle(Color.kymaiaMutedInk)
-                                HStack {
-                                    TextField("Quick diagnostic check...", text: binding)
-                                        .textFieldStyle(.roundedBorder)
-                                    Button("Bracket Strand") {
-                                        store.recordPrerequisiteBracketAnswer(
-                                            bracketId: bracket.id,
-                                            answer: binding.wrappedValue
-                                        )
-                                    }
-                                    .buttonStyle(JournalSecondaryButtonStyle())
-                                }
-                            }
-                            .padding(Spacing.sm)
-                            .quietPanelBackground()
-                        }
-
-                        if let dag = store.activeLessonDAG {
-                            Divider()
-                            Text("MINIMAL LESSON DEPENDENCY TREE · \(dag.targetConceptTitle.uppercased())")
-                                .font(Typography.eyebrow)
-                                .foregroundStyle(Color.kymaiaPrimary)
-
-                            ForEach(dag.nodes) { node in
-                                let isActive = dag.activeNodeId == node.id
-                                HStack(alignment: .top, spacing: Spacing.sm) {
-                                    Image(systemName: node.isCompleted ? "checkmark.circle.fill" : (isActive ? "arrow.right.circle.fill" : "circle"))
-                                        .foregroundStyle(node.isCompleted ? Color.kymaiaSuccess : (isActive ? Color.kymaiaPrimary : Color.kymaiaMutedInk))
-                                    VStack(alignment: .leading, spacing: 2) {
-                                        Text(node.title)
-                                            .font(Typography.subheadline.weight(.semibold))
-                                            .foregroundStyle(Color.kymaiaInk)
-                                        Text(node.unconditionalProposition)
-                                            .font(Typography.caption)
-                                            .foregroundStyle(Color.kymaiaMutedInk)
-                                    }
-                                    Spacer()
-                                    if !node.isCompleted {
-                                        Button("Mark Held") {
-                                            store.activeLessonDAG?.markNodeCompleted(node.id)
-                                        }
-                                        .buttonStyle(JournalSecondaryButtonStyle())
-                                    }
-                                }
-                                .padding(Spacing.xs)
-                                .quietPanelBackground()
-                            }
-                        }
-                    }
-                }
-            }
-
-            if let annotatedCanvas = store.latestAnnotatedScratchpadCanvas {
-                JournalSection(
-                    title: "Coach Annotated Scratchpad Overlay",
-                    eyebrow: "Vector Callouts Anchored on Your Shared PencilKit Working (1000×640)"
-                ) {
-                    TutorCanvasView(canvas: annotatedCanvas, allowEditing: true)
-                }
-            }
-
-            // 2. Active Soul Document & 4-Agent Adversarial Council Status
-            JournalSection(
-                title: "Active Mentor Soul, Adversarial Council & KORA Safety Gate",
-                eyebrow: "Safety & Learner Agency Always Outrank Persona Preferences"
-            ) {
-                JournalCard {
-                    VStack(alignment: .leading, spacing: Spacing.sm) {
-                        HStack {
-                            JournalBadge(text: activeSoul.displayName, symbol: activeSoul.icon, tone: .accent)
-                            JournalBadge(text: "Tone: \(store.soulParentOverrides["tone"] ?? "warm")", symbol: "slider.horizontal.3", tone: .info)
-                            JournalBadge(text: "Pacing: \(store.soulParentOverrides["pacing"] ?? "steady")", symbol: "metronome", tone: .neutral)
-                            JournalBadge(
-                                text: "KORA Safety Eval: \(safetyEvalReport.passedScenarios)/\(safetyEvalReport.totalScenarios) Passed",
-                                symbol: "checkmark.shield.fill",
-                                tone: .positive
-                            )
-                        }
-                        Text("Primary Method: \(activeSoul.teachingStyle.primaryMethod)")
-                            .font(Typography.subheadline.weight(.semibold))
-                            .foregroundStyle(Color.kymaiaInk)
-                        Text("Scaffolding: \(activeSoul.teachingStyle.scaffoldingApproach)")
-                            .font(Typography.caption)
-                            .foregroundStyle(Color.kymaiaMutedInk)
-
-                        if let verdict = latestCouncilVerdict {
-                            Divider()
-                            HStack(spacing: Spacing.xs) {
-                                JournalBadge(
-                                    text: verdict.consensusApproved ? "4-Expert Council Approved" : "Council Revised",
-                                    symbol: "person.3.sequence.fill",
-                                    tone: verdict.consensusApproved ? .positive : .warning
-                                )
-                                JournalBadge(
-                                    text: String(format: "Score %.0f%%", verdict.averageScore * 100),
-                                    symbol: "gauge.with.dots.needle.67percent",
-                                    tone: .info
-                                )
-                                let budget = AIBudgetLedger.shared.status()
-                                JournalBadge(
-                                    text: "Daily Quota: \(budget.remainingDaily)/\(budget.dailyLimit)",
-                                    symbol: "chart.bar.fill",
-                                    tone: .neutral
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-
-            // 3. Dialogue History
-            JournalSection(
-                title: "Mentor Dialogue & Grounded Citations",
-                eyebrow: "Protected by DevelopmentalResponseValidator & SafetyEscalationService"
-            ) {
+    private var conversationCard: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: StandardSpacing.md) {
                 if store.mentorTurns.isEmpty {
-                    EmptyStateCard(
-                        eyebrow: "\(activeSoul.displayName) · OUP Ch 1–16 + The Patterned World Ch 0–20",
-                        title: "Hello \(store.learnerDisplayName)!",
-                        subtitle: "I am \(activeSoul.displayName). Choose how you'd like us to work above—whether through Socratic questions, a light hint, collaborative practice, or a direct explanation—and ask me about any chapter in Deborah Barton's Oxford Complete Mathematics 8 or The Patterned World."
-                    )
+                    CoachBubble(speaker: "Coach", isLearner: false) {
+                        Text("Hello \(store.learnerDisplayName). What are you wondering about? Ask about any chapter in your school book or in The Patterned World.")
+                            .patternedType(.readingDefault)
+                            .foregroundStyle(theme.ink)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    starters
                 } else {
                     ForEach(store.mentorTurns) { turn in
-                        JournalCard {
-                            VStack(alignment: .leading, spacing: Spacing.sm) {
-                                HStack {
-                                    JournalBadge(
-                                        text: turn.role == "learner"
-                                            ? store.learnerDisplayName
-                                            : (turn.role == "safety" ? "Child Safety Gate" : activeSoul.displayName),
-                                        symbol: turn.role == "learner"
-                                            ? "person.fill"
-                                            : (turn.role == "safety" ? "heart.text.square.fill" : activeSoul.icon),
-                                        tone: turn.role == "learner"
-                                            ? .neutral
-                                            : (turn.role == "safety" ? .warning : .accent)
-                                    )
-                                    JournalBadge(
-                                        text: turn.guidanceStyle.title,
-                                        symbol: turn.guidanceStyle.icon,
-                                        tone: .info
-                                    )
-                                    JournalBadge(
-                                        text: turn.understandingPhase.title,
-                                        symbol: "sparkle",
-                                        tone: .neutral
-                                    )
-                                }
+                        turnBubble(turn)
+                    }
+                }
 
-                                Text(turn.text)
-                                    .font(Typography.body)
-                                    .foregroundStyle(Color.kymaiaInk)
-                            }
+                if liveVoiceController.sessionState.isConnected {
+                    voiceStrip
+                }
+                callTranscript
+                callTakeaways
+
+                HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.xs) {
+                    Image(systemName: "lightbulb")
+                        .imageScale(.small)
+                        .foregroundStyle(theme.mute(theme.ink))
+                        .accessibilityHidden(true)
+                    Text("Say “just explain” any time and the coach will tell you straight.")
+                        .standardType(.uiCaption)
+                        .foregroundStyle(theme.mute(theme.ink))
+                }
+            }
+            .padding(StandardSpacing.lg)
+
+            Rectangle().fill(theme.hairline()).frame(height: 1)
+
+            inputBar
+                .padding(StandardSpacing.md)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(RoundedRectangle(cornerRadius: StandardRadius.xl, style: .continuous).fill(theme.surface))
+        .overlay(RoundedRectangle(cornerRadius: StandardRadius.xl, style: .continuous).strokeBorder(theme.hairline(), lineWidth: 1))
+    }
+
+    private var starters: some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+            Kicker("Or start with one of these", muted: true)
+            FlowLayout(spacing: StandardSpacing.xs) {
+                ForEach(starterPrompts, id: \.self) { prompt in
+                    Button(prompt) {
+                        Task {
+                            await store.sendMentorMessage(
+                                prompt,
+                                activeQuestion: store.activePracticeQuestion,
+                                learnerDraft: workingDraftText
+                            )
                         }
                     }
+                    .buttonStyle(OutlineButtonStyle())
                 }
             }
         }
     }
 
+    @ViewBuilder
+    private func turnBubble(_ turn: MathsMentorTurn) -> some View {
+        switch turn.role {
+        case "learner":
+            CoachBubble(speaker: store.learnerDisplayName, isLearner: true) {
+                Text(turn.text)
+                    .patternedType(.readingDefault)
+                    .foregroundStyle(theme.ink)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        case "safety":
+            CoachBubble(speaker: "Looking after you", isLearner: false) {
+                Text(turn.text)
+                    .patternedType(.readingDefault)
+                    .foregroundStyle(theme.ink)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        default:
+            CoachBubble(speaker: "Coach", isLearner: false, note: turn.guidanceStyle == .adaptive ? nil : turn.guidanceStyle.title) {
+                Text(turn.text)
+                    .patternedType(.readingDefault)
+                    .foregroundStyle(theme.ink)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+    }
+
+    private var inputBar: some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+            HStack(spacing: StandardSpacing.sm) {
+                HStack(spacing: StandardSpacing.xs) {
+                    TextField(
+                        liveVoiceController.sessionState.isConnected ? "Say it to the coach…" : "Ask the coach…",
+                        text: $queryText
+                    )
+                    .textFieldStyle(.plain)
+                    .patternedType(.readingDefault)
+                    .foregroundStyle(theme.ink)
+                    .onSubmit { sendCurrentQuery() }
+
+                    micButton
+                }
+                .padding(.leading, StandardSpacing.md)
+                .frame(minHeight: StandardAccessibility.touchTarget + 4)
+                .background(Capsule().fill(theme.bg))
+                .overlay(Capsule().strokeBorder(theme.hairline(), lineWidth: 1))
+
+                Button {
+                    sendCurrentQuery()
+                } label: {
+                    HStack(spacing: StandardSpacing.xs) {
+                        Text("Send")
+                        Image(systemName: "arrow.right").imageScale(.small)
+                    }
+                }
+                .buttonStyle(InkButtonStyle())
+                .disabled(queryText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+            }
+
+            if let activeQ = store.activePracticeQuestion,
+               let savedPad = store.loadScratchpad(questionId: activeQ.id) {
+                Button {
+                    Task {
+                        await store.shareScratchpadWithCoach(
+                            pngData: savedPad.previewPNGData,
+                            activeQuestion: activeQ
+                        )
+                    }
+                } label: {
+                    Label("Show the coach my working", systemImage: "square.and.pencil")
+                }
+                .buttonStyle(OutlineButtonStyle())
+            }
+        }
+    }
+
+    /// Starts a spoken conversation, or mutes and unmutes one that is running.
+    private var micButton: some View {
+        let connected = liveVoiceController.sessionState.isConnected
+        let muted = liveVoiceController.isMicrophoneMuted
+        return Button {
+            if connected {
+                liveVoiceController.isMicrophoneMuted.toggle()
+            } else {
+                liveVoiceController.startSession(
+                    topic: topic,
+                    soulID: store.selectedSoulId,
+                    overrides: store.soulParentOverrides,
+                    guidanceStyle: store.requestedGuidanceStyle,
+                    mathContextSummary: store.activePracticeQuestion?.prompt
+                )
+            }
+        } label: {
+            Image(systemName: connected ? (muted ? "mic.slash" : "mic.fill") : "mic")
+                .foregroundStyle(connected && !muted ? theme.brass : theme.mute(theme.ink))
+                .frame(width: StandardAccessibility.touchTarget, height: StandardAccessibility.touchTarget)
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(connected ? (muted ? "Turn the microphone on" : "Turn the microphone off") : "Talk to the coach")
+    }
+
+    // MARK: Talking out loud
+
+    private var voiceStrip: some View {
+        HStack(spacing: StandardSpacing.sm) {
+            Circle().fill(theme.brass).frame(width: 8, height: 8)
+                .accessibilityHidden(true)
+            Text(liveVoiceController.isMicrophoneMuted ? "Talking with the coach · microphone off" : "Talking with the coach")
+                .standardType(.uiBody)
+                .foregroundStyle(theme.ink)
+            Spacer(minLength: StandardSpacing.sm)
+            Button {
+                liveVoiceController.endSession(topic: topic)
+            } label: {
+                Label("End", systemImage: "phone.down")
+            }
+            .buttonStyle(OutlineButtonStyle())
+            .accessibilityLabel("End the spoken conversation")
+        }
+        .padding(.horizontal, StandardSpacing.md)
+        .padding(.vertical, StandardSpacing.xs)
+        .background(RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous).fill(theme.patterned.sunkColor))
+    }
+
+    @ViewBuilder
+    private var callTranscript: some View {
+        if !liveVoiceController.transcripts.isEmpty {
+            VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                Kicker("What you said out loud", muted: true)
+                ForEach(liveVoiceController.transcripts.suffix(5)) { entry in
+                    HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.xs) {
+                        Text(speakerName(entry.speaker))
+                            .standardType(.uiCaption)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(entry.speaker == .learner ? theme.ink : theme.brass)
+                        Text(entry.text)
+                            .standardType(.uiBody)
+                            .foregroundStyle(theme.ink)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+            }
+            .padding(StandardSpacing.sm)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous).fill(theme.patterned.sunkColor))
+        }
+    }
+
+    private func speakerName(_ speaker: LiveMentorTranscriptEntry.Speaker) -> String {
+        switch speaker {
+        case .learner: return store.learnerDisplayName
+        case .mentor: return "Coach"
+        case .system: return "Note"
+        }
+    }
+
+    @ViewBuilder
+    private var callTakeaways: some View {
+        if !liveVoiceController.takeaways.isEmpty {
+            VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+                Kicker("Worth remembering")
+                ForEach(liveVoiceController.takeaways) { item in
+                    HStack(alignment: .top, spacing: StandardSpacing.sm) {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(item.frontPrompt)
+                                .standardType(.uiHeadline)
+                                .foregroundStyle(theme.ink)
+                            Text(item.backExplanation)
+                                .standardType(.uiBody)
+                                .foregroundStyle(theme.mute(theme.ink))
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                        Spacer(minLength: StandardSpacing.sm)
+                        let isSaved = liveVoiceController.savedFlashcardIDs.contains(item.id)
+                        Button {
+                            liveVoiceController.savedFlashcardIDs.insert(item.id)
+                            store.saveVoiceTakeawayFlashcard(item)
+                        } label: {
+                            Label(isSaved ? "Kept" : "Keep for review", systemImage: isSaved ? "checkmark" : "plus")
+                        }
+                        .buttonStyle(OutlineButtonStyle())
+                        .disabled(isSaved)
+                    }
+                }
+            }
+            .padding(StandardSpacing.sm)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous).fill(theme.patterned.wash(.stays)))
+        }
+    }
+
+    // MARK: The shared board
+
+    private var boardColumn: some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.md) {
+            LiveMentorChalkboardPane(model: liveVoiceController.chalkboardModel) { summary, _ in
+                liveVoiceController.sendSpokenUtterance(
+                    "Here is my updated chalkboard state:\n\(summary)",
+                    topic: topic,
+                    guidanceStyle: store.requestedGuidanceStyle
+                )
+            }
+
+            if let annotatedCanvas = store.latestAnnotatedScratchpadCanvas {
+                TutorCanvasView(canvas: annotatedCanvas, allowEditing: true, kicker: "Your working, with the coach's notes")
+            }
+
+            Button("How the coach works") { showWorkings = true }
+                .buttonStyle(TextLinkButtonStyle(arrow: false))
+        }
+    }
+
+    // MARK: Sending
+
     private func sendCurrentQuery() {
         let trimmed = queryText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
         queryText = ""
+        if liveVoiceController.sessionState.isConnected {
+            liveVoiceController.sendSpokenUtterance(trimmed, topic: topic, guidanceStyle: store.requestedGuidanceStyle)
+            return
+        }
         Task {
             await store.sendMentorMessage(
                 trimmed,
@@ -388,6 +373,47 @@ struct MathsCoachView: View {
                     topic: store.selectedUnit.title
                 )
             }
+        }
+    }
+}
+
+// MARK: - A line of the conversation
+
+/// Kym's lines sit to the right on sunk paper; the coach's sit to the left on the page, under a
+/// brass label.
+private struct CoachBubble<Content: View>: View {
+    @Environment(\.standardTheme) private var theme
+    let speaker: String
+    let isLearner: Bool
+    var note: String?
+    @ViewBuilder let content: Content
+
+    var body: some View {
+        HStack {
+            if isLearner { Spacer(minLength: StandardSpacing.xl2) }
+            VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                HStack(spacing: StandardSpacing.xs) {
+                    Kicker(speaker, muted: isLearner)
+                    if let note {
+                        Text("· \(note)")
+                            .standardType(.uiCaption)
+                            .foregroundStyle(theme.mute(theme.ink))
+                    }
+                }
+                content
+            }
+            .padding(StandardSpacing.md)
+            .frame(maxWidth: 460, alignment: .leading)
+            .background(
+                RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                    .fill(isLearner ? theme.patterned.sunkColor : theme.bg)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                    .strokeBorder(isLearner ? Color.clear : theme.hairline(), lineWidth: 1)
+            )
+            .accessibilityElement(children: .combine)
+            if !isLearner { Spacer(minLength: StandardSpacing.xl2) }
         }
     }
 }

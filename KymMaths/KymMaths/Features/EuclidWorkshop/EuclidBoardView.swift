@@ -4,6 +4,8 @@ import SwiftUI
 /// crossing nearest the pointer ringed. Taps go to the session, which snaps them.
 struct EuclidBoardCanvas: View {
     let session: EuclidWorkshopSession
+    /// A plate with its own hairline edge. A board that fills a card leaves the edge to the card.
+    var framed = true
     let onTap: (_ location: Vec2, _ tolerance: Double) -> Void
 
     @State private var pointer: CGPoint?
@@ -49,7 +51,7 @@ struct EuclidBoardCanvas: View {
         .clipShape(RoundedRectangle(cornerRadius: MathsFigureRadius.frame, style: .continuous))
         .overlay(
             RoundedRectangle(cornerRadius: MathsFigureRadius.frame, style: .continuous)
-                .strokeBorder(MathsFigureColor.ink.opacity(0.12), lineWidth: 1)
+                .strokeBorder(MathsFigureColor.ink.opacity(framed ? 0.12 : 0), lineWidth: 1)
         )
         .accessibilityElement()
         .accessibilityLabel("Construction board for \(session.proposition.id.raw), \(session.proposition.title)")
@@ -61,6 +63,13 @@ struct EuclidBoardCanvas: View {
     private func colour(_ role: ColorRole) -> Color {
         session.layer == .letters ? MathsFigureColor.ink : role.figureColor
     }
+
+    /// A line's colour by its Byrne meaning: an ink line along a given is the given, in blue.
+    private func colour(_ role: ColorRole, from a: Vec2, to b: Vec2) -> Color {
+        colour(colours.role(role, from: a, to: b))
+    }
+
+    private var colours: ByrneBoardColours { session.byrneColours }
 
     private func draw(in context: inout GraphicsContext, _ viewport: BoardViewport, pulse: Double) {
         let board = session.board
@@ -82,7 +91,7 @@ struct EuclidBoardCanvas: View {
         for (id, ends) in scaffolding.spans {
             guard ends.count == 2, let pa = try? board.position(of: ends[0]), let pb = try? board.position(of: ends[1]) else { continue }
             context.stroke(BoardPaths.line(viewport.toView(pa), viewport.toView(pb)),
-                           with: .color(colour(board.curves[id.raw].role)), style: StrokeStyle(lineWidth: 3.2, lineCap: .round))
+                           with: .color(colour(board.curves[id.raw].role, from: pa, to: pb)), style: StrokeStyle(lineWidth: 3.2, lineCap: .round))
         }
 
         drawPreview(in: &context, viewport)
@@ -117,8 +126,9 @@ struct EuclidBoardCanvas: View {
         }
 
         if let target = snapPosition(viewport) {
-            context.stroke(BoardPaths.circle(viewport.toView(target), radius: 12),
-                           with: .color(MathsFigureColor.amber), lineWidth: 2.2)
+            let ring = BoardPaths.circle(viewport.toView(target), radius: 12)
+            context.fill(ring, with: .color(PatternedPalette.paper.wash(.stays).opacity(0.8)))
+            context.stroke(ring, with: .color(MathsFigureColor.amber), lineWidth: 2)
         }
     }
 
@@ -136,10 +146,12 @@ struct EuclidBoardCanvas: View {
             if !faint, let span = session.givenSpans[id] {
                 context.stroke(path, with: .color(MathsFigureColor.ink.opacity(0.3)), style: StrokeStyle(lineWidth: 1.2, dash: [5, 4]))
                 context.stroke(BoardPaths.line(viewport.toView(span.from), viewport.toView(span.to)),
-                               with: .color(colour(span.role)), style: StrokeStyle(lineWidth: 3.2, lineCap: .round))
+                               with: .color(colour(ColorRole.blue)), style: StrokeStyle(lineWidth: 3.2, lineCap: .round))
                 return
             }
-            context.stroke(path, with: .color(faint ? scaffoldInk : colour(curve.role)),
+            // The givens are laid down first; what the proposition gives you is blue.
+            let role: ColorRole = id.raw < session.givenCurveCount ? .blue : curve.role
+            context.stroke(path, with: .color(faint ? scaffoldInk : colour(role, from: pa, to: pb)),
                            style: StrokeStyle(lineWidth: faint ? 1 : 3.2, lineCap: .round))
         }
     }
@@ -151,7 +163,7 @@ struct EuclidBoardCanvas: View {
         }
         for stroke in figure.strokes {
             context.stroke(BoardPaths.line(viewport.toView(stroke.from), viewport.toView(stroke.to)),
-                           with: .color(colour(stroke.role)), style: StrokeStyle(lineWidth: 3.2, lineCap: .round))
+                           with: .color(colour(stroke.role, from: stroke.from, to: stroke.to)), style: StrokeStyle(lineWidth: 3.2, lineCap: .round))
         }
         for position in figure.points {
             let at = viewport.toView(position)
@@ -203,7 +215,7 @@ struct EuclidBoardCanvas: View {
             }
         case let .segment(a, b, role):
             context.stroke(BoardPaths.line(viewport.toView(a), viewport.toView(b)),
-                           with: .color(colour(role).opacity(0.35 * pulse)), style: StrokeStyle(lineWidth: 12, lineCap: .round))
+                           with: .color(colour(role, from: a, to: b).opacity(0.35 * pulse)), style: StrokeStyle(lineWidth: 12, lineCap: .round))
         case let .circle(c, r, role):
             context.stroke(BoardPaths.circle(viewport.toView(c), radius: viewport.length(r)),
                            with: .color(colour(role).opacity(0.35 * pulse)), lineWidth: 8)
@@ -228,86 +240,90 @@ struct EuclidBoardCanvas: View {
     }
 }
 
-/// Compass, straightedge, one tool per proven proposition, then undo, hint, the layer switch and,
-/// on a solved figure with a plain version, its construction lines. One row when it fits: first with
-/// every label, then with the side controls as icons (named in their help and accessibility labels),
-/// then with the compass and straightedge as icons too, and only then wrapped.
+/// Compass, straight edge, one tool per proven proposition, then undo, hint, the letters switch and,
+/// on a solved figure with a plain version, its construction lines. Beside a wide board it stands as
+/// a rail of icon-over-name buttons; above a narrow one it wraps as a row.
 struct EuclidBoardToolbar: View {
+    enum Axis { case rail, row }
+
+    @Environment(\.standardTheme) private var theme
     @Binding var session: EuclidWorkshopSession
+    var axis: Axis = .row
 
     var body: some View {
-        ViewThatFits(in: .horizontal) {
-            HStack(spacing: Spacing.xs) { controls(compact: false) }
-            HStack(spacing: Spacing.xs) { controls(compact: true) }
-            HStack(spacing: Spacing.xs) { controls(compact: true, iconTools: true) }
-            FlowLayout(spacing: Spacing.xs) { controls(compact: true) }
+        switch axis {
+        case .rail:
+            VStack(spacing: StandardSpacing.xs) { controls }
+                .padding(.vertical, StandardSpacing.sm)
+                .padding(.horizontal, StandardSpacing.xs)
+                .frame(width: 84)
+                .frame(maxHeight: .infinity, alignment: .top)
+                .background(
+                    RoundedRectangle(cornerRadius: StandardRadius.xl, style: .continuous).fill(theme.surface)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: StandardRadius.xl, style: .continuous)
+                        .strokeBorder(theme.hairline(), lineWidth: 1)
+                )
+        case .row:
+            FlowLayout(spacing: StandardSpacing.xs) { controls }
         }
     }
 
     @ViewBuilder
-    private func controls(compact: Bool, iconTools: Bool = false) -> some View {
-        MathsFilterChip(title: "Compass", systemImage: "circle.dashed", isSelected: session.tool.tool == .compass) {
-            session.choose(.compass)
+    private var controls: some View {
+        Button { session.choose(.compass) } label: {
+            Label("Compass", systemImage: "compass.drawing")
         }
-        .sideControl(iconTools, help: "Compass: draw a circle")
-        MathsFilterChip(title: "Straightedge", systemImage: "line.diagonal", isSelected: session.tool.tool == .straightedge) {
-            session.choose(.straightedge)
+        .buttonStyle(EuclidToolButtonStyle(isSelected: session.tool.tool == .compass))
+        .help("Compass: draw a circle")
+
+        Button { session.choose(.straightedge) } label: {
+            Label("Straight edge", systemImage: "line.diagonal")
         }
-        .sideControl(iconTools, help: "Straightedge: draw a line")
+        .buttonStyle(EuclidToolButtonStyle(isSelected: session.tool.tool == .straightedge))
+        .help("Straight edge: draw a line")
+
         ForEach(session.tools, id: \.self) { id in
             let name = "\(id) · \(EuclidSpine.proposition(id)?.title ?? "")"
-            MathsFilterChip(title: id.raw, systemImage: "wand.and.rays", isSelected: session.tool.tool == .proposition(id)) {
-                session.choose(.proposition(id))
+            Button { session.choose(.proposition(id)) } label: {
+                Label(id.raw, systemImage: "wand.and.rays")
             }
-            .labelStyle(compact ? AnyLabelStyle(.titleOnly) : AnyLabelStyle(.titleAndIcon))
+            .buttonStyle(EuclidToolButtonStyle(isSelected: session.tool.tool == .proposition(id)))
             .help(name)
             .accessibilityLabel(name)
         }
-        let canUndo = !session.board.history.isEmpty
-        Button {
-            session.undo()
-        } label: {
+
+        if axis == .rail {
+            Rectangle().fill(theme.hairline()).frame(height: 1).padding(.horizontal, StandardSpacing.xs)
+        }
+
+        Button { session.undo() } label: {
             Label("Undo", systemImage: "arrow.uturn.backward")
         }
-        .buttonStyle(JournalSecondaryButtonStyle())
-        .disabled(!canUndo)
-        .opacity(canUndo ? 1 : 0.4)
-        .sideControl(compact, help: "Undo the last step")
+        .buttonStyle(EuclidToolButtonStyle())
+        .disabled(session.board.history.isEmpty)
+        .help("Undo the last step")
 
-        Button {
-            session.requestHint()
-        } label: {
+        Button { session.requestHint() } label: {
             Label("Hint", systemImage: "lightbulb")
         }
-        .buttonStyle(JournalSecondaryButtonStyle())
+        .buttonStyle(EuclidToolButtonStyle())
         .disabled(session.isSolved)
-        .opacity(session.isSolved ? 0.4 : 1)
-        .sideControl(compact, help: "Show the next step")
+        .help("Show the next step")
 
-        MathsFilterChip(title: "Letters", systemImage: "textformat", isSelected: session.layer == .letters) {
-            session.layer = session.layer == .letters ? .byrne : .letters
+        Button { session.layer = session.layer == .letters ? .byrne : .letters } label: {
+            Label("Letters", systemImage: "textformat")
         }
-        .sideControl(compact, help: "Name the points with letters")
+        .buttonStyle(EuclidToolButtonStyle(isSelected: session.layer == .letters))
+        .help("Name the points with letters")
+
         if session.offersCleanFigure {
-            MathsFilterChip(title: "Construction lines", systemImage: "eye",
-                            isSelected: session.showsConstructionLines) {
-                session.showsConstructionLines.toggle()
+            Button { session.showsConstructionLines.toggle() } label: {
+                Label("Show all", systemImage: "eye")
             }
-            .sideControl(compact, help: "Show every circle and line used to build the figure")
+            .buttonStyle(EuclidToolButtonStyle(isSelected: session.showsConstructionLines))
+            .help("Show every circle and line used to build the figure")
         }
-    }
-}
-
-private struct AnyLabelStyle: LabelStyle {
-    private let make: (Configuration) -> AnyView
-    init<S: LabelStyle>(_ style: S) { make = { AnyView(style.makeBody(configuration: $0)) } }
-    func makeBody(configuration: Configuration) -> some View { make(configuration) }
-}
-
-private extension View {
-    /// A side control shown as its icon alone when the toolbar is short of room.
-    func sideControl(_ compact: Bool, help: String) -> some View {
-        labelStyle(compact ? AnyLabelStyle(.iconOnly) : AnyLabelStyle(.titleAndIcon))
-            .help(help)
     }
 }

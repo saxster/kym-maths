@@ -3,6 +3,7 @@ import SwiftUI
 /// I.47's proof as Euclid's shear: each small square slides, turns and slides again until it is
 /// a rectangle of the big square. A scrubber and play controls let her run it at her own pace.
 struct PythagorasShearView: View {
+    @Environment(\.standardTheme) private var theme
     var shear: PythagorasShear = .book
     @State private var t: Double = 0
     @State private var isPlaying = false
@@ -11,10 +12,8 @@ struct PythagorasShearView: View {
     private static let duration = 12.0
 
     var body: some View {
-        VStack(alignment: .leading, spacing: Spacing.sm) {
-            Text("WATCH THE SQUARES MOVE")
-                .font(Typography.eyebrow)
-                .foregroundStyle(Color.kymaiaPrimary)
+        VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+            Kicker("Watch the squares move")
             Canvas { context, size in draw(in: &context, size) }
                 .frame(height: 360)
                 .background(MathsFigureColor.paper)
@@ -27,8 +26,8 @@ struct PythagorasShearView: View {
                 .accessibilityLabel("The squares on the two short sides sliding and turning into the square on the longest side")
                 .accessibilityValue(shear.caption(at: t))
             Text(shear.caption(at: t))
-                .font(Typography.body)
-                .foregroundStyle(Color.kymaiaInk)
+                .patternedType(.readingDefault)
+                .foregroundStyle(theme.ink)
                 .fixedSize(horizontal: false, vertical: true)
                 .frame(minHeight: 44, alignment: .topLeading)
             controls
@@ -42,13 +41,13 @@ struct PythagorasShearView: View {
     }
 
     private var controls: some View {
-        HStack(spacing: Spacing.xs) {
+        HStack(spacing: StandardSpacing.xs) {
             Button {
                 step(by: -1)
             } label: {
                 Label("Back one move", systemImage: "backward.end.fill").labelStyle(.iconOnly)
             }
-            .buttonStyle(JournalSecondaryButtonStyle())
+            .buttonStyle(OutlineButtonStyle())
             .disabled(t <= 0)
 
             Button {
@@ -58,18 +57,18 @@ struct PythagorasShearView: View {
                 Label(isPlaying ? "Pause" : (t >= 1 ? "Play again" : "Play"),
                       systemImage: isPlaying ? "pause.fill" : "play.fill")
             }
-            .buttonStyle(JournalSecondaryButtonStyle())
+            .buttonStyle(OutlineButtonStyle())
 
             Button {
                 step(by: 1)
             } label: {
                 Label("Forward one move", systemImage: "forward.end.fill").labelStyle(.iconOnly)
             }
-            .buttonStyle(JournalSecondaryButtonStyle())
+            .buttonStyle(OutlineButtonStyle())
             .disabled(t >= 1)
 
             Slider(value: Binding(get: { t }, set: { isPlaying = false; t = $0 }), in: 0...1)
-                .tint(Color.kymaiaPrimary)
+                .tint(theme.brass)
                 .accessibilityLabel("How far the squares have moved")
         }
     }

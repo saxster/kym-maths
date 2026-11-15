@@ -1,10 +1,44 @@
 # KymMaths Design System & Architecture Charter
 
-## 1. Visual Direction: The Standard
-`KymMaths` draws in **The Standard**, the design system it shares with the other subject apps and apple_poem. Tokens, colours, type, spacing, radii, motion and the screen components are defined once in teaching_kit; read [`teaching_kit/docs/STANDARD.md`](../../teaching_kit/docs/STANDARD.md) for the values. Do not restate them here.
-- **Themes:** the six Standard themes plus Follow System, Vivid by default. The choice is stored under `curatedColorScheme`; `Design/AppTheme.swift` moves a choice from the old catalogue to its Standard theme (`euclid` → Paper, `hearth` and `scholar` → Warm, `dusk` → Dusk, every other old id → Vivid). The picker is the kit's `StandardThemeMenu` in the toolbar and `StandardThemeGallery` in Settings.
-- **Tokens in screens:** `Features/` reads `Color.kymaia*`, `Font.kymaia*` or `.standardType(_:)`, and `CornerRadius.*` or `StandardRadius.*`. Fixed sizes and colours that belong to a drawn figure live in `MathsFigureType`, `MathsFigureRadius` and `MathsFigureColor` (`Design/SemanticStyles.swift`). `node teaching_kit/scripts/check-consumers.mjs --lint` fails on drift.
-- **Screen patterns:** each room opens with `EditorialHeader`. Selection strips use `MathsFilterChip` (the kit's `StandardFilterChip` plus a state symbol) and one-shot actions use `PillButton`. A screen has at most one `BrassButtonStyle` action. Panels nested in a card use `.quietPanelBackground()`, the `QuietPanel` chrome. Empty states use `EmptyStateCard`. Pólya's four stages use `StageDial`.
+## 1. Visual Direction: Byrne meets Tufte
+
+KymMaths reads like a printed maths book: a question first, the maths drawn in three colours that mean the same thing in the words and in the figure, and a margin for history and the learner's own hand. The target is the Figma file `qR5ULxwcOZruADJRXTtdTk`; its 20 screens are exported in [`../docs/redesign/figma/`](../docs/redesign/figma/), the shipped app in [`../docs/redesign/after/`](../docs/redesign/after/) (light) and `after/dark/`. Why each choice was made is in [`../docs/redesign/DECISIONS.md`](../docs/redesign/DECISIONS.md).
+
+### Two layers
+- **Chrome comes from The Standard** (teaching_kit, unchanged): `@Environment(\.standardTheme)` gives `bg`, `surface`, `ink`, `brass`, `mute()`, `hairline()`; spacing is `StandardSpacing`, radii `StandardRadius`, interface text `.standardType(.ui*)`. Values live in [`teaching_kit/docs/STANDARD.md`](../../teaching_kit/docs/STANDARD.md); do not restate them here.
+- **The book comes from `KymMaths/Design/Patterned/`**: Byrne colours, reading type and the page components below. Fixed figure sizes and colours stay in `MathsFigureType`, `MathsFigureRadius` and `MathsFigureColor` (`Design/SemanticStyles.swift`), whose red, blue and amber are the Byrne values.
+
+### Themes
+Follow System is the default: the kit's Paper by day, Dusk at night. `AppTheme.adoptPatternedDefault` moves a learner with no choice, or on Vivid (the old default), there once; any other choice is kept. The picker is `StandardThemeGallery` in Settings; there is no toolbar menu.
+
+### Colour
+- **Byrne roles are for maths only.** `ByrneRole.moves` (red, the thing that changes), `.stays` (yellow, the thing that stays the same), `.given` (blue, the starting thing). Read them as `theme.patterned.color(role)` and `.wash(role)`; `theme.patterned` is `.paper` or `.night`. In prose use `ByrneText` markup, `{red:the radius}`, so the word and the figure share a colour.
+- **Chrome is ink, paper and brass.** State tones (`proven`, `assisted`, `locked`) and the `margin` and `sunk` fills are also on `theme.patterned`. No other colour appears on a screen.
+
+### Type
+`.patternedType(_:)` for reading text, on system faces so nothing is bundled: New York for reading, New York italic for questions and inline maths, Bradley Hand for handwriting, SF for kickers and numerals. Roles: `chapterDisplay` 60, `question` 22, `reading` 19, `readingDefault` 16, `readingSmall` 14, `sidenote` 13, `hand` 21, `mathDisplay` 30, `mathInline` 19, `kicker` 11, `numeral` 28. Each scales with Dynamic Type from the text style it is relative to. Interface labels use the kit's `.standardType(.uiBody)` and friends. Where a `Font` value is needed (Canvas text), use `PatternedType.X.font(size:)` or `StandardType.uiCaption`.
+
+### Rules every screen follows
+1. **Wonder first.** A room or chapter opens with `WonderQuestion`, after a `Kicker`.
+2. **Byrne colours for maths only** (above).
+3. **A margin.** `ReadingSpread` puts `MarginNote` and `HandNote` beside reading text at regular width and below it at compact width.
+4. **Stands on / Unlocks.** `ChainCard` on every chapter, topic and proposition.
+5. **Honest lamps.** `SkillLamps` (With the picture, In letters, In your head, Knows when) and `StatusTag` over `LearningStatus` (Locked, Not started, Working on it, With help, Proven, Secure). `ProgressRule` for how far through. No streaks, XP, mastery percentages or engine names.
+6. **One filled button per screen.** `InkButtonStyle`, or the kit's `BrassButtonStyle` where brass is the action. Everything else is `OutlineButtonStyle` or `TextLinkButtonStyle` ("Read the chapter →").
+7. **Engine words live with the grown-up.** FSRS, BKT, CPA, Wolfram, Gemini and the like appear only in Settings under "For the grown-up".
+8. **Quiet paper, loud proof.** `.paperCard()` and hairlines everywhere; colour and weight only where a proof or figure is.
+
+### Shared pieces
+- Page: `Kicker`, `.paperCard()`, `WonderQuestion`, `HandNote`, `MarginNote`, `ReadingSpread`, `ChainCard`, `PathStepRow`, `LockedNote`.
+- Controls: `PatternedChip` (a choice among a few; never the filled button), `.paperField(dashed:emphasis:)` for text entry, `TrailingIconLabelStyle` for "Next →" labels.
+- Layout: `.readWidth(_:)` and `.readHeight(_:)` bind a view's size for width-driven layouts.
+- Room headers still use the kit's `EditorialHeader` where a room has no wonder question of its own.
+- `PatternedGallery` (DEBUG, `-KymDeepLink gallery`) draws every piece in Paper and Dusk. Check a new piece there before using it in a room.
+
+### Checks
+- `scripts/check-design.sh` fails on engine words outside Settings and on more than one filled button per file (files with sheets list their count).
+- `node ../../teaching_kit/scripts/check-consumers.mjs --lint` fails on token drift: literal corner radii, `.font(.system(size:))`, system text styles and named system colours in `Features/`.
+- `scripts/screens.sh <dir>` (with `KYM_APPEARANCE=dark` for Dusk) shoots every room and sheet by deep link; extra shots live in `scripts/screens.d/`.
 
 ## 2. School Spine, Built-In Singapore Companion Workbook & Advanced Horizon
 - Kym's school textbook is **Oxford University Press — Cambridge Lower Secondary Complete Mathematics 8 (Second Edition)** by **Deborah Barton** (`Ch 1–16` + `Reviews A, B, C`, pp. 5–260).

@@ -39,8 +39,8 @@ struct BoardViewport {
 }
 
 extension ColorRole {
-    /// Byrne's colour for this role on drafting paper.
-    var figureColor: Color { MathsFigureColor.roleColor(rawValue) }
+    /// Byrne's colour for this role on drafting paper: red moves, yellow stays, blue is given.
+    var figureColor: Color { ByrneBoardColours.color(self) }
 }
 
 /// Paths shared by the board, the step-order outline and the shear page.

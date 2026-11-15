@@ -1,64 +1,125 @@
 import SwiftUI
 
 /// Byrne's proof: each part of a claim is a small coloured picture of that part, not a pair of
-/// letters. Tap a picture to pulse it on the board; tap a proposition to open it.
+/// letters. Tap a picture to pulse it on the board; tap a proposition to open it. Until she has
+/// tried the construction the proof stays closed, with a way to open it early that counts as help.
 struct ProofStepsView: View {
+    @Environment(\.standardTheme) private var theme
     @Binding var session: EuclidWorkshopSession
+    /// Her lamps for this proposition, shown under a closed proof.
+    var record = EuclidSkillRecord()
     let onOpen: (PropositionID) -> Void
 
     var body: some View {
-        VStack(alignment: .leading, spacing: Spacing.sm) {
-            Text("THE PROOF")
-                .font(Typography.eyebrow)
-                .foregroundStyle(Color.kymaiaPrimary)
+        VStack(alignment: .leading, spacing: StandardSpacing.md) {
+            HStack(alignment: .firstTextBaseline) {
+                Text("The proof")
+                    .standardType(.headlineSm)
+                    .foregroundStyle(theme.ink)
+                    .accessibilityAddTraits(.isHeader)
+                Spacer(minLength: StandardSpacing.xs)
+                if !session.hasAttempted {
+                    StatusTag(.locked)
+                } else if session.isAssisted {
+                    StatusTag(.withHelp)
+                }
+            }
+            Rectangle().fill(theme.hairline()).frame(height: 1)
 
             if session.hasAttempted {
                 ForEach(Array(session.proposition.proofSteps.enumerated()), id: \.offset) { index, step in
                     ProofStepRow(number: index + 1, step: step, session: $session, onOpen: onOpen)
                 }
                 if session.isAssisted {
-                    JournalBadge(text: "Assisted attempt", symbol: "hand.raised.fill", tone: .warning)
+                    Text("The proof opened before the board was built, so this try counts as help.")
+                        .standardType(.uiCaption)
+                        .foregroundStyle(theme.patterned.assistedColor)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             } else {
-                Text("Try the construction first. The proof opens when you solve it.")
-                    .font(Typography.body)
-                    .foregroundStyle(Color.kymaiaInk)
-                Text("Opening it early shows you the answer, so this attempt would count as help.")
-                    .font(Typography.caption)
-                    .foregroundStyle(Color.kymaiaMutedInk)
-                Button("Show the proof now") {
-                    session.revealProof()
-                }
-                .buttonStyle(JournalSecondaryButtonStyle())
-                .disabled(!session.canRevealProof)
+                closed
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
+
+    private var closed: some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.md) {
+            VStack(spacing: StandardSpacing.sm) {
+                Image(systemName: "lock")
+                    .standardType(.headlineMd)
+                    .foregroundStyle(theme.mute(theme.ink))
+                    .accessibilityHidden(true)
+                Text("Try the construction first. The proof opens when you build it.")
+                    .patternedType(.readingDefault)
+                    .foregroundStyle(theme.ink)
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, StandardSpacing.xs)
+            // The proof's lines, face down: one bar per step, in the colours it will use.
+            VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+                ForEach(Array(session.proposition.proofSteps.prefix(6).enumerated()), id: \.offset) { index, _ in
+                    Capsule()
+                        .fill(index.isMultiple(of: 2) ? theme.patterned.wash(Self.washes[(index / 2) % 3]) : theme.patterned.sunkColor)
+                        .frame(height: 7)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.trailing, CGFloat(index % 3) * 22)
+                }
+            }
+            .accessibilityHidden(true)
+            HStack(alignment: .center, spacing: StandardSpacing.sm) {
+                SkillLamps(lit: record.litLamps)
+                Text(lampLine)
+                    .standardType(.uiCaption)
+                    .foregroundStyle(theme.mute(theme.ink))
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            EuclidRuledNote(text: "Opening it early shows you the answer, so this try would count as help.")
+            Button("Show the proof now") {
+                session.revealProof()
+            }
+            .buttonStyle(OutlineButtonStyle())
+            .frame(maxWidth: .infinity)
+            .disabled(!session.canRevealProof)
+        }
+    }
+
+    private static let washes: [ByrneRole] = [.given, .stays, .moves]
+
+    private var lampLine: String {
+        let next: SkillLevel? = record.highest == nil ? .picture : record.highest?.next
+        guard let next else { return "Every lamp is lit" }
+        return "Build it on your own to light “\(next.lampName)”"
+    }
 }
 
 private struct ProofStepRow: View {
+    @Environment(\.standardTheme) private var theme
     let number: Int
     let step: ProofStep
     @Binding var session: EuclidWorkshopSession
     let onOpen: (PropositionID) -> Void
 
     var body: some View {
-        HStack(alignment: .firstTextBaseline, spacing: Spacing.sm) {
-            Text("\(number).")
-                .font(Typography.subheadline.weight(.bold))
-                .foregroundStyle(Color.kymaiaMutedInk)
-            VStack(alignment: .leading, spacing: Spacing.xs) {
+        HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.sm) {
+            Text("\(number)")
+                .patternedType(.mathInline)
+                .foregroundStyle(theme.mute(theme.ink))
+                .frame(minWidth: 14, alignment: .leading)
+            VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
                 ClaimLine(claim: step.claim, session: $session)
                 JustificationChip(justification: step.because, onOpen: onOpen)
             }
         }
-        .padding(.vertical, Spacing.xxs)
+        .padding(.vertical, StandardSpacing.xxs)
     }
 }
 
 /// A claim laid out word by word, so long text wraps between the glyphs.
 struct ClaimLine: View {
+    @Environment(\.standardTheme) private var theme
     let claim: [ClaimToken]
     @Binding var session: EuclidWorkshopSession
 
@@ -82,14 +143,15 @@ struct ClaimLine: View {
                 switch piece {
                 case let .word(word):
                     Text(word)
-                        .font(Typography.body)
-                        .foregroundStyle(Color.kymaiaInk)
+                        .patternedType(.readingDefault)
+                        .foregroundStyle(theme.ink)
                 case let .glyph(token):
                     Button {
                         session.highlightedToken = session.highlightedToken == token ? nil : token
                     } label: {
                         ClaimGlyph(token: token, positions: session.positions(of: token), skeleton: session.skeleton,
-                                   layer: session.layer, isHighlighted: session.highlightedToken == token)
+                                   layer: session.layer, colours: session.byrneColours,
+                                   isHighlighted: session.highlightedToken == token)
                     }
                     .buttonStyle(.plain)
                     .accessibilityLabel(ClaimGlyph.spoken(token))
@@ -108,13 +170,16 @@ struct ClaimGlyph: View {
     /// The solved figure's lines, for placing a segment.
     var skeleton: [FigureStroke] = []
     let layer: BoardLayer
+    /// The construction's givens, so a given line keeps its blue in the glyph.
+    var colours: ByrneBoardColours?
     var isHighlighted = false
 
     var body: some View {
         Group {
             if layer == .letters {
                 Text(Self.letters(token))
-                    .font(Typography.body.weight(.semibold))
+                    .patternedType(.readingDefault)
+                    .fontWeight(.semibold)
                     .foregroundStyle(MathsFigureColor.ink)
                     .padding(.horizontal, 3)
             } else {
@@ -138,7 +203,9 @@ struct ClaimGlyph: View {
 
     private var role: ColorRole {
         switch token {
-        case let .segment(_, _, r), let .angle(_, _, _, r), let .circle(_, r), let .region(_, r): r
+        case let .segment(_, _, r):
+            if let colours, positions.count == 2 { colours.role(r, from: positions[0], to: positions[1]) } else { r }
+        case let .angle(_, _, _, r), let .circle(_, r), let .region(_, r): r
         case .text: .ink
         }
     }
@@ -210,6 +277,7 @@ struct ClaimGlyph: View {
 
 /// The reason a step holds. A proposition opens its own board.
 struct JustificationChip: View {
+    @Environment(\.standardTheme) private var theme
     let justification: Justification
     let onOpen: (PropositionID) -> Void
 
@@ -219,16 +287,23 @@ struct JustificationChip: View {
             Button {
                 onOpen(id)
             } label: {
-                Label(justification.meaning, systemImage: "arrow.up.right.circle")
-                    .font(Typography.caption.weight(.semibold))
+                HStack(spacing: StandardSpacing.xxs) {
+                    Text(justification.meaning)
+                    Image(systemName: "arrow.up.right").imageScale(.small)
+                }
+                .standardType(.uiCaption)
+                .fontWeight(.semibold)
+                .frame(minHeight: 28, alignment: .leading)
+                .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
-            .foregroundStyle(Color.kymaiaPrimary)
+            .foregroundStyle(theme.brass)
             .help("Open \(id.raw)")
         default:
             Text(justification.meaning)
-                .font(Typography.caption)
-                .foregroundStyle(Color.kymaiaMutedInk)
+                .standardType(.uiCaption)
+                .foregroundStyle(theme.mute(theme.ink))
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
 }

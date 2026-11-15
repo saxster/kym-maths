@@ -11,3 +11,9 @@ KymMaths/.swiftpm/
 KymMaths/DerivedData/
 *.xcuserdata/
 *.xcscmblueprint
+
+# Redesign screenshots: regenerate with KymMaths/scripts/screens.sh (before/ from commit 555a316)
+docs/redesign/after/
+docs/redesign/before/
+docs/redesign/phase1/
+docs/redesign/rooms/

@@ -1,9 +1,10 @@
 import SwiftUI
 
-/// One motif's page: the check as tappable phrases over its figure, an answer box, and the paper
-/// check. Once she has answered, she can drag the free point and flip the break switch to see
-/// the rule hold and then fail.
+/// One motif's page: the figure with its givens to light, the check with an answer box, and the
+/// paper check. Once she has answered, she can drag the free point and flip the switch to see the
+/// rule hold and then fail.
 struct MotifPageView: View {
+    @Environment(\.standardTheme) private var theme
     @Bindable var store: AppStore
     let id: MotifID
 
@@ -18,22 +19,17 @@ struct MotifPageView: View {
     @State private var nudge: String?
     @State private var width: CGFloat = 0
 
-    private static let sideBySide: CGFloat = 520 + Spacing.md + 340
+    private static let sideBySide: CGFloat = 900
 
     var body: some View {
-        JournalPage(title: "", column: .calendar) {
-            EuclidMapBackButton(store: store)
-            if let motif = MotifSpine.motif(id) {
-                EditorialHeader(
-                    eyebrow: "Euclid's Workshop · Motifs",
-                    title: "\(motif.id) · \(motif.title)",
-                    subtitle: "Spot the figure, answer the check, then test the rule it runs on."
-                )
-                content(motif)
-            } else {
-                JournalEmptyState(title: "No such motif", systemImage: "questionmark.circle",
-                                  message: "\(id) is not on the motif spine.")
-            }
+        let motif = MotifSpine.motif(id)
+        EuclidPage(
+            eyebrow: "Euclid's Workshop · Motif \(id)",
+            title: motif?.title ?? "No such motif",
+            subtitle: motif == nil ? "\(id) is not on the motif list." : "Spot the figure, answer the check, then test the rule it runs on.",
+            back: { store.euclidRoute = .map }
+        ) {
+            if let motif { content(motif) }
         }
         .onAppear {
             reset()
@@ -47,19 +43,18 @@ struct MotifPageView: View {
     private func content(_ motif: Motif) -> some View {
         Group {
             if width >= Self.sideBySide {
-                HStack(alignment: .top, spacing: Spacing.md) {
-                    figureCard(motif).frame(maxWidth: .infinity)
-                    VStack(alignment: .leading, spacing: Spacing.md) {
-                        answerCard(motif)
-                        paperCard(motif)
+                VStack(alignment: .leading, spacing: StandardSpacing.lg) {
+                    HStack(alignment: .top, spacing: StandardSpacing.lg) {
+                        figureCard(motif).frame(maxWidth: .infinity)
+                        checkCard(motif).frame(width: 360)
                     }
-                    .frame(width: 340)
+                    paperCheck(motif)
                 }
             } else {
-                VStack(alignment: .leading, spacing: Spacing.md) {
+                VStack(alignment: .leading, spacing: StandardSpacing.lg) {
                     figureCard(motif)
-                    answerCard(motif)
-                    paperCard(motif)
+                    checkCard(motif)
+                    paperCheck(motif)
                 }
             }
         }
@@ -67,79 +62,126 @@ struct MotifPageView: View {
         .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width = $0 }
     }
 
-    // MARK: - The check and its figure
+    // MARK: - The figure
+
+    private var status: LearningStatus {
+        guard solved else { return .working }
+        return outcome == .assisted ? .withHelp : .proven
+    }
 
     private func figureCard(_ motif: Motif) -> some View {
         let scene = motif.scene
         let figure = scene.build(state)
         let extent = scene.extent
-        return JournalCard {
-            VStack(alignment: .leading, spacing: Spacing.sm) {
-                Text("THE CHECK")
-                    .font(Typography.eyebrow)
-                    .foregroundStyle(Color.kymaiaPrimary)
-                FlowLayout(spacing: Spacing.xs) {
-                    ForEach(Array(scene.question.enumerated()), id: \.offset) { index, phrase in
-                        PhraseChip(phrase: phrase, isLit: lit == index) {
-                            lit = lit == index ? nil : index
-                        }
-                    }
-                }
-                Text("Tap a given to light it on the figure. Tap it again to clear.")
-                    .font(Typography.caption)
-                    .foregroundStyle(Color.kymaiaMutedInk)
-                MotifBoard(
-                    title: motif.title,
-                    scene: scene,
-                    figure: figure,
-                    extent: extent,
-                    lights: lit.map { scene.question[$0].lights },
-                    showsHelper: showsHelper,
-                    showsAnswer: solved,
-                    canDrag: solved && scene.canDrag(state),
-                    onDrag: { state.free = $0 },
-                    onDragEnd: {
-                        if let free = scene.freePoint { state.free = scene.build(state).points[free] }
-                    }
-                )
-                .frame(height: BoardViewport.height(for: extent, width: 620, clampedTo: 300...460))
-                controls(scene, figure)
+        return VStack(alignment: .leading, spacing: StandardSpacing.md) {
+            HStack(alignment: .firstTextBaseline) {
+                Kicker("The figure", muted: true)
+                Spacer(minLength: StandardSpacing.xs)
+                StatusTag(status)
             }
-        }
-    }
-
-    @ViewBuilder
-    private func controls(_ scene: MotifScene, _ figure: MotifFigure) -> some View {
-        FlowLayout(spacing: Spacing.sm) {
+            MotifBoard(
+                title: motif.title,
+                scene: scene,
+                figure: figure,
+                extent: extent,
+                lights: lit.map { scene.question[$0].lights },
+                showsHelper: showsHelper,
+                showsAnswer: solved,
+                canDrag: solved && scene.canDrag(state),
+                onDrag: { state.free = $0 },
+                onDragEnd: {
+                    if let free = scene.freePoint { state.free = scene.build(state).points[free] }
+                }
+            )
+            .frame(height: BoardViewport.height(for: extent, width: 620, clampedTo: 300...460))
+            if solved, let rule = scene.rule?(figure) {
+                readout(rule)
+            }
+            Rectangle().fill(theme.hairline()).frame(height: 1)
+            givens(scene)
             if !figure.helpers.isEmpty {
                 Button {
                     showsHelper.toggle()
                     if showsHelper, !solved { helperBeforeAnswer = true }
                 } label: {
-                    Label(showsHelper ? "Hide the helper line" : "Show the helper line", systemImage: "line.horizontal.3")
+                    Label(showsHelper ? "Hide the helper line" : "Show the helper line", systemImage: "line.diagonal")
                 }
-                .buttonStyle(JournalSecondaryButtonStyle())
+                .buttonStyle(OutlineButtonStyle())
+                .help(solved ? "Draws the helper line" : "Draws the helper line. Answering with it showing counts as help.")
             }
+            if scene.freePoint != nil || scene.condition != nil {
+                ruleCard(scene)
+            }
+        }
+        .paperCard()
+    }
+
+    /// The givens and the goal, as chips that light what they name on the figure.
+    private func givens(_ scene: MotifScene) -> some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+            Text("Tap a given to light it on the figure. Tap it again to clear.")
+                .standardType(.uiCaption)
+                .foregroundStyle(theme.mute(theme.ink))
+                .fixedSize(horizontal: false, vertical: true)
+            FlowLayout(spacing: StandardSpacing.xs) {
+                ForEach(Array(scene.question.enumerated()), id: \.offset) { index, phrase in
+                    if phrase.role != .plain {
+                        Button(phrase.text) {
+                            lit = lit == index ? nil : index
+                        }
+                        .buttonStyle(EuclidChipStyle(isLit: lit == index))
+                        .accessibilityHint(lit == index ? "Clears the figure" : "Lights what this names on the figure")
+                        .accessibilityAddTraits(lit == index ? .isSelected : [])
+                    }
+                }
+            }
+        }
+    }
+
+    /// The switch that keeps or breaks the rule, with what dragging does.
+    private func ruleCard(_ scene: MotifScene) -> some View {
+        let caption = scene.freePoint.map { dragCaption(scene, free: $0) }
+        return VStack(alignment: .leading, spacing: StandardSpacing.sm) {
             if solved, let condition = scene.condition {
-                Toggle(condition, isOn: Binding(get: { !state.broken }, set: { state.broken = !$0 }))
-                    .toggleStyle(.switch)
-                    .font(Typography.body)
-                    .fixedSize()
+                Toggle(isOn: Binding(get: { !state.broken }, set: { state.broken = !$0 })) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(state.broken ? "\(condition): off. The rule breaks" : "\(condition): on. The rule holds")
+                            .standardType(.uiHeadline)
+                            .foregroundStyle(theme.ink)
+                        if let caption {
+                            Text(caption)
+                                .standardType(.uiCaption)
+                                .foregroundStyle(theme.mute(theme.ink))
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
+                }
+                .toggleStyle(.switch)
+                .tint(theme.ink)
+            } else {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Test the rule")
+                        .standardType(.uiHeadline)
+                        .foregroundStyle(theme.ink)
+                    if let caption {
+                        Text(caption)
+                            .standardType(.uiCaption)
+                            .foregroundStyle(theme.mute(theme.ink))
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
             }
             if solved, state != scene.state {
                 Button("Back to the check") { state = scene.state }
-                    .buttonStyle(JournalSecondaryButtonStyle())
+                    .buttonStyle(TextLinkButtonStyle(arrow: false))
             }
         }
-        if solved, let rule = scene.rule?(figure) {
-            readout(rule)
-        }
-        if let free = scene.freePoint {
-            Text(dragCaption(scene, free: free))
-                .font(Typography.caption)
-                .foregroundStyle(Color.kymaiaMutedInk)
-                .fixedSize(horizontal: false, vertical: true)
-        }
+        .padding(StandardSpacing.md)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .overlay(
+            RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                .strokeBorder(theme.hairline(), lineWidth: 1)
+        )
     }
 
     private func dragCaption(_ scene: MotifScene, free: String) -> String {
@@ -150,95 +192,153 @@ struct MotifPageView: View {
 
     private func readout(_ rule: MotifRule) -> some View {
         let unit = rule.unit
-        return VStack(alignment: .leading, spacing: Spacing.xxs) {
-            Label {
-                Text("\(rule.lhsLabel) = \(unit.reading(rule.lhs))   \(rule.holds ? "=" : "≠")   \(rule.rhsLabel) = \(unit.reading(rule.rhs))")
-                    .font(Typography.body.monospacedDigit().weight(.semibold))
-                    .fixedSize(horizontal: false, vertical: true)
-            } icon: {
-                Image(systemName: rule.holds ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
+        return VStack(spacing: StandardSpacing.xxs) {
+            HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.sm) {
+                Text("\(rule.lhsLabel) = \(unit.reading(rule.lhs))")
+                Text(rule.holds ? "=" : "≠")
+                    .foregroundStyle(rule.holds ? theme.ink : theme.patterned.assistedColor)
+                Text("\(rule.rhsLabel) = \(unit.reading(rule.rhs))")
             }
-            .foregroundStyle(rule.holds ? Color.kymaiaSuccess : Color.kymaiaWarning)
-            .accessibilityLabel(rule.holds
-                ? "The rule holds: \(rule.lhsLabel) is \(unit.spoken(rule.lhs)), \(rule.rhsLabel) is \(unit.spoken(rule.rhs))"
-                : "The rule fails: \(rule.lhsLabel) is \(unit.spoken(rule.lhs)) but \(rule.rhsLabel) is \(unit.spoken(rule.rhs))")
+            .patternedType(.mathDisplay)
+            .monospacedDigit()
+            .foregroundStyle(theme.ink)
+            .minimumScaleFactor(0.5)
+            .lineLimit(1)
             if let note = rule.note {
                 Text(note)
-                    .font(Typography.caption)
-                    .foregroundStyle(Color.kymaiaInk)
+                    .standardType(.uiCaption)
+                    .foregroundStyle(rule.holds ? theme.mute(theme.ink) : theme.patterned.assistedColor)
+                    .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
             }
         }
+        .padding(StandardSpacing.md)
+        .frame(maxWidth: .infinity)
+        .background(
+            RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                .fill(theme.patterned.sunkColor)
+        )
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(rule.holds
+            ? "The rule holds: \(rule.lhsLabel) is \(unit.spoken(rule.lhs)), \(rule.rhsLabel) is \(unit.spoken(rule.rhs))"
+            : "The rule fails: \(rule.lhsLabel) is \(unit.spoken(rule.lhs)) but \(rule.rhsLabel) is \(unit.spoken(rule.rhs))")
     }
 
-    // MARK: - The answer
+    // MARK: - The check
 
-    private func answerCard(_ motif: Motif) -> some View {
-        let goal = motif.scene.goal
-        return JournalCard {
-            VStack(alignment: .leading, spacing: Spacing.sm) {
-                Text("YOUR ANSWER")
-                    .font(Typography.eyebrow)
-                    .foregroundStyle(Color.kymaiaPrimary)
-                ForEach(Array(goal.enumerated()), id: \.offset) { index, quantity in
-                    HStack(spacing: Spacing.xs) {
-                        Text(quantity.item.name + " =")
-                            .font(Typography.headline)
-                            .foregroundStyle(Color.kymaiaInk)
-                        TextField(quantity.unit.placeholder, text: answerBinding(index))
-                            .learnerTextInput(.retrieval)
-                            .textFieldStyle(.roundedBorder)
-                            .font(Typography.mono)
-                            .frame(width: 96)
-                            .disabled(solved)
-                            .onSubmit { check(motif) }
-                            #if os(iOS)
-                            .keyboardType(.decimalPad)
-                            #endif
-                        if let symbol = quantity.unit.symbol {
-                            Text(symbol).font(Typography.headline).foregroundStyle(Color.kymaiaInk)
-                        }
-                    }
-                }
-                if solved {
-                    solvedPanel(motif)
-                } else {
-                    Button("Check") { check(motif) }
-                        .buttonStyle(BrassButtonStyle())
-                    if let nudge {
-                        Text(nudge)
-                            .font(Typography.caption.weight(.semibold))
-                            .foregroundStyle(Color.kymaiaWarning)
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
-                }
+    private func checkCard(_ motif: Motif) -> some View {
+        let scene = motif.scene
+        let record = store.motifProgress.record(for: id)
+        return VStack(alignment: .leading, spacing: StandardSpacing.md) {
+            Kicker("The check")
+            Text(scene.question.map(\.text).joined(separator: " "))
+                .patternedType(.question)
+                .foregroundStyle(theme.ink)
+                .fixedSize(horizontal: false, vertical: true)
+            Rectangle().fill(theme.hairline()).frame(height: 1)
+            Kicker("Your answer")
+            ForEach(Array(scene.goal.enumerated()), id: \.offset) { index, quantity in
+                answerBox(motif, index: index, quantity: quantity)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
+            Text(Self.unitHint(scene.goal.first?.unit ?? .degrees))
+                .standardType(.uiCaption)
+                .foregroundStyle(theme.mute(theme.ink))
+            if let nudge, !solved {
+                Text(nudge)
+                    .standardType(.uiBody)
+                    .foregroundStyle(theme.patterned.assistedColor)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            Rectangle().fill(theme.hairline()).frame(height: 1)
+            Kicker("The move")
+            if solved {
+                solvedPanel(motif)
+            } else {
+                LockedNote("The move opens once your answer is right.")
+            }
+            Spacer(minLength: 0)
+            HStack(spacing: StandardSpacing.sm) {
+                SkillLamps(lit: record.solved ? 1 : 0)
+                Text(record.solved ? "\(SkillLevel.picture.lampName) · lit" : SkillLevel.picture.lampName)
+                    .standardType(.uiCaption)
+                    .foregroundStyle(theme.mute(theme.ink))
+            }
+            if !solved {
+                Button {
+                    check(motif)
+                } label: {
+                    Label("Check", systemImage: "arrow.right").labelStyle(TrailingIconLabelStyle())
+                }
+                .buttonStyle(InkButtonStyle(fullWidth: true))
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .paperCard()
+    }
+
+    private func answerBox(_ motif: Motif, index: Int, quantity: Quantity) -> some View {
+        HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.xs) {
+            Text(quantity.item.name + " =")
+                .patternedType(.mathInline)
+                .italic()
+                .foregroundStyle(theme.mute(theme.ink))
+            TextField("?", text: answerBinding(index))
+                .learnerTextInput(.retrieval)
+                .textFieldStyle(.plain)
+                .patternedType(.numeral).fontWeight(.regular).monospaced()
+                .foregroundStyle(theme.ink)
+                .fixedSize()
+                .frame(minWidth: 72, alignment: .leading)
+                .disabled(solved)
+                .onSubmit { check(motif) }
+                #if os(iOS)
+                .keyboardType(.decimalPad)
+                #endif
+                .accessibilityLabel("\(quantity.item.name), in \(quantity.unit.placeholder)")
+            if let symbol = quantity.unit.symbol {
+                Text(symbol)
+                    .patternedType(.mathInline)
+                    .foregroundStyle(theme.ink)
+            }
+            Spacer(minLength: 0)
+        }
+        .padding(.horizontal, StandardSpacing.md)
+        .frame(minHeight: 60)
+        .background(
+            RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                .fill(theme.bg)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                .strokeBorder(solved ? theme.patterned.provenColor : theme.ink, lineWidth: 1.5)
+        )
+    }
+
+    private static func unitHint(_ unit: QuantityUnit) -> String {
+        switch unit {
+        case .degrees: "Degrees. Numbers only."
+        case .centimetres: "Centimetres. Numbers only."
+        case .length: "A length. Numbers only."
+        case .ratio: "A decimal, to two places."
         }
     }
 
     private func solvedPanel(_ motif: Motif) -> some View {
-        VStack(alignment: .leading, spacing: Spacing.xs) {
-            JournalBadge(text: outcome == .assisted ? "Right, with help" : "Right",
-                         symbol: outcome == .assisted ? "hand.raised.fill" : "checkmark.seal.fill",
-                         tone: outcome == .assisted ? .warning : .positive)
-            Text(outcomeMessage)
-                .font(Typography.caption)
-                .foregroundStyle(Color.kymaiaMutedInk)
-                .fixedSize(horizontal: false, vertical: true)
-            Text("The move")
-                .font(Typography.caption.weight(.semibold))
-                .foregroundStyle(Color.kymaiaPrimary)
+        VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+            StatusTag(outcome == .assisted ? .withHelp : .proven,
+                      label: outcome == .assisted ? "Right, with help" : "Right")
             Text(motif.move)
-                .font(Typography.body)
-                .foregroundStyle(Color.kymaiaInk)
+                .patternedType(.readingDefault)
+                .foregroundStyle(theme.ink)
+                .fixedSize(horizontal: false, vertical: true)
+            Text(outcomeMessage)
+                .standardType(.uiCaption)
+                .foregroundStyle(outcome == .assisted ? theme.patterned.assistedColor : theme.mute(theme.ink))
                 .fixedSize(horizontal: false, vertical: true)
             Button("Start again") { reset() }
-                .buttonStyle(JournalSecondaryButtonStyle())
+                .buttonStyle(OutlineButtonStyle())
         }
-        .padding(Spacing.sm)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .quietPanelBackground()
     }
 
     private var outcomeMessage: String {
@@ -249,13 +349,12 @@ struct MotifPageView: View {
         }
     }
 
-    private func paperCard(_ motif: Motif) -> some View {
+    private func paperCheck(_ motif: Motif) -> some View {
         let record = store.motifProgress.record(for: id)
-        return JournalCard {
-            PaperCheckCard(check: DeviceOffCheck(task: motif.check, answer: motif.answer), isChecked: record.parentChecked) {
-                store.motifProgress.setParentChecked(!record.parentChecked, for: id)
-            }
+        return PaperCheckCard(check: DeviceOffCheck(task: motif.check, answer: motif.answer), isChecked: record.parentChecked) {
+            store.motifProgress.setParentChecked(!record.parentChecked, for: id)
         }
+        .paperCard()
     }
 
     // MARK: - Actions
@@ -320,42 +419,6 @@ struct MotifPageView: View {
         }
     }
     #endif
-}
-
-/// A phrase of the check. Givens and the goal are buttons that light the figure.
-private struct PhraseChip: View {
-    let phrase: QuestionPhrase
-    let isLit: Bool
-    let onTap: () -> Void
-
-    var body: some View {
-        if phrase.role == .plain {
-            Text(phrase.text)
-                .font(Typography.body)
-                .foregroundStyle(Color.kymaiaInk)
-                .padding(.vertical, Spacing.xxs)
-        } else {
-            Button(action: onTap) {
-                Text(phrase.text)
-                    .font(phrase.role == .goal ? Typography.body.weight(.semibold) : Typography.body)
-                    .foregroundStyle(phrase.role == .goal ? Color.kymaiaPrimary : Color.kymaiaInk)
-                    .padding(.horizontal, Spacing.xs)
-                    .padding(.vertical, Spacing.xxs)
-                    .background(
-                        RoundedRectangle(cornerRadius: StandardRadius.sm, style: .continuous)
-                            .fill(isLit ? Color.kymaiaSelectionFill : Color.clear)
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: StandardRadius.sm, style: .continuous)
-                            .strokeBorder(isLit ? Color.kymaiaPrimary : Color.kymaiaHairline,
-                                          style: StrokeStyle(lineWidth: isLit ? 1.5 : 1, dash: isLit ? [] : [3, 3]))
-                    )
-            }
-            .buttonStyle(.plain)
-            .accessibilityHint(isLit ? "Clears the figure" : "Lights what this names on the figure")
-            .accessibilityAddTraits(isLit ? .isSelected : [])
-        }
-    }
 }
 
 /// The motif's figure on drafting paper: lines, parallel arrows, angle arcs with their sizes,

@@ -1,11 +1,12 @@
 import SwiftUI
 
-// MARK: - 3-Stage Singapore CPA & Worked-Example -> Faded -> Independent Proof Practice View
+// MARK: - Proof studio: one question, Kym's own working, and a ladder of hints that says what each costs
 
 struct QuestionProofPracticeView: View {
     let question: SchoolMathsQuestion
     @Bindable var store: AppStore
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.standardTheme) private var theme
 
     @State private var showWorkedExample = false
     @State private var showFadedScaffold = false
@@ -19,13 +20,21 @@ struct QuestionProofPracticeView: View {
     @State private var fadedFeedback: SocraticGraduatedFeedback?
     @State private var revealFadedTarget = false
     @State private var cpaState = CPAManipulativeState(primaryValue: 5, secondaryValue: 12)
+    /// The working, line by line. The answer box below is added to it when Kym hands in.
     @State private var answerText = ""
+    @State private var finalAnswer = ""
     @State private var evaluation: QuestionEvaluationResult?
     @State private var graduatedFeedback: SocraticGraduatedFeedback?
     @State private var interrogationResponse = ""
     @State private var interrogationLocked = false
     @State private var selectedFlawStepIndex: Int?
     @State private var flawScoreResult: SpotTheFlawScoreResult?
+    @State private var showScratchpad = false
+    @State private var showModel = false
+    @State private var showThinking = false
+    @State private var pageWidth: CGFloat = 0
+
+    private var isWide: Bool { pageWidth >= 860 }
 
     private var effectiveAssisted: Bool {
         usedAssistanceInSession || highestHintRung.surrendersRetrieval
@@ -47,240 +56,106 @@ struct QuestionProofPracticeView: View {
         )
     }
 
+    /// What is handed in: the working, then the answer on its own line.
+    private var submission: String {
+        [answerText, finalAnswer]
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+            .joined(separator: "\n")
+    }
+
     var body: some View {
-        NavigationStack {
-            JournalPage {
-                // Header & Question Prompt
-                JournalCard {
-                    VStack(alignment: .leading, spacing: Spacing.md) {
-                        HStack {
-                            JournalBadge(text: "Ch \(question.unitNumber) · Topic \(question.topicCode)", symbol: "book.closed", tone: .accent)
-                            JournalBadge(text: "Tier: \(question.tier)", symbol: "layers.fill", tone: question.tier == "Challenge" ? .warning : .info)
-                            JournalBadge(text: recommendedCPAStage.badgeTitle, symbol: "slider.horizontal.below.rectangle", tone: .info)
-                            JournalBadge(text: "\(question.marks) marks · \(question.commandWord)", symbol: "checkmark.circle", tone: .neutral)
-                            Spacer()
-                            if let proof = store.proofsByQuestionId[question.id] {
-                                JournalBadge(
-                                    text: proof.level.displayTitle,
-                                    symbol: proof.level.isIndependentProof ? "checkmark.seal.fill" : "clock",
-                                    tone: proof.level.isIndependentProof ? .positive : .warning
-                                )
-                            }
+        ScrollView {
+            VStack(alignment: .leading, spacing: StandardSpacing.lg) {
+                topBar
+                if isWide {
+                    HStack(alignment: .top, spacing: StandardSpacing.xl) {
+                        mainColumn
+                        VStack(alignment: .leading, spacing: StandardSpacing.lg) {
+                            hintLadder
+                            ladderNote
                         }
-
-                        Text(recommendedCPAStage.coachDirective)
-                            .font(Typography.caption)
-                            .foregroundStyle(Color.kymaiaPrimary)
-
-                        Text(question.bookSection)
-                            .font(Typography.caption)
-                            .foregroundStyle(Color.kymaiaMutedInk)
-
-                        Text(question.prompt)
-                            .font(Typography.title3)
-                            .foregroundStyle(Color.kymaiaInk)
-
-                        // Scaffold controls (opening these marks usedAssistanceInSession = true)
-                        HStack(spacing: Spacing.sm) {
-                            Button {
-                                showWorkedExample.toggle()
-                                if showWorkedExample {
-                                    usedAssistanceInSession = true
-                                }
-                            } label: {
-                                Label(
-                                    showWorkedExample ? "Hide Worked Example" : "1. View Worked Example (Assisted)",
-                                    systemImage: "lightbulb.fill"
-                                )
-                            }
-                            .buttonStyle(JournalSecondaryButtonStyle())
-
-                            Button {
-                                showFadedScaffold.toggle()
-                                if showFadedScaffold {
-                                    usedAssistanceInSession = true
-                                }
-                            } label: {
-                                Label(
-                                    showFadedScaffold ? "Hide Faded Step" : "2. Try Faded Scaffold (Assisted)",
-                                    systemImage: "square.dashed"
-                                )
-                            }
-                            .buttonStyle(JournalSecondaryButtonStyle())
-
-                            if effectiveAssisted {
-                                Button {
-                                    showWorkedExample = false
-                                    showFadedScaffold = false
-                                    usedAssistanceInSession = false
-                                    highestHintRung = .none
-                                    currentHintRung = .none
-                                    answerText = ""
-                                    evaluation = nil
-                                } label: {
-                                    Label("Reset for Unassisted Proof", systemImage: "arrow.counterclockwise")
-                                }
-                                .buttonStyle(JournalSecondaryButtonStyle())
-                            }
-                        }
-
-                        // 6-Rung Metered Hint Ladder (R0–R2 preserve retrieval; R3–R5 surrender retrieval)
-                        VStack(alignment: .leading, spacing: Spacing.xs) {
-                            HStack {
-                                Text("METERED 6-RUNG HINT LADDER (R0–R2 KEEP INDEPENDENT PROOF INTACT)")
-                                    .font(Typography.eyebrow)
-                                    .foregroundStyle(Color.kymaiaPrimary)
-                                Spacer()
-                                JournalBadge(
-                                    text: highestHintRung.badgeText,
-                                    symbol: highestHintRung.surrendersRetrieval ? "hand.raised.fill" : "shield.lefthalf.filled",
-                                    tone: highestHintRung.surrendersRetrieval ? .warning : .positive
-                                )
-                            }
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: Spacing.xs) {
-                                    ForEach(HintLadderRung.allCases.filter { $0 != .none }, id: \.rawValue) { rung in
-                                        Button {
-                                            currentHintRung = rung
-                                            if rung > highestHintRung {
-                                                highestHintRung = rung
-                                            }
-                                            if rung.surrendersRetrieval {
-                                                usedAssistanceInSession = true
-                                            }
-                                        } label: {
-                                            Text(rung.badgeText)
-                                                .font(Typography.caption.weight(.semibold))
-                                        }
-                                        .buttonStyle(JournalSecondaryButtonStyle())
-                                    }
-                                }
-                            }
-                            if currentHintRung != .none {
-                                Text(MeteredHintLadderEngine.hint(for: question, rung: currentHintRung, thinkingTrace: thinkingTrace))
-                                    .font(Typography.subheadline)
-                                    .foregroundStyle(Color.kymaiaInk)
-                                    .padding(Spacing.sm)
-                                    .quietPanelBackground()
-                            }
-                        }
-
-                        if effectiveAssisted {
-                            HStack(spacing: Spacing.xs) {
-                                Image(systemName: "info.circle.fill")
-                                    .foregroundStyle(Color.kymaiaWarning)
-                                Text("Guided mode active: Because you opened a R3–R5 hint or full scaffold, this attempt will record as Assisted Practice. R0–R2 hints preserve Independent Proof.")
-                                    .font(Typography.caption)
-                                    .foregroundStyle(Color.kymaiaMutedInk)
-                            }
-                        }
+                        .frame(width: 340)
                     }
+                } else {
+                    mainColumn
+                    hintLadder
+                    ladderNote
                 }
+            }
+            .padding(.horizontal, StandardSpacing.xl)
+            .padding(.vertical, StandardSpacing.lg)
+            .readWidth($pageWidth)
+        }
+        .background(theme.bg)
+        .pageSizedSheet()
+        .onAppear {
+            cpaState = CPAManipulativeEngine.initialState(for: question)
+        }
+        .onChange(of: store.deepLinkTail, initial: true) { _, tail in
+            // `proof/<unit>/scratch` opens the scratchpad over the studio.
+            guard tail.first == "scratch" else { return }
+            store.deepLinkTail = []
+            showScratchpad = true
+        }
+        .sheet(isPresented: $showScratchpad) {
+            MathsScratchpadView(question: question, store: store)
+                .pageSizedSheet()
+        }
+    }
 
-                // Stage 1: Worked Example
-                if showWorkedExample {
-                    JournalSection(
-                        title: "Stage 1 · Worked Example & Singapore CPA Model",
-                        eyebrow: "Study the Invariant Before Solving"
-                    ) {
-                        JournalCard {
-                            VStack(alignment: .leading, spacing: Spacing.sm) {
-                                Text(question.workedExample)
-                                    .font(Typography.body)
-                                    .foregroundStyle(Color.kymaiaInk)
-                            }
-                        }
-                    }
-                }
+    // MARK: Top bar
 
-                // Stage 2: Faded Completion (Non-Leaking Socratic Step Gate)
-                if showFadedScaffold {
-                    JournalSection(
-                        title: "Stage 2 · Faded Step Completion",
-                        eyebrow: "Complete & Verify the Missing Link Before Solo Proof"
-                    ) {
-                        JournalCard {
-                            VStack(alignment: .leading, spacing: Spacing.sm) {
-                                Text(question.fadedPrompt)
-                                    .font(Typography.subheadline)
-                                    .foregroundStyle(Color.kymaiaInk)
+    private var topBar: some View {
+        HStack(spacing: StandardSpacing.xs) {
+            SheetCloseButton { dismiss() }
+                .padding(.leading, -StandardSpacing.sm)
+            Text("School book")
+            Image(systemName: "chevron.right").imageScale(.small).foregroundStyle(theme.faint(theme.ink))
+            Text("Chapter \(question.unitNumber)")
+            Image(systemName: "chevron.right").imageScale(.small).foregroundStyle(theme.faint(theme.ink))
+            Text("Topic \(question.topicCode)")
+            Spacer()
+            if let proof = store.proofsByQuestionId[question.id] {
+                StatusTag(SchoolMathsHomeView.status(for: proof.level))
+            }
+        }
+        .standardType(.uiHeadline)
+        .fontWeight(.regular)
+        .foregroundStyle(theme.mute(theme.ink))
+        .accessibilityElement(children: .contain)
+    }
 
-                                MathSymbolRibbon(text: $fadedInput)
+    // MARK: Main column
 
-                                HStack(spacing: Spacing.sm) {
-                                    TextField("Type the missing step or expression...", text: $fadedInput)
-                                        .learnerTextInput(.retrieval)
-                                        .textFieldStyle(.roundedBorder)
-                                        .font(Typography.mono)
-                                        .onSubmit {
-                                            fadedFeedback = SocraticFeedbackEngine.evaluateFadedStep(
-                                                studentInput: fadedInput,
-                                                expectedFadedAnswer: question.fadedAnswer,
-                                                workedHint: question.workedExample
-                                            )
-                                        }
+    private var mainColumn: some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.lg) {
+            FlowLayout(spacing: StandardSpacing.xs) {
+                tag(question.commandWord, filled: true)
+                tag("\(question.marks) marks")
+                tag(tierTitle)
+                tag("Topic \(question.topicCode)")
+            }
 
-                                    Button("Check Step") {
-                                        fadedFeedback = SocraticFeedbackEngine.evaluateFadedStep(
-                                            studentInput: fadedInput,
-                                            expectedFadedAnswer: question.fadedAnswer,
-                                            workedHint: question.workedExample
-                                        )
-                                    }
-                                    .buttonStyle(JournalSecondaryButtonStyle())
+            Text(question.prompt)
+                .standardType(question.prompt.count > 70 ? .headlineLg : .display)
+                .foregroundStyle(theme.ink)
+                .fixedSize(horizontal: false, vertical: true)
+                .accessibilityAddTraits(.isHeader)
 
-                                    if fadedFeedback != nil || !fadedInput.isEmpty {
-                                        Button("Reset Step") {
-                                            fadedInput = ""
-                                            fadedFeedback = nil
-                                            revealFadedTarget = false
-                                        }
-                                        .buttonStyle(JournalSecondaryButtonStyle())
-                                    }
-                                }
+            Text("\(stageTitle). \(recommendedCPAStage.coachDirective)")
+                .patternedType(.readingDefault)
+                .foregroundStyle(theme.mute(theme.ink))
+                .fixedSize(horizontal: false, vertical: true)
 
-                                if let fEval = fadedFeedback {
-                                    VStack(alignment: .leading, spacing: Spacing.xxs) {
-                                        HStack {
-                                            JournalBadge(
-                                                text: fEval.tier.badgeTitle,
-                                                symbol: fEval.tier == .correct ? "checkmark.seal.fill" : "lightbulb.fill",
-                                                tone: fEval.tier == .correct ? .positive : .warning
-                                            )
-                                            Text(fEval.headline)
-                                                .font(Typography.caption.weight(.bold))
-                                                .foregroundStyle(Color.kymaiaInk)
-                                            Spacer()
-                                            if fEval.tier != .correct {
-                                                Button(revealFadedTarget ? "Hide Step Target" : "Reveal Step Target") {
-                                                    revealFadedTarget.toggle()
-                                                    usedAssistanceInSession = true
-                                                }
-                                                .buttonStyle(JournalSecondaryButtonStyle())
-                                            }
-                                        }
-                                        Text(fEval.socraticNudge)
-                                            .font(Typography.caption)
-                                            .foregroundStyle(Color.kymaiaMutedInk)
-                                        if revealFadedTarget || fEval.tier == .correct {
-                                            Text("Verified Step Target: \(question.fadedAnswer)")
-                                                .font(Typography.mono)
-                                                .foregroundStyle(Color.kymaiaSuccess)
-                                        }
-                                    }
-                                    .padding(Spacing.xs)
-                                    .quietPanelBackground()
-                                }
-                            }
-                        }
-                    }
-                }
+            if showWorkedExample { workedExampleCard }
+            if showFadedScaffold { fadedStepCard }
 
-                // Interactive CPA Manipulative Sandbox (Concrete -> Pictorial -> Abstract Lockstep)
-                JournalSection(
-                    title: "Interactive CPA Manipulative Sandbox",
-                    eyebrow: "Touch & Partition the Model · Stamp Live Equations into Your Working"
-                ) {
+            workingCard
+
+            if showModel {
+                VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                    Kicker("Build it")
                     CPAManipulativeSandboxCard(
                         spec: CPAManipulativeEngine.spec(for: question),
                         state: $cpaState
@@ -292,237 +167,639 @@ struct QuestionProofPracticeView: View {
                         }
                     }
                 }
+            }
 
-                // Mathematical Scratchpad (Singapore Bar / Axes / Venn / Matrix)
-                JournalSection(
-                    title: "Working & Diagram Scratchpad",
-                    eyebrow: "Draw Bar Models, Prime Trees, or Coordinate Sketches"
-                ) {
-                    JournalCard {
-                        MathsScratchpadView(questionId: question.id, store: store)
-                    }
+            answerAndConfidence
+            thinkingAloud
+            handIn
+
+            if let eval = evaluation {
+                resultCard(eval)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private func tag(_ text: String, filled: Bool = false) -> some View {
+        Text(text)
+            .standardType(.uiHeadline)
+            .fontWeight(.regular)
+            .foregroundStyle(filled ? theme.bg : theme.ink)
+            .padding(.horizontal, StandardSpacing.sm + 2)
+            .frame(minHeight: 34)
+            .background(Capsule().fill(filled ? theme.ink : theme.surface))
+            .overlay(Capsule().strokeBorder(filled ? Color.clear : theme.hairline(), lineWidth: 1))
+    }
+
+    private var tierTitle: String {
+        switch question.tier.lowercased() {
+        case "focus": "Focus"
+        case "practice": "Model it"
+        case "challenge": "Stretch"
+        case "consolidation": "From the book"
+        default: question.tier
+        }
+    }
+
+    private var stageTitle: String {
+        switch recommendedCPAStage {
+        case .concrete: "Start with something real"
+        case .semiAbstract: "Draw it first"
+        case .abstract: "Write it in symbols"
+        }
+    }
+
+    // MARK: Working
+
+    private var workingCard: some View {
+        let lines = answerText.split(separator: "\n", omittingEmptySubsequences: true).count
+        return VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 0) {
+                Kicker("Your working")
+                Spacer()
+                ToolIconButton("Open the scratchpad", systemImage: "pencil") {
+                    showScratchpad = true
                 }
+                ToolIconButton("Take back the last line", systemImage: "arrow.uturn.backward") {
+                    var parts = answerText.components(separatedBy: "\n")
+                    while let last = parts.last, last.trimmingCharacters(in: .whitespaces).isEmpty, !parts.isEmpty {
+                        parts.removeLast()
+                    }
+                    if !parts.isEmpty { parts.removeLast() }
+                    answerText = parts.joined(separator: "\n")
+                }
+                .disabled(answerText.isEmpty)
+                ToolIconButton(showModel ? "Hide the model" : "Build it with a model", systemImage: "square.grid.2x2", isOn: showModel) {
+                    showModel.toggle()
+                }
+            }
+            .padding(.leading, StandardSpacing.lg)
+            .padding(.trailing, StandardSpacing.xs)
+            .padding(.top, StandardSpacing.xs)
 
-                // Stage 3: Final Solution & Mark-Scheme Verification
-                JournalSection(
-                    title: "Stage 3 · Final Solution & Mark-Scheme Proof",
-                    eyebrow: effectiveAssisted ? "Submitting as Assisted Practice" : "Submitting as Independent Proof"
-                ) {
-                    JournalCard {
-                        VStack(alignment: .leading, spacing: Spacing.md) {
-                            LearnerTextInput(
-                                title: "Thinking Trace (optional — dictate or jot what invariant you're testing):",
-                                placeholder: "e.g., Let 1 bar unit be the unknown, or compare the two areas...",
-                                text: $thinkingTrace,
-                                minHeight: 64
-                            )
+            ZStack(alignment: .topLeading) {
+                RuledLines(spacing: 52, color: theme.hairline())
+                TextEditor(text: $answerText)
+                    .learnerTextInput(.retrieval)
+                    .scrollContentBackground(.hidden)
+                    .lineSpacing(26)
+                    .patternedType(.hand)
+                    .foregroundStyle(theme.ink)
+                    .padding(.horizontal, StandardSpacing.lg - 5)
+                    .padding(.top, 10)
+                    .accessibilityLabel("Your working")
+                if answerText.isEmpty {
+                    Text("One step on each line.")
+                        .patternedType(.hand)
+                        .foregroundStyle(theme.faint(theme.ink))
+                        .padding(.horizontal, StandardSpacing.lg)
+                        .padding(.top, 18)
+                        .allowsHitTesting(false)
+                        .accessibilityHidden(true)
+                }
+            }
+            .frame(minHeight: 312)
 
-                            LearnerTextInput(
-                                title: "Write your working and final answer (include units or algebraic steps):",
-                                placeholder: "Show your step-by-step reasoning and final value...",
-                                text: $answerText,
-                                minHeight: 110
-                            )
+            VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                MathSymbolRibbon(text: $answerText)
+                Text(lines == 0 ? "Nothing written yet" : "Typed · \(lines) \(lines == 1 ? "line" : "lines")")
+                    .standardType(.uiCaption)
+                    .foregroundStyle(theme.mute(theme.ink))
+            }
+            .padding(.horizontal, StandardSpacing.lg)
+            .padding(.vertical, StandardSpacing.sm)
+            .overlay(alignment: .top) { Rectangle().fill(theme.hairline()).frame(height: 1) }
+        }
+        .background(RoundedRectangle(cornerRadius: StandardRadius.xl, style: .continuous).fill(theme.surface))
+        .overlay(RoundedRectangle(cornerRadius: StandardRadius.xl, style: .continuous).strokeBorder(theme.hairline(), lineWidth: 1))
+    }
 
-                            // Confidence × Verdict Selector (LearnHarness Calibration Channel)
-                            VStack(alignment: .leading, spacing: Spacing.xs) {
-                                Text("CONFIDENCE CALIBRATION (HOW SURE ARE YOU?)")
-                                    .font(Typography.eyebrow)
-                                    .foregroundStyle(Color.kymaiaPrimary)
-                                HStack(spacing: Spacing.sm) {
-                                    Button {
-                                        declinedToGuess = true
-                                        confidencePercent = 0
-                                    } label: {
-                                        Label("I don't know yet", systemImage: declinedToGuess ? "checkmark.circle.fill" : "questionmark.circle")
-                                    }
-                                    .buttonStyle(JournalSecondaryButtonStyle())
+    private var answerAndConfidence: some View {
+        HStack(alignment: .bottom, spacing: StandardSpacing.lg) {
+            VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                Kicker("Answer", muted: true)
+                TextField("", text: $finalAnswer, prompt: Text(question.answerPartsPhrase ?? "Your answer"))
+                    .learnerTextInput(.retrieval)
+                    .textFieldStyle(.plain)
+                    .patternedType(.mathDisplay)
+                    .foregroundStyle(theme.ink)
+                    .padding(.horizontal, StandardSpacing.md)
+                    .frame(minHeight: 64)
+                    .background(RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous).fill(theme.surface))
+                    .overlay(RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous).strokeBorder(theme.ink, lineWidth: 1.5))
+                    .accessibilityLabel("Answer")
+            }
+            .frame(maxWidth: 260)
 
-                                    ForEach([(35, "Unsure · 35%"), (75, "Pretty Sure · 75%"), (95, "Certain · 95%")], id: \.0) { pct, label in
-                                        Button {
-                                            declinedToGuess = false
-                                            confidencePercent = pct
-                                        } label: {
-                                            Label(
-                                                label,
-                                                systemImage: (!declinedToGuess && confidencePercent == pct) ? "checkmark.circle.fill" : "circle"
-                                            )
-                                        }
-                                        .buttonStyle(JournalSecondaryButtonStyle())
-                                    }
-                                }
-                            }
-
-                            HStack {
-                                Button {
-                                    evaluation = store.submitQuestionAttempt(
-                                        question: question,
-                                        answerText: answerText,
-                                        usedAssistance: usedAssistanceInSession,
-                                        highestHintRung: highestHintRung,
-                                        confidencePercent: confidencePercent,
-                                        declinedToGuess: declinedToGuess,
-                                        thinkingTrace: thinkingTrace
-                                    )
-                                    graduatedFeedback = evaluation.map {
-                                        SocraticFeedbackEngine.evaluate(studentAnswer: answerText, question: question, marked: $0)
-                                    }
-                                } label: {
-                                    Label(
-                                        declinedToGuess
-                                            ? "Record Honest Gap (No Penalty)"
-                                            : (effectiveAssisted ? "Check Guided Solution" : "Submit Independent Proof"),
-                                        systemImage: "checkmark.seal.fill"
-                                    )
-                                }
-                                .buttonStyle(BrassButtonStyle())
-
-                                Spacer()
-                            }
-
-                            if let eval = evaluation {
-                                VStack(alignment: .leading, spacing: Spacing.sm) {
-                                    HStack {
-                                        Image(systemName: eval.isPass ? "checkmark.seal.fill" : "exclamationmark.triangle.fill")
-                                            .foregroundStyle(eval.isPass ? Color.kymaiaSuccess : Color.kymaiaWarning)
-                                        Text(eval.feedbackSummary)
-                                            .font(Typography.subheadline.weight(.semibold))
-                                            .foregroundStyle(Color.kymaiaInk)
-                                        Spacer()
-                                        JournalBadge(
-                                            text: eval.diagnosticCell.badgeTitle,
-                                            symbol: "gauge.with.dots.needle.67percent",
-                                            tone: eval.diagnosticCell == .solidKnowledge ? .positive : .warning
-                                        )
-                                        if let grad = graduatedFeedback {
-                                            JournalBadge(
-                                                text: grad.tier.badgeTitle,
-                                                symbol: "sparkles",
-                                                tone: grad.tier == .correct ? .positive : .warning
-                                            )
-                                        }
-                                    }
-
-                                    if let grad = graduatedFeedback, !declinedToGuess {
-                                        Text("\(grad.headline) — \(grad.socraticNudge)")
-                                            .font(Typography.caption)
-                                            .foregroundStyle(Color.kymaiaMutedInk)
-                                        if let trap = grad.detectedTrap {
-                                            JournalBadge(text: "Detected: \(trap)", symbol: "exclamationmark.shield", tone: .warning)
-                                        }
-                                    }
-
-                                    if eval.diagnosticCell == .committedMisconception {
-                                        Divider()
-                                        let stf = matchingSpotTheFlaw
-                                        Text("COMMITTED MISCONCEPTION REPAIR · SPOT THE FLAW IN \(stf.title.uppercased())")
-                                            .font(Typography.eyebrow)
-                                            .foregroundStyle(Color.kymaiaWarning)
-                                        Text(stf.problemStem)
-                                            .font(Typography.subheadline.weight(.semibold))
-                                            .foregroundStyle(Color.kymaiaInk)
-                                        ForEach(Array(stf.steps.enumerated()), id: \.offset) { idx, stepLine in
-                                            Button {
-                                                selectedFlawStepIndex = idx
-                                                flawScoreResult = stf.score(selectedStepIndex: idx)
-                                            } label: {
-                                                HStack {
-                                                    Text("Step \(idx + 1): \(stepLine)")
-                                                        .font(Typography.caption)
-                                                        .foregroundStyle(Color.kymaiaInk)
-                                                    Spacer()
-                                                    if selectedFlawStepIndex == idx {
-                                                        Image(systemName: "hand.point.left.fill")
-                                                    }
-                                                }
-                                            }
-                                            .buttonStyle(JournalSecondaryButtonStyle())
-                                        }
-                                        if let flawResult = flawScoreResult {
-                                            Text(flawResult.feedback)
-                                                .font(Typography.caption)
-                                                .foregroundStyle(flawResult.isCorrect ? Color.kymaiaSuccess : Color.kymaiaWarning)
-                                        }
-                                    }
-
-                                    if !eval.matchedParts.isEmpty, !eval.missingParts.isEmpty {
-                                        Text("Right so far: \(eval.matchedParts.joined(separator: ", "))")
-                                            .font(Typography.caption)
-                                            .foregroundStyle(Color.kymaiaSuccess)
-                                    }
-                                    if !eval.matchedParts.isEmpty, !eval.missingParts.isEmpty {
-                                        Text("Still to get: \(eval.missingParts.joined(separator: ", "))")
-                                            .font(Typography.caption)
-                                            .foregroundStyle(Color.kymaiaWarning)
-                                    }
-
-                                    if eval.isPass {
-                                        let prompt = ElaborativeInterrogationEngine.makePrompt(
-                                            for: question.bookSection,
-                                            singaporeMethodFocus: store.selectedUnit.scienceInContext
-                                        )
-                                        Divider()
-                                        Text("ELABORATIVE INTERROGATION · \(prompt.bloomLevel.uppercased())")
-                                            .font(Typography.eyebrow)
-                                            .foregroundStyle(Color.kymaiaPrimary)
-                                        Text(prompt.question)
-                                            .font(Typography.subheadline.weight(.semibold))
-                                            .foregroundStyle(Color.kymaiaInk)
-                                        Text("Hint: \(prompt.invariantHint)")
-                                            .font(Typography.caption)
-                                            .foregroundStyle(Color.kymaiaMutedInk)
-                                        TextField("Explain why this works in 1 sentence...", text: $interrogationResponse)
-                                            .learnerTextInput(.retrieval)
-                                            .textFieldStyle(.roundedBorder)
-                                        HStack {
-                                            Button("Lock Why-Explanation") {
-                                                let textToSave = interrogationResponse.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-                                                    ? prompt.invariantHint
-                                                    : interrogationResponse
-                                                store.saveCalloutResponse(
-                                                    calloutId: "interrogation-\(question.id)",
-                                                    chapterNumber: question.linkedChapter,
-                                                    text: textToSave,
-                                                    isUnlockedOverride: true
-                                                )
-                                                interrogationLocked = true
-                                            }
-                                            .buttonStyle(JournalSecondaryButtonStyle())
-
-                                            if interrogationLocked || store.calloutResponses["interrogation-\(question.id)"]?.isUnlocked == true {
-                                                JournalBadge(
-                                                    text: "Why-Explanation Logged ✓",
-                                                    symbol: "checkmark.circle.fill",
-                                                    tone: .positive
-                                                )
-                                            }
-                                        }
-                                    }
-
-                                    Divider()
-                                    Text("CAMBRIDGE & SINGAPORE CPA MODEL SOLUTION")
-                                        .font(Typography.eyebrow)
-                                        .foregroundStyle(Color.kymaiaPrimary)
-                                    Text(question.workedExample)
-                                        .font(Typography.caption)
-                                        .foregroundStyle(Color.kymaiaMutedInk)
-                                }
-                                .padding(Spacing.md)
-                                .quietPanelBackground()
-                            }
+            VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+                Kicker("How sure are you?", muted: true)
+                FlowLayout(spacing: StandardSpacing.xs) {
+                    PatternedChip("I don't know yet", isSelected: declinedToGuess) {
+                        declinedToGuess = true
+                        confidencePercent = 0
+                    }
+                    ForEach([(35, "Unsure"), (75, "Pretty sure"), (95, "Certain")], id: \.0) { pct, label in
+                        PatternedChip(label, isSelected: !declinedToGuess && confidencePercent == pct) {
+                            declinedToGuess = false
+                            confidencePercent = pct
                         }
                     }
                 }
             }
-            .navigationTitle("Topic \(question.topicCode) Proof Studio")
-            .onAppear {
-                cpaState = CPAManipulativeEngine.initialState(for: question)
+        }
+    }
+
+    private var thinkingAloud: some View {
+        DisclosureGroup(isExpanded: $showThinking) {
+            TextField("What are you trying? “Let one bar be the unknown…”", text: $thinkingTrace, axis: .vertical)
+                .learnerTextInput(.retrieval)
+                .textFieldStyle(.plain)
+                .patternedType(.readingDefault)
+                .foregroundStyle(theme.ink)
+                .lineLimit(2...4)
+                .padding(StandardSpacing.sm)
+                .background(RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous).fill(theme.surface))
+                .overlay(RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous).strokeBorder(theme.hairline(), lineWidth: 1))
+                .padding(.top, StandardSpacing.xs)
+        } label: {
+            Text("Think out loud (optional). The hints read it.")
+                .standardType(.uiBody)
+                .foregroundStyle(theme.mute(theme.ink))
+        }
+        .tint(theme.brass)
+    }
+
+    private var handIn: some View {
+        HStack(alignment: .center, spacing: StandardSpacing.md) {
+            VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+                HStack(spacing: StandardSpacing.xs) {
+                    Circle()
+                        .fill(effectiveAssisted ? theme.patterned.assistedColor : theme.patterned.provenColor)
+                        .frame(width: 7, height: 7)
+                    Text(effectiveAssisted
+                         ? "With help: this try will be marked “with help”"
+                         : (highestHintRung == .none ? "On your own so far: no hints used" : "Still your own: only the first three rungs"))
+                        .standardType(.uiHeadline)
+                        .foregroundStyle(effectiveAssisted ? theme.patterned.assistedColor : theme.patterned.provenColor)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                if effectiveAssisted {
+                    Button("Start again on my own") {
+                        showWorkedExample = false
+                        showFadedScaffold = false
+                        usedAssistanceInSession = false
+                        highestHintRung = .none
+                        currentHintRung = .none
+                        answerText = ""
+                        finalAnswer = ""
+                        evaluation = nil
+                    }
+                    .buttonStyle(TextLinkButtonStyle(arrow: false))
+                }
             }
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") { dismiss() }
+            Spacer(minLength: StandardSpacing.sm)
+            Button {
+                evaluation = store.submitQuestionAttempt(
+                    question: question,
+                    answerText: submission,
+                    usedAssistance: usedAssistanceInSession,
+                    highestHintRung: highestHintRung,
+                    confidencePercent: confidencePercent,
+                    declinedToGuess: declinedToGuess,
+                    thinkingTrace: thinkingTrace
+                )
+                graduatedFeedback = evaluation.map {
+                    SocraticFeedbackEngine.evaluate(studentAnswer: submission, question: question, marked: $0)
+                }
+            } label: {
+                HStack(spacing: StandardSpacing.xs) {
+                    Text(declinedToGuess ? "Record an honest “not yet”" : (effectiveAssisted ? "Hand in, with help" : "Hand in my proof"))
+                    Image(systemName: "arrow.right")
+                }
+            }
+            .buttonStyle(InkButtonStyle())
+        }
+    }
+
+    // MARK: Help that counts
+
+    private var workedExampleCard: some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+            HStack {
+                Kicker("Worked example")
+                Spacer()
+                StatusTag(.withHelp, label: "Counts as help")
+            }
+            Text(question.workedExample)
+                .patternedType(.readingDefault)
+                .foregroundStyle(theme.ink)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .paperCard(padding: StandardSpacing.md)
+    }
+
+    private var fadedStepCard: some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+            HStack {
+                Kicker("Fill the gap")
+                Spacer()
+                StatusTag(.withHelp, label: "Counts as help")
+            }
+            Text(question.fadedPrompt)
+                .patternedType(.readingDefault)
+                .foregroundStyle(theme.ink)
+
+            MathSymbolRibbon(text: $fadedInput)
+
+            HStack(spacing: StandardSpacing.sm) {
+                TextField("The missing step", text: $fadedInput)
+                    .learnerTextInput(.retrieval)
+                    .textFieldStyle(.plain)
+                    .font(.system(.body, design: .monospaced))
+                    .foregroundStyle(theme.ink)
+                    .padding(.horizontal, StandardSpacing.sm)
+                    .frame(minHeight: StandardAccessibility.touchTarget)
+                    .background(RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous).fill(theme.bg))
+                    .overlay(RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous).strokeBorder(theme.hairline(), lineWidth: 1))
+                    .onSubmit(checkFadedStep)
+
+                Button("Check step", action: checkFadedStep)
+                    .buttonStyle(OutlineButtonStyle())
+
+                if fadedFeedback != nil || !fadedInput.isEmpty {
+                    Button("Clear") {
+                        fadedInput = ""
+                        fadedFeedback = nil
+                        revealFadedTarget = false
+                    }
+                    .buttonStyle(TextLinkButtonStyle(arrow: false))
+                }
+            }
+
+            if let fEval = fadedFeedback {
+                VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+                    HStack(alignment: .firstTextBaseline) {
+                        StatusTag(fEval.tier == .correct ? .proven : .working, label: feedbackTitle(fEval.tier))
+                        Spacer()
+                        if fEval.tier != .correct {
+                            Button(revealFadedTarget ? "Hide the step" : "Show me the step") {
+                                revealFadedTarget.toggle()
+                                usedAssistanceInSession = true
+                            }
+                            .buttonStyle(TextLinkButtonStyle(arrow: false))
+                        }
+                    }
+                    Text(fEval.headline)
+                        .standardType(.uiHeadline)
+                        .foregroundStyle(theme.ink)
+                    Text(fEval.socraticNudge)
+                        .patternedType(.readingSmall)
+                        .foregroundStyle(theme.mute(theme.ink))
+                        .fixedSize(horizontal: false, vertical: true)
+                    if revealFadedTarget || fEval.tier == .correct {
+                        Text("The step: \(question.fadedAnswer)")
+                            .font(.system(.body, design: .monospaced))
+                            .foregroundStyle(theme.patterned.provenColor)
+                    }
                 }
             }
         }
+        .paperCard(padding: StandardSpacing.md)
+    }
+
+    private func checkFadedStep() {
+        fadedFeedback = SocraticFeedbackEngine.evaluateFadedStep(
+            studentInput: fadedInput,
+            expectedFadedAnswer: question.fadedAnswer,
+            workedHint: question.workedExample
+        )
+    }
+
+    // MARK: Hint ladder
+
+    private struct Rung: Identifiable {
+        let rung: HintLadderRung
+        let title: String
+        let detail: String
+        var id: Int { rung.rawValue }
+    }
+
+    private static let rungs: [Rung] = [
+        Rung(rung: .r0AttentionRedirect, title: "Nudge", detail: "Where to look first"),
+        Rung(rung: .r1PatternRedescription, title: "Say it again", detail: "The pattern, in other words"),
+        Rung(rung: .r2CandidateClass, title: "Kind of idea", detail: "Which family of ideas fits"),
+        Rung(rung: .r3PropositionNamed, title: "The idea", detail: "The rule or fact to use"),
+        Rung(rung: .r4MoveOutlined, title: "The move", detail: "What to do, in outline"),
+        Rung(rung: .r5WorkedStep, title: "Worked step", detail: "One step done for you"),
+    ]
+
+    private var hintLadder: some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+            Text("Stuck? Climb one rung")
+                .standardType(.headlineSm)
+                .foregroundStyle(theme.ink)
+                .accessibilityAddTraits(.isHeader)
+            Text("Each rung tells you a little more. Take only what you need.")
+                .standardType(.uiBody)
+                .foregroundStyle(theme.mute(theme.ink))
+                .fixedSize(horizontal: false, vertical: true)
+
+            Kicker("Still yours", muted: true)
+                .padding(.top, StandardSpacing.xs)
+            ForEach(Self.rungs.filter { !$0.rung.surrendersRetrieval }) { rungRow($0) }
+
+            Kicker("Counts as help")
+                .padding(.top, StandardSpacing.xs)
+            ForEach(Self.rungs.filter { $0.rung.surrendersRetrieval }) { rungRow($0) }
+            helpRow(
+                title: "Worked example",
+                detail: "A similar question, all worked",
+                systemImage: "lightbulb",
+                isOpen: showWorkedExample
+            ) {
+                showWorkedExample.toggle()
+                if showWorkedExample { usedAssistanceInSession = true }
+            }
+            helpRow(
+                title: "Fill the gap",
+                detail: "A worked answer with one step missing",
+                systemImage: "square.dashed",
+                isOpen: showFadedScaffold
+            ) {
+                showFadedScaffold.toggle()
+                if showFadedScaffold { usedAssistanceInSession = true }
+            }
+        }
+        .padding(StandardSpacing.lg)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: StandardRadius.xl, style: .continuous)
+                .fill(theme.patterned.marginColor)
+        )
+    }
+
+    private func rungRow(_ item: Rung) -> some View {
+        let isOpen = currentHintRung == item.rung
+        let used = item.rung <= highestHintRung
+        let tint = item.rung.surrendersRetrieval ? theme.patterned.assistedColor : theme.patterned.provenColor
+        return VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+            Button {
+                if isOpen {
+                    currentHintRung = .none
+                } else {
+                    currentHintRung = item.rung
+                    if item.rung > highestHintRung { highestHintRung = item.rung }
+                    if item.rung.surrendersRetrieval { usedAssistanceInSession = true }
+                }
+            } label: {
+                HStack(spacing: StandardSpacing.sm) {
+                    ZStack {
+                        Circle().fill(used ? tint : Color.clear)
+                        Circle().strokeBorder(tint, lineWidth: 1.5)
+                        Text("\(item.rung.rawValue - 1)")
+                            .standardType(.uiBody)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(used ? theme.surface : tint)
+                    }
+                    .frame(width: 28, height: 28)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(item.title)
+                            .standardType(.uiHeadline)
+                            .foregroundStyle(theme.ink)
+                        Text(item.detail)
+                            .standardType(.uiBody)
+                            .foregroundStyle(theme.mute(theme.ink))
+                    }
+                    Spacer(minLength: StandardSpacing.xs)
+                    Image(systemName: isOpen ? "chevron.down" : "chevron.right")
+                        .standardType(.uiBody).fontWeight(.semibold)
+                        .foregroundStyle(theme.mute(theme.ink))
+                }
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel("Rung \(item.rung.rawValue - 1), \(item.title): \(item.detail)")
+            .accessibilityHint(item.rung.surrendersRetrieval ? "Counts as help" : "Keeps the proof yours")
+
+            if isOpen {
+                Text(MeteredHintLadderEngine.hint(for: question, rung: item.rung, thinkingTrace: thinkingTrace))
+                    .patternedType(.readingSmall)
+                    .foregroundStyle(theme.ink)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.leading, 40)
+            }
+        }
+        .padding(StandardSpacing.sm)
+        .background(RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous).fill(theme.surface))
+        .overlay(RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous).strokeBorder(theme.hairline(), lineWidth: 1))
+    }
+
+    private func helpRow(title: String, detail: String, systemImage: String, isOpen: Bool, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            HStack(spacing: StandardSpacing.sm) {
+                Image(systemName: systemImage)
+                    .foregroundStyle(theme.patterned.assistedColor)
+                    .frame(width: 28, height: 28)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(title)
+                        .standardType(.uiHeadline)
+                        .foregroundStyle(theme.ink)
+                    Text(isOpen ? "Showing. Tap to hide" : detail)
+                        .standardType(.uiBody)
+                        .foregroundStyle(theme.mute(theme.ink))
+                }
+                Spacer(minLength: StandardSpacing.xs)
+                Image(systemName: isOpen ? "chevron.down" : "chevron.right")
+                    .standardType(.uiBody).fontWeight(.semibold)
+                    .foregroundStyle(theme.mute(theme.ink))
+            }
+            .padding(StandardSpacing.sm)
+            .background(RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous).fill(theme.surface))
+            .overlay(RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous).strokeBorder(theme.hairline(), lineWidth: 1))
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityHint("Counts as help")
+    }
+
+    private var ladderNote: some View {
+        MarginNote(.sidenote(1), "Rungs 0 to 2 leave the proof yours. From rung 3, and with the worked example or a filled gap, your answer still counts, marked “with help”.")
+            .padding(.horizontal, StandardSpacing.sm)
+    }
+
+    // MARK: Result
+
+    private func resultCard(_ eval: QuestionEvaluationResult) -> some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+            HStack(alignment: .firstTextBaseline) {
+                Kicker("How it went")
+                Spacer()
+                StatusTag(SchoolMathsHomeView.status(for: eval.resultingProofLevel))
+            }
+            Text(eval.feedbackSummary)
+                .patternedType(.readingDefault)
+                .foregroundStyle(theme.ink)
+                .fixedSize(horizontal: false, vertical: true)
+            Text(diagnosis(eval.diagnosticCell))
+                .standardType(.uiHeadline)
+                .foregroundStyle(theme.ink)
+
+            if let grad = graduatedFeedback, !declinedToGuess {
+                Text("\(feedbackTitle(grad.tier)). \(grad.headline) \(grad.socraticNudge)")
+                    .patternedType(.readingSmall)
+                    .foregroundStyle(theme.mute(theme.ink))
+                    .fixedSize(horizontal: false, vertical: true)
+                if let trap = grad.detectedTrap {
+                    Text("Looks like this trap: \(trap)")
+                        .patternedType(.readingSmall)
+                        .foregroundStyle(theme.patterned.assistedColor)
+                }
+            }
+
+            if !eval.matchedParts.isEmpty, !eval.missingParts.isEmpty {
+                Text("Right so far: \(eval.matchedParts.joined(separator: ", "))")
+                    .standardType(.uiBody)
+                    .foregroundStyle(theme.patterned.provenColor)
+                Text("Still to get: \(eval.missingParts.joined(separator: ", "))")
+                    .standardType(.uiBody)
+                    .foregroundStyle(theme.patterned.assistedColor)
+            }
+
+            if eval.diagnosticCell == .committedMisconception {
+                spotTheFlaw
+            }
+
+            if eval.isPass {
+                whyItWorks
+            }
+
+            Rectangle().fill(theme.hairline()).frame(height: 1)
+            Kicker("A model answer", muted: true)
+            Text(question.workedExample)
+                .patternedType(.readingSmall)
+                .foregroundStyle(theme.mute(theme.ink))
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .paperCard()
+    }
+
+    private var spotTheFlaw: some View {
+        let stf = matchingSpotTheFlaw
+        return VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+            Rectangle().fill(theme.hairline()).frame(height: 1)
+            Kicker("Spot the slip · \(stf.title)")
+            Text(stf.problemStem)
+                .patternedType(.readingDefault)
+                .foregroundStyle(theme.ink)
+                .fixedSize(horizontal: false, vertical: true)
+            ForEach(Array(stf.steps.enumerated()), id: \.offset) { idx, stepLine in
+                Button {
+                    selectedFlawStepIndex = idx
+                    flawScoreResult = stf.score(selectedStepIndex: idx)
+                } label: {
+                    HStack {
+                        Text("Step \(idx + 1): \(stepLine)")
+                            .multilineTextAlignment(.leading)
+                        Spacer()
+                        if selectedFlawStepIndex == idx {
+                            Image(systemName: "arrow.left")
+                        }
+                    }
+                }
+                .buttonStyle(OutlineButtonStyle())
+                .accessibilityAddTraits(selectedFlawStepIndex == idx ? .isSelected : [])
+            }
+            if let flawResult = flawScoreResult {
+                Text(flawResult.feedback)
+                    .patternedType(.readingSmall)
+                    .foregroundStyle(flawResult.isCorrect ? theme.patterned.provenColor : theme.patterned.assistedColor)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+    }
+
+    private var whyItWorks: some View {
+        let prompt = ElaborativeInterrogationEngine.makePrompt(
+            for: question.bookSection,
+            singaporeMethodFocus: store.selectedUnit.scienceInContext
+        )
+        return VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+            Rectangle().fill(theme.hairline()).frame(height: 1)
+            Kicker("Why does it work?")
+            Text(prompt.question)
+                .patternedType(.readingDefault)
+                .foregroundStyle(theme.ink)
+                .fixedSize(horizontal: false, vertical: true)
+            Text("A clue: \(prompt.invariantHint)")
+                .patternedType(.readingSmall)
+                .foregroundStyle(theme.mute(theme.ink))
+                .fixedSize(horizontal: false, vertical: true)
+            TextField("Say why in one sentence", text: $interrogationResponse, axis: .vertical)
+                .learnerTextInput(.retrieval)
+                .textFieldStyle(.plain)
+                .patternedType(.readingDefault)
+                .foregroundStyle(theme.ink)
+                .padding(StandardSpacing.sm)
+                .background(RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous).fill(theme.bg))
+                .overlay(RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous).strokeBorder(theme.hairline(), lineWidth: 1))
+            HStack {
+                Button("Keep my reason") {
+                    let textToSave = interrogationResponse.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                        ? prompt.invariantHint
+                        : interrogationResponse
+                    store.saveCalloutResponse(
+                        calloutId: "interrogation-\(question.id)",
+                        chapterNumber: question.linkedChapter,
+                        text: textToSave,
+                        isUnlockedOverride: true
+                    )
+                    interrogationLocked = true
+                }
+                .buttonStyle(OutlineButtonStyle())
+
+                if interrogationLocked || store.calloutResponses["interrogation-\(question.id)"]?.isUnlocked == true {
+                    StatusTag(.proven, label: "Reason kept")
+                }
+            }
+        }
+    }
+
+    private func feedbackTitle(_ tier: SocraticFeedbackTier) -> String {
+        switch tier {
+        case .correct: "Right"
+        case .close: "Very close: check the sign or the rounding"
+        case .partial: "On the right track: one step missing"
+        case .far: "Not yet: try drawing it first"
+        }
+    }
+
+    private func diagnosis(_ cell: ConfidenceVerdictCell) -> String {
+        switch cell {
+        case .solidKnowledge: "Right, and you were sure. That is solid."
+        case .fragileOrLuckyGuess: "Right, but you weren't sure. Say why it works."
+        case .committedMisconception: "You were sure, but it isn't right yet. Find the slip below."
+        case .shakyNearMiss: "Not yet, and you weren't sure. Come back to it soon."
+        case .honestGap: "An honest “not yet”. Start from the first rung."
+        }
+    }
+}
+
+/// Ruled lines for the working card, one per line of handwriting.
+private struct RuledLines: View {
+    let spacing: CGFloat
+    let color: Color
+
+    var body: some View {
+        Canvas { context, size in
+            var path = Path()
+            var y = spacing
+            while y < size.height {
+                path.move(to: CGPoint(x: 0, y: y))
+                path.addLine(to: CGPoint(x: size.width, y: y))
+                y += spacing
+            }
+            context.stroke(path, with: .color(color), lineWidth: 1)
+        }
+        .accessibilityHidden(true)
     }
 }

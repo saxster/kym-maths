@@ -1,14 +1,17 @@
 import SwiftUI
 
-// MARK: - Room 5: Pólya Problem-Solving Studio, SpeedMath Fluency & Visual MathTips
+// MARK: - Pólya & Speed: a map for being stuck, and small shapes behind fast sums
 
 struct PolyaFluencyHomeView: View {
     @Bindable var store: AppStore
+    @Environment(\.standardTheme) private var theme
 
     @State private var currentCardIndex: Int = 0
     @State private var userSpeedAnswer: String = ""
-    @State private var speedFeedback: String?
-    @State private var streakCount: Int = 0
+    @State private var speedFeedback: SpeedFeedback?
+    @State private var tipIndex: Int = 0
+    @State private var askedPrompts: Set<String> = []
+    @State private var stageNotes: [String: String] = [:]
     @State private var selectedFlawCardId: String = MathsSpotTheFlawCatalog.all[0].id
     @State private var selectedFlawStepIndex: Int?
     @State private var learnerFlawExplanation: String = ""
@@ -19,496 +22,686 @@ struct PolyaFluencyHomeView: View {
     @State private var practiceRevealedInsight: String?
 
     var body: some View {
-        let activeStage = store.seedPack.polyaStages.first(where: { $0.id == store.selectedPolyaStageId })
-            ?? store.seedPack.polyaStages[0]
+        let stages = store.seedPack.polyaStages
+        let activeStage = stages.first(where: { $0.id == store.selectedPolyaStageId }) ?? stages[0]
         let activeDeck = store.seedPack.speedMathDecks.first(where: { $0.id == store.selectedSpeedDeckId })
             ?? store.seedPack.speedMathDecks[0]
         let currentCard = activeDeck.cards[currentCardIndex % max(1, activeDeck.cards.count)]
 
         JournalPage {
             EditorialHeader(
-                eyebrow: "Problem Solving & Fluency",
-                title: "Pólya & SpeedMath",
-                subtitle: "Work a problem through Pólya's four stages, then build speed with mental-maths decks and spot-the-flaw proofs."
+                eyebrow: "Pólya & Speed",
+                title: "What do you do when you're stuck?",
+                subtitle: "Pólya's four stages are a map for being stuck. Speed tricks are the same idea, small: see a shape, not a sum."
             )
 
-            // 1. Pólya's 4-Stage How to Solve It Studio
-            JournalSection(
-                title: "George Pólya's \"How to Solve It\" Studio",
-                eyebrow: "4-Stage Mathematical Problem-Solving Heuristics + Singapore CPA"
-            ) {
-                JournalCard {
-                    VStack(alignment: .leading, spacing: Spacing.md) {
-                        let dialStages = store.seedPack.polyaStages.map(\.dialStage)
-                        StageDial(stages: dialStages, selection: activeStage.dialStage) { stage in
-                            store.selectedPolyaStageId = stage.id
-                        }
-
-                        HStack {
-                            JournalBadge(text: "Stage \(activeStage.stageNumber) of 4", symbol: activeStage.symbol, tone: .accent)
-                            Text(activeStage.subtitle)
-                                .font(Typography.subheadline.weight(.semibold))
-                                .foregroundStyle(Color.kymaiaMutedInk)
-                        }
-
-                        Text(activeStage.title)
-                            .font(Typography.title2)
-                            .foregroundStyle(Color.kymaiaInk)
-
-                        VStack(alignment: .leading, spacing: Spacing.xs) {
-                            Text("KEY HEURISTIC QUESTIONS TO ASK YOURSELF")
-                                .font(Typography.eyebrow)
-                                .foregroundStyle(Color.kymaiaPrimary)
-                            ForEach(activeStage.prompts, id: \.self) { prompt in
-                                HStack(alignment: .top, spacing: Spacing.xs) {
-                                    Image(systemName: "checkmark.circle.fill")
-                                        .foregroundStyle(Color.kymaiaSuccess)
-                                        .padding(.top, 2)
-                                    Text(prompt)
-                                        .font(Typography.subheadline)
-                                        .foregroundStyle(Color.kymaiaInk)
-                                }
-                            }
-                        }
-                        .padding(Spacing.sm)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .quietPanelBackground()
-
-                        // Interactive Singapore Bar-Model Visualiser for Pólya's Train & Platform Example
-                        PolyaSingaporeBarIllustrationView(stageNumber: activeStage.stageNumber)
-                            .frame(height: 128)
-
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("SINGAPORE CPA & OLYMPIAD APPLICATION")
-                                .font(Typography.eyebrow)
-                                .foregroundStyle(Color.kymaiaSecondary)
-                            Text(activeStage.singaporeConnection)
-                                .font(Typography.caption)
-                                .foregroundStyle(Color.kymaiaMutedInk)
-                        }
+            ViewThatFits(in: .horizontal) {
+                HStack(alignment: .top, spacing: StandardSpacing.lg) {
+                    polyaCard(stages: stages, active: activeStage)
+                        .frame(minWidth: 400, idealWidth: 400, maxWidth: .infinity, alignment: .leading)
+                    VStack(alignment: .leading, spacing: StandardSpacing.lg) {
+                        speedCard(deck: activeDeck, card: currentCard)
+                        tipCard
                     }
+                    .frame(width: 280)
+                }
+                VStack(alignment: .leading, spacing: StandardSpacing.lg) {
+                    polyaCard(stages: stages, active: activeStage)
+                    speedCard(deck: activeDeck, card: currentCard)
+                    tipCard
                 }
             }
 
-            // 2. SpeedMath Mental Fluency Arena
-            JournalSection(
-                title: "SpeedMath Mental Fluency Arena (6 Decks)",
-                eyebrow: "Instant Recall of Squares, Cubes, Primes, Radians, Derivatives & Determinants"
-            ) {
-                JournalCard {
-                    VStack(alignment: .leading, spacing: Spacing.md) {
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: Spacing.xs) {
-                                ForEach(store.seedPack.speedMathDecks) { deck in
-                                    MathsFilterChip(
-                                        title: deck.title,
-                                        systemImage: deck.symbol,
-                                        isSelected: store.selectedSpeedDeckId == deck.id
-                                    ) {
-                                        store.selectedSpeedDeckId = deck.id
-                                        currentCardIndex = 0
-                                        userSpeedAnswer = ""
-                                        speedFeedback = nil
-                                    }
-                                }
-                            }
-                        }
+            flawSection
 
-                        HStack {
-                            JournalBadge(text: activeDeck.title, symbol: activeDeck.symbol, tone: .accent)
-                            JournalBadge(text: "Target: \(activeDeck.targetSeconds)s / card", symbol: "timer", tone: .info)
-                            JournalBadge(text: "Streak: \(streakCount) 🔥", symbol: "flame.fill", tone: .positive)
-                            Spacer()
-                            Text("Card \((currentCardIndex % activeDeck.cards.count) + 1) of \(activeDeck.cards.count)")
-                                .font(Typography.caption)
-                                .foregroundStyle(Color.kymaiaMutedInk)
-                        }
+            practiceSection
+        }
+    }
 
-                        Text(activeDeck.subtitle)
-                            .font(Typography.caption)
-                            .foregroundStyle(Color.kymaiaMutedInk)
+    // MARK: Pólya's four stages
 
-                        Text(currentCard.prompt)
-                            .font(Typography.largeTitle)
-                            .foregroundStyle(Color.kymaiaInk)
-                            .padding(Spacing.md)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                            .quietPanelBackground()
+    private func polyaCard(stages: [PolyaStageSpec], active: PolyaStageSpec) -> some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.lg) {
+            VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+                Kicker("Today's problem")
+                WonderQuestion(stages[0].exampleProblem)
+            }
 
-                        HStack(spacing: Spacing.sm) {
-                            TextField("Type mental answer...", text: $userSpeedAnswer)
-                                .learnerTextInput(.retrieval)
-                                .textFieldStyle(.roundedBorder)
-                                .font(Typography.mono)
-                                .onSubmit {
-                                    checkSpeedCard(currentCard, deckCount: activeDeck.cards.count)
-                                }
+            stageTabs(stages: stages, active: active)
 
-                            Button("Check") {
-                                checkSpeedCard(currentCard, deckCount: activeDeck.cards.count)
-                            }
-                            .buttonStyle(BrassButtonStyle())
-
-                            Button("Next Card") {
-                                currentCardIndex = (currentCardIndex + 1) % max(1, activeDeck.cards.count)
-                                userSpeedAnswer = ""
-                                speedFeedback = nil
-                            }
-                            .buttonStyle(JournalSecondaryButtonStyle())
-                        }
-
-                        if let fb = speedFeedback {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(fb)
-                                    .font(Typography.subheadline.weight(.semibold))
-                                    .foregroundStyle(Color.kymaiaInk)
-                                Text("Mental Shortcut: \(currentCard.mentalTip)")
-                                    .font(Typography.caption)
-                                    .foregroundStyle(Color.kymaiaMutedInk)
-                            }
-                            .padding(Spacing.sm)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .quietPanelBackground()
-                        }
-                    }
+            VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+                Kicker("Questions to ask yourself in stage \(active.stageNumber)", muted: true)
+                ForEach(active.prompts, id: \.self) { prompt in
+                    promptRow(prompt)
                 }
             }
 
-            // 3. Visual MathTips (8 Geometric & Algebraic Shortcuts)
-            JournalSection(
-                title: "Visual MathTips · See the Geometry Behind Mental Shortcuts",
-                eyebrow: "8 Visual Invariants That Replace Rote Memorisation"
-            ) {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 320), spacing: Spacing.md)], spacing: Spacing.md) {
-                    ForEach(store.seedPack.visualMathTips) { tip in
-                        JournalCard {
-                            VStack(alignment: .leading, spacing: Spacing.sm) {
-                                HStack {
-                                    JournalBadge(text: tip.category, symbol: "sparkles", tone: .accent)
-                                    Spacer()
-                                    Button {
-                                        store.selectedChapterNumber = tip.chapter
-                                        store.activeRoom = .patternedWorld
-                                    } label: {
-                                        Label("Open Ch \(tip.chapter)", systemImage: "arrow.up.right.square")
-                                            .font(Typography.caption.weight(.semibold))
-                                    }
-                                    .buttonStyle(.plain)
-                                    .foregroundStyle(Color.kymaiaPrimary)
-                                }
-                                Text(tip.title)
-                                    .font(Typography.headline)
-                                    .foregroundStyle(Color.kymaiaInk)
+            PolyaSingaporeBarIllustrationView(stageNumber: active.stageNumber)
+                .frame(height: active.stageNumber >= 2 ? 132 : 100)
+                .accessibilityLabel("Two bars: the train alone, and the train plus the platform")
 
-                                // Bespoke Geometric "Aha!" Diagram for each VisualMathTip
-                                VisualMathTipIllustrationView(tipId: tip.id)
-                                    .frame(height: 148)
-
-                                Text(tip.visualIdea)
-                                    .font(Typography.caption)
-                                    .foregroundStyle(Color.kymaiaMutedInk)
-                                Text(tip.algebraicIdentity)
-                                    .font(Typography.numericFormula)
-                                    .foregroundStyle(Color.kymaiaPrimary)
-                                    .padding(Spacing.xs)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .background(RoundedRectangle(cornerRadius: Spacing.radiusSM).fill(Color.kymaiaSelectionFill))
-                                Text("Aha! Invariant: \(tip.example)")
-                                    .font(Typography.caption.weight(.semibold))
-                                    .foregroundStyle(Color.kymaiaInk)
-                            }
-                        }
-                    }
+            VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                Kicker("In this problem", muted: true)
+                if active.stageNumber > 1 {
+                    Text(active.exampleProblem)
+                        .patternedType(.readingSmall)
+                        .italic()
+                        .foregroundStyle(theme.ink)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
+                Text(active.phaseBreakdown)
+                    .patternedType(.readingSmall)
+                    .foregroundStyle(theme.mute(theme.ink))
+                    .fixedSize(horizontal: false, vertical: true)
             }
 
-            // 4. "Spot the Flaw" Worked-Solution Debugging Studio (Ported from ../kym_tutor)
-            JournalSection(
-                title: "\"Spot the Flaw\" Mathematical Debugging Studio",
-                eyebrow: "Große & Renkl (2007) · Find the Single Planted Misconception Step"
-            ) {
-                let flawCard = MathsSpotTheFlawCatalog.all.first(where: { $0.id == selectedFlawCardId })
-                    ?? MathsSpotTheFlawCatalog.all[0]
-
-                JournalCard {
-                    VStack(alignment: .leading, spacing: Spacing.md) {
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: Spacing.xs) {
-                                ForEach(MathsSpotTheFlawCatalog.all) { card in
-                                    MathsFilterChip(
-                                        title: card.title,
-                                        systemImage: "exclamationmark.magnifyingglass",
-                                        isSelected: selectedFlawCardId == card.id
-                                    ) {
-                                        selectedFlawCardId = card.id
-                                        selectedFlawStepIndex = nil
-                                        learnerFlawExplanation = ""
-                                        flawScoreResult = nil
-                                    }
-                                }
-                            }
-                        }
-
-                        if let label = flawCard.misconceptionLabel {
-                            JournalBadge(text: "Target Trap: \(label)", symbol: "shield.lefthalf.filled", tone: .warning)
-                        }
-
-                        Text(flawCard.problemStem)
-                            .font(Typography.headline)
-                            .foregroundStyle(Color.kymaiaInk)
-
-                        Text("Tap the ONE step below that contains a mathematical flaw:")
-                            .font(Typography.caption)
-                            .foregroundStyle(Color.kymaiaMutedInk)
-
-                        ForEach(Array(flawCard.steps.enumerated()), id: \.offset) { idx, stepText in
-                            let isChosen = selectedFlawStepIndex == idx
-                            Button {
-                                selectedFlawStepIndex = idx
-                                flawScoreResult = flawCard.score(
-                                    selectedStepIndex: idx,
-                                    learnerExplanation: learnerFlawExplanation
-                                )
-                            } label: {
-                                HStack(alignment: .top, spacing: Spacing.sm) {
-                                    JournalBadge(
-                                        text: "Step \(idx + 1)",
-                                        symbol: isChosen ? "checkmark.circle.fill" : "circle",
-                                        tone: isChosen ? .accent : .neutral
-                                    )
-                                    Text(stepText)
-                                        .font(Typography.subheadline)
-                                        .foregroundStyle(Color.kymaiaInk)
-                                    Spacer()
-                                }
-                                .padding(Spacing.sm)
-                                .background(
-                                    RoundedRectangle(cornerRadius: Spacing.radiusMD)
-                                        .fill(isChosen ? Color.kymaiaSelectionFill : Color.kymaiaElevatedSurface)
-                                )
-                            }
-                            .buttonStyle(.plain)
-                        }
-
-                        TextField("Optional: In one line, explain why that step is flawed...", text: $learnerFlawExplanation)
-                            .learnerTextInput(.retrieval)
-                            .textFieldStyle(.roundedBorder)
-
-                        if let result = flawScoreResult {
-                            VStack(alignment: .leading, spacing: 4) {
-                                JournalBadge(
-                                    text: result.isCorrect ? "Flaw Identified!" : "Keep Looking",
-                                    symbol: result.isCorrect ? "checkmark.seal.fill" : "arrow.triangle.2.circlepath",
-                                    tone: result.isCorrect ? .positive : .warning
-                                )
-                                Text(result.feedback)
-                                    .font(Typography.subheadline)
-                                    .foregroundStyle(Color.kymaiaInk)
-                            }
-                            .padding(Spacing.sm)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .quietPanelBackground()
-                        }
-                    }
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: StandardSpacing.sm) {
+                    stageNoteField(active)
+                        .frame(minWidth: 180, idealWidth: 180, maxWidth: .infinity)
+                    advanceButton(stages: stages, active: active).fixedSize()
+                }
+                VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+                    stageNoteField(active)
+                    advanceButton(stages: stages, active: active)
                 }
             }
+        }
+        .paperCard()
+    }
 
-            // 5. 3-Mode Interleaved Practice & Near-Twin Discrimination Arena (Ported from LearnHarness)
-            JournalSection(
-                title: "3-Mode Interleaved Practice & Near-Twin Discrimination Arena",
-                eyebrow: "Inactivity Constraint · Recall → Near-Twin Lookalikes → Multi-Step Composition"
-            ) {
-                let allStreamItems = InterleavedPracticeStreamEngine.buildStream(
-                    activeTeachingChapter: store.selectedChapterNumber,
-                    isTeachingChapterActive: false,
-                    propositions: store.propositionNodes,
-                    chains: store.derivationChains,
-                    proofs: Array(store.proofsByQuestionId.values)
-                )
-                let modeItems = allStreamItems.filter { $0.mode == selectedPracticeMode }
-                let activeItem = modeItems.isEmpty
-                    ? allStreamItems.first
-                    : modeItems[selectedPracticeItemIndex % modeItems.count]
-
-                JournalCard {
-                    VStack(alignment: .leading, spacing: Spacing.md) {
-                        HStack(spacing: Spacing.xs) {
-                            ForEach(PracticeDemandMode.allCases, id: \.rawValue) { mode in
-                                MathsFilterChip(
-                                    title: mode.rawValue,
-                                    systemImage: mode == .discrimination ? "arrow.left.and.right.righttriangle.left.righttriangle.right" : "sparkles",
-                                    isSelected: selectedPracticeMode == mode
-                                ) {
-                                    selectedPracticeMode = mode
-                                    selectedPracticeItemIndex = 0
-                                    practiceUserAnswer = ""
-                                    practiceRevealedInsight = nil
-                                }
-                            }
-                            Spacer()
-                            JournalBadge(
-                                text: "Inactivity Constraint Active",
-                                symbol: "shuffle",
-                                tone: .info
-                            )
-                        }
-
-                        Text(selectedPracticeMode.subtitle)
-                            .font(Typography.caption)
-                            .foregroundStyle(Color.kymaiaMutedInk)
-
-                        if let item = activeItem {
-                            HStack {
-                                JournalBadge(text: item.mode.rawValue, symbol: "bolt.fill", tone: .accent)
-                                JournalBadge(text: item.modifier.rawValue, symbol: "arrow.triangle.branch", tone: .neutral)
-                                Spacer()
-                                Button("Next Interleaved Prompt") {
-                                    selectedPracticeItemIndex += 1
-                                    practiceUserAnswer = ""
-                                    practiceRevealedInsight = nil
-                                }
-                                .buttonStyle(JournalSecondaryButtonStyle())
-                            }
-
-                            Text(item.title)
-                                .font(Typography.headline)
-                                .foregroundStyle(Color.kymaiaInk)
-
-                            if let twin = item.twinPair {
-                                HStack(alignment: .top, spacing: Spacing.md) {
-                                    VStack(alignment: .leading, spacing: 4) {
-                                        Text("Near-Twin A")
-                                            .font(Typography.caption.weight(.bold))
-                                            .foregroundStyle(Color.kymaiaPrimary)
-                                        Text(twin.twinACase)
-                                            .font(Typography.subheadline)
-                                            .foregroundStyle(Color.kymaiaInk)
-                                    }
-                                    .padding(Spacing.sm)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .quietPanelBackground()
-
-                                    VStack(alignment: .leading, spacing: 4) {
-                                        Text("Near-Twin B")
-                                            .font(Typography.caption.weight(.bold))
-                                            .foregroundStyle(Color.kymaiaSecondary)
-                                        Text(twin.twinBCase)
-                                            .font(Typography.subheadline)
-                                            .foregroundStyle(Color.kymaiaInk)
-                                    }
-                                    .padding(Spacing.sm)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .quietPanelBackground()
-                                }
-
-                                Text("Surface Trap: \(twin.sharedSurfaceTrap)")
-                                    .font(Typography.caption)
-                                    .foregroundStyle(Color.kymaiaWarning)
-
-                                Text("Deciding Premise Question: \(twin.decidingPremiseQuestion)")
-                                    .font(Typography.subheadline.weight(.semibold))
-                                    .foregroundStyle(Color.kymaiaInk)
-                            } else {
-                                Text(item.prompt)
-                                    .font(Typography.subheadline)
-                                    .foregroundStyle(Color.kymaiaInk)
-                                    .padding(Spacing.sm)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .quietPanelBackground()
-                            }
-
-                            HStack(spacing: Spacing.sm) {
-                                TextField("Name the deciding premise or compose the steps...", text: $practiceUserAnswer)
-                                    .learnerTextInput(.retrieval)
-                                    .textFieldStyle(.roundedBorder)
-                                Button("Verify Distinction") {
-                                    practiceRevealedInsight = item.expectedInsight
-                                }
-                                .buttonStyle(JournalSecondaryButtonStyle())
-                            }
-
-                            if let insight = practiceRevealedInsight {
-                                VStack(alignment: .leading, spacing: 4) {
-                                    Text("VERIFIED STRUCTURAL DISTINCTION")
-                                        .font(Typography.eyebrow)
-                                        .foregroundStyle(Color.kymaiaSuccess)
-                                    Text(insight)
-                                        .font(Typography.subheadline)
-                                        .foregroundStyle(Color.kymaiaInk)
-                                }
-                                .padding(Spacing.sm)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .quietPanelBackground()
-                            }
+    /// The four stages as a ruled row: the open stage carries the heavy rule and "You are here".
+    private func stageTabs(stages: [PolyaStageSpec], active: PolyaStageSpec) -> some View {
+        HStack(alignment: .top, spacing: StandardSpacing.xs) {
+            ForEach(stages) { stage in
+                let isActive = stage.id == active.id
+                Button {
+                    store.selectedPolyaStageId = stage.id
+                } label: {
+                    VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+                        Rectangle()
+                            .fill(isActive ? theme.ink : theme.hairline())
+                            .frame(height: isActive ? 2 : 1)
+                        Text("\(stage.stageNumber) · \(PolyaCopy.shortStage(stage.stageNumber))")
+                            .standardType(.uiBody)
+                            .fontWeight(isActive ? .semibold : .regular)
+                            .foregroundStyle(isActive ? theme.ink : theme.mute(theme.ink))
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.75)
+                        if isActive {
+                            Text("You are here")
+                                .standardType(.uiCaption)
+                                .foregroundStyle(theme.mute(theme.ink))
                         }
                     }
+                    .frame(maxWidth: .infinity, minHeight: StandardAccessibility.touchTarget, alignment: .topLeading)
+                    .contentShape(Rectangle())
                 }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Stage \(stage.stageNumber): \(RoomCopy.droppingNumber(stage.title))")
+                .accessibilityAddTraits(isActive ? .isSelected : [])
             }
         }
     }
 
-    private func checkSpeedCard(_ card: SpeedMathCard, deckCount: Int) {
-        if SpeedMathAnswerCheck.isCorrect(typed: userSpeedAnswer, expected: card.answer) {
-            streakCount += 1
-            speedFeedback = "Correct! \(card.answer)"
-        } else {
-            streakCount = 0
-            speedFeedback = "Expected: \(card.answer)"
+    private func promptRow(_ prompt: String) -> some View {
+        let asked = askedPrompts.contains(prompt)
+        return Button {
+            if asked { askedPrompts.remove(prompt) } else { askedPrompts.insert(prompt) }
+        } label: {
+            HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.sm) {
+                Image(systemName: asked ? "checkmark" : "lightbulb")
+                    .foregroundStyle(asked ? theme.brass : theme.mute(theme.ink))
+                Text(prompt)
+                    .patternedType(.readingSmall)
+                    .foregroundStyle(theme.ink)
+                    .multilineTextAlignment(.leading)
+                    .fixedSize(horizontal: false, vertical: true)
+                Spacer(minLength: 0)
+            }
+            .padding(.horizontal, StandardSpacing.md)
+            .padding(.vertical, StandardSpacing.sm)
+            .frame(minHeight: StandardAccessibility.touchTarget)
+            .background(
+                RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous)
+                    .fill(asked ? theme.blank() : theme.surface)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous)
+                    .strokeBorder(asked ? Color.clear : theme.hairline(), lineWidth: 1)
+            )
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityValue(asked ? "Asked" : "")
+        .accessibilityHint("Marks this question as one you asked yourself")
+    }
+
+    private func stageNoteField(_ stage: PolyaStageSpec) -> some View {
+        TextField(
+            PolyaCopy.notePlaceholder(stage.stageNumber),
+            text: Binding(
+                get: { stageNotes[stage.id] ?? "" },
+                set: { stageNotes[stage.id] = $0 }
+            )
+        )
+        .learnerTextInput(.retrieval)
+        .paperField()
+    }
+
+    private func advanceButton(stages: [PolyaStageSpec], active: PolyaStageSpec) -> some View {
+        Button {
+            let index = stages.firstIndex(where: { $0.id == active.id }) ?? 0
+            store.selectedPolyaStageId = stages[(index + 1) % stages.count].id
+        } label: {
+            HStack(spacing: StandardSpacing.xs) {
+                Text(PolyaCopy.advanceTitle(active.stageNumber))
+                Image(systemName: "arrow.right").imageScale(.small)
+            }
+        }
+        .buttonStyle(InkButtonStyle())
+    }
+
+    // MARK: Speed
+
+    private func speedCard(deck: SpeedMathDeck, card: SpeedMathCard) -> some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.md) {
+            VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                Kicker("Speed · See the shape")
+                Menu {
+                    ForEach(store.seedPack.speedMathDecks) { d in
+                        Button(d.title) {
+                            store.selectedSpeedDeckId = d.id
+                            currentCardIndex = 0
+                            userSpeedAnswer = ""
+                            speedFeedback = nil
+                        }
+                    }
+                } label: {
+                    HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.xxs) {
+                        Text(deck.title)
+                            .standardType(.uiBody)
+                            .foregroundStyle(theme.mute(theme.ink))
+                            .multilineTextAlignment(.leading)
+                        Image(systemName: "chevron.down")
+                            .imageScale(.small)
+                            .foregroundStyle(theme.mute(theme.ink))
+                    }
+                    .frame(minHeight: StandardAccessibility.touchTarget, alignment: .leading)
+                }
+                .accessibilityLabel("Choose a deck. Now: \(deck.title)")
+            }
+
+            Text(card.prompt)
+                .patternedType(.mathDisplay)
+                .foregroundStyle(theme.ink)
+                .minimumScaleFactor(0.6)
+                .fixedSize(horizontal: false, vertical: true)
+            Text("Card \((currentCardIndex % max(1, deck.cards.count)) + 1) of \(deck.cards.count)")
+                .standardType(.uiCaption)
+                .foregroundStyle(theme.mute(theme.ink))
+
+            TextField("Your answer", text: $userSpeedAnswer)
+                .learnerTextInput(.retrieval)
+                .font(.system(.title3, design: .monospaced))
+                .paperField()
+                .onSubmit { checkSpeedCard(card) }
+
+            HStack(spacing: StandardSpacing.sm) {
+                Button("Check") { checkSpeedCard(card) }
+                    .buttonStyle(OutlineButtonStyle())
+                Button {
+                    currentCardIndex = (currentCardIndex + 1) % max(1, deck.cards.count)
+                    userSpeedAnswer = ""
+                    speedFeedback = nil
+                } label: {
+                    HStack(spacing: StandardSpacing.xs) {
+                        Text("Another one")
+                        Image(systemName: "arrow.right").imageScale(.small)
+                    }
+                }
+                .buttonStyle(OutlineButtonStyle())
+            }
+
+            if let feedback = speedFeedback {
+                VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                    Text(feedback.isCorrect ? "Yes: \(card.answer)." : "Not this time. It's \(card.answer).")
+                        .standardType(.uiHeadline)
+                        .foregroundStyle(feedback.isCorrect ? theme.patterned.provenColor : theme.ink)
+                    Text("= \(card.mentalTip)")
+                        .patternedType(.mathInline)
+                        .foregroundStyle(theme.ink)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Text(deck.heuristic)
+                        .standardType(.uiBody)
+                        .foregroundStyle(theme.mute(theme.ink))
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .accessibilityElement(children: .combine)
+            }
+        }
+        .paperCard()
+    }
+
+    private func checkSpeedCard(_ card: SpeedMathCard) {
+        speedFeedback = SpeedFeedback(
+            isCorrect: SpeedMathAnswerCheck.isCorrect(typed: userSpeedAnswer, expected: card.answer)
+        )
+    }
+
+    // MARK: The picture behind a shortcut
+
+    private var tipCard: some View {
+        let tips = store.seedPack.visualMathTips
+        let tip = tips[tipIndex % max(1, tips.count)]
+        return VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+            Text(tip.title)
+                .standardType(.uiHeadline)
+                .foregroundStyle(theme.ink)
+                .fixedSize(horizontal: false, vertical: true)
+
+            VisualMathTipIllustrationView(tipId: tip.id)
+                .frame(height: 160)
+
+            Text(tip.visualIdea)
+                .standardType(.uiBody)
+                .foregroundStyle(theme.mute(theme.ink))
+                .fixedSize(horizontal: false, vertical: true)
+            Text(tip.algebraicIdentity)
+                .patternedType(.mathInline)
+                .foregroundStyle(theme.ink)
+                .fixedSize(horizontal: false, vertical: true)
+            Text(tip.example)
+                .standardType(.uiBody)
+                .foregroundStyle(theme.ink)
+                .fixedSize(horizontal: false, vertical: true)
+
+            HStack(spacing: StandardSpacing.md) {
+                Button("Chapter \(tip.chapter)") {
+                    store.selectedChapterNumber = tip.chapter
+                    store.activeRoom = .patternedWorld
+                }
+                .buttonStyle(TextLinkButtonStyle())
+                .accessibilityLabel("Open chapter \(tip.chapter)")
+                Spacer(minLength: 0)
+                Button {
+                    tipIndex = (tipIndex + 1) % max(1, tips.count)
+                } label: {
+                    Label("\(tipIndex % max(1, tips.count) + 1) of \(tips.count)", systemImage: "arrow.trianglehead.clockwise")
+                        .standardType(.uiCaption)
+                        .foregroundStyle(theme.mute(theme.ink))
+                        .frame(minHeight: StandardAccessibility.touchTarget)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Next picture")
+            }
+        }
+        .paperCard()
+    }
+
+    // MARK: Spot the flaw
+
+    private var flawSection: some View {
+        let flawCard = MathsSpotTheFlawCatalog.all.first(where: { $0.id == selectedFlawCardId })
+            ?? MathsSpotTheFlawCatalog.all[0]
+        return VStack(alignment: .leading, spacing: StandardSpacing.md) {
+            VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                Kicker("Spot the flaw")
+                Text("One step in each worked answer is wrong. Find it.")
+                    .standardType(.headlineSm)
+                    .foregroundStyle(theme.ink)
+            }
+
+            VStack(alignment: .leading, spacing: StandardSpacing.md) {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: StandardSpacing.xs) {
+                        ForEach(MathsSpotTheFlawCatalog.all) { card in
+                            PatternedChip(card.title, isSelected: selectedFlawCardId == card.id) {
+                                selectedFlawCardId = card.id
+                                selectedFlawStepIndex = nil
+                                learnerFlawExplanation = ""
+                                flawScoreResult = nil
+                            }
+                        }
+                    }
+                }
+
+                if let label = flawCard.misconceptionLabel {
+                    HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.xs) {
+                        Kicker("The trap", muted: true)
+                        Text(label)
+                            .standardType(.uiBody)
+                            .foregroundStyle(theme.mute(theme.ink))
+                    }
+                }
+
+                Text(flawCard.problemStem)
+                    .patternedType(.readingDefault)
+                    .foregroundStyle(theme.ink)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                Text("Tap the one step that goes wrong.")
+                    .standardType(.uiBody)
+                    .foregroundStyle(theme.mute(theme.ink))
+
+                ForEach(Array(flawCard.steps.enumerated()), id: \.offset) { idx, stepText in
+                    let isChosen = selectedFlawStepIndex == idx
+                    Button {
+                        selectedFlawStepIndex = idx
+                        flawScoreResult = flawCard.score(
+                            selectedStepIndex: idx,
+                            learnerExplanation: learnerFlawExplanation
+                        )
+                    } label: {
+                        HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.sm) {
+                            Text("Step \(idx + 1)")
+                                .patternedType(.kicker)
+                                .foregroundStyle(isChosen ? theme.ink : theme.mute(theme.ink))
+                                .frame(width: 56, alignment: .leading)
+                            Text(stepText)
+                                .patternedType(.readingDefault)
+                                .foregroundStyle(theme.ink)
+                                .multilineTextAlignment(.leading)
+                                .fixedSize(horizontal: false, vertical: true)
+                            Spacer(minLength: 0)
+                        }
+                        .padding(StandardSpacing.sm)
+                        .frame(minHeight: StandardAccessibility.touchTarget)
+                        .background(
+                            RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous)
+                                .fill(isChosen ? theme.blank() : theme.surface)
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous)
+                                .strokeBorder(isChosen ? theme.brass : theme.hairline(), lineWidth: 1)
+                        )
+                        .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityAddTraits(isChosen ? .isSelected : [])
+                }
+
+                TextField("If you like: say why that step is wrong", text: $learnerFlawExplanation)
+                    .learnerTextInput(.retrieval)
+                    .paperField()
+
+                if let result = flawScoreResult {
+                    VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                        StatusTag(result.isCorrect ? .proven : .working, label: result.isCorrect ? "You found it" : "Keep looking")
+                        Text(result.feedback)
+                            .patternedType(.readingSmall)
+                            .foregroundStyle(theme.ink)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+            }
+            .paperCard()
+        }
+    }
+
+    // MARK: Mixed practice
+
+    private var practiceSection: some View {
+        let allStreamItems = InterleavedPracticeStreamEngine.buildStream(
+            activeTeachingChapter: store.selectedChapterNumber,
+            isTeachingChapterActive: false,
+            propositions: store.propositionNodes,
+            chains: store.derivationChains,
+            proofs: Array(store.proofsByQuestionId.values)
+        )
+        let modeItems = allStreamItems.filter { $0.mode == selectedPracticeMode }
+        let activeItem = modeItems.isEmpty
+            ? allStreamItems.first
+            : modeItems[selectedPracticeItemIndex % modeItems.count]
+
+        return VStack(alignment: .leading, spacing: StandardSpacing.md) {
+            VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                Kicker("Mixed practice")
+                Text("Tell lookalikes apart, and chain small steps.")
+                    .standardType(.headlineSm)
+                    .foregroundStyle(theme.ink)
+            }
+
+            VStack(alignment: .leading, spacing: StandardSpacing.md) {
+                HStack(spacing: StandardSpacing.xs) {
+                    ForEach(PracticeDemandMode.allCases, id: \.rawValue) { mode in
+                        PatternedChip(PolyaCopy.modeTitle(mode), isSelected: selectedPracticeMode == mode) {
+                            selectedPracticeMode = mode
+                            selectedPracticeItemIndex = 0
+                            practiceUserAnswer = ""
+                            practiceRevealedInsight = nil
+                        }
+                    }
+                }
+
+                Text(PolyaCopy.modeSubtitle(selectedPracticeMode))
+                    .standardType(.uiBody)
+                    .foregroundStyle(theme.mute(theme.ink))
+
+                if let item = activeItem {
+                    HStack(alignment: .firstTextBaseline) {
+                        Text(PolyaCopy.modifierTitle(item.modifier))
+                            .patternedType(.kicker)
+                            .foregroundStyle(theme.mute(theme.ink))
+                        Spacer(minLength: StandardSpacing.sm)
+                        Button("Next prompt") {
+                            selectedPracticeItemIndex += 1
+                            practiceUserAnswer = ""
+                            practiceRevealedInsight = nil
+                        }
+                        .buttonStyle(OutlineButtonStyle())
+                    }
+
+                    Text(item.title)
+                        .standardType(.uiHeadline)
+                        .foregroundStyle(theme.ink)
+                        .fixedSize(horizontal: false, vertical: true)
+
+                    if let twin = item.twinPair {
+                        ViewThatFits(in: .horizontal) {
+                            HStack(alignment: .top, spacing: StandardSpacing.md) {
+                                twinBox("Twin A", twin.twinACase)
+                                twinBox("Twin B", twin.twinBCase)
+                            }
+                            VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+                                twinBox("Twin A", twin.twinACase)
+                                twinBox("Twin B", twin.twinBCase)
+                            }
+                        }
+
+                        Text("The trap: \(twin.sharedSurfaceTrap)")
+                            .patternedType(.readingSmall)
+                            .foregroundStyle(theme.mute(theme.ink))
+                            .fixedSize(horizontal: false, vertical: true)
+
+                        Text("What decides it? \(twin.decidingPremiseQuestion)")
+                            .patternedType(.readingDefault)
+                            .foregroundStyle(theme.ink)
+                            .fixedSize(horizontal: false, vertical: true)
+                    } else {
+                        sunkBox(Text(item.prompt).patternedType(.readingDefault).foregroundStyle(theme.ink))
+                    }
+
+                    ViewThatFits(in: .horizontal) {
+                        HStack(spacing: StandardSpacing.sm) {
+                            practiceField.frame(minWidth: 220, idealWidth: 220, maxWidth: .infinity)
+                            showAnswerButton(item.expectedInsight).fixedSize()
+                        }
+                        VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+                            practiceField
+                            showAnswerButton(item.expectedInsight)
+                        }
+                    }
+
+                    if let insight = practiceRevealedInsight {
+                        MarginNote(.history("The difference"), insight)
+                    }
+                }
+            }
+            .paperCard()
+        }
+    }
+
+    private var practiceField: some View {
+        TextField("Name what decides it, or chain the steps", text: $practiceUserAnswer)
+            .learnerTextInput(.retrieval)
+            .paperField()
+    }
+
+    private func showAnswerButton(_ insight: String) -> some View {
+        Button("Show the answer") { practiceRevealedInsight = insight }
+            .buttonStyle(OutlineButtonStyle())
+    }
+
+    private func twinBox(_ title: String, _ text: String) -> some View {
+        sunkBox(
+            VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+                Kicker(title, muted: true)
+                Text(text)
+                    .patternedType(.readingDefault)
+                    .foregroundStyle(theme.ink)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        )
+    }
+
+    private func sunkBox(_ content: some View) -> some View {
+        content
+            .padding(StandardSpacing.sm)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous)
+                    .fill(theme.patterned.sunkColor)
+            )
+    }
+}
+
+private struct SpeedFeedback: Equatable {
+    let isCorrect: Bool
+}
+
+/// The room's own words for the stages, the practice modes and their modifiers.
+enum PolyaCopy {
+    static func shortStage(_ number: Int) -> String {
+        switch number {
+        case 1: "Understand"
+        case 2: "Plan"
+        case 3: "Carry out"
+        default: "Look back"
+        }
+    }
+
+    static func notePlaceholder(_ number: Int) -> String {
+        switch number {
+        case 1: "What I know: …"
+        case 2: "My plan: …"
+        case 3: "My working: …"
+        default: "What I'd use again: …"
+        }
+    }
+
+    static func advanceTitle(_ number: Int) -> String {
+        switch number {
+        case 1: "Make a plan"
+        case 2: "Carry out my plan"
+        case 3: "Look back"
+        default: "Start again"
+        }
+    }
+
+    static func modeTitle(_ mode: PracticeDemandMode) -> String {
+        switch mode {
+        case .recall: "Say it cold"
+        case .discrimination: "Twins"
+        case .composition: "Chains"
+        }
+    }
+
+    static func modeSubtitle(_ mode: PracticeDemandMode) -> String {
+        switch mode {
+        case .recall: "Say a true fact or a move from a short cue, with nothing to look at."
+        case .discrimination: "Two problems look alike, but one small fact changes which rule works."
+        case .composition: "Join two or more facts where no single rule gets you there."
+        }
+    }
+
+    static func modifierTitle(_ modifier: PracticeDemandModifier) -> String {
+        switch modifier {
+        case .forwardStandard: "From the facts to the answer"
+        case .reverseConclusionToGrounds: "From the answer back to what it needs"
+        case .probeWeakenedPremise: "What breaks if a fact is weakened?"
         }
     }
 }
 
-// MARK: - Pólya 4-Stage Singapore Bar-Model Visualiser (Train & Platform Invariant)
+// MARK: - Pólya's four stages, drawn as two bars (the train and the platform)
 
 struct PolyaSingaporeBarIllustrationView: View {
     let stageNumber: Int
 
     private let cRed = MathsFigureColor.roleColor("red")
     private let cBlue = MathsFigureColor.roleColor("blue")
-    private let cAmber = MathsFigureColor.roleColor("amber")
     private let cGreen = MathsFigureColor.roleColor("green")
     private let cInk = MathsFigureColor.ink
 
     var body: some View {
         Canvas { context, size in
             let w = size.width
-            let h = size.height
             let bg = CGRect(origin: .zero, size: size)
             context.fill(Path(roundedRect: bg, cornerRadius: MathsFigureRadius.frame), with: .color(MathsFigureColor.paper))
             context.stroke(Path(roundedRect: bg, cornerRadius: MathsFigureRadius.frame), with: .color(cInk.opacity(0.15)), lineWidth: 1)
 
-            let x0 = w * 0.16
-            let trainW = w * 0.26
-            let platW = w * 0.42
+            // A fixed label column on the left, so row names never run into the bars.
+            let labelX: CGFloat = 12
+            let x0: CGFloat = min(112, w * 0.32)
+            let room = max(80, w - x0 - 12)
+            let trainW = room * 0.36
+            let platW = room * 0.64 - 3
+            let barH: CGFloat = 26
 
-            // Row 1: Lamp-post journey (Train length L in 9 s)
-            let bar1 = CGRect(x: x0, y: h * 0.20, width: trainW, height: 28)
+            func rowLabel(_ text: String, y: CGFloat) {
+                context.draw(
+                    Text(text).font(MathsFigureType.label).foregroundStyle(cInk),
+                    at: CGPoint(x: labelX, y: y),
+                    anchor: .leading
+                )
+            }
+
+            // Row 1: passing a pole (the train's own length, 9 s)
+            let bar1 = CGRect(x: x0, y: 14, width: trainW, height: barH)
             context.fill(Path(roundedRect: bar1, cornerRadius: MathsFigureRadius.bar), with: .color(cRed.opacity(0.24)))
             context.stroke(Path(roundedRect: bar1, cornerRadius: MathsFigureRadius.bar), with: .color(cRed), lineWidth: 2)
-            context.draw(Text("Pole (9 s)").font(MathsFigureType.label).foregroundStyle(cInk), at: CGPoint(x: w * 0.08, y: bar1.midY))
-            context.draw(Text(stageNumber >= 3 ? "Train L = 180 m (9 s)" : "Train Length L (9 s)").font(MathsFigureType.labelMonoMedium).foregroundStyle(cRed), at: CGPoint(x: bar1.midX, y: bar1.midY))
+            rowLabel("Pole · 9 s", y: bar1.midY)
+            context.draw(Text(stageNumber >= 3 ? "L = 180 m" : "Train L").font(MathsFigureType.labelMonoMedium).foregroundStyle(cRed), at: CGPoint(x: bar1.midX, y: bar1.midY))
 
-            // Row 2: Platform journey (Train L + 300 m in 24 s)
-            let bar2A = CGRect(x: x0, y: h * 0.58, width: trainW, height: 28)
-            let bar2B = CGRect(x: x0 + trainW + 3, y: h * 0.58, width: platW, height: 28)
+            // Row 2: passing the platform (train plus 300 m, 24 s)
+            let bar2A = CGRect(x: x0, y: 58, width: trainW, height: barH)
+            let bar2B = CGRect(x: x0 + trainW + 3, y: 58, width: platW, height: barH)
             context.fill(Path(roundedRect: bar2A, cornerRadius: MathsFigureRadius.bar), with: .color(cRed.opacity(0.24)))
             context.stroke(Path(roundedRect: bar2A, cornerRadius: MathsFigureRadius.bar), with: .color(cRed), lineWidth: 2)
             context.fill(Path(roundedRect: bar2B, cornerRadius: MathsFigureRadius.bar), with: .color(cBlue.opacity(0.22)))
             context.stroke(Path(roundedRect: bar2B, cornerRadius: MathsFigureRadius.bar), with: .color(cBlue), lineWidth: 2)
-            context.draw(Text("Platform (24 s)").font(MathsFigureType.label).foregroundStyle(cInk), at: CGPoint(x: w * 0.08, y: bar2A.midY))
+            rowLabel("Platform · 24 s", y: bar2A.midY)
             context.draw(Text("Train L").font(MathsFigureType.labelMonoMedium).foregroundStyle(cRed), at: CGPoint(x: bar2A.midX, y: bar2A.midY))
-            context.draw(Text("Platform P = 300 m").font(MathsFigureType.labelMonoMedium).foregroundStyle(cBlue), at: CGPoint(x: bar2B.midX, y: bar2B.midY))
+            context.draw(Text("P = 300 m").font(MathsFigureType.labelMonoMedium).foregroundStyle(cBlue), at: CGPoint(x: bar2B.midX, y: bar2B.midY))
 
             if stageNumber >= 2 {
-                // Difference bracket over the extra 300 m
+                // The extra 300 m, bracketed between the rows; the "aha" sits under the bars.
                 var diff = Path()
-                diff.move(to: CGPoint(x: bar2B.minX, y: bar1.maxY + 4))
-                diff.addLine(to: CGPoint(x: bar2B.maxX, y: bar1.maxY + 4))
+                diff.move(to: CGPoint(x: bar2B.minX, y: bar1.maxY + 6))
+                diff.addLine(to: CGPoint(x: bar2B.maxX, y: bar1.maxY + 6))
                 context.stroke(diff, with: .color(cGreen), style: StrokeStyle(lineWidth: 2, dash: [5, 3]))
-                let label = stageNumber == 2
-                    ? "Aha! Extra 300 m takes 24 − 9 = 15 s"
-                    : (stageNumber == 3 ? "v = 300 m ÷ 15 s = 20 m/s ⇒ L = 20 × 9 = 180 m" : "General Invariant: L = P · t₁ / (t₂ − t₁) = 180 m ✓")
-                context.draw(Text(label).font(MathsFigureType.labelMono).foregroundStyle(cGreen), at: CGPoint(x: bar2B.midX, y: bar1.midY))
+                let label = switch stageNumber {
+                case 2: "The extra 300 m takes 24 − 9 = 15 s"
+                case 3: "v = 300 ÷ 15 = 20 m/s, so L = 20 × 9 = 180 m"
+                default: "In general: L = P · t₁ ÷ (t₂ − t₁) = 180 m ✓"
+                }
+                context.draw(
+                    Text(label).font(MathsFigureType.labelMono).foregroundStyle(cGreen),
+                    at: CGPoint(x: labelX, y: bar2A.maxY + 22),
+                    anchor: .leading
+                )
             }
         }
     }
@@ -667,13 +860,5 @@ struct VisualMathTipIllustrationView: View {
                 context.draw(Text("det(A) = ad − bc").font(MathsFigureType.labelMono).foregroundStyle(cGreen), at: CGPoint(x: (o.x + v12.x) * 0.5, y: (o.y + v12.y) * 0.5))
             }
         }
-    }
-}
-
-private extension PolyaStageSpec {
-    /// Pólya's four stages as the Standard's `StageDial` draws them: the stage number as the glyph
-    /// and "Stage n: title" as the spoken label.
-    var dialStage: StandardStage {
-        StandardStage(id: id, label: "Stage \(stageNumber): \(title)", glyph: "\(stageNumber)")
     }
 }
