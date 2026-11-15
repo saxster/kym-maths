@@ -491,6 +491,8 @@ private struct OutlineButtonBody: View {
             .fontWeight(.semibold)
             .foregroundStyle(theme.ink)
             .padding(.horizontal, StandardSpacing.md)
+            // Keeps a label that wraps to two lines off the borders; one line still fits the min height.
+            .padding(.vertical, StandardSpacing.xxs)
             .frame(minHeight: StandardAccessibility.touchTarget - 8)
             .background(
                 RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous)
