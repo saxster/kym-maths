@@ -12,6 +12,10 @@ struct PolyaFluencyHomeView: View {
     @State private var tipIndex: Int = 0
     @State private var askedPrompts: Set<String> = []
     @State private var stageNotes: [String: String] = [:]
+    @State private var selectedFootholdId: String = FootholdCatalog.all[0].id
+    @State private var footholdGuess: String = ""
+    @State private var footholdPiecesShown: Bool = false
+    @State private var triedFootholdPieces: Set<Int> = []
     @State private var selectedFlawCardId: String = MathsSpotTheFlawCatalog.all[0].id
     @State private var selectedFlawStepIndex: Int?
     @State private var learnerFlawExplanation: String = ""
@@ -32,7 +36,7 @@ struct PolyaFluencyHomeView: View {
             EditorialHeader(
                 eyebrow: "Pólya & Speed",
                 title: "What do you do when you're stuck?",
-                subtitle: "Pólya's four stages are a map for being stuck. Speed tricks are the same idea, small: see a shape, not a sum."
+                subtitle: "Split a hard problem, crack the piece you can, and build back up from there. Speed tricks are the same idea, small: see a shape, not a sum."
             )
 
             ViewThatFits(in: .horizontal) {
@@ -51,6 +55,8 @@ struct PolyaFluencyHomeView: View {
                     tipCard
                 }
             }
+
+            footholdSection
 
             flawSection
 
@@ -340,6 +346,164 @@ struct PolyaFluencyHomeView: View {
         .paperCard()
     }
 
+    // MARK: Find the foothold
+
+    private var footholdSection: some View {
+        let problem = FootholdCatalog.all.first(where: { $0.id == selectedFootholdId })
+            ?? FootholdCatalog.all[0]
+        return VStack(alignment: .leading, spacing: StandardSpacing.md) {
+            VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                Kicker("Find the foothold")
+                Text("Split it, and crack the one piece you can.")
+                    .standardType(.headlineSm)
+                    .foregroundStyle(theme.ink)
+            }
+
+            VStack(alignment: .leading, spacing: StandardSpacing.md) {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: StandardSpacing.xs) {
+                        ForEach(FootholdCatalog.all) { item in
+                            PatternedChip(item.title, isSelected: selectedFootholdId == item.id) {
+                                selectedFootholdId = item.id
+                                footholdGuess = ""
+                                footholdPiecesShown = false
+                                triedFootholdPieces = []
+                            }
+                        }
+                    }
+                }
+
+                Text(problem.problem)
+                    .patternedType(.readingDefault)
+                    .foregroundStyle(theme.ink)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                if footholdPiecesShown {
+                    if !footholdGuess.isEmpty {
+                        HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.xs) {
+                            Kicker("You said", muted: true)
+                            Text(footholdGuess)
+                                .standardType(.uiBody)
+                                .foregroundStyle(theme.mute(theme.ink))
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
+
+                    Text("Tap a piece to see if it's a foothold.")
+                        .standardType(.uiBody)
+                        .foregroundStyle(theme.mute(theme.ink))
+
+                    ForEach(Array(problem.pieces.enumerated()), id: \.offset) { idx, piece in
+                        footholdPieceRow(problem: problem, index: idx, piece: piece)
+                    }
+
+                    if triedFootholdPieces.contains(problem.footholdIndex) {
+                        footholdBuild(problem)
+                    }
+                } else {
+                    ViewThatFits(in: .horizontal) {
+                        HStack(spacing: StandardSpacing.sm) {
+                            footholdGuessField
+                                .frame(minWidth: 220, idealWidth: 220, maxWidth: .infinity)
+                            showPiecesButton.fixedSize()
+                        }
+                        VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+                            footholdGuessField
+                            showPiecesButton
+                        }
+                    }
+                }
+            }
+            .paperCard()
+        }
+    }
+
+    private var footholdGuessField: some View {
+        TextField("The piece I'd crack first, in my words", text: $footholdGuess)
+            .learnerTextInput(.retrieval)
+            .paperField()
+    }
+
+    private var showPiecesButton: some View {
+        Button("Show the pieces") { footholdPiecesShown = true }
+            .buttonStyle(OutlineButtonStyle())
+    }
+
+    private func footholdPieceRow(problem: FootholdProblem, index: Int, piece: FootholdPiece) -> some View {
+        let tried = triedFootholdPieces.contains(index)
+        let isFoothold = problem.isFoothold(index)
+        return VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+            Button {
+                triedFootholdPieces.insert(index)
+            } label: {
+                HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.sm) {
+                    Text("Piece \(index + 1)")
+                        .patternedType(.kicker)
+                        .foregroundStyle(tried ? theme.ink : theme.mute(theme.ink))
+                        .frame(width: 56, alignment: .leading)
+                    Text(piece.claim)
+                        .patternedType(.readingDefault)
+                        .foregroundStyle(theme.ink)
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Spacer(minLength: 0)
+                }
+                .padding(StandardSpacing.sm)
+                .frame(minHeight: StandardAccessibility.touchTarget)
+                .background(
+                    RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous)
+                        .fill(tried ? theme.blank() : theme.surface)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous)
+                        .strokeBorder(tried ? theme.brass : theme.hairline(), lineWidth: 1)
+                )
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityAddTraits(tried ? .isSelected : [])
+            .accessibilityValue(tried ? (isFoothold ? "Foothold" : "No foothold") : "")
+            .accessibilityHint("Shows whether this piece can be solved with only what you're given")
+
+            if tried {
+                VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                    StatusTag(isFoothold ? .proven : .working, label: isFoothold ? "Foothold" : "No foothold")
+                    Text(piece.verdict)
+                        .patternedType(.readingSmall)
+                        .foregroundStyle(theme.ink)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .padding(.leading, StandardSpacing.sm)
+            }
+        }
+    }
+
+    private func footholdBuild(_ problem: FootholdProblem) -> some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+            Kicker("Build back up")
+            ForEach(Array(problem.build.enumerated()), id: \.offset) { idx, step in
+                HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.sm) {
+                    Text("\(idx + 1)")
+                        .patternedType(.kicker)
+                        .foregroundStyle(idx == 0 ? theme.brass : theme.mute(theme.ink))
+                        .frame(width: 24, alignment: .leading)
+                    VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+                        if idx == 0 { Kicker("Foothold") }
+                        Text(step)
+                            .patternedType(.readingDefault)
+                            .foregroundStyle(theme.ink)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+                .accessibilityElement(children: .combine)
+            }
+            Text(problem.check)
+                .patternedType(.mathInline)
+                .foregroundStyle(theme.patterned.provenColor)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+    }
+
     // MARK: Spot the flaw
 
     private var flawSection: some View {
@@ -594,10 +758,10 @@ enum PolyaCopy {
 
     static func notePlaceholder(_ number: Int) -> String {
         switch number {
-        case 1: "What I know: …"
-        case 2: "My plan: …"
+        case 1: "What I know, and the pieces: …"
+        case 2: "The piece I'll crack first: …"
         case 3: "My working: …"
-        default: "What I'd use again: …"
+        default: "The key piece, and what I'd use again: …"
         }
     }
 
