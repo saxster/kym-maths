@@ -724,36 +724,17 @@ public enum ElaborativeInterrogationEngine {
         return consecutiveCorrectCount >= 2 && masteryProbability >= 0.55
     }
 
-    public static func makePrompt(
-        for unitTitle: String,
-        singaporeMethodFocus: String
+    /// Asks why the learner's method works, using the question's own topic for the clue.
+    static func makePrompt(
+        for question: SchoolMathsQuestion,
+        topic: SchoolMathsTopic?
     ) -> ElaborativeInterrogationPrompt {
-        let lower = unitTitle.lowercased()
-        if lower.contains("fraction") || lower.contains("decimal") {
-            return ElaborativeInterrogationPrompt(
-                bloomLevel: "Analyze · Structural Invariant",
-                question: "Why does dividing by a fraction a/b give the exact same result as multiplying by its reciprocal b/a?",
-                invariantHint: "Think about how many (1/b)-sized pieces fit inside 1 whole unit on a Singapore fraction bar."
-            )
-        } else if lower.contains("equation") || lower.contains("expression") || lower.contains("algebra") {
-            return ElaborativeInterrogationPrompt(
-                bloomLevel: "Evaluate · Equivalence Invariant",
-                question: "When you expand or rearrange this expression, what geometric area or balance quantity stays invariant across the '=' sign?",
-                invariantHint: "Compare the partitioned side lengths of the Al-Khwarizmi rectangle with the sum of its inner boxes."
-            )
-        } else if lower.contains("probability") || lower.contains("sampling") || lower.contains("bayes") {
-            return ElaborativeInterrogationPrompt(
-                bloomLevel: "Synthesize · Base-Rate Reasoning",
-                question: "Why can a 99%-accurate test still have a low probability of being a true positive when the condition is rare?",
-                invariantHint: "Compare the area of True Positives against False Positives inside the 1,000-person natural-frequency square."
-            )
-        } else {
-            return ElaborativeInterrogationPrompt(
-                bloomLevel: "Analyze · First Principles",
-                question: "In your own words, why does the method '\(singaporeMethodFocus)' guarantee that our answer for \(unitTitle) is always true?",
-                invariantHint: "Point to the single quantity that stays conserved from the diagram to the final formula."
-            )
-        }
+        let target = question.answerPartsPhrase ?? "answer"
+        return ElaborativeInterrogationPrompt(
+            bloomLevel: "Explain",
+            question: "Why does this method always give the right \(target)?",
+            invariantHint: topic?.summary ?? "Look back at your steps. Which one makes the answer certain?"
+        )
     }
 }
 
@@ -1197,6 +1178,7 @@ enum MeteredHintLadderEngine {
     static func hint(
         for question: SchoolMathsQuestion,
         rung: HintLadderRung,
+        topic: SchoolMathsTopic?,
         thinkingTrace: String = ""
     ) -> String {
         let workedLines = question.workedExample
@@ -1211,19 +1193,23 @@ enum MeteredHintLadderEngine {
             let traceAck = thinkingTrace.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
                 ? ""
                 : "Starting from your note (\"\(thinkingTrace.prefix(48))\"), "
-            return "R0 · Attention Redirect (Retrieval Intact): \(traceAck)Look closely at what the prompt gives you — what stays equal before and after the change?\(focus)"
+            return "\(traceAck)Look closely at what the prompt gives you — what stays equal before and after the change?\(focus)"
         case .r1PatternRedescription:
-            return "R1 · Pattern Redescription (Retrieval Intact): Picture this as a Singapore bar model or geometric area box: \(question.fadedPrompt)"
+            return "Picture this as a Singapore bar model or geometric area box: \(question.fadedPrompt)"
         case .r2CandidateClass:
-            return "R2 · Candidate Class (Retrieval Intact): This problem belongs to the Topic \(question.topicCode) invariant family (Living World Ch \(question.linkedChapter)). Ask yourself which conservation law links the known units to the unknown."
+            let target = question.answerPartsPhrase ?? "answer"
+            guard let topic else {
+                return "Which topic in this chapter is this question from? Name it before you start on the \(target)."
+            }
+            return "This question is from topic \(topic.code), \(topic.title). Which idea from that topic gets you the \(target)?"
         case .r3PropositionNamed:
-            return "R3 · Proposition Named (Assisted — Retrieval Surrendered): Apply the proposition connecting \(question.answerPartsPhrase ?? "the core invariant"). Frame: \(question.fadedPrompt)"
+            return "Apply the proposition connecting \(question.answerPartsPhrase ?? "the core invariant"). Frame: \(question.fadedPrompt)"
         case .r4MoveOutlined:
             let firstLine = workedLines.first ?? question.fadedPrompt
-            return "R4 · Move Outlined (Assisted): Set up the first structural move like the worked model: \"\(firstLine)\", then substitute your numbers."
+            return "Set up the first structural move like the worked model: \"\(firstLine)\", then substitute your numbers."
         case .r5WorkedStep:
             let lines = workedLines.prefix(2).joined(separator: " → ")
-            return "R5 · Worked Step (Assisted): Follow the full step sequence: \(lines.isEmpty ? question.workedExample : lines). Target form: \(question.fadedAnswer)."
+            return "Follow the full step sequence: \(lines.isEmpty ? question.workedExample : lines). Target form: \(question.fadedAnswer)."
         }
     }
 }

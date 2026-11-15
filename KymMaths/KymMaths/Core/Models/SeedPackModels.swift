@@ -257,6 +257,11 @@ struct SchoolMathsTextbook: Codable, Equatable, Sendable {
     let workbookTotalPages: Int
     let units: [SchoolMathsUnit]
 
+    /// The topic with this code ("1.4"), from whichever unit holds it.
+    func topic(code: String) -> SchoolMathsTopic? {
+        units.lazy.flatMap(\.topics).first { $0.code == code }
+    }
+
     func units(for lens: MathsCurriculumLens) -> [SchoolMathsUnit] {
         switch lens {
         case .activeSchoolFocus:

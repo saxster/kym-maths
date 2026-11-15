@@ -629,7 +629,7 @@ struct QuestionProofPracticeView: View {
             .accessibilityHint(item.rung.surrendersRetrieval ? "Counts as help" : "Keeps the proof yours")
 
             if isOpen {
-                Text(MeteredHintLadderEngine.hint(for: question, rung: item.rung, thinkingTrace: thinkingTrace))
+                Text(MeteredHintLadderEngine.hint(for: question, rung: item.rung, topic: questionTopic, thinkingTrace: thinkingTrace))
                     .patternedType(.readingSmall)
                     .foregroundStyle(theme.ink)
                     .fixedSize(horizontal: false, vertical: true)
@@ -787,11 +787,12 @@ struct QuestionProofPracticeView: View {
         }
     }
 
+    private var questionTopic: SchoolMathsTopic? {
+        store.seedPack.schoolTextbook.topic(code: question.topicCode)
+    }
+
     private var whyItWorks: some View {
-        let prompt = ElaborativeInterrogationEngine.makePrompt(
-            for: question.bookSection,
-            singaporeMethodFocus: store.selectedUnit.scienceInContext
-        )
+        let prompt = ElaborativeInterrogationEngine.makePrompt(for: question, topic: questionTopic)
         return VStack(alignment: .leading, spacing: StandardSpacing.xs) {
             Rectangle().fill(theme.hairline()).frame(height: 1)
             Kicker("Why does it work?")
