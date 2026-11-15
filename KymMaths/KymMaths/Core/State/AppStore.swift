@@ -66,7 +66,13 @@ final class AppStore {
     let seedPack: KymMathsSeedPack
 
     // Navigation
-    var activeRoom: AppRoom = .today
+    /// Every assignment opens the room, so on iPhone, where the split view is one column, the column moves
+    /// to the room. Assigning the room that is already active still opens it.
+    var activeRoom: AppRoom = .today {
+        didSet { compactColumn = .detail }
+    }
+    /// The column the collapsed (iPhone) split view shows. Swiping back sets it to `.sidebar`.
+    var compactColumn: NavigationSplitViewColumn = .sidebar
     var selectedUnitNumber: Int = 1
     var selectedTopicCode: String = "1.1"
     var selectedChapterNumber: Int = 0

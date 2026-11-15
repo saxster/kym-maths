@@ -35,9 +35,12 @@ struct KymMathsRootView: View {
     @Bindable var store: AppStore
     @Environment(\.standardTheme) private var theme
     @State private var columns: NavigationSplitViewVisibility = .all
+    #if os(iOS)
+    @Environment(\.horizontalSizeClass) private var sizeClass
+    #endif
 
     var body: some View {
-        NavigationSplitView(columnVisibility: $columns) {
+        NavigationSplitView(columnVisibility: $columns, preferredCompactColumn: $store.compactColumn) {
             PatternedSidebar(store: store)
                 .navigationSplitViewColumnWidth(min: 240, ideal: 264, max: 300)
                 #if os(iOS)
@@ -68,7 +71,9 @@ struct KymMathsRootView: View {
             .background(theme.bg)
             .navigationTitle(store.activeRoom.title)
             #if os(iOS)
-            .toolbar(.hidden, for: .navigationBar)
+            // On iPhone the room is pushed over the list, so it keeps the bar that holds the way back.
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar(sizeClass == .compact ? .visible : .hidden, for: .navigationBar)
             #endif
         }
         .navigationSplitViewStyle(.balanced)
