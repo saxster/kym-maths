@@ -83,6 +83,7 @@
 		573BEEE8E11CF9A1672F2CD4 /* EuclidWorkshopSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6576FADCC848B8C8633A29E3 /* EuclidWorkshopSession.swift */; };
 		5793B7EEE658F57FF0842556 /* PatternedWorldHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C1F14EF6D94BCEE33EDF90 /* PatternedWorldHomeView.swift */; };
 		57F3B95C58378EE3651286B4 /* JournalPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B32A0CA05B54F7C1A6E2BA /* JournalPage.swift */; };
+		58C6761069CAAE738835D921 /* FactSprintSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FDA1744551CF5AE2658224 /* FactSprintSheet.swift */; };
 		59B85F2A47525B52A6F6D3ED /* EuclidSpineMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AE7AF246F68167605FB3BF /* EuclidSpineMapView.swift */; };
 		5C011F130DF76899EF49D0E0 /* ConstructionBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CB984FA6B468824E1E8F9D /* ConstructionBoardTests.swift */; };
 		5DF12A8B80896E38360D8A7D /* KymResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FF023306438E4C7AEEC773 /* KymResources.swift */; };
@@ -183,6 +184,7 @@
 		C4BC27074C231D31AE6F73D0 /* AuditRegressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B917CD3353368098915809A /* AuditRegressionTests.swift */; };
 		C6C15EA3DAD1295429582951 /* ProofStepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AEDCB1D711BD0FC146C531 /* ProofStepsView.swift */; };
 		C8C6DC9D0118F5965D8291FC /* SchoolMathsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA29A7C3025EB034F6E598F8 /* SchoolMathsHomeView.swift */; };
+		C8E3A30D6323AD8334C9484F /* FactSprintSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FDA1744551CF5AE2658224 /* FactSprintSheet.swift */; };
 		CCFDB4CC80F01B8DC8740514 /* LiveMentorVoiceEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CFAB6A642E6B4183DB6DEA /* LiveMentorVoiceEngine.swift */; };
 		CDA638F5B56BD1EF1D820EF0 /* DailyFlowPlayerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5F5F31B2B3C48F14B948C8 /* DailyFlowPlayerSheet.swift */; };
 		CDABC512B8534489E0390C0A /* JournalEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4173B76AB64277E0CBD69473 /* JournalEmptyState.swift */; };
@@ -308,6 +310,7 @@
 		698AC9565B7F84B916956C39 /* SpeedMathAnswerCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedMathAnswerCheck.swift; sourceTree = "<group>"; };
 		6BC8B11130353FC5CF72FBB3 /* LearningEngineCharacterizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningEngineCharacterizationTests.swift; sourceTree = "<group>"; };
 		6C78793C33CEEB8AEFDB87C5 /* PolicyDrivenAIProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyDrivenAIProvider.swift; sourceTree = "<group>"; };
+		72FDA1744551CF5AE2658224 /* FactSprintSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactSprintSheet.swift; sourceTree = "<group>"; };
 		73763B9E1D3039C1E9C4AB5B /* SystemSurfaceSnapshotStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemSurfaceSnapshotStore.swift; sourceTree = "<group>"; };
 		760AE45ED9F0A58C4C599F3C /* EuclidRoundsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuclidRoundsTests.swift; sourceTree = "<group>"; };
 		77DA3B0D277115D6FA1B1AE9 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
@@ -443,6 +446,7 @@
 			isa = PBXGroup;
 			children = (
 				DD5F5F31B2B3C48F14B948C8 /* DailyFlowPlayerSheet.swift */,
+				72FDA1744551CF5AE2658224 /* FactSprintSheet.swift */,
 				A3B8B5B1FBF210293D430BBA /* TodayHomeView.swift */,
 			);
 			path = Today;
@@ -963,6 +967,7 @@
 				573BEEE8E11CF9A1672F2CD4 /* EuclidWorkshopSession.swift in Sources */,
 				38E92E68D62C301FE7A8B531 /* EuclidWorkshopView.swift in Sources */,
 				A1FB65B2B63AC2D632A588B5 /* FactSprint.swift in Sources */,
+				58C6761069CAAE738835D921 /* FactSprintSheet.swift in Sources */,
 				B54DEB70E50DB8FAD160C916 /* Foothold.swift in Sources */,
 				AD8AE15B3BC609C72E55DCBD /* JournalBridges.swift in Sources */,
 				B6DEC981910CB72FEF0EA6F4 /* JournalCard.swift in Sources */,
@@ -1092,6 +1097,7 @@
 				F2CC3A9E66D275597109D8ED /* EuclidWorkshopSession.swift in Sources */,
 				B1D7D6602320996C2DCCAEC1 /* EuclidWorkshopView.swift in Sources */,
 				D0EA9B7C1EDDB222996317BC /* FactSprint.swift in Sources */,
+				C8E3A30D6323AD8334C9484F /* FactSprintSheet.swift in Sources */,
 				FDCC6E848F49F858A0D383F2 /* Foothold.swift in Sources */,
 				3A4A5A39E22E951F70943E36 /* JournalBridges.swift in Sources */,
 				AA8D6F3913BD922370A41CB4 /* JournalCard.swift in Sources */,
