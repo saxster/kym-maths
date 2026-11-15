@@ -310,6 +310,7 @@ struct AnswerText: Sendable {
         text = replace(" squared", "^2", in: text)
         text = replace(" cubed", "^3", in: text)
         text = replace("(?<=[0-9]) ?(cm|mm|km|kg|ml|litres?|liters?|seconds?|secs?|hours?|hrs?|units?)(\\^[0-9])?(?![a-z])", "", in: text)
+        text = replace("(?<=[0-9]) ?x ?(?=[0-9])", "*", in: text)
         text = replace(" +- +", "-", in: text)
         text = replace("(?<=[^ ])- +", "-", in: text)
         text = replace(" *([+*/^=<>≤≥√]) *", "$1", in: text)

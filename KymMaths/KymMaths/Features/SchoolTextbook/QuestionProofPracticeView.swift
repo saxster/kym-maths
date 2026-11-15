@@ -36,6 +36,7 @@ struct QuestionProofPracticeView: View {
     @FocusState private var typingIn: TypingBox?
     @State private var handInGate = HandInGate()
     @State private var openWalkBack: WalkBack?
+    @State private var showStuckSheet = false
 
     /// The boxes whose words are handed in.
     private enum TypingBox: Hashable { case working, answer, thinking }
@@ -115,6 +116,12 @@ struct QuestionProofPracticeView: View {
         .sheet(item: $openWalkBack) { walkBack in
             WalkBackSheet(walkBack: walkBack, store: store)
                 .fittedFormSheet()
+        }
+        .sheet(isPresented: $showStuckSheet) {
+            if let stuck = question.stuck {
+                StuckSheetView(sheet: stuck)
+                    .fittedFormSheet()
+            }
         }
     }
 
@@ -546,6 +553,15 @@ struct QuestionProofPracticeView: View {
                 .standardType(.headlineSm)
                 .foregroundStyle(theme.ink)
                 .accessibilityAddTraits(.isHeader)
+            if question.stuck != nil {
+                Button("Stuck? Try a smaller one first") { showStuckSheet = true }
+                    .buttonStyle(OutlineButtonStyle())
+                Text("Same method, smaller numbers. It does not count as help.")
+                    .standardType(.uiBody)
+                    .foregroundStyle(theme.mute(theme.ink))
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.bottom, StandardSpacing.xs)
+            }
             Text("Each rung tells you a little more. Take only what you need.")
                 .standardType(.uiBody)
                 .foregroundStyle(theme.mute(theme.ink))
@@ -734,6 +750,10 @@ struct QuestionProofPracticeView: View {
                     .patternedType(.readingSmall)
                     .foregroundStyle(theme.mute(theme.ink))
                     .fixedSize(horizontal: false, vertical: true)
+                if walkBack == nil, question.stuck != nil {
+                    Button("Try a smaller one first") { showStuckSheet = true }
+                        .buttonStyle(TextLinkButtonStyle())
+                }
             }
         }
         .paperCard()
