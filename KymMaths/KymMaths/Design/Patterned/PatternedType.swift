@@ -67,6 +67,15 @@ enum PatternedType: CaseIterable, Sendable {
         }
     }
 
+    /// The longest line reading text may run, about 65 characters (33 ems), so a wide iPad or Mac
+    /// column wraps like a book page instead of running 110 characters across. Nil for display styles.
+    var measure: CGFloat? {
+        switch self {
+        case .reading, .readingDefault, .readingSmall, .question: size * 33
+        default: nil
+        }
+    }
+
     var tracking: CGFloat {
         switch self {
         case .chapterDisplay: -1.5
@@ -92,17 +101,20 @@ enum PatternedType: CaseIterable, Sendable {
 
 extension View {
     /// Applies a Patterned text style: face, Dynamic Type size, line height and tracking.
-    func patternedType(_ style: PatternedType) -> some View {
-        modifier(PatternedTypeModifier(style: style))
+    /// `measured: false` is for text inputs, whose box should keep its full width.
+    func patternedType(_ style: PatternedType, measured: Bool = true) -> some View {
+        modifier(PatternedTypeModifier(style: style, measured: measured))
     }
 }
 
 private struct PatternedTypeModifier: ViewModifier {
     let style: PatternedType
+    let measured: Bool
     @ScaledMetric private var size: CGFloat
 
-    init(style: PatternedType) {
+    init(style: PatternedType, measured: Bool) {
         self.style = style
+        self.measured = measured
         _size = ScaledMetric(wrappedValue: style.size, relativeTo: style.textStyle)
     }
 
@@ -113,5 +125,36 @@ private struct PatternedTypeModifier: ViewModifier {
             .tracking(style.tracking)
             .lineSpacing(max(0, (style.lineHeight - style.size * 1.2) * scale))
             .textCase(style == .kicker ? .uppercase : nil)
+            .modifier(MeasureModifier(maxWidth: measured ? style.measure.map { $0 * scale } : nil))
+    }
+}
+
+private struct MeasureModifier: ViewModifier {
+    let maxWidth: CGFloat?
+
+    func body(content: Content) -> some View {
+        if let maxWidth {
+            ReadingMeasure(maxWidth: maxWidth) { content }
+        } else {
+            content
+        }
+    }
+}
+
+/// Offers its text no more than `maxWidth` and reports the text's own size. Unlike
+/// `.frame(maxWidth:)`, it never grows to fill the space, so the parent's alignment still places it.
+private struct ReadingMeasure: Layout {
+    let maxWidth: CGFloat
+
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        subviews.first?.sizeThatFits(narrowed(proposal)) ?? .zero
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        subviews.first?.place(at: bounds.origin, proposal: narrowed(ProposedViewSize(bounds.size)))
+    }
+
+    private func narrowed(_ proposal: ProposedViewSize) -> ProposedViewSize {
+        ProposedViewSize(width: proposal.width.map { min($0, maxWidth) }, height: proposal.height)
     }
 }
