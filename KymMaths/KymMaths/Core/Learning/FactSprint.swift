@@ -121,12 +121,21 @@ struct FactSprintRun: Sendable {
     }
 
     let deck: [Fact]
+    /// Facts still due from earlier sprints. They stay due until she answers them right.
+    let review: [String]
     private(set) var phase: Phase = .ready
     private(set) var right: [Fact] = []
     private(set) var missed: [Fact] = []
 
-    init(deck: [Fact]) {
+    init(deck: [Fact], review: [String] = []) {
         self.deck = deck
+        self.review = review
+    }
+
+    /// What comes first next time: earlier misses she did not reach, then this sprint's misses.
+    var stillDue: [String] {
+        let reached = Set((right + missed).map(\.id))
+        return review.filter { !reached.contains($0) } + missed.map(\.id)
     }
 
     var current: Fact? {

@@ -25,7 +25,8 @@ struct FactSprintSheet: View {
 
     private static func freshRun(_ family: FactFamily, store: AppStore) -> FactSprintRun {
         var rng = SystemRandomNumberGenerator()
-        return FactSprintRun(deck: FactSprintDeck.build(family: family, missedLastTime: store.missedLastTime(family), rng: &rng))
+        let review = store.missedLastTime(family)
+        return FactSprintRun(deck: FactSprintDeck.build(family: family, missedLastTime: review, rng: &rng), review: review)
     }
 
     var body: some View {
@@ -45,11 +46,15 @@ struct FactSprintSheet: View {
             .frame(maxWidth: .infinity)
         }
         .background(theme.bg.ignoresSafeArea())
-        .focusable()
+        .focusable(interactions: .edit)
         .focused($hasKeyboard)
         .focusEffectDisabled()
         .onKeyPress(phases: .down, action: keyPressed)
-        .onAppear { hasKeyboard = true }
+        .task {
+            // Focus asked for before the sheet is on screen is dropped.
+            try? await Task.sleep(for: .milliseconds(300))
+            hasKeyboard = true
+        }
         #if os(macOS)
         .frame(minWidth: 520, minHeight: 680)
         #endif
@@ -291,7 +296,7 @@ struct FactSprintSheet: View {
         switch score - lastTime {
         case 0: "Same as last time"
         case 1...: "\(score - lastTime) more than last time"
-        default: "Last time: \(lastTime)"
+        default: "Last time: \(lastTime) right"
         }
     }
 

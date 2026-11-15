@@ -568,7 +568,7 @@ final class AppStore {
             day: QuestionProofService.dayKey(for: date),
             right: run.right.count,
             wrong: run.missed.count,
-            missed: run.missed.map(\.id),
+            missed: run.stillDue,
             finishedAt: date
         )
         try? db.saveFactSprint(record)

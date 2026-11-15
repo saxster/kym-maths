@@ -175,7 +175,7 @@ struct TodayHomeView: View {
                 Text(score.map { "\($0) right" } ?? "20 s")
                     .standardType(.uiHeadline)
                     .monospacedDigit()
-                    .foregroundStyle(score == nil ? theme.ink : theme.patterned.provenColor)
+                    .foregroundStyle((score ?? 0) > 0 ? theme.patterned.provenColor : theme.ink)
             }
             .padding(.horizontal, StandardSpacing.sm)
             .padding(.vertical, StandardSpacing.xxs)

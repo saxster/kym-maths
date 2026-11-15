@@ -109,6 +109,22 @@ struct FactSprintTests {
         #expect(run.remaining(at: Self.start + 25) == 0)
     }
 
+    @Test("A missed fact stays due until she answers it right, even when time runs out before she reaches it")
+    func missesStayDue() throws {
+        var unreached = FactSprintRun(deck: try ["56 ÷ 7", "13²", "7 × 8"].map(Self.fact), review: ["56 ÷ 7", "13²"])
+        unreached.start(at: Self.start)
+        #expect(unreached.submit(typed: "8", at: Self.start + 1) == .right)
+        unreached.finish()
+        #expect(unreached.stillDue == ["13²"])
+
+        var mixed = FactSprintRun(deck: try ["13²", "7 × 8", "2⁶"].map(Self.fact), review: ["13²"])
+        mixed.start(at: Self.start)
+        #expect(mixed.submit(typed: "196", at: Self.start + 1) == .wrong(try Self.fact("13²")))
+        #expect(mixed.submit(typed: "54", at: Self.start + 2) == .wrong(try Self.fact("7 × 8")))
+        #expect(mixed.submit(typed: "64", at: Self.start + 3) == .right)
+        #expect(mixed.stillDue == ["13²", "7 × 8"])
+    }
+
     @Test("Nothing is counted before the start or after the finish")
     func outsideTheSprintIgnored() throws {
         var run = try Self.run(["7 × 8", "13²"])
