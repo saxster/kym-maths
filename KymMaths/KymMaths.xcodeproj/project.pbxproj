@@ -147,6 +147,7 @@
 		A8828885F3EB84A78CBA3ADE /* MathsJournalHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C90BAC6ED11793D40FD3EC /* MathsJournalHomeView.swift */; };
 		A8CDAA85326E97C004B6072E /* PatternedChapterScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205B2983E86313F2E7077C9D /* PatternedChapterScrollView.swift */; };
 		A99C84FF4C58231E30FC8D17 /* QuestionProofPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B46C98F303914A0F5C6D18 /* QuestionProofPracticeView.swift */; };
+		AA04DCEB57994D8476B30F4C /* EuclidMapLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A258D2B1892D78BFB4821 /* EuclidMapLayoutTests.swift */; };
 		AA1556C625152978738BD916 /* PatternedPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584FCB46592753CCBF781961 /* PatternedPalette.swift */; };
 		AA8D6F3913BD922370A41CB4 /* JournalCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1F5752D44BE7EF4D8BE9D1 /* JournalCard.swift */; };
 		AADBB57C817AEC421460E8E5 /* ContentPacks in Resources */ = {isa = PBXBuildFile; fileRef = FC5E968CEEE19955E9CB2DAE /* ContentPacks */; };
@@ -331,6 +332,7 @@
 		B17A98EFACCCA0873E623412 /* MarkingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkingTests.swift; sourceTree = "<group>"; };
 		B50CCB6369735E9BFC7AB9CE /* WalkBackRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkBackRule.swift; sourceTree = "<group>"; };
 		B635A0E77CE8A08DE0915813 /* PropositionGraphEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropositionGraphEngine.swift; sourceTree = "<group>"; };
+		B92A258D2B1892D78BFB4821 /* EuclidMapLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuclidMapLayoutTests.swift; sourceTree = "<group>"; };
 		B973AA88678041CACAF0C8D8 /* AtlasPolyaPieces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtlasPolyaPieces.swift; sourceTree = "<group>"; };
 		BA29A7C3025EB034F6E598F8 /* SchoolMathsHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolMathsHomeView.swift; sourceTree = "<group>"; };
 		BA3A4BC5EF3D4DA66972985A /* ThemeCharacterizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeCharacterizationTests.swift; sourceTree = "<group>"; };
@@ -544,6 +546,7 @@
 			children = (
 				2B917CD3353368098915809A /* AuditRegressionTests.swift */,
 				D6CB984FA6B468824E1E8F9D /* ConstructionBoardTests.swift */,
+				B92A258D2B1892D78BFB4821 /* EuclidMapLayoutTests.swift */,
 				5869FF14B75D208E85107D94 /* EuclidProgressTests.swift */,
 				760AE45ED9F0A58C4C599F3C /* EuclidRoundsTests.swift */,
 				43D6F93FF6B4E188F4F577B7 /* EuclidSpineTests.swift */,
@@ -1025,6 +1028,7 @@
 			files = (
 				C4BC27074C231D31AE6F73D0 /* AuditRegressionTests.swift in Sources */,
 				5C011F130DF76899EF49D0E0 /* ConstructionBoardTests.swift in Sources */,
+				AA04DCEB57994D8476B30F4C /* EuclidMapLayoutTests.swift in Sources */,
 				18C824C1ACD91D6617630B03 /* EuclidProgressTests.swift in Sources */,
 				1D8439106591858AC955C2FF /* EuclidRoundsTests.swift in Sources */,
 				B03D45860B53981BAD9DE627 /* EuclidSpineTests.swift in Sources */,
