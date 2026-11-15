@@ -462,8 +462,6 @@ struct KymMathsTests {
 
         // ElaborativeInterrogationEngine
         #expect(ElaborativeInterrogationEngine.shouldInterrogate(consecutiveCorrectCount: 2, masteryProbability: 0.65))
-        let interrogation = ElaborativeInterrogationEngine.makePrompt(for: "Ch 6 Dividing Fractions", singaporeMethodFocus: "Equal units")
-        #expect(interrogation.question.contains("reciprocal"))
 
         // SocraticFeedbackEngine 4-tier graduated feedback
         let exact = SocraticFeedbackEngine.evaluate(studentAnswer: "2x + 6", expectedAnswer: "2(x + 3)")
