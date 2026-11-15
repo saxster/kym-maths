@@ -21,6 +21,7 @@ from book import ch00 as book_ch00
 from book import ch01 as book_ch01
 from book import ch02 as book_ch02
 from book import ch03 as book_ch03
+from book import ch04 as book_ch04
 from book import concepts as book_concepts
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -29,7 +30,7 @@ BOOK_OUT = ROOT / "KymMaths" / "KymMaths" / "Resources" / "PatternedWorldBook" /
 GOLDEN_OUT = ROOT / "KymMaths" / "Tests" / "Golden" / "concept-links.json"
 
 # Chapters rewritten by hand to docs/CONTENT_BRIEF.md. The content checks apply to these.
-BOOK_CHAPTERS = (book_ch00, book_ch01, book_ch02, book_ch03)
+BOOK_CHAPTERS = (book_ch00, book_ch01, book_ch02, book_ch03, book_ch04)
 # Saved learner responses key on callout ids, so a rewritten chapter keeps the old ids.
 CALLOUT_ID_SUFFIX = {"predict": "predict", "check": "aha", "careful": "trap"}
 
@@ -262,22 +263,6 @@ def build_volumes():
 
 def build_chapters():
     raw_specs = [
-        (
-            4, 2, "From Bar Models to Algebraic Expressions",
-            "OUP Ch 2 · Expanding brackets, factorising by HCF, quadratics & Difference of Two Squares",
-            "An algebraic bracket a(b + c) is the area of a rectangle of height a and split width b + c.",
-            "Tile a partitioned rectangle of sides (x + a) and (x + b), or snip the corner b² from a square a².",
-            "When you cut a corner square b² from a² and rotate the remaining strip, it forms a single rectangle of length (a + b) and height (a − b)!",
-            "a(b + c) = ab + ac,   (x + a)(x + b) = x² + (a + b)x + ab,   a² − b² = (a − b)(a + b)",
-            [
-                {"symbol": "x²", "visualPart": "Red main square tile (x by x)", "colorRole": "red", "meaning": "Quadratic core area"},
-                {"symbol": "(a + b)x", "visualPart": "Blue flanking rectangles ax and bx", "colorRole": "blue", "meaning": "Linear cross-terms (why (x+a)² ≠ x² + a²!)"},
-                {"symbol": "ab", "visualPart": "Amber corner rectangle (a by b)", "colorRole": "amber", "meaning": "Constant product corner"}
-            ],
-            "maths/ch04-algebra-tiles/index.html",
-            ["Expression", "Term", "Coefficient", "Distributive Law", "Expanding", "Factorising", "Difference of Two Squares"],
-            ["w_algebra_area_tiles", "w_difference_of_squares_slicer"]
-        ),
         (
             5, 2, "The Balance Beam: Equations, Formulae & Inequalities",
             "OUP Ch 7 · Deriving & solving equations, changing the subject of a formula & inequality number lines",
@@ -2494,7 +2479,7 @@ STUCK_SHEETS = {
             stuck_step("Expand 2(2x + 1).",
                        one(forms("4x+2", "2+4x"), accepts=["4x + 2"], rejects=["4x + 1", "2x + 2", "4x"],
                            mistakes=[mistake("expand-first-term-only", forms("4x+1", "1+4x"),
-                                             next_step="Multiply every term inside the bracket, not just the first.",
+                                             next_step="Multiply every term inside the bracket, not only the first.",
                                              examples=["4x + 1"])]),
                        answer="4x + 2", working="2 × 2x = 4x and 2 × 1 = 2, so 4x + 2."),
             stuck_step("Expand −2(x − 4). Keep the sign in front.",
@@ -4861,7 +4846,7 @@ const CH_SLIDERS = {{
   1:  [{{lbl:'First number:',min:6,max:48,step:6,val:24,u:''}}, {{lbl:'Second number:',min:6,max:60,step:6,val:36,u:''}}, {{lbl:'Turns:',min:0,max:2,step:1,val:2,u:''}}],
   2:  [{{lbl:'Repeating digits:',min:9,max:81,step:9,val:36,u:''}}, {{lbl:'Whole number:',min:1,max:5,step:1,val:3,u:''}}, {{lbl:'Bottom of the fraction:',min:2,max:6,step:1,val:4,u:''}}],
   3:  [{{lbl:'Parts for A:',min:1,max:6,step:1,val:3,u:''}}, {{lbl:'Parts for B:',min:2,max:8,step:1,val:5,u:''}}, {{lbl:'Interest rate:',min:4,max:15,step:1,val:8,u:'%'}}],
-  4:  [{{lbl:'Square side x:',min:2,max:6,step:0.5,val:4,u:''}}, {{lbl:'Strip width a:',min:1,max:4,step:0.5,val:2,u:''}}, {{lbl:'Strip height b:',min:1,max:4,step:0.5,val:3,u:''}}],
+  4:  [{{lbl:'Side x:',min:3,max:6,step:1,val:4,u:''}}, {{lbl:'First number:',min:1,max:3,step:1,val:3,u:''}}, {{lbl:'Second number:',min:1,max:3,step:1,val:2,u:''}}],
   5:  [{{lbl:'Left x-coeff a:',min:2,max:6,step:1,val:4,u:'x'}}, {{lbl:'Left const b:',min:1,max:10,step:1,val:3,u:''}}, {{lbl:'Right const d:',min:7,max:25,step:3,val:15,u:''}}],
   6:  [{{lbl:'Stair steps n:',min:3,max:8,step:1,val:6,u:''}}, {{lbl:'First term a₁:',min:1,max:4,step:1,val:1,u:''}}, {{lbl:'Step diff d:',min:1,max:3,step:1,val:1,u:''}}],
   7:  [{{lbl:'Gradient m:',min:-2,max:2.5,step:0.5,val:1.5,u:''}}, {{lbl:'y-Intercept c:',min:-1.5,max:2,step:0.5,val:0.5,u:''}}, {{lbl:'Run step Δx:',min:0.5,max:2,step:0.5,val:1.5,u:''}}],
@@ -5130,23 +5115,29 @@ function drawSandbox() {{
       break;
     }}
     case 4: {{
-      // Ch 4: Area-Array Expansion (x + a)(x + b) = x^2 + (a+b)x + ab
-      const sc = 22, wx = a * sc, wa = b * sc, hb = c * sc, x0 = 56, y0 = 36;
-      ctx.fillStyle = red + '32'; ctx.strokeStyle = red; ctx.lineWidth = 2.2;
-      ctx.fillRect(x0, y0, wx, wx); ctx.strokeRect(x0, y0, wx, wx);
-      ctx.fillStyle = blue + '32'; ctx.strokeStyle = blue;
-      ctx.fillRect(x0 + wx, y0, wa, wx); ctx.strokeRect(x0 + wx, y0, wa, wx);
-      ctx.fillRect(x0, y0 + wx, wx, hb); ctx.strokeRect(x0, y0 + wx, wx, hb);
-      ctx.fillStyle = amber + '38'; ctx.strokeStyle = amber;
-      ctx.fillRect(x0 + wx, y0 + wx, wa, hb); ctx.strokeRect(x0 + wx, y0 + wx, wa, hb);
-      ctx.fillStyle = red; ctx.fillText(`x²=${{(a*a).toFixed(1)}}`, x0 + 10, y0 + wx/2);
-      ctx.fillStyle = blue; ctx.fillText(`ax=${{(a*b).toFixed(1)}}`, x0 + wx + 6, y0 + wx/2);
-      ctx.fillText(`bx=${{(a*c).toFixed(1)}}`, x0 + 10, y0 + wx + hb/2 + 4);
-      ctx.fillStyle = amber; ctx.fillText(`ab=${{(b*c).toFixed(1)}}`, x0 + wx + 6, y0 + wx + hb/2 + 4);
-      const tot = (a + b) * (a + c);
-      ctx.fillStyle = green; ctx.fillText(`(${{a}}+${{b}})(${{a}}+${{c}}) = ${{(a*a).toFixed(1)}} + ${{(a*(b+c)).toFixed(1)}} + ${{(b*c).toFixed(1)}} = ${{tot.toFixed(1)}}`, 285, 110);
-      ctx.fillStyle = ink; ctx.fillText(`Diff of Squares: ${{a}}² − ${{b}}² = (${{a}}−${{b}})(${{a}}+${{b}}) = ${{(a*a - b*b).toFixed(1)}}`, 285, 148);
-      readoutHtml = `(x + a)(x + b) = <b style="color:${{red}}">x² (${{(a*a).toFixed(1)}})</b> + <b style="color:${{blue}}">(a+b)x (${{(a*(b+c)).toFixed(1)}})</b> + <b style="color:${{amber}}">ab (${{(b*c).toFixed(1)}})</b> = <b>${{tot.toFixed(1)}}</b>`;
+      // Ch 4: the rectangle (x + p)(x + q) cut into four pieces, and x² − p² from the same side and first number
+      const x = Math.round(a), p = Math.round(b), q = Math.round(c), u = 16, x0 = 46, y0 = 26;
+      const centre = (text, cx, cy) => ctx.fillText(text, cx - ctx.measureText(text).width / 2, cy + 4);
+      const piece = (px, py, pw, ph, colour, alpha, label) => {{
+        ctx.fillStyle = colour + alpha; ctx.strokeStyle = colour; ctx.lineWidth = 2;
+        ctx.fillRect(px, py, pw, ph); ctx.strokeRect(px, py, pw, ph);
+        ctx.fillStyle = colour; centre(label, px + pw / 2, py + ph / 2);
+      }};
+      const coef = (n) => (n === 1 ? 'x' : `${{n}}x`);
+      piece(x0, y0, x * u, x * u, red, '30', 'x²');
+      piece(x0 + x * u, y0, p * u, x * u, blue, '30', coef(p));
+      piece(x0, y0 + x * u, x * u, q * u, blue, '30', coef(q));
+      piece(x0 + x * u, y0 + x * u, p * u, q * u, amber, '38', `${{p * q}}`);
+      ctx.fillStyle = muted;
+      centre('x', x0 + x * u / 2, y0 - 10); centre(`${{p}}`, x0 + x * u + p * u / 2, y0 - 10);
+      centre('x', x0 - 12, y0 + x * u / 2); centre(`${{q}}`, x0 - 12, y0 + x * u + q * u / 2);
+      const tot = (x + p) * (x + q), dos = x * x - p * p;
+      ctx.fillStyle = green; ctx.fillText(`(x + ${{p}})(x + ${{q}}) = x² + ${{coef(p + q)}} + ${{p * q}}`, 46, 194);
+      ctx.fillStyle = ink; ctx.fillText(`When x = ${{x}}: ${{x + p}} × ${{x + q}} = ${{tot}}`, 46, 212);
+      ctx.fillText(`and ${{x * x}} + ${{p * x}} + ${{q * x}} + ${{p * q}} = ${{tot}}`, 46, 230);
+      ctx.fillStyle = amber; ctx.fillText('Difference of two squares:', 46, 254);
+      ctx.fillText(`${{x}}² − ${{p}}² = ${{x - p}} × ${{x + p}} = ${{dos}}`, 46, 272);
+      readoutHtml = `(x + ${{p}})(x + ${{q}}) = <b style="color:${{red}}">x²</b> + <b style="color:${{blue}}">${{coef(p + q)}}</b> + <b style="color:${{amber}}">${{p * q}}</b> · when x = ${{x}}, the rectangle is ${{x + p}} × ${{x + q}} = <b>${{tot}}</b> · ${{x}}² − ${{p}}² = ${{x - p}} × ${{x + p}} = <b>${{dos}}</b>`;
       break;
     }}
     case 5: {{

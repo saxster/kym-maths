@@ -3262,18 +3262,28 @@
     "text": "A square garden has an area of 49 square metres. How long is each side? Now make the area 2 square metres. How long is each side this time?",
     "exclude": null,
     "linked": [],
-    "links": []
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 23
+      }
+    ]
   },
   {
     "text": "For 49, you need a number that multiplies by itself to give 49. That is 7. For 2, try 1.4. 1.4 × 1.4 = 1.96, which is a little too small. Try 1.5. 1.5 × 1.5 = 2.25, which is too big. The side is somewhere between.",
     "exclude": null,
-    "linked": [],
+    "linked": [
+      "area"
+    ],
     "links": []
   },
   {
     "text": "Zoom in. 1.41 × 1.41 = 1.9881. 1.42 × 1.42 = 2.0164. So the side is between 1.41 and 1.42. Each extra decimal place gets closer to 2. None of them ever lands on it exactly.",
     "exclude": null,
-    "linked": [],
+    "linked": [
+      "area"
+    ],
     "links": [
       {
         "concept": "decimal-place",
@@ -3286,6 +3296,7 @@
     "text": "Could some fraction land on it exactly? Suppose one did, written in its lowest terms. Then top × top would equal 2 × bottom × bottom. That makes top × top even, so top is even. Write top as 2 × something, and the same line shows that bottom is even too. But a fraction in its lowest terms cannot have both parts even. So no fraction works. This argument is more than 2,000 years old.",
     "exclude": null,
     "linked": [
+      "area",
       "decimal-place"
     ],
     "links": [
@@ -3300,6 +3311,7 @@
     "text": "The number that multiplies by itself to give 49 is the square root of 49, written √49 = 7. Numbers that can be written as fractions are called rational. Numbers that cannot, like √2, are called irrational numbers. Their decimals never end and never repeat.",
     "exclude": null,
     "linked": [
+      "area",
       "decimal-place",
       "fraction"
     ],
@@ -3320,6 +3332,7 @@
     "text": "Between which two whole numbers does √50 lie? 7 × 7 = 49 and 8 × 8 = 64. 50 is between 49 and 64, so √50 is between 7 and 8. It is only a little above 7, because 50 is only a little above 49.",
     "exclude": null,
     "linked": [
+      "area",
       "decimal-place",
       "fraction",
       "irrational-number",
@@ -3331,6 +3344,7 @@
     "text": "√16 is 4, not 8. Halving is tempting because it also makes a number smaller. Check by multiplying back: 4 × 4 = 16, but 8 × 8 = 64.",
     "exclude": null,
     "linked": [
+      "area",
       "decimal-place",
       "fraction",
       "irrational-number",
@@ -3342,6 +3356,7 @@
     "text": "√30 lies between two whole numbers. What is the smaller one?",
     "exclude": null,
     "linked": [
+      "area",
       "decimal-place",
       "fraction",
       "irrational-number",
@@ -3353,6 +3368,7 @@
     "text": "A square root asks what number times itself gives this one, and most of the answers cannot be written as fractions.",
     "exclude": null,
     "linked": [
+      "area",
       "decimal-place",
       "fraction",
       "irrational-number",
@@ -4549,24 +4565,36 @@
     "text": "A floor tile is 0.3 m long and 0.2 m wide. Is its area 0.6 square metres, or 0.06?",
     "exclude": null,
     "linked": [],
-    "links": []
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 50
+      }
+    ]
   },
   {
     "text": "0.3 is 3 tenths and 0.2 is 2 tenths. 3 × 2 = 6. But tenths times tenths are hundredths, so the area is 6 hundredths. That is 0.06 square metres, ten times smaller than 0.6.",
     "exclude": null,
-    "linked": [],
+    "linked": [
+      "area"
+    ],
     "links": []
   },
   {
     "text": "Draw a square 1 m by 1 m and cut it into a 10 by 10 grid. That makes 100 small squares. The tile reaches 3 squares one way and 2 the other. It covers 6 small squares out of 100.",
     "exclude": null,
-    "linked": [],
+    "linked": [
+      "area"
+    ],
     "links": []
   },
   {
     "text": "As fractions, 0.3 × 0.2 is 3/10 × 2/10. Multiply the numerators to get 6. Multiply the denominators to get 100. The answer is 6/100. Each digit after a decimal point brings one more division by 10 into the answer.",
     "exclude": null,
-    "linked": [],
+    "linked": [
+      "area"
+    ],
     "links": [
       {
         "concept": "fraction",
@@ -4584,6 +4612,7 @@
     "text": "The positions after the decimal point are called decimal places. 0.3 has one decimal place and 0.06 has two. To multiply decimals, multiply them as whole numbers first. Then give the answer as many decimal places as the two numbers had between them.",
     "exclude": null,
     "linked": [
+      "area",
       "fraction",
       "numerator-denominator"
     ],
@@ -4599,6 +4628,7 @@
     "text": "Work out 4.5 ÷ 0.15. Dividing by a decimal is awkward, so change the question. Multiply both numbers by 100 to get 450 ÷ 15. The answer does not change, for the same reason that equivalent fractions are equal. 45 ÷ 15 = 3, so 450 ÷ 15 = 30. Check: 30 × 0.15 = 4.5.",
     "exclude": null,
     "linked": [
+      "area",
       "decimal-place",
       "fraction",
       "numerator-denominator"
@@ -4615,6 +4645,7 @@
     "text": "Multiplying does not always make a number bigger. 8 × 0.5 = 4, because 0.5 of something is half of it. And dividing by a number less than 1 makes it bigger: 8 ÷ 0.5 = 16. Ask how many halves fit into 8.",
     "exclude": null,
     "linked": [
+      "area",
       "decimal-place",
       "equivalent-fractions",
       "fraction",
@@ -4626,6 +4657,7 @@
     "text": "Work out 0.4 × 0.06.",
     "exclude": null,
     "linked": [
+      "area",
       "decimal-place",
       "equivalent-fractions",
       "fraction",
@@ -4637,6 +4669,7 @@
     "text": "Multiply decimals as whole numbers and then place the point. To divide by a decimal, scale both numbers until you divide by a whole number.",
     "exclude": null,
     "linked": [
+      "area",
       "decimal-place",
       "equivalent-fractions",
       "fraction",
@@ -6281,6 +6314,1563 @@
     "links": []
   },
   {
+    "text": "Brackets and factorising",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "factorising",
+        "text": "factorising",
+        "offset": 13
+      }
+    ]
+  },
+  {
+    "text": "School book chapter 2 · Letters for numbers, multiplying out brackets, and putting them back",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "expanding-brackets",
+        "text": "multiplying out",
+        "offset": 45
+      }
+    ]
+  },
+  {
+    "text": "A square tile of side x grows by 3 cm along each edge. Why is its new area not x² + 9?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 70
+      }
+    ]
+  },
+  {
+    "text": "Writing, multiplying out and factorising expressions",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "expanding-brackets",
+        "text": "multiplying out",
+        "offset": 9
+      },
+      {
+        "concept": "factorising",
+        "text": "factorising",
+        "offset": 29
+      },
+      {
+        "concept": "expression",
+        "text": "expressions",
+        "offset": 41
+      }
+    ]
+  },
+  {
+    "text": "With no calculator: multiply out 3(2x − 5). Factorise 12y + 18. Work out 41² − 39².",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "expanding-brackets",
+        "text": "multiply out",
+        "offset": 20
+      },
+      {
+        "concept": "factorising",
+        "text": "Factorise",
+        "offset": 44
+      }
+    ]
+  },
+  {
+    "text": "6x − 15. 6(2y + 3). 160.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A letter lets one line of working stand for every case at once. Moving between brackets and separate terms is the main tool in all the algebra that follows.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 1: the HCF, and powers such as 3² and x²",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 15
+      },
+      {
+        "concept": "power",
+        "text": "powers",
+        "offset": 24
+      }
+    ]
+  },
+  {
+    "text": "Multiplying and adding negative numbers",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "negative-number",
+        "text": "negative numbers",
+        "offset": 23
+      }
+    ]
+  },
+  {
+    "text": "The area of a rectangle is its length × its width",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "Chapter 5: finding the number a letter stands for",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 6: one rule that gives any number in a list",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 7: drawing the straight line for a rule such as y = 2x + 1",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the side to 4, the first number to 3 and the second number to 2. The rectangle is 7 wide and 6 tall, and it is cut into four pieces.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The pieces hold 16, 12, 8 and 6, which add up to 42, and 7 × 6 = 42. Write x for the side and the pieces are x², 3x, 2x and 6, whatever x is.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "a(b + c) = ab + ac,   (x + a)(x + b) = x² + (a + b)x + ab,   a² − b² = (a − b)(a + b)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "x²",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The red square",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The square of side x",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "ax and bx",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The two blue strips",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The strips of width a and height b along the square's sides",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "ab",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The amber corner",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The small corner, a wide and b tall",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "(a + b)x",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The green line",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The two strips added together",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "4.1 Letters for numbers",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "4.2 Putting numbers in",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "4.3 Tidying up",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "4.4 Multiplying out a bracket",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "expanding-brackets",
+        "text": "Multiplying out",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "4.5 Putting the bracket back",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "4.6 Two brackets",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "4.7 A square with a corner cut off",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Predict first",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Before you touch the figure, predict: is (x + 3)² the same as x² + 9? Then set both numbers to 3 and count the pieces.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Explain it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Explain to a friend why 3(x + 4) is 3x + 12 and not 3x + 4. Draw the rectangle to show it.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Test with a number",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "After you expand or factorise, put a small number such as x = 2 into both forms. If the two answers differ, there is a slip somewhere.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "expanding-brackets",
+        "text": "expand",
+        "offset": 10
+      },
+      {
+        "concept": "factorising",
+        "text": "factorise",
+        "offset": 20
+      }
+    ]
+  },
+  {
+    "text": "Area",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "Area",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Variable",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "variable",
+        "text": "Variable",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Expression",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "expression",
+        "text": "Expression",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Substitution",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "substitution",
+        "text": "Substitution",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Term",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Coefficient",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "coefficient",
+        "text": "Coefficient",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Like terms",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "like-terms",
+        "text": "Like terms",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Expanding brackets",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "expanding-brackets",
+        "text": "Expanding brackets",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Factorising",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "factorising",
+        "text": "Factorising",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Quadratic expression",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "quadratic-expression",
+        "text": "Quadratic expression",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Difference of two squares",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "difference-of-two-squares",
+        "text": "Difference of two squares",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Squaring a bracket",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Rohan and Priya each multiply out (x + 5)².",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "expanding-brackets",
+        "text": "multiply out",
+        "offset": 21
+      }
+    ]
+  },
+  {
+    "text": "Rohan",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Square each part. (x + 5)² = x² + 25.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Priya",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "(x + 5)² is (x + 5)(x + 5), which is x² + 10x + 25.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Rohan is right (x² + 25)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A square of a bracket is the square of each part.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Try x = 1. (1 + 5)² = 36, but 1 + 25 = 26. Draw the square of side x + 5. What fills the two strips beside the x² piece?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Priya is right (x² + 10x + 25)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Each term of one bracket multiplies each term of the other.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Yes. The two strips are 5x each, so together they add 10x. Check with x = 1: 1 + 10 + 25 = 36, and 6² = 36.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Neither. It is 2x + 10.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Squaring means doubling.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Squaring means multiplying a number by itself, not by 2. When x = 1, (x + 5)² is 36, but 2x + 10 is only 12.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A squared bracket is two brackets multiplied: (a + b)² = a² + 2ab + b².",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Two brackets as a rectangle",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the side to 5, the first number to 2 and the second number to 3. Predict the area of each of the four pieces. Then read the rectangle.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 81
+      }
+    ]
+  },
+  {
+    "text": "The red square is 5 by 5, so it holds 25. The blue strips hold 2 × 5 = 10 and 3 × 5 = 15. The amber corner holds 2 × 3 = 6. Together that is 56, and 7 × 8 = 56.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The rule: (x + a)(x + b) = x² + (a + b)x + ab",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "1. Try it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the side to 4, the first number to 3 and the second number to 2.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2. Notice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The red square is x², the blue strips are 3x and 2x, and the amber corner is 6.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3. Match the rule",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3x and 2x are like terms, so they join to make 5x. The green line reads x² + 5x + 6.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "like-terms",
+        "text": "like terms",
+        "offset": 14
+      }
+    ]
+  },
+  {
+    "text": "4. Push it further",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set both numbers to 3. The two strips are the same size now. What is (x + 3)² multiplied out?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "5. Draw it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw the rectangle for (x + 2)(x + 1) in your journal and write the area in each piece.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 68
+      }
+    ]
+  },
+  {
+    "text": "A square with a corner cut away",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the side to 6 and the first number to 2. Predict 6² − 2² before you read the amber lines.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "6² − 2² = 36 − 4 = 32. The amber lines show the same number as 4 × 8, which is (6 − 2) × (6 + 2).",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The rule: a² − b² = (a − b)(a + b)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "1. Try it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the side to 5 and the first number to 3. The amber lines show 5² − 3².",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2. Notice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "25 − 9 = 16, and the amber lines give 2 × 8, which is also 16.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3. Match the rule",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2 is the side take away 3, and 8 is the side add 3. So 5² − 3² = (5 − 3)(5 + 3).",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "4. Push it further",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the side to 3 and the first number to 3. Predict the answer, and say why.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "5. Draw it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw a 5 by 5 square, cut a 3 by 3 corner from it, and lay the rest out as a 2 by 8 rectangle.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 4 · Multiplying out a bracket",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "expanding-brackets",
+        "text": "Multiplying out",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Why does the number outside a bracket multiply every term inside?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A bracket is one amount, so 4(x + 3) means four lots of x + 3. Four lots hold four x's and four 3s, which is 4x + 12.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The rule: a(b + c) = ab + ac",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A square tile of side x grows by 3 cm along each edge. Why is its new area not x² + 9?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 70
+      }
+    ]
+  },
+  {
+    "text": "Chapter 4 · Two brackets",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why does (x + 3)(x + 2) have four pieces?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Each bracket is one side of a rectangle, cut into two lengths. Two lengths along the top and two down the side make four pieces. They are x², 3x, 2x and 6, and the two strips join to make 5x.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The rule: (x + a)(x + b) = x² + (a + b)x + ab",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A square tile of side x grows by 3 cm along each edge. Why is its new area not x² + 9?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 70
+      }
+    ]
+  },
+  {
+    "text": "Chapter 4 · The corner cut away",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why is 53² − 47² the same as 6 × 100?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Cut a 47 by 47 square from the corner of a 53 by 53 square. The L-shape left over rearranges into a rectangle 6 wide and 100 long.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The rule: a² − b² = (a − b)(a + b)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A square tile of side x grows by 3 cm along each edge. Why is its new area not x² + 9?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 70
+      }
+    ]
+  },
+  {
+    "text": "Why (a + b)² is not a² + b²",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw a square of side a + b. Mark a and b along the top and down the side, and cut it into four pieces.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "There are the corner squares a² and b², and also two strips of area ab. Leave out the 2ab and the square has two gaps.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 63
+      }
+    ]
+  },
+  {
+    "text": "(a + b)² = a² + 2ab + b²",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "At the school canteen a samosa costs ₹15 and a cup of chai costs ₹10. Kym buys 3 samosas and 2 chais, and Aarav buys 5 samosas and 1 chai. Is there one rule that prices every order?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Every bill is worked out the same way. Kym pays 3 × ₹15 + 2 × ₹10 = ₹65. Aarav pays 5 × ₹15 + 1 × ₹10 = ₹85. Only the two counts change from one order to the next.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Make a table with a column for samosas, a column for chais and a column for the bill. Each row is one order. The ₹15 and the ₹10 sit in every row. The counts are the only boxes that change.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why use a letter? Write s for the number of samosas and c for the number of chais. Then every bill is 15 × s + 10 × c rupees. One line of maths now stands for every row of the table, even orders nobody has placed yet.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A letter that stands for a number that can change is called a variable. Here s and c are variables. Numbers, variables and signs joined into a rule, such as 15s + 10c, make an expression. We write 15s for 15 × s and leave out the × sign. An expression has no = sign.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "variable",
+        "text": "variable",
+        "offset": 62
+      },
+      {
+        "concept": "expression",
+        "text": "expression",
+        "offset": 176
+      }
+    ]
+  },
+  {
+    "text": "Pens cost ₹12 each and notebooks cost ₹30 each. An order of p pens and n notebooks costs 12p + 30n rupees. For 4 pens and 2 notebooks, that is 12 × 4 + 30 × 2 = 48 + 60 = ₹108.",
+    "exclude": null,
+    "linked": [
+      "expression",
+      "variable"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to read 15s as two digits side by side, the way 15 and 2 make 152. In algebra, a number written next to a letter is multiplied by it. If s = 2, then 15s is 30. A second trap is to think s means samosa. It means the number of samosas.",
+    "exclude": null,
+    "linked": [
+      "expression",
+      "variable"
+    ],
+    "links": []
+  },
+  {
+    "text": "A bus ticket costs ₹20 for an adult and ₹10 for a child. Write an expression for the cost, in rupees, of a adults and k children.",
+    "exclude": null,
+    "linked": [
+      "expression",
+      "variable"
+    ],
+    "links": []
+  },
+  {
+    "text": "A variable stands for a number that can change, and an expression is a rule built from it.",
+    "exclude": null,
+    "linked": [
+      "expression",
+      "variable"
+    ],
+    "links": []
+  },
+  {
+    "text": "The canteen bill for s samosas and c chais is 15s + 10c rupees. What does Meera pay for 4 samosas and 3 chais?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Put 4 where the s is and 3 where the c is. Then 15s + 10c becomes 15 × 4 + 10 × 3. That is 60 + 30, so Meera pays ₹90.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Think of each letter as an empty box. Write the bill as 15 × ( ) + 10 × ( ). Then drop each number into its own box and work out the sum.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why keep the boxes as brackets? A letter stands for its whole number, sign and all. So when t = −3, t² means (−3) × (−3), which is 9. Without the bracket, −3² reads as −(3 × 3), which is −9.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Putting numbers in place of the letters is called substitution. Write each number in a bracket as you substitute it. Then work in the usual order: brackets, powers, × and ÷, and last of all + and −.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "substitution",
+        "text": "substitution",
+        "offset": 50
+      },
+      {
+        "concept": "power",
+        "text": "powers",
+        "offset": 157
+      }
+    ]
+  },
+  {
+    "text": "Find 3x² − 2y when x = −2 and y = 5. Write it with brackets: 3 × (−2)² − 2 × (5). The power comes first: (−2)² = 4. So the value is 3 × 4 − 10 = 12 − 10 = 2.",
+    "exclude": null,
+    "linked": [
+      "power",
+      "substitution"
+    ],
+    "links": []
+  },
+  {
+    "text": "One slip is to square only the 2 and keep the minus outside, which gives 3 × (−4) − 10 = −22. Another is to work out 3 × (−2) first and then square it, which gives 36 − 10 = 26. Powers come before multiplying.",
+    "exclude": null,
+    "linked": [
+      "power",
+      "substitution"
+    ],
+    "links": []
+  },
+  {
+    "text": "Find the value of a² + 4a when a = −3.",
+    "exclude": null,
+    "linked": [
+      "power",
+      "substitution"
+    ],
+    "links": []
+  },
+  {
+    "text": "Substitute each number in a bracket, then work out powers before you multiply.",
+    "exclude": null,
+    "linked": [
+      "power",
+      "substitution"
+    ],
+    "links": []
+  },
+  {
+    "text": "A pack of pencils costs p rupees and an eraser costs e rupees. On Monday Kym buys 3 packs and 2 erasers. On Friday she buys 4 packs and 1 eraser. Her spending is 3p + 2e + 4p + e. Can it be written in fewer pieces?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The packs can be counted together, and so can the erasers. 3 packs and 4 packs make 7 packs, and 2 erasers and 1 eraser make 3. So her spending is 7p + 3e.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Sort the shopping into two piles. The pencil pile holds 3 packs and then 4, which is 7. The eraser pile holds 2 and then 1, which is 3. A pack and an eraser never share a pile.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why not join 7p and 3e into 10 of something? They count different things. Test it with prices. If p = 20 and e = 5, then 7p + 3e = 140 + 15 = 155. But 10p would be 200 and 10e would be 50.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The parts of an expression joined by + or − are the terms of the expression. In 7p + 3e − 4, the terms are 7p, 3e and −4. The number in front of a letter is its coefficient, so the coefficient of p is 7. Terms with exactly the same letters are like terms. Only like terms can be added together.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "expression",
+        "text": "expression",
+        "offset": 16
+      },
+      {
+        "concept": "term",
+        "text": "terms of the expression",
+        "offset": 52
+      },
+      {
+        "concept": "coefficient",
+        "text": "coefficient",
+        "offset": 161
+      },
+      {
+        "concept": "like-terms",
+        "text": "like terms",
+        "offset": 244
+      }
+    ]
+  },
+  {
+    "text": "Simplify 5a + 3b − 2a + b. The a terms are 5a and −2a, which make 3a. The b terms are 3b and b, and b on its own has coefficient 1. They make 4b. So 5a + 3b − 2a + b = 3a + 4b.",
+    "exclude": null,
+    "linked": [
+      "coefficient",
+      "expression",
+      "like-terms",
+      "term"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting step is to add every number and write 7ab. But a and b count different things. Watch the signs too: the minus in −2a belongs to that term, so 2a is taken away. And x and x² are not alike. When x = 3, x is 3 but x² is 9.",
+    "exclude": null,
+    "linked": [
+      "coefficient",
+      "expression",
+      "like-terms",
+      "term"
+    ],
+    "links": []
+  },
+  {
+    "text": "Simplify 6x + 2y − x + 5y.",
+    "exclude": null,
+    "linked": [
+      "coefficient",
+      "expression",
+      "like-terms",
+      "term"
+    ],
+    "links": []
+  },
+  {
+    "text": "Only like terms can be added, so collect each letter's terms on their own.",
+    "exclude": null,
+    "linked": [
+      "coefficient",
+      "expression",
+      "like-terms",
+      "term"
+    ],
+    "links": []
+  },
+  {
+    "text": "A school orders 4 kits. Each kit holds a geometry box at ₹65 and a ruler at ₹15. Kym works out 4 × 80. Aarav works out 4 × 65 + 4 × 15. Who is right?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Both are. Kym gets 4 × ₹80 = ₹320, and Aarav gets ₹260 + ₹60 = ₹320. Four kits hold four boxes and four rulers, so you can count whole kits or count the pieces.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw a rectangle 4 squares tall and 80 squares long. Its area is 4 × 80. Draw a line down it 65 squares from the left. The two pieces have areas 4 × 65 and 4 × 15, and together they fill the rectangle.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 57
+      }
+    ]
+  },
+  {
+    "text": "The same cut works when one length is a letter. 4(x + 3) means 4 × (x + 3). A rectangle 4 tall and x + 3 long splits into a piece 4 by x and a piece 4 by 3. So 4(x + 3) = 4x + 12, whatever number x stands for.",
+    "exclude": null,
+    "linked": [
+      "area"
+    ],
+    "links": []
+  },
+  {
+    "text": "Writing 4(x + 3) as 4x + 12 is called expanding brackets, or multiplying out. The number outside multiplies every term inside the bracket. It works for a minus sign too: 5(2y − 1) = 10y − 5.",
+    "exclude": null,
+    "linked": [
+      "area"
+    ],
+    "links": [
+      {
+        "concept": "expanding-brackets",
+        "text": "expanding brackets",
+        "offset": 38
+      }
+    ]
+  },
+  {
+    "text": "Expand and simplify 3(2x + 5) − 2(x − 4). The first bracket gives 6x + 15. The second has −2 outside, so it gives −2x + 8, because −2 × −4 = +8. Collect like terms: 6x − 2x = 4x and 15 + 8 = 23. The answer is 4x + 23.",
+    "exclude": null,
+    "linked": [
+      "area",
+      "expanding-brackets"
+    ],
+    "links": [
+      {
+        "concept": "like-terms",
+        "text": "like terms",
+        "offset": 153
+      }
+    ]
+  },
+  {
+    "text": "The common slip is to multiply only the first term, so 3(2x + 5) becomes 6x + 5. The rectangle shows why that is wrong: the strip for the 5 is 3 rows tall as well. The other slip is a sign. −2(x − 4) is −2x + 8, not −2x − 8.",
+    "exclude": null,
+    "linked": [
+      "area",
+      "expanding-brackets",
+      "like-terms"
+    ],
+    "links": []
+  },
+  {
+    "text": "Expand and simplify 4(2x + 3) + 3(x − 2).",
+    "exclude": null,
+    "linked": [
+      "area",
+      "expanding-brackets",
+      "like-terms"
+    ],
+    "links": []
+  },
+  {
+    "text": "The number outside a bracket multiplies every term inside it, sign and all.",
+    "exclude": null,
+    "linked": [
+      "area",
+      "expanding-brackets",
+      "like-terms"
+    ],
+    "links": []
+  },
+  {
+    "text": "A tiled floor is 6 tiles wide and holds 42 tiles, so it is 7 tiles long. Another floor is also 6 tiles wide, and it holds 12x + 18 tiles. How long is that floor?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Run the last section backwards. 12x is 6 × 2x, and 18 is 6 × 3. So 12x + 18 = 6(2x + 3), and the floor is 2x + 3 tiles long.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw the rectangle with its side of 6 marked. Cut it into two pieces with areas 12x and 18. Each piece is 6 tall, so their lengths are 2x and 3. The whole length is 2x + 3.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "areas",
+        "offset": 74
+      }
+    ]
+  },
+  {
+    "text": "Why take out 6 and not 2? Both 2 and 3 divide each term too. But 12x + 18 = 2(6x + 9), and 6x and 9 still share a 3. Taking out the highest common factor leaves nothing more to take out.",
+    "exclude": null,
+    "linked": [
+      "area"
+    ],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "highest common factor",
+        "offset": 132
+      }
+    ]
+  },
+  {
+    "text": "Writing an expression as a number or letter times a bracket is called factorising. Find the HCF of the terms, write it outside a bracket, and divide each term by it. A letter can be part of the HCF too: 5x² + 15x = 5x(x + 3).",
+    "exclude": null,
+    "linked": [
+      "area",
+      "hcf"
+    ],
+    "links": [
+      {
+        "concept": "expression",
+        "text": "expression",
+        "offset": 11
+      },
+      {
+        "concept": "factorising",
+        "text": "factorising",
+        "offset": 70
+      }
+    ]
+  },
+  {
+    "text": "Factorise 20p²q + 8pq. The HCF of 20 and 8 is 4. Both terms have at least one p and one q. So the HCF of the terms is 4pq. 20p²q ÷ 4pq = 5p and 8pq ÷ 4pq = 2. The answer is 4pq(5p + 2). Check by expanding: 4pq × 5p = 20p²q.",
+    "exclude": null,
+    "linked": [
+      "area",
+      "expression",
+      "factorising",
+      "hcf"
+    ],
+    "links": [
+      {
+        "concept": "expanding-brackets",
+        "text": "expanding",
+        "offset": 195
+      }
+    ]
+  },
+  {
+    "text": "The usual slip is to stop too soon. 20p²q + 8pq = 2p(10pq + 4q) is true, but 2 and q are still common to both terms in the bracket. Another slip is to lose a term. When a whole term is the HCF, it leaves 1 behind: 3x + 3 = 3(x + 1).",
+    "exclude": null,
+    "linked": [
+      "area",
+      "expanding-brackets",
+      "expression",
+      "factorising",
+      "hcf"
+    ],
+    "links": []
+  },
+  {
+    "text": "Factorise 14y − 21.",
+    "exclude": null,
+    "linked": [
+      "area",
+      "expanding-brackets",
+      "expression",
+      "factorising",
+      "hcf"
+    ],
+    "links": []
+  },
+  {
+    "text": "To factorise, take the HCF outside a bracket, then check by expanding.",
+    "exclude": null,
+    "linked": [
+      "area",
+      "expanding-brackets",
+      "expression",
+      "factorising",
+      "hcf"
+    ],
+    "links": []
+  },
+  {
+    "text": "A square photo is 6 cm by 6 cm. A border makes it 3 cm longer and 2 cm taller, so it is 9 cm by 8 cm. Kym says the new area is 6 × 6 + 3 × 2 = 42 cm². Is she right?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 119
+      }
+    ]
+  },
+  {
+    "text": "No. The new photo is 9 cm by 8 cm, so its area is 72 cm². Kym counted the old photo and the small corner, but she left out two strips. One strip is 3 by 6 and the other is 6 by 2.",
+    "exclude": null,
+    "linked": [
+      "area"
+    ],
+    "links": []
+  },
+  {
+    "text": "Draw the 9 by 8 rectangle and cut it into four pieces. They hold 6 × 6 = 36, 3 × 6 = 18, 6 × 2 = 12 and 3 × 2 = 6, which make 72. In the figure, set the side to 6, the first number to 3 and the second number to 2.",
+    "exclude": null,
+    "linked": [
+      "area"
+    ],
+    "links": []
+  },
+  {
+    "text": "Now let the side of the square be x. The four pieces are x², 3x, 2x and 6. So (x + 3)(x + 2) = x² + 3x + 2x + 6, which is x² + 5x + 6. Each part of one bracket multiplies each part of the other.",
+    "exclude": null,
+    "linked": [
+      "area"
+    ],
+    "links": []
+  },
+  {
+    "text": "An expression like x² + 5x + 6, whose highest power of x is x², is called a quadratic expression. To expand two brackets, multiply each term of one by each term of the other. That makes four products, and the middle two are like terms.",
+    "exclude": null,
+    "linked": [
+      "area"
+    ],
+    "links": [
+      {
+        "concept": "expression",
+        "text": "expression",
+        "offset": 3
+      },
+      {
+        "concept": "power",
+        "text": "power of",
+        "offset": 46
+      },
+      {
+        "concept": "quadratic-expression",
+        "text": "quadratic expression",
+        "offset": 76
+      },
+      {
+        "concept": "expanding-brackets",
+        "text": "expand",
+        "offset": 101
+      },
+      {
+        "concept": "like-terms",
+        "text": "like terms",
+        "offset": 224
+      }
+    ]
+  },
+  {
+    "text": "Expand (x + 5)(x − 2). Draw a grid with x and 5 along the top and x and −2 down the side. The four boxes hold x², 5x, −2x and −10. The middle pair make 5x − 2x = 3x. So (x + 5)(x − 2) = x² + 3x − 10.",
+    "exclude": null,
+    "linked": [
+      "area",
+      "expanding-brackets",
+      "expression",
+      "like-terms",
+      "power",
+      "quadratic-expression"
+    ],
+    "links": []
+  },
+  {
+    "text": "The famous trap is to write (x + 3)² as x² + 9. But (x + 3)² is (x + 3)(x + 3), and the square has two strips of 3x as well as its corners. So it is x² + 6x + 9. In the figure, set both numbers to 3 and look at the two blue strips. Test with x = 4: 7² = 49, and 16 + 24 + 9 = 49.",
+    "exclude": null,
+    "linked": [
+      "area",
+      "expanding-brackets",
+      "expression",
+      "like-terms",
+      "power",
+      "quadratic-expression"
+    ],
+    "links": []
+  },
+  {
+    "text": "Expand and simplify (x + 4)(x + 6).",
+    "exclude": null,
+    "linked": [
+      "area",
+      "expanding-brackets",
+      "expression",
+      "like-terms",
+      "power",
+      "quadratic-expression"
+    ],
+    "links": []
+  },
+  {
+    "text": "Multiply each term in one bracket by each term in the other, then collect the like terms.",
+    "exclude": null,
+    "linked": [
+      "area",
+      "expanding-brackets",
+      "expression",
+      "like-terms",
+      "power",
+      "quadratic-expression"
+    ],
+    "links": []
+  },
+  {
+    "text": "Work out 53² − 47² with no calculator. Squaring both numbers takes a long time. Is there a quicker way?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Try smaller numbers first. 5² − 3² = 25 − 9 = 16, and (5 − 3) × (5 + 3) = 2 × 8 = 16 as well. 7² − 2² = 49 − 4 = 45, and 5 × 9 = 45. Each time, one square take away the other equals the gap times the total.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw a 5 by 5 square and cut a 3 by 3 square from one corner. The L-shape left over holds 16 small squares. Cut the L into two strips and lay them end to end. They make a rectangle 2 wide and 8 long.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The same cut works for any two numbers. A square of side a with a corner of side b cut away leaves an L-shape. It always rearranges into a rectangle a − b wide and a + b long. So a² − b² = (a − b)(a + b).",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "An expression of the form a² − b² is called the difference of two squares. It factorises as (a − b)(a + b). Expanding shows why: the middle terms −ab and +ab cancel, leaving a² − b².",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "expression",
+        "text": "expression",
+        "offset": 3
+      },
+      {
+        "concept": "difference-of-two-squares",
+        "text": "difference of two squares",
+        "offset": 48
+      },
+      {
+        "concept": "factorising",
+        "text": "factorises",
+        "offset": 78
+      },
+      {
+        "concept": "expanding-brackets",
+        "text": "Expanding",
+        "offset": 108
+      }
+    ]
+  },
+  {
+    "text": "Back to 53² − 47². It is (53 − 47)(53 + 47) = 6 × 100 = 600. The same idea factorises x² − 49, because 49 = 7². So x² − 49 = (x − 7)(x + 7).",
+    "exclude": null,
+    "linked": [
+      "difference-of-two-squares",
+      "expanding-brackets",
+      "expression",
+      "factorising"
+    ],
+    "links": []
+  },
+  {
+    "text": "The trap is to treat a² − b² as (a − b)². Test it: 5² − 3² is 16, but (5 − 3)² is only 4. A second trap is a sum of two squares. x² + 49 does not split this way, because the middle terms would not cancel.",
+    "exclude": null,
+    "linked": [
+      "difference-of-two-squares",
+      "expanding-brackets",
+      "expression",
+      "factorising"
+    ],
+    "links": []
+  },
+  {
+    "text": "Work out 64² − 36² without a calculator.",
+    "exclude": null,
+    "linked": [
+      "difference-of-two-squares",
+      "expanding-brackets",
+      "expression",
+      "factorising"
+    ],
+    "links": []
+  },
+  {
+    "text": "A difference of two squares, a² − b², factorises as (a − b)(a + b).",
+    "exclude": null,
+    "linked": [
+      "difference-of-two-squares",
+      "expanding-brackets",
+      "expression",
+      "factorising"
+    ],
+    "links": []
+  },
+  {
     "text": "Negative number",
     "exclude": "negative-number",
     "linked": [],
@@ -6366,6 +7956,30 @@
         "concept": "power",
         "text": "powers",
         "offset": 41
+      }
+    ]
+  },
+  {
+    "text": "Substitution",
+    "exclude": "negative-number",
+    "linked": [],
+    "links": [
+      {
+        "concept": "substitution",
+        "text": "Substitution",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Expanding brackets",
+    "exclude": "negative-number",
+    "linked": [],
+    "links": [
+      {
+        "concept": "expanding-brackets",
+        "text": "Expanding brackets",
+        "offset": 0
       }
     ]
   },
@@ -6725,6 +8339,18 @@
     ]
   },
   {
+    "text": "Quadratic expression",
+    "exclude": "power",
+    "linked": [],
+    "links": [
+      {
+        "concept": "quadratic-expression",
+        "text": "Quadratic expression",
+        "offset": 0
+      }
+    ]
+  },
+  {
     "text": "Fraction",
     "exclude": "fraction",
     "linked": [],
@@ -7019,6 +8645,102 @@
       {
         "concept": "recurring-decimal",
         "text": "Recurring decimal",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Area",
+    "exclude": "area",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The amount of flat space a shape covers, counted in unit squares.",
+    "exclude": "area",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A classroom floor is laid with square tiles, 8 along and 5 across. It holds 8 × 5 = 40 tiles, so its area is 40 tiles.",
+    "exclude": "area",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A table top is 12 cm by 9 cm. Its area is 12 × 9 = 108 cm². Cut it into a 12 by 5 piece and a 12 by 4 piece, and the areas 60 and 48 still make 108.",
+    "exclude": "area",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Pick a unit square, such as 1 cm by 1 cm.",
+    "exclude": "area",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "For a rectangle, count the squares in one row: that is the length.",
+    "exclude": "area",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Count the rows: that is the width.",
+    "exclude": "area",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Multiply, so the area is length × width, in square units such as cm².",
+    "exclude": "area",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A rug is 7 m long and 3 m wide. What is its area in m²?",
+    "exclude": "area",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "21 m²",
+    "exclude": "area",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "the perimeter",
+    "exclude": "area",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The perimeter is the distance round the edge. The 7 m by 3 m rug has area 21 m² but perimeter 20 m.",
+    "exclude": "area",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 4 · Brackets and factorising",
+    "exclude": "area",
+    "linked": [],
+    "links": [
+      {
+        "concept": "factorising",
+        "text": "factorising",
+        "offset": 25
+      }
+    ]
+  },
+  {
+    "text": "Expanding brackets",
+    "exclude": "area",
+    "linked": [],
+    "links": [
+      {
+        "concept": "expanding-brackets",
+        "text": "Expanding brackets",
         "offset": 0
       }
     ]
@@ -9343,6 +11065,18 @@
       {
         "concept": "simplest-form",
         "text": "Simplest form",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Factorising",
+    "exclude": "hcf",
+    "linked": [],
+    "links": [
+      {
+        "concept": "factorising",
+        "text": "Factorising",
         "offset": 0
       }
     ]
@@ -12002,6 +13736,1142 @@
     ]
   },
   {
+    "text": "Variable",
+    "exclude": "variable",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A letter that stands for a number, which can change from one case to the next.",
+    "exclude": "variable",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A taxi charges ₹12 for each kilometre, so a ride of d km costs 12d rupees. Here d is the variable. It is 3 on a short ride and 20 on a long one.",
+    "exclude": "variable",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A box holds n pencils. Kym has 3 boxes and 5 loose pencils, so she has 3n + 5 pencils. If n = 10, that is 35 pencils.",
+    "exclude": "variable",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Choose a letter and say what number it stands for, with its unit.",
+    "exclude": "variable",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write the rule with the letter in place of the number.",
+    "exclude": "variable",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A number written next to a letter means multiply: 12d means 12 × d.",
+    "exclude": "variable",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "In one problem, the same letter means the same number everywhere.",
+    "exclude": "variable",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A bag of rice weighs w kg. What do 4 bags weigh, in kg, when w = 5?",
+    "exclude": "variable",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "20 kg",
+    "exclude": "variable",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "a label",
+    "exclude": "variable",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "In 12d, the d is the number of kilometres, not the word kilometre. 12d means 12 times that number.",
+    "exclude": "variable",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 4 · Brackets and factorising",
+    "exclude": "variable",
+    "linked": [],
+    "links": [
+      {
+        "concept": "factorising",
+        "text": "factorising",
+        "offset": 25
+      }
+    ]
+  },
+  {
+    "text": "Expression",
+    "exclude": "variable",
+    "linked": [],
+    "links": [
+      {
+        "concept": "expression",
+        "text": "Expression",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Coefficient",
+    "exclude": "variable",
+    "linked": [],
+    "links": [
+      {
+        "concept": "coefficient",
+        "text": "Coefficient",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Expression",
+    "exclude": "expression",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Numbers, letters and signs joined into a rule that stands for a number, with no = sign.",
+    "exclude": "expression",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A cinema ticket costs ₹150 and a tub of popcorn costs ₹80. For t tickets and p tubs the cost is 150t + 80p rupees. That rule is an expression.",
+    "exclude": "expression",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write an expression for 5 less than double a number n. Double n is 2n. Five less than that is 2n − 5.",
+    "exclude": "expression",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Read the words and find the amounts that can change. Give each one a letter.",
+    "exclude": "expression",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Join the parts with +, −, × or ÷ to match the words.",
+    "exclude": "expression",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Leave out the × sign, so 3 × n is written 3n.",
+    "exclude": "expression",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "An expression has no = sign. It has a value once you know the letters.",
+    "exclude": "expression",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write an expression for 7 more than three times a number x.",
+    "exclude": "expression",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3x + 7",
+    "exclude": "expression",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "a statement with an = sign",
+    "exclude": "expression",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2n − 5 is an expression, with a value for every n. 2n − 5 = 9 is a statement, and it is true only when n = 7.",
+    "exclude": "expression",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 4 · Brackets and factorising",
+    "exclude": "expression",
+    "linked": [],
+    "links": [
+      {
+        "concept": "factorising",
+        "text": "factorising",
+        "offset": 25
+      }
+    ]
+  },
+  {
+    "text": "Substitution",
+    "exclude": "expression",
+    "linked": [],
+    "links": [
+      {
+        "concept": "substitution",
+        "text": "Substitution",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Term",
+    "exclude": "expression",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Expanding brackets",
+    "exclude": "expression",
+    "linked": [],
+    "links": [
+      {
+        "concept": "expanding-brackets",
+        "text": "Expanding brackets",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Substitution",
+    "exclude": "substitution",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Putting a number in place of a letter to find the value of an expression.",
+    "exclude": "substitution",
+    "linked": [],
+    "links": [
+      {
+        "concept": "expression",
+        "text": "expression",
+        "offset": 62
+      }
+    ]
+  },
+  {
+    "text": "A taxi fare is 50 + 12d rupees for a ride of d km. For a 10 km ride, put 10 in place of d. The fare is 50 + 12 × 10 = ₹170.",
+    "exclude": "substitution",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find 2x² + 3 when x = −4. Write 2 × (−4)² + 3. (−4)² = 16, so the value is 2 × 16 + 3 = 35.",
+    "exclude": "substitution",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write the expression again with a bracket in place of each letter.",
+    "exclude": "substitution",
+    "linked": [],
+    "links": [
+      {
+        "concept": "expression",
+        "text": "expression",
+        "offset": 10
+      }
+    ]
+  },
+  {
+    "text": "Put each number in its bracket, sign and all.",
+    "exclude": "substitution",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Work out powers first, then × and ÷, then + and −.",
+    "exclude": "substitution",
+    "linked": [],
+    "links": [
+      {
+        "concept": "power",
+        "text": "powers",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "Find the value of 5y − 2 when y = −3.",
+    "exclude": "substitution",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "−17",
+    "exclude": "substitution",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "squaring without a bracket",
+    "exclude": "substitution",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "When x = −4, x² is (−4)² = 16. Writing −4² instead means −(4 × 4), which is −16.",
+    "exclude": "substitution",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 4 · Brackets and factorising",
+    "exclude": "substitution",
+    "linked": [],
+    "links": [
+      {
+        "concept": "factorising",
+        "text": "factorising",
+        "offset": 25
+      }
+    ]
+  },
+  {
+    "text": "Term",
+    "exclude": "term",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "One part of an expression, joined to the rest by a + or − sign.",
+    "exclude": "term",
+    "linked": [],
+    "links": [
+      {
+        "concept": "expression",
+        "text": "expression",
+        "offset": 15
+      }
+    ]
+  },
+  {
+    "text": "A bill of 15s + 10c − 5 rupees has three terms: 15s, 10c and −5. The −5 might be a ₹5 discount.",
+    "exclude": "term",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "How many terms has 2x² − 5x + 3y − 1? Split at the signs to get 2x², −5x, 3y and −1. There are four terms.",
+    "exclude": "term",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Split the expression at each + and − sign that is not inside a bracket.",
+    "exclude": "term",
+    "linked": [],
+    "links": [
+      {
+        "concept": "expression",
+        "text": "expression",
+        "offset": 10
+      }
+    ]
+  },
+  {
+    "text": "Keep each sign with the part after it, so the terms of 4x − 7 are 4x and −7.",
+    "exclude": "term",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A part with no letter, such as −7, is called the constant term.",
+    "exclude": "term",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "One term can hold several letters multiplied together, such as 3ab.",
+    "exclude": "term",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "How many terms has 6x − 2y + 5 − x²?",
+    "exclude": "term",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "4",
+    "exclude": "term",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "a factor of a term",
+    "exclude": "term",
+    "linked": [],
+    "links": [
+      {
+        "concept": "factor",
+        "text": "factor",
+        "offset": 2
+      }
+    ]
+  },
+  {
+    "text": "In 3ab, the 3, the a and the b are multiplied, so 3ab is one term. Terms are joined by + and −, not by ×.",
+    "exclude": "term",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 4 · Brackets and factorising",
+    "exclude": "term",
+    "linked": [],
+    "links": [
+      {
+        "concept": "factorising",
+        "text": "factorising",
+        "offset": 25
+      }
+    ]
+  },
+  {
+    "text": "Coefficient",
+    "exclude": "term",
+    "linked": [],
+    "links": [
+      {
+        "concept": "coefficient",
+        "text": "Coefficient",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Like terms",
+    "exclude": "term",
+    "linked": [],
+    "links": [
+      {
+        "concept": "like-terms",
+        "text": "Like terms",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Coefficient",
+    "exclude": "coefficient",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The number that multiplies the letters in a term.",
+    "exclude": "coefficient",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "In 7p, the 7 says how many p's there are, so 7 is the coefficient of p. In −3x the coefficient is −3, sign included.",
+    "exclude": "coefficient",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "In 5x² − x + 8, the coefficient of x² is 5 and the coefficient of x is −1. The 8 has no letter, so it is the constant term.",
+    "exclude": "coefficient",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find the term that holds the letter you want.",
+    "exclude": "coefficient",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Read the number in front of the letters, with its sign.",
+    "exclude": "coefficient",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "If no number is written, the coefficient is 1, or −1 for a term such as −y.",
+    "exclude": "coefficient",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "What is the coefficient of y in 4x − 9y + 2?",
+    "exclude": "coefficient",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "−9",
+    "exclude": "coefficient",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "the power",
+    "exclude": "coefficient",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "In 3x², the coefficient is 3 and the power is 2. The coefficient multiplies, and the power says how many x's are multiplied together.",
+    "exclude": "coefficient",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 4 · Brackets and factorising",
+    "exclude": "coefficient",
+    "linked": [],
+    "links": [
+      {
+        "concept": "factorising",
+        "text": "factorising",
+        "offset": 25
+      }
+    ]
+  },
+  {
+    "text": "Like terms",
+    "exclude": "coefficient",
+    "linked": [],
+    "links": [
+      {
+        "concept": "like-terms",
+        "text": "Like terms",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Like terms",
+    "exclude": "like-terms",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Terms with exactly the same letters and powers, which can be added into one term.",
+    "exclude": "like-terms",
+    "linked": [],
+    "links": [
+      {
+        "concept": "power",
+        "text": "powers",
+        "offset": 40
+      }
+    ]
+  },
+  {
+    "text": "3 mangoes and 4 mangoes make 7 mangoes, but 3 mangoes and 4 apples stay as they are. So 3m + 4m = 7m, but 3m + 4a cannot be made shorter.",
+    "exclude": "like-terms",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Simplify 4x² + 3x − x² + 5x. The x² terms make 4x² − x² = 3x². The x terms make 3x + 5x = 8x. The answer is 3x² + 8x.",
+    "exclude": "like-terms",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Mark each term with its letters and powers, and keep its sign.",
+    "exclude": "like-terms",
+    "linked": [],
+    "links": [
+      {
+        "concept": "power",
+        "text": "powers",
+        "offset": 36
+      }
+    ]
+  },
+  {
+    "text": "Group the terms whose letters and powers match exactly.",
+    "exclude": "like-terms",
+    "linked": [],
+    "links": [
+      {
+        "concept": "power",
+        "text": "powers",
+        "offset": 34
+      }
+    ]
+  },
+  {
+    "text": "Add the coefficients in each group.",
+    "exclude": "like-terms",
+    "linked": [],
+    "links": [
+      {
+        "concept": "coefficient",
+        "text": "coefficients",
+        "offset": 8
+      }
+    ]
+  },
+  {
+    "text": "Write the groups one after another. Terms with no letter make a group of their own.",
+    "exclude": "like-terms",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Simplify 8a − 3b + 2a + 5b.",
+    "exclude": "like-terms",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "10a + 2b",
+    "exclude": "like-terms",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "x and x²",
+    "exclude": "like-terms",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "x and x² are not like terms. When x = 5, x is 5 but x² is 25, so they count different things.",
+    "exclude": "like-terms",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 4 · Brackets and factorising",
+    "exclude": "like-terms",
+    "linked": [],
+    "links": [
+      {
+        "concept": "factorising",
+        "text": "factorising",
+        "offset": 25
+      }
+    ]
+  },
+  {
+    "text": "Expanding brackets",
+    "exclude": "expanding-brackets",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Multiplying out a bracket, so that the number outside multiplies every term inside.",
+    "exclude": "expanding-brackets",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "5 friends each pay ₹40 for a ticket and ₹20 for snacks. The total is 5 × 40 + 5 × 20 = ₹300, the same as 5 × 60.",
+    "exclude": "expanding-brackets",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Expand −2(3x − 7). −2 × 3x = −6x and −2 × −7 = +14. So −2(3x − 7) = −6x + 14.",
+    "exclude": "expanding-brackets",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Multiply the term outside by the first term inside.",
+    "exclude": "expanding-brackets",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Multiply it by every other term inside, keeping each sign.",
+    "exclude": "expanding-brackets",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A minus sign outside changes the sign of every term inside.",
+    "exclude": "expanding-brackets",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Collect like terms if there are any.",
+    "exclude": "expanding-brackets",
+    "linked": [],
+    "links": [
+      {
+        "concept": "like-terms",
+        "text": "like terms",
+        "offset": 8
+      }
+    ]
+  },
+  {
+    "text": "Expand 6(2x − 5).",
+    "exclude": "expanding-brackets",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "12x − 30",
+    "exclude": "expanding-brackets",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "multiplying only the first term",
+    "exclude": "expanding-brackets",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "6(2x − 5) is not 12x − 5. Six lots of 2x − 5 hold six 2x's and six 5s, so it is 12x − 30.",
+    "exclude": "expanding-brackets",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 4 · Brackets and factorising",
+    "exclude": "expanding-brackets",
+    "linked": [],
+    "links": [
+      {
+        "concept": "factorising",
+        "text": "factorising",
+        "offset": 25
+      }
+    ]
+  },
+  {
+    "text": "Factorising",
+    "exclude": "expanding-brackets",
+    "linked": [],
+    "links": [
+      {
+        "concept": "factorising",
+        "text": "Factorising",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Quadratic expression",
+    "exclude": "expanding-brackets",
+    "linked": [],
+    "links": [
+      {
+        "concept": "quadratic-expression",
+        "text": "Quadratic expression",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Factorising",
+    "exclude": "factorising",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Writing an expression as a product, by taking a common factor outside a bracket.",
+    "exclude": "factorising",
+    "linked": [],
+    "links": [
+      {
+        "concept": "expression",
+        "text": "expression",
+        "offset": 11
+      },
+      {
+        "concept": "hcf",
+        "text": "common factor",
+        "offset": 48
+      }
+    ]
+  },
+  {
+    "text": "₹24 + ₹36 can be paid as 12 lots of ₹2 + ₹3, because 12 divides both. In the same way, 24x + 36 = 12(2x + 3).",
+    "exclude": "factorising",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Factorise 15x² − 10x. The HCF of 15 and 10 is 5, and both terms have an x, so the HCF is 5x. 15x² ÷ 5x = 3x and 10x ÷ 5x = 2. The answer is 5x(3x − 2).",
+    "exclude": "factorising",
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 26
+      }
+    ]
+  },
+  {
+    "text": "Find the HCF of the numbers in every term.",
+    "exclude": "factorising",
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "Find the letters that every term has, with the lowest power of each.",
+    "exclude": "factorising",
+    "linked": [],
+    "links": [
+      {
+        "concept": "power",
+        "text": "power of",
+        "offset": 54
+      }
+    ]
+  },
+  {
+    "text": "Write that HCF outside a bracket.",
+    "exclude": "factorising",
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 11
+      }
+    ]
+  },
+  {
+    "text": "Divide each term by the HCF to fill the bracket, then check by expanding.",
+    "exclude": "factorising",
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 24
+      },
+      {
+        "concept": "expanding-brackets",
+        "text": "expanding",
+        "offset": 63
+      }
+    ]
+  },
+  {
+    "text": "Factorise 8x + 20 completely.",
+    "exclude": "factorising",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "4(2x + 5)",
+    "exclude": "factorising",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Factorising and expanding undo each other. Expanding turns 4(2x + 5) into 8x + 20, and factorising turns it back.",
+    "exclude": "factorising",
+    "linked": [],
+    "links": [
+      {
+        "concept": "expanding-brackets",
+        "text": "expanding",
+        "offset": 16
+      }
+    ]
+  },
+  {
+    "text": "Chapter 4 · Brackets and factorising",
+    "exclude": "factorising",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Difference of two squares",
+    "exclude": "factorising",
+    "linked": [],
+    "links": [
+      {
+        "concept": "difference-of-two-squares",
+        "text": "Difference of two squares",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Quadratic expression",
+    "exclude": "quadratic-expression",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "An expression whose highest power of the letter is 2, such as x² + 5x + 6.",
+    "exclude": "quadratic-expression",
+    "linked": [],
+    "links": [
+      {
+        "concept": "expression",
+        "text": "expression",
+        "offset": 3
+      },
+      {
+        "concept": "power",
+        "text": "power of",
+        "offset": 28
+      }
+    ]
+  },
+  {
+    "text": "A square photo of side x cm, made 3 cm longer and 2 cm taller, has area (x + 3)(x + 2). Multiplied out, that is x² + 5x + 6 square centimetres.",
+    "exclude": "quadratic-expression",
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 67
+      }
+    ]
+  },
+  {
+    "text": "Expand (x − 4)(x + 3). The four products are x², 3x, −4x and −12. The middle pair make −x. So the answer is x² − x − 12.",
+    "exclude": "quadratic-expression",
+    "linked": [],
+    "links": [
+      {
+        "concept": "expanding-brackets",
+        "text": "Expand",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "To expand two brackets, multiply each term of the first by each term of the second.",
+    "exclude": "quadratic-expression",
+    "linked": [],
+    "links": [
+      {
+        "concept": "expanding-brackets",
+        "text": "expand",
+        "offset": 3
+      }
+    ]
+  },
+  {
+    "text": "A grid with one bracket along the top and one down the side keeps the four products in order.",
+    "exclude": "quadratic-expression",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Collect the two middle products, which are like terms.",
+    "exclude": "quadratic-expression",
+    "linked": [],
+    "links": [
+      {
+        "concept": "like-terms",
+        "text": "like terms",
+        "offset": 43
+      }
+    ]
+  },
+  {
+    "text": "Check by putting a small number in for x in both forms.",
+    "exclude": "quadratic-expression",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Expand (x + 2)(x + 7).",
+    "exclude": "quadratic-expression",
+    "linked": [],
+    "links": [
+      {
+        "concept": "expanding-brackets",
+        "text": "Expand",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "x² + 9x + 14",
+    "exclude": "quadratic-expression",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "squaring each part",
+    "exclude": "quadratic-expression",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "(x + 3)² is not x² + 9. Multiply it out as (x + 3)(x + 3), and the two strips give x² + 6x + 9.",
+    "exclude": "quadratic-expression",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 4 · Brackets and factorising",
+    "exclude": "quadratic-expression",
+    "linked": [],
+    "links": [
+      {
+        "concept": "factorising",
+        "text": "factorising",
+        "offset": 25
+      }
+    ]
+  },
+  {
+    "text": "Difference of two squares",
+    "exclude": "quadratic-expression",
+    "linked": [],
+    "links": [
+      {
+        "concept": "difference-of-two-squares",
+        "text": "Difference of two squares",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Difference of two squares",
+    "exclude": "difference-of-two-squares",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "An expression of the form a² − b², which factorises as (a − b)(a + b).",
+    "exclude": "difference-of-two-squares",
+    "linked": [],
+    "links": [
+      {
+        "concept": "expression",
+        "text": "expression",
+        "offset": 3
+      },
+      {
+        "concept": "factorising",
+        "text": "factorises",
+        "offset": 41
+      }
+    ]
+  },
+  {
+    "text": "Cut a 4 by 4 square from the corner of a 6 by 6 square. The 20 small squares left over rearrange into a rectangle 2 wide and 10 long.",
+    "exclude": "difference-of-two-squares",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Factorise 4y² − 9. 4y² is (2y)² and 9 is 3². So 4y² − 9 = (2y − 3)(2y + 3).",
+    "exclude": "difference-of-two-squares",
+    "linked": [],
+    "links": [
+      {
+        "concept": "factorising",
+        "text": "Factorise",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Check that the expression is one square take away another.",
+    "exclude": "difference-of-two-squares",
+    "linked": [],
+    "links": [
+      {
+        "concept": "expression",
+        "text": "expression",
+        "offset": 15
+      }
+    ]
+  },
+  {
+    "text": "Write each square as something squared, so x² − 25 is x² − 5².",
+    "exclude": "difference-of-two-squares",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write the difference times the sum: (x − 5)(x + 5).",
+    "exclude": "difference-of-two-squares",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "With numbers, use it to skip the squaring: 21² − 19² = 2 × 40 = 80.",
+    "exclude": "difference-of-two-squares",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Work out 18² − 12² without a calculator.",
+    "exclude": "difference-of-two-squares",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "180",
+    "exclude": "difference-of-two-squares",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "the square of a difference",
+    "exclude": "difference-of-two-squares",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "a² − b² is not (a − b)². 5² − 3² is 16, but (5 − 3)² is only 4.",
+    "exclude": "difference-of-two-squares",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 4 · Brackets and factorising",
+    "exclude": "difference-of-two-squares",
+    "linked": [],
+    "links": [
+      {
+        "concept": "factorising",
+        "text": "factorising",
+        "offset": 25
+      }
+    ]
+  },
+  {
     "text": "Find the Highest Common Factor (HCF) and Lowest Common Multiple (LCM) of 72 and 120 using prime factorisation, and verify that HCF × LCM = 72 × 120.",
     "exclude": null,
     "linked": [],
@@ -12108,6 +14978,158 @@
   },
   {
     "text": "Bridge from visual intuition to the symbolic invariant: b = 60.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Expand and simplify 4(2x − 3) − 3(x − 5), and explain using the area/number-line model why the constant term becomes +3.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "expanding-brackets",
+        "text": "Expand",
+        "offset": 0
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 64
+      }
+    ]
+  },
+  {
+    "text": "Step 1: The 4 multiplies both terms in the first bracket. 4(2x − 3) = 8x − 12.\nStep 2: The −3 multiplies both terms in the second bracket. −3 × x = −3x and −3 × −5 = +15.\nStep 3: Collect like terms. 8x − 3x = 5x and −12 + 15 = 3.\nStep 4: The answer is 5x + 3. The number on its own is +3, because taking away 3 lots of −5 adds 15.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "like-terms",
+        "text": "like terms",
+        "offset": 187
+      }
+    ]
+  },
+  {
+    "text": "4(2x − 3) − 3(x − 5) = 8x − 12 − 3x + 15, which simplifies to ___.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Factorise completely: 18a²b − 12ab².",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "factorising",
+        "text": "Factorise",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Step 1: The HCF of 18 and 12 is 6.\nStep 2: Both terms have at least one a and at least one b. So the HCF of the two terms is 6ab.\nStep 3: Divide each term by 6ab. 18a²b ÷ 6ab = 3a and 12ab² ÷ 6ab = 2b.\nStep 4: So 18a²b − 12ab² = 6ab(3a − 2b). Check by expanding: 6ab × 3a = 18a²b and 6ab × 2b = 12ab².",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 12
+      },
+      {
+        "concept": "expanding-brackets",
+        "text": "expanding",
+        "offset": 252
+      }
+    ]
+  },
+  {
+    "text": "The HCF of the two terms is 6ab. Divide each term by it: 18a²b − 12ab² = 6ab(___).",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "A rectangle of length (2x + 5) cm and width 6 cm has a smaller rectangle of length (x − 2) cm and width 4 cm cut from its interior. Write a simplified expression for the remaining area.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "expression",
+        "text": "expression",
+        "offset": 151
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 180
+      }
+    ]
+  },
+  {
+    "text": "Step 1: The big rectangle has area 6(2x + 5) = 12x + 30.\nStep 2: The piece cut out has area 4(x − 2) = 4x − 8.\nStep 3: Take the small area from the big one. 12x + 30 − (4x − 8) = 12x + 30 − 4x + 8.\nStep 4: Collect like terms. The area left is 8x + 38 cm².",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 30
+      },
+      {
+        "concept": "like-terms",
+        "text": "like terms",
+        "offset": 214
+      }
+    ]
+  },
+  {
+    "text": "The area left is (12x + 30) − (4x − 8) = ___ cm².",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "Using the Difference of Two Squares identity a² − b² = (a − b)(a + b), evaluate 2026² − 2024² mentally without a calculator.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "difference-of-two-squares",
+        "text": "Difference of Two Squares",
+        "offset": 10
+      }
+    ]
+  },
+  {
+    "text": "Step 1: This is a difference of two squares, so a² − b² = (a − b)(a + b).\nStep 2: Here a = 2026 and b = 2024. So a − b = 2 and a + b = 4050.\nStep 3: Multiply: 2 × 4050 = 8100.\nStep 4: So 2026² − 2024² = 8100, with no big squares to work out.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "difference-of-two-squares",
+        "text": "difference of two squares",
+        "offset": 18
+      }
+    ]
+  },
+  {
+    "text": "2026² − 2024² = (2026 − 2024)(2026 + 2024) = 2 × 4050 = ___.",
     "exclude": null,
     "linked": [],
     "links": []
@@ -12428,7 +15450,13 @@
     "text": "Step 1: 1 m = 100 cm.\nStep 2: A square 1 m by 1 m is 100 cm by 100 cm. So 1 m² = 100 × 100 = 10,000 cm².\nStep 3: Multiply the area by 10,000. 3.5 × 10,000 = 35,000.\nStep 4: 3.5 m² = 35,000 cm².",
     "exclude": null,
     "linked": [],
-    "links": []
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 126
+      }
+    ]
   },
   {
     "text": "1 m² = 10,000 cm², so 3.5 m² = ___.",
@@ -12499,6 +15527,69 @@
     "exclude": null,
     "linked": [],
     "links": []
+  },
+  {
+    "text": "An expression has no = sign, such as 3x + 2. An equation is true for only some values of x, such as 3x + 2 = 11. An identity is true for every value, such as 2(x + 1) = 2x + 2.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "expression",
+        "text": "expression",
+        "offset": 3
+      }
+    ]
+  },
+  {
+    "text": "A number outside a bracket multiplies each term inside, signs included: −3(x − 5) = −3x + 15. For two brackets, multiply each term of one by each term of the other, then collect like terms.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "like-terms",
+        "text": "like terms",
+        "offset": 178
+      }
+    ]
+  },
+  {
+    "text": "Take the HCF of every term outside a bracket, numbers and letters both: 6x² − 9x = 3x(2x − 3). Then check that nothing common is left inside. A difference of two squares factorises as (a − b)(a + b).",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "hcf",
+        "text": "HCF",
+        "offset": 9
+      },
+      {
+        "concept": "difference-of-two-squares",
+        "text": "difference of two squares",
+        "offset": 144
+      },
+      {
+        "concept": "factorising",
+        "text": "factorises",
+        "offset": 170
+      }
+    ]
+  },
+  {
+    "text": "Put each number in a bracket as you substitute it. When x = −4, x² is (−4)² = 16, but −x² is −16. Work out powers before you multiply.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "substitution",
+        "text": "substitute",
+        "offset": 36
+      },
+      {
+        "concept": "power",
+        "text": "powers",
+        "offset": 107
+      }
+    ]
   },
   {
     "text": "Multiply decimals as whole numbers, then count the decimal places back in. To divide by a decimal, first multiply both numbers by 10 or 100 so you divide by a whole number.",
@@ -12650,7 +15741,13 @@
     "text": "A length in metres is 100 times as many centimetres. An area has two lengths, so multiply by 100 twice: 1 m² = 10,000 cm². A volume has three, so 1 m³ = 1,000,000 cm³.",
     "exclude": null,
     "linked": [],
-    "links": []
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 56
+      }
+    ]
   },
   {
     "text": "Put both amounts in the same unit first. Then divide every part of the ratio by a common factor until no more will go.",
@@ -12847,6 +15944,11 @@
     "linked": [],
     "links": [
       {
+        "concept": "area",
+        "text": "area",
+        "offset": 95
+      },
+      {
         "concept": "factor",
         "text": "factor",
         "offset": 135
@@ -12857,7 +15959,13 @@
     "text": "A triangle's area is half of base × perpendicular height, so base 6 cm and height 4 cm give 12 cm², and a slanted side is never the height. Use the radius in πr², and add every edge for a perimeter: a quarter circle of radius 2 cm has perimeter π + 4.",
     "exclude": null,
     "linked": [],
-    "links": []
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 13
+      }
+    ]
   },
   {
     "text": "Co-interior angles between parallel lines add to 180°, and an exterior angle of a polygon is 180° take away the interior angle, so an interior angle of 108° has exterior angle 72°. A back-bearing is the bearing plus 180°, or minus 180° if that passes 360°: the back-bearing of 050° is 230°.",

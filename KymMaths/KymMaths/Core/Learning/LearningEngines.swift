@@ -765,42 +765,6 @@ public enum MathematicalDebateEngine {
 
 public enum MathematicalDebateCatalog {
     public static let all: [MathematicalDebateScenario] = [
-        // Ch 4 -> OUP Ch 2 (Algebraic Expressions & Area Models). The id keeps its old number.
-        MathematicalDebateScenario(
-            id: "debate-ch03-algebra",
-            chapterNumber: 4,
-            oupUnitNumber: 2,
-            title: "The Freshman's Dream Tile Trap",
-            contextPrompt: "An architect expands a square courtyard of side x meters by adding 3 meters to both length and width. Vivaan and Ananya debate the new area (x + 3)²:",
-            speakerAName: "Vivaan",
-            speakerAClaim: "Square each piece inside the bracket: (x + 3)² = x² + 3² = x² + 9.",
-            speakerBName: "Ananya",
-            speakerBClaim: "Draw the 2×2 square! Besides x² and 9, there are two side rectangles of area 3x each, so (x + 3)² = x² + 6x + 9.",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch03-a",
-                    speakerLabel: "Vivaan is right (x² + 9)",
-                    reasoningStatement: "Exponents distribute cleanly across addition.",
-                    isCorrect: false,
-                    socraticRebuttal: "Test x = 2: (2 + 3)² = 25, whereas 2² + 9 = 13! You missed the two 3 × 2 = 6 border strips."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch03-b",
-                    speakerLabel: "Ananya is right (x² + 6x + 9)",
-                    reasoningStatement: "A square of side (x + 3) partitions into four regions: x², 3x, 3x, and 9.",
-                    isCorrect: true,
-                    socraticRebuttal: "Verified both geometrically and numerically: at x = 2, 4 + 12 + 9 = 25 = 5²."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch03-c",
-                    speakerLabel: "Neither — there is only one 3x strip (x² + 3x + 9)",
-                    reasoningStatement: "Extending length and width creates only one cross-term.",
-                    isCorrect: false,
-                    socraticRebuttal: "Because BOTH the top edge and the right edge grow by 3, there are two distinct 3 × x rectangles."
-                )
-            ],
-            invariantTakeaway: "(a + b)² = a² + 2ab + b²; the two cross-rectangles 2ab only vanish when one sign is negative, as in (a + b)(a − b)."
-        ),
         // Ch 5 -> OUP Ch 7 (Linear Equations & Inequalities)
         MathematicalDebateScenario(
             id: "debate-ch05-equations",

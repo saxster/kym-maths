@@ -204,16 +204,19 @@ class CardFilesTest(unittest.TestCase):
     """Cards live in the file of the chapter that teaches them, and bedrock cards in book/bedrock.py (risk R5)."""
 
     def test_cards_built_from_their_chapter_files_equal_the_pack(self):
-        from book import bedrock, ch01, ch02, ch03
+        from book import bedrock, ch01, ch02, ch03, ch04
         k = exporter.helpers()
         self.assertEqual(set(bedrock.cards(k)), {"negative-number", "factor", "multiple", "power", "fraction",
-                                                 "decimal-place", "percentage"})
+                                                 "decimal-place", "percentage", "area"})
         self.assertEqual(set(ch02.cards(k)), {"numerator-denominator", "equivalent-fractions", "simplest-form",
                                               "common-denominator", "improper-fraction", "mixed-number", "reciprocal",
                                               "significant-figures", "terminating-decimal", "recurring-decimal"})
         self.assertEqual(set(ch03.cards(k)), {"ratio", "unitary-method", "direct-proportion", "inverse-proportion",
                                               "percentage-multiplier", "reverse-percentage", "simple-interest",
                                               "compound-growth", "rule-of-72"})
+        self.assertEqual(set(ch04.cards(k)), {"variable", "expression", "substitution", "term", "coefficient",
+                                              "like-terms", "expanding-brackets", "factorising", "quadratic-expression",
+                                              "difference-of-two-squares"})
         self.assertEqual(set(ch01.cards(k)), {"prime-number", "prime-factors", "hcf", "lcm", "index-laws",
                                               "square-root", "irrational-number"})
         self.assertTrue(all(card["standsOn"] == [] for card in bedrock.cards(k).values()))
@@ -273,7 +276,7 @@ class LinkerTest(unittest.TestCase):
         self.assertEqual(self.concepts("The scale factor is 2"), [])
 
     def test_word_edges(self):
-        self.assertEqual(self.concepts("Factorise it, a powerful idea"), [])
+        self.assertEqual(self.concepts("A factorial, a powerful idea"), [])
         self.assertEqual(self.concepts("√2 is about 1.41"), ["square-root"])
 
     def test_exclude_and_scope(self):
