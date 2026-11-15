@@ -23,6 +23,7 @@ from book import ch02 as book_ch02
 from book import ch03 as book_ch03
 from book import ch04 as book_ch04
 from book import ch05 as book_ch05
+from book import ch06 as book_ch06
 from book import concepts as book_concepts
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -31,7 +32,7 @@ BOOK_OUT = ROOT / "KymMaths" / "KymMaths" / "Resources" / "PatternedWorldBook" /
 GOLDEN_OUT = ROOT / "KymMaths" / "Tests" / "Golden" / "concept-links.json"
 
 # Chapters rewritten by hand to docs/CONTENT_BRIEF.md. The content checks apply to these.
-BOOK_CHAPTERS = (book_ch00, book_ch01, book_ch02, book_ch03, book_ch04, book_ch05)
+BOOK_CHAPTERS = (book_ch00, book_ch01, book_ch02, book_ch03, book_ch04, book_ch05, book_ch06)
 # Saved learner responses key on callout ids, so a rewritten chapter keeps the old ids.
 CALLOUT_ID_SUFFIX = {"predict": "predict", "check": "aha", "careful": "trap"}
 
@@ -264,22 +265,6 @@ def build_volumes():
 
 def build_chapters():
     raw_specs = [
-        (
-            6, 2, "Patterns in Time: Sequences, nth Terms & Gauss's Sum",
-            "OUP Ch 11 · Term-to-term vs position-to-term rules, linear & quadratic sequences, and Gauss's staircase",
-            "A constant first difference means a linear staircase dn + c; a constant second difference 2a means a quadratic parabola an² + bn + c.",
-            "Duplicate an n-step staircase 1 + 2 + … + n, rotate the copy by 180°, and snap it on top of the original.",
-            "The two staircases lock together into a solid rectangle of width n and uniform height (n + 1) — so one staircase is exactly half the rectangle!",
-            "Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a",
-            [
-                {"symbol": "d", "visualPart": "Red step riser between consecutive terms", "colorRole": "red", "meaning": "Constant first difference (linear slope)"},
-                {"symbol": "a₁ + aₙ", "visualPart": "Blue combined height of flipped Gauss staircase", "colorRole": "blue", "meaning": "First term plus last term in every column"},
-                {"symbol": "½ n", "visualPart": "Green half-rectangle area factor", "colorRole": "green", "meaning": "n columns divided by 2 identical staircases"}
-            ],
-            "maths/ch06-sequences-gauss/index.html",
-            ["Sequence", "Term-to-Term", "nth Term Tₙ", "First Difference", "Second Difference", "Arithmetic Series", "Fibonacci & Golden Ratio"],
-            ["w_gauss_staircase_sum", "w_sequence_difference_engine"]
-        ),
         (
             7, 2, "Functions, Linear Graphs & Kinematics",
             "OUP Ch 14 · Function machines, y = mx + c, gradient Δy/Δx, parallel/perpendicular lines & speed-time graphs",
@@ -4833,7 +4818,7 @@ const CH_SLIDERS = {{
   3:  [{{lbl:'Parts for A:',min:1,max:6,step:1,val:3,u:''}}, {{lbl:'Parts for B:',min:2,max:8,step:1,val:5,u:''}}, {{lbl:'Interest rate:',min:4,max:15,step:1,val:8,u:'%'}}],
   4:  [{{lbl:'Side x:',min:3,max:6,step:1,val:4,u:''}}, {{lbl:'First number:',min:1,max:3,step:1,val:3,u:''}}, {{lbl:'Second number:',min:1,max:3,step:1,val:2,u:''}}],
   5:  [{{lbl:'Bags:',min:2,max:6,step:1,val:4,u:''}}, {{lbl:'Loose marbles:',min:1,max:9,step:1,val:3,u:''}}, {{lbl:'Marbles in a bag:',min:1,max:5,step:1,val:3,u:''}}],
-  6:  [{{lbl:'Stair steps n:',min:3,max:8,step:1,val:6,u:''}}, {{lbl:'First term a₁:',min:1,max:4,step:1,val:1,u:''}}, {{lbl:'Step diff d:',min:1,max:3,step:1,val:1,u:''}}],
+  6:  [{{lbl:'Number of terms:',min:3,max:8,step:1,val:5,u:''}}, {{lbl:'First term:',min:1,max:4,step:1,val:1,u:''}}, {{lbl:'Common difference:',min:1,max:3,step:1,val:1,u:''}}],
   7:  [{{lbl:'Gradient m:',min:-2,max:2.5,step:0.5,val:1.5,u:''}}, {{lbl:'y-Intercept c:',min:-1.5,max:2,step:0.5,val:0.5,u:''}}, {{lbl:'Run step Δx:',min:0.5,max:2,step:0.5,val:1.5,u:''}}],
   8:  [{{lbl:'Angle α:',min:30,max:75,step:5,val:50,u:'°'}}, {{lbl:'Angle β:',min:30,max:75,step:5,val:60,u:'°'}}, {{lbl:'Polygon sides n:',min:3,max:8,step:1,val:6,u:''}}],
   9:  [{{lbl:'Segment AB:',min:4,max:8,step:0.5,val:6,u:'cm'}}, {{lbl:'Compass r/AB:',min:0.6,max:1.0,step:0.05,val:0.8,u:'×'}}, {{lbl:'Bearing from N:',min:20,max:160,step:5,val:65,u:'°'}}],
@@ -5151,23 +5136,27 @@ function drawSandbox() {{
       break;
     }}
     case 6: {{
-      // Ch 6: Gauss's 180°-Rotated Interlocking Staircase
-      const n = Math.round(a), a1 = Math.round(b), d = Math.round(c);
-      const an = a1 + (n - 1) * d, pairH = a1 + an, sum = (n * pairH) / 2;
-      const bw = Math.min(38, 260 / n), uH = Math.min(18, 170 / pairH), x0 = 54, yBase = 225;
+      // Ch 6: a staircase of terms and its upside-down copy make a rectangle
+      const n = Math.round(a), first = Math.round(b), d = Math.round(c);
+      const last = first + (n - 1) * d, pair = first + last, sum = n * pair / 2, k = first - d;
+      const bw = Math.min(28, 220 / n), uH = Math.min(14, 130 / pair), x0 = 46, base = 150;
       for (let i = 0; i < n; i++) {{
-        const term = a1 + i * d, comp = pairH - term;
-        const h1 = term * uH, h2 = comp * uH;
-        ctx.fillStyle = red + '38'; ctx.strokeStyle = red; ctx.lineWidth = 1.8;
-        ctx.fillRect(x0 + i * bw, yBase - h1, bw - 2, h1); ctx.strokeRect(x0 + i * bw, yBase - h1, bw - 2, h1);
-        ctx.fillStyle = blue + '38'; ctx.strokeStyle = blue;
-        ctx.fillRect(x0 + i * bw, yBase - h1 - h2 - 3, bw - 2, h2); ctx.strokeRect(x0 + i * bw, yBase - h1 - h2 - 3, bw - 2, h2);
+        const term = first + i * d, h1 = term * uH, h2 = (pair - term) * uH, x = x0 + i * bw;
+        ctx.lineWidth = 1.6;
+        ctx.fillStyle = red + '38'; ctx.strokeStyle = red;
+        ctx.fillRect(x, base - h1, bw - 3, h1); ctx.strokeRect(x, base - h1, bw - 3, h1);
+        ctx.fillStyle = blue + '30'; ctx.strokeStyle = blue;
+        ctx.fillRect(x, base - h1 - h2, bw - 3, h2); ctx.strokeRect(x, base - h1 - h2, bw - 3, h2);
       }}
-      ctx.fillStyle = ink; ctx.fillText(`n = ${{n}} columns`, x0, 248);
-      ctx.fillStyle = blue; ctx.fillText(`Uniform height a₁ + aₙ = ${{a1}} + ${{an}} = ${{pairH}}`, 310, 95);
-      ctx.fillStyle = green; ctx.fillText(`Rectangle = ${{n}} × ${{pairH}} = ${{n * pairH}}`, 310, 130);
-      ctx.fillStyle = red; ctx.fillText(`One Staircase Sₙ = ½(${{n * pairH}}) = ${{sum}}`, 310, 165);
-      readoutHtml = `a₁ = ${{a1}}, aₙ = ${{an}}, Pair height = <b>${{pairH}}</b> · <b>Sₙ = ½ × ${{n}} × ${{pairH}} = ${{sum}}</b>`;
+      const all = Array.from({{length: n}}, (_, i) => first + i * d).join(', ');
+      const terms = all.length <= 26 ? all : `${{first}}, ${{first + d}}, …, ${{last}}`;
+      const rule = (d === 1 ? 'n' : `${{d}}n`) + (k === 0 ? '' : k > 0 ? ` + ${{k}}` : ` − ${{-k}}`);
+      ctx.fillStyle = muted; ctx.fillText(`Terms: ${{terms}}`, 46, 168);
+      ctx.fillStyle = green; ctx.fillText(`nth term: ${{rule}}`, 46, 194);
+      ctx.fillStyle = ink; ctx.fillText(`Each column: ${{first}} + ${{last}} = ${{pair}}`, 46, 212);
+      ctx.fillText(`Rectangle: ${{n}} × ${{pair}} = ${{n * pair}}`, 46, 230);
+      ctx.fillStyle = amber; ctx.fillText(`Sum of the terms: ${{n * pair}} ÷ 2 = ${{sum}}`, 46, 254);
+      readoutHtml = `<b style="color:${{red}}">${{terms}}</b> · sum = ${{n}} × ${{pair}} ÷ 2 = <b>${{sum}}</b>`;
       break;
     }}
     case 7: {{

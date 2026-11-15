@@ -765,42 +765,6 @@ public enum MathematicalDebateEngine {
 
 public enum MathematicalDebateCatalog {
     public static let all: [MathematicalDebateScenario] = [
-        // Ch 6 -> OUP Ch 9 (Percentages & Compound Multipliers)
-        MathematicalDebateScenario(
-            id: "debate-ch06-percentages",
-            chapterNumber: 6,
-            oupUnitNumber: 9,
-            title: "Festival Markup & Discount Illusion",
-            contextPrompt: "A Bandra shop raises a ₹1,000 jacket by 20% and then offers a 20% sale discount. Neel and Priya debate the final price:",
-            speakerAName: "Neel",
-            speakerAClaim: "+20% and −20% cancel out to 0%, so the jacket is back to ₹1,000!",
-            speakerBName: "Priya",
-            speakerBClaim: "The 20% discount applies to ₹1,200, not ₹1,000! So 1.20 × 0.80 = 0.96, giving ₹960.",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch06-a",
-                    speakerLabel: "Neel is right (₹1,000)",
-                    reasoningStatement: "Equal percentage increases and decreases always cancel.",
-                    isCorrect: false,
-                    socraticRebuttal: "20% of ₹1,200 is ₹240, whereas 20% of ₹1,000 was only ₹200—you subtract more than you added!"
-                ),
-                MathematicalDebateChoice(
-                    id: "ch06-b",
-                    speakerLabel: "Priya is right (₹960)",
-                    reasoningStatement: "Chained percentage changes multiply their scale factors: (1 + 0.20)(1 − 0.20) = 1 − 0.04 = 0.96.",
-                    isCorrect: true,
-                    socraticRebuttal: "Exact! By Difference of Two Squares, (1 + r)(1 − r) = 1 − r² is always less than 1."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch06-c",
-                    speakerLabel: "Neither — it becomes ₹1,040",
-                    reasoningStatement: "The markup dominates the discount.",
-                    isCorrect: false,
-                    socraticRebuttal: "Since the discount is taken on the LARGER ₹1,200 base, the downward step is larger than the upward step."
-                )
-            ],
-            invariantTakeaway: "Successive percentages multiply scale factors: (1 + r)(1 − r) = 1 − r²."
-        ),
         // Ch 7 -> OUP Ch 12 (Ratio, Rate & Unitary Bar Models)
         MathematicalDebateScenario(
             id: "debate-ch07-ratio",

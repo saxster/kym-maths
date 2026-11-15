@@ -204,7 +204,7 @@ class CardFilesTest(unittest.TestCase):
     """Cards live in the file of the chapter that teaches them, and bedrock cards in book/bedrock.py (risk R5)."""
 
     def test_cards_built_from_their_chapter_files_equal_the_pack(self):
-        from book import bedrock, ch01, ch02, ch03, ch04, ch05
+        from book import bedrock, ch01, ch02, ch03, ch04, ch05, ch06
         k = exporter.helpers()
         self.assertEqual(set(bedrock.cards(k)), {"negative-number", "factor", "multiple", "power", "fraction",
                                                  "decimal-place", "percentage", "area"})
@@ -219,6 +219,8 @@ class CardFilesTest(unittest.TestCase):
                                               "difference-of-two-squares"})
         self.assertEqual(set(ch05.cards(k)), {"equation", "inverse-operation", "solving-equations", "formula",
                                               "subject-of-a-formula", "inequality"})
+        self.assertEqual(set(ch06.cards(k)), {"sequence", "term-to-term-rule", "common-difference", "arithmetic-sequence",
+                                              "geometric-sequence", "nth-term", "quadratic-sequence", "triangular-number"})
         self.assertEqual(set(ch01.cards(k)), {"prime-number", "prime-factors", "hcf", "lcm", "index-laws",
                                               "square-root", "irrational-number"})
         self.assertTrue(all(card["standsOn"] == [] for card in bedrock.cards(k).values()))

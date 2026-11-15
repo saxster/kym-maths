@@ -3989,31 +3989,56 @@
       "number": 6,
       "volumeNumber": 2,
       "volumeTitle": "Volume II · The Singapore Bar-Model & Algebraic Machine",
-      "title": "Patterns in Time: Sequences, nth Terms & Gauss's Sum",
-      "subtitle": "School book Ch 11 · Term-to-term vs position-to-term rules, linear & quadratic sequences, and Gauss's staircase",
-      "hookSummary": "A constant first difference means a linear staircase dn + c; a constant second difference 2a means a quadratic parabola an² + bn + c.",
+      "title": "Sequences and the nth term",
+      "subtitle": "School book chapter 11 · Term-to-term rules, the nth term, quadratic sequences and adding a staircase",
+      "hookSummary": "A row of 10 squares made of matchsticks needs 31 matches, not 40. How many does a row of 100 squares need, without counting?",
+      "beyondSchoolBook": false,
+      "skillCard": {
+        "skill": "Finding and using the nth term of a sequence",
+        "sheCan": {
+          "prompt": "With no calculator: find the nth term of 6, 11, 16, 21. Is 100 a term of it? Work out 1 + 2 + 3 + … + 50.",
+          "answer": "5n + 1. No, because 5n + 1 = 100 gives n = 19.8. 1275."
+        },
+        "whyItMatters": "A rule for the nth term jumps straight to the 100th term without writing out the 99 before it. The same habit, finding the rule behind a list, is how a line drawn on a grid is read in the next chapter.",
+        "standsOn": [
+          "Chapter 4: expressions and substitution",
+          "Chapter 5: solving an equation",
+          "Square numbers and the times tables"
+        ],
+        "unlocks": [
+          "Chapter 7: lines drawn on a grid, whose points go up in equal steps",
+          "Adding up equal steps, as in saving the same amount each month",
+          "Later chapters on sequences that grow by multiplying"
+        ]
+      },
       "intuitionToFormula": {
-        "concreteAction": "Duplicate an n-step staircase 1 + 2 + … + n, rotate the copy by 180°, and snap it on top of the original.",
-        "ahaInvariant": "The two staircases lock together into a solid rectangle of width n and uniform height (n + 1) — so one staircase is exactly half the rectangle!",
-        "formulaDisplay": "Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a",
+        "concreteAction": "Set the terms to 5, the first term to 1 and the common difference to 1. The red columns make a staircase 1, 2, 3, 4, 5 high.",
+        "ahaInvariant": "A blue copy of the staircase, turned upside down, fills the gaps above it. Every column is then 6 high, so the rectangle holds 5 × 6 = 30 squares and one staircase holds 15.",
+        "formulaDisplay": "Tₙ = a + (n − 1)d   and   1 + 2 + … + n = n(n + 1) ÷ 2",
         "termMappings": [
           {
-            "symbol": "d",
-            "visualPart": "Red step riser between consecutive terms",
+            "symbol": "a, a + d, a + 2d, …",
+            "visualPart": "The red columns",
             "colorRole": "red",
-            "meaning": "Constant first difference (linear slope)"
+            "meaning": "The terms of the sequence"
           },
           {
-            "symbol": "a₁ + aₙ",
-            "visualPart": "Blue combined height of flipped Gauss staircase",
+            "symbol": "the same terms in reverse",
+            "visualPart": "The blue columns",
             "colorRole": "blue",
-            "meaning": "First term plus last term in every column"
+            "meaning": "A copy turned upside down"
           },
           {
-            "symbol": "½ n",
-            "visualPart": "Green half-rectangle area factor",
+            "symbol": "Tₙ = a + (n − 1)d",
+            "visualPart": "The green line",
             "colorRole": "green",
-            "meaning": "n columns divided by 2 identical staircases"
+            "meaning": "The nth term of the red staircase"
+          },
+          {
+            "symbol": "n(first + last) ÷ 2",
+            "visualPart": "The amber line",
+            "colorRole": "amber",
+            "meaning": "Half the rectangle is the sum of the terms"
           }
         ],
         "atlasFigureRef": "maths/ch06-sequences-gauss/index.html"
@@ -4021,53 +4046,564 @@
       "sections": [
         {
           "id": "ch06-s1",
-          "heading": "6.1 See it in a picture",
-          "excerpt": "Duplicate an n-step staircase 1 + 2 + … + n, rotate the copy by 180°, and snap it on top of the original. The two staircases lock together into a solid rectangle of width n and uniform height (n + 1) — so one staircase is exactly half the rectangle!"
+          "heading": "6.1 What comes next?",
+          "excerpt": "Each new square adds 3 matches, so 4 squares use 13. Keep adding 3: 16, 19, 22, 25, 28 and 31. A row of 10 squares uses 31 matches.",
+          "teaches": [
+            "sequence",
+            "term-to-term-rule"
+          ],
+          "steps": [
+            {
+              "id": "ch06-s1-question",
+              "kind": "question",
+              "text": "Kym makes a row of squares from matchsticks. 1 square uses 4 matches, 2 squares use 7 and 3 squares use 10. How many matches do 4 squares use? And 10 squares?"
+            },
+            {
+              "id": "ch06-s1-idea",
+              "kind": "idea",
+              "text": "Each new square adds 3 matches, so 4 squares use 13. Keep adding 3: 16, 19, 22, 25, 28 and 31. A row of 10 squares uses 31 matches."
+            },
+            {
+              "id": "ch06-s1-picture",
+              "kind": "picture",
+              "text": "Draw the rows of 1, 2, 3 and 4 squares, one under another. Write the count of matches beside each row: 4, 7, 10, 13. Between each pair of counts, write + 3."
+            },
+            {
+              "id": "ch06-s1-reason",
+              "kind": "reason",
+              "text": "Why 3 and not 4? The first square needs 4 matches. Each square after it borrows its left side from the square before, so it needs only 3 new matches."
+            },
+            {
+              "id": "ch06-s1-name",
+              "kind": "name",
+              "text": "A list of numbers made by a rule is called a sequence. Each number in it is a term. A rule that makes each term from the one before, like \"add 3\", is a term-to-term rule. The first term and the term-to-term rule fix every term after them."
+            },
+            {
+              "id": "ch06-s1-example",
+              "kind": "example",
+              "text": "Start at 2 and double each time: 2, 4, 8, 16, 32. The term-to-term rule is \"multiply by 2\". Start at 50 and take away 6 each time: 50, 44, 38, 32. The rule there is \"subtract 6\"."
+            },
+            {
+              "id": "ch06-s1-mistake",
+              "kind": "mistake",
+              "text": "The tempting slip is to say 10 squares need 10 × 4 = 40 matches. That counts each shared side twice. A row of 10 squares has 9 shared sides, and 40 − 9 = 31."
+            },
+            {
+              "id": "ch06-s1-turn",
+              "kind": "turn",
+              "text": "A sequence starts 3, 10, 17, 24. What is the next term?",
+              "answer": "31",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "31"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "31",
+                  "= 31",
+                  "the next term is 31"
+                ],
+                "rejects": [
+                  "28",
+                  "30",
+                  "38"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch06-s1-sayBack",
+              "kind": "sayBack",
+              "text": "A sequence follows a rule, and a term-to-term rule makes each term from the one before."
+            }
+          ]
         },
         {
           "id": "ch06-s2",
-          "heading": "6.2 Write it in symbols",
-          "excerpt": "Every piece of the geometry locks onto a symbol in Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a. Once you see why each term exists, you never have to guess a sign or denominator."
+          "heading": "6.2 Equal steps",
+          "excerpt": "Take each term away from the next one. For the first list the gaps are 4, 4, 4 and 4. For the second they are 2, 4, 8 and 16. Only the first list grows in equal steps.",
+          "teaches": [
+            "common-difference",
+            "arithmetic-sequence",
+            "geometric-sequence"
+          ],
+          "steps": [
+            {
+              "id": "ch06-s2-question",
+              "kind": "question",
+              "text": "Look at 5, 9, 13, 17, 21 and at 2, 4, 8, 16, 32. Both lists grow. Which one grows by the same amount every time?"
+            },
+            {
+              "id": "ch06-s2-idea",
+              "kind": "idea",
+              "text": "Take each term away from the next one. For the first list the gaps are 4, 4, 4 and 4. For the second they are 2, 4, 8 and 16. Only the first list grows in equal steps."
+            },
+            {
+              "id": "ch06-s2-picture",
+              "kind": "picture",
+              "text": "Draw each list as a row of columns, as tall as its terms. The first row climbs like a staircase with every step 4 high. The second row's steps keep doubling."
+            },
+            {
+              "id": "ch06-s2-reason",
+              "kind": "reason",
+              "text": "Why look at the gaps? Equal gaps mean the term-to-term rule is \"add the same number\". Then you can jump ahead without listing every term, as the next section shows."
+            },
+            {
+              "id": "ch06-s2-name",
+              "kind": "name",
+              "text": "When the gap between neighbouring terms is always the same, that gap is the common difference. A sequence with a common difference is an arithmetic sequence. A sequence that multiplies by the same number each time, like 2, 4, 8, 16, is a geometric sequence."
+            },
+            {
+              "id": "ch06-s2-example",
+              "kind": "example",
+              "text": "In 7, 4, 1, −2, −5 each term is 3 less than the one before. So it is an arithmetic sequence with common difference −3, and its next term is −8."
+            },
+            {
+              "id": "ch06-s2-mistake",
+              "kind": "mistake",
+              "text": "One slip is to give the common difference of 40, 35, 30 as 5. The terms go down, and 35 − 40 = −5. Another slip is to call 1, 4, 9, 16 arithmetic. Its gaps are 3, 5 and 7, which are not equal."
+            },
+            {
+              "id": "ch06-s2-turn",
+              "kind": "turn",
+              "text": "What is the common difference of 11, 8, 5, 2?",
+              "answer": "−3",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "-3"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "−3",
+                  "-3",
+                  "d = −3"
+                ],
+                "rejects": [
+                  "3",
+                  "2",
+                  "−2"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch06-s2-sayBack",
+              "kind": "sayBack",
+              "text": "An arithmetic sequence goes up or down by its common difference every time."
+            }
+          ]
         },
         {
           "id": "ch06-s3",
-          "heading": "6.3 Bar models and stretch problems",
-          "excerpt": "Apply Patterns in Time: Sequences, nth Terms & Gauss's Sum across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
+          "heading": "6.3 Jumping to any term",
+          "excerpt": "The counts go up by 3, like the 3 times table: 3, 6, 9, 12. Each count is 1 more than that: 4, 7, 10, 13. So 100 squares use 3 × 100 + 1 = 301 matches.",
+          "teaches": [
+            "nth-term"
+          ],
+          "steps": [
+            {
+              "id": "ch06-s3-question",
+              "kind": "question",
+              "text": "The matchstick rows used 4, 7, 10 and 13 matches. How many matches does a row of 100 squares use, without listing 100 terms?"
+            },
+            {
+              "id": "ch06-s3-idea",
+              "kind": "idea",
+              "text": "The counts go up by 3, like the 3 times table: 3, 6, 9, 12. Each count is 1 more than that: 4, 7, 10, 13. So 100 squares use 3 × 100 + 1 = 301 matches."
+            },
+            {
+              "id": "ch06-s3-picture",
+              "kind": "picture",
+              "text": "Make a table with three rows. The top row is the position: 1, 2, 3, 4. The middle row is 3 times the position: 3, 6, 9, 12. The bottom row is the matches: 4, 7, 10, 13."
+            },
+            {
+              "id": "ch06-s3-reason",
+              "kind": "reason",
+              "text": "Why 3 times the position? Every square adds 3 matches, so n squares add up to 3n of them. The + 1 is the single match on the far left that starts the row."
+            },
+            {
+              "id": "ch06-s3-name",
+              "kind": "name",
+              "text": "A rule that gives a term from its position n is called the nth term, or the position-to-term rule. For the matchsticks it is 3n + 1. In an arithmetic sequence, the number in front of n is the common difference."
+            },
+            {
+              "id": "ch06-s3-example",
+              "kind": "example",
+              "text": "Find the nth term of 5, 8, 11, 14. The common difference is 3, so start from 3n: 3, 6, 9, 12. Each term is 2 more, so the nth term is 3n + 2. The 20th term is 3 × 20 + 2 = 62."
+            },
+            {
+              "id": "ch06-s3-mistake",
+              "kind": "mistake",
+              "text": "The tempting slip is to write n + 3, because the terms go up by 3. That gives 4, 5, 6, 7. Another slip is to add the first term, as in 3n + 5, which starts at 8. Test n = 1 and n = 2 before you trust a rule."
+            },
+            {
+              "id": "ch06-s3-turn",
+              "kind": "turn",
+              "text": "Find the nth term of 9, 14, 19, 24.",
+              "answer": "5n + 4",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "form",
+                        "value": "5n+4"
+                      },
+                      {
+                        "kind": "form",
+                        "value": "4+5n"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "5n + 4",
+                  "4 + 5n",
+                  "Tₙ = 5n + 4"
+                ],
+                "rejects": [
+                  "n + 5",
+                  "5n + 9",
+                  "5n"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch06-s3-sayBack",
+              "kind": "sayBack",
+              "text": "Start the nth term from the common difference times n, then fix it so the first term is right."
+            }
+          ]
+        },
+        {
+          "id": "ch06-s4",
+          "heading": "6.4 Is it in the list?",
+          "excerpt": "The rows have 12, 15, 18, … seats. They go up by 3, so start from 3n: 3, 6, 9. Each row has 9 more than that, so row n has 3n + 9. For 57 seats, 3n + 9 = 57, so 3n = 48 and n = 16. For 50 seats, 3n = 41 and n = 13⅔.",
+          "teaches": [],
+          "steps": [
+            {
+              "id": "ch06-s4-question",
+              "kind": "question",
+              "text": "In a hall, row 1 has 12 seats and each row has 3 more seats than the row in front. Which row has 57 seats? Does any row have exactly 50?"
+            },
+            {
+              "id": "ch06-s4-idea",
+              "kind": "idea",
+              "text": "The rows have 12, 15, 18, … seats. They go up by 3, so start from 3n: 3, 6, 9. Each row has 9 more than that, so row n has 3n + 9. For 57 seats, 3n + 9 = 57, so 3n = 48 and n = 16. For 50 seats, 3n = 41 and n = 13⅔."
+            },
+            {
+              "id": "ch06-s4-picture",
+              "kind": "picture",
+              "text": "Draw a number line and mark the seat counts 12, 15, 18 and on up to 57. The number 50 falls between 48 and 51, which are rows 13 and 14."
+            },
+            {
+              "id": "ch06-s4-reason",
+              "kind": "reason",
+              "text": "Why does 13⅔ mean no? Positions count rows: the 1st, the 2nd, the 3rd. There is no row 13⅔, so no row has exactly 50 seats."
+            },
+            {
+              "id": "ch06-s4-name",
+              "kind": "name",
+              "text": "To test whether a number is a term, set the nth term equal to it and solve the equation. A whole number answer is its position. Any other answer means it is not a term."
+            },
+            {
+              "id": "ch06-s4-example",
+              "kind": "example",
+              "text": "Is 99 a term of 7n − 6? Solve 7n − 6 = 99. Then 7n = 105, so n = 15. Yes, 99 is the 15th term. Check: 7 × 15 − 6 = 99."
+            },
+            {
+              "id": "ch06-s4-mistake",
+              "kind": "mistake",
+              "text": "The tempting slip is to put 50 in place of n: 3 × 50 + 9 = 159. That finds how many seats row 50 has. It does not find which row has 50 seats."
+            },
+            {
+              "id": "ch06-s4-turn",
+              "kind": "turn",
+              "text": "Which term of 5n − 2 is 83?",
+              "answer": "the 17th",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "17"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "17",
+                  "the 17th",
+                  "n = 17"
+                ],
+                "rejects": [
+                  "413",
+                  "16.2",
+                  "81"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch06-s4-sayBack",
+              "kind": "sayBack",
+              "text": "Set the nth term equal to the number and solve. A whole number answer is its position."
+            }
+          ]
+        },
+        {
+          "id": "ch06-s5",
+          "heading": "6.5 When the steps grow",
+          "excerpt": "The gaps 3, 5 and 7 are the first differences. Find the gaps between them: 5 − 3 = 2 and 7 − 5 = 2. Those are equal. The tile counts are 1 × 1, 2 × 2, 3 × 3 and 4 × 4, so the nth one is n².",
+          "teaches": [
+            "quadratic-sequence"
+          ],
+          "steps": [
+            {
+              "id": "ch06-s5-question",
+              "kind": "question",
+              "text": "Kym builds squares of tiles: 1 tile, then 4, then 9, then 16. The gaps are 3, 5 and 7, so they are not equal. Is there still a rule?"
+            },
+            {
+              "id": "ch06-s5-idea",
+              "kind": "idea",
+              "text": "The gaps 3, 5 and 7 are the first differences. Find the gaps between them: 5 − 3 = 2 and 7 − 5 = 2. Those are equal. The tile counts are 1 × 1, 2 × 2, 3 × 3 and 4 × 4, so the nth one is n²."
+            },
+            {
+              "id": "ch06-s5-picture",
+              "kind": "picture",
+              "text": "Draw the squares of 1, 4 and 9 tiles inside one another. Each new square adds an L-shaped border of 3, then 5, then 7 tiles."
+            },
+            {
+              "id": "ch06-s5-reason",
+              "kind": "reason",
+              "text": "Why does each border grow by 2? A 3 by 3 square becomes 4 by 4 when you add a row of 3, a column of 3 and 1 corner. From n by n, the border is n + n + 1 = 2n + 1 tiles, which goes up by 2 each time."
+            },
+            {
+              "id": "ch06-s5-name",
+              "kind": "name",
+              "text": "The gaps between the first differences are the second differences. When the second differences are equal, and not 0, the list is a quadratic sequence. Its nth term has an n², and the number in front of n² is half the second difference."
+            },
+            {
+              "id": "ch06-s5-example",
+              "kind": "example",
+              "text": "Take 2, 6, 12, 20, 30. The first differences are 4, 6, 8, 10, and the second differences are all 2, so start from n². Take away 1, 4, 9, 16, 25 to leave 1, 2, 3, 4, 5, which is n. So the nth term is n² + n."
+            },
+            {
+              "id": "ch06-s5-mistake",
+              "kind": "mistake",
+              "text": "The usual slip is to put the second difference itself in front of n². With a second difference of 2, the rule 2n² gives 2, 8, 18, not 1, 4, 9. Halve the second difference first."
+            },
+            {
+              "id": "ch06-s5-turn",
+              "kind": "turn",
+              "text": "Find the nth term of 4, 7, 12, 19, 28.",
+              "answer": "n² + 3",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "form",
+                        "value": "n^2+3"
+                      },
+                      {
+                        "kind": "form",
+                        "value": "3+n^2"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "n² + 3",
+                  "n^2 + 3",
+                  "3 + n²"
+                ],
+                "rejects": [
+                  "2n² + 3",
+                  "n² + 2",
+                  "3n + 1"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch06-s5-sayBack",
+              "kind": "sayBack",
+              "text": "Equal second differences mean a quadratic sequence, with half the second difference in front of n²."
+            }
+          ]
+        },
+        {
+          "id": "ch06-s6",
+          "heading": "6.6 Adding up a staircase",
+          "excerpt": "Try 1 to 10 first. Pair the first number with the last: 1 + 10 = 11, then 2 + 9 = 11, and so on. There are 5 pairs of 11, which make 55. From 1 to 100 there are 50 pairs of 101, which make 5050.",
+          "teaches": [
+            "triangular-number"
+          ],
+          "steps": [
+            {
+              "id": "ch06-s6-question",
+              "kind": "question",
+              "text": "A teacher once asked a class to add every whole number from 1 to 100. A boy called Gauss gave the answer in about a minute. How could he be so quick?"
+            },
+            {
+              "id": "ch06-s6-idea",
+              "kind": "idea",
+              "text": "Try 1 to 10 first. Pair the first number with the last: 1 + 10 = 11, then 2 + 9 = 11, and so on. There are 5 pairs of 11, which make 55. From 1 to 100 there are 50 pairs of 101, which make 5050."
+            },
+            {
+              "id": "ch06-s6-picture",
+              "kind": "picture",
+              "text": "In the figure, set the terms to 5, the first term to 1 and the common difference to 1. The red staircase 1, 2, 3, 4, 5 and the blue copy above it make a rectangle 5 wide and 6 high."
+            },
+            {
+              "id": "ch06-s6-reason",
+              "kind": "reason",
+              "text": "Why is every column the same height? Moving right, the red step rises by 1 and the blue step falls by 1. So each column stays 6 high, the rectangle holds 30 squares, and one staircase holds 15."
+            },
+            {
+              "id": "ch06-s6-name",
+              "kind": "name",
+              "text": "The totals 1, 3, 6, 10, 15 of 1 + 2 + … + n are the triangular numbers, and the nth one is n(n + 1) ÷ 2. The same pairing adds any arithmetic sequence. Multiply the number of terms by the first term plus the last, then halve."
+            },
+            {
+              "id": "ch06-s6-example",
+              "kind": "example",
+              "text": "Add 2 + 5 + 8 + … + 29. The nth term is 3n − 1, and 3n − 1 = 29 gives n = 10, so there are 10 terms. The sum is 10 × (2 + 29) ÷ 2 = 155."
+            },
+            {
+              "id": "ch06-s6-mistake",
+              "kind": "mistake",
+              "text": "The tempting slip is to forget the halving and say 1 + 2 + … + 100 = 100 × 101 = 10,100. The rectangle holds two staircases, so that counts every number twice."
+            },
+            {
+              "id": "ch06-s6-turn",
+              "kind": "turn",
+              "text": "Work out 1 + 2 + 3 + … + 40.",
+              "answer": "820",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "820"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "820",
+                  "= 820",
+                  "40 × 41 ÷ 2 = 820"
+                ],
+                "rejects": [
+                  "1640",
+                  "800",
+                  "780"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch06-s6-sayBack",
+              "kind": "sayBack",
+              "text": "To add equal steps, multiply the number of terms by the first term plus the last, and halve."
+            }
+          ],
+          "figure": true
         }
       ],
       "callouts": [
         {
           "id": "ch06-c-predict",
           "kind": "predict",
-          "title": "Predict Before You Drag",
-          "body": "Before moving the slider in Gauss Staircase Sum, predict which geometric quantity changes and which invariant stays locked."
+          "title": "Predict first",
+          "body": "Predict 1 + 2 + 3 + … + 8 in your head. Then set the terms to 8, the first term to 1 and the common difference to 1, and read the amber line."
         },
         {
           "id": "ch06-c-aha",
           "kind": "check",
-          "title": "The Intuition → Formula Bridge",
-          "body": "The two staircases lock together into a solid rectangle of width n and uniform height (n + 1) — so one staircase is exactly half the rectangle! Formula: Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a"
+          "title": "Explain it",
+          "body": "Explain to a friend why a row of 10 matchstick squares needs 31 matches and not 40."
         },
         {
           "id": "ch06-c-trap",
           "kind": "careful",
-          "title": "Classic Algebraic Trap to Avoid",
-          "body": "Whenever a formula in Chapter 6 looks tempting to shortcut, test a concrete 2×2 area or small integer example (x = 2, y = 3) first!"
+          "title": "Test your rule",
+          "body": "Before you use a rule to go further, try it on the terms you already have. Every one of them should fit."
         }
       ],
       "keyTerms": [
         "Sequence",
-        "Term-to-Term",
-        "nth Term Tₙ",
-        "First Difference",
-        "Second Difference",
-        "Arithmetic Series",
-        "Fibonacci & Golden Ratio"
+        "Term-to-term rule",
+        "Common difference",
+        "Arithmetic sequence",
+        "Geometric sequence",
+        "nth term",
+        "Quadratic sequence",
+        "Triangular number"
       ],
       "widgets": [
         "w_gauss_staircase_sum",
         "w_sequence_difference_engine"
-      ]
+      ],
+      "debate": {
+        "id": "debate-ch06-sequences",
+        "chapterNumber": 6,
+        "oupUnitNumber": 11,
+        "title": "Twice as many squares",
+        "contextPrompt": "A row of 10 matchstick squares uses 31 matches, and the nth term is 3n + 1. Ishaan and Tara work out the matches for a row of 20 squares.",
+        "speakerAName": "Ishaan",
+        "speakerAClaim": "20 squares is twice 10 squares, so it needs twice 31. That is 62 matches.",
+        "speakerBName": "Tara",
+        "speakerBClaim": "Put n = 20 in the nth term. 3 × 20 + 1 = 61 matches.",
+        "choices": [
+          {
+            "id": "ch06-a",
+            "speakerLabel": "Ishaan is right (62)",
+            "reasoningStatement": "Twice the squares always needs twice the matches.",
+            "isCorrect": false,
+            "socraticRebuttal": "Put two rows of 10 squares end to end. Where they meet, two matches stand side by side. Do you need both of them?"
+          },
+          {
+            "id": "ch06-b",
+            "speakerLabel": "Tara is right (61)",
+            "reasoningStatement": "The nth term gives any term from its position.",
+            "isCorrect": true,
+            "socraticRebuttal": "Yes. Doubling 3n + 1 gives 6n + 2, which counts the starting match twice. The real rule adds that match only once."
+          },
+          {
+            "id": "ch06-c",
+            "speakerLabel": "Neither. It is 80.",
+            "reasoningStatement": "Each square has 4 sides, and 20 × 4 = 80.",
+            "isCorrect": false,
+            "socraticRebuttal": "Count the matches in a row of 2 squares. Is it 8, or does one side belong to both?"
+          }
+        ],
+        "invariantTakeaway": "An nth term like 3n + 1 does not double when n doubles. Find any term by putting its position into the rule."
+      }
     },
     {
       "id": "ch07",
@@ -5643,52 +6179,52 @@
     {
       "id": "atlas-ch06-1",
       "widget": "w_gauss_staircase_sum",
-      "title": "Ch 6.1 · Patterns in Time: Sequences, nth Terms & Gauss's Sum (Concrete Manipulation)",
+      "title": "Chapter 6 · Equal steps",
       "chapter": 6,
       "figure": "maths/ch06-sequences-gauss/index.html",
-      "question": "How does touching the geometry of Patterns in Time: Sequences, nth Terms & Gauss's Sum reveal its structure?",
-      "explanation": "Duplicate an n-step staircase 1 + 2 + … + n, rotate the copy by 180°, and snap it on top of the original.",
-      "limits": "Formula: Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a",
+      "question": "How can you tell whether a list of numbers goes up in equal steps?",
+      "explanation": "Take each term away from the next one. If every gap is the same, the list is an arithmetic sequence and that gap is its common difference.",
+      "limits": "The rule: equal gaps d give the nth term dn + c",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
         "Atlas figures"
       ],
       "stories": [
-        "A constant first difference means a linear staircase dn + c; a constant second difference 2a means a quadratic parabola an² + bn + c."
+        "A row of 10 squares made of matchsticks needs 31 matches, not 40. How many does a row of 100 squares need, without counting?"
       ]
     },
     {
       "id": "atlas-ch06-2",
       "widget": "w_gauss_staircase_sum",
-      "title": "Ch 6.2 · Patterns in Time: Sequences, nth Terms & Gauss's Sum (The Visual 'Aha!' Invariant)",
+      "title": "Chapter 6 · Jumping to the 100th term",
       "chapter": 6,
       "figure": "maths/ch06-sequences-gauss/index.html",
-      "question": "What stays constant in Patterns in Time: Sequences, nth Terms & Gauss's Sum when you deform or slice the figure?",
-      "explanation": "The two staircases lock together into a solid rectangle of width n and uniform height (n + 1) — so one staircase is exactly half the rectangle!",
-      "limits": "Formula: Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a",
+      "question": "Why does the number in front of n match the gap between terms?",
+      "explanation": "Each step along the list adds the same gap d. After n steps, the gaps add up to dn, and a fixed number corrects the start.",
+      "limits": "The rule: Tₙ = a + (n − 1)d",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
         "Atlas figures"
       ],
       "stories": [
-        "A constant first difference means a linear staircase dn + c; a constant second difference 2a means a quadratic parabola an² + bn + c."
+        "A row of 10 squares made of matchsticks needs 31 matches, not 40. How many does a row of 100 squares need, without counting?"
       ]
     },
     {
       "id": "atlas-ch06-3",
       "widget": "w_gauss_staircase_sum",
-      "title": "Ch 6.3 · Patterns in Time: Sequences, nth Terms & Gauss's Sum (Symbolic Formula Lockstep)",
+      "title": "Chapter 6 · Two staircases make a rectangle",
       "chapter": 6,
       "figure": "maths/ch06-sequences-gauss/index.html",
-      "question": "How does the picture translate term-by-term into Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a?",
-      "explanation": "Every term in Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a corresponds to a colour-coded geometric part in maths/ch06-sequences-gauss/index.html.",
-      "limits": "Formula: Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a",
+      "question": "Why is 1 + 2 + … + n half of n × (n + 1)?",
+      "explanation": "Turn a copy of the staircase upside down and set it on top. Every column then reaches n + 1, so the two staircases fill a rectangle n by n + 1.",
+      "limits": "The rule: 1 + 2 + … + n = n(n + 1) ÷ 2",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
         "Atlas figures"
       ],
       "stories": [
-        "A constant first difference means a linear staircase dn + c; a constant second difference 2a means a quadratic parabola an² + bn + c."
+        "A row of 10 squares made of matchsticks needs 31 matches, not 40. How many does a row of 100 squares need, without counting?"
       ]
     },
     {
@@ -6889,65 +7425,65 @@
     },
     {
       "id": "w_gauss_staircase_sum",
-      "title": "Gauss Staircase Sum",
+      "title": "Two staircases make a rectangle",
       "chapter": 6,
       "is3D": false,
       "atlasRoute": "maths/ch06-sequences-gauss/index.html",
-      "challengePrompt": "Manipulate Gauss Staircase Sum until the visual invariant locks in, then verify Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a.",
-      "cutaway": "Intuition → Formula Lockstep: The two staircases lock together into a solid rectangle of width n and uniform height (n + 1) — so one staircase is exactly half the rectangle!",
-      "idealised": "Formula Anatomy: Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a",
+      "challengePrompt": "Set the terms to 6, the first term to 1 and the common difference to 1. Predict 1 + 2 + … + 6 before you read the amber line.",
+      "cutaway": "The red staircase 1 to 6 and its blue copy turned upside down make a rectangle 6 wide and 7 high. That is 42 squares, so one staircase is 21.",
+      "idealised": "The rule: 1 + 2 + … + n = n(n + 1) ÷ 2",
       "watchSteps": [
         {
-          "title": "1. Concrete Touch",
-          "caption": "Duplicate an n-step staircase 1 + 2 + … + n, rotate the copy by 180°, and snap it on top of the original."
+          "title": "1. Try it",
+          "caption": "Set the terms to 4, the first term to 1 and the common difference to 1."
         },
         {
-          "title": "2. Spot the Invariant ('Aha!')",
-          "caption": "The two staircases lock together into a solid rectangle of width n and uniform height (n + 1) — so one staircase is exactly half the rectangle!"
+          "title": "2. Notice",
+          "caption": "Every column, red and blue together, is 5 high."
         },
         {
-          "title": "3. Colour-Map the Symbols",
-          "caption": "Match red, blue, amber, and green geometry to Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a."
+          "title": "3. Match the rule",
+          "caption": "The rectangle is 4 × 5 = 20, and half of it is 10, which is 1 + 2 + 3 + 4."
         },
         {
-          "title": "4. Test a Boundary Case",
-          "caption": "Push the slider to 0, 1, or 90° and verify that the formula predicts the exact extreme state."
+          "title": "4. Push it further",
+          "caption": "Set the first term to 3 and the common difference to 2. Are the columns still all the same height?"
         },
         {
-          "title": "5. Stamp & Sketch in Journal",
-          "caption": "Freeze the state into your Cornell Proof & Construction Journal."
+          "title": "5. Draw it",
+          "caption": "Draw the two staircases for 2 + 4 + 6 + 8 in your journal and find the sum."
         }
       ]
     },
     {
       "id": "w_sequence_difference_engine",
-      "title": "Sequence Difference Engine",
+      "title": "Finding the rule from the gaps",
       "chapter": 6,
       "is3D": false,
       "atlasRoute": "maths/ch06-sequences-gauss/index.html",
-      "challengePrompt": "Manipulate Sequence Difference Engine until the visual invariant locks in, then verify Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a.",
-      "cutaway": "Intuition → Formula Lockstep: The two staircases lock together into a solid rectangle of width n and uniform height (n + 1) — so one staircase is exactly half the rectangle!",
-      "idealised": "Formula Anatomy: Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a",
+      "challengePrompt": "Write down 2, 6, 12, 20, 30. Predict whether its first differences or its second differences are equal.",
+      "cutaway": "The first differences are 4, 6, 8 and 10. The second differences are all 2, so the nth term starts with n².",
+      "idealised": "The rule: equal first differences d give dn + c, and equal second differences 2a give an² + …",
       "watchSteps": [
         {
-          "title": "1. Concrete Touch",
-          "caption": "Duplicate an n-step staircase 1 + 2 + … + n, rotate the copy by 180°, and snap it on top of the original."
+          "title": "1. Try it",
+          "caption": "Write the sequence 3, 7, 11, 15, 19 and the gaps under it."
         },
         {
-          "title": "2. Spot the Invariant ('Aha!')",
-          "caption": "The two staircases lock together into a solid rectangle of width n and uniform height (n + 1) — so one staircase is exactly half the rectangle!"
+          "title": "2. Notice",
+          "caption": "The gaps are all 4, so the nth term starts with 4n."
         },
         {
-          "title": "3. Colour-Map the Symbols",
-          "caption": "Match red, blue, amber, and green geometry to Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a."
+          "title": "3. Match the rule",
+          "caption": "4n gives 4, 8, 12, so take 1 away: the nth term is 4n − 1."
         },
         {
-          "title": "4. Test a Boundary Case",
-          "caption": "Push the slider to 0, 1, or 90° and verify that the formula predicts the exact extreme state."
+          "title": "4. Push it further",
+          "caption": "Try 1, 4, 9, 16, 25. The first gaps change, so find the gaps of the gaps."
         },
         {
-          "title": "5. Stamp & Sketch in Journal",
-          "caption": "Freeze the state into your Cornell Proof & Construction Journal."
+          "title": "5. Draw it",
+          "caption": "Draw the tile squares for 1, 4 and 9, and colour each new L-shaped border."
         }
       ]
     },
@@ -9340,7 +9876,7 @@
               "bridge-econ-compound-rupees",
               "bridge-music-fourier-harmonics"
             ],
-            "summary": "Term-to-term vs position-to-term rules; arithmetic, geometric, Fibonacci, and quadratic sequences.",
+            "summary": "A term-to-term rule makes each term from the one before, like add 4 or multiply by 2. Equal gaps make an arithmetic sequence. Multiplying by the same number each time makes a geometric sequence.",
             "cambridgeWatchouts": [
               "Draw the bar model or a sketch before you write the formula for 11.1.",
               "Check units, negative signs, and significant figures at the final step."
@@ -9363,7 +9899,7 @@
               "bridge-econ-compound-rupees",
               "bridge-music-fourier-harmonics"
             ],
-            "summary": "Linear Tₙ = dn + (a₁ − d); quadratic Tₙ = an² + bn + c where 2nd difference = 2a; Gauss sum Sₙ.",
+            "summary": "The nth term gives any term from its position n. For equal gaps d it is dn + c. Equal second differences give a quadratic sequence with an n². To add an arithmetic sequence, multiply the number of terms by the first plus the last, then halve.",
             "cambridgeWatchouts": [
               "Draw the bar model or a sketch before you write the formula for 11.2.",
               "Check units, negative signs, and significant figures at the final step."
@@ -19492,8 +20028,8 @@
       "commandWord": "Calculate & Prove",
       "marks": 3,
       "prompt": "Find the nth term formula Tₙ of the linear sequence 7, 11, 15, 19, 23, … and calculate the sum S₂₀ of its first 20 terms using Gauss's pairing method.",
-      "workedExample": "Step 1: Common difference d = +4; 0th term c = 7 − 4 = 3 ⇒ Tₙ = 4n + 3.\nStep 2: 20th term T₂₀ = 4(20) + 3 = 83.\nStep 3: Gauss Sum S₂₀ = (20 / 2) × (T₁ + T₂₀) = 10 × (7 + 83) = 900.",
-      "fadedPrompt": "Tₙ = 4n + 3, T₂₀ = 83, and S₂₀ = 10 × (7 + 83) = ___.",
+      "workedExample": "Step 1: The gaps are all 4, so start from 4n: 4, 8, 12. Each term is 3 more, so Tₙ = 4n + 3.\nStep 2: The 20th term is 4 × 20 + 3 = 83.\nStep 3: Pair the first and last terms. There are 20 terms, so 10 pairs of 7 + 83 = 90.\nStep 4: The sum of the first 20 terms is 10 × 90 = 900.",
+      "fadedPrompt": "Tₙ = 4n + 3 and the 20th term is 83. The sum is 10 × (7 + 83) = ___.",
       "fadedAnswer": "Tₙ = 4n + 3, S₂₀ = 900",
       "modelAnswer": "Tₙ = 4n + 3 and S₂₀ = 900 because pairing the 20 terms from both ends gives 10 pairs each summing to 7 + 83 = 90.",
       "linkedChapter": 6,
@@ -19831,8 +20367,8 @@
       "commandWord": "Work out",
       "marks": 2,
       "prompt": "Does the number 150 belong to the sequence Tₙ = 4n + 3? Justify your answer algebraically.",
-      "workedExample": "Apply the core invariant of 11.2 step by step.",
-      "fadedPrompt": "Target result for 11.2: ___",
+      "workedExample": "Step 1: Set the nth term equal to 150. 4n + 3 = 150.\nStep 2: Take 3 from both sides. 4n = 147.\nStep 3: Divide by 4. n = 36.75, which is not a whole number.\nStep 4: So 150 is not a term. The 36th term is 147 and the 37th is 151.",
+      "fadedPrompt": "4n + 3 = 150 gives 4n = 147 and n = ___, so 150 ___ a term.",
       "fadedAnswer": "No, because 4n + 3 = 150 gives 4n = 147, which is not an integer",
       "modelAnswer": "No, because 4n + 3 = 150 gives 4n = 147, which is not an integer",
       "linkedChapter": 6,
@@ -20071,8 +20607,8 @@
       "commandWord": "Model & Solve",
       "marks": 3,
       "prompt": "Find the nth term of the quadratic sequence 3, 8, 15, 24, 35, …",
-      "workedExample": "Sketch the Singapore Bar Model or geometric diagram first, then solve: Tₙ = n² + 2n.",
-      "fadedPrompt": "Singapore Bar-Model solution: ___",
+      "workedExample": "Step 1: The first differences are 5, 7, 9, 11, and the second differences are all 2.\nStep 2: Half of 2 is 1, so start from n²: 1, 4, 9, 16, 25.\nStep 3: Take n² away from each term: 2, 4, 6, 8, 10. That is 2n.\nStep 4: So Tₙ = n² + 2n. Check the 5th term: 25 + 10 = 35.",
+      "fadedPrompt": "The terms minus n² are 2, 4, 6, 8, 10, so Tₙ = n² + ___.",
       "fadedAnswer": "Tₙ = n² + 2n",
       "modelAnswer": "Tₙ = n² + 2n",
       "linkedChapter": 6,
@@ -20330,8 +20866,8 @@
       "commandWord": "Prove & Generalise",
       "marks": 4,
       "prompt": "Using Gauss's staircase formula, evaluate 1 + 2 + 3 + … + 200.",
-      "workedExample": "Bridge from visual intuition to the symbolic invariant: 20,100.",
-      "fadedPrompt": "Horizon invariant result: ___",
+      "workedExample": "Step 1: Pair the first number with the last. 1 + 200 = 201, and 2 + 199 = 201.\nStep 2: There are 200 numbers, so there are 100 pairs.\nStep 3: The sum is 100 × 201 = 20,100.\nStep 4: Check with the rule n(n + 1) ÷ 2: 200 × 201 ÷ 2 = 20,100.",
+      "fadedPrompt": "100 pairs, each adding to 201, make ___.",
       "fadedAnswer": "20,100",
       "modelAnswer": "20,100",
       "linkedChapter": 6,
@@ -26652,11 +27188,11 @@
     },
     {
       "id": "tip-gauss-sum",
-      "title": "Why 1 + 2 + … + n = ½n(n + 1)",
+      "title": "Why 1 + 2 + … + n is half of n(n + 1)",
       "chapter": 6,
-      "visualIntuition": "Build a staircase of 1, 2, …, n blocks, clone it, and flip the clone upside-down.",
-      "ahaMoment": "The two staircases interlock into a solid rectangle of width n and height (n + 1)!",
-      "formula": "Sₙ = ½ n (n + 1)"
+      "visualIntuition": "Build a staircase of 1, 2, 3, … up to n blocks. Make a copy and turn it upside down.",
+      "ahaMoment": "Set the copy on top, and every column reaches n + 1. The two staircases fill a rectangle n by n + 1, so one staircase is half of it.",
+      "formula": "1 + 2 + … + n = n(n + 1) ÷ 2"
     },
     {
       "id": "tip-circle-area",
@@ -32397,6 +32933,10 @@
         {
           "concept": "equation",
           "label": "Equation"
+        },
+        {
+          "concept": "nth-term",
+          "label": "nth term"
         }
       ]
     },
@@ -33343,6 +33883,529 @@
         {
           "chapter": 5,
           "label": "Chapter 5 · Equations, formulas and inequalities"
+        }
+      ]
+    },
+    {
+      "id": "sequence",
+      "name": "Sequence",
+      "aliases": [
+        "sequence",
+        "sequences"
+      ],
+      "oneSentence": "A list of numbers in order, made by a rule, where each number is called a term.",
+      "picture": "The odd numbers 1, 3, 5, 7, 9 in a row, each one 2 more than the one before.",
+      "steps": [
+        "Write the terms in order, separated by commas.",
+        "Look for the rule that makes each term.",
+        "Use the rule to find the terms that come next."
+      ],
+      "workedExample": "The rule is \"start at 1 and multiply by 3\". The terms are 1, 3, 9, 27 and 81.",
+      "check": {
+        "id": "sequence-check",
+        "prompt": "A sequence starts at 6 and adds 5 each time. What is its 4th term?",
+        "answer": "21",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "21"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "21",
+            "= 21",
+            "the 4th term is 21"
+          ],
+          "rejects": [
+            "26",
+            "20",
+            "16"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "a set of numbers",
+        "how": "In a sequence the order matters. 1, 3, 5 and 5, 3, 1 are different sequences, but the same set."
+      },
+      "standsOn": [],
+      "usedIn": [
+        {
+          "chapter": 6,
+          "label": "Chapter 6 · Sequences and the nth term"
+        },
+        {
+          "concept": "term-to-term-rule",
+          "label": "Term-to-term rule"
+        },
+        {
+          "concept": "common-difference",
+          "label": "Common difference"
+        },
+        {
+          "concept": "arithmetic-sequence",
+          "label": "Arithmetic sequence"
+        },
+        {
+          "concept": "geometric-sequence",
+          "label": "Geometric sequence"
+        },
+        {
+          "concept": "nth-term",
+          "label": "nth term"
+        },
+        {
+          "concept": "triangular-number",
+          "label": "Triangular number"
+        }
+      ]
+    },
+    {
+      "id": "term-to-term-rule",
+      "name": "Term-to-term rule",
+      "aliases": [
+        "term-to-term rule",
+        "term-to-term rules"
+      ],
+      "oneSentence": "A rule that makes each term of a sequence from the term before it.",
+      "picture": "A chain of boxes 5, 8, 11, 14, with an arrow marked + 3 between each pair.",
+      "steps": [
+        "Look at how each term follows from the one before.",
+        "Write the rule, such as add 3 or multiply by 2.",
+        "Say the first term too, because the rule needs a start."
+      ],
+      "workedExample": "In 80, 40, 20, 10, each term is half the one before. The term-to-term rule is divide by 2.",
+      "check": {
+        "id": "term-to-term-rule-check",
+        "prompt": "A sequence starts at 1, and its term-to-term rule is multiply by 2 then add 1. What is the 4th term?",
+        "answer": "15",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "15"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "15",
+            "= 15",
+            "the 4th term is 15"
+          ],
+          "rejects": [
+            "7",
+            "31",
+            "9"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "nth-term",
+        "how": "A term-to-term rule needs the term before. The nth term gives any term straight from its position."
+      },
+      "standsOn": [
+        "sequence"
+      ],
+      "usedIn": [
+        {
+          "chapter": 6,
+          "label": "Chapter 6 · Sequences and the nth term"
+        }
+      ]
+    },
+    {
+      "id": "common-difference",
+      "name": "Common difference",
+      "aliases": [
+        "common difference",
+        "common differences"
+      ],
+      "oneSentence": "The amount added each time in a sequence that goes up or down in equal steps.",
+      "picture": "A staircase whose steps are all the same height. That height is the common difference.",
+      "steps": [
+        "Take each term away from the term after it.",
+        "If every answer is the same, that answer is the common difference.",
+        "If the terms go down, the common difference is negative."
+      ],
+      "workedExample": "In 20, 17, 14, 11, each gap is 17 − 20 = −3. The common difference is −3.",
+      "check": {
+        "id": "common-difference-check",
+        "prompt": "What is the common difference of 2.5, 4, 5.5, 7?",
+        "answer": "1.5",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "1.5"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "1.5",
+            "d = 1.5",
+            "1.5 each time"
+          ],
+          "rejects": [
+            "2.5",
+            "−1.5",
+            "4.5"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "subtracting the wrong way",
+        "how": "Always take a term from the one after it. For 9, 6, 3, that is 6 − 9 = −3, not 3."
+      },
+      "standsOn": [
+        "sequence"
+      ],
+      "usedIn": [
+        {
+          "chapter": 6,
+          "label": "Chapter 6 · Sequences and the nth term"
+        },
+        {
+          "concept": "arithmetic-sequence",
+          "label": "Arithmetic sequence"
+        },
+        {
+          "concept": "quadratic-sequence",
+          "label": "Quadratic sequence"
+        }
+      ]
+    },
+    {
+      "id": "arithmetic-sequence",
+      "name": "Arithmetic sequence",
+      "aliases": [
+        "arithmetic sequence",
+        "arithmetic sequences",
+        "linear sequence",
+        "linear sequences"
+      ],
+      "oneSentence": "A sequence that goes up or down by the same common difference each time.",
+      "picture": "Fence posts placed every 4 m along a road, at 0 m, 4 m, 8 m and 12 m.",
+      "steps": [
+        "Find the gaps between neighbouring terms.",
+        "Check that every gap is the same.",
+        "If they are, the sequence is arithmetic, and its nth term has the form dn + c."
+      ],
+      "workedExample": "6, 10, 14, 18 has gaps of 4 each time, so it is arithmetic. 3, 6, 12, 24 has gaps 3, 6, 12, so it is not.",
+      "check": {
+        "id": "arithmetic-sequence-check",
+        "prompt": "Which of these is an arithmetic sequence: 1, 4, 9, 16 or 1, 4, 7, 10?",
+        "answer": "1, 4, 7, 10",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "sequence",
+                  "values": [
+                    "1",
+                    "4",
+                    "7",
+                    "10"
+                  ]
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "1, 4, 7, 10",
+            "1,4,7,10"
+          ],
+          "rejects": [
+            "1, 4, 9, 16",
+            "1, 4, 9",
+            "4, 7, 10"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "geometric-sequence",
+        "how": "An arithmetic sequence adds the same number each time. A geometric sequence multiplies by the same number."
+      },
+      "standsOn": [
+        "sequence",
+        "common-difference"
+      ],
+      "usedIn": [
+        {
+          "chapter": 6,
+          "label": "Chapter 6 · Sequences and the nth term"
+        }
+      ]
+    },
+    {
+      "id": "geometric-sequence",
+      "name": "Geometric sequence",
+      "aliases": [
+        "geometric sequence",
+        "geometric sequences",
+        "common ratio"
+      ],
+      "oneSentence": "A sequence that multiplies by the same number each time.",
+      "picture": "A sheet of paper folded in half again and again. The layers go 1, 2, 4, 8, 16.",
+      "steps": [
+        "Divide each term by the term before it.",
+        "If every answer is the same, the sequence is geometric.",
+        "That answer is the common ratio."
+      ],
+      "workedExample": "In 5, 15, 45, 135, each term is 3 times the one before. The common ratio is 3, and the next term is 405.",
+      "check": {
+        "id": "geometric-sequence-check",
+        "prompt": "What is the next term of the geometric sequence 3, 6, 12, 24?",
+        "answer": "48",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "48"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "48",
+            "= 48",
+            "the next term is 48"
+          ],
+          "rejects": [
+            "36",
+            "30",
+            "27"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "arithmetic-sequence",
+        "how": "2, 4, 6, 8 adds 2 each time, so it is arithmetic. 2, 4, 8, 16 doubles each time, so it is geometric."
+      },
+      "standsOn": [
+        "sequence"
+      ],
+      "usedIn": [
+        {
+          "chapter": 6,
+          "label": "Chapter 6 · Sequences and the nth term"
+        }
+      ]
+    },
+    {
+      "id": "nth-term",
+      "name": "nth term",
+      "aliases": [
+        "nth term",
+        "nth terms",
+        "position-to-term rule",
+        "position-to-term rules",
+        "Tₙ"
+      ],
+      "oneSentence": "A rule that gives any term of a sequence from its position n.",
+      "picture": "A table of positions 1, 2, 3, 4 above the terms 7, 9, 11, 13, with the rule 2n + 5 beside it.",
+      "steps": [
+        "Find the common difference d.",
+        "Write dn, and list its values for n = 1, 2, 3.",
+        "Find what to add to dn to reach each term.",
+        "Test the rule with n = 1 and n = 2."
+      ],
+      "workedExample": "For 10, 13, 16, 19, the common difference is 3. 3n gives 3, 6, 9, so add 7. The nth term is 3n + 7.",
+      "check": {
+        "id": "nth-term-check",
+        "prompt": "Find the nth term of 1, 6, 11, 16.",
+        "answer": "5n − 4",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "form",
+                  "value": "5n-4"
+                },
+                {
+                  "kind": "form",
+                  "value": "-4+5n"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "5n − 4",
+            "5n - 4",
+            "Tₙ = 5n − 4"
+          ],
+          "rejects": [
+            "5n + 1",
+            "n + 5",
+            "5n − 1"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "term-to-term-rule",
+        "how": "\"Add 5\" is a term-to-term rule. 5n − 4 is the nth term, and it gives the 100th term at once: 496."
+      },
+      "standsOn": [
+        "sequence",
+        "expression"
+      ],
+      "usedIn": [
+        {
+          "chapter": 6,
+          "label": "Chapter 6 · Sequences and the nth term"
+        },
+        {
+          "concept": "quadratic-sequence",
+          "label": "Quadratic sequence"
+        }
+      ]
+    },
+    {
+      "id": "quadratic-sequence",
+      "name": "Quadratic sequence",
+      "aliases": [
+        "quadratic sequence",
+        "quadratic sequences",
+        "second difference",
+        "second differences"
+      ],
+      "oneSentence": "A sequence whose second differences are equal and not 0, so its nth term has an n².",
+      "picture": "Squares of tiles 1, 4, 9, 16. Each new square adds an L-shaped border 2 tiles bigger than the last.",
+      "steps": [
+        "Find the first differences, then the differences between them.",
+        "If the second differences are equal, halve one to get the number in front of n².",
+        "Take that many n² away from each term.",
+        "Find the nth term of what is left, and add it on."
+      ],
+      "workedExample": "For 3, 9, 19, 33, the second differences are all 4. Half of 4 is 2, so start with 2n²: 2, 8, 18, 32. What is left is 1 each time, so the nth term is 2n² + 1.",
+      "check": {
+        "id": "quadratic-sequence-check",
+        "prompt": "Find the nth term of 0, 3, 8, 15, 24.",
+        "answer": "n² − 1",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "form",
+                  "value": "n^2-1"
+                },
+                {
+                  "kind": "form",
+                  "value": "-1+n^2"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "n² − 1",
+            "n^2 - 1",
+            "Tₙ = n² − 1"
+          ],
+          "rejects": [
+            "n² + 1",
+            "2n² − 1",
+            "3n − 3"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "using the whole second difference",
+        "how": "A second difference of 6 means 3n², not 6n². The number in front of n² is half the second difference."
+      },
+      "standsOn": [
+        "nth-term",
+        "common-difference"
+      ],
+      "usedIn": [
+        {
+          "chapter": 6,
+          "label": "Chapter 6 · Sequences and the nth term"
+        }
+      ]
+    },
+    {
+      "id": "triangular-number",
+      "name": "Triangular number",
+      "aliases": [
+        "triangular number",
+        "triangular numbers"
+      ],
+      "oneSentence": "A number you get by adding 1 + 2 + 3 + … up to some n, which equals n(n + 1) ÷ 2.",
+      "picture": "Rows of dots 1, 2, 3, 4 stacked into a triangle. The triangles hold 1, 3, 6 and 10 dots.",
+      "steps": [
+        "Pair the first and last numbers, which add to n + 1.",
+        "Count the pairs, which is half of n.",
+        "Multiply: n(n + 1) ÷ 2."
+      ],
+      "workedExample": "The 12th triangular number is 1 + 2 + … + 12 = 12 × 13 ÷ 2 = 78.",
+      "check": {
+        "id": "triangular-number-check",
+        "prompt": "What is the 9th triangular number?",
+        "answer": "45",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "45"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "45",
+            "= 45",
+            "9 × 10 ÷ 2 = 45"
+          ],
+          "rejects": [
+            "90",
+            "81",
+            "36"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "a square number",
+        "how": "The 4th square number is 4 × 4 = 16. The 4th triangular number is 1 + 2 + 3 + 4 = 10."
+      },
+      "standsOn": [
+        "sequence"
+      ],
+      "usedIn": [
+        {
+          "chapter": 6,
+          "label": "Chapter 6 · Sequences and the nth term"
         }
       ]
     }

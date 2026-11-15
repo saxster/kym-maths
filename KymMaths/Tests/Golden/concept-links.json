@@ -9318,6 +9318,1459 @@
     "links": []
   },
   {
+    "text": "Sequences and the nth term",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "sequence",
+        "text": "Sequences",
+        "offset": 0
+      },
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 18
+      }
+    ]
+  },
+  {
+    "text": "School book chapter 11 · Term-to-term rules, the nth term, quadratic sequences and adding a staircase",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "term-to-term-rule",
+        "text": "Term-to-term rules",
+        "offset": 25
+      },
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 49
+      },
+      {
+        "concept": "quadratic-sequence",
+        "text": "quadratic sequences",
+        "offset": 59
+      }
+    ]
+  },
+  {
+    "text": "A row of 10 squares made of matchsticks needs 31 matches, not 40. How many does a row of 100 squares need, without counting?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Finding and using the nth term of a sequence",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 22
+      },
+      {
+        "concept": "sequence",
+        "text": "sequence",
+        "offset": 36
+      }
+    ]
+  },
+  {
+    "text": "With no calculator: find the nth term of 6, 11, 16, 21. Is 100 a term of it? Work out 1 + 2 + 3 + … + 50.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 29
+      }
+    ]
+  },
+  {
+    "text": "5n + 1. No, because 5n + 1 = 100 gives n = 19.8. 1275.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A rule for the nth term jumps straight to the 100th term without writing out the 99 before it. The same habit, finding the rule behind a list, is how a line drawn on a grid is read in the next chapter.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 15
+      }
+    ]
+  },
+  {
+    "text": "Chapter 4: expressions and substitution",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "expression",
+        "text": "expressions",
+        "offset": 11
+      },
+      {
+        "concept": "substitution",
+        "text": "substitution",
+        "offset": 27
+      }
+    ]
+  },
+  {
+    "text": "Chapter 5: solving an equation",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "solving-equations",
+        "text": "solving an equation",
+        "offset": 11
+      }
+    ]
+  },
+  {
+    "text": "Square numbers and the times tables",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 7: lines drawn on a grid, whose points go up in equal steps",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Adding up equal steps, as in saving the same amount each month",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Later chapters on sequences that grow by multiplying",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "sequence",
+        "text": "sequences",
+        "offset": 18
+      }
+    ]
+  },
+  {
+    "text": "Set the terms to 5, the first term to 1 and the common difference to 1. The red columns make a staircase 1, 2, 3, 4, 5 high.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "common-difference",
+        "text": "common difference",
+        "offset": 48
+      }
+    ]
+  },
+  {
+    "text": "A blue copy of the staircase, turned upside down, fills the gaps above it. Every column is then 6 high, so the rectangle holds 5 × 6 = 30 squares and one staircase holds 15.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Tₙ = a + (n − 1)d   and   1 + 2 + … + n = n(n + 1) ÷ 2",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "Tₙ",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "a, a + d, a + 2d, …",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The red columns",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The terms of the sequence",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "sequence",
+        "text": "sequence",
+        "offset": 17
+      }
+    ]
+  },
+  {
+    "text": "the same terms in reverse",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The blue columns",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A copy turned upside down",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Tₙ = a + (n − 1)d",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "Tₙ",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "The green line",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The nth term of the red staircase",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "n(first + last) ÷ 2",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The amber line",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Half the rectangle is the sum of the terms",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "6.1 What comes next?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "6.2 Equal steps",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "6.3 Jumping to any term",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "6.4 Is it in the list?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "6.5 When the steps grow",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "6.6 Adding up a staircase",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Predict first",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Predict 1 + 2 + 3 + … + 8 in your head. Then set the terms to 8, the first term to 1 and the common difference to 1, and read the amber line.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "common-difference",
+        "text": "common difference",
+        "offset": 93
+      }
+    ]
+  },
+  {
+    "text": "Explain it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Explain to a friend why a row of 10 matchstick squares needs 31 matches and not 40.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Test your rule",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Before you use a rule to go further, try it on the terms you already have. Every one of them should fit.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Sequence",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "sequence",
+        "text": "Sequence",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Term-to-term rule",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "term-to-term-rule",
+        "text": "Term-to-term rule",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Common difference",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "common-difference",
+        "text": "Common difference",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Arithmetic sequence",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "arithmetic-sequence",
+        "text": "Arithmetic sequence",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Geometric sequence",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "geometric-sequence",
+        "text": "Geometric sequence",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "nth term",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Quadratic sequence",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "quadratic-sequence",
+        "text": "Quadratic sequence",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Triangular number",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "triangular-number",
+        "text": "Triangular number",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Twice as many squares",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A row of 10 matchstick squares uses 31 matches, and the nth term is 3n + 1. Ishaan and Tara work out the matches for a row of 20 squares.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 56
+      }
+    ]
+  },
+  {
+    "text": "Ishaan",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "20 squares is twice 10 squares, so it needs twice 31. That is 62 matches.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Tara",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Put n = 20 in the nth term. 3 × 20 + 1 = 61 matches.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 18
+      }
+    ]
+  },
+  {
+    "text": "Ishaan is right (62)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Twice the squares always needs twice the matches.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Put two rows of 10 squares end to end. Where they meet, two matches stand side by side. Do you need both of them?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Tara is right (61)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The nth term gives any term from its position.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "Yes. Doubling 3n + 1 gives 6n + 2, which counts the starting match twice. The real rule adds that match only once.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Neither. It is 80.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Each square has 4 sides, and 20 × 4 = 80.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Count the matches in a row of 2 squares. Is it 8, or does one side belong to both?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "An nth term like 3n + 1 does not double when n doubles. Find any term by putting its position into the rule.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 3
+      }
+    ]
+  },
+  {
+    "text": "Two staircases make a rectangle",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the terms to 6, the first term to 1 and the common difference to 1. Predict 1 + 2 + … + 6 before you read the amber line.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "common-difference",
+        "text": "common difference",
+        "offset": 48
+      }
+    ]
+  },
+  {
+    "text": "The red staircase 1 to 6 and its blue copy turned upside down make a rectangle 6 wide and 7 high. That is 42 squares, so one staircase is 21.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The rule: 1 + 2 + … + n = n(n + 1) ÷ 2",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "1. Try it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the terms to 4, the first term to 1 and the common difference to 1.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "common-difference",
+        "text": "common difference",
+        "offset": 48
+      }
+    ]
+  },
+  {
+    "text": "2. Notice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Every column, red and blue together, is 5 high.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3. Match the rule",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The rectangle is 4 × 5 = 20, and half of it is 10, which is 1 + 2 + 3 + 4.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "4. Push it further",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the first term to 3 and the common difference to 2. Are the columns still all the same height?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "common-difference",
+        "text": "common difference",
+        "offset": 32
+      }
+    ]
+  },
+  {
+    "text": "5. Draw it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw the two staircases for 2 + 4 + 6 + 8 in your journal and find the sum.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Finding the rule from the gaps",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write down 2, 6, 12, 20, 30. Predict whether its first differences or its second differences are equal.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "quadratic-sequence",
+        "text": "second differences",
+        "offset": 74
+      }
+    ]
+  },
+  {
+    "text": "The first differences are 4, 6, 8 and 10. The second differences are all 2, so the nth term starts with n².",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "quadratic-sequence",
+        "text": "second differences",
+        "offset": 46
+      },
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 83
+      }
+    ]
+  },
+  {
+    "text": "The rule: equal first differences d give dn + c, and equal second differences 2a give an² + …",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "quadratic-sequence",
+        "text": "second differences",
+        "offset": 59
+      }
+    ]
+  },
+  {
+    "text": "1. Try it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write the sequence 3, 7, 11, 15, 19 and the gaps under it.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "sequence",
+        "text": "sequence",
+        "offset": 10
+      }
+    ]
+  },
+  {
+    "text": "2. Notice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The gaps are all 4, so the nth term starts with 4n.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 27
+      }
+    ]
+  },
+  {
+    "text": "3. Match the rule",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "4n gives 4, 8, 12, so take 1 away: the nth term is 4n − 1.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 39
+      }
+    ]
+  },
+  {
+    "text": "4. Push it further",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Try 1, 4, 9, 16, 25. The first gaps change, so find the gaps of the gaps.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "5. Draw it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw the tile squares for 1, 4 and 9, and colour each new L-shaped border.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 6 · Equal steps",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "How can you tell whether a list of numbers goes up in equal steps?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Take each term away from the next one. If every gap is the same, the list is an arithmetic sequence and that gap is its common difference.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "arithmetic-sequence",
+        "text": "arithmetic sequence",
+        "offset": 80
+      },
+      {
+        "concept": "common-difference",
+        "text": "common difference",
+        "offset": 120
+      }
+    ]
+  },
+  {
+    "text": "The rule: equal gaps d give the nth term dn + c",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 32
+      }
+    ]
+  },
+  {
+    "text": "A row of 10 squares made of matchsticks needs 31 matches, not 40. How many does a row of 100 squares need, without counting?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 6 · Jumping to the 100th term",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why does the number in front of n match the gap between terms?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Each step along the list adds the same gap d. After n steps, the gaps add up to dn, and a fixed number corrects the start.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The rule: Tₙ = a + (n − 1)d",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "Tₙ",
+        "offset": 10
+      }
+    ]
+  },
+  {
+    "text": "A row of 10 squares made of matchsticks needs 31 matches, not 40. How many does a row of 100 squares need, without counting?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 6 · Two staircases make a rectangle",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why is 1 + 2 + … + n half of n × (n + 1)?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Turn a copy of the staircase upside down and set it on top. Every column then reaches n + 1, so the two staircases fill a rectangle n by n + 1.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The rule: 1 + 2 + … + n = n(n + 1) ÷ 2",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A row of 10 squares made of matchsticks needs 31 matches, not 40. How many does a row of 100 squares need, without counting?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why 1 + 2 + … + n is half of n(n + 1)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Build a staircase of 1, 2, 3, … up to n blocks. Make a copy and turn it upside down.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the copy on top, and every column reaches n + 1. The two staircases fill a rectangle n by n + 1, so one staircase is half of it.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "1 + 2 + … + n = n(n + 1) ÷ 2",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Kym makes a row of squares from matchsticks. 1 square uses 4 matches, 2 squares use 7 and 3 squares use 10. How many matches do 4 squares use? And 10 squares?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Each new square adds 3 matches, so 4 squares use 13. Keep adding 3: 16, 19, 22, 25, 28 and 31. A row of 10 squares uses 31 matches.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw the rows of 1, 2, 3 and 4 squares, one under another. Write the count of matches beside each row: 4, 7, 10, 13. Between each pair of counts, write + 3.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why 3 and not 4? The first square needs 4 matches. Each square after it borrows its left side from the square before, so it needs only 3 new matches.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A list of numbers made by a rule is called a sequence. Each number in it is a term. A rule that makes each term from the one before, like \"add 3\", is a term-to-term rule. The first term and the term-to-term rule fix every term after them.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "sequence",
+        "text": "sequence",
+        "offset": 45
+      },
+      {
+        "concept": "term-to-term-rule",
+        "text": "term-to-term rule",
+        "offset": 152
+      }
+    ]
+  },
+  {
+    "text": "Start at 2 and double each time: 2, 4, 8, 16, 32. The term-to-term rule is \"multiply by 2\". Start at 50 and take away 6 each time: 50, 44, 38, 32. The rule there is \"subtract 6\".",
+    "exclude": null,
+    "linked": [
+      "sequence",
+      "term-to-term-rule"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to say 10 squares need 10 × 4 = 40 matches. That counts each shared side twice. A row of 10 squares has 9 shared sides, and 40 − 9 = 31.",
+    "exclude": null,
+    "linked": [
+      "sequence",
+      "term-to-term-rule"
+    ],
+    "links": []
+  },
+  {
+    "text": "A sequence starts 3, 10, 17, 24. What is the next term?",
+    "exclude": null,
+    "linked": [
+      "sequence",
+      "term-to-term-rule"
+    ],
+    "links": []
+  },
+  {
+    "text": "A sequence follows a rule, and a term-to-term rule makes each term from the one before.",
+    "exclude": null,
+    "linked": [
+      "sequence",
+      "term-to-term-rule"
+    ],
+    "links": []
+  },
+  {
+    "text": "Look at 5, 9, 13, 17, 21 and at 2, 4, 8, 16, 32. Both lists grow. Which one grows by the same amount every time?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Take each term away from the next one. For the first list the gaps are 4, 4, 4 and 4. For the second they are 2, 4, 8 and 16. Only the first list grows in equal steps.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw each list as a row of columns, as tall as its terms. The first row climbs like a staircase with every step 4 high. The second row's steps keep doubling.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why look at the gaps? Equal gaps mean the term-to-term rule is \"add the same number\". Then you can jump ahead without listing every term, as the next section shows.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "term-to-term-rule",
+        "text": "term-to-term rule",
+        "offset": 42
+      }
+    ]
+  },
+  {
+    "text": "When the gap between neighbouring terms is always the same, that gap is the common difference. A sequence with a common difference is an arithmetic sequence. A sequence that multiplies by the same number each time, like 2, 4, 8, 16, is a geometric sequence.",
+    "exclude": null,
+    "linked": [
+      "term-to-term-rule"
+    ],
+    "links": [
+      {
+        "concept": "common-difference",
+        "text": "common difference",
+        "offset": 76
+      },
+      {
+        "concept": "sequence",
+        "text": "sequence",
+        "offset": 97
+      },
+      {
+        "concept": "arithmetic-sequence",
+        "text": "arithmetic sequence",
+        "offset": 137
+      },
+      {
+        "concept": "geometric-sequence",
+        "text": "geometric sequence",
+        "offset": 238
+      }
+    ]
+  },
+  {
+    "text": "In 7, 4, 1, −2, −5 each term is 3 less than the one before. So it is an arithmetic sequence with common difference −3, and its next term is −8.",
+    "exclude": null,
+    "linked": [
+      "arithmetic-sequence",
+      "common-difference",
+      "geometric-sequence",
+      "sequence",
+      "term-to-term-rule"
+    ],
+    "links": []
+  },
+  {
+    "text": "One slip is to give the common difference of 40, 35, 30 as 5. The terms go down, and 35 − 40 = −5. Another slip is to call 1, 4, 9, 16 arithmetic. Its gaps are 3, 5 and 7, which are not equal.",
+    "exclude": null,
+    "linked": [
+      "arithmetic-sequence",
+      "common-difference",
+      "geometric-sequence",
+      "sequence",
+      "term-to-term-rule"
+    ],
+    "links": []
+  },
+  {
+    "text": "What is the common difference of 11, 8, 5, 2?",
+    "exclude": null,
+    "linked": [
+      "arithmetic-sequence",
+      "common-difference",
+      "geometric-sequence",
+      "sequence",
+      "term-to-term-rule"
+    ],
+    "links": []
+  },
+  {
+    "text": "An arithmetic sequence goes up or down by its common difference every time.",
+    "exclude": null,
+    "linked": [
+      "arithmetic-sequence",
+      "common-difference",
+      "geometric-sequence",
+      "sequence",
+      "term-to-term-rule"
+    ],
+    "links": []
+  },
+  {
+    "text": "The matchstick rows used 4, 7, 10 and 13 matches. How many matches does a row of 100 squares use, without listing 100 terms?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The counts go up by 3, like the 3 times table: 3, 6, 9, 12. Each count is 1 more than that: 4, 7, 10, 13. So 100 squares use 3 × 100 + 1 = 301 matches.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Make a table with three rows. The top row is the position: 1, 2, 3, 4. The middle row is 3 times the position: 3, 6, 9, 12. The bottom row is the matches: 4, 7, 10, 13.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why 3 times the position? Every square adds 3 matches, so n squares add up to 3n of them. The + 1 is the single match on the far left that starts the row.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A rule that gives a term from its position n is called the nth term, or the position-to-term rule. For the matchsticks it is 3n + 1. In an arithmetic sequence, the number in front of n is the common difference.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 59
+      },
+      {
+        "concept": "arithmetic-sequence",
+        "text": "arithmetic sequence",
+        "offset": 139
+      },
+      {
+        "concept": "common-difference",
+        "text": "common difference",
+        "offset": 192
+      }
+    ]
+  },
+  {
+    "text": "Find the nth term of 5, 8, 11, 14. The common difference is 3, so start from 3n: 3, 6, 9, 12. Each term is 2 more, so the nth term is 3n + 2. The 20th term is 3 × 20 + 2 = 62.",
+    "exclude": null,
+    "linked": [
+      "arithmetic-sequence",
+      "common-difference",
+      "nth-term"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to write n + 3, because the terms go up by 3. That gives 4, 5, 6, 7. Another slip is to add the first term, as in 3n + 5, which starts at 8. Test n = 1 and n = 2 before you trust a rule.",
+    "exclude": null,
+    "linked": [
+      "arithmetic-sequence",
+      "common-difference",
+      "nth-term"
+    ],
+    "links": []
+  },
+  {
+    "text": "Find the nth term of 9, 14, 19, 24.",
+    "exclude": null,
+    "linked": [
+      "arithmetic-sequence",
+      "common-difference",
+      "nth-term"
+    ],
+    "links": []
+  },
+  {
+    "text": "Start the nth term from the common difference times n, then fix it so the first term is right.",
+    "exclude": null,
+    "linked": [
+      "arithmetic-sequence",
+      "common-difference",
+      "nth-term"
+    ],
+    "links": []
+  },
+  {
+    "text": "In a hall, row 1 has 12 seats and each row has 3 more seats than the row in front. Which row has 57 seats? Does any row have exactly 50?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The rows have 12, 15, 18, … seats. They go up by 3, so start from 3n: 3, 6, 9. Each row has 9 more than that, so row n has 3n + 9. For 57 seats, 3n + 9 = 57, so 3n = 48 and n = 16. For 50 seats, 3n = 41 and n = 13⅔.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw a number line and mark the seat counts 12, 15, 18 and on up to 57. The number 50 falls between 48 and 51, which are rows 13 and 14.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why does 13⅔ mean no? Positions count rows: the 1st, the 2nd, the 3rd. There is no row 13⅔, so no row has exactly 50 seats.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "To test whether a number is a term, set the nth term equal to it and solve the equation. A whole number answer is its position. Any other answer means it is not a term.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 44
+      },
+      {
+        "concept": "solving-equations",
+        "text": "solve the equation",
+        "offset": 69
+      }
+    ]
+  },
+  {
+    "text": "Is 99 a term of 7n − 6? Solve 7n − 6 = 99. Then 7n = 105, so n = 15. Yes, 99 is the 15th term. Check: 7 × 15 − 6 = 99.",
+    "exclude": null,
+    "linked": [
+      "nth-term",
+      "solving-equations"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to put 50 in place of n: 3 × 50 + 9 = 159. That finds how many seats row 50 has. It does not find which row has 50 seats.",
+    "exclude": null,
+    "linked": [
+      "nth-term",
+      "solving-equations"
+    ],
+    "links": []
+  },
+  {
+    "text": "Which term of 5n − 2 is 83?",
+    "exclude": null,
+    "linked": [
+      "nth-term",
+      "solving-equations"
+    ],
+    "links": []
+  },
+  {
+    "text": "Set the nth term equal to the number and solve. A whole number answer is its position.",
+    "exclude": null,
+    "linked": [
+      "nth-term",
+      "solving-equations"
+    ],
+    "links": []
+  },
+  {
+    "text": "Kym builds squares of tiles: 1 tile, then 4, then 9, then 16. The gaps are 3, 5 and 7, so they are not equal. Is there still a rule?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The gaps 3, 5 and 7 are the first differences. Find the gaps between them: 5 − 3 = 2 and 7 − 5 = 2. Those are equal. The tile counts are 1 × 1, 2 × 2, 3 × 3 and 4 × 4, so the nth one is n².",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw the squares of 1, 4 and 9 tiles inside one another. Each new square adds an L-shaped border of 3, then 5, then 7 tiles.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why does each border grow by 2? A 3 by 3 square becomes 4 by 4 when you add a row of 3, a column of 3 and 1 corner. From n by n, the border is n + n + 1 = 2n + 1 tiles, which goes up by 2 each time.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The gaps between the first differences are the second differences. When the second differences are equal, and not 0, the list is a quadratic sequence. Its nth term has an n², and the number in front of n² is half the second difference.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "quadratic-sequence",
+        "text": "second differences",
+        "offset": 47
+      },
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 155
+      }
+    ]
+  },
+  {
+    "text": "Take 2, 6, 12, 20, 30. The first differences are 4, 6, 8, 10, and the second differences are all 2, so start from n². Take away 1, 4, 9, 16, 25 to leave 1, 2, 3, 4, 5, which is n. So the nth term is n² + n.",
+    "exclude": null,
+    "linked": [
+      "nth-term",
+      "quadratic-sequence"
+    ],
+    "links": []
+  },
+  {
+    "text": "The usual slip is to put the second difference itself in front of n². With a second difference of 2, the rule 2n² gives 2, 8, 18, not 1, 4, 9. Halve the second difference first.",
+    "exclude": null,
+    "linked": [
+      "nth-term",
+      "quadratic-sequence"
+    ],
+    "links": []
+  },
+  {
+    "text": "Find the nth term of 4, 7, 12, 19, 28.",
+    "exclude": null,
+    "linked": [
+      "nth-term",
+      "quadratic-sequence"
+    ],
+    "links": []
+  },
+  {
+    "text": "Equal second differences mean a quadratic sequence, with half the second difference in front of n².",
+    "exclude": null,
+    "linked": [
+      "nth-term",
+      "quadratic-sequence"
+    ],
+    "links": []
+  },
+  {
+    "text": "A teacher once asked a class to add every whole number from 1 to 100. A boy called Gauss gave the answer in about a minute. How could he be so quick?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Try 1 to 10 first. Pair the first number with the last: 1 + 10 = 11, then 2 + 9 = 11, and so on. There are 5 pairs of 11, which make 55. From 1 to 100 there are 50 pairs of 101, which make 5050.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "In the figure, set the terms to 5, the first term to 1 and the common difference to 1. The red staircase 1, 2, 3, 4, 5 and the blue copy above it make a rectangle 5 wide and 6 high.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "common-difference",
+        "text": "common difference",
+        "offset": 63
+      }
+    ]
+  },
+  {
+    "text": "Why is every column the same height? Moving right, the red step rises by 1 and the blue step falls by 1. So each column stays 6 high, the rectangle holds 30 squares, and one staircase holds 15.",
+    "exclude": null,
+    "linked": [
+      "common-difference"
+    ],
+    "links": []
+  },
+  {
+    "text": "The totals 1, 3, 6, 10, 15 of 1 + 2 + … + n are the triangular numbers, and the nth one is n(n + 1) ÷ 2. The same pairing adds any arithmetic sequence. Multiply the number of terms by the first term plus the last, then halve.",
+    "exclude": null,
+    "linked": [
+      "common-difference"
+    ],
+    "links": [
+      {
+        "concept": "triangular-number",
+        "text": "triangular numbers",
+        "offset": 52
+      },
+      {
+        "concept": "arithmetic-sequence",
+        "text": "arithmetic sequence",
+        "offset": 131
+      }
+    ]
+  },
+  {
+    "text": "Add 2 + 5 + 8 + … + 29. The nth term is 3n − 1, and 3n − 1 = 29 gives n = 10, so there are 10 terms. The sum is 10 × (2 + 29) ÷ 2 = 155.",
+    "exclude": null,
+    "linked": [
+      "arithmetic-sequence",
+      "common-difference",
+      "triangular-number"
+    ],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 28
+      }
+    ]
+  },
+  {
+    "text": "The tempting slip is to forget the halving and say 1 + 2 + … + 100 = 100 × 101 = 10,100. The rectangle holds two staircases, so that counts every number twice.",
+    "exclude": null,
+    "linked": [
+      "arithmetic-sequence",
+      "common-difference",
+      "nth-term",
+      "triangular-number"
+    ],
+    "links": []
+  },
+  {
+    "text": "Work out 1 + 2 + 3 + … + 40.",
+    "exclude": null,
+    "linked": [
+      "arithmetic-sequence",
+      "common-difference",
+      "nth-term",
+      "triangular-number"
+    ],
+    "links": []
+  },
+  {
+    "text": "To add equal steps, multiply the number of terms by the first term plus the last, and halve.",
+    "exclude": null,
+    "linked": [
+      "arithmetic-sequence",
+      "common-difference",
+      "nth-term",
+      "triangular-number"
+    ],
+    "links": []
+  },
+  {
     "text": "Negative number",
     "exclude": "negative-number",
     "linked": [],
@@ -15441,6 +16894,18 @@
     ]
   },
   {
+    "text": "nth term",
+    "exclude": "expression",
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 0
+      }
+    ]
+  },
+  {
     "text": "Substitution",
     "exclude": "substitution",
     "linked": [],
@@ -17071,6 +18536,879 @@
     ]
   },
   {
+    "text": "Sequence",
+    "exclude": "sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A list of numbers in order, made by a rule, where each number is called a term.",
+    "exclude": "sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The odd numbers 1, 3, 5, 7, 9 in a row, each one 2 more than the one before.",
+    "exclude": "sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The rule is \"start at 1 and multiply by 3\". The terms are 1, 3, 9, 27 and 81.",
+    "exclude": "sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write the terms in order, separated by commas.",
+    "exclude": "sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Look for the rule that makes each term.",
+    "exclude": "sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Use the rule to find the terms that come next.",
+    "exclude": "sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A sequence starts at 6 and adds 5 each time. What is its 4th term?",
+    "exclude": "sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "21",
+    "exclude": "sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "a set of numbers",
+    "exclude": "sequence",
+    "linked": [],
+    "links": [
+      {
+        "concept": "set",
+        "text": "a set",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "In a sequence the order matters. 1, 3, 5 and 5, 3, 1 are different sequences, but the same set.",
+    "exclude": "sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 6 · Sequences and the nth term",
+    "exclude": "sequence",
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 30
+      }
+    ]
+  },
+  {
+    "text": "Term-to-term rule",
+    "exclude": "sequence",
+    "linked": [],
+    "links": [
+      {
+        "concept": "term-to-term-rule",
+        "text": "Term-to-term rule",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Common difference",
+    "exclude": "sequence",
+    "linked": [],
+    "links": [
+      {
+        "concept": "common-difference",
+        "text": "Common difference",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Arithmetic sequence",
+    "exclude": "sequence",
+    "linked": [],
+    "links": [
+      {
+        "concept": "arithmetic-sequence",
+        "text": "Arithmetic sequence",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Geometric sequence",
+    "exclude": "sequence",
+    "linked": [],
+    "links": [
+      {
+        "concept": "geometric-sequence",
+        "text": "Geometric sequence",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "nth term",
+    "exclude": "sequence",
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Triangular number",
+    "exclude": "sequence",
+    "linked": [],
+    "links": [
+      {
+        "concept": "triangular-number",
+        "text": "Triangular number",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Term-to-term rule",
+    "exclude": "term-to-term-rule",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A rule that makes each term of a sequence from the term before it.",
+    "exclude": "term-to-term-rule",
+    "linked": [],
+    "links": [
+      {
+        "concept": "sequence",
+        "text": "sequence",
+        "offset": 33
+      }
+    ]
+  },
+  {
+    "text": "A chain of boxes 5, 8, 11, 14, with an arrow marked + 3 between each pair.",
+    "exclude": "term-to-term-rule",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "In 80, 40, 20, 10, each term is half the one before. The term-to-term rule is divide by 2.",
+    "exclude": "term-to-term-rule",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Look at how each term follows from the one before.",
+    "exclude": "term-to-term-rule",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write the rule, such as add 3 or multiply by 2.",
+    "exclude": "term-to-term-rule",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Say the first term too, because the rule needs a start.",
+    "exclude": "term-to-term-rule",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A sequence starts at 1, and its term-to-term rule is multiply by 2 then add 1. What is the 4th term?",
+    "exclude": "term-to-term-rule",
+    "linked": [],
+    "links": [
+      {
+        "concept": "sequence",
+        "text": "sequence",
+        "offset": 2
+      }
+    ]
+  },
+  {
+    "text": "15",
+    "exclude": "term-to-term-rule",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A term-to-term rule needs the term before. The nth term gives any term straight from its position.",
+    "exclude": "term-to-term-rule",
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 47
+      }
+    ]
+  },
+  {
+    "text": "Chapter 6 · Sequences and the nth term",
+    "exclude": "term-to-term-rule",
+    "linked": [],
+    "links": [
+      {
+        "concept": "sequence",
+        "text": "Sequences",
+        "offset": 12
+      },
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 30
+      }
+    ]
+  },
+  {
+    "text": "Common difference",
+    "exclude": "common-difference",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The amount added each time in a sequence that goes up or down in equal steps.",
+    "exclude": "common-difference",
+    "linked": [],
+    "links": [
+      {
+        "concept": "sequence",
+        "text": "sequence",
+        "offset": 32
+      }
+    ]
+  },
+  {
+    "text": "A staircase whose steps are all the same height. That height is the common difference.",
+    "exclude": "common-difference",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "In 20, 17, 14, 11, each gap is 17 − 20 = −3. The common difference is −3.",
+    "exclude": "common-difference",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Take each term away from the term after it.",
+    "exclude": "common-difference",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "If every answer is the same, that answer is the common difference.",
+    "exclude": "common-difference",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "If the terms go down, the common difference is negative.",
+    "exclude": "common-difference",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "What is the common difference of 2.5, 4, 5.5, 7?",
+    "exclude": "common-difference",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "1.5",
+    "exclude": "common-difference",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "subtracting the wrong way",
+    "exclude": "common-difference",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Always take a term from the one after it. For 9, 6, 3, that is 6 − 9 = −3, not 3.",
+    "exclude": "common-difference",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 6 · Sequences and the nth term",
+    "exclude": "common-difference",
+    "linked": [],
+    "links": [
+      {
+        "concept": "sequence",
+        "text": "Sequences",
+        "offset": 12
+      },
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 30
+      }
+    ]
+  },
+  {
+    "text": "Arithmetic sequence",
+    "exclude": "common-difference",
+    "linked": [],
+    "links": [
+      {
+        "concept": "arithmetic-sequence",
+        "text": "Arithmetic sequence",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Quadratic sequence",
+    "exclude": "common-difference",
+    "linked": [],
+    "links": [
+      {
+        "concept": "quadratic-sequence",
+        "text": "Quadratic sequence",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Arithmetic sequence",
+    "exclude": "arithmetic-sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A sequence that goes up or down by the same common difference each time.",
+    "exclude": "arithmetic-sequence",
+    "linked": [],
+    "links": [
+      {
+        "concept": "sequence",
+        "text": "sequence",
+        "offset": 2
+      },
+      {
+        "concept": "common-difference",
+        "text": "common difference",
+        "offset": 44
+      }
+    ]
+  },
+  {
+    "text": "Fence posts placed every 4 m along a road, at 0 m, 4 m, 8 m and 12 m.",
+    "exclude": "arithmetic-sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "6, 10, 14, 18 has gaps of 4 each time, so it is arithmetic. 3, 6, 12, 24 has gaps 3, 6, 12, so it is not.",
+    "exclude": "arithmetic-sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find the gaps between neighbouring terms.",
+    "exclude": "arithmetic-sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Check that every gap is the same.",
+    "exclude": "arithmetic-sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "If they are, the sequence is arithmetic, and its nth term has the form dn + c.",
+    "exclude": "arithmetic-sequence",
+    "linked": [],
+    "links": [
+      {
+        "concept": "sequence",
+        "text": "sequence",
+        "offset": 17
+      },
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 49
+      }
+    ]
+  },
+  {
+    "text": "Which of these is an arithmetic sequence: 1, 4, 9, 16 or 1, 4, 7, 10?",
+    "exclude": "arithmetic-sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "1, 4, 7, 10",
+    "exclude": "arithmetic-sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "An arithmetic sequence adds the same number each time. A geometric sequence multiplies by the same number.",
+    "exclude": "arithmetic-sequence",
+    "linked": [],
+    "links": [
+      {
+        "concept": "geometric-sequence",
+        "text": "geometric sequence",
+        "offset": 57
+      }
+    ]
+  },
+  {
+    "text": "Chapter 6 · Sequences and the nth term",
+    "exclude": "arithmetic-sequence",
+    "linked": [],
+    "links": [
+      {
+        "concept": "sequence",
+        "text": "Sequences",
+        "offset": 12
+      },
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 30
+      }
+    ]
+  },
+  {
+    "text": "Geometric sequence",
+    "exclude": "geometric-sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A sequence that multiplies by the same number each time.",
+    "exclude": "geometric-sequence",
+    "linked": [],
+    "links": [
+      {
+        "concept": "sequence",
+        "text": "sequence",
+        "offset": 2
+      }
+    ]
+  },
+  {
+    "text": "A sheet of paper folded in half again and again. The layers go 1, 2, 4, 8, 16.",
+    "exclude": "geometric-sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "In 5, 15, 45, 135, each term is 3 times the one before. The common ratio is 3, and the next term is 405.",
+    "exclude": "geometric-sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Divide each term by the term before it.",
+    "exclude": "geometric-sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "If every answer is the same, the sequence is geometric.",
+    "exclude": "geometric-sequence",
+    "linked": [],
+    "links": [
+      {
+        "concept": "sequence",
+        "text": "sequence",
+        "offset": 33
+      }
+    ]
+  },
+  {
+    "text": "That answer is the common ratio.",
+    "exclude": "geometric-sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "What is the next term of the geometric sequence 3, 6, 12, 24?",
+    "exclude": "geometric-sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "48",
+    "exclude": "geometric-sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2, 4, 6, 8 adds 2 each time, so it is arithmetic. 2, 4, 8, 16 doubles each time, so it is geometric.",
+    "exclude": "geometric-sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 6 · Sequences and the nth term",
+    "exclude": "geometric-sequence",
+    "linked": [],
+    "links": [
+      {
+        "concept": "sequence",
+        "text": "Sequences",
+        "offset": 12
+      },
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 30
+      }
+    ]
+  },
+  {
+    "text": "nth term",
+    "exclude": "nth-term",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A rule that gives any term of a sequence from its position n.",
+    "exclude": "nth-term",
+    "linked": [],
+    "links": [
+      {
+        "concept": "sequence",
+        "text": "sequence",
+        "offset": 32
+      }
+    ]
+  },
+  {
+    "text": "A table of positions 1, 2, 3, 4 above the terms 7, 9, 11, 13, with the rule 2n + 5 beside it.",
+    "exclude": "nth-term",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "For 10, 13, 16, 19, the common difference is 3. 3n gives 3, 6, 9, so add 7. The nth term is 3n + 7.",
+    "exclude": "nth-term",
+    "linked": [],
+    "links": [
+      {
+        "concept": "common-difference",
+        "text": "common difference",
+        "offset": 24
+      }
+    ]
+  },
+  {
+    "text": "Find the common difference d.",
+    "exclude": "nth-term",
+    "linked": [],
+    "links": [
+      {
+        "concept": "common-difference",
+        "text": "common difference",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "Write dn, and list its values for n = 1, 2, 3.",
+    "exclude": "nth-term",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find what to add to dn to reach each term.",
+    "exclude": "nth-term",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Test the rule with n = 1 and n = 2.",
+    "exclude": "nth-term",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find the nth term of 1, 6, 11, 16.",
+    "exclude": "nth-term",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "5n − 4",
+    "exclude": "nth-term",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "\"Add 5\" is a term-to-term rule. 5n − 4 is the nth term, and it gives the 100th term at once: 496.",
+    "exclude": "nth-term",
+    "linked": [],
+    "links": [
+      {
+        "concept": "term-to-term-rule",
+        "text": "term-to-term rule",
+        "offset": 13
+      }
+    ]
+  },
+  {
+    "text": "Chapter 6 · Sequences and the nth term",
+    "exclude": "nth-term",
+    "linked": [],
+    "links": [
+      {
+        "concept": "sequence",
+        "text": "Sequences",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Quadratic sequence",
+    "exclude": "nth-term",
+    "linked": [],
+    "links": [
+      {
+        "concept": "quadratic-sequence",
+        "text": "Quadratic sequence",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Quadratic sequence",
+    "exclude": "quadratic-sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A sequence whose second differences are equal and not 0, so its nth term has an n².",
+    "exclude": "quadratic-sequence",
+    "linked": [],
+    "links": [
+      {
+        "concept": "sequence",
+        "text": "sequence",
+        "offset": 2
+      },
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 64
+      }
+    ]
+  },
+  {
+    "text": "Squares of tiles 1, 4, 9, 16. Each new square adds an L-shaped border 2 tiles bigger than the last.",
+    "exclude": "quadratic-sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "For 3, 9, 19, 33, the second differences are all 4. Half of 4 is 2, so start with 2n²: 2, 8, 18, 32. What is left is 1 each time, so the nth term is 2n² + 1.",
+    "exclude": "quadratic-sequence",
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 137
+      }
+    ]
+  },
+  {
+    "text": "Find the first differences, then the differences between them.",
+    "exclude": "quadratic-sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "If the second differences are equal, halve one to get the number in front of n².",
+    "exclude": "quadratic-sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Take that many n² away from each term.",
+    "exclude": "quadratic-sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find the nth term of what is left, and add it on.",
+    "exclude": "quadratic-sequence",
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "Find the nth term of 0, 3, 8, 15, 24.",
+    "exclude": "quadratic-sequence",
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "n² − 1",
+    "exclude": "quadratic-sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "using the whole second difference",
+    "exclude": "quadratic-sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A second difference of 6 means 3n², not 6n². The number in front of n² is half the second difference.",
+    "exclude": "quadratic-sequence",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 6 · Sequences and the nth term",
+    "exclude": "quadratic-sequence",
+    "linked": [],
+    "links": [
+      {
+        "concept": "sequence",
+        "text": "Sequences",
+        "offset": 12
+      },
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 30
+      }
+    ]
+  },
+  {
+    "text": "Triangular number",
+    "exclude": "triangular-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A number you get by adding 1 + 2 + 3 + … up to some n, which equals n(n + 1) ÷ 2.",
+    "exclude": "triangular-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Rows of dots 1, 2, 3, 4 stacked into a triangle. The triangles hold 1, 3, 6 and 10 dots.",
+    "exclude": "triangular-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The 12th triangular number is 1 + 2 + … + 12 = 12 × 13 ÷ 2 = 78.",
+    "exclude": "triangular-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Pair the first and last numbers, which add to n + 1.",
+    "exclude": "triangular-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Count the pairs, which is half of n.",
+    "exclude": "triangular-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Multiply: n(n + 1) ÷ 2.",
+    "exclude": "triangular-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "What is the 9th triangular number?",
+    "exclude": "triangular-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "45",
+    "exclude": "triangular-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "a square number",
+    "exclude": "triangular-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The 4th square number is 4 × 4 = 16. The 4th triangular number is 1 + 2 + 3 + 4 = 10.",
+    "exclude": "triangular-number",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 6 · Sequences and the nth term",
+    "exclude": "triangular-number",
+    "linked": [],
+    "links": [
+      {
+        "concept": "sequence",
+        "text": "Sequences",
+        "offset": 12
+      },
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 30
+      }
+    ]
+  },
+  {
     "text": "Find the Highest Common Factor (HCF) and Lowest Common Multiple (LCM) of 72 and 120 using prime factorisation, and verify that HCF × LCM = 72 × 120.",
     "exclude": null,
     "linked": [],
@@ -17741,6 +20079,157 @@
     "links": []
   },
   {
+    "text": "Find the nth term formula Tₙ of the linear sequence 7, 11, 15, 19, 23, … and calculate the sum S₂₀ of its first 20 terms using Gauss's pairing method.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 9
+      },
+      {
+        "concept": "formula",
+        "text": "formula",
+        "offset": 18
+      },
+      {
+        "concept": "arithmetic-sequence",
+        "text": "linear sequence",
+        "offset": 36
+      }
+    ]
+  },
+  {
+    "text": "Step 1: The gaps are all 4, so start from 4n: 4, 8, 12. Each term is 3 more, so Tₙ = 4n + 3.\nStep 2: The 20th term is 4 × 20 + 3 = 83.\nStep 3: Pair the first and last terms. There are 20 terms, so 10 pairs of 7 + 83 = 90.\nStep 4: The sum of the first 20 terms is 10 × 90 = 900.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "Tₙ",
+        "offset": 80
+      }
+    ]
+  },
+  {
+    "text": "Tₙ = 4n + 3 and the 20th term is 83. The sum is 10 × (7 + 83) = ___.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "Tₙ",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Does the number 150 belong to the sequence Tₙ = 4n + 3? Justify your answer algebraically.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "sequence",
+        "text": "sequence",
+        "offset": 34
+      },
+      {
+        "concept": "nth-term",
+        "text": "Tₙ",
+        "offset": 43
+      }
+    ]
+  },
+  {
+    "text": "Step 1: Set the nth term equal to 150. 4n + 3 = 150.\nStep 2: Take 3 from both sides. 4n = 147.\nStep 3: Divide by 4. n = 36.75, which is not a whole number.\nStep 4: So 150 is not a term. The 36th term is 147 and the 37th is 151.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 16
+      }
+    ]
+  },
+  {
+    "text": "4n + 3 = 150 gives 4n = 147 and n = ___, so 150 ___ a term.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find the nth term of the quadratic sequence 3, 8, 15, 24, 35, …",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 9
+      },
+      {
+        "concept": "quadratic-sequence",
+        "text": "quadratic sequence",
+        "offset": 25
+      }
+    ]
+  },
+  {
+    "text": "Step 1: The first differences are 5, 7, 9, 11, and the second differences are all 2.\nStep 2: Half of 2 is 1, so start from n²: 1, 4, 9, 16, 25.\nStep 3: Take n² away from each term: 2, 4, 6, 8, 10. That is 2n.\nStep 4: So Tₙ = n² + 2n. Check the 5th term: 25 + 10 = 35.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "quadratic-sequence",
+        "text": "second differences",
+        "offset": 55
+      },
+      {
+        "concept": "nth-term",
+        "text": "Tₙ",
+        "offset": 220
+      }
+    ]
+  },
+  {
+    "text": "The terms minus n² are 2, 4, 6, 8, 10, so Tₙ = n² + ___.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "Tₙ",
+        "offset": 42
+      }
+    ]
+  },
+  {
+    "text": "Using Gauss's staircase formula, evaluate 1 + 2 + 3 + … + 200.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "formula",
+        "text": "formula",
+        "offset": 24
+      }
+    ]
+  },
+  {
+    "text": "Step 1: Pair the first number with the last. 1 + 200 = 201, and 2 + 199 = 201.\nStep 2: There are 200 numbers, so there are 100 pairs.\nStep 3: The sum is 100 × 201 = 20,100.\nStep 4: Check with the rule n(n + 1) ÷ 2: 200 × 201 ÷ 2 = 20,100.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "100 pairs, each adding to 201, make ___.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
     "text": "Kym, Aarav, and Meera share a prize in the ratio 3 : 5 : 8. Given that Meera receives ₹1,350 more than Kym, find the total prize using a Singapore Bar Model.",
     "exclude": null,
     "linked": [],
@@ -18140,6 +20629,50 @@
     ]
   },
   {
+    "text": "A term-to-term rule makes each term from the one before, like add 4 or multiply by 2. Equal gaps make an arithmetic sequence. Multiplying by the same number each time makes a geometric sequence.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "term-to-term-rule",
+        "text": "term-to-term rule",
+        "offset": 2
+      },
+      {
+        "concept": "arithmetic-sequence",
+        "text": "arithmetic sequence",
+        "offset": 105
+      },
+      {
+        "concept": "geometric-sequence",
+        "text": "geometric sequence",
+        "offset": 175
+      }
+    ]
+  },
+  {
+    "text": "The nth term gives any term from its position n. For equal gaps d it is dn + c. Equal second differences give a quadratic sequence with an n². To add an arithmetic sequence, multiply the number of terms by the first plus the last, then halve.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "nth-term",
+        "text": "nth term",
+        "offset": 4
+      },
+      {
+        "concept": "quadratic-sequence",
+        "text": "second differences",
+        "offset": 86
+      },
+      {
+        "concept": "arithmetic-sequence",
+        "text": "arithmetic sequence",
+        "offset": 153
+      }
+    ]
+  },
+  {
     "text": "A length in metres is 100 times as many centimetres. An area has two lengths, so multiply by 100 twice: 1 m² = 10,000 cm². A volume has three, so 1 m³ = 1,000,000 cm³.",
     "exclude": null,
     "linked": [],
@@ -18420,7 +20953,13 @@
     "text": "Sequences start at n = 1, so test a rule by putting n = 1 and n = 2 back in: for 2, 7, 12, … the rule 5n − 3 gives 2, then 7. Counting from 3 to 6 including both ends gives 4 numbers, not 3.",
     "exclude": null,
     "linked": [],
-    "links": []
+    "links": [
+      {
+        "concept": "sequence",
+        "text": "Sequences",
+        "offset": 0
+      }
+    ]
   },
   {
     "text": "Before you write the answer, reread the last line of the question. If a = 5 and it asks for 3a − 2, then 5 is only a step and 13 is the answer.",
