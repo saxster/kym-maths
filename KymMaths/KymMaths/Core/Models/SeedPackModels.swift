@@ -307,9 +307,14 @@ struct SchoolMathsQuestion: Codable, Identifiable, Equatable, Sendable {
     let fadedPrompt: String
     let fadedAnswer: String
     let modelAnswer: String
-    let markSchemeKeywords: [String]
+    let answerKey: AnswerKey
     let linkedChapter: Int
     let linkedWidget: String
+
+    /// The named parts of a multi-part answer ("HCF and LCM"); nil when the answer is one thing.
+    var answerPartsPhrase: String? {
+        answerKey.parts.count > 1 ? answerKey.parts.map(\.label).joined(separator: " and ") : nil
+    }
 
     var sourceBadgeTitle: String {
         sourceBook == "workbook" ? "Companion Workbook · \(tier)" : "OUP Student Book · \(tier)"
@@ -420,21 +425,17 @@ enum SeedPackLoader {
         do {
             return try loadFromBundle()
         } catch {
+            assertionFailure("Seed pack failed to load: \(error)")
+            NSLog("KymMaths: seed pack failed to load, starting empty: %@", String(describing: error))
             return fallbackPack()
         }
     }()
 
     static func loadFromBundle() throws -> KymMathsSeedPack {
-        let candidateURLs: [URL?] = [
-            Bundle.main.url(forResource: "kymmaths-seed-pack", withExtension: "json", subdirectory: "ContentPacks"),
-            Bundle.main.url(forResource: "kymmaths-seed-pack", withExtension: "json"),
-            URL(fileURLWithPath: "/Users/amarsukhi/src/MyCode/kym_maths/KymMaths/KymMaths/Resources/ContentPacks/kymmaths-seed-pack.json")
-        ]
-        for case let url? in candidateURLs where FileManager.default.fileExists(atPath: url.path) {
-            let data = try Data(contentsOf: url)
-            return try JSONDecoder().decode(KymMathsSeedPack.self, from: data)
+        guard let url = KymResources.url(forResource: "kymmaths-seed-pack", withExtension: "json", subdirectory: "ContentPacks") else {
+            throw CocoaError(.fileNoSuchFile)
         }
-        throw CocoaError(.fileNoSuchFile)
+        return try JSONDecoder().decode(KymMathsSeedPack.self, from: Data(contentsOf: url))
     }
 
     static func fallbackPack() -> KymMathsSeedPack {

@@ -374,7 +374,7 @@ private struct MotifsCard: View {
             store.openEuclid(.motif(motif.id))
         } label: {
             HStack(spacing: Spacing.xxs) {
-                Text("\(motif.id) · \(motif.title)")
+                Text("\(motif.id.raw) · \(motif.title)")
                 if record.solved {
                     Image(systemName: "checkmark.circle.fill").foregroundStyle(Color.kymaiaPrimary)
                 }
@@ -389,7 +389,7 @@ private struct MotifsCard: View {
 
     private func comingNext(_ motif: Motif) -> some View {
         VStack(alignment: .leading, spacing: 2) {
-            Text("\(motif.id) · \(motif.title)")
+            Text("\(motif.id.raw) · \(motif.title)")
                 .font(Typography.subheadline.weight(.semibold))
                 .foregroundStyle(Color.kymaiaMutedInk)
             Text("Coming next")

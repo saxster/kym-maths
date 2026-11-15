@@ -94,7 +94,7 @@ struct KymMathsTests {
     func testProofServiceAndBKTHonesty() {
         let pack = SeedPackLoader.load()
         let q = pack.schoolQuestions[0]
-        let fullKeywordsAnswer = q.markSchemeKeywords.joined(separator: " ")
+        let fullKeywordsAnswer = q.modelAnswer
 
         let day1 = Date(timeIntervalSince1970: 1_760_000_000)
         let day2 = day1.addingTimeInterval(2 * 86_400)

@@ -845,10 +845,3 @@ struct MathematicalDebateCardView: View {
         }
     }
 }
-
-extension MathsSettingsSheet {
-    @MainActor
-    init() {
-        self.init(store: AppStore())
-    }
-}

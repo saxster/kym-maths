@@ -224,7 +224,7 @@ struct JustificationChip: View {
             }
             .buttonStyle(.plain)
             .foregroundStyle(Color.kymaiaPrimary)
-            .help("Open \(id)")
+            .help("Open \(id.raw)")
         default:
             Text(justification.meaning)
                 .font(Typography.caption)

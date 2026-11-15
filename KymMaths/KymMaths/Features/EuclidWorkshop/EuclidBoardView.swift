@@ -52,7 +52,7 @@ struct EuclidBoardCanvas: View {
                 .strokeBorder(MathsFigureColor.ink.opacity(0.12), lineWidth: 1)
         )
         .accessibilityElement()
-        .accessibilityLabel("Construction board for \(session.proposition.id), \(session.proposition.title)")
+        .accessibilityLabel("Construction board for \(session.proposition.id.raw), \(session.proposition.title)")
         .accessibilityValue(session.isSolved ? "Solved" : session.prompt ?? "")
     }
 

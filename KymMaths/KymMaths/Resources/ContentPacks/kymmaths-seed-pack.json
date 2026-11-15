@@ -1437,7 +1437,7 @@
       "volumeNumber": 4,
       "volumeTitle": "Volume IV · Data Forensics, Uncertainty & Bayes' Theorem",
       "title": "Updating Belief: Conditional Probability & Bayes' Theorem",
-      "subtitle": "Advanced Probability · @saxster/atlas Bayes Explorer: why a 95% accurate test on a 2% condition is right only 28% of the time",
+      "subtitle": "Advanced Probability · @saxster/atlas Bayes Explorer: why a positive result from a 95% accurate test on a 2% condition is right only 28% of the time",
       "hookSummary": "Evidence never acts in a vacuum — it slices and renormalizes the prior base rate inside a 1,000-person unit square.",
       "intuitionToFormula": {
         "concreteAction": "Open the @saxster/atlas Bayes Unit-Square Explorer (`statistics/bayes`): set prevalence p = 2%, sensitivity = 95%, false-positive rate = 5%, and screen 1,000 people.",
@@ -6555,14 +6555,41 @@
       "fadedPrompt": "72 = 2³ × 3² and 120 = 2³ × 3 × 5, so HCF = ___ and LCM = ___.",
       "fadedAnswer": "HCF = 24, LCM = 360",
       "modelAnswer": "HCF = 24 and LCM = 360 because 72 = 2³ × 3² and 120 = 2³ × 3 × 5; their overlap is 2³ × 3 = 24 and their union is 2³ × 3² × 5 = 360.",
-      "markSchemeKeywords": [
-        "24",
-        "360",
-        "2^3",
-        "prime"
-      ],
       "linkedChapter": 1,
-      "linkedWidget": "w_prime_venn_hcf_lcm"
+      "linkedWidget": "w_prime_venn_hcf_lcm",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "HCF",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "24"
+              }
+            ]
+          },
+          {
+            "label": "LCM",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "360"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "HCF = 24, LCM = 360",
+          "24 and 360",
+          "hcf 24 lcm 360"
+        ],
+        "rejects": [
+          "HCF = 12, LCM = 360",
+          "24",
+          "360",
+          "HCF = 240, LCM = 3600"
+        ]
+      }
     },
     {
       "id": "q-oup-ch01-wb-focus",
@@ -6578,11 +6605,32 @@
       "fadedPrompt": "Target result for 1.4: ___",
       "fadedAnswer": "−16",
       "modelAnswer": "−16",
-      "markSchemeKeywords": [
-        "−16"
-      ],
       "linkedChapter": 1,
-      "linkedWidget": "w_prime_venn_hcf_lcm"
+      "linkedWidget": "w_prime_venn_hcf_lcm",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "-16"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "-16",
+          "−16",
+          "= -16"
+        ],
+        "rejects": [
+          "16",
+          "−160",
+          "-1.6",
+          "-8"
+        ]
+      }
     },
     {
       "id": "q-oup-ch01-wb-practice",
@@ -6598,11 +6646,33 @@
       "fadedPrompt": "Singapore Bar-Model solution: ___",
       "fadedAnswer": "72 seconds",
       "modelAnswer": "72 seconds",
-      "markSchemeKeywords": [
-        "72"
-      ],
       "linkedChapter": 1,
-      "linkedWidget": "w_prime_venn_hcf_lcm"
+      "linkedWidget": "w_prime_venn_hcf_lcm",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "72"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "72",
+          "72 seconds",
+          "72s",
+          "after 72 seconds"
+        ],
+        "rejects": [
+          "432",
+          "6",
+          "42 seconds",
+          "7.2"
+        ]
+      }
     },
     {
       "id": "q-oup-ch01-wb-challenge",
@@ -6618,11 +6688,32 @@
       "fadedPrompt": "Horizon invariant result: ___",
       "fadedAnswer": "b = 60",
       "modelAnswer": "b = 60",
-      "markSchemeKeywords": [
-        "b"
-      ],
       "linkedChapter": 1,
-      "linkedWidget": "w_prime_venn_hcf_lcm"
+      "linkedWidget": "w_prime_venn_hcf_lcm",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "60"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "60",
+          "b = 60",
+          "b=60"
+        ],
+        "rejects": [
+          "b = 15",
+          "6",
+          "600",
+          "2160"
+        ]
+      }
     },
     {
       "id": "q-oup-ch02-sb",
@@ -6638,13 +6729,38 @@
       "fadedPrompt": "4(2x − 3) − 3(x − 5) = 8x − 12 − 3x + ___ = ___.",
       "fadedAnswer": "5x + 3",
       "modelAnswer": "5x + 3 because 4(2x − 3) = 8x − 12 and −3(x − 5) = −3x + 15, giving 5x + 3.",
-      "markSchemeKeywords": [
-        "5x",
-        "+ 3",
-        "+15"
-      ],
       "linkedChapter": 4,
-      "linkedWidget": "w_algebra_area_tiles"
+      "linkedWidget": "w_algebra_area_tiles",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "5x+3"
+              },
+              {
+                "kind": "form",
+                "value": "3+5x"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "5x+3",
+          "5x + 3",
+          "3 + 5x",
+          "= 5x + 3"
+        ],
+        "rejects": [
+          "5x - 3",
+          "5x + 27",
+          "5x",
+          "11x + 3",
+          "5x+3x"
+        ]
+      }
     },
     {
       "id": "q-oup-ch02-wb-focus",
@@ -6660,11 +6776,61 @@
       "fadedPrompt": "Target result for 2.2: ___",
       "fadedAnswer": "6ab(3a − 2b)",
       "modelAnswer": "6ab(3a − 2b)",
-      "markSchemeKeywords": [
-        "6ab(3a"
-      ],
       "linkedChapter": 4,
-      "linkedWidget": "w_algebra_area_tiles"
+      "linkedWidget": "w_algebra_area_tiles",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "6ab(3a-2b)"
+              },
+              {
+                "kind": "form",
+                "value": "6ab (3a-2b)"
+              },
+              {
+                "kind": "form",
+                "value": "6ba(3a-2b)"
+              },
+              {
+                "kind": "form",
+                "value": "6ba (3a-2b)"
+              },
+              {
+                "kind": "form",
+                "value": "6ab(-2b+3a)"
+              },
+              {
+                "kind": "form",
+                "value": "(3a-2b)6ab"
+              },
+              {
+                "kind": "form",
+                "value": "6ab*(3a-2b)"
+              },
+              {
+                "kind": "form",
+                "value": "-6ab(2b-3a)"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "6ab(3a − 2b)",
+          "6ab(3a-2b)",
+          "6ab (3a - 2b)",
+          "6ba(3a-2b)"
+        ],
+        "rejects": [
+          "6a(3ab − 2b²)",
+          "6ab(3a + 2b)",
+          "3ab(6a − 4b)",
+          "6ab"
+        ]
+      }
     },
     {
       "id": "q-oup-ch02-wb-practice",
@@ -6680,11 +6846,41 @@
       "fadedPrompt": "Singapore Bar-Model solution: ___",
       "fadedAnswer": "8x + 38 cm²",
       "modelAnswer": "8x + 38 cm²",
-      "markSchemeKeywords": [
-        "8x"
-      ],
       "linkedChapter": 4,
-      "linkedWidget": "w_algebra_area_tiles"
+      "linkedWidget": "w_algebra_area_tiles",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "8x+38"
+              },
+              {
+                "kind": "form",
+                "value": "38+8x"
+              },
+              {
+                "kind": "form",
+                "value": "2(4x+19)"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "8x + 38",
+          "8x+38 cm²",
+          "8x + 38cm^2",
+          "38 + 8x"
+        ],
+        "rejects": [
+          "8x + 22",
+          "8x",
+          "16x + 38",
+          "8x − 38"
+        ]
+      }
     },
     {
       "id": "q-oup-ch02-wb-challenge",
@@ -6700,11 +6896,32 @@
       "fadedPrompt": "Horizon invariant result: ___",
       "fadedAnswer": "8100",
       "modelAnswer": "8100",
-      "markSchemeKeywords": [
-        "8100"
-      ],
       "linkedChapter": 4,
-      "linkedWidget": "w_algebra_area_tiles"
+      "linkedWidget": "w_algebra_area_tiles",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "8100"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "8100",
+          "8,100",
+          "4050 × 2 = 8100"
+        ],
+        "rejects": [
+          "810",
+          "4050",
+          "8",
+          "81000"
+        ]
+      }
     },
     {
       "id": "q-oup-ch03-sb",
@@ -6720,14 +6937,32 @@
       "fadedPrompt": "Because North lines are parallel, the back-bearing from B to M is 068° + 180° = ___.",
       "fadedAnswer": "248°",
       "modelAnswer": "248° because the clockwise angle from North at B equals 068° + 180° = 248° by alternate angles on parallel North lines.",
-      "markSchemeKeywords": [
-        "248",
-        "180",
-        "parallel",
-        "North"
-      ],
       "linkedChapter": 9,
-      "linkedWidget": "w_bearings_back_bearing_radar"
+      "linkedWidget": "w_bearings_back_bearing_radar",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "248"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "248",
+          "248°",
+          "068 + 180 = 248"
+        ],
+        "rejects": [
+          "068",
+          "112",
+          "292",
+          "68"
+        ]
+      }
     },
     {
       "id": "q-oup-ch03-wb-focus",
@@ -6743,11 +6978,32 @@
       "fadedPrompt": "Target result for 3.3: ___",
       "fadedAnswer": "12 edges",
       "modelAnswer": "12 edges",
-      "markSchemeKeywords": [
-        "12"
-      ],
       "linkedChapter": 9,
-      "linkedWidget": "w_bearings_back_bearing_radar"
+      "linkedWidget": "w_bearings_back_bearing_radar",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "12"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "12",
+          "12 edges",
+          "E = 12"
+        ],
+        "rejects": [
+          "16",
+          "14",
+          "2",
+          "120"
+        ]
+      }
     },
     {
       "id": "q-oup-ch03-wb-practice",
@@ -6763,11 +7019,59 @@
       "fadedPrompt": "Singapore Bar-Model solution: ___",
       "fadedAnswer": "Angle BAC = 90°; locus equidistant from A and B",
       "modelAnswer": "Angle BAC = 90°; locus equidistant from A and B",
-      "markSchemeKeywords": [
-        "Angle"
-      ],
       "linkedChapter": 9,
-      "linkedWidget": "w_bearings_back_bearing_radar"
+      "linkedWidget": "w_bearings_back_bearing_radar",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "the right angle",
+            "anyOf": [
+              {
+                "kind": "words",
+                "groups": [
+                  [
+                    "bac",
+                    "cab",
+                    "angle a",
+                    "at a",
+                    "a 90",
+                    "a is 90"
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "label": "the locus",
+            "anyOf": [
+              {
+                "kind": "words",
+                "groups": [
+                  [
+                    "equidistant",
+                    "equal distance",
+                    "same distance",
+                    "equally distant",
+                    "equally far"
+                  ]
+                ]
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "Angle BAC = 90°; locus equidistant from A and B",
+          "angle A, points equidistant from A and B",
+          "BAC. All points the same distance from A and B",
+          "∠A = 90, equidistant from A and B"
+        ],
+        "rejects": [
+          "Angle ABC = 90°; equidistant from A and B",
+          "angle C, the midpoint of AB",
+          "BAC",
+          "90"
+        ]
+      }
     },
     {
       "id": "q-oup-ch03-wb-challenge",
@@ -6783,11 +7087,33 @@
       "fadedPrompt": "Horizon invariant result: ___",
       "fadedAnswer": "20 km",
       "modelAnswer": "20 km",
-      "markSchemeKeywords": [
-        "20"
-      ],
       "linkedChapter": 9,
-      "linkedWidget": "w_bearings_back_bearing_radar"
+      "linkedWidget": "w_bearings_back_bearing_radar",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "20"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "20",
+          "20 km",
+          "20km",
+          "√400 = 20"
+        ],
+        "rejects": [
+          "28",
+          "4",
+          "400",
+          "200"
+        ]
+      }
     },
     {
       "id": "q-oup-ch04-sb",
@@ -6803,14 +7129,43 @@
       "fadedPrompt": "Year 7 = (240/600) × 50 = ___, Year 8 = ___, Year 9 = ___.",
       "fadedAnswer": "20, 15, 15",
       "modelAnswer": "Select 20 Year 7 students, 15 Year 8 students, and 15 Year 9 students at random within each year group so every stratum is represented in proportion Nᵢ / N.",
-      "markSchemeKeywords": [
-        "20",
-        "15",
-        "600",
-        "proportion"
-      ],
       "linkedChapter": 13,
-      "linkedWidget": "w_wald_survivorship_bomber"
+      "linkedWidget": "w_wald_survivorship_bomber",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "the three sample sizes",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "20",
+                  "15",
+                  "15"
+                ],
+                "ignoring": [
+                  "7",
+                  "8",
+                  "9"
+                ]
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "20, 15, 15",
+          "Year 7: 20, Year 8: 15, Year 9: 15",
+          "20 Year 7, 15 Year 8 and 15 Year 9",
+          "20,15,15"
+        ],
+        "rejects": [
+          "17, 17, 16",
+          "240, 180, 180",
+          "20, 15",
+          "15, 15, 20",
+          "24, 18, 18"
+        ]
+      }
     },
     {
       "id": "q-oup-ch04-wb-focus",
@@ -6826,11 +7181,32 @@
       "fadedPrompt": "Target result for 4.2: ___",
       "fadedAnswer": "Every 30th student (k = 30)",
       "modelAnswer": "Every 30th student (k = 30)",
-      "markSchemeKeywords": [
-        "Every"
-      ],
       "linkedChapter": 13,
-      "linkedWidget": "w_wald_survivorship_bomber"
+      "linkedWidget": "w_wald_survivorship_bomber",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "30"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "30",
+          "k = 30",
+          "every 30th student"
+        ],
+        "rejects": [
+          "20",
+          "600",
+          "3",
+          "12000"
+        ]
+      }
     },
     {
       "id": "q-oup-ch04-wb-practice",
@@ -6846,11 +7222,62 @@
       "fadedPrompt": "Singapore Bar-Model solution: ___",
       "fadedAnswer": "Selection bias towards habitual early-morning exercisers",
       "modelAnswer": "Selection bias towards habitual early-morning exercisers",
-      "markSchemeKeywords": [
-        "Selection"
-      ],
       "linkedChapter": 13,
-      "linkedWidget": "w_wald_survivorship_bomber"
+      "linkedWidget": "w_wald_survivorship_bomber",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "the reason",
+            "anyOf": [
+              {
+                "kind": "words",
+                "groups": [
+                  [
+                    "exercise",
+                    "exercises",
+                    "exercisers",
+                    "exercising",
+                    "active",
+                    "fit",
+                    "fitter",
+                    "sporty",
+                    "gym",
+                    "workout",
+                    "work out",
+                    "train"
+                  ],
+                  [
+                    "more",
+                    "already",
+                    "habitual",
+                    "regular",
+                    "regularly",
+                    "often",
+                    "a lot",
+                    "lots",
+                    "too high",
+                    "higher",
+                    "overestimate",
+                    "overestimates",
+                    "keen"
+                  ]
+                ]
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "Selection bias towards habitual early-morning exercisers",
+          "People at a gym at 6 am already exercise a lot, so the average would be too high",
+          "they exercise more than most people"
+        ],
+        "rejects": [
+          "because it is biased",
+          "it is too early in the morning",
+          "Mumbai is a big city",
+          "I do not know"
+        ]
+      }
     },
     {
       "id": "q-oup-ch04-wb-challenge",
@@ -6866,11 +7293,49 @@
       "fadedPrompt": "Horizon invariant result: ___",
       "fadedAnswer": "Multiply sample size by 4",
       "modelAnswer": "Multiply sample size by 4",
-      "markSchemeKeywords": [
-        "Multiply"
-      ],
       "linkedChapter": 13,
-      "linkedWidget": "w_wald_survivorship_bomber"
+      "linkedWidget": "w_wald_survivorship_bomber",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "4"
+              },
+              {
+                "kind": "form",
+                "value": "4n"
+              },
+              {
+                "kind": "words",
+                "groups": [
+                  [
+                    "quadruple",
+                    "quadrupled",
+                    "four"
+                  ]
+                ]
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "Multiply sample size by 4",
+          "4",
+          "×4",
+          "4 times",
+          "quadruple it",
+          "four times bigger"
+        ],
+        "rejects": [
+          "2",
+          "double it",
+          "16",
+          "half"
+        ]
+      }
     },
     {
       "id": "q-oup-ch05-sb",
@@ -6886,13 +7351,34 @@
       "fadedPrompt": "A = ½(40 + 60) × 30 = 1500 cm²; V = 1500 × 250 cm = ___ litres.",
       "fadedAnswer": "375 litres",
       "modelAnswer": "375 litres because the trapezium cross-section has area ½(40 + 60) × 30 = 1500 cm² and multiplying by length 250 cm gives 375,000 cm³ = 375 L.",
-      "markSchemeKeywords": [
-        "1500",
-        "375",
-        "trapezium"
-      ],
       "linkedChapter": 10,
-      "linkedWidget": "w_trapezium_prism_slicer"
+      "linkedWidget": "w_trapezium_prism_slicer",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "375"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "375",
+          "375 litres",
+          "375 L",
+          "375l",
+          "375,000 cm³ = 375 litres"
+        ],
+        "rejects": [
+          "375000",
+          "37.5 litres",
+          "3750",
+          "0.375"
+        ]
+      }
     },
     {
       "id": "q-oup-ch05-wb-focus",
@@ -6908,11 +7394,43 @@
       "fadedPrompt": "Target result for 5.2: ___",
       "fadedAnswer": "C = 44 cm, A = 154 cm²",
       "modelAnswer": "C = 44 cm, A = 154 cm²",
-      "markSchemeKeywords": [
-        "C"
-      ],
       "linkedChapter": 10,
-      "linkedWidget": "w_trapezium_prism_slicer"
+      "linkedWidget": "w_trapezium_prism_slicer",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "circumference",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "44"
+              }
+            ]
+          },
+          {
+            "label": "area",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "154"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "C = 44 cm, A = 154 cm²",
+          "44 and 154",
+          "circumference 44cm area 154cm^2"
+        ],
+        "rejects": [
+          "C = 10 cm",
+          "C = 1",
+          "44",
+          "154",
+          "C = 22, A = 154",
+          "C = 44, A = 49"
+        ]
+      }
     },
     {
       "id": "q-oup-ch05-wb-practice",
@@ -6928,11 +7446,41 @@
       "fadedPrompt": "Singapore Bar-Model solution: ___",
       "fadedAnswer": "Perimeter = 48 cm, Area = 112 cm²",
       "modelAnswer": "Perimeter = 48 cm, Area = 112 cm²",
-      "markSchemeKeywords": [
-        "Perimeter"
-      ],
       "linkedChapter": 10,
-      "linkedWidget": "w_trapezium_prism_slicer"
+      "linkedWidget": "w_trapezium_prism_slicer",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "perimeter",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "48"
+              }
+            ]
+          },
+          {
+            "label": "area",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "112"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "Perimeter = 48 cm, Area = 112 cm²",
+          "48, 112",
+          "P=48 A=112"
+        ],
+        "rejects": [
+          "Perimeter = 44, Area = 112",
+          "48 and 140",
+          "112",
+          "24 and 112"
+        ]
+      }
     },
     {
       "id": "q-oup-ch05-wb-challenge",
@@ -6943,16 +7491,37 @@
       "tier": "Challenge",
       "commandWord": "Prove & Generalise",
       "marks": 4,
-      "prompt": "An circular pizza of radius 10 cm is cut into 6 equal sectors. Find the perimeter of one sector to 1 decimal place.",
+      "prompt": "A circular pizza of radius 10 cm is cut into 6 equal sectors. Find the perimeter of one sector to 1 decimal place.",
       "workedExample": "Bridge from visual intuition to the symbolic invariant: 30.5 cm.",
       "fadedPrompt": "Horizon invariant result: ___",
       "fadedAnswer": "30.5 cm",
       "modelAnswer": "30.5 cm",
-      "markSchemeKeywords": [
-        "30.5"
-      ],
       "linkedChapter": 10,
-      "linkedWidget": "w_trapezium_prism_slicer"
+      "linkedWidget": "w_trapezium_prism_slicer",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "30.5"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "30.5",
+          "30.5 cm",
+          "30.5cm"
+        ],
+        "rejects": [
+          "10.5",
+          "31",
+          "30",
+          "20.5"
+        ]
+      }
     },
     {
       "id": "q-oup-ch06-sb",
@@ -6968,13 +7537,46 @@
       "fadedPrompt": "100x = 27.2727… and x = 0.2727…, so 99x = 27 and x = 27/99 = ___.",
       "fadedAnswer": "3/11",
       "modelAnswer": "3/11 because 100x − x = 99x = 27, so x = 27/99 which simplifies on dividing by 9 to 3/11.",
-      "markSchemeKeywords": [
-        "99x",
-        "27",
-        "3/11"
-      ],
       "linkedChapter": 2,
-      "linkedWidget": "w_recurring_decimal_tail_canceller"
+      "linkedWidget": "w_recurring_decimal_tail_canceller",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "the subtraction step",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "99x"
+              },
+              {
+                "kind": "form",
+                "value": "27/99"
+              }
+            ]
+          },
+          {
+            "label": "the fraction in simplest form",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "3/11",
+                "simplest": true
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "100x − x = 99x = 27, so x = 27/99 = 3/11",
+          "99x = 27 so x = 3/11",
+          "x = 27/99 = 3/11"
+        ],
+        "rejects": [
+          "3/11",
+          "27/99",
+          "99x = 27, x = 27/99",
+          "it equals 3/11 because 3 ÷ 11 = 0.2727"
+        ]
+      }
     },
     {
       "id": "q-oup-ch06-wb-focus",
@@ -6990,11 +7592,32 @@
       "fadedPrompt": "Target result for 6.3: ___",
       "fadedAnswer": "0.00409",
       "modelAnswer": "0.00409",
-      "markSchemeKeywords": [
-        "0.00409"
-      ],
       "linkedChapter": 2,
-      "linkedWidget": "w_recurring_decimal_tail_canceller"
+      "linkedWidget": "w_recurring_decimal_tail_canceller",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "0.00409"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "0.00409",
+          ".00409"
+        ],
+        "rejects": [
+          "0.0041",
+          "0.004",
+          "0.00408",
+          "0.004086",
+          "409"
+        ]
+      }
     },
     {
       "id": "q-oup-ch06-wb-practice",
@@ -7010,11 +7633,38 @@
       "fadedPrompt": "Singapore Bar-Model solution: ___",
       "fadedAnswer": "2 5/12",
       "modelAnswer": "2 5/12",
-      "markSchemeKeywords": [
-        "2"
-      ],
       "linkedChapter": 2,
-      "linkedWidget": "w_recurring_decimal_tail_canceller"
+      "linkedWidget": "w_recurring_decimal_tail_canceller",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "2 5/12"
+              },
+              {
+                "kind": "form",
+                "value": "2 and 5/12"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "2 5/12",
+          "= 2 5/12",
+          "2 and 5/12"
+        ],
+        "rejects": [
+          "2",
+          "29/12",
+          "2 10/24",
+          "5/12",
+          "3 5/12",
+          "2 7/12"
+        ]
+      }
     },
     {
       "id": "q-oup-ch06-wb-challenge",
@@ -7030,11 +7680,34 @@
       "fadedPrompt": "Horizon invariant result: ___",
       "fadedAnswer": "5/4 or 1 1/4",
       "modelAnswer": "5/4 or 1 1/4",
-      "markSchemeKeywords": [
-        "5/4"
-      ],
       "linkedChapter": 2,
-      "linkedWidget": "w_recurring_decimal_tail_canceller"
+      "linkedWidget": "w_recurring_decimal_tail_canceller",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "5/4"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "5/4",
+          "1 1/4",
+          "1.25",
+          "5/4 or 1 1/4"
+        ],
+        "rejects": [
+          "4/5",
+          "5",
+          "1/4",
+          "36/25",
+          "125"
+        ]
+      }
     },
     {
       "id": "q-oup-ch07-sb",
@@ -7050,13 +7723,65 @@
       "fadedPrompt": "u² = v² − 2as ⇒ u = √(v² − 2as) = √(169 − 120) = ___.",
       "fadedAnswer": "u = 7",
       "modelAnswer": "u = √(v² − 2as) = 7 because subtracting 2as isolates u² = 169 − 120 = 49.",
-      "markSchemeKeywords": [
-        "v^2 - 2as",
-        "49",
-        "7"
-      ],
       "linkedChapter": 5,
-      "linkedWidget": "w_formula_subject_transposer"
+      "linkedWidget": "w_formula_subject_transposer",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "the formula for u",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "√(v^2-2as)"
+              },
+              {
+                "kind": "form",
+                "value": "√v^2-2as"
+              },
+              {
+                "kind": "form",
+                "value": "(v^2-2as)^(1/2)"
+              },
+              {
+                "kind": "form",
+                "value": "(v^2-2as)^0.5"
+              },
+              {
+                "kind": "form",
+                "value": "√(v*v-2as)"
+              },
+              {
+                "kind": "form",
+                "value": "√(v^2-2*a*s)"
+              },
+              {
+                "kind": "form",
+                "value": "√(-2as+v^2)"
+              }
+            ]
+          },
+          {
+            "label": "the value of u",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "7"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "u = √(v² − 2as) = 7",
+          "u = sqrt(v^2 - 2as), u = 7",
+          "u = square root of (v^2 − 2as) = 7"
+        ],
+        "rejects": [
+          "u = 7",
+          "u = √(v² + 2as) = 7",
+          "u = v² − 2as = 49",
+          "u = √(v² − 2as)"
+        ]
+      }
     },
     {
       "id": "q-oup-ch07-wb-focus",
@@ -7072,11 +7797,34 @@
       "fadedPrompt": "Target result for 7.3: ___",
       "fadedAnswer": "x = 3",
       "modelAnswer": "x = 3",
-      "markSchemeKeywords": [
-        "x"
-      ],
       "linkedChapter": 5,
-      "linkedWidget": "w_formula_subject_transposer"
+      "linkedWidget": "w_formula_subject_transposer",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "3"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "3",
+          "x = 3",
+          "x=3",
+          "7x = 21 so x = 3"
+        ],
+        "rejects": [
+          "x = 7",
+          "21",
+          "x = -3",
+          "3x",
+          "x = 13/7"
+        ]
+      }
     },
     {
       "id": "q-oup-ch07-wb-practice",
@@ -7092,11 +7840,38 @@
       "fadedPrompt": "Singapore Bar-Model solution: ___",
       "fadedAnswer": "x ≤ 4 (largest integer 4)",
       "modelAnswer": "x ≤ 4 (largest integer 4)",
-      "markSchemeKeywords": [
-        "x"
-      ],
       "linkedChapter": 5,
-      "linkedWidget": "w_formula_subject_transposer"
+      "linkedWidget": "w_formula_subject_transposer",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "x≤4"
+              },
+              {
+                "kind": "form",
+                "value": "4≥x"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "x ≤ 4 (largest integer 4)",
+          "x <= 4, largest integer is 4",
+          "4 ≥ x so the largest integer is 4",
+          "x≤4"
+        ],
+        "rejects": [
+          "x ≥ 4",
+          "4",
+          "x < 4",
+          "x ≤ -4",
+          "x = 4"
+        ]
+      }
     },
     {
       "id": "q-oup-ch07-wb-challenge",
@@ -7112,11 +7887,48 @@
       "fadedPrompt": "Horizon invariant result: ___",
       "fadedAnswer": "x = (y + 2) / (y − 3)",
       "modelAnswer": "x = (y + 2) / (y − 3)",
-      "markSchemeKeywords": [
-        "x"
-      ],
       "linkedChapter": 5,
-      "linkedWidget": "w_formula_subject_transposer"
+      "linkedWidget": "w_formula_subject_transposer",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "(y+2)/(y-3)"
+              },
+              {
+                "kind": "form",
+                "value": "(2+y)/(y-3)"
+              },
+              {
+                "kind": "form",
+                "value": "(y+2)/(-3+y)"
+              },
+              {
+                "kind": "form",
+                "value": "(-y-2)/(3-y)"
+              },
+              {
+                "kind": "form",
+                "value": "-(y+2)/(3-y)"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "x = (y + 2) / (y − 3)",
+          "(y+2)/(y-3)",
+          "x=(2+y)/(y-3)"
+        ],
+        "rejects": [
+          "x = (y − 2) / (y + 3)",
+          "x = y + 2 / y − 3",
+          "x = (y + 2) / (3 − y)",
+          "x = (3x + 2) / (x − 1)"
+        ]
+      }
     },
     {
       "id": "q-oup-ch08-sb",
@@ -7132,13 +7944,41 @@
       "fadedPrompt": "4x − 5 = 3x + 35 ⇒ x = ___ and ∠ACD = ___.",
       "fadedAnswer": "x = 40, ∠ACD = 155°",
       "modelAnswer": "x = 40 and ∠ACD = 155° because the exterior angle equals the sum of the two opposite interior angles: 4x − 5 = 3x + 35.",
-      "markSchemeKeywords": [
-        "40",
-        "155",
-        "exterior"
-      ],
       "linkedChapter": 8,
-      "linkedWidget": "w_exterior_angle_tear_proof"
+      "linkedWidget": "w_exterior_angle_tear_proof",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "x",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "40"
+              }
+            ]
+          },
+          {
+            "label": "angle ACD",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "155"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "x = 40, ∠ACD = 155°",
+          "40 and 155",
+          "x=40 ACD=155"
+        ],
+        "rejects": [
+          "x = 40",
+          "155",
+          "x = 40, ACD = 165",
+          "x = 20, ACD = 75"
+        ]
+      }
     },
     {
       "id": "q-oup-ch08-wb-focus",
@@ -7154,11 +7994,37 @@
       "fadedPrompt": "Target result for 8.1: ___",
       "fadedAnswer": "M = (3, 2)",
       "modelAnswer": "M = (3, 2)",
-      "markSchemeKeywords": [
-        "M"
-      ],
       "linkedChapter": 8,
-      "linkedWidget": "w_exterior_angle_tear_proof"
+      "linkedWidget": "w_exterior_angle_tear_proof",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "3",
+                  "2"
+                ]
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "M = (3, 2)",
+          "(3,2)",
+          "3, 2",
+          "x = 3, y = 2"
+        ],
+        "rejects": [
+          "(2, 3)",
+          "(7, 5)",
+          "(3, -2)",
+          "(6, 4)",
+          "(-7, 5)"
+        ]
+      }
     },
     {
       "id": "q-oup-ch08-wb-practice",
@@ -7174,11 +8040,32 @@
       "fadedPrompt": "Singapore Bar-Model solution: ___",
       "fadedAnswer": "y = 35",
       "modelAnswer": "y = 35",
-      "markSchemeKeywords": [
-        "y"
-      ],
       "linkedChapter": 8,
-      "linkedWidget": "w_exterior_angle_tear_proof"
+      "linkedWidget": "w_exterior_angle_tear_proof",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "35"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "35",
+          "y = 35",
+          "5y = 175, y = 35"
+        ],
+        "rejects": [
+          "y = 15",
+          "175",
+          "y = 17",
+          "3.5"
+        ]
+      }
     },
     {
       "id": "q-oup-ch08-wb-challenge",
@@ -7194,11 +8081,34 @@
       "fadedPrompt": "Horizon invariant result: ___",
       "fadedAnswer": "15 sides (exterior angle = 24°, 360/24 = 15)",
       "modelAnswer": "15 sides (exterior angle = 24°, 360/24 = 15)",
-      "markSchemeKeywords": [
-        "15"
-      ],
       "linkedChapter": 8,
-      "linkedWidget": "w_exterior_angle_tear_proof"
+      "linkedWidget": "w_exterior_angle_tear_proof",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "15"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "15",
+          "15 sides",
+          "n = 15",
+          "360/24 = 15"
+        ],
+        "rejects": [
+          "24",
+          "156",
+          "12",
+          "16",
+          "150"
+        ]
+      }
     },
     {
       "id": "q-oup-ch09-sb",
@@ -7214,13 +8124,34 @@
       "fadedPrompt": "0.85 × Original = 2040 ⇒ Original = 2040 ÷ 0.85 = ₹___.",
       "fadedAnswer": "₹2,400",
       "modelAnswer": "₹2,400 because a 15% reduction corresponds to multiplying the original price by 0.85, so dividing ₹2,040 by 0.85 restores ₹2,400.",
-      "markSchemeKeywords": [
-        "0.85",
-        "2400",
-        "divide"
-      ],
       "linkedChapter": 3,
-      "linkedWidget": "w_compound_multiplier_machine"
+      "linkedWidget": "w_compound_multiplier_machine",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "2400"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "2400",
+          "₹2,400",
+          "Rs 2400",
+          "2040 ÷ 0.85 = 2400"
+        ],
+        "rejects": [
+          "2346",
+          "2040",
+          "1734",
+          "240",
+          "24000"
+        ]
+      }
     },
     {
       "id": "q-oup-ch09-wb-focus",
@@ -7236,11 +8167,32 @@
       "fadedPrompt": "Target result for 9.3: ___",
       "fadedAnswer": "240",
       "modelAnswer": "240",
-      "markSchemeKeywords": [
-        "240"
-      ],
       "linkedChapter": 3,
-      "linkedWidget": "w_compound_multiplier_machine"
+      "linkedWidget": "w_compound_multiplier_machine",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "240"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "240",
+          "= 240",
+          "3600 ÷ 15 = 240"
+        ],
+        "rejects": [
+          "24",
+          "2.4",
+          "5.4",
+          "2400"
+        ]
+      }
     },
     {
       "id": "q-oup-ch09-wb-practice",
@@ -7256,11 +8208,74 @@
       "fadedPrompt": "Singapore Bar-Model solution: ___",
       "fadedAnswer": "−4% (a 4% decrease, since 1.2 × 0.8 = 0.96)",
       "modelAnswer": "−4% (a 4% decrease, since 1.2 × 0.8 = 0.96)",
-      "markSchemeKeywords": [
-        "−4%"
-      ],
       "linkedChapter": 3,
-      "linkedWidget": "w_compound_multiplier_machine"
+      "linkedWidget": "w_compound_multiplier_machine",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "the net change",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "-4"
+              },
+              {
+                "kind": "all",
+                "of": [
+                  {
+                    "kind": "number",
+                    "value": "4"
+                  },
+                  {
+                    "kind": "words",
+                    "groups": [
+                      [
+                        "decrease",
+                        "decreases",
+                        "decreased",
+                        "down",
+                        "less",
+                        "lower",
+                        "loss",
+                        "fall",
+                        "falls",
+                        "drop",
+                        "drops",
+                        "reduction",
+                        "reduced",
+                        "smaller"
+                      ]
+                    ],
+                    "forbid": [
+                      "increase",
+                      "increases",
+                      "increased",
+                      "up",
+                      "more",
+                      "gain"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "−4%",
+          "-4",
+          "a 4% decrease",
+          "4% decrease",
+          "it goes down by 4%"
+        ],
+        "rejects": [
+          "4%",
+          "0%",
+          "no change",
+          "4% increase",
+          "-40%",
+          "0"
+        ]
+      }
     },
     {
       "id": "q-oup-ch09-wb-challenge",
@@ -7276,11 +8291,34 @@
       "fadedPrompt": "Horizon invariant result: ___",
       "fadedAnswer": "₹16,550 (Total = ₹66,550)",
       "modelAnswer": "₹16,550 (Total = ₹66,550)",
-      "markSchemeKeywords": [
-        "₹16,550"
-      ],
       "linkedChapter": 3,
-      "linkedWidget": "w_compound_multiplier_machine"
+      "linkedWidget": "w_compound_multiplier_machine",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "16550"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "16550",
+          "₹16,550",
+          "16,550",
+          "66,550 − 50,000 = 16,550"
+        ],
+        "rejects": [
+          "66550",
+          "15000",
+          "₹66,550",
+          "1655",
+          "16500"
+        ]
+      }
     },
     {
       "id": "q-oup-ch10-sb",
@@ -7296,14 +8334,43 @@
       "fadedPrompt": "FD₁ = 30/20 = ___ and FD₂ = 25/10 = ___.",
       "fadedAnswer": "1.5 and 2.5",
       "modelAnswer": "FD₁ = 1.5 and FD₂ = 2.5 because Frequency Density = Frequency ÷ Class Width.",
-      "markSchemeKeywords": [
-        "1.5",
-        "2.5",
-        "density",
-        "width"
-      ],
       "linkedChapter": 14,
-      "linkedWidget": "w_histogram_frequency_density"
+      "linkedWidget": "w_histogram_frequency_density",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "the first class",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "1.5"
+              }
+            ]
+          },
+          {
+            "label": "the second class",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "2.5"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "1.5 and 2.5",
+          "FD₁ = 1.5 and FD₂ = 2.5",
+          "30/20 = 1.5, 25/10 = 2.5",
+          "1.5, 2.5"
+        ],
+        "rejects": [
+          "1.5",
+          "2.5",
+          "30 and 25",
+          "0.67 and 0.4",
+          "15 and 25"
+        ]
+      }
     },
     {
       "id": "q-oup-ch10-wb-focus",
@@ -7319,11 +8386,42 @@
       "fadedPrompt": "Target result for 10.3: ___",
       "fadedAnswer": "Median = 20, IQR = 29 − 15 = 14",
       "modelAnswer": "Median = 20, IQR = 29 − 15 = 14",
-      "markSchemeKeywords": [
-        "Median"
-      ],
       "linkedChapter": 14,
-      "linkedWidget": "w_histogram_frequency_density"
+      "linkedWidget": "w_histogram_frequency_density",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "median",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "20"
+              }
+            ]
+          },
+          {
+            "label": "IQR",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "14"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "Median = 20, IQR = 14",
+          "20 and 14",
+          "median 20, IQR = 29 − 15 = 14"
+        ],
+        "rejects": [
+          "Median = 20",
+          "IQR = 14",
+          "median 17, IQR 14",
+          "20 and 19",
+          "median 24, IQR 12"
+        ]
+      }
     },
     {
       "id": "q-oup-ch10-wb-practice",
@@ -7339,11 +8437,51 @@
       "fadedPrompt": "Singapore Bar-Model solution: ___",
       "fadedAnswer": "σ = √8 ≈ 2.83 (mean μ = 8)",
       "modelAnswer": "σ = √8 ≈ 2.83 (mean μ = 8)",
-      "markSchemeKeywords": [
-        "σ"
-      ],
       "linkedChapter": 14,
-      "linkedWidget": "w_histogram_frequency_density"
+      "linkedWidget": "w_histogram_frequency_density",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "2.83",
+                "tolerance": 0.03
+              },
+              {
+                "kind": "form",
+                "value": "√8"
+              },
+              {
+                "kind": "form",
+                "value": "√(8)"
+              },
+              {
+                "kind": "form",
+                "value": "2√2"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "σ = √8 ≈ 2.83",
+          "2.83",
+          "2.828",
+          "√8",
+          "2√2",
+          "sqrt(8)",
+          "2.8"
+        ],
+        "rejects": [
+          "8",
+          "3.16",
+          "√10",
+          "2",
+          "4",
+          "σ = 8"
+        ]
+      }
     },
     {
       "id": "q-oup-ch10-wb-challenge",
@@ -7359,11 +8497,33 @@
       "fadedPrompt": "Horizon invariant result: ___",
       "fadedAnswer": "48 observations (15 × 3.2)",
       "modelAnswer": "48 observations (15 × 3.2)",
-      "markSchemeKeywords": [
-        "48"
-      ],
       "linkedChapter": 14,
-      "linkedWidget": "w_histogram_frequency_density"
+      "linkedWidget": "w_histogram_frequency_density",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "48"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "48",
+          "48 observations",
+          "15 × 3.2 = 48"
+        ],
+        "rejects": [
+          "3.2",
+          "15",
+          "80",
+          "4.8",
+          "32"
+        ]
+      }
     },
     {
       "id": "q-oup-ch11-sb",
@@ -7379,13 +8539,47 @@
       "fadedPrompt": "Tₙ = 4n + 3, T₂₀ = 83, and S₂₀ = 10 × (7 + 83) = ___.",
       "fadedAnswer": "Tₙ = 4n + 3, S₂₀ = 900",
       "modelAnswer": "Tₙ = 4n + 3 and S₂₀ = 900 because pairing the 20 terms from both ends gives 10 pairs each summing to 7 + 83 = 90.",
-      "markSchemeKeywords": [
-        "4n + 3",
-        "83",
-        "900"
-      ],
       "linkedChapter": 6,
-      "linkedWidget": "w_gauss_staircase_sum"
+      "linkedWidget": "w_gauss_staircase_sum",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "the nth term",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "4n+3"
+              },
+              {
+                "kind": "form",
+                "value": "3+4n"
+              }
+            ]
+          },
+          {
+            "label": "the sum of 20 terms",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "900"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "Tₙ = 4n + 3, S₂₀ = 900",
+          "4n+3 900",
+          "4n + 3 and 900",
+          "T_n = 3 + 4n, sum = 900"
+        ],
+        "rejects": [
+          "4n + 3",
+          "900",
+          "4n + 7, 900",
+          "4n + 3, 830",
+          "n + 4, 900"
+        ]
+      }
     },
     {
       "id": "q-oup-ch11-wb-focus",
@@ -7401,11 +8595,71 @@
       "fadedPrompt": "Target result for 11.2: ___",
       "fadedAnswer": "No, because 4n + 3 = 150 gives 4n = 147, which is not an integer",
       "modelAnswer": "No, because 4n + 3 = 150 gives 4n = 147, which is not an integer",
-      "markSchemeKeywords": [
-        "No,"
-      ],
       "linkedChapter": 6,
-      "linkedWidget": "w_gauss_staircase_sum"
+      "linkedWidget": "w_gauss_staircase_sum",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "yes or no",
+            "anyOf": [
+              {
+                "kind": "words",
+                "groups": [
+                  [
+                    "no",
+                    "not",
+                    "doesn't",
+                    "isn't",
+                    "cannot",
+                    "can't",
+                    "never"
+                  ]
+                ],
+                "forbid": [
+                  "yes"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "the reason",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "147"
+              },
+              {
+                "kind": "number",
+                "value": "147/4"
+              },
+              {
+                "kind": "words",
+                "groups": [
+                  [
+                    "integer",
+                    "whole"
+                  ]
+                ]
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "No, because 4n + 3 = 150 gives 4n = 147, which is not an integer",
+          "No. 4n = 147 and 147 is not a multiple of 4",
+          "no, n would be 36.75",
+          "No because n is not a whole number",
+          "It does not, 147/4 is not an integer"
+        ],
+        "rejects": [
+          "I do not know",
+          "Yes",
+          "No",
+          "yes because 147/4 is not whole",
+          "Yes, n = 36.75",
+          "no because it is too big"
+        ]
+      }
     },
     {
       "id": "q-oup-ch11-wb-practice",
@@ -7421,11 +8675,57 @@
       "fadedPrompt": "Singapore Bar-Model solution: ___",
       "fadedAnswer": "Tₙ = n² + 2n",
       "modelAnswer": "Tₙ = n² + 2n",
-      "markSchemeKeywords": [
-        "Tₙ"
-      ],
       "linkedChapter": 6,
-      "linkedWidget": "w_gauss_staircase_sum"
+      "linkedWidget": "w_gauss_staircase_sum",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "n^2+2n"
+              },
+              {
+                "kind": "form",
+                "value": "2n+n^2"
+              },
+              {
+                "kind": "form",
+                "value": "n(n+2)"
+              },
+              {
+                "kind": "form",
+                "value": "n (n+2)"
+              },
+              {
+                "kind": "form",
+                "value": "n(2+n)"
+              },
+              {
+                "kind": "form",
+                "value": "(n+1)^2-1"
+              },
+              {
+                "kind": "form",
+                "value": "n*n+2n"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "Tₙ = n² + 2n",
+          "n^2 + 2n",
+          "n(n+2)",
+          "n squared + 2n"
+        ],
+        "rejects": [
+          "n² + 2",
+          "n² + 2n + 1",
+          "2n + 1",
+          "n^2"
+        ]
+      }
     },
     {
       "id": "q-oup-ch11-wb-challenge",
@@ -7441,11 +8741,33 @@
       "fadedPrompt": "Horizon invariant result: ___",
       "fadedAnswer": "20,100",
       "modelAnswer": "20,100",
-      "markSchemeKeywords": [
-        "20,100"
-      ],
       "linkedChapter": 6,
-      "linkedWidget": "w_gauss_staircase_sum"
+      "linkedWidget": "w_gauss_staircase_sum",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "20100"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "20100",
+          "20,100",
+          "200 × 201 ÷ 2 = 20100"
+        ],
+        "rejects": [
+          "20000",
+          "40200",
+          "2010",
+          "201",
+          "20200"
+        ]
+      }
     },
     {
       "id": "q-oup-ch12-sb",
@@ -7461,13 +8783,33 @@
       "fadedPrompt": "8 − 3 = 5 units = ₹1,350 ⇒ 1 unit = ₹270 ⇒ 16 units = ₹___.",
       "fadedAnswer": "₹4,320",
       "modelAnswer": "₹4,320 because the 5-unit difference between Meera (8) and Kym (3) equals ₹1,350, making 1 unit = ₹270 and all 16 units = ₹4,320.",
-      "markSchemeKeywords": [
-        "5 units",
-        "270",
-        "4320"
-      ],
       "linkedChapter": 3,
-      "linkedWidget": "w_singapore_ratio_bar_model"
+      "linkedWidget": "w_singapore_ratio_bar_model",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "4320"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "4320",
+          "₹4,320",
+          "16 × 270 = 4320"
+        ],
+        "rejects": [
+          "270",
+          "1350",
+          "432",
+          "2160",
+          "4,300"
+        ]
+      }
     },
     {
       "id": "q-oup-ch12-wb-focus",
@@ -7483,11 +8825,33 @@
       "fadedPrompt": "Target result for 12.3: ___",
       "fadedAnswer": "35,000 cm² (multiply by 100² = 10,000)",
       "modelAnswer": "35,000 cm² (multiply by 100² = 10,000)",
-      "markSchemeKeywords": [
-        "35,000"
-      ],
       "linkedChapter": 3,
-      "linkedWidget": "w_singapore_ratio_bar_model"
+      "linkedWidget": "w_singapore_ratio_bar_model",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "35000"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "35000",
+          "35,000 cm²",
+          "35000 cm^2"
+        ],
+        "rejects": [
+          "350",
+          "3500",
+          "350000",
+          "0.00035",
+          "35"
+        ]
+      }
     },
     {
       "id": "q-oup-ch12-wb-practice",
@@ -7503,11 +8867,34 @@
       "fadedPrompt": "Singapore Bar-Model solution: ___",
       "fadedAnswer": "4 hours (inverse proportion: 6 × 10 = 60 pump-hours ÷ 15 = 4)",
       "modelAnswer": "4 hours (inverse proportion: 6 × 10 = 60 pump-hours ÷ 15 = 4)",
-      "markSchemeKeywords": [
-        "4"
-      ],
       "linkedChapter": 3,
-      "linkedWidget": "w_singapore_ratio_bar_model"
+      "linkedWidget": "w_singapore_ratio_bar_model",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "4"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "4",
+          "4 hours",
+          "4h",
+          "60 ÷ 15 = 4"
+        ],
+        "rejects": [
+          "40 hours",
+          "25",
+          "25 hours",
+          "2.5",
+          "10"
+        ]
+      }
     },
     {
       "id": "q-oup-ch12-wb-challenge",
@@ -7523,11 +8910,38 @@
       "fadedPrompt": "Horizon invariant result: ___",
       "fadedAnswer": "9 : 12 : 14",
       "modelAnswer": "9 : 12 : 14",
-      "markSchemeKeywords": [
-        "9"
-      ],
       "linkedChapter": 3,
-      "linkedWidget": "w_singapore_ratio_bar_model"
+      "linkedWidget": "w_singapore_ratio_bar_model",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "9",
+                  "12",
+                  "14"
+                ]
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "9 : 12 : 14",
+          "9:12:14",
+          "A : B : C = 9 : 12 : 14",
+          "9, 12, 14"
+        ],
+        "rejects": [
+          "3 : 4 : 7",
+          "18 : 24 : 28",
+          "9 : 12",
+          "3 : 6 : 7",
+          "14 : 12 : 9"
+        ]
+      }
     },
     {
       "id": "q-oup-ch13-sb",
@@ -7543,14 +8957,45 @@
       "fadedPrompt": "CA = (1, 2) ⇒ CA′ = (3, 6) ⇒ A′ = (4, 7), and Area(T′) = 3² × 6 = ___ cm².",
       "fadedAnswer": "A′ = (4, 7), Area = 54 cm²",
       "modelAnswer": "A′ = (4, 7) and Area = 54 cm² because linear rays from (1, 1) multiply by k = 3 while 2D area multiplies by k² = 9.",
-      "markSchemeKeywords": [
-        "(4, 7)",
-        "54",
-        "k^2",
-        "9"
-      ],
       "linkedChapter": 11,
-      "linkedWidget": "w_enlargement_ray_scaler"
+      "linkedWidget": "w_enlargement_ray_scaler",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "the image point",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "4",
+                  "7"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "the image area",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "54"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "A′ = (4, 7), Area = 54 cm²",
+          "(4,7) and 54",
+          "A' = (4, 7) area 54"
+        ],
+        "rejects": [
+          "(4, 7)",
+          "54",
+          "(6, 9), 54",
+          "(4, 7), 18",
+          "(7, 4), 54"
+        ]
+      }
     },
     {
       "id": "q-oup-ch13-wb-focus",
@@ -7566,11 +9011,37 @@
       "fadedPrompt": "Target result for 13.5: ___",
       "fadedAnswer": "P′ = (5, −3)",
       "modelAnswer": "P′ = (5, −3)",
-      "markSchemeKeywords": [
-        "P′"
-      ],
       "linkedChapter": 11,
-      "linkedWidget": "w_enlargement_ray_scaler"
+      "linkedWidget": "w_enlargement_ray_scaler",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "5",
+                  "-3"
+                ]
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "P′ = (5, −3)",
+          "(5, -3)",
+          "(5,-3)",
+          "5, -3"
+        ],
+        "rejects": [
+          "P′ = (3, −5)",
+          "(-3, 5)",
+          "(5, 3)",
+          "(-5, 3)",
+          "(3, 5)"
+        ]
+      }
     },
     {
       "id": "q-oup-ch13-wb-practice",
@@ -7586,11 +9057,36 @@
       "fadedPrompt": "Singapore Bar-Model solution: ___",
       "fadedAnswer": "Q′ = (−1, 4)",
       "modelAnswer": "Q′ = (−1, 4)",
-      "markSchemeKeywords": [
-        "Q′"
-      ],
       "linkedChapter": 11,
-      "linkedWidget": "w_enlargement_ray_scaler"
+      "linkedWidget": "w_enlargement_ray_scaler",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "-1",
+                  "4"
+                ]
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "Q′ = (−1, 4)",
+          "(-1, 4)",
+          "(-1,4)"
+        ],
+        "rejects": [
+          "(1, -4)",
+          "(4, 1)",
+          "(1, 4)",
+          "(-4, 1)",
+          "(4, -1)"
+        ]
+      }
     },
     {
       "id": "q-oup-ch13-wb-challenge",
@@ -7606,11 +9102,36 @@
       "fadedPrompt": "Horizon invariant result: ___",
       "fadedAnswer": "R′ = (−1, 0)",
       "modelAnswer": "R′ = (−1, 0)",
-      "markSchemeKeywords": [
-        "R′"
-      ],
       "linkedChapter": 11,
-      "linkedWidget": "w_enlargement_ray_scaler"
+      "linkedWidget": "w_enlargement_ray_scaler",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "-1",
+                  "0"
+                ]
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "R′ = (−1, 0)",
+          "(-1, 0)",
+          "(-1,0)"
+        ],
+        "rejects": [
+          "(7, 4)",
+          "(-1, 4)",
+          "(1, 0)",
+          "(-4, -2)",
+          "(-10, -6)"
+        ]
+      }
     },
     {
       "id": "q-oup-ch14-sb",
@@ -7626,13 +9147,47 @@
       "fadedPrompt": "m = 12/6 = 2, y = 2x + 5, and at y = 0, x = ___.",
       "fadedAnswer": "y = 2x + 5, x-intercept = −2.5",
       "modelAnswer": "y = 2x + 5 and x-intercept (−2.5, 0) because the rise 12 over run 6 gives gradient m = 2.",
-      "markSchemeKeywords": [
-        "2x + 5",
-        "-2.5",
-        "gradient"
-      ],
       "linkedChapter": 7,
-      "linkedWidget": "w_linear_graph_slope_explorer"
+      "linkedWidget": "w_linear_graph_slope_explorer",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "the equation",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "2x+5"
+              },
+              {
+                "kind": "form",
+                "value": "5+2x"
+              }
+            ]
+          },
+          {
+            "label": "the x-intercept",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "-2.5"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "y = 2x + 5, x-intercept = −2.5",
+          "y=2x+5 -2.5",
+          "y = 2x + 5 and (−2.5, 0)",
+          "y=2x+5, x = -5/2"
+        ],
+        "rejects": [
+          "y = 2x + 5",
+          "-2.5",
+          "y = 2x + 5, x = 2.5",
+          "y = 2x + 3, −1.5",
+          "y = 12x + 5, -2.5"
+        ]
+      }
     },
     {
       "id": "q-oup-ch14-wb-focus",
@@ -7648,11 +9203,62 @@
       "fadedPrompt": "Target result for 14.2: ___",
       "fadedAnswer": "f⁻¹(x) = (x + 7) / 3",
       "modelAnswer": "f⁻¹(x) = (x + 7) / 3",
-      "markSchemeKeywords": [
-        "f⁻¹(x)"
-      ],
       "linkedChapter": 7,
-      "linkedWidget": "w_linear_graph_slope_explorer"
+      "linkedWidget": "w_linear_graph_slope_explorer",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "(x+7)/3"
+              },
+              {
+                "kind": "form",
+                "value": "(7+x)/3"
+              },
+              {
+                "kind": "form",
+                "value": "x/3+7/3"
+              },
+              {
+                "kind": "form",
+                "value": "7/3+x/3"
+              },
+              {
+                "kind": "form",
+                "value": "1/3(x+7)"
+              },
+              {
+                "kind": "form",
+                "value": "1/3 (x+7)"
+              },
+              {
+                "kind": "form",
+                "value": "1/3x+7/3"
+              },
+              {
+                "kind": "form",
+                "value": "(x+7)*1/3"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "f⁻¹(x) = (x + 7) / 3",
+          "(x+7)/3",
+          "y = (x + 7)/3",
+          "f^-1(x) = x/3 + 7/3"
+        ],
+        "rejects": [
+          "(x − 7) / 3",
+          "3x + 7",
+          "x + 7 / 3",
+          "(x + 7) / 3x",
+          "1 / (3x − 7)"
+        ]
+      }
     },
     {
       "id": "q-oup-ch14-wb-practice",
@@ -7668,11 +9274,71 @@
       "fadedPrompt": "Singapore Bar-Model solution: ___",
       "fadedAnswer": "y = −½x + 3",
       "modelAnswer": "y = −½x + 3",
-      "markSchemeKeywords": [
-        "y"
-      ],
       "linkedChapter": 7,
-      "linkedWidget": "w_linear_graph_slope_explorer"
+      "linkedWidget": "w_linear_graph_slope_explorer",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "-1/2x+3"
+              },
+              {
+                "kind": "form",
+                "value": "-x/2+3"
+              },
+              {
+                "kind": "form",
+                "value": "3-1/2x"
+              },
+              {
+                "kind": "form",
+                "value": "3-x/2"
+              },
+              {
+                "kind": "form",
+                "value": "-0.5x+3"
+              },
+              {
+                "kind": "form",
+                "value": "3-0.5x"
+              },
+              {
+                "kind": "form",
+                "value": "-(1/2)x+3"
+              },
+              {
+                "kind": "form",
+                "value": "3-(1/2)x"
+              },
+              {
+                "kind": "form",
+                "value": "-1/2*x+3"
+              },
+              {
+                "kind": "form",
+                "value": "-(x/2)+3"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "y = −½x + 3",
+          "y = -1/2x + 3",
+          "y = -x/2 + 3",
+          "y = 3 - 0.5x",
+          "y = -0.5x + 3"
+        ],
+        "rejects": [
+          "y = 2x + 3",
+          "y = ½x + 3",
+          "y = −2x + 3",
+          "y = −½x + 5",
+          "y = -1/2x"
+        ]
+      }
     },
     {
       "id": "q-oup-ch14-wb-challenge",
@@ -7688,11 +9354,50 @@
       "fadedPrompt": "Horizon invariant result: ___",
       "fadedAnswer": "(2, 4)",
       "modelAnswer": "(2, 4)",
-      "markSchemeKeywords": [
-        "(2,"
-      ],
       "linkedChapter": 7,
-      "linkedWidget": "w_linear_graph_slope_explorer"
+      "linkedWidget": "w_linear_graph_slope_explorer",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "2",
+                  "4"
+                ]
+              },
+              {
+                "kind": "all",
+                "of": [
+                  {
+                    "kind": "form",
+                    "value": "x=2"
+                  },
+                  {
+                    "kind": "form",
+                    "value": "y=4"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "(2, 4)",
+          "x = 2, y = 4",
+          "y = 4 and x = 2",
+          "(2,4)"
+        ],
+        "rejects": [
+          "(4, 2)",
+          "(2, 8)",
+          "x = 2",
+          "(3, 7)",
+          "(-2, 4)"
+        ]
+      }
     },
     {
       "id": "q-oup-ch15-sb",
@@ -7708,14 +9413,58 @@
       "fadedPrompt": "TP = 19, FP = 49, so P(D | +) = 19 / (19 + 49) = ___.",
       "fadedAnswer": "19/68 ≈ 27.9%",
       "modelAnswer": "P(D | +) = 19/68 ≈ 27.9% because among 1,000 people there are 19 true positives and 49 false positives.",
-      "markSchemeKeywords": [
-        "19",
-        "49",
-        "68",
-        "27.9"
-      ],
       "linkedChapter": 16,
-      "linkedWidget": "w_atlas_bayes_square"
+      "linkedWidget": "w_atlas_bayes_square",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "true positives",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "19"
+              }
+            ]
+          },
+          {
+            "label": "false positives",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "49"
+              }
+            ]
+          },
+          {
+            "label": "P(D | +)",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "19/68",
+                "tolerance": 0.0006
+              },
+              {
+                "kind": "number",
+                "value": "27.9",
+                "tolerance": 0.11
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "TP = 19, FP = 49, P(D|+) = 19/68 ≈ 27.9%",
+          "19, 49, 19/68",
+          "19 true positives, 49 false positives, 27.9%",
+          "19 and 49, so 0.279"
+        ],
+        "rejects": [
+          "19, 49",
+          "19/68",
+          "20, 49, 29%",
+          "19, 49, 95%",
+          "19, 49, 19/49"
+        ]
+      }
     },
     {
       "id": "q-oup-ch15-wb-focus",
@@ -7731,11 +9480,37 @@
       "fadedPrompt": "Target result for 15.4: ___",
       "fadedAnswer": "4/36 = 1/9",
       "modelAnswer": "4/36 = 1/9",
-      "markSchemeKeywords": [
-        "4/36"
-      ],
       "linkedChapter": 16,
-      "linkedWidget": "w_atlas_bayes_square"
+      "linkedWidget": "w_atlas_bayes_square",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "1/9",
+                "tolerance": 0.0012
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "1/9",
+          "4/36",
+          "4/36 = 1/9",
+          "0.111",
+          "0.11"
+        ],
+        "rejects": [
+          "1/12",
+          "1/6",
+          "9",
+          "4",
+          "5/36",
+          "1/36"
+        ]
+      }
     },
     {
       "id": "q-oup-ch15-wb-practice",
@@ -7751,11 +9526,36 @@
       "fadedPrompt": "Singapore Bar-Model solution: ___",
       "fadedAnswer": "20/56 = 5/14",
       "modelAnswer": "20/56 = 5/14",
-      "markSchemeKeywords": [
-        "20/56"
-      ],
       "linkedChapter": 16,
-      "linkedWidget": "w_atlas_bayes_square"
+      "linkedWidget": "w_atlas_bayes_square",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "5/14",
+                "tolerance": 0.0008
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "5/14",
+          "20/56",
+          "20/56 = 5/14",
+          "0.357",
+          "5/8 × 4/7 = 20/56"
+        ],
+        "rejects": [
+          "25/64",
+          "5/8",
+          "15/56",
+          "3/28",
+          "0.4"
+        ]
+      }
     },
     {
       "id": "q-oup-ch15-wb-challenge",
@@ -7771,11 +9571,33 @@
       "fadedPrompt": "Horizon invariant result: ___",
       "fadedAnswer": "56 committees",
       "modelAnswer": "56 committees",
-      "markSchemeKeywords": [
-        "56"
-      ],
       "linkedChapter": 16,
-      "linkedWidget": "w_atlas_bayes_square"
+      "linkedWidget": "w_atlas_bayes_square",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "56"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "56",
+          "56 committees",
+          "8 × 7 × 6 ÷ 6 = 56"
+        ],
+        "rejects": [
+          "336",
+          "24",
+          "512",
+          "5.6",
+          "28"
+        ]
+      }
     },
     {
       "id": "q-oup-ch16-sb",
@@ -7791,13 +9613,46 @@
       "fadedPrompt": "2a − 3b = (0, 11)ᵀ and |a| = √(3² + 4²) = ___.",
       "fadedAnswer": "(0, 11)ᵀ and |a| = 5",
       "modelAnswer": "2a − 3b = (0, 11)ᵀ and |a| = 5 because componentwise subtraction gives (6−6, 8+3) and √(3²+4²) = 5.",
-      "markSchemeKeywords": [
-        "(0, 11)",
-        "5",
-        "Pythagoras"
-      ],
       "linkedChapter": 19,
-      "linkedWidget": "w_vector_geometric_proof_studio"
+      "linkedWidget": "w_vector_geometric_proof_studio",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "2a − 3b",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "0",
+                  "11"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "the magnitude of a",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "5"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "2a − 3b = (0, 11)ᵀ and |a| = 5",
+          "(0, 11) and 5",
+          "(0,11), |a| = 5"
+        ],
+        "rejects": [
+          "(0, 11)",
+          "5",
+          "(12, 5), 5",
+          "(0, 11), 25",
+          "(0, 5), 5",
+          "(0, 11), 7"
+        ]
+      }
     },
     {
       "id": "q-oup-ch16-wb-focus",
@@ -7813,11 +9668,37 @@
       "fadedPrompt": "Target result for 16.2: ___",
       "fadedAnswer": "AC = (3, 5)ᵀ",
       "modelAnswer": "AC = (3, 5)ᵀ",
-      "markSchemeKeywords": [
-        "AC"
-      ],
       "linkedChapter": 19,
-      "linkedWidget": "w_vector_geometric_proof_studio"
+      "linkedWidget": "w_vector_geometric_proof_studio",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "3",
+                  "5"
+                ]
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "AC = (3, 5)ᵀ",
+          "(3, 5)",
+          "(3,5)",
+          "3, 5"
+        ],
+        "rejects": [
+          "(5, 3)",
+          "(5, -9)",
+          "(3, 9)",
+          "(-4, -14)",
+          "(3, -5)"
+        ]
+      }
     },
     {
       "id": "q-oup-ch16-wb-practice",
@@ -7833,11 +9714,83 @@
       "fadedPrompt": "Singapore Bar-Model solution: ___",
       "fadedAnswer": "MN = ½(b − a) = ½AB",
       "modelAnswer": "MN = ½(b − a) = ½AB",
-      "markSchemeKeywords": [
-        "MN"
-      ],
       "linkedChapter": 19,
-      "linkedWidget": "w_vector_geometric_proof_studio"
+      "linkedWidget": "w_vector_geometric_proof_studio",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "answer",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "1/2(b-a)"
+              },
+              {
+                "kind": "form",
+                "value": "1/2 (b-a)"
+              },
+              {
+                "kind": "form",
+                "value": "(1/2)(b-a)"
+              },
+              {
+                "kind": "form",
+                "value": "(b-a)/2"
+              },
+              {
+                "kind": "form",
+                "value": "(-a+b)/2"
+              },
+              {
+                "kind": "form",
+                "value": "1/2b-1/2a"
+              },
+              {
+                "kind": "form",
+                "value": "b/2-a/2"
+              },
+              {
+                "kind": "form",
+                "value": "0.5(b-a)"
+              },
+              {
+                "kind": "form",
+                "value": "0.5b-0.5a"
+              },
+              {
+                "kind": "form",
+                "value": "-1/2a+1/2b"
+              },
+              {
+                "kind": "form",
+                "value": "-a/2+b/2"
+              },
+              {
+                "kind": "form",
+                "value": "1/2*(b-a)"
+              },
+              {
+                "kind": "form",
+                "value": "1/2(-a+b)"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "MN = ½(b − a)",
+          "1/2(b - a)",
+          "(b - a)/2",
+          "½b − ½a",
+          "MN = ½(b − a) = ½AB"
+        ],
+        "rejects": [
+          "½(a − b)",
+          "b − a",
+          "½(a + b)",
+          "2(b − a)",
+          "½ab"
+        ]
+      }
     },
     {
       "id": "q-oup-ch16-wb-challenge",
@@ -7853,11 +9806,42 @@
       "fadedPrompt": "Horizon invariant result: ___",
       "fadedAnswer": "det(A) = 10; new area = 50 cm²",
       "modelAnswer": "det(A) = 10; new area = 50 cm²",
-      "markSchemeKeywords": [
-        "det(A)"
-      ],
       "linkedChapter": 19,
-      "linkedWidget": "w_vector_geometric_proof_studio"
+      "linkedWidget": "w_vector_geometric_proof_studio",
+      "answerKey": {
+        "parts": [
+          {
+            "label": "the determinant",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "10"
+              }
+            ]
+          },
+          {
+            "label": "the new area",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "50"
+              }
+            ]
+          }
+        ],
+        "accepts": [
+          "det(A) = 10; new area = 50 cm²",
+          "10 and 50",
+          "det = 10, area 50"
+        ],
+        "rejects": [
+          "10",
+          "50",
+          "det = 14, area = 70",
+          "det = 10, area = 15",
+          "10, 5"
+        ]
+      }
     }
   ],
   "diagramPlates": [
@@ -8757,7 +10741,7 @@
     },
     {
       "id": "tip-bayes-square",
-      "title": "Why a 95% Accurate Test Can Be 72% Wrong",
+      "title": "Why a Positive Result from a 95% Accurate Test Is Wrong 72% of the Time",
       "chapter": 16,
       "visualIntuition": "In the @saxster/atlas 1,000-person unit square at 2% prevalence, only 20 people are sick while 980 are healthy.",
       "ahaMoment": "5% false alarms on 980 healthy people creates 49 false positives (amber), dwarfing the 19 true positives (red)!",
@@ -8776,7 +10760,7 @@
       "title": "Why det(A) = ad − bc Is Area",
       "chapter": 20,
       "visualIntuition": "Drag the red basis vector Aî = (a, c) and blue basis vector Aĵ = (b, d) in the @saxster/atlas 2×2 Matrix Sandbox.",
-      "ahaMoment": "The unit 1×1 square deforms into a parallelogram whose bounding box (a+b)(c+d) minus four right triangles leaves exact area ad − bc!",
+      "ahaMoment": "The unit 1×1 square deforms into a parallelogram whose bounding box (a+b)(c+d), minus four right triangles and two b×c rectangles, leaves exact area ad − bc!",
       "formula": "Area(A · Square) = det(A) = ad − bc"
     }
   ]

@@ -4,7 +4,7 @@ The Euclid spine teaches Kym to build a figure. This spine teaches her to spot o
 
 The idea of three layers (prototypes, motifs, composite problems) comes from the Singapore geometry site 几何三层课堂 (dalei.rokoai.fun). We take the structure only. Every problem, number and word on this page is our own.
 
-No code yet. When the motif board is built, the data will live in `KymMaths/KymMaths/Core/Geometry/MotifSpine.swift`, with a `MotifSpineTests` that fails on a loop, a dead end, or a check whose answer the figure doesn't measure. From then on the code wins and this page gets fixed.
+M1–M5 are built (see Build order). The data lives in `KymMaths/KymMaths/Core/Geometry/MotifSpine.swift`, with a `MotifSpineTests` that fails on a loop, a dead end, or a check whose answer the figure doesn't measure. Where this page and the code disagree, the code wins and this page gets fixed.
 
 ## The three layers
 

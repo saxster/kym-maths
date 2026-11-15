@@ -5,7 +5,7 @@
    - Always map every letter in the formula to a visible, colour-coded part of the figure.
 2. **Respect Kym's Intelligence:**
    - Kym is 12, lives in Mumbai, and reads *The Living World* (`../kym_bio`) and *KymaiaTutor* (`../kym_tutor`).
-   - Do not talk down to her. Explain *why* a negative times a negative is positive, *why* dividing by a fraction flips and multiplies, *why* a 95% accurate test on a rare condition is right only 28% of the time, and *why* the area under $f'(t)=t$ is $\frac{1}{2}x^2$.
+   - Do not talk down to her. Explain *why* a negative times a negative is positive, *why* dividing by a fraction flips and multiplies, *why* a positive result from a 95% accurate test on a rare condition is right only 28% of the time, and *why* the area under $f'(t)=t$ is $\frac{1}{2}x^2$.
 3. **Zero Missing-Workbook Gap:**
    - Because her school only provides Deborah Barton's *Complete Mathematics 8* Student Book and no separate Workbook, every section (`1.1`–`16.2`) includes a 3-Tier Companion Workbook (`Foundation & Fluency`, `Singapore Bar-Model & Checkpoint Application`, `Olympiad & Horizon Stretch`).
 4. **Pure-Model Honesty (`@saxster/atlas` invariant):**
