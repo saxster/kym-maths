@@ -4,6 +4,7 @@ struct AnswerKey: Codable, Equatable, Sendable {
     let parts: [AnswerPart]
     let accepts: [String]
     let rejects: [String]
+    let mistakes: [KnownMistake]
 
     func mark(_ answer: String) -> AnswerMarking {
         let text = AnswerText(answer)
@@ -16,8 +17,19 @@ struct AnswerKey: Codable, Equatable, Sendable {
                 missing.append(part.label)
             }
         }
-        return AnswerMarking(matchedParts: matched, missingParts: missing)
+        let isCorrect = !matched.isEmpty && missing.isEmpty
+        let mistake = isCorrect ? nil : mistakes.first { $0.anyOf.contains { $0.matches(text) } }
+        return AnswerMarking(matchedParts: matched, missingParts: missing, mistake: mistake)
     }
+}
+
+/// A common slip for one question, recognised by the wrong answer it produces.
+struct KnownMistake: Codable, Equatable, Sendable {
+    let misconception: String
+    let name: String
+    let anyOf: [AnswerMatcher]
+    let nextStep: String
+    let examples: [String]
 }
 
 struct AnswerPart: Codable, Equatable, Sendable {
@@ -28,6 +40,8 @@ struct AnswerPart: Codable, Equatable, Sendable {
 struct AnswerMarking: Equatable, Sendable {
     let matchedParts: [String]
     let missingParts: [String]
+    /// Set only for a wrong answer that matches a known slip.
+    let mistake: KnownMistake?
 
     var isCorrect: Bool { !matchedParts.isEmpty && missingParts.isEmpty }
 }

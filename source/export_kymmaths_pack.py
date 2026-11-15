@@ -971,12 +971,87 @@ def part(label, *matchers):
     return {"label": label, "anyOf": any_of}
 
 
-def key(parts, accepts, rejects):
-    return {"parts": parts, "accepts": accepts, "rejects": rejects}
+MISCONCEPTIONS = {
+    "sign-of-product": "You got a sign wrong multiplying or dividing",
+    "dropped-minus": "You lost a minus sign",
+    "rearranged-sign": "You got a sign wrong moving a term across",
+    "expand-first-term-only": "You multiplied only the first term in the bracket",
+    "lcm-as-product": "You took the LCM as the numbers multiplied together",
+    "hcf-lcm-swapped": "You mixed up HCF and LCM",
+    "stopped-early": "You stopped one step too soon",
+    "common-factor-left": "You left a common factor in",
+    "square-of-difference": "You treated a² − b² as (a − b)²",
+    "back-bearing": "You did not turn round for the back-bearing",
+    "added-sides": "You added lengths instead of using Pythagoras",
+    "forgot-square-root": "You forgot the square root",
+    "equal-split": "You split the sample equally, not in proportion",
+    "multiplied-instead-of-divided": "You multiplied when you needed to divide",
+    "divided-wrong-way-round": "You divided the wrong way round",
+    "unit-slip": "You mixed up the units",
+    "forgot-half": "You forgot to halve",
+    "radius-diameter-mixed": "You mixed up the radius and the diameter",
+    "power-as-multiply": "You multiplied by the power instead of raising to it",
+    "height-slant-mixed": "You mixed up the slanted side and the height",
+    "missing-edges": "You left out some edges of the shape",
+    "truncated": "You cut digits off instead of rounding",
+    "recurring-as-terminating": "You treated the recurring decimal as if it stopped",
+    "decimal-places-not-sf": "You rounded to decimal places, not significant figures",
+    "place-value-shift": "You shifted the place value",
+    "split-mixed-number": "You worked on the whole numbers and fractions separately",
+    "added-denominators": "You added or subtracted the denominators",
+    "inequality-not-flipped": "You did not reverse the inequality sign",
+    "co-interior-as-equal": "You made co-interior angles equal",
+    "half-difference": "You halved the difference instead of averaging",
+    "swapped-coordinates": "You swapped x and y",
+    "interior-for-exterior": "You used the interior angle instead of the exterior",
+    "percent-of-wrong-amount": "You took the percentage of the wrong amount",
+    "percentages-cancel": "You let the two percentages cancel out",
+    "simple-not-compound": "You used simple interest instead of compound",
+    "density-as-frequency": "You mixed up frequency and frequency density",
+    "boundary-for-width": "You used a class boundary instead of the class width",
+    "range-for-iqr": "You found the range, not the interquartile range",
+    "off-by-one": "You were one step out",
+    "wrong-units-for-difference": "You matched the difference to the wrong units",
+    "area-by-length-factor": "You scaled an area by the length factor",
+    "direct-for-inverse": "You used direct proportion where it is inverse",
+    "unmatched-middle": "You joined the ratios without matching the shared part",
+    "centre-ignored": "You enlarged from the origin, not the centre",
+    "wrong-mirror-line": "You reflected in the wrong mirror line",
+    "wrong-turn-direction": "You turned the wrong way",
+    "inverse-wrong-order": "You undid the steps in the wrong order",
+    "inverse-as-reciprocal": "You took one over f instead of the inverse",
+    "perpendicular-gradient": "You did not both flip and negate the gradient",
+    "conditional-reversed": "You turned the condition round",
+    "wrong-total": "You divided by the wrong total",
+    "unequal-outcomes": "You treated the sums as equally likely",
+    "order-mixed": "You mixed up whether order matters",
+    "with-replacement": "You forgot the first marble stays out",
+    "vector-combined-wrongly": "You combined the vectors the wrong way",
+}
 
 
-def one(*matchers, accepts, rejects):
-    return key([part("answer", *matchers)], accepts, rejects)
+def mistake(misconception_id, *matchers, next_step, examples):
+    if misconception_id not in MISCONCEPTIONS:
+        raise SystemExit(f"Unknown misconception id: {misconception_id}")
+    if not examples:
+        raise SystemExit(f"Mistake {misconception_id} has no examples")
+    if not next_step.endswith("."):
+        raise SystemExit(f"Mistake {misconception_id} next step must be one sentence ending in a full stop")
+    return {
+        "misconception": misconception_id,
+        "name": MISCONCEPTIONS[misconception_id],
+        "anyOf": part("", *matchers)["anyOf"],
+        "nextStep": next_step,
+        "examples": list(examples),
+    }
+
+
+def key(parts, accepts, rejects, mistakes=()):
+    return {"parts": parts, "accepts": accepts, "rejects": rejects, "mistakes": list(mistakes)}
+
+
+def one(*matchers, accepts, rejects, mistakes=()):
+    return key([part("answer", *matchers)], accepts, rejects, mistakes)
 
 
 DECREASE_WORDS = ["decrease", "decreases", "decreased", "down", "less", "lower", "loss", "fall", "falls",
@@ -988,46 +1063,117 @@ ANSWER_KEYS = {
     "q-oup-ch01-sb": key(
         [part("HCF", num("24")), part("LCM", num("360"))],
         accepts=["HCF = 24, LCM = 360", "24 and 360", "hcf 24 lcm 360"],
-        rejects=["HCF = 12, LCM = 360", "24", "360", "HCF = 240, LCM = 3600"]),
+        rejects=["HCF = 12, LCM = 360", "24", "360", "HCF = 240, LCM = 3600"],
+        mistakes=[
+            mistake("hcf-lcm-swapped", forms("hcf=72", "hcf is 72", "lcm=120", "lcm is 120"),
+                    next_step="The HCF takes the lower power of each shared prime and the LCM the higher power of every prime, so check which rule you used for each.",
+                    examples=["HCF = 72, LCM = 360", "HCF = 24, LCM = 120"]),  # highest powers used for the HCF (2³ × 3² = 72), or lowest for the LCM (2³ × 3 × 5 = 120)
+            mistake("lcm-as-product", num("8640"),
+                    next_step="The LCM uses each prime once at its highest power, so rebuild it from the two prime factor lists.",
+                    examples=["HCF = 24, LCM = 8640"]),  # 72 × 120 = 8640 taken as the LCM
+        ]),
     "q-oup-ch01-wb-focus": one(
         num("-16"),
         accepts=["-16", "−16", "= -16"],
-        rejects=["16", "−160", "-1.6", "-8"]),
+        rejects=["16", "−160", "-1.6", "-8"],
+        mistakes=[
+            mistake("sign-of-product", num("16"), num("0"),
+                    next_step="Count the minus signs in each multiplication and division: an odd number of them makes the result negative.",
+                    examples=["16", "0"]),  # 24 ÷ (−3) taken as +8 and (−2)³ as +8 give 16; one of the two gives 0
+        ]),
     "q-oup-ch01-wb-practice": one(
         num("72"),
         accepts=["72", "72 seconds", "72s", "after 72 seconds"],
-        rejects=["432", "6", "42 seconds", "7.2"]),
+        rejects=["432", "6", "42 seconds", "7.2"],
+        mistakes=[
+            mistake("hcf-lcm-swapped", num("6"),
+                    next_step="They flash together at a time both cycles reach, so look for a shared multiple, not a shared factor.",
+                    examples=["6", "6 seconds"]),  # HCF(18, 24) = 6
+            mistake("lcm-as-product", num("432"),
+                    next_step="Multiplying gives a common multiple, but list the multiples of each and look for an earlier one they share.",
+                    examples=["432"]),  # 18 × 24 = 432
+        ]),
     "q-oup-ch01-wb-challenge": one(
         num("60"),
         accepts=["60", "b = 60", "b=60"],
-        rejects=["b = 15", "6", "600", "2160"]),
+        rejects=["b = 15", "6", "600", "2160"],
+        mistakes=[
+            mistake("stopped-early", num("2160"),
+                    next_step="HCF × LCM equals a × b, so there is one more step to get b on its own.",
+                    examples=["2160"]),  # 12 × 180 = 2160, never divided by a
+            mistake("lcm-as-product", num("5"),
+                    next_step="a × b equals HCF × LCM, not the LCM alone, so put the HCF back into the equation.",
+                    examples=["b = 5"]),  # 180 ÷ 36 = 5, taking LCM = a × b
+        ]),
     # Chapter 2
     "q-oup-ch02-sb": one(
         forms("5x+3", "3+5x"),
         accepts=["5x+3", "5x + 3", "3 + 5x", "= 5x + 3"],
-        rejects=["5x - 3", "5x + 27", "5x", "11x + 3", "5x+3x"]),
+        rejects=["5x - 3", "5x + 27", "5x", "11x + 3", "5x+3x"],
+        mistakes=[
+            mistake("sign-of-product", forms("5x-27", "-27+5x", "11x+3", "3+11x"),
+                    next_step="Multiply the minus in front of the second bracket by each term inside it, and check the sign of each product.",
+                    examples=["5x − 27", "11x + 3"]),  # (−3)(−5) taken as −15, or (−3)(x) as +3x
+            mistake("expand-first-term-only", forms("5x-7", "-7+5x", "5x+12", "12+5x"),
+                    next_step="Check that the number outside each bracket multiplies every term inside it, not just the first.",
+                    examples=["5x − 7", "5x + 12"]),  # −3(x − 5) as −3x + 5, or 4(2x − 3) as 8x − 3
+        ]),
     "q-oup-ch02-wb-focus": one(
         forms("6ab(3a-2b)", "6ab (3a-2b)", "6ba(3a-2b)", "6ba (3a-2b)", "6ab(-2b+3a)", "(3a-2b)6ab",
               "6ab*(3a-2b)", "-6ab(2b-3a)"),
         accepts=["6ab(3a − 2b)", "6ab(3a-2b)", "6ab (3a - 2b)", "6ba(3a-2b)"],
-        rejects=["6a(3ab − 2b²)", "6ab(3a + 2b)", "3ab(6a − 4b)", "6ab"]),
+        rejects=["6a(3ab − 2b²)", "6ab(3a + 2b)", "3ab(6a − 4b)", "6ab"],
+        mistakes=[
+            mistake("common-factor-left", forms("6a(3ab-2b^2)", "6b(3a^2-2ab)", "3ab(6a-4b)", "2ab(9a-6b)", "6(3a^2b-2ab^2)"),
+                    next_step="Look inside your bracket: if its terms still share a number or a letter, take that out as well.",
+                    examples=["6a(3ab − 2b²)", "3ab(6a − 4b)"]),  # only part of 6ab taken out
+            mistake("dropped-minus", forms("6ab(3a+2b)", "6ab (3a+2b)", "6ba(3a+2b)"),
+                    next_step="Multiply your bracket back out and compare each sign with the question.",
+                    examples=["6ab(3a + 2b)"]),  # −12ab² ÷ 6ab written as +2b
+        ]),
     "q-oup-ch02-wb-practice": one(
         forms("8x+38", "38+8x", "2(4x+19)"),
         accepts=["8x + 38", "8x+38 cm²", "8x + 38cm^2", "38 + 8x"],
-        rejects=["8x + 22", "8x", "16x + 38", "8x − 38"]),
+        rejects=["8x + 22", "8x", "16x + 38", "8x − 38"],
+        mistakes=[
+            mistake("sign-of-product", forms("8x+22", "22+8x"),
+                    next_step="Taking away the small rectangle subtracts every term of its area, so check the sign of each term after the minus.",
+                    examples=["8x + 22"]),  # −4 × (−2) taken as −8
+            mistake("expand-first-term-only", forms("8x+13", "13+8x", "8x+32", "32+8x"),
+                    next_step="Check that each width multiplies both terms of its length, not just the first.",
+                    examples=["8x + 13", "8x + 32"]),  # 6(2x + 5) as 12x + 5, or 4(x − 2) as 4x − 2
+        ]),
     "q-oup-ch02-wb-challenge": one(
         num("8100"),
         accepts=["8100", "8,100", "4050 × 2 = 8100"],
-        rejects=["810", "4050", "8", "81000"]),
+        rejects=["810", "4050", "8", "81000"],
+        mistakes=[
+            mistake("square-of-difference", num("4"),
+                    next_step="a² − b² is not (a − b)², so write it as the product of two brackets before you work anything out.",
+                    examples=["4"]),  # (2026 − 2024)² = 2² = 4
+            mistake("stopped-early", num("4050"), num("2"),
+                    next_step="You have worked out one bracket, so work out the other and multiply them together.",
+                    examples=["4050", "2"]),  # stopped at one bracket: 2026 + 2024 = 4050 or 2026 − 2024 = 2
+        ]),
     # Chapter 3
     "q-oup-ch03-sb": one(
         num("248"),
         accepts=["248", "248°", "068 + 180 = 248"],
-        rejects=["068", "112", "292", "68"]),
+        rejects=["068", "112", "292", "68"],
+        mistakes=[
+            mistake("back-bearing", num("112"), num("68"),
+                    next_step="From the buoy you face back towards the harbour, the opposite way, so turn half a full turn from the outward bearing.",
+                    examples=["112°", "068°"]),  # 180 − 068 = 112, or the outward bearing 068 kept
+        ]),
     "q-oup-ch03-wb-focus": one(
         num("12"),
         accepts=["12", "12 edges", "E = 12"],
-        rejects=["16", "14", "2", "120"]),
+        rejects=["16", "14", "2", "120"],
+        mistakes=[
+            mistake("rearranged-sign", num("16"), num("-12"),
+                    next_step="Put V and F into the formula first, then move E across carefully, changing its sign as it crosses.",
+                    examples=["16", "E = -12"]),  # E = 6 + 8 + 2, or −E = −12 left as E = −12
+        ]),
     "q-oup-ch03-wb-practice": key(
         [part("the right angle", words(["bac", "cab", "angle a", "at a", "a 90", "a is 90"])),
          part("the locus", words(["equidistant", "equal distance", "same distance", "equally distant", "equally far"]))],
@@ -1037,16 +1183,37 @@ ANSWER_KEYS = {
     "q-oup-ch03-wb-challenge": one(
         num("20"),
         accepts=["20", "20 km", "20km", "√400 = 20"],
-        rejects=["28", "4", "400", "200"]),
+        rejects=["28", "4", "400", "200"],
+        mistakes=[
+            mistake("added-sides", num("28"),
+                    next_step="The two legs of the journey meet at a right angle, so the direct distance is the longest side of a right triangle.",
+                    examples=["28", "28 km"]),  # 12 + 16 = 28
+            mistake("forgot-square-root", num("400"),
+                    next_step="You have found the longest side squared, so take one more step to get the side itself.",
+                    examples=["400"]),  # 12² + 16² = 400 with no square root
+        ]),
     # Chapter 4
     "q-oup-ch04-sb": key(
         [part("the three sample sizes", seq("20", "15", "15", ignoring=("7", "8", "9")))],
         accepts=["20, 15, 15", "Year 7: 20, Year 8: 15, Year 9: 15", "20 Year 7, 15 Year 8 and 15 Year 9", "20,15,15"],
-        rejects=["17, 17, 16", "240, 180, 180", "20, 15", "15, 15, 20", "24, 18, 18"]),
+        rejects=["17, 17, 16", "240, 180, 180", "20, 15", "15, 15, 20", "24, 18, 18"],
+        mistakes=[
+            mistake("equal-split", seq("17", "17", "16", ignoring=("7", "8", "9")), seq("16", "17", "17", ignoring=("7", "8", "9")),
+                    next_step="Each year's share of the sample should match its share of the whole school, so work out each year's fraction of the total first.",
+                    examples=["17, 17, 16", "Year 7: 16, Year 8: 17, Year 9: 17"]),  # 50 ÷ 3 ≈ 17 for each year
+        ]),
     "q-oup-ch04-wb-focus": one(
         num("30"),
         accepts=["30", "k = 30", "every 30th student"],
-        rejects=["20", "600", "3", "12000"]),
+        rejects=["20", "600", "3", "12000"],
+        mistakes=[
+            mistake("multiplied-instead-of-divided", num("12000"),
+                    next_step="The interval is the gap between chosen students, so ask how many students on the list there are for each one chosen.",
+                    examples=["12000"]),  # 600 × 20 = 12000
+            mistake("divided-wrong-way-round", num("1/30", tolerance=0.001),
+                    next_step="The interval should be a whole number of students, so check which number goes on top when you divide.",
+                    examples=["1/30", "0.033"]),  # 20 ÷ 600 = 1/30
+        ]),
     "q-oup-ch04-wb-practice": key(
         [part("the reason", words(
             ["exercise", "exercises", "exercisers", "exercising", "active", "fit", "fitter", "sporty", "gym",
@@ -1060,117 +1227,325 @@ ANSWER_KEYS = {
     "q-oup-ch04-wb-challenge": one(
         num("4"), forms("4n"), words(["quadruple", "quadrupled", "four"]),
         accepts=["Multiply sample size by 4", "4", "×4", "4 times", "quadruple it", "four times bigger"],
-        rejects=["2", "double it", "16", "half"]),
+        rejects=["2", "double it", "16", "half"],
+        mistakes=[
+            mistake("forgot-square-root", num("2"), words(["double", "doubled", "doubling", "twice"]),
+                    next_step="The error depends on the square root of n, so ask what n must become for its square root to double.",
+                    examples=["2", "double it"]),  # SE read as σ ÷ n, so doubling n would halve it
+        ]),
     # Chapter 5
     "q-oup-ch05-sb": one(
         num("375"),
         accepts=["375", "375 litres", "375 L", "375l", "375,000 cm³ = 375 litres"],
-        rejects=["375000", "37.5 litres", "3750", "0.375"]),
+        rejects=["375000", "37.5 litres", "3750", "0.375"],
+        mistakes=[
+            mistake("unit-slip", num("375000"), num("3750"), num("3.75"),
+                    next_step="Put every length in centimetres before you multiply, then change cubic centimetres to litres at the end.",
+                    examples=["375000 litres", "3750", "3.75 litres"]),  # 375,000 cm³ left unconverted, or the 2.5 m length used as 2.5 cm
+            mistake("forgot-half", num("750"), num("750000"),
+                    next_step="Check the trapezium's area: average the two parallel sides before you multiply by the height.",
+                    examples=["750 litres"]),  # (40 + 60) × 30 × 250 with no ½
+        ]),
     "q-oup-ch05-wb-focus": key(
         [part("circumference", num("44")), part("area", num("154"))],
         accepts=["C = 44 cm, A = 154 cm²", "44 and 154", "circumference 44cm area 154cm^2"],
-        rejects=["C = 10 cm", "C = 1", "44", "154", "C = 22, A = 154", "C = 44, A = 49"]),
+        rejects=["C = 10 cm", "C = 1", "44", "154", "C = 22, A = 154", "C = 44, A = 49"],
+        mistakes=[
+            mistake("radius-diameter-mixed", num("22"), num("616"),
+                    next_step="Circumference uses the diameter, which is twice the radius, while the area squares the radius itself.",
+                    examples=["C = 22, A = 154", "C = 44, A = 616"]),  # C = 22/7 × 7, or A = 22/7 × 14²
+            mistake("power-as-multiply", forms("a=44", "area=44"),
+                    next_step="r² means r times r, so recheck the area with the radius multiplied by itself.",
+                    examples=["C = 44, A = 44"]),  # A = 22/7 × 7 × 2 = 44
+        ]),
     "q-oup-ch05-wb-practice": key(
         [part("perimeter", num("48")), part("area", num("112"))],
         accepts=["Perimeter = 48 cm, Area = 112 cm²", "48, 112", "P=48 A=112"],
-        rejects=["Perimeter = 44, Area = 112", "48 and 140", "112", "24 and 112"]),
+        rejects=["Perimeter = 44, Area = 112", "48 and 140", "112", "24 and 112"],
+        mistakes=[
+            mistake("height-slant-mixed", num("140"), num("44"),
+                    next_step="Area uses the height that meets the base at a right angle, while the perimeter goes round the actual sides.",
+                    examples=["48 and 140", "Perimeter = 44, Area = 112"]),  # area 14 × 10 = 140, or perimeter 2 × (14 + 8) = 44
+            mistake("missing-edges", num("24"),
+                    next_step="A parallelogram has four sides, so trace all the way round and add every side.",
+                    examples=["24 and 112"]),  # 14 + 10 = 24, two sides only
+        ]),
     "q-oup-ch05-wb-challenge": one(
         num("30.5"),
         accepts=["30.5", "30.5 cm", "30.5cm"],
-        rejects=["10.5", "31", "30", "20.5"]),
+        rejects=["10.5", "31", "30", "20.5"],
+        mistakes=[
+            mistake("missing-edges", num("10.5", tolerance=0.05), num("20.5", tolerance=0.05),
+                    next_step="Trace the sector's outline: one curved edge and two straight edges, each a radius long.",
+                    examples=["10.5", "10.47", "20.5"]),  # arc 2π × 10 ÷ 6 = 10.47 alone, or with one radius: 20.47
+            mistake("radius-diameter-mixed", num("25.2", tolerance=0.05),
+                    next_step="The arc is a sixth of the whole circumference, and the circumference uses the diameter, not the radius.",
+                    examples=["25.2"]),  # π × 10 ÷ 6 + 20 = 25.24
+            mistake("truncated", num("30.4"),
+                    next_step="Look at the digit after the first decimal place to decide whether to round up.",
+                    examples=["30.4"]),  # 30.47 cut to 30.4
+        ]),
     # Chapter 6
     "q-oup-ch06-sb": key(
         [part("the subtraction step", forms("99x", "27/99")),
          part("the fraction in simplest form", num("3/11", simplest=True))],
         accepts=["100x − x = 99x = 27, so x = 27/99 = 3/11", "99x = 27 so x = 3/11", "x = 27/99 = 3/11"],
-        rejects=["3/11", "27/99", "99x = 27, x = 27/99", "it equals 3/11 because 3 ÷ 11 = 0.2727"]),
+        rejects=["3/11", "27/99", "99x = 27, x = 27/99", "it equals 3/11 because 3 ÷ 11 = 0.2727"],
+        mistakes=[
+            mistake("recurring-as-terminating", num("27/100"),
+                    next_step="The digits repeat for ever, so multiply x by the power of ten that shifts one full repeat, then subtract x.",
+                    examples=["x = 27/100"]),  # 0.27 read as if the decimal stopped
+            mistake("common-factor-left", forms("9/33", "27/99"),
+                    next_step="Check whether the top and bottom of your fraction still share a factor, and divide it out.",
+                    examples=["99x = 27, so x = 9/33", "x = 27/99"]),  # 27/99 divided by 3 only, or not at all
+        ]),
     "q-oup-ch06-wb-focus": one(
         num("0.00409"),
         accepts=["0.00409", ".00409"],
-        rejects=["0.0041", "0.004", "0.00408", "0.004086", "409"]),
+        rejects=["0.0041", "0.004", "0.00408", "0.004086", "409"],
+        mistakes=[
+            mistake("decimal-places-not-sf", num("0.004"),
+                    next_step="Significant figures start at the first non-zero digit, so count from there, not from the decimal point.",
+                    examples=["0.004"]),  # rounded to 3 decimal places
+            mistake("truncated", num("0.00408"),
+                    next_step="Look at the digit after the last one you keep to decide whether to round up.",
+                    examples=["0.00408"]),  # 0.0040862 cut after the 8
+            mistake("place-value-shift", num("409"),
+                    next_step="Keep the zeros that hold the digits in place after the decimal point, and round only the digits after them.",
+                    examples=["409"]),  # the leading zeros dropped
+        ]),
     "q-oup-ch06-wb-practice": one(
         forms("2 5/12", "2 and 5/12"),
         accepts=["2 5/12", "= 2 5/12", "2 and 5/12"],
-        rejects=["2", "29/12", "2 10/24", "5/12", "3 5/12", "2 7/12"]),
+        rejects=["2", "29/12", "2 10/24", "5/12", "3 5/12", "2 7/12"],
+        mistakes=[
+            mistake("split-mixed-number", num("43/12"), forms("3 and 7/12"),
+                    next_step="Turn both mixed numbers into improper fractions, or borrow a whole, before you subtract the fraction parts.",
+                    examples=["3 7/12", "43/12"]),  # 4 − 1 = 3, then 3/4 − 1/6 = 7/12 taken the wrong way round
+            mistake("added-denominators", num("2"),
+                    next_step="Give both fractions the same denominator before you subtract, and keep that denominator in the answer.",
+                    examples=["2"]),  # 3 + (1 − 3)/(6 − 4) = 3 − 1 = 2
+        ]),
     "q-oup-ch06-wb-challenge": one(
         num("5/4"),
         accepts=["5/4", "1 1/4", "1.25", "5/4 or 1 1/4"],
-        rejects=["4/5", "5", "1/4", "36/25", "125"]),
+        rejects=["4/5", "5", "1/4", "36/25", "125"],
+        mistakes=[
+            mistake("multiplied-instead-of-divided", num("64/45"),
+                    next_step="Dividing by a fraction means multiplying by its reciprocal, so check you turned the divisor upside down.",
+                    examples=["64/45"]),  # 12/5 × 16/15 × 5/9 = 64/45, the divisor never flipped
+            mistake("split-mixed-number", num("40/9"),
+                    next_step="Turn each mixed number into an improper fraction before you divide.",
+                    examples=["40/9", "4 4/9"]),  # 2 ÷ 1 = 2 and 2/5 ÷ 1/15 = 6, so 8 × 5/9
+        ]),
     # Chapter 7
     "q-oup-ch07-sb": key(
         [part("the formula for u", forms("√(v^2-2as)", "√v^2-2as", "(v^2-2as)^(1/2)", "(v^2-2as)^0.5",
                                          "√(v*v-2as)", "√(v^2-2*a*s)", "√(-2as+v^2)")),
          part("the value of u", num("7"))],
         accepts=["u = √(v² − 2as) = 7", "u = sqrt(v^2 - 2as), u = 7", "u = square root of (v^2 − 2as) = 7"],
-        rejects=["u = 7", "u = √(v² + 2as) = 7", "u = v² − 2as = 49", "u = √(v² − 2as)"]),
+        rejects=["u = 7", "u = √(v² + 2as) = 7", "u = v² − 2as = 49", "u = √(v² − 2as)"],
+        mistakes=[
+            mistake("rearranged-sign", forms("√(v^2+2as)", "√v^2+2as"), num("17"),
+                    next_step="To get u² alone you take 2as away from both sides, so check the sign in front of 2as.",
+                    examples=["u = √(v² + 2as) = 17", "17"]),  # 2as added instead of subtracted: √(169 + 120) = 17
+            mistake("forgot-square-root", num("49"), forms("u=v^2-2as"),
+                    next_step="You have u² on its own, so take one more step to get u itself.",
+                    examples=["u = v² − 2as = 49", "49"]),  # stopped at u² = 169 − 120 = 49
+        ]),
     "q-oup-ch07-wb-focus": one(
         num("3"),
         accepts=["3", "x = 3", "x=3", "7x = 21 so x = 3"],
-        rejects=["x = 7", "21", "x = -3", "3x", "x = 13/7"]),
+        rejects=["x = 7", "21", "x = -3", "3x", "x = 13/7"],
+        mistakes=[
+            mistake("expand-first-term-only", num("13/7"), num("17/7"),
+                    next_step="Check that each number outside a bracket multiplies both terms inside it.",
+                    examples=["x = 13/7", "x = 17/7"]),  # 3(x + 4) as 3x + 4 gives 7x = 13; 5(2x − 1) as 10x − 1 gives 7x = 17
+            mistake("rearranged-sign", num("11/7"), num("21/13"),
+                    next_step="When a term crosses the equals sign its sign changes, so recheck each move.",
+                    examples=["x = 11/7", "x = 21/13"]),  # 10x − 5 = 3x + 16 with −5 moved as −5 gives 7x = 11; 3x moved as +3x gives 13x = 21
+        ]),
     "q-oup-ch07-wb-practice": one(
         forms("x≤4", "4≥x"),
         accepts=["x ≤ 4 (largest integer 4)", "x <= 4, largest integer is 4", "4 ≥ x so the largest integer is 4", "x≤4"],
-        rejects=["x ≥ 4", "4", "x < 4", "x ≤ -4", "x = 4"]),
+        rejects=["x ≥ 4", "4", "x < 4", "x ≤ -4", "x = 4"],
+        mistakes=[
+            mistake("inequality-not-flipped", forms("x≥4", "4≤x"),
+                    next_step="Dividing both sides by a negative number reverses the inequality sign, so check whether you did that.",
+                    examples=["x ≥ 4", "x >= 4"]),  # −3x ≥ −12 divided by −3 without reversing
+            mistake("rearranged-sign", forms("x≤-16/3", "x≥-16/3"),
+                    next_step="Take 14 from both sides first and check the sign of what is left on the right.",
+                    examples=["x ≤ −16/3"]),  # 14 moved across as +14: −3x ≥ 16
+        ]),
     "q-oup-ch07-wb-challenge": one(
         forms("(y+2)/(y-3)", "(2+y)/(y-3)", "(y+2)/(-3+y)", "(-y-2)/(3-y)", "-(y+2)/(3-y)"),
         accepts=["x = (y + 2) / (y − 3)", "(y+2)/(y-3)", "x=(2+y)/(y-3)"],
-        rejects=["x = (y − 2) / (y + 3)", "x = y + 2 / y − 3", "x = (y + 2) / (3 − y)", "x = (3x + 2) / (x − 1)"]),
+        rejects=["x = (y − 2) / (y + 3)", "x = y + 2 / y − 3", "x = (y + 2) / (3 − y)", "x = (3x + 2) / (x − 1)"],
+        mistakes=[
+            mistake("rearranged-sign", forms("(2-y)/(y-3)", "(-y+2)/(y-3)", "(y+2)/(y+3)", "(2+y)/(y+3)"),
+                    next_step="Collect the x terms on one side and the rest on the other, changing the sign of each term that crosses.",
+                    examples=["x = (2 − y)/(y − 3)", "x = (y + 2)/(y + 3)"]),  # xy − y = 3x + 2 with −y moved as −y, or 3x moved as +3x
+            mistake("expand-first-term-only", forms("3/(y-3)"),
+                    next_step="When you multiply both sides by the bottom of the fraction, check that y multiplies both terms in that bracket.",
+                    examples=["x = 3/(y − 3)"]),  # y(x − 1) as xy − 1 gives x(y − 3) = 3
+        ]),
     # Chapter 8
     "q-oup-ch08-sb": key(
         [part("x", num("40")), part("angle ACD", num("155"))],
         accepts=["x = 40, ∠ACD = 155°", "40 and 155", "x=40 ACD=155"],
-        rejects=["x = 40", "155", "x = 40, ACD = 165", "x = 20, ACD = 75"]),
+        rejects=["x = 40", "155", "x = 40, ACD = 165", "x = 20, ACD = 75"],
+        mistakes=[
+            mistake("rearranged-sign", num("30"), num("115"),
+                    next_step="When you move the −5 across the equals sign it changes sign, so recheck that step.",
+                    examples=["x = 30, ACD = 115"]),  # 4x − 5 = 3x + 35 solved as x = 35 − 5
+            mistake("dropped-minus", num("165"),
+                    next_step="Put your x back into the expression for angle ACD and check the sign of its last term.",
+                    examples=["x = 40, ACD = 165"]),  # 4 × 40 + 5 = 165
+        ]),
     "q-oup-ch08-wb-focus": one(
         seq("3", "2"),
         accepts=["M = (3, 2)", "(3,2)", "3, 2", "x = 3, y = 2"],
-        rejects=["(2, 3)", "(7, 5)", "(3, -2)", "(6, 4)", "(-7, 5)"]),
+        rejects=["(2, 3)", "(7, 5)", "(3, -2)", "(6, 4)", "(-7, 5)"],
+        mistakes=[
+            mistake("forgot-half", seq("6", "4"),
+                    next_step="The midpoint is halfway, so after adding the coordinates, finish by halving.",
+                    examples=["(6, 4)"]),  # (−4 + 10, 7 + (−3)) not halved
+            mistake("half-difference", seq("7", "-5"), seq("-7", "5"),
+                    next_step="A midpoint averages the two points, so add each pair of coordinates rather than subtracting.",
+                    examples=["(7, -5)", "(-7, 5)"]),  # (10 − (−4)) ÷ 2 and (−3 − 7) ÷ 2, or the other way round
+            mistake("swapped-coordinates", seq("2", "3"),
+                    next_step="Write the x-coordinate first and the y-coordinate second.",
+                    examples=["(2, 3)"]),  # y written before x
+        ]),
     "q-oup-ch08-wb-practice": one(
         num("35"),
         accepts=["35", "y = 35", "5y = 175, y = 35"],
-        rejects=["y = 15", "175", "y = 17", "3.5"]),
+        rejects=["y = 15", "175", "y = 17", "3.5"],
+        mistakes=[
+            mistake("co-interior-as-equal", num("-15"),
+                    next_step="Co-interior angles sit on the same side between the parallel lines, so they add to a straight angle rather than being equal.",
+                    examples=["y = -15"]),  # 3y + 10 = 2y − 5
+            mistake("rearranged-sign", num("37"),
+                    next_step="When you move the +5 across the equals sign it becomes −5, so recheck that step.",
+                    examples=["y = 37"]),  # 5y + 5 = 180 solved as 5y = 185
+        ]),
     "q-oup-ch08-wb-challenge": one(
         num("15"),
         accepts=["15", "15 sides", "n = 15", "360/24 = 15"],
-        rejects=["24", "156", "12", "16", "150"]),
+        rejects=["24", "156", "12", "16", "150"],
+        mistakes=[
+            mistake("stopped-early", num("24"),
+                    next_step="You have the exterior angle, so now use what all the exterior angles of a polygon add up to.",
+                    examples=["24", "24°"]),  # 180 − 156 = 24, the exterior angle
+            mistake("interior-for-exterior", num("2.3", tolerance=0.05),
+                    next_step="Find the exterior angle first, since the exterior angles, not the interior ones, add up to a full turn.",
+                    examples=["2.3"]),  # 360 ÷ 156 ≈ 2.31
+        ]),
     # Chapter 9
     "q-oup-ch09-sb": one(
         num("2400"),
         accepts=["2400", "₹2,400", "Rs 2400", "2040 ÷ 0.85 = 2400"],
-        rejects=["2346", "2040", "1734", "240", "24000"]),
+        rejects=["2346", "2040", "1734", "240", "24000"],
+        mistakes=[
+            mistake("percent-of-wrong-amount", num("2346"),
+                    next_step="The 15% came off the original price, not the sale price, so the sale price is 85% of the number you want.",
+                    examples=["2346"]),  # 2040 + 15% of 2040
+            mistake("multiplied-instead-of-divided", num("1734"),
+                    next_step="Undoing a multiplier means dividing by it, so check which way you used it.",
+                    examples=["1734"]),  # 2040 × 0.85
+        ]),
     "q-oup-ch09-wb-focus": one(
         num("240"),
         accepts=["240", "= 240", "3600 ÷ 15 = 240"],
-        rejects=["24", "2.4", "5.4", "2400"]),
+        rejects=["24", "2.4", "5.4", "2400"],
+        mistakes=[
+            mistake("multiplied-instead-of-divided", num("5.4"),
+                    next_step="The question divides by 0.15, so check you did not multiply instead.",
+                    examples=["5.4"]),  # 36 × 0.15
+            mistake("place-value-shift", num("24"), num("2400"),
+                    next_step="Multiply both numbers by the same power of ten to clear the decimal, and check you used the same power on each.",
+                    examples=["24", "2400"]),  # 36 ÷ 1.5 or 36 ÷ 0.015
+        ]),
     "q-oup-ch09-wb-practice": key(
         [part("the net change", num("-4"), all_of(num("4"), words(DECREASE_WORDS, forbid=INCREASE_WORDS)))],
         accepts=["−4%", "-4", "a 4% decrease", "4% decrease", "it goes down by 4%"],
-        rejects=["4%", "0%", "no change", "4% increase", "-40%", "0"]),
+        rejects=["4%", "0%", "no change", "4% increase", "-40%", "0"],
+        mistakes=[
+            mistake("percentages-cancel", num("0"), words(["no change", "unchanged", "cancel", "cancels", "same"]),
+                    next_step="The 20% decrease is taken from the bigger, increased price, so write each change as a multiplier and multiply them.",
+                    examples=["0%", "no change"]),  # +20% and −20% assumed to cancel
+        ]),
     "q-oup-ch09-wb-challenge": one(
         num("16550"),
         accepts=["16550", "₹16,550", "16,550", "66,550 − 50,000 = 16,550"],
-        rejects=["66550", "15000", "₹66,550", "1655", "16500"]),
+        rejects=["66550", "15000", "₹66,550", "1655", "16500"],
+        mistakes=[
+            mistake("simple-not-compound", num("15000"),
+                    next_step="Compound interest is worked out on the new total each year, so grow the amount one year at a time.",
+                    examples=["15000"]),  # 3 × 10% of 50,000
+            mistake("stopped-early", num("66550"),
+                    next_step="That is the total in the account, and the interest is only the part added on top of what was put in.",
+                    examples=["66550", "₹66,550"]),  # 50,000 × 1.1³ = 66,550, the total
+        ]),
     # Chapter 10
     "q-oup-ch10-sb": key(
         [part("the first class", num("1.5")), part("the second class", num("2.5"))],
         accepts=["1.5 and 2.5", "FD₁ = 1.5 and FD₂ = 2.5", "30/20 = 1.5, 25/10 = 2.5", "1.5, 2.5"],
-        rejects=["1.5", "2.5", "30 and 25", "0.67 and 0.4", "15 and 25"]),
+        rejects=["1.5", "2.5", "30 and 25", "0.67 and 0.4", "15 and 25"],
+        mistakes=[
+            mistake("divided-wrong-way-round", num("2/3", tolerance=0.01), num("0.4"),
+                    next_step="Frequency density is frequency per unit of class width, so check which number goes on top.",
+                    examples=["0.67 and 0.4"]),  # 20 ÷ 30 and 10 ÷ 25
+            mistake("density-as-frequency", num("30"), num("25"),
+                    next_step="The frequency is only part of it, so divide by how wide each class is.",
+                    examples=["30 and 25"]),  # the frequencies given unchanged
+        ]),
     "q-oup-ch10-wb-focus": key(
         [part("median", num("20")), part("IQR", num("14"))],
         accepts=["Median = 20, IQR = 14", "20 and 14", "median 20, IQR = 29 − 15 = 14"],
-        rejects=["Median = 20", "IQR = 14", "median 17, IQR 14", "20 and 19", "median 24, IQR 12"]),
+        rejects=["Median = 20", "IQR = 14", "median 17, IQR 14", "20 and 19", "median 24, IQR 12"],
+        mistakes=[
+            mistake("range-for-iqr", num("19"),
+                    next_step="The interquartile range runs from the lower quartile to the upper quartile, not from the smallest value to the largest.",
+                    examples=["Median = 20, IQR = 19", "20 and 19"]),  # 31 − 12 = 19, the range
+        ]),
     "q-oup-ch10-wb-practice": one(
         num("2.83", tolerance=0.03), forms("√8", "√(8)", "2√2"),
         accepts=["σ = √8 ≈ 2.83", "2.83", "2.828", "√8", "2√2", "sqrt(8)", "2.8"],
-        rejects=["8", "3.16", "√10", "2", "4", "σ = 8"]),
+        rejects=["8", "3.16", "√10", "2", "4", "σ = 8"],
+        mistakes=[
+            mistake("forgot-square-root", num("8"),
+                    next_step="You have found the variance, and the standard deviation needs one more step.",
+                    examples=["σ = 8", "8"]),  # variance 40 ÷ 5 = 8 with no square root
+        ]),
     "q-oup-ch10-wb-challenge": one(
         num("48"),
         accepts=["48", "48 observations", "15 × 3.2 = 48"],
-        rejects=["3.2", "15", "80", "4.8", "32"]),
+        rejects=["3.2", "15", "80", "4.8", "32"],
+        mistakes=[
+            mistake("density-as-frequency", num("3.2"),
+                    next_step="Frequency density is frequency per unit of class width, so turn it back into a frequency using the width.",
+                    examples=["3.2"]),  # the density given as the frequency
+            mistake("boundary-for-width", num("80"), num("32"),
+                    next_step="The class width is the gap between the two boundaries, not either boundary itself.",
+                    examples=["80", "32"]),  # 3.2 × 25 or 3.2 × 10
+        ]),
     # Chapter 11
     "q-oup-ch11-sb": key(
         [part("the nth term", forms("4n+3", "3+4n")), part("the sum of 20 terms", num("900"))],
         accepts=["Tₙ = 4n + 3, S₂₀ = 900", "4n+3 900", "4n + 3 and 900", "T_n = 3 + 4n, sum = 900"],
-        rejects=["4n + 3", "900", "4n + 7, 900", "4n + 3, 830", "n + 4, 900"]),
+        rejects=["4n + 3", "900", "4n + 7, 900", "4n + 3, 830", "n + 4, 900"],
+        mistakes=[
+            mistake("off-by-one", forms("4n+7", "7+4n"),
+                    next_step="Put n equal to one in your formula and check that it gives the first term.",
+                    examples=["4n + 7, 900"]),  # the first term 7 used as the constant
+            mistake("off-by-one", num("940"),
+                    next_step="Use your nth term formula to find the twentieth term, then pair the terms again.",
+                    examples=["4n + 3, 940"]),  # T₂₀ = 7 + 20 × 4 = 87, so 10 × 94
+            mistake("forgot-half", num("1800"),
+                    next_step="Pairing the first and last terms uses up two terms each time, so recount how many pairs there are.",
+                    examples=["4n + 3, 1800"]),  # 20 pairs × 90
+        ]),
     "q-oup-ch11-wb-focus": key(
         [part("yes or no", words(["no", "not", "doesn't", "isn't", "cannot", "can't", "never"], forbid=["yes"])),
          part("the reason", num("147"), num("147/4"), words(["integer", "whole"]))],
@@ -1182,100 +1557,273 @@ ANSWER_KEYS = {
     "q-oup-ch11-wb-practice": one(
         forms("n^2+2n", "2n+n^2", "n(n+2)", "n (n+2)", "n(2+n)", "(n+1)^2-1", "n*n+2n"),
         accepts=["Tₙ = n² + 2n", "n^2 + 2n", "n(n+2)", "n squared + 2n"],
-        rejects=["n² + 2", "n² + 2n + 1", "2n + 1", "n^2"]),
+        rejects=["n² + 2", "n² + 2n + 1", "2n + 1", "n^2"],
+        mistakes=[
+            mistake("off-by-one", forms("n^2-1", "-1+n^2"),
+                    next_step="Put n equal to one in your formula and check that it gives the first term.",
+                    examples=["n² − 1"]),  # one less than the square numbers, with n² where (n + 1)² belongs
+        ]),
     "q-oup-ch11-wb-challenge": one(
         num("20100"),
         accepts=["20100", "20,100", "200 × 201 ÷ 2 = 20100"],
-        rejects=["20000", "40200", "2010", "201", "20200"]),
+        rejects=["20000", "40200", "2010", "201", "20200"],
+        mistakes=[
+            mistake("forgot-half", num("40200"),
+                    next_step="Pairing the list with itself reversed counts every number twice, so check that you halved.",
+                    examples=["40200"]),  # 200 × 201 with no ÷ 2
+            mistake("off-by-one", num("20000"), num("19900"), num("20200"),
+                    next_step="Check the formula n(n + 1) ÷ 2 with n equal to the last number, and count your pairs again.",
+                    examples=["20000", "19900", "20200"]),  # 200 × 200, 200 × 199 or 200 × 202, then ÷ 2
+        ]),
     # Chapter 12
     "q-oup-ch12-sb": one(
         num("4320"),
         accepts=["4320", "₹4,320", "16 × 270 = 4320"],
-        rejects=["270", "1350", "432", "2160", "4,300"]),
+        rejects=["270", "1350", "432", "2160", "4,300"],
+        mistakes=[
+            mistake("wrong-units-for-difference", num("2700"), num("7200"),
+                    next_step="The ₹1,350 is the gap between Meera and Kym, so it matches the difference in their units, not either share alone.",
+                    examples=["2700", "7200"]),  # 1350 ÷ 8 × 16 = 2700, or 1350 ÷ 3 × 16 = 7200
+            mistake("stopped-early", num("270"),
+                    next_step="That is one unit, so count how many units the whole prize has.",
+                    examples=["270"]),  # 1350 ÷ 5 = 270, one unit
+        ]),
     "q-oup-ch12-wb-focus": one(
         num("35000"),
         accepts=["35000", "35,000 cm²", "35000 cm^2"],
-        rejects=["350", "3500", "350000", "0.00035", "35"]),
+        rejects=["350", "3500", "350000", "0.00035", "35"],
+        mistakes=[
+            mistake("area-by-length-factor", num("350"),
+                    next_step="A square metre is a square a hundred centimetres on each side, so multiply by the conversion twice.",
+                    examples=["350", "350 cm²"]),  # 3.5 × 100
+        ]),
     "q-oup-ch12-wb-practice": one(
         num("4"),
         accepts=["4", "4 hours", "4h", "60 ÷ 15 = 4"],
-        rejects=["40 hours", "25", "25 hours", "2.5", "10"]),
+        rejects=["40 hours", "25", "25 hours", "2.5", "10"],
+        mistakes=[
+            mistake("direct-for-inverse", num("25"),
+                    next_step="More pumps should finish faster, so check whether your answer went up or down.",
+                    examples=["25", "25 hours"]),  # 10 × 15 ÷ 6 = 25
+        ]),
     "q-oup-ch12-wb-challenge": one(
         seq("9", "12", "14"),
         accepts=["9 : 12 : 14", "9:12:14", "A : B : C = 9 : 12 : 14", "9, 12, 14"],
-        rejects=["3 : 4 : 7", "18 : 24 : 28", "9 : 12", "3 : 6 : 7", "14 : 12 : 9"]),
+        rejects=["3 : 4 : 7", "18 : 24 : 28", "9 : 12", "3 : 6 : 7", "14 : 12 : 9"],
+        mistakes=[
+            mistake("unmatched-middle", seq("3", "4", "7"), seq("3", "6", "7"),
+                    next_step="B has a different number of parts in each ratio, so scale both ratios until B is the same before you join them.",
+                    examples=["3 : 4 : 7", "3 : 6 : 7"]),  # 3 : 4 and 6 : 7 joined without matching B
+            mistake("common-factor-left", seq("18", "24", "28"),
+                    next_step="Check whether all three numbers still share a factor, and divide it out.",
+                    examples=["18 : 24 : 28"]),  # B matched at 4 × 6 = 24 but not simplified
+        ]),
     # Chapter 13
     "q-oup-ch13-sb": key(
         [part("the image point", seq("4", "7")), part("the image area", num("54"))],
         accepts=["A′ = (4, 7), Area = 54 cm²", "(4,7) and 54", "A' = (4, 7) area 54"],
-        rejects=["(4, 7)", "54", "(6, 9), 54", "(4, 7), 18", "(7, 4), 54"]),
+        rejects=["(4, 7)", "54", "(6, 9), 54", "(4, 7), 18", "(7, 4), 54"],
+        mistakes=[
+            mistake("centre-ignored", seq("6", "9"),
+                    next_step="Measure from the centre of enlargement to A, multiply that step by the scale factor, then add it back on to the centre.",
+                    examples=["(6, 9), 54"]),  # (2, 3) × 3 from the origin
+            mistake("area-by-length-factor", num("18"),
+                    next_step="Lengths grow by the scale factor, but area grows by the scale factor times itself.",
+                    examples=["(4, 7), 18"]),  # 6 × 3
+        ]),
     "q-oup-ch13-wb-focus": one(
         seq("5", "-3"),
         accepts=["P′ = (5, −3)", "(5, -3)", "(5,-3)", "5, -3"],
-        rejects=["P′ = (3, −5)", "(-3, 5)", "(5, 3)", "(-5, 3)", "(3, 5)"]),
+        rejects=["P′ = (3, −5)", "(-3, 5)", "(5, 3)", "(-5, 3)", "(3, 5)"],
+        mistakes=[
+            mistake("wrong-mirror-line", seq("-5", "3"), seq("3", "5"), seq("-3", "-5"),
+                    next_step="Reflecting in y = x swaps the two coordinates and nothing else, so check which line you reflected in.",
+                    examples=["(-5, 3)", "(3, 5)", "(-3, -5)"]),  # reflected in y = −x, the y-axis or the x-axis
+            mistake("dropped-minus", seq("5", "3"),
+                    next_step="Swap the coordinates but keep each one's sign as it moves.",
+                    examples=["(5, 3)"]),  # swapped, then the minus on −3 lost
+        ]),
     "q-oup-ch13-wb-practice": one(
         seq("-1", "4"),
         accepts=["Q′ = (−1, 4)", "(-1, 4)", "(-1,4)"],
-        rejects=["(1, -4)", "(4, 1)", "(1, 4)", "(-4, 1)", "(4, -1)"]),
+        rejects=["(1, -4)", "(4, 1)", "(1, 4)", "(-4, 1)", "(4, -1)"],
+        mistakes=[
+            mistake("wrong-turn-direction", seq("1", "-4"),
+                    next_step="Anticlockwise turns the opposite way to a clock's hands, so sketch the point and give it a quarter turn that way.",
+                    examples=["(1, -4)"]),  # turned 90° clockwise
+            mistake("dropped-minus", seq("1", "4"),
+                    next_step="A quarter turn swaps the coordinates and changes one sign, so check which one becomes negative.",
+                    examples=["(1, 4)"]),  # coordinates swapped, the minus on the new x lost
+        ]),
     "q-oup-ch13-wb-challenge": one(
         seq("-1", "0"),
         accepts=["R′ = (−1, 0)", "(-1, 0)", "(-1,0)"],
-        rejects=["(7, 4)", "(-1, 4)", "(1, 0)", "(-4, -2)", "(-10, -6)"]),
+        rejects=["(7, 4)", "(-1, 4)", "(1, 0)", "(-4, -2)", "(-10, -6)"],
+        mistakes=[
+            mistake("centre-ignored", seq("-10", "-6"),
+                    next_step="Measure from the centre of enlargement to R, not from the origin, then scale that step.",
+                    examples=["(-10, -6)"]),  # (5, 3) × −2 from the origin
+            mistake("stopped-early", seq("-4", "-2"),
+                    next_step="You have the scaled step from the centre, so add it on to the centre's coordinates.",
+                    examples=["(-4, -2)"]),  # (2, 1) × −2 never added back on to C
+            mistake("dropped-minus", seq("7", "4"),
+                    next_step="A negative scale factor sends the image through the centre to the other side, so recheck the sign on your step.",
+                    examples=["(7, 4)"]),  # scale factor used as +2: (3, 2) + (4, 2)
+        ]),
     # Chapter 14
     "q-oup-ch14-sb": key(
         [part("the equation", forms("2x+5", "5+2x")), part("the x-intercept", num("-2.5"))],
         accepts=["y = 2x + 5, x-intercept = −2.5", "y=2x+5 -2.5", "y = 2x + 5 and (−2.5, 0)", "y=2x+5, x = -5/2"],
-        rejects=["y = 2x + 5", "-2.5", "y = 2x + 5, x = 2.5", "y = 2x + 3, −1.5", "y = 12x + 5, -2.5"]),
+        rejects=["y = 2x + 5", "-2.5", "y = 2x + 5, x = 2.5", "y = 2x + 3, −1.5", "y = 12x + 5, -2.5"],
+        mistakes=[
+            mistake("divided-wrong-way-round", forms("0.5x+2", "1/2x+2", "x/2+2"),
+                    next_step="Gradient is the rise in y divided by the run in x, so check which change goes on top.",
+                    examples=["y = 0.5x + 2, -4"]),  # run ÷ rise = 6 ÷ 12
+            mistake("rearranged-sign", num("2.5"),
+                    next_step="To find where the line crosses the x-axis, set y to zero and move the constant across, changing its sign.",
+                    examples=["y = 2x + 5, x = 2.5"]),  # 0 = 2x + 5 solved as 2x = 5
+        ]),
     "q-oup-ch14-wb-focus": one(
         forms("(x+7)/3", "(7+x)/3", "x/3+7/3", "7/3+x/3", "1/3(x+7)", "1/3 (x+7)", "1/3x+7/3", "(x+7)*1/3"),
         accepts=["f⁻¹(x) = (x + 7) / 3", "(x+7)/3", "y = (x + 7)/3", "f^-1(x) = x/3 + 7/3"],
-        rejects=["(x − 7) / 3", "3x + 7", "x + 7 / 3", "(x + 7) / 3x", "1 / (3x − 7)"]),
+        rejects=["(x − 7) / 3", "3x + 7", "x + 7 / 3", "(x + 7) / 3x", "1 / (3x − 7)"],
+        mistakes=[
+            mistake("rearranged-sign", forms("(x-7)/3", "x/3-7/3", "1/3(x-7)"),
+                    next_step="Undo each step with its opposite operation, so check the sign of the number you moved.",
+                    examples=["(x − 7) / 3"]),  # y = 3x − 7 rearranged as 3x = y − 7
+            mistake("inverse-wrong-order", forms("x/3+7", "7+x/3", "1/3x+7"),
+                    next_step="Undo the steps in reverse order, because the last thing f does to x is the first thing you undo.",
+                    examples=["x/3 + 7"]),  # divided by 3 before adding 7
+            mistake("inverse-as-reciprocal", forms("1/(3x-7)"),
+                    next_step="An inverse function undoes f, which is not the same as one over f, so reverse each step of f instead.",
+                    examples=["1 / (3x − 7)"]),  # f⁻¹ read as 1 ÷ f(x)
+        ]),
     "q-oup-ch14-wb-practice": one(
         forms("-1/2x+3", "-x/2+3", "3-1/2x", "3-x/2", "-0.5x+3", "3-0.5x", "-(1/2)x+3", "3-(1/2)x",
               "-1/2*x+3", "-(x/2)+3"),
         accepts=["y = −½x + 3", "y = -1/2x + 3", "y = -x/2 + 3", "y = 3 - 0.5x", "y = -0.5x + 3"],
-        rejects=["y = 2x + 3", "y = ½x + 3", "y = −2x + 3", "y = −½x + 5", "y = -1/2x"]),
+        rejects=["y = 2x + 3", "y = ½x + 3", "y = −2x + 3", "y = −½x + 5", "y = -1/2x"],
+        mistakes=[
+            mistake("perpendicular-gradient", forms("1/2x+3", "x/2+3", "0.5x+3", "3+1/2x", "3+x/2", "3+0.5x", "-2x+3", "3-2x", "2x+3", "3+2x"),
+                    next_step="A perpendicular gradient is the original turned upside down with its sign changed, so check you did both.",
+                    examples=["y = ½x + 3", "y = −2x + 3", "y = 2x + 3"]),  # the gradient only flipped (½), only negated (−2), or kept (2)
+        ]),
     "q-oup-ch14-wb-challenge": one(
         seq("2", "4"), all_of(*forms("x=2"), *forms("y=4")),
         accepts=["(2, 4)", "x = 2, y = 4", "y = 4 and x = 2", "(2,4)"],
-        rejects=["(4, 2)", "(2, 8)", "x = 2", "(3, 7)", "(-2, 4)"]),
+        rejects=["(4, 2)", "(2, 8)", "x = 2", "(3, 7)", "(-2, 4)"],
+        mistakes=[
+            mistake("swapped-coordinates", seq("4", "2"),
+                    next_step="Write the x value first and the y value second, and check the pair in both equations.",
+                    examples=["(4, 2)"]),  # y written before x
+            mistake("forgot-half", seq("2", "8"),
+                    next_step="After you find x, solve for y in one equation and check you divided by its coefficient.",
+                    examples=["(2, 8)"]),  # 2y = 10 − 2 = 8 left as y = 8
+            mistake("expand-first-term-only", num("12/7"),
+                    next_step="When you put the expression for y into the other equation, check its multiplier reaches both terms of the bracket.",
+                    examples=["x = 12/7"]),  # x + 2(3x − 2) as x + 6x − 2, so 7x = 12
+        ]),
     # Chapter 15
     "q-oup-ch15-sb": key(
         [part("true positives", num("19")), part("false positives", num("49")),
          part("P(D | +)", num("19/68", tolerance=0.0006), num("27.9", tolerance=0.11))],
         accepts=["TP = 19, FP = 49, P(D|+) = 19/68 ≈ 27.9%", "19, 49, 19/68",
                  "19 true positives, 49 false positives, 27.9%", "19 and 49, so 0.279"],
-        rejects=["19, 49", "19/68", "20, 49, 29%", "19, 49, 95%", "19, 49, 19/49"]),
+        rejects=["19, 49", "19/68", "20, 49, 29%", "19, 49, 95%", "19, 49, 19/49"],
+        mistakes=[
+            mistake("percent-of-wrong-amount", num("50"),
+                    next_step="False positives come only from the people without the trait, so take the false-positive rate of that group, not of everyone.",
+                    examples=["19, 50, 19/69"]),  # 5% of 1,000 instead of 5% of 980
+            mistake("conditional-reversed", num("95"), num("0.95"),
+                    next_step="The question asks for the chance of having the trait given a positive test, so start from all the positive tests.",
+                    examples=["19, 49, 95%"]),  # P(+ | D) given as P(D | +)
+            mistake("wrong-total", num("19/49"), num("19/1000"),
+                    next_step="Divide the true positives by everyone who tested positive, true and false together.",
+                    examples=["19, 49, 19/49", "19, 49, 19/1000"]),  # TP ÷ FP, or TP ÷ everyone
+        ]),
     "q-oup-ch15-wb-focus": one(
         num("1/9", tolerance=0.0012),
         accepts=["1/9", "4/36", "4/36 = 1/9", "0.111", "0.11"],
-        rejects=["1/12", "1/6", "9", "4", "5/36", "1/36"]),
+        rejects=["1/12", "1/6", "9", "4", "5/36", "1/36"],
+        mistakes=[
+            mistake("unequal-outcomes", num("1/11", tolerance=0.001),
+                    next_step="The eleven possible sums are not equally likely, so count the ordered pairs of dice instead.",
+                    examples=["1/11"]),  # one sum out of the eleven sums from 2 to 12
+            mistake("order-mixed", num("1/18", tolerance=0.001),
+                    next_step="The two dice are different, so three-then-six and six-then-three count as separate outcomes.",
+                    examples=["1/18", "2/36"]),  # (3, 6) and (4, 5) counted once each: 2/36
+        ]),
     "q-oup-ch15-wb-practice": one(
         num("5/14", tolerance=0.0008),
         accepts=["5/14", "20/56", "20/56 = 5/14", "0.357", "5/8 × 4/7 = 20/56"],
-        rejects=["25/64", "5/8", "15/56", "3/28", "0.4"]),
+        rejects=["25/64", "5/8", "15/56", "3/28", "0.4"],
+        mistakes=[
+            mistake("with-replacement", num("25/64"), num("5/16"),
+                    next_step="After the first red is taken out there is one red fewer and one marble fewer in the bag, so change both numbers for the second draw.",
+                    examples=["25/64", "5/16"]),  # 5/8 × 5/8, or 5/8 × 4/8
+        ]),
     "q-oup-ch15-wb-challenge": one(
         num("56"),
         accepts=["56", "56 committees", "8 × 7 × 6 ÷ 6 = 56"],
-        rejects=["336", "24", "512", "5.6", "28"]),
+        rejects=["336", "24", "512", "5.6", "28"],
+        mistakes=[
+            mistake("order-mixed", num("336"),
+                    next_step="A committee is the same whichever order its members are picked in, so divide by the number of ways to order three people.",
+                    examples=["336"]),  # 8 × 7 × 6 with order counted
+        ]),
     # Chapter 16
     "q-oup-ch16-sb": key(
         [part("2a − 3b", seq("0", "11")), part("the magnitude of a", num("5"))],
         accepts=["2a − 3b = (0, 11)ᵀ and |a| = 5", "(0, 11) and 5", "(0,11), |a| = 5"],
-        rejects=["(0, 11)", "5", "(12, 5), 5", "(0, 11), 25", "(0, 5), 5", "(0, 11), 7"]),
+        rejects=["(0, 11)", "5", "(12, 5), 5", "(0, 11), 25", "(0, 5), 5", "(0, 11), 7"],
+        mistakes=[
+            mistake("sign-of-product", seq("0", "5"),
+                    next_step="Work out 3b one component at a time and check the sign of minus three times minus one.",
+                    examples=["(0, 5), 5"]),  # 8 − 3 × (−1) worked as 8 − 3
+            mistake("added-sides", num("7"),
+                    next_step="The magnitude is the length of the arrow, the longest side of a right triangle, so use Pythagoras on the components.",
+                    examples=["(0, 11), 7"]),  # 3 + 4 = 7
+            mistake("forgot-square-root", num("25"),
+                    next_step="You have the length squared, so take one more step to get the length.",
+                    examples=["(0, 11), 25"]),  # 3² + 4² = 25 with no square root
+        ]),
     "q-oup-ch16-wb-focus": one(
         seq("3", "5"),
         accepts=["AC = (3, 5)ᵀ", "(3, 5)", "(3,5)", "3, 5"],
-        rejects=["(5, 3)", "(5, -9)", "(3, 9)", "(-4, -14)", "(3, -5)"]),
+        rejects=["(5, 3)", "(5, -9)", "(3, 9)", "(-4, -14)", "(3, -5)"],
+        mistakes=[
+            mistake("vector-combined-wrongly", seq("5", "-9"),
+                    next_step="Going from A to B and then from B to C means adding the two vectors, component by component.",
+                    examples=["(5, -9)"]),  # AB − BC = (4 − (−1), −2 − 7)
+            mistake("dropped-minus", seq("3", "9"),
+                    next_step="Add the bottom components again, keeping the minus sign on the first one.",
+                    examples=["(3, 9)"]),  # −2 read as 2: 2 + 7 = 9
+        ]),
     "q-oup-ch16-wb-practice": one(
         forms("1/2(b-a)", "1/2 (b-a)", "(1/2)(b-a)", "(b-a)/2", "(-a+b)/2", "1/2b-1/2a", "b/2-a/2", "0.5(b-a)",
               "0.5b-0.5a", "-1/2a+1/2b", "-a/2+b/2", "1/2*(b-a)", "1/2(-a+b)"),
         accepts=["MN = ½(b − a)", "1/2(b - a)", "(b - a)/2", "½b − ½a", "MN = ½(b − a) = ½AB"],
-        rejects=["½(a − b)", "b − a", "½(a + b)", "2(b − a)", "½ab"]),
+        rejects=["½(a − b)", "b − a", "½(a + b)", "2(b − a)", "½ab"],
+        mistakes=[
+            mistake("vector-combined-wrongly", forms("1/2(a-b)", "1/2 (a-b)", "(a-b)/2", "1/2a-1/2b", "a/2-b/2", "0.5(a-b)"),
+                    next_step="Go from M to N by heading back from M to O and then out from O to N, and check the direction of each piece.",
+                    examples=["½(a − b)"]),  # MN taken as OM − ON
+            mistake("vector-combined-wrongly", forms("1/2(a+b)", "1/2 (a+b)", "(a+b)/2", "1/2a+1/2b", "a/2+b/2", "0.5(a+b)"),
+                    next_step="Going from M to N starts by going back along OM, which reverses its direction.",
+                    examples=["½(a + b)"]),  # MN taken as OM + ON
+            mistake("forgot-half", forms("b-a", "-a+b"),
+                    next_step="M and N are midpoints, so OM and ON are only half of a and b.",
+                    examples=["b − a"]),  # AB found instead of MN
+        ]),
     "q-oup-ch16-wb-challenge": key(
         [part("the determinant", num("10")), part("the new area", num("50"))],
         accepts=["det(A) = 10; new area = 50 cm²", "10 and 50", "det = 10, area 50"],
-        rejects=["10", "50", "det = 14, area = 70", "det = 10, area = 15", "10, 5"]),
+        rejects=["10", "50", "det = 14, area = 70", "det = 10, area = 15", "10, 5"],
+        mistakes=[
+            mistake("dropped-minus", num("14"), num("70"),
+                    next_step="The determinant is ad minus bc, so check you subtracted the second product.",
+                    examples=["det = 14, area = 70"]),  # 3 × 4 + 1 × 2 = 14
+        ]),
 }
 
 
@@ -1595,7 +2143,14 @@ def build_school_questions():
         raise SystemExit(f"Answer keys and questions differ: {sorted(question_ids ^ set(ANSWER_KEYS))}")
     for question in questions:
         question["answerKey"] = ANSWER_KEYS[question["id"]]
+    used = {m["misconception"] for answer_key in ANSWER_KEYS.values() for m in answer_key["mistakes"]}
+    if used != set(MISCONCEPTIONS):
+        raise SystemExit(f"Misconceptions no question uses: {sorted(set(MISCONCEPTIONS) - used)}")
     return questions
+
+
+def build_misconceptions():
+    return [{"id": misconception_id, "name": name} for misconception_id, name in MISCONCEPTIONS.items()]
 
 
 def build_diagram_plates():
@@ -2915,6 +3470,7 @@ def main():
         "polyaStages": polya_stages,
         "speedMathDecks": speed_math_decks,
         "visualMathTips": visual_math_tips,
+        "misconceptions": build_misconceptions(),
     }
 
     PACK_OUT.parent.mkdir(parents=True, exist_ok=True)

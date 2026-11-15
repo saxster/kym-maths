@@ -6588,6 +6588,49 @@
           "24",
           "360",
           "HCF = 240, LCM = 3600"
+        ],
+        "mistakes": [
+          {
+            "misconception": "hcf-lcm-swapped",
+            "name": "You mixed up HCF and LCM",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "hcf=72"
+              },
+              {
+                "kind": "form",
+                "value": "hcf is 72"
+              },
+              {
+                "kind": "form",
+                "value": "lcm=120"
+              },
+              {
+                "kind": "form",
+                "value": "lcm is 120"
+              }
+            ],
+            "nextStep": "The HCF takes the lower power of each shared prime and the LCM the higher power of every prime, so check which rule you used for each.",
+            "examples": [
+              "HCF = 72, LCM = 360",
+              "HCF = 24, LCM = 120"
+            ]
+          },
+          {
+            "misconception": "lcm-as-product",
+            "name": "You took the LCM as the numbers multiplied together",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "8640"
+              }
+            ],
+            "nextStep": "The LCM uses each prime once at its highest power, so rebuild it from the two prime factor lists.",
+            "examples": [
+              "HCF = 24, LCM = 8640"
+            ]
+          }
         ]
       }
     },
@@ -6629,6 +6672,27 @@
           "−160",
           "-1.6",
           "-8"
+        ],
+        "mistakes": [
+          {
+            "misconception": "sign-of-product",
+            "name": "You got a sign wrong multiplying or dividing",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "16"
+              },
+              {
+                "kind": "number",
+                "value": "0"
+              }
+            ],
+            "nextStep": "Count the minus signs in each multiplication and division: an odd number of them makes the result negative.",
+            "examples": [
+              "16",
+              "0"
+            ]
+          }
         ]
       }
     },
@@ -6671,6 +6735,37 @@
           "6",
           "42 seconds",
           "7.2"
+        ],
+        "mistakes": [
+          {
+            "misconception": "hcf-lcm-swapped",
+            "name": "You mixed up HCF and LCM",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "6"
+              }
+            ],
+            "nextStep": "They flash together at a time both cycles reach, so look for a shared multiple, not a shared factor.",
+            "examples": [
+              "6",
+              "6 seconds"
+            ]
+          },
+          {
+            "misconception": "lcm-as-product",
+            "name": "You took the LCM as the numbers multiplied together",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "432"
+              }
+            ],
+            "nextStep": "Multiplying gives a common multiple, but list the multiples of each and look for an earlier one they share.",
+            "examples": [
+              "432"
+            ]
+          }
         ]
       }
     },
@@ -6712,6 +6807,36 @@
           "6",
           "600",
           "2160"
+        ],
+        "mistakes": [
+          {
+            "misconception": "stopped-early",
+            "name": "You stopped one step too soon",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "2160"
+              }
+            ],
+            "nextStep": "HCF × LCM equals a × b, so there is one more step to get b on its own.",
+            "examples": [
+              "2160"
+            ]
+          },
+          {
+            "misconception": "lcm-as-product",
+            "name": "You took the LCM as the numbers multiplied together",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "5"
+              }
+            ],
+            "nextStep": "a × b equals HCF × LCM, not the LCM alone, so put the HCF back into the equation.",
+            "examples": [
+              "b = 5"
+            ]
+          }
         ]
       }
     },
@@ -6759,6 +6884,62 @@
           "5x",
           "11x + 3",
           "5x+3x"
+        ],
+        "mistakes": [
+          {
+            "misconception": "sign-of-product",
+            "name": "You got a sign wrong multiplying or dividing",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "5x-27"
+              },
+              {
+                "kind": "form",
+                "value": "-27+5x"
+              },
+              {
+                "kind": "form",
+                "value": "11x+3"
+              },
+              {
+                "kind": "form",
+                "value": "3+11x"
+              }
+            ],
+            "nextStep": "Multiply the minus in front of the second bracket by each term inside it, and check the sign of each product.",
+            "examples": [
+              "5x − 27",
+              "11x + 3"
+            ]
+          },
+          {
+            "misconception": "expand-first-term-only",
+            "name": "You multiplied only the first term in the bracket",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "5x-7"
+              },
+              {
+                "kind": "form",
+                "value": "-7+5x"
+              },
+              {
+                "kind": "form",
+                "value": "5x+12"
+              },
+              {
+                "kind": "form",
+                "value": "12+5x"
+              }
+            ],
+            "nextStep": "Check that the number outside each bracket multiplies every term inside it, not just the first.",
+            "examples": [
+              "5x − 7",
+              "5x + 12"
+            ]
+          }
         ]
       }
     },
@@ -6829,6 +7010,61 @@
           "6ab(3a + 2b)",
           "3ab(6a − 4b)",
           "6ab"
+        ],
+        "mistakes": [
+          {
+            "misconception": "common-factor-left",
+            "name": "You left a common factor in",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "6a(3ab-2b^2)"
+              },
+              {
+                "kind": "form",
+                "value": "6b(3a^2-2ab)"
+              },
+              {
+                "kind": "form",
+                "value": "3ab(6a-4b)"
+              },
+              {
+                "kind": "form",
+                "value": "2ab(9a-6b)"
+              },
+              {
+                "kind": "form",
+                "value": "6(3a^2b-2ab^2)"
+              }
+            ],
+            "nextStep": "Look inside your bracket: if its terms still share a number or a letter, take that out as well.",
+            "examples": [
+              "6a(3ab − 2b²)",
+              "3ab(6a − 4b)"
+            ]
+          },
+          {
+            "misconception": "dropped-minus",
+            "name": "You lost a minus sign",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "6ab(3a+2b)"
+              },
+              {
+                "kind": "form",
+                "value": "6ab (3a+2b)"
+              },
+              {
+                "kind": "form",
+                "value": "6ba(3a+2b)"
+              }
+            ],
+            "nextStep": "Multiply your bracket back out and compare each sign with the question.",
+            "examples": [
+              "6ab(3a + 2b)"
+            ]
+          }
         ]
       }
     },
@@ -6879,6 +7115,53 @@
           "8x",
           "16x + 38",
           "8x − 38"
+        ],
+        "mistakes": [
+          {
+            "misconception": "sign-of-product",
+            "name": "You got a sign wrong multiplying or dividing",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "8x+22"
+              },
+              {
+                "kind": "form",
+                "value": "22+8x"
+              }
+            ],
+            "nextStep": "Taking away the small rectangle subtracts every term of its area, so check the sign of each term after the minus.",
+            "examples": [
+              "8x + 22"
+            ]
+          },
+          {
+            "misconception": "expand-first-term-only",
+            "name": "You multiplied only the first term in the bracket",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "8x+13"
+              },
+              {
+                "kind": "form",
+                "value": "13+8x"
+              },
+              {
+                "kind": "form",
+                "value": "8x+32"
+              },
+              {
+                "kind": "form",
+                "value": "32+8x"
+              }
+            ],
+            "nextStep": "Check that each width multiplies both terms of its length, not just the first.",
+            "examples": [
+              "8x + 13",
+              "8x + 32"
+            ]
+          }
         ]
       }
     },
@@ -6920,6 +7203,41 @@
           "4050",
           "8",
           "81000"
+        ],
+        "mistakes": [
+          {
+            "misconception": "square-of-difference",
+            "name": "You treated a² − b² as (a − b)²",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "4"
+              }
+            ],
+            "nextStep": "a² − b² is not (a − b)², so write it as the product of two brackets before you work anything out.",
+            "examples": [
+              "4"
+            ]
+          },
+          {
+            "misconception": "stopped-early",
+            "name": "You stopped one step too soon",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "4050"
+              },
+              {
+                "kind": "number",
+                "value": "2"
+              }
+            ],
+            "nextStep": "You have worked out one bracket, so work out the other and multiply them together.",
+            "examples": [
+              "4050",
+              "2"
+            ]
+          }
         ]
       }
     },
@@ -6961,6 +7279,27 @@
           "112",
           "292",
           "68"
+        ],
+        "mistakes": [
+          {
+            "misconception": "back-bearing",
+            "name": "You did not turn round for the back-bearing",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "112"
+              },
+              {
+                "kind": "number",
+                "value": "68"
+              }
+            ],
+            "nextStep": "From the buoy you face back towards the harbour, the opposite way, so turn half a full turn from the outward bearing.",
+            "examples": [
+              "112°",
+              "068°"
+            ]
+          }
         ]
       }
     },
@@ -7002,6 +7341,27 @@
           "14",
           "2",
           "120"
+        ],
+        "mistakes": [
+          {
+            "misconception": "rearranged-sign",
+            "name": "You got a sign wrong moving a term across",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "16"
+              },
+              {
+                "kind": "number",
+                "value": "-12"
+              }
+            ],
+            "nextStep": "Put V and F into the formula first, then move E across carefully, changing its sign as it crosses.",
+            "examples": [
+              "16",
+              "E = -12"
+            ]
+          }
         ]
       }
     },
@@ -7070,7 +7430,8 @@
           "angle C, the midpoint of AB",
           "BAC",
           "90"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -7112,6 +7473,37 @@
           "4",
           "400",
           "200"
+        ],
+        "mistakes": [
+          {
+            "misconception": "added-sides",
+            "name": "You added lengths instead of using Pythagoras",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "28"
+              }
+            ],
+            "nextStep": "The two legs of the journey meet at a right angle, so the direct distance is the longest side of a right triangle.",
+            "examples": [
+              "28",
+              "28 km"
+            ]
+          },
+          {
+            "misconception": "forgot-square-root",
+            "name": "You forgot the square root",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "400"
+              }
+            ],
+            "nextStep": "You have found the longest side squared, so take one more step to get the side itself.",
+            "examples": [
+              "400"
+            ]
+          }
         ]
       }
     },
@@ -7164,6 +7556,45 @@
           "20, 15",
           "15, 15, 20",
           "24, 18, 18"
+        ],
+        "mistakes": [
+          {
+            "misconception": "equal-split",
+            "name": "You split the sample equally, not in proportion",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "17",
+                  "17",
+                  "16"
+                ],
+                "ignoring": [
+                  "7",
+                  "8",
+                  "9"
+                ]
+              },
+              {
+                "kind": "sequence",
+                "values": [
+                  "16",
+                  "17",
+                  "17"
+                ],
+                "ignoring": [
+                  "7",
+                  "8",
+                  "9"
+                ]
+              }
+            ],
+            "nextStep": "Each year's share of the sample should match its share of the whole school, so work out each year's fraction of the total first.",
+            "examples": [
+              "17, 17, 16",
+              "Year 7: 16, Year 8: 17, Year 9: 17"
+            ]
+          }
         ]
       }
     },
@@ -7205,6 +7636,38 @@
           "600",
           "3",
           "12000"
+        ],
+        "mistakes": [
+          {
+            "misconception": "multiplied-instead-of-divided",
+            "name": "You multiplied when you needed to divide",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "12000"
+              }
+            ],
+            "nextStep": "The interval is the gap between chosen students, so ask how many students on the list there are for each one chosen.",
+            "examples": [
+              "12000"
+            ]
+          },
+          {
+            "misconception": "divided-wrong-way-round",
+            "name": "You divided the wrong way round",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "1/30",
+                "tolerance": 0.001
+              }
+            ],
+            "nextStep": "The interval should be a whole number of students, so check which number goes on top when you divide.",
+            "examples": [
+              "1/30",
+              "0.033"
+            ]
+          }
         ]
       }
     },
@@ -7276,7 +7739,8 @@
           "it is too early in the morning",
           "Mumbai is a big city",
           "I do not know"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -7334,6 +7798,34 @@
           "double it",
           "16",
           "half"
+        ],
+        "mistakes": [
+          {
+            "misconception": "forgot-square-root",
+            "name": "You forgot the square root",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "2"
+              },
+              {
+                "kind": "words",
+                "groups": [
+                  [
+                    "double",
+                    "doubled",
+                    "doubling",
+                    "twice"
+                  ]
+                ]
+              }
+            ],
+            "nextStep": "The error depends on the square root of n, so ask what n must become for its square root to double.",
+            "examples": [
+              "2",
+              "double it"
+            ]
+          }
         ]
       }
     },
@@ -7377,6 +7869,50 @@
           "37.5 litres",
           "3750",
           "0.375"
+        ],
+        "mistakes": [
+          {
+            "misconception": "unit-slip",
+            "name": "You mixed up the units",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "375000"
+              },
+              {
+                "kind": "number",
+                "value": "3750"
+              },
+              {
+                "kind": "number",
+                "value": "3.75"
+              }
+            ],
+            "nextStep": "Put every length in centimetres before you multiply, then change cubic centimetres to litres at the end.",
+            "examples": [
+              "375000 litres",
+              "3750",
+              "3.75 litres"
+            ]
+          },
+          {
+            "misconception": "forgot-half",
+            "name": "You forgot to halve",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "750"
+              },
+              {
+                "kind": "number",
+                "value": "750000"
+              }
+            ],
+            "nextStep": "Check the trapezium's area: average the two parallel sides before you multiply by the height.",
+            "examples": [
+              "750 litres"
+            ]
+          }
         ]
       }
     },
@@ -7429,6 +7965,45 @@
           "154",
           "C = 22, A = 154",
           "C = 44, A = 49"
+        ],
+        "mistakes": [
+          {
+            "misconception": "radius-diameter-mixed",
+            "name": "You mixed up the radius and the diameter",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "22"
+              },
+              {
+                "kind": "number",
+                "value": "616"
+              }
+            ],
+            "nextStep": "Circumference uses the diameter, which is twice the radius, while the area squares the radius itself.",
+            "examples": [
+              "C = 22, A = 154",
+              "C = 44, A = 616"
+            ]
+          },
+          {
+            "misconception": "power-as-multiply",
+            "name": "You multiplied by the power instead of raising to it",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "a=44"
+              },
+              {
+                "kind": "form",
+                "value": "area=44"
+              }
+            ],
+            "nextStep": "r² means r times r, so recheck the area with the radius multiplied by itself.",
+            "examples": [
+              "C = 44, A = 44"
+            ]
+          }
         ]
       }
     },
@@ -7479,6 +8054,41 @@
           "48 and 140",
           "112",
           "24 and 112"
+        ],
+        "mistakes": [
+          {
+            "misconception": "height-slant-mixed",
+            "name": "You mixed up the slanted side and the height",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "140"
+              },
+              {
+                "kind": "number",
+                "value": "44"
+              }
+            ],
+            "nextStep": "Area uses the height that meets the base at a right angle, while the perimeter goes round the actual sides.",
+            "examples": [
+              "48 and 140",
+              "Perimeter = 44, Area = 112"
+            ]
+          },
+          {
+            "misconception": "missing-edges",
+            "name": "You left out some edges of the shape",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "24"
+              }
+            ],
+            "nextStep": "A parallelogram has four sides, so trace all the way round and add every side.",
+            "examples": [
+              "24 and 112"
+            ]
+          }
         ]
       }
     },
@@ -7520,6 +8130,59 @@
           "31",
           "30",
           "20.5"
+        ],
+        "mistakes": [
+          {
+            "misconception": "missing-edges",
+            "name": "You left out some edges of the shape",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "10.5",
+                "tolerance": 0.05
+              },
+              {
+                "kind": "number",
+                "value": "20.5",
+                "tolerance": 0.05
+              }
+            ],
+            "nextStep": "Trace the sector's outline: one curved edge and two straight edges, each a radius long.",
+            "examples": [
+              "10.5",
+              "10.47",
+              "20.5"
+            ]
+          },
+          {
+            "misconception": "radius-diameter-mixed",
+            "name": "You mixed up the radius and the diameter",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "25.2",
+                "tolerance": 0.05
+              }
+            ],
+            "nextStep": "The arc is a sixth of the whole circumference, and the circumference uses the diameter, not the radius.",
+            "examples": [
+              "25.2"
+            ]
+          },
+          {
+            "misconception": "truncated",
+            "name": "You cut digits off instead of rounding",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "30.4"
+              }
+            ],
+            "nextStep": "Look at the digit after the first decimal place to decide whether to round up.",
+            "examples": [
+              "30.4"
+            ]
+          }
         ]
       }
     },
@@ -7575,6 +8238,41 @@
           "27/99",
           "99x = 27, x = 27/99",
           "it equals 3/11 because 3 ÷ 11 = 0.2727"
+        ],
+        "mistakes": [
+          {
+            "misconception": "recurring-as-terminating",
+            "name": "You treated the recurring decimal as if it stopped",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "27/100"
+              }
+            ],
+            "nextStep": "The digits repeat for ever, so multiply x by the power of ten that shifts one full repeat, then subtract x.",
+            "examples": [
+              "x = 27/100"
+            ]
+          },
+          {
+            "misconception": "common-factor-left",
+            "name": "You left a common factor in",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "9/33"
+              },
+              {
+                "kind": "form",
+                "value": "27/99"
+              }
+            ],
+            "nextStep": "Check whether the top and bottom of your fraction still share a factor, and divide it out.",
+            "examples": [
+              "99x = 27, so x = 9/33",
+              "x = 27/99"
+            ]
+          }
         ]
       }
     },
@@ -7616,6 +8314,50 @@
           "0.00408",
           "0.004086",
           "409"
+        ],
+        "mistakes": [
+          {
+            "misconception": "decimal-places-not-sf",
+            "name": "You rounded to decimal places, not significant figures",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "0.004"
+              }
+            ],
+            "nextStep": "Significant figures start at the first non-zero digit, so count from there, not from the decimal point.",
+            "examples": [
+              "0.004"
+            ]
+          },
+          {
+            "misconception": "truncated",
+            "name": "You cut digits off instead of rounding",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "0.00408"
+              }
+            ],
+            "nextStep": "Look at the digit after the last one you keep to decide whether to round up.",
+            "examples": [
+              "0.00408"
+            ]
+          },
+          {
+            "misconception": "place-value-shift",
+            "name": "You shifted the place value",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "409"
+              }
+            ],
+            "nextStep": "Keep the zeros that hold the digits in place after the decimal point, and round only the digits after them.",
+            "examples": [
+              "409"
+            ]
+          }
         ]
       }
     },
@@ -7663,6 +8405,41 @@
           "5/12",
           "3 5/12",
           "2 7/12"
+        ],
+        "mistakes": [
+          {
+            "misconception": "split-mixed-number",
+            "name": "You worked on the whole numbers and fractions separately",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "43/12"
+              },
+              {
+                "kind": "form",
+                "value": "3 and 7/12"
+              }
+            ],
+            "nextStep": "Turn both mixed numbers into improper fractions, or borrow a whole, before you subtract the fraction parts.",
+            "examples": [
+              "3 7/12",
+              "43/12"
+            ]
+          },
+          {
+            "misconception": "added-denominators",
+            "name": "You added or subtracted the denominators",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "2"
+              }
+            ],
+            "nextStep": "Give both fractions the same denominator before you subtract, and keep that denominator in the answer.",
+            "examples": [
+              "2"
+            ]
+          }
         ]
       }
     },
@@ -7706,6 +8483,37 @@
           "1/4",
           "36/25",
           "125"
+        ],
+        "mistakes": [
+          {
+            "misconception": "multiplied-instead-of-divided",
+            "name": "You multiplied when you needed to divide",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "64/45"
+              }
+            ],
+            "nextStep": "Dividing by a fraction means multiplying by its reciprocal, so check you turned the divisor upside down.",
+            "examples": [
+              "64/45"
+            ]
+          },
+          {
+            "misconception": "split-mixed-number",
+            "name": "You worked on the whole numbers and fractions separately",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "40/9"
+              }
+            ],
+            "nextStep": "Turn each mixed number into an improper fraction before you divide.",
+            "examples": [
+              "40/9",
+              "4 4/9"
+            ]
+          }
         ]
       }
     },
@@ -7780,6 +8588,50 @@
           "u = √(v² + 2as) = 7",
           "u = v² − 2as = 49",
           "u = √(v² − 2as)"
+        ],
+        "mistakes": [
+          {
+            "misconception": "rearranged-sign",
+            "name": "You got a sign wrong moving a term across",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "√(v^2+2as)"
+              },
+              {
+                "kind": "form",
+                "value": "√v^2+2as"
+              },
+              {
+                "kind": "number",
+                "value": "17"
+              }
+            ],
+            "nextStep": "To get u² alone you take 2as away from both sides, so check the sign in front of 2as.",
+            "examples": [
+              "u = √(v² + 2as) = 17",
+              "17"
+            ]
+          },
+          {
+            "misconception": "forgot-square-root",
+            "name": "You forgot the square root",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "49"
+              },
+              {
+                "kind": "form",
+                "value": "u=v^2-2as"
+              }
+            ],
+            "nextStep": "You have u² on its own, so take one more step to get u itself.",
+            "examples": [
+              "u = v² − 2as = 49",
+              "49"
+            ]
+          }
         ]
       }
     },
@@ -7823,6 +8675,46 @@
           "x = -3",
           "3x",
           "x = 13/7"
+        ],
+        "mistakes": [
+          {
+            "misconception": "expand-first-term-only",
+            "name": "You multiplied only the first term in the bracket",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "13/7"
+              },
+              {
+                "kind": "number",
+                "value": "17/7"
+              }
+            ],
+            "nextStep": "Check that each number outside a bracket multiplies both terms inside it.",
+            "examples": [
+              "x = 13/7",
+              "x = 17/7"
+            ]
+          },
+          {
+            "misconception": "rearranged-sign",
+            "name": "You got a sign wrong moving a term across",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "11/7"
+              },
+              {
+                "kind": "number",
+                "value": "21/13"
+              }
+            ],
+            "nextStep": "When a term crosses the equals sign its sign changes, so recheck each move.",
+            "examples": [
+              "x = 11/7",
+              "x = 21/13"
+            ]
+          }
         ]
       }
     },
@@ -7870,6 +8762,45 @@
           "x < 4",
           "x ≤ -4",
           "x = 4"
+        ],
+        "mistakes": [
+          {
+            "misconception": "inequality-not-flipped",
+            "name": "You did not reverse the inequality sign",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "x≥4"
+              },
+              {
+                "kind": "form",
+                "value": "4≤x"
+              }
+            ],
+            "nextStep": "Dividing both sides by a negative number reverses the inequality sign, so check whether you did that.",
+            "examples": [
+              "x ≥ 4",
+              "x >= 4"
+            ]
+          },
+          {
+            "misconception": "rearranged-sign",
+            "name": "You got a sign wrong moving a term across",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "x≤-16/3"
+              },
+              {
+                "kind": "form",
+                "value": "x≥-16/3"
+              }
+            ],
+            "nextStep": "Take 14 from both sides first and check the sign of what is left on the right.",
+            "examples": [
+              "x ≤ −16/3"
+            ]
+          }
         ]
       }
     },
@@ -7927,6 +8858,49 @@
           "x = y + 2 / y − 3",
           "x = (y + 2) / (3 − y)",
           "x = (3x + 2) / (x − 1)"
+        ],
+        "mistakes": [
+          {
+            "misconception": "rearranged-sign",
+            "name": "You got a sign wrong moving a term across",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "(2-y)/(y-3)"
+              },
+              {
+                "kind": "form",
+                "value": "(-y+2)/(y-3)"
+              },
+              {
+                "kind": "form",
+                "value": "(y+2)/(y+3)"
+              },
+              {
+                "kind": "form",
+                "value": "(2+y)/(y+3)"
+              }
+            ],
+            "nextStep": "Collect the x terms on one side and the rest on the other, changing the sign of each term that crosses.",
+            "examples": [
+              "x = (2 − y)/(y − 3)",
+              "x = (y + 2)/(y + 3)"
+            ]
+          },
+          {
+            "misconception": "expand-first-term-only",
+            "name": "You multiplied only the first term in the bracket",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "3/(y-3)"
+              }
+            ],
+            "nextStep": "When you multiply both sides by the bottom of the fraction, check that y multiplies both terms in that bracket.",
+            "examples": [
+              "x = 3/(y − 3)"
+            ]
+          }
         ]
       }
     },
@@ -7977,6 +8951,40 @@
           "155",
           "x = 40, ACD = 165",
           "x = 20, ACD = 75"
+        ],
+        "mistakes": [
+          {
+            "misconception": "rearranged-sign",
+            "name": "You got a sign wrong moving a term across",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "30"
+              },
+              {
+                "kind": "number",
+                "value": "115"
+              }
+            ],
+            "nextStep": "When you move the −5 across the equals sign it changes sign, so recheck that step.",
+            "examples": [
+              "x = 30, ACD = 115"
+            ]
+          },
+          {
+            "misconception": "dropped-minus",
+            "name": "You lost a minus sign",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "165"
+              }
+            ],
+            "nextStep": "Put your x back into the expression for angle ACD and check the sign of its last term.",
+            "examples": [
+              "x = 40, ACD = 165"
+            ]
+          }
         ]
       }
     },
@@ -8023,6 +9031,67 @@
           "(3, -2)",
           "(6, 4)",
           "(-7, 5)"
+        ],
+        "mistakes": [
+          {
+            "misconception": "forgot-half",
+            "name": "You forgot to halve",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "6",
+                  "4"
+                ]
+              }
+            ],
+            "nextStep": "The midpoint is halfway, so after adding the coordinates, finish by halving.",
+            "examples": [
+              "(6, 4)"
+            ]
+          },
+          {
+            "misconception": "half-difference",
+            "name": "You halved the difference instead of averaging",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "7",
+                  "-5"
+                ]
+              },
+              {
+                "kind": "sequence",
+                "values": [
+                  "-7",
+                  "5"
+                ]
+              }
+            ],
+            "nextStep": "A midpoint averages the two points, so add each pair of coordinates rather than subtracting.",
+            "examples": [
+              "(7, -5)",
+              "(-7, 5)"
+            ]
+          },
+          {
+            "misconception": "swapped-coordinates",
+            "name": "You swapped x and y",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "2",
+                  "3"
+                ]
+              }
+            ],
+            "nextStep": "Write the x-coordinate first and the y-coordinate second.",
+            "examples": [
+              "(2, 3)"
+            ]
+          }
         ]
       }
     },
@@ -8064,6 +9133,36 @@
           "175",
           "y = 17",
           "3.5"
+        ],
+        "mistakes": [
+          {
+            "misconception": "co-interior-as-equal",
+            "name": "You made co-interior angles equal",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "-15"
+              }
+            ],
+            "nextStep": "Co-interior angles sit on the same side between the parallel lines, so they add to a straight angle rather than being equal.",
+            "examples": [
+              "y = -15"
+            ]
+          },
+          {
+            "misconception": "rearranged-sign",
+            "name": "You got a sign wrong moving a term across",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "37"
+              }
+            ],
+            "nextStep": "When you move the +5 across the equals sign it becomes −5, so recheck that step.",
+            "examples": [
+              "y = 37"
+            ]
+          }
         ]
       }
     },
@@ -8107,6 +9206,38 @@
           "12",
           "16",
           "150"
+        ],
+        "mistakes": [
+          {
+            "misconception": "stopped-early",
+            "name": "You stopped one step too soon",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "24"
+              }
+            ],
+            "nextStep": "You have the exterior angle, so now use what all the exterior angles of a polygon add up to.",
+            "examples": [
+              "24",
+              "24°"
+            ]
+          },
+          {
+            "misconception": "interior-for-exterior",
+            "name": "You used the interior angle instead of the exterior",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "2.3",
+                "tolerance": 0.05
+              }
+            ],
+            "nextStep": "Find the exterior angle first, since the exterior angles, not the interior ones, add up to a full turn.",
+            "examples": [
+              "2.3"
+            ]
+          }
         ]
       }
     },
@@ -8150,6 +9281,36 @@
           "1734",
           "240",
           "24000"
+        ],
+        "mistakes": [
+          {
+            "misconception": "percent-of-wrong-amount",
+            "name": "You took the percentage of the wrong amount",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "2346"
+              }
+            ],
+            "nextStep": "The 15% came off the original price, not the sale price, so the sale price is 85% of the number you want.",
+            "examples": [
+              "2346"
+            ]
+          },
+          {
+            "misconception": "multiplied-instead-of-divided",
+            "name": "You multiplied when you needed to divide",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "1734"
+              }
+            ],
+            "nextStep": "Undoing a multiplier means dividing by it, so check which way you used it.",
+            "examples": [
+              "1734"
+            ]
+          }
         ]
       }
     },
@@ -8191,6 +9352,41 @@
           "2.4",
           "5.4",
           "2400"
+        ],
+        "mistakes": [
+          {
+            "misconception": "multiplied-instead-of-divided",
+            "name": "You multiplied when you needed to divide",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "5.4"
+              }
+            ],
+            "nextStep": "The question divides by 0.15, so check you did not multiply instead.",
+            "examples": [
+              "5.4"
+            ]
+          },
+          {
+            "misconception": "place-value-shift",
+            "name": "You shifted the place value",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "24"
+              },
+              {
+                "kind": "number",
+                "value": "2400"
+              }
+            ],
+            "nextStep": "Multiply both numbers by the same power of ten to clear the decimal, and check you used the same power on each.",
+            "examples": [
+              "24",
+              "2400"
+            ]
+          }
         ]
       }
     },
@@ -8274,6 +9470,35 @@
           "4% increase",
           "-40%",
           "0"
+        ],
+        "mistakes": [
+          {
+            "misconception": "percentages-cancel",
+            "name": "You let the two percentages cancel out",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "0"
+              },
+              {
+                "kind": "words",
+                "groups": [
+                  [
+                    "no change",
+                    "unchanged",
+                    "cancel",
+                    "cancels",
+                    "same"
+                  ]
+                ]
+              }
+            ],
+            "nextStep": "The 20% decrease is taken from the bigger, increased price, so write each change as a multiplier and multiply them.",
+            "examples": [
+              "0%",
+              "no change"
+            ]
+          }
         ]
       }
     },
@@ -8317,6 +9542,37 @@
           "₹66,550",
           "1655",
           "16500"
+        ],
+        "mistakes": [
+          {
+            "misconception": "simple-not-compound",
+            "name": "You used simple interest instead of compound",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "15000"
+              }
+            ],
+            "nextStep": "Compound interest is worked out on the new total each year, so grow the amount one year at a time.",
+            "examples": [
+              "15000"
+            ]
+          },
+          {
+            "misconception": "stopped-early",
+            "name": "You stopped one step too soon",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "66550"
+              }
+            ],
+            "nextStep": "That is the total in the account, and the interest is only the part added on top of what was put in.",
+            "examples": [
+              "66550",
+              "₹66,550"
+            ]
+          }
         ]
       }
     },
@@ -8369,6 +9625,45 @@
           "30 and 25",
           "0.67 and 0.4",
           "15 and 25"
+        ],
+        "mistakes": [
+          {
+            "misconception": "divided-wrong-way-round",
+            "name": "You divided the wrong way round",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "2/3",
+                "tolerance": 0.01
+              },
+              {
+                "kind": "number",
+                "value": "0.4"
+              }
+            ],
+            "nextStep": "Frequency density is frequency per unit of class width, so check which number goes on top.",
+            "examples": [
+              "0.67 and 0.4"
+            ]
+          },
+          {
+            "misconception": "density-as-frequency",
+            "name": "You mixed up frequency and frequency density",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "30"
+              },
+              {
+                "kind": "number",
+                "value": "25"
+              }
+            ],
+            "nextStep": "The frequency is only part of it, so divide by how wide each class is.",
+            "examples": [
+              "30 and 25"
+            ]
+          }
         ]
       }
     },
@@ -8420,6 +9715,23 @@
           "median 17, IQR 14",
           "20 and 19",
           "median 24, IQR 12"
+        ],
+        "mistakes": [
+          {
+            "misconception": "range-for-iqr",
+            "name": "You found the range, not the interquartile range",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "19"
+              }
+            ],
+            "nextStep": "The interquartile range runs from the lower quartile to the upper quartile, not from the smallest value to the largest.",
+            "examples": [
+              "Median = 20, IQR = 19",
+              "20 and 19"
+            ]
+          }
         ]
       }
     },
@@ -8480,6 +9792,23 @@
           "2",
           "4",
           "σ = 8"
+        ],
+        "mistakes": [
+          {
+            "misconception": "forgot-square-root",
+            "name": "You forgot the square root",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "8"
+              }
+            ],
+            "nextStep": "You have found the variance, and the standard deviation needs one more step.",
+            "examples": [
+              "σ = 8",
+              "8"
+            ]
+          }
         ]
       }
     },
@@ -8522,6 +9851,41 @@
           "80",
           "4.8",
           "32"
+        ],
+        "mistakes": [
+          {
+            "misconception": "density-as-frequency",
+            "name": "You mixed up frequency and frequency density",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "3.2"
+              }
+            ],
+            "nextStep": "Frequency density is frequency per unit of class width, so turn it back into a frequency using the width.",
+            "examples": [
+              "3.2"
+            ]
+          },
+          {
+            "misconception": "boundary-for-width",
+            "name": "You used a class boundary instead of the class width",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "80"
+              },
+              {
+                "kind": "number",
+                "value": "32"
+              }
+            ],
+            "nextStep": "The class width is the gap between the two boundaries, not either boundary itself.",
+            "examples": [
+              "80",
+              "32"
+            ]
+          }
         ]
       }
     },
@@ -8578,6 +9942,54 @@
           "4n + 7, 900",
           "4n + 3, 830",
           "n + 4, 900"
+        ],
+        "mistakes": [
+          {
+            "misconception": "off-by-one",
+            "name": "You were one step out",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "4n+7"
+              },
+              {
+                "kind": "form",
+                "value": "7+4n"
+              }
+            ],
+            "nextStep": "Put n equal to one in your formula and check that it gives the first term.",
+            "examples": [
+              "4n + 7, 900"
+            ]
+          },
+          {
+            "misconception": "off-by-one",
+            "name": "You were one step out",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "940"
+              }
+            ],
+            "nextStep": "Use your nth term formula to find the twentieth term, then pair the terms again.",
+            "examples": [
+              "4n + 3, 940"
+            ]
+          },
+          {
+            "misconception": "forgot-half",
+            "name": "You forgot to halve",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "1800"
+              }
+            ],
+            "nextStep": "Pairing the first and last terms uses up two terms each time, so recount how many pairs there are.",
+            "examples": [
+              "4n + 3, 1800"
+            ]
+          }
         ]
       }
     },
@@ -8658,7 +10070,8 @@
           "yes because 147/4 is not whole",
           "Yes, n = 36.75",
           "no because it is too big"
-        ]
+        ],
+        "mistakes": []
       }
     },
     {
@@ -8724,6 +10137,26 @@
           "n² + 2n + 1",
           "2n + 1",
           "n^2"
+        ],
+        "mistakes": [
+          {
+            "misconception": "off-by-one",
+            "name": "You were one step out",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "n^2-1"
+              },
+              {
+                "kind": "form",
+                "value": "-1+n^2"
+              }
+            ],
+            "nextStep": "Put n equal to one in your formula and check that it gives the first term.",
+            "examples": [
+              "n² − 1"
+            ]
+          }
         ]
       }
     },
@@ -8766,6 +10199,46 @@
           "2010",
           "201",
           "20200"
+        ],
+        "mistakes": [
+          {
+            "misconception": "forgot-half",
+            "name": "You forgot to halve",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "40200"
+              }
+            ],
+            "nextStep": "Pairing the list with itself reversed counts every number twice, so check that you halved.",
+            "examples": [
+              "40200"
+            ]
+          },
+          {
+            "misconception": "off-by-one",
+            "name": "You were one step out",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "20000"
+              },
+              {
+                "kind": "number",
+                "value": "19900"
+              },
+              {
+                "kind": "number",
+                "value": "20200"
+              }
+            ],
+            "nextStep": "Check the formula n(n + 1) ÷ 2 with n equal to the last number, and count your pairs again.",
+            "examples": [
+              "20000",
+              "19900",
+              "20200"
+            ]
+          }
         ]
       }
     },
@@ -8808,6 +10281,41 @@
           "432",
           "2160",
           "4,300"
+        ],
+        "mistakes": [
+          {
+            "misconception": "wrong-units-for-difference",
+            "name": "You matched the difference to the wrong units",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "2700"
+              },
+              {
+                "kind": "number",
+                "value": "7200"
+              }
+            ],
+            "nextStep": "The ₹1,350 is the gap between Meera and Kym, so it matches the difference in their units, not either share alone.",
+            "examples": [
+              "2700",
+              "7200"
+            ]
+          },
+          {
+            "misconception": "stopped-early",
+            "name": "You stopped one step too soon",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "270"
+              }
+            ],
+            "nextStep": "That is one unit, so count how many units the whole prize has.",
+            "examples": [
+              "270"
+            ]
+          }
         ]
       }
     },
@@ -8850,6 +10358,23 @@
           "350000",
           "0.00035",
           "35"
+        ],
+        "mistakes": [
+          {
+            "misconception": "area-by-length-factor",
+            "name": "You scaled an area by the length factor",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "350"
+              }
+            ],
+            "nextStep": "A square metre is a square a hundred centimetres on each side, so multiply by the conversion twice.",
+            "examples": [
+              "350",
+              "350 cm²"
+            ]
+          }
         ]
       }
     },
@@ -8893,6 +10418,23 @@
           "25 hours",
           "2.5",
           "10"
+        ],
+        "mistakes": [
+          {
+            "misconception": "direct-for-inverse",
+            "name": "You used direct proportion where it is inverse",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "25"
+              }
+            ],
+            "nextStep": "More pumps should finish faster, so check whether your answer went up or down.",
+            "examples": [
+              "25",
+              "25 hours"
+            ]
+          }
         ]
       }
     },
@@ -8940,6 +10482,53 @@
           "9 : 12",
           "3 : 6 : 7",
           "14 : 12 : 9"
+        ],
+        "mistakes": [
+          {
+            "misconception": "unmatched-middle",
+            "name": "You joined the ratios without matching the shared part",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "3",
+                  "4",
+                  "7"
+                ]
+              },
+              {
+                "kind": "sequence",
+                "values": [
+                  "3",
+                  "6",
+                  "7"
+                ]
+              }
+            ],
+            "nextStep": "B has a different number of parts in each ratio, so scale both ratios until B is the same before you join them.",
+            "examples": [
+              "3 : 4 : 7",
+              "3 : 6 : 7"
+            ]
+          },
+          {
+            "misconception": "common-factor-left",
+            "name": "You left a common factor in",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "18",
+                  "24",
+                  "28"
+                ]
+              }
+            ],
+            "nextStep": "Check whether all three numbers still share a factor, and divide it out.",
+            "examples": [
+              "18 : 24 : 28"
+            ]
+          }
         ]
       }
     },
@@ -8994,6 +10583,39 @@
           "(6, 9), 54",
           "(4, 7), 18",
           "(7, 4), 54"
+        ],
+        "mistakes": [
+          {
+            "misconception": "centre-ignored",
+            "name": "You enlarged from the origin, not the centre",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "6",
+                  "9"
+                ]
+              }
+            ],
+            "nextStep": "Measure from the centre of enlargement to A, multiply that step by the scale factor, then add it back on to the centre.",
+            "examples": [
+              "(6, 9), 54"
+            ]
+          },
+          {
+            "misconception": "area-by-length-factor",
+            "name": "You scaled an area by the length factor",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "18"
+              }
+            ],
+            "nextStep": "Lengths grow by the scale factor, but area grows by the scale factor times itself.",
+            "examples": [
+              "(4, 7), 18"
+            ]
+          }
         ]
       }
     },
@@ -9040,6 +10662,58 @@
           "(5, 3)",
           "(-5, 3)",
           "(3, 5)"
+        ],
+        "mistakes": [
+          {
+            "misconception": "wrong-mirror-line",
+            "name": "You reflected in the wrong mirror line",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "-5",
+                  "3"
+                ]
+              },
+              {
+                "kind": "sequence",
+                "values": [
+                  "3",
+                  "5"
+                ]
+              },
+              {
+                "kind": "sequence",
+                "values": [
+                  "-3",
+                  "-5"
+                ]
+              }
+            ],
+            "nextStep": "Reflecting in y = x swaps the two coordinates and nothing else, so check which line you reflected in.",
+            "examples": [
+              "(-5, 3)",
+              "(3, 5)",
+              "(-3, -5)"
+            ]
+          },
+          {
+            "misconception": "dropped-minus",
+            "name": "You lost a minus sign",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "5",
+                  "3"
+                ]
+              }
+            ],
+            "nextStep": "Swap the coordinates but keep each one's sign as it moves.",
+            "examples": [
+              "(5, 3)"
+            ]
+          }
         ]
       }
     },
@@ -9085,6 +10759,42 @@
           "(1, 4)",
           "(-4, 1)",
           "(4, -1)"
+        ],
+        "mistakes": [
+          {
+            "misconception": "wrong-turn-direction",
+            "name": "You turned the wrong way",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "1",
+                  "-4"
+                ]
+              }
+            ],
+            "nextStep": "Anticlockwise turns the opposite way to a clock's hands, so sketch the point and give it a quarter turn that way.",
+            "examples": [
+              "(1, -4)"
+            ]
+          },
+          {
+            "misconception": "dropped-minus",
+            "name": "You lost a minus sign",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "1",
+                  "4"
+                ]
+              }
+            ],
+            "nextStep": "A quarter turn swaps the coordinates and changes one sign, so check which one becomes negative.",
+            "examples": [
+              "(1, 4)"
+            ]
+          }
         ]
       }
     },
@@ -9130,6 +10840,59 @@
           "(1, 0)",
           "(-4, -2)",
           "(-10, -6)"
+        ],
+        "mistakes": [
+          {
+            "misconception": "centre-ignored",
+            "name": "You enlarged from the origin, not the centre",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "-10",
+                  "-6"
+                ]
+              }
+            ],
+            "nextStep": "Measure from the centre of enlargement to R, not from the origin, then scale that step.",
+            "examples": [
+              "(-10, -6)"
+            ]
+          },
+          {
+            "misconception": "stopped-early",
+            "name": "You stopped one step too soon",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "-4",
+                  "-2"
+                ]
+              }
+            ],
+            "nextStep": "You have the scaled step from the centre, so add it on to the centre's coordinates.",
+            "examples": [
+              "(-4, -2)"
+            ]
+          },
+          {
+            "misconception": "dropped-minus",
+            "name": "You lost a minus sign",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "7",
+                  "4"
+                ]
+              }
+            ],
+            "nextStep": "A negative scale factor sends the image through the centre to the other side, so recheck the sign on your step.",
+            "examples": [
+              "(7, 4)"
+            ]
+          }
         ]
       }
     },
@@ -9186,6 +10949,44 @@
           "y = 2x + 5, x = 2.5",
           "y = 2x + 3, −1.5",
           "y = 12x + 5, -2.5"
+        ],
+        "mistakes": [
+          {
+            "misconception": "divided-wrong-way-round",
+            "name": "You divided the wrong way round",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "0.5x+2"
+              },
+              {
+                "kind": "form",
+                "value": "1/2x+2"
+              },
+              {
+                "kind": "form",
+                "value": "x/2+2"
+              }
+            ],
+            "nextStep": "Gradient is the rise in y divided by the run in x, so check which change goes on top.",
+            "examples": [
+              "y = 0.5x + 2, -4"
+            ]
+          },
+          {
+            "misconception": "rearranged-sign",
+            "name": "You got a sign wrong moving a term across",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "2.5"
+              }
+            ],
+            "nextStep": "To find where the line crosses the x-axis, set y to zero and move the constant across, changing its sign.",
+            "examples": [
+              "y = 2x + 5, x = 2.5"
+            ]
+          }
         ]
       }
     },
@@ -9257,6 +11058,66 @@
           "x + 7 / 3",
           "(x + 7) / 3x",
           "1 / (3x − 7)"
+        ],
+        "mistakes": [
+          {
+            "misconception": "rearranged-sign",
+            "name": "You got a sign wrong moving a term across",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "(x-7)/3"
+              },
+              {
+                "kind": "form",
+                "value": "x/3-7/3"
+              },
+              {
+                "kind": "form",
+                "value": "1/3(x-7)"
+              }
+            ],
+            "nextStep": "Undo each step with its opposite operation, so check the sign of the number you moved.",
+            "examples": [
+              "(x − 7) / 3"
+            ]
+          },
+          {
+            "misconception": "inverse-wrong-order",
+            "name": "You undid the steps in the wrong order",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "x/3+7"
+              },
+              {
+                "kind": "form",
+                "value": "7+x/3"
+              },
+              {
+                "kind": "form",
+                "value": "1/3x+7"
+              }
+            ],
+            "nextStep": "Undo the steps in reverse order, because the last thing f does to x is the first thing you undo.",
+            "examples": [
+              "x/3 + 7"
+            ]
+          },
+          {
+            "misconception": "inverse-as-reciprocal",
+            "name": "You took one over f instead of the inverse",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "1/(3x-7)"
+              }
+            ],
+            "nextStep": "An inverse function undoes f, which is not the same as one over f, so reverse each step of f instead.",
+            "examples": [
+              "1 / (3x − 7)"
+            ]
+          }
         ]
       }
     },
@@ -9337,6 +11198,60 @@
           "y = −2x + 3",
           "y = −½x + 5",
           "y = -1/2x"
+        ],
+        "mistakes": [
+          {
+            "misconception": "perpendicular-gradient",
+            "name": "You did not both flip and negate the gradient",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "1/2x+3"
+              },
+              {
+                "kind": "form",
+                "value": "x/2+3"
+              },
+              {
+                "kind": "form",
+                "value": "0.5x+3"
+              },
+              {
+                "kind": "form",
+                "value": "3+1/2x"
+              },
+              {
+                "kind": "form",
+                "value": "3+x/2"
+              },
+              {
+                "kind": "form",
+                "value": "3+0.5x"
+              },
+              {
+                "kind": "form",
+                "value": "-2x+3"
+              },
+              {
+                "kind": "form",
+                "value": "3-2x"
+              },
+              {
+                "kind": "form",
+                "value": "2x+3"
+              },
+              {
+                "kind": "form",
+                "value": "3+2x"
+              }
+            ],
+            "nextStep": "A perpendicular gradient is the original turned upside down with its sign changed, so check you did both.",
+            "examples": [
+              "y = ½x + 3",
+              "y = −2x + 3",
+              "y = 2x + 3"
+            ]
+          }
         ]
       }
     },
@@ -9396,6 +11311,56 @@
           "x = 2",
           "(3, 7)",
           "(-2, 4)"
+        ],
+        "mistakes": [
+          {
+            "misconception": "swapped-coordinates",
+            "name": "You swapped x and y",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "4",
+                  "2"
+                ]
+              }
+            ],
+            "nextStep": "Write the x value first and the y value second, and check the pair in both equations.",
+            "examples": [
+              "(4, 2)"
+            ]
+          },
+          {
+            "misconception": "forgot-half",
+            "name": "You forgot to halve",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "2",
+                  "8"
+                ]
+              }
+            ],
+            "nextStep": "After you find x, solve for y in one equation and check you divided by its coefficient.",
+            "examples": [
+              "(2, 8)"
+            ]
+          },
+          {
+            "misconception": "expand-first-term-only",
+            "name": "You multiplied only the first term in the bracket",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "12/7"
+              }
+            ],
+            "nextStep": "When you put the expression for y into the other equation, check its multiplier reaches both terms of the bracket.",
+            "examples": [
+              "x = 12/7"
+            ]
+          }
         ]
       }
     },
@@ -9463,6 +11428,59 @@
           "20, 49, 29%",
           "19, 49, 95%",
           "19, 49, 19/49"
+        ],
+        "mistakes": [
+          {
+            "misconception": "percent-of-wrong-amount",
+            "name": "You took the percentage of the wrong amount",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "50"
+              }
+            ],
+            "nextStep": "False positives come only from the people without the trait, so take the false-positive rate of that group, not of everyone.",
+            "examples": [
+              "19, 50, 19/69"
+            ]
+          },
+          {
+            "misconception": "conditional-reversed",
+            "name": "You turned the condition round",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "95"
+              },
+              {
+                "kind": "number",
+                "value": "0.95"
+              }
+            ],
+            "nextStep": "The question asks for the chance of having the trait given a positive test, so start from all the positive tests.",
+            "examples": [
+              "19, 49, 95%"
+            ]
+          },
+          {
+            "misconception": "wrong-total",
+            "name": "You divided by the wrong total",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "19/49"
+              },
+              {
+                "kind": "number",
+                "value": "19/1000"
+              }
+            ],
+            "nextStep": "Divide the true positives by everyone who tested positive, true and false together.",
+            "examples": [
+              "19, 49, 19/49",
+              "19, 49, 19/1000"
+            ]
+          }
         ]
       }
     },
@@ -9509,6 +11527,39 @@
           "4",
           "5/36",
           "1/36"
+        ],
+        "mistakes": [
+          {
+            "misconception": "unequal-outcomes",
+            "name": "You treated the sums as equally likely",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "1/11",
+                "tolerance": 0.001
+              }
+            ],
+            "nextStep": "The eleven possible sums are not equally likely, so count the ordered pairs of dice instead.",
+            "examples": [
+              "1/11"
+            ]
+          },
+          {
+            "misconception": "order-mixed",
+            "name": "You mixed up whether order matters",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "1/18",
+                "tolerance": 0.001
+              }
+            ],
+            "nextStep": "The two dice are different, so three-then-six and six-then-three count as separate outcomes.",
+            "examples": [
+              "1/18",
+              "2/36"
+            ]
+          }
         ]
       }
     },
@@ -9554,6 +11605,27 @@
           "15/56",
           "3/28",
           "0.4"
+        ],
+        "mistakes": [
+          {
+            "misconception": "with-replacement",
+            "name": "You forgot the first marble stays out",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "25/64"
+              },
+              {
+                "kind": "number",
+                "value": "5/16"
+              }
+            ],
+            "nextStep": "After the first red is taken out there is one red fewer and one marble fewer in the bag, so change both numbers for the second draw.",
+            "examples": [
+              "25/64",
+              "5/16"
+            ]
+          }
         ]
       }
     },
@@ -9596,6 +11668,22 @@
           "512",
           "5.6",
           "28"
+        ],
+        "mistakes": [
+          {
+            "misconception": "order-mixed",
+            "name": "You mixed up whether order matters",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "336"
+              }
+            ],
+            "nextStep": "A committee is the same whichever order its members are picked in, so divide by the number of ways to order three people.",
+            "examples": [
+              "336"
+            ]
+          }
         ]
       }
     },
@@ -9651,6 +11739,53 @@
           "(0, 11), 25",
           "(0, 5), 5",
           "(0, 11), 7"
+        ],
+        "mistakes": [
+          {
+            "misconception": "sign-of-product",
+            "name": "You got a sign wrong multiplying or dividing",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "0",
+                  "5"
+                ]
+              }
+            ],
+            "nextStep": "Work out 3b one component at a time and check the sign of minus three times minus one.",
+            "examples": [
+              "(0, 5), 5"
+            ]
+          },
+          {
+            "misconception": "added-sides",
+            "name": "You added lengths instead of using Pythagoras",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "7"
+              }
+            ],
+            "nextStep": "The magnitude is the length of the arrow, the longest side of a right triangle, so use Pythagoras on the components.",
+            "examples": [
+              "(0, 11), 7"
+            ]
+          },
+          {
+            "misconception": "forgot-square-root",
+            "name": "You forgot the square root",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "25"
+              }
+            ],
+            "nextStep": "You have the length squared, so take one more step to get the length.",
+            "examples": [
+              "(0, 11), 25"
+            ]
+          }
         ]
       }
     },
@@ -9697,6 +11832,42 @@
           "(3, 9)",
           "(-4, -14)",
           "(3, -5)"
+        ],
+        "mistakes": [
+          {
+            "misconception": "vector-combined-wrongly",
+            "name": "You combined the vectors the wrong way",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "5",
+                  "-9"
+                ]
+              }
+            ],
+            "nextStep": "Going from A to B and then from B to C means adding the two vectors, component by component.",
+            "examples": [
+              "(5, -9)"
+            ]
+          },
+          {
+            "misconception": "dropped-minus",
+            "name": "You lost a minus sign",
+            "anyOf": [
+              {
+                "kind": "sequence",
+                "values": [
+                  "3",
+                  "9"
+                ]
+              }
+            ],
+            "nextStep": "Add the bottom components again, keeping the minus sign on the first one.",
+            "examples": [
+              "(3, 9)"
+            ]
+          }
         ]
       }
     },
@@ -9789,6 +11960,94 @@
           "½(a + b)",
           "2(b − a)",
           "½ab"
+        ],
+        "mistakes": [
+          {
+            "misconception": "vector-combined-wrongly",
+            "name": "You combined the vectors the wrong way",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "1/2(a-b)"
+              },
+              {
+                "kind": "form",
+                "value": "1/2 (a-b)"
+              },
+              {
+                "kind": "form",
+                "value": "(a-b)/2"
+              },
+              {
+                "kind": "form",
+                "value": "1/2a-1/2b"
+              },
+              {
+                "kind": "form",
+                "value": "a/2-b/2"
+              },
+              {
+                "kind": "form",
+                "value": "0.5(a-b)"
+              }
+            ],
+            "nextStep": "Go from M to N by heading back from M to O and then out from O to N, and check the direction of each piece.",
+            "examples": [
+              "½(a − b)"
+            ]
+          },
+          {
+            "misconception": "vector-combined-wrongly",
+            "name": "You combined the vectors the wrong way",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "1/2(a+b)"
+              },
+              {
+                "kind": "form",
+                "value": "1/2 (a+b)"
+              },
+              {
+                "kind": "form",
+                "value": "(a+b)/2"
+              },
+              {
+                "kind": "form",
+                "value": "1/2a+1/2b"
+              },
+              {
+                "kind": "form",
+                "value": "a/2+b/2"
+              },
+              {
+                "kind": "form",
+                "value": "0.5(a+b)"
+              }
+            ],
+            "nextStep": "Going from M to N starts by going back along OM, which reverses its direction.",
+            "examples": [
+              "½(a + b)"
+            ]
+          },
+          {
+            "misconception": "forgot-half",
+            "name": "You forgot to halve",
+            "anyOf": [
+              {
+                "kind": "form",
+                "value": "b-a"
+              },
+              {
+                "kind": "form",
+                "value": "-a+b"
+              }
+            ],
+            "nextStep": "M and N are midpoints, so OM and ON are only half of a and b.",
+            "examples": [
+              "b − a"
+            ]
+          }
         ]
       }
     },
@@ -9840,6 +12099,26 @@
           "det = 14, area = 70",
           "det = 10, area = 15",
           "10, 5"
+        ],
+        "mistakes": [
+          {
+            "misconception": "dropped-minus",
+            "name": "You lost a minus sign",
+            "anyOf": [
+              {
+                "kind": "number",
+                "value": "14"
+              },
+              {
+                "kind": "number",
+                "value": "70"
+              }
+            ],
+            "nextStep": "The determinant is ad minus bc, so check you subtracted the second product.",
+            "examples": [
+              "det = 14, area = 70"
+            ]
+          }
         ]
       }
     }
@@ -10763,6 +13042,228 @@
       "visualIntuition": "Drag the red basis vector Aî = (a, c) and blue basis vector Aĵ = (b, d) in the 2×2 Matrix Sandbox.",
       "ahaMoment": "The unit 1×1 square deforms into a parallelogram whose bounding box (a+b)(c+d), minus four right triangles and two b×c rectangles, leaves exact area ad − bc!",
       "formula": "Area(A · Square) = det(A) = ad − bc"
+    }
+  ],
+  "misconceptions": [
+    {
+      "id": "sign-of-product",
+      "name": "You got a sign wrong multiplying or dividing"
+    },
+    {
+      "id": "dropped-minus",
+      "name": "You lost a minus sign"
+    },
+    {
+      "id": "rearranged-sign",
+      "name": "You got a sign wrong moving a term across"
+    },
+    {
+      "id": "expand-first-term-only",
+      "name": "You multiplied only the first term in the bracket"
+    },
+    {
+      "id": "lcm-as-product",
+      "name": "You took the LCM as the numbers multiplied together"
+    },
+    {
+      "id": "hcf-lcm-swapped",
+      "name": "You mixed up HCF and LCM"
+    },
+    {
+      "id": "stopped-early",
+      "name": "You stopped one step too soon"
+    },
+    {
+      "id": "common-factor-left",
+      "name": "You left a common factor in"
+    },
+    {
+      "id": "square-of-difference",
+      "name": "You treated a² − b² as (a − b)²"
+    },
+    {
+      "id": "back-bearing",
+      "name": "You did not turn round for the back-bearing"
+    },
+    {
+      "id": "added-sides",
+      "name": "You added lengths instead of using Pythagoras"
+    },
+    {
+      "id": "forgot-square-root",
+      "name": "You forgot the square root"
+    },
+    {
+      "id": "equal-split",
+      "name": "You split the sample equally, not in proportion"
+    },
+    {
+      "id": "multiplied-instead-of-divided",
+      "name": "You multiplied when you needed to divide"
+    },
+    {
+      "id": "divided-wrong-way-round",
+      "name": "You divided the wrong way round"
+    },
+    {
+      "id": "unit-slip",
+      "name": "You mixed up the units"
+    },
+    {
+      "id": "forgot-half",
+      "name": "You forgot to halve"
+    },
+    {
+      "id": "radius-diameter-mixed",
+      "name": "You mixed up the radius and the diameter"
+    },
+    {
+      "id": "power-as-multiply",
+      "name": "You multiplied by the power instead of raising to it"
+    },
+    {
+      "id": "height-slant-mixed",
+      "name": "You mixed up the slanted side and the height"
+    },
+    {
+      "id": "missing-edges",
+      "name": "You left out some edges of the shape"
+    },
+    {
+      "id": "truncated",
+      "name": "You cut digits off instead of rounding"
+    },
+    {
+      "id": "recurring-as-terminating",
+      "name": "You treated the recurring decimal as if it stopped"
+    },
+    {
+      "id": "decimal-places-not-sf",
+      "name": "You rounded to decimal places, not significant figures"
+    },
+    {
+      "id": "place-value-shift",
+      "name": "You shifted the place value"
+    },
+    {
+      "id": "split-mixed-number",
+      "name": "You worked on the whole numbers and fractions separately"
+    },
+    {
+      "id": "added-denominators",
+      "name": "You added or subtracted the denominators"
+    },
+    {
+      "id": "inequality-not-flipped",
+      "name": "You did not reverse the inequality sign"
+    },
+    {
+      "id": "co-interior-as-equal",
+      "name": "You made co-interior angles equal"
+    },
+    {
+      "id": "half-difference",
+      "name": "You halved the difference instead of averaging"
+    },
+    {
+      "id": "swapped-coordinates",
+      "name": "You swapped x and y"
+    },
+    {
+      "id": "interior-for-exterior",
+      "name": "You used the interior angle instead of the exterior"
+    },
+    {
+      "id": "percent-of-wrong-amount",
+      "name": "You took the percentage of the wrong amount"
+    },
+    {
+      "id": "percentages-cancel",
+      "name": "You let the two percentages cancel out"
+    },
+    {
+      "id": "simple-not-compound",
+      "name": "You used simple interest instead of compound"
+    },
+    {
+      "id": "density-as-frequency",
+      "name": "You mixed up frequency and frequency density"
+    },
+    {
+      "id": "boundary-for-width",
+      "name": "You used a class boundary instead of the class width"
+    },
+    {
+      "id": "range-for-iqr",
+      "name": "You found the range, not the interquartile range"
+    },
+    {
+      "id": "off-by-one",
+      "name": "You were one step out"
+    },
+    {
+      "id": "wrong-units-for-difference",
+      "name": "You matched the difference to the wrong units"
+    },
+    {
+      "id": "area-by-length-factor",
+      "name": "You scaled an area by the length factor"
+    },
+    {
+      "id": "direct-for-inverse",
+      "name": "You used direct proportion where it is inverse"
+    },
+    {
+      "id": "unmatched-middle",
+      "name": "You joined the ratios without matching the shared part"
+    },
+    {
+      "id": "centre-ignored",
+      "name": "You enlarged from the origin, not the centre"
+    },
+    {
+      "id": "wrong-mirror-line",
+      "name": "You reflected in the wrong mirror line"
+    },
+    {
+      "id": "wrong-turn-direction",
+      "name": "You turned the wrong way"
+    },
+    {
+      "id": "inverse-wrong-order",
+      "name": "You undid the steps in the wrong order"
+    },
+    {
+      "id": "inverse-as-reciprocal",
+      "name": "You took one over f instead of the inverse"
+    },
+    {
+      "id": "perpendicular-gradient",
+      "name": "You did not both flip and negate the gradient"
+    },
+    {
+      "id": "conditional-reversed",
+      "name": "You turned the condition round"
+    },
+    {
+      "id": "wrong-total",
+      "name": "You divided by the wrong total"
+    },
+    {
+      "id": "unequal-outcomes",
+      "name": "You treated the sums as equally likely"
+    },
+    {
+      "id": "order-mixed",
+      "name": "You mixed up whether order matters"
+    },
+    {
+      "id": "with-replacement",
+      "name": "You forgot the first marble stays out"
+    },
+    {
+      "id": "vector-combined-wrongly",
+      "name": "You combined the vectors the wrong way"
     }
   ]
 }

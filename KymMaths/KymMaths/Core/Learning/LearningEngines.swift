@@ -93,6 +93,7 @@ struct QuestionEvaluationResult: Equatable, Sendable {
     let diagnosticCell: ConfidenceVerdictCell
     let recommendedFollowUp: DiagnosticFollowUpAction
     let effectiveUsedAssistance: Bool
+    let mistake: KnownMistake?
 
     init(
         matchedParts: [String],
@@ -103,7 +104,8 @@ struct QuestionEvaluationResult: Equatable, Sendable {
         feedbackSummary: String,
         diagnosticCell: ConfidenceVerdictCell = .solidKnowledge,
         recommendedFollowUp: DiagnosticFollowUpAction = .none,
-        effectiveUsedAssistance: Bool = false
+        effectiveUsedAssistance: Bool = false,
+        mistake: KnownMistake? = nil
     ) {
         self.matchedParts = matchedParts
         self.missingParts = missingParts
@@ -114,6 +116,7 @@ struct QuestionEvaluationResult: Equatable, Sendable {
         self.diagnosticCell = diagnosticCell
         self.recommendedFollowUp = recommendedFollowUp
         self.effectiveUsedAssistance = effectiveUsedAssistance
+        self.mistake = mistake
     }
 }
 
@@ -202,6 +205,7 @@ enum QuestionProofService {
         let stillToGet = total == 1
             ? "Check each step of your working, then try again."
             : "Still to get: \(missing.joined(separator: ", "))."
+        let advice = marking.mistake.map { "\($0.name). \($0.nextStep)" } ?? stillToGet
 
         let todayKey = dayKey(for: now)
         var passDays = existingProof?.independentPassDays ?? 0
@@ -219,7 +223,7 @@ enum QuestionProofService {
             let rungNote = highestHintRung.surrendersRetrieval ? " (\(highestHintRung.badgeText) used)" : ""
             feedback = isPass
                 ? "Good guided solution\(rungNote). Now solve with at most R0–R2 hints to earn Independent Proof."
-                : "Guided attempt\(rungNote) recorded\(score). \(stillToGet)"
+                : "Guided attempt\(rungNote) recorded\(score). \(advice)"
         } else if isPass {
             if lastPassDay != todayKey {
                 passDays += 1
@@ -234,7 +238,7 @@ enum QuestionProofService {
             }
         } else {
             nextLevel = .shaky
-            feedback = "Not right yet\(score). \(stillToGet)"
+            feedback = "Not right yet\(score). \(advice)"
         }
 
         let cell = classifyDiagnosticCell(
@@ -269,7 +273,8 @@ enum QuestionProofService {
             highestHintRung: highestHintRung.rawValue,
             confidencePercent: confidencePercent,
             declinedToGuess: false,
-            thinkingTrace: thinkingTrace
+            thinkingTrace: thinkingTrace,
+            lastMistakeId: marking.mistake?.misconception ?? ""
         )
 
         let eval = QuestionEvaluationResult(
@@ -281,7 +286,8 @@ enum QuestionProofService {
             feedbackSummary: feedback,
             diagnosticCell: cell,
             recommendedFollowUp: followUp,
-            effectiveUsedAssistance: effectiveAssisted
+            effectiveUsedAssistance: effectiveAssisted,
+            mistake: marking.mistake
         )
         return (eval, record)
     }
