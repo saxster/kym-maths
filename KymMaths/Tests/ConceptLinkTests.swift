@@ -16,9 +16,9 @@ struct ConceptLinkTests {
         Self.library.linker.links(in: text, exclude: exclude, linked: linked).map(\.concept)
     }
 
-    @Test("The pack carries the cards of chapters 0 to 4, and their nine-step sections")
+    @Test("The pack carries the cards of chapters 0 to 5, and their nine-step sections")
     func packDecodesCardsAndSteps() throws {
-        #expect(Self.pack.concepts.count == 58)
+        #expect(Self.pack.concepts.count == 64)
         #expect(Self.pack.conceptStopPhrases.contains("scale factor"))
         let chapter = try #require(Self.pack.chapters.first { $0.number == 1 })
         #expect(chapter.skillCard != nil)
@@ -57,8 +57,15 @@ struct ConceptLinkTests {
             #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
         }
         #expect(four.callouts.map(\.id) == ["ch04-c-predict", "ch04-c-aha", "ch04-c-trap"])
-        let others = Self.pack.chapters.filter { $0.number > 4 }
-        #expect(others.count == 16)
+        let five = try #require(Self.pack.chapters.first { $0.number == 5 })
+        #expect(five.skillCard != nil && five.linksConcepts && !five.goesBeyondSchoolBook)
+        #expect(five.sections.count == 6)
+        for section in five.sections {
+            #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
+        }
+        #expect(five.callouts.map(\.id) == ["ch05-c-predict", "ch05-c-aha", "ch05-c-trap"])
+        let others = Self.pack.chapters.filter { $0.number > 5 }
+        #expect(others.count == 15)
         #expect(others.allSatisfy { !$0.linksConcepts && $0.skillCard == nil })
         for card in Self.pack.concepts {
             for id in card.standsOn + [card.mixUp.with].compactMap({ $0 }) {
@@ -136,7 +143,7 @@ struct ConceptLinkTests {
             #expect(beat.bodyParagraphs == beat.teachingSteps.map(\.text))
             #expect(beat.spokenScript.contains(beat.teachingSteps[0].text))
         }
-        let other = try #require(Self.pack.chapters.first { $0.number == 5 })
+        let other = try #require(Self.pack.chapters.first { $0.number == 6 })
         #expect(ChapterInteractiveBeatEngine.beats(for: other).allSatisfy { $0.teachingSteps.isEmpty })
     }
 
@@ -223,7 +230,7 @@ struct ChapterWrapperTests {
         #expect(try !Self.beat(for: s5, in: beats).showsFigure)
         #expect(beats.first { $0.kind == .interactiveLabAndFormula }?.showsFigure == true)
         // A chapter not yet rewritten keeps the figure beside every section.
-        let other = try Self.chapter(5)
+        let other = try Self.chapter(6)
         let otherBeats = ChapterInteractiveBeatEngine.beats(for: other)
         for section in other.sections {
             #expect(try Self.beat(for: section, in: otherBeats).showsFigure, "\(section.id)")

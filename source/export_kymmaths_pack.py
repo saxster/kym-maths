@@ -22,6 +22,7 @@ from book import ch01 as book_ch01
 from book import ch02 as book_ch02
 from book import ch03 as book_ch03
 from book import ch04 as book_ch04
+from book import ch05 as book_ch05
 from book import concepts as book_concepts
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -30,7 +31,7 @@ BOOK_OUT = ROOT / "KymMaths" / "KymMaths" / "Resources" / "PatternedWorldBook" /
 GOLDEN_OUT = ROOT / "KymMaths" / "Tests" / "Golden" / "concept-links.json"
 
 # Chapters rewritten by hand to docs/CONTENT_BRIEF.md. The content checks apply to these.
-BOOK_CHAPTERS = (book_ch00, book_ch01, book_ch02, book_ch03, book_ch04)
+BOOK_CHAPTERS = (book_ch00, book_ch01, book_ch02, book_ch03, book_ch04, book_ch05)
 # Saved learner responses key on callout ids, so a rewritten chapter keeps the old ids.
 CALLOUT_ID_SUFFIX = {"predict": "predict", "check": "aha", "careful": "trap"}
 
@@ -263,22 +264,6 @@ def build_volumes():
 
 def build_chapters():
     raw_specs = [
-        (
-            5, 2, "The Balance Beam: Equations, Formulae & Inequalities",
-            "OUP Ch 7 · Deriving & solving equations, changing the subject of a formula & inequality number lines",
-            "An equation is a balanced beam; changing the subject of a formula peels the onion of operations in reverse order.",
-            "Drag weights off a twin-pan balance and flip an inequality interval across 0 by multiplying by −1.",
-            "Multiplying a number line by −1 reflects every point across 0 like a mirror — what was further right (>) becomes further left (<)!",
-            "ax + b = cx + d  ⇒  x = (d − b) / (a − c),   and   a < b  ⇒  −a > −b",
-            [
-                {"symbol": "ax − cx", "visualPart": "Red variable bars gathered on left pan", "colorRole": "red", "meaning": "Net unknown units (a − c)x"},
-                {"symbol": "d − b", "visualPart": "Blue constant weights on right pan", "colorRole": "blue", "meaning": "Net constant value"},
-                {"symbol": "a < b ⇒ −a > −b", "visualPart": "Amber mirror reflection across 0", "colorRole": "amber", "meaning": "Order reverses under negative reflection"}
-            ],
-            "maths/ch05-balance-equations/index.html",
-            ["Equation", "Formula", "Subject of a Formula", "Inverse Operation", "Open vs Closed Circle", "Inequality Flip"],
-            ["w_balance_beam_equations", "w_formula_subject_transposer", "w_inequality_mirror_line"]
-        ),
         (
             6, 2, "Patterns in Time: Sequences, nth Terms & Gauss's Sum",
             "OUP Ch 11 · Term-to-term vs position-to-term rules, linear & quadratic sequences, and Gauss's staircase",
@@ -4847,7 +4832,7 @@ const CH_SLIDERS = {{
   2:  [{{lbl:'Repeating digits:',min:9,max:81,step:9,val:36,u:''}}, {{lbl:'Whole number:',min:1,max:5,step:1,val:3,u:''}}, {{lbl:'Bottom of the fraction:',min:2,max:6,step:1,val:4,u:''}}],
   3:  [{{lbl:'Parts for A:',min:1,max:6,step:1,val:3,u:''}}, {{lbl:'Parts for B:',min:2,max:8,step:1,val:5,u:''}}, {{lbl:'Interest rate:',min:4,max:15,step:1,val:8,u:'%'}}],
   4:  [{{lbl:'Side x:',min:3,max:6,step:1,val:4,u:''}}, {{lbl:'First number:',min:1,max:3,step:1,val:3,u:''}}, {{lbl:'Second number:',min:1,max:3,step:1,val:2,u:''}}],
-  5:  [{{lbl:'Left x-coeff a:',min:2,max:6,step:1,val:4,u:'x'}}, {{lbl:'Left const b:',min:1,max:10,step:1,val:3,u:''}}, {{lbl:'Right const d:',min:7,max:25,step:3,val:15,u:''}}],
+  5:  [{{lbl:'Bags:',min:2,max:6,step:1,val:4,u:''}}, {{lbl:'Loose marbles:',min:1,max:9,step:1,val:3,u:''}}, {{lbl:'Marbles in a bag:',min:1,max:5,step:1,val:3,u:''}}],
   6:  [{{lbl:'Stair steps n:',min:3,max:8,step:1,val:6,u:''}}, {{lbl:'First term a₁:',min:1,max:4,step:1,val:1,u:''}}, {{lbl:'Step diff d:',min:1,max:3,step:1,val:1,u:''}}],
   7:  [{{lbl:'Gradient m:',min:-2,max:2.5,step:0.5,val:1.5,u:''}}, {{lbl:'y-Intercept c:',min:-1.5,max:2,step:0.5,val:0.5,u:''}}, {{lbl:'Run step Δx:',min:0.5,max:2,step:0.5,val:1.5,u:''}}],
   8:  [{{lbl:'Angle α:',min:30,max:75,step:5,val:50,u:'°'}}, {{lbl:'Angle β:',min:30,max:75,step:5,val:60,u:'°'}}, {{lbl:'Polygon sides n:',min:3,max:8,step:1,val:6,u:''}}],
@@ -5141,22 +5126,28 @@ function drawSandbox() {{
       break;
     }}
     case 5: {{
-      // Ch 5: Twin-Pan Balance Equation ax + b = x + d & Inequality Mirror
-      const netA = Math.max(1, a - 1), netD = c - b, xSol = netD / netA;
-      const cx = w * 0.5, by = 128;
+      // Ch 5: a balance with bags and loose marbles on the left and their total on the right
+      const n = Math.round(a), loose = Math.round(b), m = Math.round(c), R = n * m + loose, by = 118;
       ctx.strokeStyle = ink; ctx.lineWidth = 3;
-      ctx.beginPath(); ctx.moveTo(cx - 150, by); ctx.lineTo(cx + 150, by); ctx.stroke();
-      ctx.fillStyle = amber;
-      ctx.beginPath(); ctx.moveTo(cx, by); ctx.lineTo(cx - 22, by + 38); ctx.lineTo(cx + 22, by + 38); ctx.closePath(); ctx.fill();
-      ctx.fillStyle = red + '33'; ctx.strokeStyle = red; ctx.lineWidth = 2;
-      ctx.fillRect(cx - 175, by - 54, 120, 48); ctx.strokeRect(cx - 175, by - 54, 120, 48);
-      ctx.fillStyle = red; ctx.fillText(`${{a}}x + ${{b}}`, cx - 140, by - 25);
-      ctx.fillStyle = blue + '33'; ctx.strokeStyle = blue;
-      ctx.fillRect(cx + 55, by - 54, 120, 48); ctx.strokeRect(cx + 55, by - 54, 120, 48);
-      ctx.fillStyle = blue; ctx.fillText(`1x + ${{c}}`, cx + 90, by - 25);
-      ctx.fillStyle = green; ctx.fillText(`Subtract x and ${{b}} from both pans ⇒ ${{netA}}x = ${{netD}} ⇒ x = ${{xSol.toFixed(2)}}`, 52, 208);
-      ctx.fillStyle = amber; ctx.fillText(`Inequality ×(−1) Mirror: 2 < 5 reflects across 0 to −2 > −5`, 52, 238);
-      readoutHtml = `${{a}}x + ${{b}} = x + ${{c}} ⇒ <b>${{netA}}x = ${{netD}} ⇒ x = ${{xSol.toFixed(2)}}</b> (Both pans balance at <b>${{(a*xSol + b).toFixed(1)}}</b>)`;
+      ctx.beginPath(); ctx.moveTo(40, by); ctx.lineTo(260, by); ctx.stroke();
+      ctx.fillStyle = muted;
+      ctx.beginPath(); ctx.moveTo(150, by); ctx.lineTo(136, by + 24); ctx.lineTo(164, by + 24); ctx.closePath(); ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = ink + '55'; ctx.strokeRect(40, 56, 100, 56); ctx.strokeRect(160, 56, 100, 56);
+      ctx.fillStyle = muted; ctx.fillText('Left pan', 40, 48); ctx.fillText('Right pan', 160, 48);
+      for (let i = 0; i < n; i++) {{
+        ctx.fillStyle = red + '30'; ctx.strokeStyle = red;
+        ctx.fillRect(46 + i * 15, 62, 12, 16); ctx.strokeRect(46 + i * 15, 62, 12, 16);
+      }}
+      const dot = (x, y, colour) => {{ ctx.fillStyle = colour; ctx.beginPath(); ctx.arc(x, y, 3.2, 0, Math.PI * 2); ctx.fill(); }};
+      for (let i = 0; i < loose; i++) dot(50 + i * 10, 98, blue);
+      for (let i = 0; i < R; i++) dot(166 + (i % 11) * 8.6, 63 + Math.floor(i / 11) * 12, amber);
+      ctx.fillStyle = muted; ctx.fillText(`${{n}} bags and ${{loose}} marble${{loose === 1 ? '' : 's'}} balance ${{R}}`, 46, 168);
+      ctx.fillStyle = green; ctx.fillText(`${{n}}b + ${{loose}} = ${{R}}`, 46, 194);
+      ctx.fillStyle = ink; ctx.fillText(`Take ${{loose}} off both pans: ${{n}}b = ${{R - loose}}`, 46, 212);
+      ctx.fillText(`Share among ${{n}} bags: b = ${{m}}`, 46, 230);
+      ctx.fillStyle = muted; ctx.fillText(`Check: ${{n}} × ${{m}} + ${{loose}} = ${{R}}`, 46, 254);
+      readoutHtml = `<b style="color:${{red}}">${{n}}b</b> + <b style="color:${{blue}}">${{loose}}</b> = <b style="color:${{amber}}">${{R}}</b>, so <b>b = ${{m}}</b>`;
       break;
     }}
     case 6: {{

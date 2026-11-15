@@ -765,42 +765,6 @@ public enum MathematicalDebateEngine {
 
 public enum MathematicalDebateCatalog {
     public static let all: [MathematicalDebateScenario] = [
-        // Ch 5 -> OUP Ch 7 (Linear Equations & Inequalities)
-        MathematicalDebateScenario(
-            id: "debate-ch05-equations",
-            chapterNumber: 5,
-            oupUnitNumber: 7,
-            title: "The Inequality Mirror Flip",
-            contextPrompt: "While solving −3x < 12, Arjun and Tara disagree on whether the inequality arrow flips when dividing by −3:",
-            speakerAName: "Arjun",
-            speakerAClaim: "Divide both sides by −3 and keep the sign the same: x < −4.",
-            speakerBName: "Tara",
-            speakerBClaim: "Multiplying or dividing by a negative reflects the entire number line across 0, reversing left-to-right order: x > −4!",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch05-a",
-                    speakerLabel: "Arjun is right (x < −4)",
-                    reasoningStatement: "Division never changes the direction of an inequality.",
-                    isCorrect: false,
-                    socraticRebuttal: "Test x = −5 (which satisfies x < −4): −3 × (−5) = +15, and 15 is NOT less than 12!"
-                ),
-                MathematicalDebateChoice(
-                    id: "ch05-b",
-                    speakerLabel: "Tara is right (x > −4)",
-                    reasoningStatement: "Negation reflects every point across zero, swapping 'to the left of' and 'to the right of'.",
-                    isCorrect: true,
-                    socraticRebuttal: "Spot on! Test x = 0 (which satisfies x > −4): −3(0) = 0 < 12."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch05-c",
-                    speakerLabel: "Flip the sign even when adding or subtracting a negative",
-                    reasoningStatement: "Any negative number in a step flips the inequality.",
-                    isCorrect: false,
-                    socraticRebuttal: "Adding or subtracting shifts both points by the same step without reversing their left-to-right order."
-                )
-            ],
-            invariantTakeaway: "Scaling by a negative factor reflects the number line across 0, reversing '<' and '>'."
-        ),
         // Ch 6 -> OUP Ch 9 (Percentages & Compound Multipliers)
         MathematicalDebateScenario(
             id: "debate-ch06-percentages",

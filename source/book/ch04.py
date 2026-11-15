@@ -71,7 +71,7 @@ def build(k):
                 {"symbol": "x²", "visualPart": "The red square", "colorRole": "red",
                  "meaning": "The square of side x"},
                 {"symbol": "ax and bx", "visualPart": "The two blue strips", "colorRole": "blue",
-                 "meaning": "The strips of width a and height b along the square's sides"},
+                 "meaning": "One strip a wide and x tall, and one strip x wide and b tall"},
                 {"symbol": "ab", "visualPart": "The amber corner", "colorRole": "amber",
                  "meaning": "The small corner, a wide and b tall"},
                 {"symbol": "(a + b)x", "visualPart": "The green line", "colorRole": "green",
@@ -108,8 +108,8 @@ def build(k):
                              "An order of p pens and n notebooks costs 12p + 30n rupees. "
                              "For 4 pens and 2 notebooks, that is 12 × 4 + 30 × 2 = 48 + 60 = ₹108."},
                     {"kind": "mistake",
-                     "text": "The tempting slip is to read 15s as two digits side by side, the way 15 and 2 make 152. "
-                             "In algebra, a number written next to a letter is multiplied by it. If s = 2, then 15s is 30. "
+                     "text": "The tempting slip is to read 15s as two digits side by side. With s = 2, that would make 152. "
+                             "In algebra, a number written next to a letter is multiplied by it, so 15s is 15 × 2 = 30. "
                              "A second trap is to think s means samosa. It means the number of samosas."},
                     {"kind": "turn",
                      "text": "A bus ticket costs ₹20 for an adult and ₹10 for a child. "
@@ -226,7 +226,7 @@ def build(k):
                              "Collect like terms: 6x − 2x = 4x and 15 + 8 = 23. The answer is 4x + 23."},
                     {"kind": "mistake",
                      "text": "The common slip is to multiply only the first term, so 3(2x + 5) becomes 6x + 5. "
-                             "The rectangle shows why that is wrong: the strip for the 5 is 3 rows tall as well. "
+                             "Draw 3(2x + 5) as a rectangle 3 tall, and the piece for the 5 is 3 tall as well, so it is 15. "
                              "The other slip is a sign. −2(x − 4) is −2x + 8, not −2x − 8."},
                     {"kind": "turn",
                      "text": "Expand and simplify 4(2x + 3) + 3(x − 2).",
@@ -245,7 +245,7 @@ def build(k):
                      "text": "A tiled floor is 6 tiles wide and holds 42 tiles, so it is 7 tiles long. "
                              "Another floor is also 6 tiles wide, and it holds 12x + 18 tiles. How long is that floor?"},
                     {"kind": "idea",
-                     "text": "Run the last section backwards. 12x is 6 × 2x, and 18 is 6 × 3. "
+                     "text": "Run expanding brackets backwards. 12x is 6 × 2x, and 18 is 6 × 3. "
                              "So 12x + 18 = 6(2x + 3), and the floor is 2x + 3 tiles long."},
                     {"kind": "picture",
                      "text": "Draw the rectangle with its side of 6 marked. Cut it into two pieces with areas 12x and 18. "
@@ -297,7 +297,7 @@ def build(k):
                              "So (x + 3)(x + 2) = x² + 3x + 2x + 6, which is x² + 5x + 6. "
                              "Each part of one bracket multiplies each part of the other."},
                     {"kind": "name",
-                     "text": "An expression like x² + 5x + 6, whose highest power of x is x², is called a quadratic expression. "
+                     "text": "An expression like x² + 5x + 6, where the highest power of x is 2, is called a quadratic expression. "
                              "To expand two brackets, multiply each term of one by each term of the other. "
                              "That makes four products, and the middle two are like terms."},
                     {"kind": "example",
@@ -695,7 +695,7 @@ def cards(k):
             "name": "Factorising",
             "aliases": ["factorising", "factorise", "factorised", "factorises", "factorisation"],
             "oneSentence": "Writing an expression as a product, by taking a common factor outside a bracket.",
-            "picture": "₹24 + ₹36 can be paid as 12 lots of ₹2 + ₹3, because 12 divides both. "
+            "picture": "₹24 + ₹36 can be paid as 12 lots of (₹2 + ₹3), because 12 divides both. "
                        "In the same way, 24x + 36 = 12(2x + 3).",
             "steps": [
                 "Find the HCF of the numbers in every term.",
