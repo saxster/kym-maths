@@ -45,6 +45,7 @@ struct QuestionProofRecord: Codable, FetchableRecord, PersistableRecord, Identif
     var confidencePercent: Int = 75
     var declinedToGuess: Bool = false
     var thinkingTrace: String = ""
+    var lastMistakeId: String = ""
 
     var level: QuestionProofLevel {
         QuestionProofLevel(rawValue: proofLevel) ?? .unseen
@@ -498,6 +499,11 @@ final class DatabaseManager: Sendable {
             try db.alter(table: CalloutResponseRecord.databaseTableName) { t in
                 t.add(column: "thinkingWhileReading", .text).notNull().defaults(to: "")
                 t.add(column: "confidencePercent", .integer).notNull().defaults(to: 75)
+            }
+        }
+        migrator.registerMigration("v3_state_mistakes") { db in
+            try db.alter(table: QuestionProofRecord.databaseTableName) { t in
+                t.add(column: "lastMistakeId", .text).notNull().defaults(to: "")
             }
         }
         try migrator.migrate(writer)

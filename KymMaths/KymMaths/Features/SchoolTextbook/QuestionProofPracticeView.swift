@@ -644,16 +644,11 @@ struct QuestionProofPracticeView: View {
                 .standardType(.uiHeadline)
                 .foregroundStyle(theme.ink)
 
-            if let grad = graduatedFeedback, !declinedToGuess {
+            if let grad = graduatedFeedback, !declinedToGuess, eval.mistake == nil {
                 Text("\(feedbackTitle(grad.tier)). \(grad.headline) \(grad.socraticNudge)")
                     .patternedType(.readingSmall)
                     .foregroundStyle(theme.mute(theme.ink))
                     .fixedSize(horizontal: false, vertical: true)
-                if let trap = grad.detectedTrap {
-                    Text("Looks like this trap: \(trap)")
-                        .patternedType(.readingSmall)
-                        .foregroundStyle(theme.patterned.assistedColor)
-                }
             }
 
             if !eval.matchedParts.isEmpty, !eval.missingParts.isEmpty {

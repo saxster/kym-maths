@@ -808,6 +808,13 @@ public enum SocraticFeedbackEngine {
                 socraticNudge: "Can you explain in one sentence why each step is allowed?"
             )
         }
+        if let mistake = marked.mistake {
+            return SocraticGraduatedFeedback(
+                tier: .partial,
+                headline: mistake.name,
+                socraticNudge: mistake.nextStep
+            )
+        }
         if !marked.matchedParts.isEmpty {
             return SocraticGraduatedFeedback(
                 tier: .partial,
@@ -815,19 +822,11 @@ public enum SocraticFeedbackEngine {
                 socraticNudge: "Still to get: \(marked.missingParts.joined(separator: ", "))."
             )
         }
-        let coaching = evaluate(
-            studentAnswer: studentAnswer,
-            expectedAnswer: question.fadedAnswer,
-            workedHint: question.workedExample
+        return SocraticGraduatedFeedback(
+            tier: .far,
+            headline: "Not there yet",
+            socraticNudge: "Check each step of your working against the question, then try again."
         )
-        guard coaching.tier != .correct else {
-            return SocraticGraduatedFeedback(
-                tier: .far,
-                headline: "Not there yet",
-                socraticNudge: "Check each step of your working against the question, then try again."
-            )
-        }
-        return coaching
     }
 
     public static func evaluate(

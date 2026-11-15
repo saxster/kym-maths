@@ -93,4 +93,75 @@ struct MistakeTests {
         }
         #expect(used == Set(names.keys), "unused or unknown ids: \(used.symmetricDifference(names.keys).sorted())")
     }
+
+    @Test("Feedback names a known mistake and its next step, and the record keeps the id")
+    func feedbackNamesTheMistake() throws {
+        let question = try Self.question("ch01-wb-focus")
+        let mistake = try #require(question.answerKey.mistakes.first { $0.misconception == "sign-of-product" })
+        for assisted in [false, true] {
+            let (result, record) = QuestionProofService.evaluateAndRecord(
+                question: question,
+                answerText: "16",
+                usedAssistance: assisted,
+                existingProof: nil
+            )
+            #expect(!result.isPass)
+            #expect(result.mistake == mistake)
+            #expect(result.feedbackSummary.contains("\(mistake.name). \(mistake.nextStep)"), "\(result.feedbackSummary)")
+            #expect(record.lastMistakeId == "sign-of-product")
+        }
+
+        let (unknown, unknownRecord) = QuestionProofService.evaluateAndRecord(
+            question: question,
+            answerText: "-8",
+            usedAssistance: false,
+            existingProof: nil
+        )
+        #expect(!unknown.isPass)
+        #expect(unknown.mistake == nil)
+        #expect(unknown.feedbackSummary == "Not right yet. Check each step of your working, then try again.")
+        #expect(unknownRecord.lastMistakeId.isEmpty)
+
+        let (right, rightRecord) = QuestionProofService.evaluateAndRecord(
+            question: question,
+            answerText: "-16",
+            usedAssistance: false,
+            existingProof: nil
+        )
+        #expect(right.isPass && right.mistake == nil && rightRecord.lastMistakeId.isEmpty)
+    }
+
+    @Test("The slip a wrong answer came from is saved with the attempt")
+    func savedAttemptKeepsTheMistake() throws {
+        let record = QuestionProofService.evaluateAndRecord(
+            question: try Self.question("ch01-wb-focus"), answerText: "16", usedAssistance: false, existingProof: nil
+        ).record
+        let db = DatabaseManager(inMemory: true)
+        try db.saveQuestionProof(record)
+        let saved = try #require(try db.fetchAllProofs().first { $0.id == record.id })
+        #expect(saved.lastMistakeId == "sign-of-product")
+    }
+
+    @Test("Coaching for a school question uses the known mistake, never a guess against the faded step")
+    func coachingUsesTheKnownMistake() throws {
+        let focus = try Self.question("ch01-wb-focus")
+        let marked = QuestionProofService.evaluateAndRecord(
+            question: focus, answerText: "16", usedAssistance: false, existingProof: nil
+        ).result
+        let known = SocraticFeedbackEngine.evaluate(studentAnswer: "16", question: focus, marked: marked)
+        let mistake = try #require(marked.mistake)
+        #expect(known.headline == mistake.name)
+        #expect(known.socraticNudge == mistake.nextStep)
+        #expect(known.detectedTrap == nil)
+
+        let challenge = try Self.question("ch02-wb-challenge")
+        let negated = QuestionProofService.evaluateAndRecord(
+            question: challenge, answerText: "-8100", usedAssistance: false, existingProof: nil
+        ).result
+        #expect(negated.mistake == nil)
+        let unknown = SocraticFeedbackEngine.evaluate(studentAnswer: "-8100", question: challenge, marked: negated)
+        #expect(unknown.headline == "Not there yet")
+        #expect(unknown.detectedTrap == nil)
+        #expect(!unknown.socraticNudge.contains("8100"))
+    }
 }
