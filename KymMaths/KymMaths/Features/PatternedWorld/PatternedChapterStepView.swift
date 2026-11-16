@@ -46,9 +46,11 @@ struct PatternedChapterStepView: View {
             }
 
             if let bridge = beat.formulaBridge {
+                // The step's own paragraphs above already say what you do and what stays the same.
                 IntuitionFormulaBridgeCard(
                     bridge: bridge,
-                    selectedTermSymbol: $reading.selectedTermSymbol
+                    selectedTermSymbol: $reading.selectedTermSymbol,
+                    showsSteps: false
                 ) { term in
                     reading.highlightedColorRole = term.colorRole
                 }
