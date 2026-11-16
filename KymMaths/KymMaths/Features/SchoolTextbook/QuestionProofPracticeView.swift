@@ -315,7 +315,8 @@ struct QuestionProofPracticeView: View {
     }
 
     private var answerRow: some View {
-        HStack(alignment: .bottom, spacing: StandardSpacing.lg) {
+        // Top-aligned so the field stays put when the "Reads as" line appears under it.
+        HStack(alignment: .top, spacing: StandardSpacing.lg) {
             VStack(alignment: .leading, spacing: StandardSpacing.xs) {
                 Kicker("Answer", muted: true)
                 TextField("", text: $finalAnswer, prompt: Text("Your answer"))
@@ -329,6 +330,7 @@ struct QuestionProofPracticeView: View {
                     .background(RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous).fill(theme.surface))
                     .overlay(RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous).strokeBorder(theme.ink, lineWidth: 1.5))
                     .accessibilityLabel("Answer")
+                AnswerReadsAs(typed: finalAnswer)
             }
             .frame(maxWidth: 260)
 

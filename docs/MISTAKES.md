@@ -78,6 +78,8 @@ When Kym's answer to a school question is wrong in a way we expected, the app na
 | `with-replacement` | You forgot the first marble stays out | ch15-wb-practice |
 | `vector-combined-wrongly` | You combined the vectors the wrong way | ch16-wb-focus, ch16-wb-practice |
 
+An algebra answer is marked by doing the algebra (`AnswerExpression`, and its mirror in `source/answer_marking.py`): equal to the key and in the shape the key asks for. When no listed mistake matches and the answer is equal but unfinished, the marker names `stopped-early` (a bracket left, or like terms not collected) or `common-factor-left` (a bracket that still has a common factor) on its own, on any question with an `expression` key, not only the ones listed above.
+
 # Find the step underneath
 
 When the same named slip comes back a second time, on the same question after the repair failed or on another question, the app stops and walks back to the smaller skill the slip rests on: its footing. Hand in on that question stays shut until she has checked the footing with three short probes. Two right in a row passes; three probes end it either way, and a miss shows the footing's teach line and the answer. A pass resets the count; a miss lets her go back to the question but keeps the count, so the next same slip walks back again.

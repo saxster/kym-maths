@@ -15393,6 +15393,11 @@
             "label": "answer",
             "anyOf": [
               {
+                "kind": "expression",
+                "value": "5x+3",
+                "form": "expanded"
+              },
+              {
                 "kind": "form",
                 "value": "5x+3"
               },
@@ -15407,14 +15412,18 @@
           "5x+3",
           "5x + 3",
           "3 + 5x",
-          "= 5x + 3"
+          "= 5x + 3",
+          "x·5 + 3",
+          "3 + 2x + 3x = 5x + 3"
         ],
         "rejects": [
           "5x - 3",
           "5x + 27",
           "5x",
           "11x + 3",
-          "5x+3x"
+          "5x+3x",
+          "4(2x − 3) − 3(x − 5)",
+          "8x − 12 − 3x + 15"
         ],
         "mistakes": [
           {
@@ -15487,23 +15496,22 @@
                   "label": "answer",
                   "anyOf": [
                     {
-                      "kind": "form",
-                      "value": "4x+2"
-                    },
-                    {
-                      "kind": "form",
-                      "value": "2+4x"
+                      "kind": "expression",
+                      "value": "4x+2",
+                      "form": "expanded"
                     }
                   ]
                 }
               ],
               "accepts": [
-                "4x + 2"
+                "4x + 2",
+                "2 + 4x"
               ],
               "rejects": [
                 "4x + 1",
                 "2x + 2",
-                "4x"
+                "4x",
+                "2(2x + 1)"
               ],
               "mistakes": [
                 {
@@ -15538,23 +15546,22 @@
                   "label": "answer",
                   "anyOf": [
                     {
-                      "kind": "form",
-                      "value": "-2x+8"
-                    },
-                    {
-                      "kind": "form",
-                      "value": "8-2x"
+                      "kind": "expression",
+                      "value": "-2x+8",
+                      "form": "expanded"
                     }
                   ]
                 }
               ],
               "accepts": [
-                "−2x + 8"
+                "−2x + 8",
+                "8 − 2x"
               ],
               "rejects": [
                 "-2x - 8",
                 "2x + 8",
-                "-2x - 4"
+                "-2x - 4",
+                "−2(x − 4)"
               ],
               "mistakes": [
                 {
@@ -15621,23 +15628,22 @@
                   "label": "answer",
                   "anyOf": [
                     {
-                      "kind": "form",
-                      "value": "2x+10"
-                    },
-                    {
-                      "kind": "form",
-                      "value": "10+2x"
+                      "kind": "expression",
+                      "value": "2x+10",
+                      "form": "expanded"
                     }
                   ]
                 }
               ],
               "accepts": [
-                "2x + 10"
+                "2x + 10",
+                "10 + 2x"
               ],
               "rejects": [
                 "6x + 10",
                 "2x - 6",
-                "2x + 6"
+                "2x + 6",
+                "4x + 2 − 2x + 8"
               ],
               "mistakes": [
                 {
@@ -15704,36 +15710,9 @@
             "label": "answer",
             "anyOf": [
               {
-                "kind": "form",
-                "value": "6ab(3a-2b)"
-              },
-              {
-                "kind": "form",
-                "value": "6ab (3a-2b)"
-              },
-              {
-                "kind": "form",
-                "value": "6ba(3a-2b)"
-              },
-              {
-                "kind": "form",
-                "value": "6ba (3a-2b)"
-              },
-              {
-                "kind": "form",
-                "value": "6ab(-2b+3a)"
-              },
-              {
-                "kind": "form",
-                "value": "(3a-2b)6ab"
-              },
-              {
-                "kind": "form",
-                "value": "6ab*(3a-2b)"
-              },
-              {
-                "kind": "form",
-                "value": "-6ab(2b-3a)"
+                "kind": "expression",
+                "value": "6ab(3a-2b)",
+                "form": "factorised"
               }
             ]
           }
@@ -15742,13 +15721,18 @@
           "6ab(3a − 2b)",
           "6ab(3a-2b)",
           "6ab (3a - 2b)",
-          "6ba(3a-2b)"
+          "6ba(3a-2b)",
+          "(3a − 2b) × 6ab",
+          "−6ab(2b − 3a)"
         ],
         "rejects": [
           "6a(3ab − 2b²)",
           "6ab(3a + 2b)",
           "3ab(6a − 4b)",
-          "6ab"
+          "6ab",
+          "18a²b − 12ab²",
+          "2ab(9a − 6b)",
+          "6b(3a² − 2ab)"
         ],
         "mistakes": [
           {
@@ -15938,40 +15922,23 @@
                   "label": "answer",
                   "anyOf": [
                     {
-                      "kind": "form",
-                      "value": "2xy(3x-2y)"
-                    },
-                    {
-                      "kind": "form",
-                      "value": "2yx(3x-2y)"
-                    },
-                    {
-                      "kind": "form",
-                      "value": "2xy (3x-2y)"
-                    },
-                    {
-                      "kind": "form",
-                      "value": "(3x-2y)2xy"
-                    },
-                    {
-                      "kind": "form",
-                      "value": "2xy(-2y+3x)"
-                    },
-                    {
-                      "kind": "form",
-                      "value": "2xy*(3x-2y)"
+                      "kind": "expression",
+                      "value": "2xy(3x-2y)",
+                      "form": "factorised"
                     }
                   ]
                 }
               ],
               "accepts": [
-                "2xy(3x − 2y)"
+                "2xy(3x − 2y)",
+                "(3x − 2y) × 2xy"
               ],
               "rejects": [
                 "2xy(3x + 2y)",
                 "xy(6x − 4y)",
                 "2(3x²y − 2xy²)",
-                "2x(3xy − 2y²)"
+                "2x(3xy − 2y²)",
+                "6x²y − 4xy²"
               ],
               "mistakes": [
                 {
@@ -16051,12 +16018,9 @@
             "label": "answer",
             "anyOf": [
               {
-                "kind": "form",
-                "value": "8x+38"
-              },
-              {
-                "kind": "form",
-                "value": "38+8x"
+                "kind": "expression",
+                "value": "8x+38",
+                "form": "expanded"
               },
               {
                 "kind": "form",
@@ -16069,13 +16033,17 @@
           "8x + 38",
           "8x+38 cm²",
           "8x + 38cm^2",
-          "38 + 8x"
+          "38 + 8x",
+          "2(4x + 19)",
+          "12x + 30 − 4x + 8 = 8x + 38"
         ],
         "rejects": [
           "8x + 22",
           "8x",
           "16x + 38",
-          "8x − 38"
+          "8x − 38",
+          "6(2x + 5) − 4(x − 2)",
+          "12x + 30 − 4x + 8"
         ],
         "mistakes": [
           {
@@ -16139,23 +16107,22 @@
                   "label": "answer",
                   "anyOf": [
                     {
-                      "kind": "form",
-                      "value": "3x+12"
-                    },
-                    {
-                      "kind": "form",
-                      "value": "12+3x"
+                      "kind": "expression",
+                      "value": "3x+12",
+                      "form": "expanded"
                     }
                   ]
                 }
               ],
               "accepts": [
-                "3x + 12"
+                "3x + 12",
+                "12 + 3x"
               ],
               "rejects": [
                 "3x + 4",
                 "x + 12",
-                "3x + 7"
+                "3x + 7",
+                "3(x + 4)"
               ],
               "mistakes": [
                 {
@@ -16190,23 +16157,22 @@
                   "label": "answer",
                   "anyOf": [
                     {
-                      "kind": "form",
-                      "value": "2x-2"
-                    },
-                    {
-                      "kind": "form",
-                      "value": "-2+2x"
+                      "kind": "expression",
+                      "value": "2x-2",
+                      "form": "expanded"
                     }
                   ]
                 }
               ],
               "accepts": [
-                "2x − 2"
+                "2x − 2",
+                "−2 + 2x"
               ],
               "rejects": [
                 "2x - 1",
                 "2x + 2",
-                "x - 2"
+                "x - 2",
+                "2(x − 1)"
               ],
               "mistakes": [
                 {
@@ -16241,23 +16207,22 @@
                   "label": "answer",
                   "anyOf": [
                     {
-                      "kind": "form",
-                      "value": "x+14"
-                    },
-                    {
-                      "kind": "form",
-                      "value": "14+x"
+                      "kind": "expression",
+                      "value": "x+14",
+                      "form": "expanded"
                     }
                   ]
                 }
               ],
               "accepts": [
-                "x + 14"
+                "x + 14",
+                "14 + x"
               ],
               "rejects": [
                 "x + 10",
                 "5x + 10",
-                "x - 14"
+                "x - 14",
+                "3x + 12 − 2x + 2"
               ],
               "mistakes": [
                 {
@@ -20791,24 +20756,8 @@
             "label": "answer",
             "anyOf": [
               {
-                "kind": "form",
+                "kind": "expression",
                 "value": "(y+2)/(y-3)"
-              },
-              {
-                "kind": "form",
-                "value": "(2+y)/(y-3)"
-              },
-              {
-                "kind": "form",
-                "value": "(y+2)/(-3+y)"
-              },
-              {
-                "kind": "form",
-                "value": "(-y-2)/(3-y)"
-              },
-              {
-                "kind": "form",
-                "value": "-(y+2)/(3-y)"
               }
             ]
           }
@@ -20816,7 +20765,9 @@
         "accepts": [
           "x = (y + 2) / (y − 3)",
           "(y+2)/(y-3)",
-          "x=(2+y)/(y-3)"
+          "x=(2+y)/(y-3)",
+          "x = (−y − 2)/(3 − y)",
+          "x = 1 + 5/(y − 3)"
         ],
         "rejects": [
           "x = (y − 2) / (y + 3)",
@@ -23946,6 +23897,11 @@
             "label": "the nth term",
             "anyOf": [
               {
+                "kind": "expression",
+                "value": "4n+3",
+                "form": "expanded"
+              },
+              {
                 "kind": "form",
                 "value": "4n+3"
               },
@@ -23969,14 +23925,16 @@
           "Tₙ = 4n + 3, S₂₀ = 900",
           "4n+3 900",
           "4n + 3 and 900",
-          "T_n = 3 + 4n, sum = 900"
+          "T_n = 3 + 4n, sum = 900",
+          "Tₙ = n·4 + 3, S₂₀ = 900"
         ],
         "rejects": [
           "4n + 3",
           "900",
           "4n + 7, 900",
           "4n + 3, 830",
-          "n + 4, 900"
+          "n + 4, 900",
+          "Tₙ = 4(n + 1) − 1, S₂₀ = 900"
         ],
         "mistakes": [
           {
@@ -24525,32 +24483,8 @@
             "label": "answer",
             "anyOf": [
               {
-                "kind": "form",
+                "kind": "expression",
                 "value": "n^2+2n"
-              },
-              {
-                "kind": "form",
-                "value": "2n+n^2"
-              },
-              {
-                "kind": "form",
-                "value": "n(n+2)"
-              },
-              {
-                "kind": "form",
-                "value": "n (n+2)"
-              },
-              {
-                "kind": "form",
-                "value": "n(2+n)"
-              },
-              {
-                "kind": "form",
-                "value": "(n+1)^2-1"
-              },
-              {
-                "kind": "form",
-                "value": "n*n+2n"
               }
             ]
           }
@@ -24559,13 +24493,16 @@
           "Tₙ = n² + 2n",
           "n^2 + 2n",
           "n(n+2)",
-          "n squared + 2n"
+          "n squared + 2n",
+          "2n + n·n",
+          "(n + 1)² − 1"
         ],
         "rejects": [
           "n² + 2",
           "n² + 2n + 1",
           "2n + 1",
-          "n^2"
+          "n^2",
+          "n2 + 2n"
         ],
         "mistakes": [
           {
@@ -26873,6 +26810,11 @@
             "label": "the equation",
             "anyOf": [
               {
+                "kind": "expression",
+                "value": "2x+5",
+                "form": "expanded"
+              },
+              {
                 "kind": "form",
                 "value": "2x+5"
               },
@@ -26896,14 +26838,16 @@
           "y = 2x + 5, x-intercept = −2.5",
           "y=2x+5 -2.5",
           "y = 2x + 5 and (−2.5, 0)",
-          "y=2x+5, x = -5/2"
+          "y=2x+5, x = -5/2",
+          "y = x·2 + 5, x = −2.5"
         ],
         "rejects": [
           "y = 2x + 5",
           "-2.5",
           "y = 2x + 5, x = 2.5",
           "y = 2x + 3, −1.5",
-          "y = 12x + 5, -2.5"
+          "y = 12x + 5, -2.5",
+          "y = (4x + 10)/2, x = −2.5"
         ],
         "mistakes": [
           {
@@ -27140,36 +27084,8 @@
             "label": "answer",
             "anyOf": [
               {
-                "kind": "form",
+                "kind": "expression",
                 "value": "(x+7)/3"
-              },
-              {
-                "kind": "form",
-                "value": "(7+x)/3"
-              },
-              {
-                "kind": "form",
-                "value": "x/3+7/3"
-              },
-              {
-                "kind": "form",
-                "value": "7/3+x/3"
-              },
-              {
-                "kind": "form",
-                "value": "1/3(x+7)"
-              },
-              {
-                "kind": "form",
-                "value": "1/3 (x+7)"
-              },
-              {
-                "kind": "form",
-                "value": "1/3x+7/3"
-              },
-              {
-                "kind": "form",
-                "value": "(x+7)*1/3"
               }
             ]
           }
@@ -27178,14 +27094,17 @@
           "f⁻¹(x) = (x + 7) / 3",
           "(x+7)/3",
           "y = (x + 7)/3",
-          "f^-1(x) = x/3 + 7/3"
+          "f^-1(x) = x/3 + 7/3",
+          "f⁻¹(x) = 7/3 + 1/3x",
+          "(x + 7) ÷ 3"
         ],
         "rejects": [
           "(x − 7) / 3",
           "3x + 7",
           "x + 7 / 3",
           "(x + 7) / 3x",
-          "1 / (3x − 7)"
+          "1 / (3x − 7)",
+          "3x − 7"
         ],
         "mistakes": [
           {
@@ -27534,44 +27453,8 @@
             "label": "answer",
             "anyOf": [
               {
-                "kind": "form",
+                "kind": "expression",
                 "value": "-1/2x+3"
-              },
-              {
-                "kind": "form",
-                "value": "-x/2+3"
-              },
-              {
-                "kind": "form",
-                "value": "3-1/2x"
-              },
-              {
-                "kind": "form",
-                "value": "3-x/2"
-              },
-              {
-                "kind": "form",
-                "value": "-0.5x+3"
-              },
-              {
-                "kind": "form",
-                "value": "3-0.5x"
-              },
-              {
-                "kind": "form",
-                "value": "-(1/2)x+3"
-              },
-              {
-                "kind": "form",
-                "value": "3-(1/2)x"
-              },
-              {
-                "kind": "form",
-                "value": "-1/2*x+3"
-              },
-              {
-                "kind": "form",
-                "value": "-(x/2)+3"
               }
             ]
           }
@@ -27581,14 +27464,17 @@
           "y = -1/2x + 3",
           "y = -x/2 + 3",
           "y = 3 - 0.5x",
-          "y = -0.5x + 3"
+          "y = -0.5x + 3",
+          "y = 3 − ½x",
+          "y = −½(x − 6)"
         ],
         "rejects": [
           "y = 2x + 3",
           "y = ½x + 3",
           "y = −2x + 3",
           "y = −½x + 5",
-          "y = -1/2x"
+          "y = -1/2x",
+          "y = 2x + 5"
         ],
         "mistakes": [
           {
@@ -29607,56 +29493,8 @@
             "label": "answer",
             "anyOf": [
               {
-                "kind": "form",
+                "kind": "expression",
                 "value": "1/2(b-a)"
-              },
-              {
-                "kind": "form",
-                "value": "1/2 (b-a)"
-              },
-              {
-                "kind": "form",
-                "value": "(1/2)(b-a)"
-              },
-              {
-                "kind": "form",
-                "value": "(b-a)/2"
-              },
-              {
-                "kind": "form",
-                "value": "(-a+b)/2"
-              },
-              {
-                "kind": "form",
-                "value": "1/2b-1/2a"
-              },
-              {
-                "kind": "form",
-                "value": "b/2-a/2"
-              },
-              {
-                "kind": "form",
-                "value": "0.5(b-a)"
-              },
-              {
-                "kind": "form",
-                "value": "0.5b-0.5a"
-              },
-              {
-                "kind": "form",
-                "value": "-1/2a+1/2b"
-              },
-              {
-                "kind": "form",
-                "value": "-a/2+b/2"
-              },
-              {
-                "kind": "form",
-                "value": "1/2*(b-a)"
-              },
-              {
-                "kind": "form",
-                "value": "1/2(-a+b)"
               }
             ]
           }
@@ -29666,14 +29504,17 @@
           "1/2(b - a)",
           "(b - a)/2",
           "½b − ½a",
-          "MN = ½(b − a) = ½AB"
+          "MN = ½(b − a) = ½AB",
+          "MN = (b − a) × ½",
+          "−(a − b)/2"
         ],
         "rejects": [
           "½(a − b)",
           "b − a",
           "½(a + b)",
           "2(b − a)",
-          "½ab"
+          "½ab",
+          "a/2 − b/2"
         ],
         "mistakes": [
           {
@@ -31626,12 +31467,9 @@
                 "label": "answer",
                 "anyOf": [
                   {
-                    "kind": "form",
-                    "value": "-2x+10"
-                  },
-                  {
-                    "kind": "form",
-                    "value": "10-2x"
+                    "kind": "expression",
+                    "value": "-2x+10",
+                    "form": "expanded"
                   }
                 ]
               }
@@ -31639,13 +31477,15 @@
             "accepts": [
               "−2x + 10",
               "-2x+10",
-              "10 − 2x"
+              "10 − 2x",
+              "10 + -2x"
             ],
             "rejects": [
               "-2x - 5",
               "-2x - 10",
               "2x + 10",
-              "-2x + 5"
+              "-2x + 5",
+              "−2(x − 5)"
             ],
             "mistakes": []
           }
@@ -31660,8 +31500,9 @@
                 "label": "answer",
                 "anyOf": [
                   {
-                    "kind": "form",
-                    "value": "x^2+6x+9"
+                    "kind": "expression",
+                    "value": "x^2+6x+9",
+                    "form": "expanded"
                   }
                 ]
               }
@@ -31669,12 +31510,15 @@
             "accepts": [
               "x² + 6x + 9",
               "x^2+6x+9",
-              "= x² + 6x + 9"
+              "= x² + 6x + 9",
+              "9 + 6x + x²"
             ],
             "rejects": [
               "x² + 9",
               "x² + 3x + 9",
-              "x² + 6x + 6"
+              "x² + 6x + 6",
+              "(x + 3)²",
+              "x² + 3x + 3x + 9"
             ],
             "mistakes": []
           }
@@ -33371,12 +33215,9 @@
                 "label": "answer",
                 "anyOf": [
                   {
-                    "kind": "form",
-                    "value": "3n+2"
-                  },
-                  {
-                    "kind": "form",
-                    "value": "2+3n"
+                    "kind": "expression",
+                    "value": "3n+2",
+                    "form": "expanded"
                   }
                 ]
               }
@@ -33384,12 +33225,14 @@
             "accepts": [
               "3n + 2",
               "3n+2",
-              "nth term = 3n + 2"
+              "nth term = 3n + 2",
+              "2 + 3n"
             ],
             "rejects": [
               "3n + 5",
               "n + 3",
-              "3n"
+              "3n",
+              "3(n + 1) − 1"
             ],
             "mistakes": []
           }

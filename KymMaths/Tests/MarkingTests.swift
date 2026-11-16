@@ -128,7 +128,7 @@ struct MarkingTests {
             switch matcher {
             case let .number(value, _, _): [value]
             case let .all(matchers): matchers.flatMap(numbers)
-            case .sequence, .form, .words: []
+            case .sequence, .form, .expression, .words: []
             }
         }
         var echoed: Set<String> = []
