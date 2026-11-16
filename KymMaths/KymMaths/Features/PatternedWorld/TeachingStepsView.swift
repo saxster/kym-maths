@@ -60,6 +60,11 @@ private struct TeachingStepRow: View {
             VStack(alignment: .leading, spacing: StandardSpacing.sm) {
                 labelled
                 if let key = step.answerKey {
+                    if typing {
+                        BookKitSymbolicAccessoryBar { token in
+                            typed += token
+                        }
+                    }
                     AnswerCheckRow(typed: $typed, typing: $typing, filled: false) {
                         marking = key.mark(typed)
                     }
@@ -74,38 +79,52 @@ private struct TeachingStepRow: View {
             }
             .paperCard()
         case .name:
-            labelled
-                .padding(StandardSpacing.md)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(
-                    RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
-                        .fill(theme.patterned.wash(.stays).opacity(0.5))
-                )
-                .overlay(alignment: .leading) {
-                    Capsule()
-                        .fill(theme.patterned.color(.stays))
-                        .frame(width: 3)
-                }
+            HStack(alignment: .top, spacing: StandardSpacing.sm) {
+                BookKitSignpostMedallion(.remember)
+                labelled
+            }
+            .padding(StandardSpacing.md)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                    .fill(theme.patterned.wash(.stays).opacity(0.5))
+            )
+            .overlay(alignment: .leading) {
+                Capsule()
+                    .fill(theme.patterned.color(.stays))
+                    .frame(width: 3)
+            }
         case .mistake:
-            labelled
-                .padding(.leading, StandardSpacing.md)
-                .overlay(alignment: .leading) {
-                    Capsule()
-                        .fill(theme.patterned.color(.moves))
-                        .frame(width: 3)
-                }
+            HStack(alignment: .top, spacing: StandardSpacing.sm) {
+                BookKitSignpostMedallion(.warning)
+                labelled
+            }
+            .padding(.leading, StandardSpacing.md)
+            .overlay(alignment: .leading) {
+                Capsule()
+                    .fill(theme.patterned.color(.moves))
+                    .frame(width: 3)
+            }
+        case .example:
+            HStack(alignment: .top, spacing: StandardSpacing.sm) {
+                BookKitSignpostMedallion(.tip)
+                labelled
+            }
         case .sayBack:
-            labelled
-                .padding(StandardSpacing.md)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(
-                    RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
-                        .fill(theme.surface)
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
-                        .strokeBorder(theme.brass.opacity(0.35), lineWidth: 1)
-                )
+            HStack(alignment: .top, spacing: StandardSpacing.sm) {
+                BookKitSignpostMedallion(.remember)
+                labelled
+            }
+            .padding(StandardSpacing.md)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                    .fill(theme.surface)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                    .strokeBorder(theme.brass.opacity(0.35), lineWidth: 1)
+            )
         default:
             labelled
         }

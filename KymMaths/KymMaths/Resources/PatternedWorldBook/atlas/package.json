@@ -1,0 +1,10 @@
+{
+  "name": "@saxster/atlas",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./engine/index.js",
+    "./adapters/*": "./adapters/*",
+    "./*": "./engine/*"
+  }
+}

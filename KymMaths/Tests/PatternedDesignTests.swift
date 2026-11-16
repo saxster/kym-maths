@@ -80,4 +80,42 @@ struct PatternedDesignTests {
             #expect(EuclidSpine.isOpen(next.id, progress: store.euclidProgress))
         }
     }
+
+    @MainActor
+    @Test("Curious Atelier Vol. I identity, Ligne-Claire comic bookends, and Learning Toolkit bridges cover all 21 chapters")
+    func atelierTemplateEngineComplianceAcrossAllChapters() {
+        let store = AppStore()
+        let manifest = PatternedBook.bookManifest(
+            chaptersCount: store.seedPack.chapters.count,
+            learnerName: store.learnerDisplayName
+        )
+        let identity = manifest.resolvedAtelierIdentity
+        #expect(identity.emblem == .euclidCircles)
+        #expect(identity.defaultAtlasMedium == "paper-ink")
+        #expect(identity.spineHex == 0x182B49)
+        #expect(manifest.resolvedPrologueStrip.panels.count == 4)
+
+        #expect(store.seedPack.chapters.count == 21)
+        for chapter in store.seedPack.chapters {
+            let opener = PatternedBook.openerStrip(for: chapter, manifest: manifest)
+            let closer = PatternedBook.closerStrip(for: chapter, manifest: manifest)
+            let spec = PatternedBook.chapterSpec(for: chapter, manifest: manifest)
+            let misc = PatternedBook.misconceptionSpec(for: chapter)
+            #expect(opener.role == .chapterOpener)
+            #expect(opener.panels.count == 2)
+            #expect(closer.role == .chapterCloser)
+            #expect(closer.panels.count == 3)
+            #expect(!spec.blocks.isEmpty)
+            #expect(!misc.coherentWorldRule.isEmpty)
+        }
+
+        let roots = BookKitRootGlossaryCatalog.roots(for: "math")
+        #expect(!roots.isEmpty)
+        let exemplars = BookKitJournalExemplarCatalog.exemplars(
+            for: manifest,
+            firstChapter: PatternedBook.chapterSpec(for: store.seedPack.chapters[0], manifest: manifest)
+        )
+        #expect(exemplars.count == 4)
+        #expect(!KymLiveBritishVoiceCatalog.presets.isEmpty)
+    }
 }

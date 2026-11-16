@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
-"""Draws the KymMaths app icon: Euclid I.47 as Oliver Byrne coloured it in 1847.
+"""Draws the KymMaths Curious Atelier Family app icon (Vol. I · The Patterned World).
 
-A 3-4-5 right triangle stands on the square of its hypotenuse (blue), with the squares of
-its legs (red, yellow) above. Paper for light, Dusk for dark, grey values for tinted.
+Matches `BookKitBookIdentity.writeAppIconPNG` (`teaching_kit/Sources/KymBookKit/BookKitPatternedChrome.swift`):
+Oxford Prussian Navy (`#182B49`) Savile-Row cloth spine with gold foil `I / MATH` stamp,
+stepped right fore-edge paper stack, engraved ivory cartouche plate with drafting dot-grid,
+top-right vermilion swallowtail bookmark ribbon, and Euclid I.1 intersecting circles enclosing
+an ink-keylined golden equilateral triangle.
 Needs rsvg-convert and magick (Homebrew librsvg, imagemagick).
 Usage: scripts/make-app-icon.py   (writes KymMaths/Assets.xcassets/AppIcon.appiconset)
 """
 import json
-import math
 import os
 import subprocess
 import tempfile
@@ -16,47 +18,77 @@ S = 1024
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "..", "KymMaths", "Assets.xcassets", "AppIcon.appiconset")
 
-# Byrne values from Design/Patterned/PatternedPalette.swift.
-PAPER = dict(bg0="#FBF6EC", bg1="#EFE6D3", ink="#1E1A15", tri="#FBF6EC",
-             red="#C3362B", yellow="#E2A41C", blue="#23519C")
-DUSK = dict(bg0="#25221E", bg1="#141210", ink="#EFE6D3", tri="#25221E",
-            red="#E5614F", yellow="#F0BC45", blue="#7097DA")
-TINTED = dict(bg0="#000000", bg1="#000000", ink="#FFFFFF", tri="#000000",
-              red="#B4B4B4", yellow="#7A7A7A", blue="#F2F2F2")
+PAPER = dict(
+    spine="#182B49", cover="#F9F4E8", plate="#FFFDF7",
+    step1="#EFE8D9", step2="#E4DBCA", step3="#D6CCBA",
+    ink="#1F1B16", foil="#E2BA68", rule="rgba(168,126,58,0.55)",
+    red="#AE2B20", red_wash="#F6DCD5",
+    yellow="#E2A41C",
+    blue="#23519C", blue_wash="#DCE4F2",
+)
+DUSK = dict(
+    spine="#101D33", cover="#1E2226", plate="#262A2F",
+    step1="#2B2F35", step2="#22262A", step3="#181A1D",
+    ink="#F0ECE2", foil="#E2BA68", rule="rgba(215,170,95,0.48)",
+    red="#F07868", red_wash="#3A1D18",
+    yellow="#F0BC45",
+    blue="#82A8EA", blue_wash="#17233A",
+)
+TINTED = dict(
+    spine="#1C1C1C", cover="#2E2E2E", plate="#3A3A3A",
+    step1="#444444", step2="#333333", step3="#222222",
+    ink="#FFFFFF", foil="#E0E0E0", rule="rgba(220,220,220,0.45)",
+    red="#C8C8C8", red_wash="#525252",
+    yellow="#A8A8A8",
+    blue="#E8E8E8", blue_wash="#606060",
+)
 
 
-def figure():
-    """Triangle and squares in unit coordinates, turned so the hypotenuse lies flat with its square below."""
-    C, B, A = (0.0, 0.0), (4.0, 0.0), (0.0, 3.0)
-    shapes = dict(
-        hyp=[A, B, (7.0, 4.0), (3.0, 7.0)],
-        long_leg=[C, B, (4.0, -4.0), (0.0, -4.0)],
-        short_leg=[C, A, (-3.0, 3.0), (-3.0, 0.0)],
-        tri=[C, B, A],
-        right_angle=[(0.0, 0.5), (0.5, 0.5), (0.5, 0.0)],
+def svg(p):
+    dots = []
+    for gx in range(298, 800, 36):
+        for gy in range(162, 864, 36):
+            dots.append(f'<circle cx="{gx}" cy="{gy}" r="2.2" fill="{p["rule"]}" opacity="0.45"/>')
+    dots_svg = "\n".join(dots)
+    leaves = "\n".join(
+        f'<line x1="892" y1="{y}" x2="976" y2="{y}" stroke="{p["ink"]}" stroke-opacity="0.22" stroke-width="2"/>'
+        for y in range(96, 929, 28)
     )
-    t = math.pi - math.atan2(-3, 4)
-    turn = lambda p: (p[0] * math.cos(t) - p[1] * math.sin(t), p[0] * math.sin(t) + p[1] * math.cos(t))
-    return {k: [turn(p) for p in v] for k, v in shapes.items()}
-
-
-def svg(p, extent=0.62):
-    sh = figure()
-    pts_all = [q for k, v in sh.items() if k != "right_angle" for q in v]
-    xs = [q[0] for q in pts_all]
-    ys = [q[1] for q in pts_all]
-    u = extent * S / max(max(xs) - min(xs), max(ys) - min(ys))
-    mx, my = (min(xs) + max(xs)) / 2, (min(ys) + max(ys)) / 2
-    pts = lambda P: " ".join(f"{S / 2 + (x - mx) * u:.1f},{S / 2 - (y - my) * u:.1f}" for x, y in P)
-    stroke = 0.17 * u
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{S}" height="{S}" viewBox="0 0 {S} {S}">
-<defs><radialGradient id="g" cx="50%" cy="42%" r="75%"><stop offset="0" stop-color="{p['bg0']}"/><stop offset="1" stop-color="{p['bg1']}"/></radialGradient></defs>
-<rect width="{S}" height="{S}" fill="url(#g)"/>
-<polygon points="{pts(sh['hyp'])}" fill="{p['blue']}"/>
-<polygon points="{pts(sh['long_leg'])}" fill="{p['red']}"/>
-<polygon points="{pts(sh['short_leg'])}" fill="{p['yellow']}"/>
-<polygon points="{pts(sh['tri'])}" fill="{p['tri']}" stroke="{p['ink']}" stroke-width="{stroke:.1f}" stroke-linejoin="round"/>
-<polyline points="{pts(sh['right_angle'])}" fill="none" stroke="{p['ink']}" stroke-width="{stroke * 0.6:.1f}"/>
+<!-- 1. Stepped Right Fore-Edge Paper Stack -->
+<rect x="0" y="0" width="{S}" height="{S}" fill="{p['step3']}"/>
+<rect x="0" y="0" width="952" height="{S}" fill="{p['step2']}"/>
+<rect x="0" y="0" width="922" height="{S}" fill="{p['step1']}"/>
+{leaves}
+<!-- 2. Main Front Cover Board & Cloth Spine -->
+<rect x="0" y="0" width="892" height="{S}" fill="{p['cover']}"/>
+<line x1="892" y1="0" x2="892" y2="{S}" stroke="{p['ink']}" stroke-width="8"/>
+<rect x="0" y="0" width="208" height="{S}" fill="{p['spine']}"/>
+<rect x="198" y="0" width="10" height="{S}" fill="#000000" fill-opacity="0.28"/>
+<line x1="180" y1="56" x2="180" y2="968" stroke="{p['foil']}" stroke-width="5" stroke-dasharray="16 14"/>
+<line x1="20" y1="164" x2="166" y2="164" stroke="{p['foil']}" stroke-width="5"/>
+<line x1="20" y1="180" x2="166" y2="180" stroke="{p['foil']}" stroke-width="5"/>
+<line x1="20" y1="844" x2="166" y2="844" stroke="{p['foil']}" stroke-width="5"/>
+<line x1="20" y1="860" x2="166" y2="860" stroke="{p['foil']}" stroke-width="5"/>
+<rect x="34" y="234" width="122" height="122" rx="18" fill="#000000" fill-opacity="0.24" stroke="{p['foil']}" stroke-width="4"/>
+<text x="95" y="317" text-anchor="middle" font-family="Georgia, serif" font-weight="bold" font-size="64" fill="{p['foil']}">I</text>
+<text x="95" y="792" text-anchor="middle" font-family="Helvetica Neue, Arial, sans-serif" font-weight="bold" font-size="24" fill="{p['foil']}">MATH</text>
+<!-- 3. Engraved Atelier Cartouche Plate -->
+<rect x="252" y="116" width="592" height="792" rx="36" fill="{p['plate']}" stroke="{p['ink']}" stroke-width="8"/>
+<rect x="270" y="134" width="556" height="756" rx="24" fill="none" stroke="{p['rule']}" stroke-width="3"/>
+{dots_svg}
+<!-- 4. Top-Right Swallowtail Bookmark Ribbon -->
+<polygon points="742,0 802,0 802,182 772,150 742,182" fill="{p['red']}" stroke="{p['ink']}" stroke-width="5" stroke-linejoin="round"/>
+<!-- 5. Vol. I Euclid I.1 Intersecting Circles & Golden Equilateral Triangle -->
+<circle cx="462" cy="544" r="170" fill="{p['blue_wash']}"/>
+<circle cx="632" cy="544" r="170" fill="{p['red_wash']}"/>
+<circle cx="462" cy="544" r="170" fill="none" stroke="{p['blue']}" stroke-width="14" stroke-dasharray="22 14"/>
+<circle cx="632" cy="544" r="170" fill="none" stroke="{p['red']}" stroke-width="14"/>
+<polygon points="462,544 547,397 441,336 356,483" fill="{p['blue']}" stroke="{p['ink']}" stroke-width="10" stroke-linejoin="round"/>
+<polygon points="547,397 462,544 632,544" fill="{p['yellow']}" stroke="{p['ink']}" stroke-width="12" stroke-linejoin="round"/>
+<circle cx="462" cy="544" r="11" fill="{p['plate']}" stroke="{p['ink']}" stroke-width="6"/>
+<circle cx="632" cy="544" r="11" fill="{p['plate']}" stroke="{p['ink']}" stroke-width="6"/>
+<circle cx="547" cy="397" r="11" fill="{p['plate']}" stroke="{p['ink']}" stroke-width="6"/>
 </svg>'''
 
 

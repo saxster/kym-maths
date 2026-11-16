@@ -180,7 +180,7 @@ struct MarginNote: View {
                     Button(isExpanded ? "Fold note ▴" : "In a nutshell ▾") {
                         isExpanded.toggle()
                     }
-                    .font(.system(size: 11, weight: .semibold))
+                    .patternedType(.kicker)
                     .foregroundStyle(theme.brass)
                     .buttonStyle(.plain)
                 }
@@ -198,7 +198,7 @@ struct MarginNote: View {
                     Button(isExpanded ? "Fold note ▴" : "In a nutshell ▾") {
                         isExpanded.toggle()
                     }
-                    .font(.system(size: 11, weight: .semibold))
+                    .patternedType(.kicker)
                     .foregroundStyle(theme.brass)
                     .buttonStyle(.plain)
                 }

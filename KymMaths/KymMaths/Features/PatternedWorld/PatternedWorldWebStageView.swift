@@ -102,11 +102,14 @@ enum PatternedWorldWebStageBridge {
         isDark: Bool = false
     ) -> WKWebView {
         let config = WKWebViewConfiguration()
+        if config.urlSchemeHandler(forURLScheme: PatternedWorldBookSchemeHandler.scheme) == nil {
+            config.setURLSchemeHandler(PatternedWorldBookSchemeHandler(), forURLScheme: PatternedWorldBookSchemeHandler.scheme)
+        }
         config.userContentController.add(coordinator, name: "kymmathsBridge")
         // The palette is set before first paint, and the chapter as soon as the page's script has
         // run, so the stage never flashes the wrong theme or chapter 0.
         config.userContentController.addUserScript(
-            WKUserScript(source: themeScript(isDark: isDark), injectionTime: .atDocumentStart, forMainFrameOnly: true)
+            WKUserScript(source: themeScript(isDark: isDark), injectionTime: .atDocumentStart, forMainFrameOnly: false)
         )
         config.userContentController.addUserScript(
             WKUserScript(
@@ -125,7 +128,9 @@ enum PatternedWorldWebStageBridge {
 
     @MainActor
     static func loadBook(in webView: WKWebView, chapterNumber: Int) {
-        if let indexURL = resolveIndexURL() {
+        if resolveIndexURL() != nil, let schemeURL = URL(string: "\(PatternedWorldBookSchemeHandler.scheme)://book/index.html") {
+            webView.load(URLRequest(url: schemeURL))
+        } else if let indexURL = resolveIndexURL() {
             let readAccessDir = indexURL.deletingLastPathComponent()
             webView.loadFileURL(indexURL, allowingReadAccessTo: readAccessDir)
         } else {
@@ -157,6 +162,67 @@ enum PatternedWorldWebStageBridge {
             Task { @MainActor in
                 store.webStageHealthVerified = report.isHealthy
             }
+        }
+    }
+}
+
+/// Serves `Resources/PatternedWorldBook` (including `atlas/` ES modules and Three.js) over `kymbook://book/...`
+/// so interactive 3D/2D figures load offline inside `WKWebView` without `file://` cross-origin module blocks.
+final class PatternedWorldBookSchemeHandler: NSObject, WKURLSchemeHandler {
+    static let scheme = "kymbook"
+
+    func webView(_ webView: WKWebView, start urlSchemeTask: any WKURLSchemeTask) {
+        guard let url = urlSchemeTask.request.url,
+              let root = PatternedWorldWebStageBridge.resolveIndexURL()?.deletingLastPathComponent()
+        else {
+            urlSchemeTask.didFailWithError(URLError(.fileDoesNotExist))
+            return
+        }
+        let rawPath = url.path.isEmpty || url.path == "/" ? "/index.html" : url.path
+        let parts = rawPath.split(separator: "/", omittingEmptySubsequences: true)
+        guard !parts.isEmpty, !parts.contains(where: { $0 == "." || $0 == ".." }) else {
+            urlSchemeTask.didFailWithError(URLError(.badURL))
+            return
+        }
+        let cleanRel = parts.joined(separator: "/")
+        let target = root.appendingPathComponent(cleanRel)
+        let resolvedRoot = root.resolvingSymlinksInPath().path
+        let resolvedTarget = target.resolvingSymlinksInPath().path
+        guard resolvedTarget.hasPrefix(resolvedRoot + "/"),
+              let data = try? Data(contentsOf: target),
+              let response = HTTPURLResponse(
+                  url: url,
+                  statusCode: 200,
+                  httpVersion: "HTTP/1.1",
+                  headerFields: [
+                      "Content-Type": Self.mimeType(forPath: cleanRel),
+                      "Content-Length": "\(data.count)",
+                      "Cache-Control": "no-store",
+                      "Access-Control-Allow-Origin": "*"
+                  ]
+              )
+        else {
+            urlSchemeTask.didFailWithError(URLError(.fileDoesNotExist))
+            return
+        }
+        urlSchemeTask.didReceive(response)
+        urlSchemeTask.didReceive(data)
+        urlSchemeTask.didFinish()
+    }
+
+    func webView(_ webView: WKWebView, stop urlSchemeTask: any WKURLSchemeTask) {}
+
+    private static func mimeType(forPath path: String) -> String {
+        switch (path as NSString).pathExtension.lowercased() {
+        case "html", "htm": "text/html; charset=utf-8"
+        case "js", "mjs": "text/javascript; charset=utf-8"
+        case "css": "text/css; charset=utf-8"
+        case "json": "application/json; charset=utf-8"
+        case "svg": "image/svg+xml"
+        case "png": "image/png"
+        case "jpg", "jpeg": "image/jpeg"
+        case "glb": "model/gltf-binary"
+        default: "application/octet-stream"
         }
     }
 }

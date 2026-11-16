@@ -29,6 +29,7 @@ public enum LiveMentorSessionState: Sendable, Equatable {
 public enum LiveMentorVoiceProvider: String, Codable, Sendable, CaseIterable, Identifiable {
     case geminiLive = "gemini-3.8-live"
     case geminiLiveExtendedThinking = "gemini-3.8-live-extended-thinking"
+    case elevenLabsBritish = "elevenlabs-en-gb"
     case openAIRealtime = "gpt-realtime"
     case offlineSimulated = "offline-socratic-voice"
 
@@ -36,8 +37,9 @@ public enum LiveMentorVoiceProvider: String, Codable, Sendable, CaseIterable, Id
 
     public var displayName: String {
         switch self {
-        case .geminiLive: return "Gemini 3.8 Live"
-        case .geminiLiveExtendedThinking: return "Gemini 3.8 Live (Extended Thinking)"
+        case .geminiLive: return "Gemini 3.8 Live (British English en-GB)"
+        case .geminiLiveExtendedThinking: return "Gemini 3.8 Live · Extended Thinking (en-GB)"
+        case .elevenLabsBritish: return "ElevenLabs · British English Voice (en-GB)"
         case .openAIRealtime: return "OpenAI Realtime"
         case .offlineSimulated: return "On-Device Socratic Voice"
         }
@@ -112,7 +114,12 @@ public enum LiveMentorPromptPolicy {
         chalkboardSummary: String? = nil
     ) -> String {
         let soul = AgentSoulCatalog.soul(for: config.soulID, overrides: config.overrides)
-        let soulMarkdown = soul.toSystemInstruction()
+        let britishDirective = """
+        BRITISH ENGLISH (en-GB) & PEER MENTOR CONTRACT:
+        - Speak and write in warm, natural British English (en-GB): use "maths", "brackets", "highest common factor", "trapezium", "nought", "full stop", "colour", "centre", and "metre".
+        - Adopt the supportive, demystifying peer warmth of Head First and For Dummies: treat Kym as bright and capable, unpack intimidating symbols into plain everyday actions first, and validate her questions before guiding her to the mathematical invariant.
+        """
+        let soulMarkdown = soul.toSystemInstruction() + "\n\n" + britishDirective
         let constitutionalBlock = TutorConstitution.applying(
             to: soulMarkdown,
             context: .learnerChat,
@@ -586,15 +593,18 @@ public enum LiveVoiceTakeawaySummary {
 public final class LiveMentorVoiceController {
     public var sessionState: LiveMentorSessionState = .idle
     public var provider: LiveMentorVoiceProvider = .geminiLive
+    public var selectedBritishPreset: KymLiveBritishVoicePreset = KymLiveBritishVoiceCatalog.defaultPreset
     public var isMicrophoneMuted: Bool = false
     public var transcripts: [LiveMentorTranscriptEntry] = []
     public var takeaways: [LiveVoiceTakeawayItem] = []
     public var savedFlashcardIDs: Set<String> = []
     public var activeCrisisConcern: SafetyEscalationService.Concern?
     public var chalkboardModel = LiveMentorChalkboardModel(template: .singaporeBarModel)
+    public var lastElevenLabsAudioByteCount: Int = 0
 
     private let geminiClient = GeminiLiveMentorClient()
     private let keyStore = KeychainFrontierKeyStore()
+    private let familyKeychain = KymLiveFamilyKeychain()
 
     public init() {}
 
@@ -609,11 +619,14 @@ public final class LiveMentorVoiceController {
         takeaways = []
         sessionState = .connecting
 
-        let hasGeminiKey = keyStore.hasKey(for: .gemini)
+        let hasGeminiKey = keyStore.hasKey(for: .gemini) || (familyKeychain.loadGeminiAPIKey() != nil)
+        let hasElevenLabsKey = familyKeychain.loadElevenLabsAPIKey() != nil
         let hasOpenAIKey = keyStore.hasKey(for: .openAI)
         let activeProviderName: String
         if hasGeminiKey && (provider == .geminiLive || provider == .geminiLiveExtendedThinking) {
             activeProviderName = provider.displayName
+        } else if hasElevenLabsKey && provider == .elevenLabsBritish {
+            activeProviderName = "\(provider.displayName) · \(selectedBritishPreset.displayName)"
         } else if hasOpenAIKey && provider == .openAIRealtime {
             activeProviderName = provider.displayName
         } else {
@@ -622,7 +635,7 @@ public final class LiveMentorVoiceController {
 
         sessionState = .active(providerName: activeProviderName)
         let soul = AgentSoulCatalog.soul(for: soulID, overrides: overrides)
-        let greeting = "Live voice connected (\(soul.displayName)). We have our shared chalkboard open for \(topic). Tell me what you notice first—or ask me to sketch a bar model or number line!"
+        let greeting = "Live voice connected (\(soul.displayName) · \(selectedBritishPreset.displayName)). We have our shared chalkboard open for \(topic). Tell me what you notice first—or ask me to sketch a bar model or number line!"
         transcripts.append(
             LiveMentorTranscriptEntry(
                 speaker: .mentor,

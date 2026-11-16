@@ -38,39 +38,81 @@ struct KymMathsRootView: View {
     @Bindable var store: AppStore
     @Environment(\.standardTheme) private var theme
     @State private var columns: NavigationSplitViewVisibility = .all
+    @AppStorage("kymmaths.userCollapsedSidebar") private var userCollapsedSidebar = false
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var sizeClass
     #endif
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columns, preferredCompactColumn: $store.compactColumn) {
-            PatternedSidebar(store: store)
-                .navigationSplitViewColumnWidth(min: 240, ideal: 264, max: 300)
-                #if os(iOS)
-                .toolbar(.hidden, for: .navigationBar)
-                #endif
-        } detail: {
-            Group {
-                switch store.activeRoom {
-                case .today:
-                    TodayHomeView(store: store)
-                case .schoolMaths:
-                    SchoolMathsHomeView(store: store)
-                case .patternedWorld:
-                    PatternedWorldHomeView(store: store)
-                case .labsAtlas:
-                    LabsAtlasHomeView(store: store)
-                case .polyaFluency:
-                    PolyaFluencyHomeView(store: store)
-                case .mathsJournal:
-                    MathsJournalHomeView(store: store)
-                case .coach:
-                    MathsCoachView(store: store)
-                case .euclidWorkshop:
-                    EuclidWorkshopView(store: store)
+            PatternedSidebar(
+                store: store,
+                onHideSidebar: {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        userCollapsedSidebar = true
+                        columns = .detailOnly
+                    }
                 }
+            )
+            .navigationSplitViewColumnWidth(min: 240, ideal: 264, max: 300)
+            #if os(iOS)
+            .toolbar(.hidden, for: .navigationBar)
+            #endif
+        } detail: {
+            VStack(spacing: 0) {
+                if columns == .detailOnly {
+                    HStack(spacing: StandardSpacing.sm) {
+                        Button {
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                userCollapsedSidebar = false
+                                columns = .all
+                            }
+                        } label: {
+                            Label("Show Spine", systemImage: "sidebar.left")
+                        }
+                        .buttonStyle(OutlineButtonStyle())
+                        .keyboardShortcut("\\", modifiers: [.command])
+                        .accessibilityLabel("Show left spine")
+
+                        Text("The Patterned World · \(store.activeRoom.title)")
+                            .standardType(.uiCaption)
+                            .foregroundStyle(theme.mute(theme.ink))
+                        Spacer(minLength: 0)
+                        Button {
+                            store.activeRoom = .mathsJournal
+                        } label: {
+                            Label("Journal & Notes", systemImage: "book.pages")
+                        }
+                        .buttonStyle(OutlineButtonStyle())
+                    }
+                    .padding(.horizontal, StandardSpacing.lg)
+                    .padding(.vertical, StandardSpacing.xs)
+                    .background(theme.surface)
+                    Rectangle().fill(theme.hairline()).frame(height: 1)
+                }
+
+                Group {
+                    switch store.activeRoom {
+                    case .today:
+                        TodayHomeView(store: store)
+                    case .schoolMaths:
+                        SchoolMathsHomeView(store: store)
+                    case .patternedWorld:
+                        PatternedWorldHomeView(store: store)
+                    case .labsAtlas:
+                        LabsAtlasHomeView(store: store)
+                    case .polyaFluency:
+                        PolyaFluencyHomeView(store: store)
+                    case .mathsJournal:
+                        MathsJournalHomeView(store: store)
+                    case .coach:
+                        MathsCoachView(store: store)
+                    case .euclidWorkshop:
+                        EuclidWorkshopView(store: store)
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(theme.bg)
             .navigationTitle(store.activeRoom.title)
             #if os(iOS)
@@ -82,6 +124,11 @@ struct KymMathsRootView: View {
         .navigationSplitViewStyle(.balanced)
         .tint(theme.brass)
         .conceptLinks()
+        .onAppear {
+            if userCollapsedSidebar {
+                columns = .detailOnly
+            }
+        }
         // The proof studio opens from Today, School book and Coach, so it hangs off the root.
         .sheet(item: $store.activePracticeQuestion) { question in
             QuestionProofPracticeView(question: question, store: store)

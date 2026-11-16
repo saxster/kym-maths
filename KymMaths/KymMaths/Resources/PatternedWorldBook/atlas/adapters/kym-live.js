@@ -13,7 +13,7 @@
 //   - Optional user-initiated Web Audio sonification (api.audio())
 //   - Optional user-initiated HTML5 sensor bridge (camera photometer, mic spirometer, device tilt)
 //   - Automatic 2D Canvas paper-and-ink fallback when WebGL is disabled
-import { createStage } from '../engine/stage.js';
+import { createStage, DEFAULT_QUIRK, resolveQuirk } from '../engine/stage.js';
 import { readTheme, srgbLuminance } from '../engine/theme.js';
 
 const CSS = `
@@ -34,7 +34,7 @@ const CSS = `
 .atlas-stage .lbl.axis { font: italic 14px/1 Georgia, serif; color: var(--muted); transform: translate(-100%, -50%); }
 .atlas-stage .atlas-title { position: absolute; top: 10px; right: 14px; font: italic 15px/1.3 Georgia, serif; color: var(--ink); pointer-events: none; text-align: right; max-width: 72%; background: color-mix(in srgb, var(--sheet) 82%, transparent); padding: 2px 7px; border-radius: 4px; }
 .atlas-stage .atlas-badge { position: absolute; bottom: 8px; left: 12px; font: 500 11px/1.3 var(--sans, system-ui, sans-serif); color: var(--muted); pointer-events: none; background: color-mix(in srgb, var(--sheet) 82%, transparent); padding: 2px 6px; border-radius: 4px; }
-.atlas-parts, .atlas-cuts, .atlas-pages, .atlas-mediums { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; max-width: 100%; }
+.atlas-parts, .atlas-cuts, .atlas-pages { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; max-width: 100%; }
 `;
 let styled = false;
 let activeAtlasStage = null;
@@ -285,10 +285,13 @@ export function mountAtlas(stage, params, api, rawChapter, defaults = {}) {
       S.destroy();
     }
     try {
+      const q = resolveQuirk(opts.quirk || chapter.quirk || DEFAULT_QUIRK);
       S = createStage(canvas, labels, chapter, {
         reduced: reducedMotion(),
         touch: matchMedia('(pointer: coarse)').matches,
         theme: readTheme(stage),
+        quirk: q.id,
+        medium: opts.medium || chapter.medium || q.medium,
         dprCap: 2,
         frameParts: true,
         labelTopInset: () => title.offsetHeight || 24,
@@ -473,41 +476,6 @@ export function mountAtlas(stage, params, api, rawChapter, defaults = {}) {
     if (Array.isArray(api._tabs)) api._tabs.push([...cutButtons.values()]);
     controlsEl.appendChild(cutWrap);
   }
-
-  // ---------- 2b. 5-Medium Atelier Switcher ----------
-  const mediumList = [
-    ['paper-ink', 'Paper & Ink'],
-    ['pencil-wash', 'Sketchbook'],
-    ['ciechanow', 'Mechanism'],
-    ['moebius', 'Ligne-claire'],
-    ['risograph', 'Risograph'],
-  ];
-  let curMedium = chapter.medium || 'paper-ink';
-  const medWrap = document.createElement('div');
-  medWrap.className = 'live-tabs atlas-mediums';
-  medWrap.setAttribute('role', 'group');
-  medWrap.setAttribute('aria-label', 'Visual medium');
-  let medButtons = new Map();
-  for (const [m, lbl] of mediumList) {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'live-ctl';
-    btn.textContent = lbl;
-    btn.setAttribute('aria-pressed', String(m === curMedium));
-    btn.addEventListener('click', () => {
-      curMedium = m;
-      document.documentElement.dataset.medium = m;
-      if (S && S.setMedium) S.setMedium(m);
-      for (const [k, b] of medButtons) b.setAttribute('aria-pressed', String(k === m));
-      kick();
-      api._refresh?.();
-    });
-    medWrap.appendChild(btn);
-    medButtons.set(m, btn);
-    if (Array.isArray(api._buttons)) api._buttons.push(btn);
-  }
-  if (Array.isArray(api._tabs)) api._tabs.push([...medButtons.values()]);
-  controlsEl.appendChild(medWrap);
 
   // ---------- 3. Interactive Sliders (coupled to chapter.params) ----------
   function syncSlidersFromParams() {
@@ -787,6 +755,18 @@ export function mountAtlas(stage, params, api, rawChapter, defaults = {}) {
   draw(0, false);
   return {
     setPage,
+    setMedium(m) {
+      if (S?.setMedium) {
+        S.setMedium(m);
+        kick();
+      }
+    },
+    setQuirk(q) {
+      if (S?.setQuirk) {
+        S.setQuirk(q);
+        kick();
+      }
+    },
     setLesson(lessonKey) {
       const preset = chapter.lessons?.[lessonKey];
       if (!preset) return;

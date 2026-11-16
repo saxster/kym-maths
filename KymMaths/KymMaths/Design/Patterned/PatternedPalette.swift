@@ -1,29 +1,8 @@
 import SwiftUI
 
-/// Byrne's three colours. They mark maths objects only, and a colour means the same thing in a
-/// sentence as in the figure beside it. Chrome never uses them.
-enum ByrneRole: String, CaseIterable, Sendable {
-    /// Red: the thing that moves or changes.
-    case moves
-    /// Yellow: the thing that stays the same, the key idea.
-    case stays
-    /// Blue: the given, the thing you start from.
-    case given
-
-    /// Markup names a writer may use: `{red:…}` and `{moves:…}` are the same role.
-    init?(markup: String) {
-        switch markup.lowercased() {
-        case "red", "moves": self = .moves
-        case "yellow", "stays": self = .stays
-        case "blue", "given": self = .given
-        default: return nil
-        }
-    }
-}
-
-/// The colours the Figma file adds to The Standard's paper, ink and brass: Byrne's three, their
-/// washes, the learning states, and the margin and sunk paper tones. Paper values are for light
-/// themes and Night values for dark ones, picked by the active theme.
+/// The colours the Figma file adds to The Standard's paper, ink and brass: Byrne's three (`ByrneRole`
+/// from `KymBookKit`), their washes, the learning states, and the margin and sunk paper tones.
+/// Paper values are for light themes and Night values for dark ones, picked by the active theme.
 struct PatternedPalette: Equatable, Sendable {
     let red: UInt32
     let yellow: UInt32

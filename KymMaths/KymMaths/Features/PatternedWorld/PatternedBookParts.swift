@@ -97,6 +97,246 @@ enum PatternedBook {
             .max { $0.updatedAt < $1.updatedAt }?
             .responseText
     }
+
+    // MARK: - Canonical KymBookKit Manifest, Comic Bookends & ChapterSpec Bridge
+
+    static func bookManifest(chaptersCount: Int = 21, learnerName: String = "Kym") -> BookManifest {
+        BookManifest(
+            bookID: "kym-patterned-maths",
+            buildHash: "v1-patterned-\(chaptersCount)",
+            slug: "kym_patterned_maths",
+            title: "The Patterned World",
+            subtitle: "Five volumes · Twenty-one chapters",
+            archetype: .patternedPractice,
+            primaryLearnerName: learnerName,
+            tutorProfile: CodableTutorProfileSpec(
+                appName: "KymMaths",
+                subjectLabel: "Mathematics"
+            )
+        )
+    }
+
+    static func misconceptionSpec(for chapter: PatternedWorldChapter) -> MisconceptionSpec {
+        let bridge = chapter.intuitionToFormula
+        if let debate = chapter.debate {
+            let wrongChoice = debate.choices.first(where: { !$0.isCorrect })
+            let buggy = wrongChoice?.reasoningStatement ?? debate.speakerAClaim
+            let rebuttal = wrongChoice?.socraticRebuttal ?? debate.invariantTakeaway
+            return MisconceptionSpec(
+                id: "misc-\(chapter.id)",
+                title: debate.title,
+                buggyRule: buggy,
+                coherentWorldRule: bridge.ahaInvariant,
+                refutationAnchor: "\(rebuttal) \(debate.invariantTakeaway)"
+            )
+        }
+        let trapBody = chapter.callouts.first(where: { $0.kind == "careful" })?.body
+            ?? "Changing surface numbers without checking what stays fixed."
+        return MisconceptionSpec(
+            id: "misc-\(chapter.id)",
+            title: "Common slip in \(chapter.title)",
+            buggyRule: trapBody,
+            coherentWorldRule: bridge.ahaInvariant,
+            refutationAnchor: bridge.concreteAction
+        )
+    }
+
+    static func openerStrip(for chapter: PatternedWorldChapter, manifest: BookManifest) -> ComicStripSpec {
+        let ordinal = max(1, chapter.number + 1)
+        let setting = BookKitComicWorldBible.setting(forChapterOrdinal: ordinal)
+        let terms = chapter.intuitionToFormula.termMappings
+        let actionRich = byrneMarked(chapter.intuitionToFormula.concreteAction, terms: terms)
+        let hookRich = byrneMarked(chapter.hookSummary, terms: terms)
+        return ComicStripSpec(
+            id: "\(chapter.id)-opener",
+            role: .chapterOpener,
+            title: "Chapter \(chapter.number) · \(setting.dateline)",
+            panels: [
+                ComicPanelSpec(
+                    id: "\(chapter.id)-opener-p1",
+                    panelNumber: 1,
+                    span: .wide,
+                    captionRich: "At \(setting.dateline): Master Bento sets up the workbench for {stays:\(chapter.title)} — \(actionRich)",
+                    balloon: ComicBalloonSpec(
+                        speaker: "Director Barnaby · Jargon Desk",
+                        textRich: "To save time on \(chapter.title), let us simply scale {moves:the changing numbers} by memo without checking {stays:what stays fixed}.",
+                        tailDirection: .bottomLeft,
+                        sourceBasis: .thoughtExperiment
+                    ),
+                    scenePreset: .anomalySetup,
+                    calloutLabel: "Ch \(chapter.number) setup"
+                ),
+                ComicPanelSpec(
+                    id: "\(chapter.id)-opener-p2",
+                    panelNumber: 2,
+                    span: .half,
+                    captionRich: "One second before Dash pulls the What-If Counterfactual Lever: a tempting shortcut splits from reality as soon as Kym tests the boundary case.",
+                    balloon: ComicBalloonSpec(
+                        speaker: "\(manifest.primaryLearnerName) & Dr. Zeta",
+                        textRich: hookRich,
+                        tailDirection: .bottomRight,
+                        sourceBasis: .thoughtExperiment
+                    ),
+                    scenePreset: .intuitionBreak,
+                    calloutLabel: "Wonder handoff"
+                )
+            ]
+        )
+    }
+
+    static func closerStrip(
+        for chapter: PatternedWorldChapter,
+        manifest: BookManifest,
+        nextChapterTitle: String? = nil
+    ) -> ComicStripSpec {
+        let terms = chapter.intuitionToFormula.termMappings
+        let invariantRich = byrneMarked(chapter.intuitionToFormula.ahaInvariant, terms: terms)
+        let misc = misconceptionSpec(for: chapter)
+        let nextLabel = nextChapterTitle ?? chapter.skillCard?.unlocks.first ?? "Further chapters"
+        return ComicStripSpec(
+            id: "\(chapter.id)-closer",
+            role: .chapterCloser,
+            title: "Chapter \(chapter.number) Resolution · Back at the Atelier",
+            panels: [
+                ComicPanelSpec(
+                    id: "\(chapter.id)-closer-p1",
+                    panelNumber: 1,
+                    span: .third,
+                    captionRich: "Master Bento's X-Ray Loupe: \(invariantRich)",
+                    balloon: nil,
+                    scenePreset: .xrayMechanism,
+                    calloutLabel: "Settled invariant"
+                ),
+                ComicPanelSpec(
+                    id: "\(chapter.id)-closer-p2",
+                    panelNumber: 2,
+                    span: .third,
+                    captionRich: "Dash & Director Barnaby's shortcut foiled: \(misc.refutationAnchor)",
+                    balloon: ComicBalloonSpec(
+                        speaker: "Dash · Wait a Minute",
+                        textRich: "So the universe refuses to read Barnaby's flip-chart — only {stays:\(chapter.intuitionToFormula.formulaDisplay)} holds at both extremes.",
+                        tailDirection: .bottomLeft,
+                        sourceBasis: .thoughtExperiment
+                    ),
+                    scenePreset: .misconceptionTrap,
+                    calloutLabel: "Trap defeated"
+                ),
+                ComicPanelSpec(
+                    id: "\(chapter.id)-closer-p3",
+                    panelNumber: 3,
+                    span: .third,
+                    captionRich: "What this unlocks next: carry {given:\(chapter.title)} forward into {moves:\(nextLabel)}.",
+                    balloon: ComicBalloonSpec(
+                        speaker: "Clara · Next Horizon",
+                        textRich: "Next up in our field notebook: {given:\(nextLabel)}.",
+                        tailDirection: .bottomRight,
+                        sourceBasis: .documentedFact
+                    ),
+                    scenePreset: .nextHorizon,
+                    calloutLabel: "Unlocks next"
+                )
+            ]
+        )
+    }
+
+    static func chapterSpec(
+        for chapter: PatternedWorldChapter,
+        manifest: BookManifest,
+        nextChapterTitle: String? = nil
+    ) -> ChapterSpec {
+        let terms = chapter.intuitionToFormula.termMappings
+        let standsOn = chapter.skillCard?.standsOn ?? []
+        let unlocks = chapter.skillCard?.unlocks ?? []
+        let notation = [chapter.intuitionToFormula.formulaDisplay] + terms.map(\.symbol)
+        let symbolExport = ChapterSymbolExport(
+            chapterID: chapter.id,
+            definedTerms: chapter.keyTerms,
+            notation: notation,
+            chainUnlocks: unlocks
+        )
+        let blocks: [BlockSpec] = [
+            BlockSpec(
+                id: "\(chapter.id)-key",
+                chapterID: chapter.id,
+                ordinal: 1,
+                kind: .keyIdea,
+                bodyRich: byrneMarked(chapter.intuitionToFormula.ahaInvariant, terms: terms)
+            ),
+            BlockSpec(
+                id: "\(chapter.id)-eq",
+                chapterID: chapter.id,
+                ordinal: 2,
+                kind: .equation,
+                bodyRich: byrneMarked(chapter.intuitionToFormula.formulaDisplay, terms: terms)
+            ),
+            BlockSpec(
+                id: "\(chapter.id)-action",
+                chapterID: chapter.id,
+                ordinal: 3,
+                kind: .prose,
+                bodyRich: byrneMarked(chapter.intuitionToFormula.concreteAction, terms: terms)
+            )
+        ]
+        let placeholderQuestion = QuestionSpec(
+            id: "\(chapter.id)-q1",
+            lineageID: "\(chapter.id)-lineage-q1",
+            chapterID: chapter.id,
+            skillID: "\(chapter.id)-skill",
+            role: .independent,
+            stemRich: chapter.skillCard?.sheCan.prompt ?? chapter.hookSummary,
+            answerSpec: .exactSTEM(
+                canonical: chapter.skillCard?.sheCan.answer ?? "1",
+                unit: nil,
+                variable: nil,
+                tolerance: 0.01
+            )
+        )
+        let mentorRoom = MentorRoomSpec(
+            id: "\(chapter.id)-mentor",
+            chapterID: chapter.id,
+            kind: .teachback,
+            preparePromptRich: byrneMarked(chapter.intuitionToFormula.concreteAction, terms: terms),
+            openingQuestion: chapter.hookSummary,
+            objectives: [
+                RoomObjectiveSpec(
+                    id: "\(chapter.id)-obj-1",
+                    description: chapter.intuitionToFormula.ahaInvariant,
+                    requiredConcepts: Array(chapter.keyTerms.prefix(3))
+                )
+            ],
+            offlineSpotTheFlawQuestion: placeholderQuestion
+        )
+        let stage = StageSpec.barOrAreaModel(
+            BarAreaModelSpec(
+                title: chapter.title,
+                givenLabel: "Given",
+                givenValue: 1.0,
+                staysLabel: chapter.intuitionToFormula.formulaDisplay,
+                movesLabel: "Changes",
+                minMoves: 0.0,
+                maxMoves: 10.0,
+                initialMoves: 2.0,
+                targetProductOrSum: 2.0
+            )
+        )
+        return ChapterSpec(
+            id: chapter.id,
+            ordinal: max(1, chapter.number + 1),
+            kicker: "CHAPTER \(chapter.number)",
+            title: chapter.title,
+            wonderQuestion: byrneMarked(chapter.hookSummary, terms: terms),
+            standsOn: standsOn,
+            unlocks: unlocks,
+            symbolExport: symbolExport,
+            blocks: blocks,
+            stageID: "\(chapter.id)-stage",
+            stage: stage,
+            questions: [placeholderQuestion],
+            mentorRoom: mentorRoom,
+            openerStrip: openerStrip(for: chapter, manifest: manifest),
+            closerStrip: closerStrip(for: chapter, manifest: manifest, nextChapterTitle: nextChapterTitle)
+        )
+    }
 }
 
 // MARK: - Where a chapter stands

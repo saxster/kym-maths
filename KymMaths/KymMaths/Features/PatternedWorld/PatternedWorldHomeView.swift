@@ -80,6 +80,7 @@ struct PatternedLibraryView: View {
     @Environment(\.standardTheme) private var theme
     @State private var chosenVolume: Int?
     @State private var width: CGFloat = 700
+    @State private var showBookPrologue = false
 
     private var visibleNumbers: Set<Int> { Set(store.visiblePatternedWorldChapters.map(\.number)) }
 
@@ -89,6 +90,10 @@ struct PatternedLibraryView: View {
     }
 
     var body: some View {
+        let manifest = PatternedBook.bookManifest(
+            chaptersCount: max(1, store.seedPack.chapters.count),
+            learnerName: store.learnerDisplayName
+        )
         ScrollView {
             VStack(alignment: .leading, spacing: StandardSpacing.xl) {
                 EditorialHeader(
@@ -96,6 +101,37 @@ struct PatternedLibraryView: View {
                     title: "The Patterned World",
                     subtitle: "Every chapter opens with one idea worth wondering about. Read it first; the maths is how you find out why it is true."
                 )
+
+                VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+                    BookKitCoverBanner(
+                        manifest: manifest,
+                        chapterCount: max(1, store.seedPack.chapters.count),
+                        activeOrdinal: max(1, store.selectedChapterNumber + 1),
+                        compact: false
+                    )
+                    HStack(spacing: StandardSpacing.sm) {
+                        Kicker("Book introduction · 4-panel field guide (Kym, Clara & Master Bento)", muted: true)
+                        Spacer(minLength: 0)
+                        Button(showBookPrologue ? "Fold intro" : "Read 4-panel intro") {
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                showBookPrologue.toggle()
+                            }
+                        }
+                        .buttonStyle(OutlineButtonStyle())
+                    }
+                    if showBookPrologue {
+                        BookKitComicStripView(
+                            strip: manifest.resolvedPrologueStrip,
+                            emblem: manifest.resolvedAtelierIdentity.emblem,
+                            availableWidth: width,
+                            continuationTitle: "Open Chapter 0",
+                            onContinue: {
+                                showBookPrologue = false
+                                openChapter(0)
+                            }
+                        )
+                    }
+                }
 
                 LazyVGrid(
                     columns: [GridItem(.adaptive(minimum: 124), spacing: StandardSpacing.sm, alignment: .top)],

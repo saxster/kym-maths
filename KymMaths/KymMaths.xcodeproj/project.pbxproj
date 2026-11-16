@@ -54,6 +54,7 @@
 		2E0977BC7F08E666197C76D7 /* SeedPackModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDD75ED6882912482DEE178 /* SeedPackModels.swift */; };
 		2E216AD88A381B7788FBD96B /* AIFeatureKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E298CBDC92B37AD6CCD596 /* AIFeatureKey.swift */; };
 		2EBD574E7D10B880BA687342 /* WalkBackSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864315E9EDA42434023756E /* WalkBackSheet.swift */; };
+		300F96ED3676E1C7B89F23C4 /* KymLiveVoice in Frameworks */ = {isa = PBXBuildFile; productRef = 451D2FFB781C3B8576BE826D /* KymLiveVoice */; };
 		3089AAD92D0F9932F71710E0 /* MotifFigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875B06E6A3224E552E3C7FD1 /* MotifFigure.swift */; };
 		30D14E317EB3CDC8C094164F /* KymDesign in Frameworks */ = {isa = PBXBuildFile; productRef = 85FA254BF7FA5BEDB125FFAA /* KymDesign */; };
 		31289D24A46AB0A93328345F /* PaperSheetPieces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B17A4E15B1C9562EEC7B186 /* PaperSheetPieces.swift */; };
@@ -190,6 +191,7 @@
 		B9243B65A9F2646BA148F46C /* PatternedSidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E6365E9D7607C4F787EDDF /* PatternedSidebar.swift */; };
 		B953C95F5286F9C928201841 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DA3B0D277115D6FA1B1AE9 /* AppStore.swift */; };
 		BA884C6049430CEAE51CF7F1 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DA3B0D277115D6FA1B1AE9 /* AppStore.swift */; };
+		BF6A378BE92A74A20632F46B /* KymBookKit in Frameworks */ = {isa = PBXBuildFile; productRef = 45019E8B32F01C1EC36FA67A /* KymBookKit */; };
 		BFC880E363669E4360AAB507 /* expression-reading.json in Resources */ = {isa = PBXBuildFile; fileRef = 4E0F598822D8FFCF0728880C /* expression-reading.json */; };
 		C0FC128C5BF7BDA11C57A8FC /* ConceptLinker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE53DDE845F2A6CA170F8B99 /* ConceptLinker.swift */; };
 		C0FC88A8141BCD7AFD65757D /* KymMathsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48816A9525967912876C42A /* KymMathsApp.swift */; };
@@ -200,6 +202,7 @@
 		C6C15EA3DAD1295429582951 /* ProofStepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AEDCB1D711BD0FC146C531 /* ProofStepsView.swift */; };
 		C8C6DC9D0118F5965D8291FC /* SchoolMathsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA29A7C3025EB034F6E598F8 /* SchoolMathsHomeView.swift */; };
 		C8E3A30D6323AD8334C9484F /* FactSprintSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FDA1744551CF5AE2658224 /* FactSprintSheet.swift */; };
+		C92D370C6304C6B4F7155095 /* KymLiveVoice in Frameworks */ = {isa = PBXBuildFile; productRef = 9A7F6C4B2607AE522FC3BB35 /* KymLiveVoice */; };
 		CCFDB4CC80F01B8DC8740514 /* LiveMentorVoiceEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CFAB6A642E6B4183DB6DEA /* LiveMentorVoiceEngine.swift */; };
 		CDA638F5B56BD1EF1D820EF0 /* DailyFlowPlayerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5F5F31B2B3C48F14B948C8 /* DailyFlowPlayerSheet.swift */; };
 		CDABC512B8534489E0390C0A /* JournalEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4173B76AB64277E0CBD69473 /* JournalEmptyState.swift */; };
@@ -221,6 +224,7 @@
 		DB3D2D55535D028F1F65A677 /* ByrneText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD8998C1ED56D415508E8C4 /* ByrneText.swift */; };
 		DBAE8001DDBEA339E2A0ED49 /* AnswerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB8CFB101B40EA3E44EE644 /* AnswerKey.swift */; };
 		DBDE25C92F8F55F016FC2138 /* TextbookPageScannerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE35C047793940C45E3ED616 /* TextbookPageScannerSheet.swift */; };
+		DBDF67ED010C179CF0DC753F /* KymBookKit in Frameworks */ = {isa = PBXBuildFile; productRef = 681F980F34376177C4C79F47 /* KymBookKit */; };
 		DF8944F6DC11990ED5C7EDAD /* LabsAtlasHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E587ED43C4F9E158A98BFEC8 /* LabsAtlasHomeView.swift */; };
 		DFA90EA3166CF3157C085D17 /* WalkBackSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864315E9EDA42434023756E /* WalkBackSheet.swift */; };
 		E039B4AFFE3D21F205FCD1E6 /* MathsCoachView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAE38307D0B53EB5B3CE05F /* MathsCoachView.swift */; };
@@ -429,6 +433,8 @@
 				FC89039DFF1CFA7E3ABC0BE2 /* KymDesign in Frameworks */,
 				F5184210F98F2F3B92B55DD6 /* KymLearning in Frameworks */,
 				2312CD00A524EAE72DC10722 /* KymTutorAI in Frameworks */,
+				C92D370C6304C6B4F7155095 /* KymLiveVoice in Frameworks */,
+				DBDF67ED010C179CF0DC753F /* KymBookKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,6 +446,8 @@
 				30D14E317EB3CDC8C094164F /* KymDesign in Frameworks */,
 				83AD5E5A4B3BD3F201E2BC51 /* KymLearning in Frameworks */,
 				102440F11824377FFC348183 /* KymTutorAI in Frameworks */,
+				300F96ED3676E1C7B89F23C4 /* KymLiveVoice in Frameworks */,
+				BF6A378BE92A74A20632F46B /* KymBookKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -862,6 +870,8 @@
 				A4DCB1779ACDDFED5F6AF76D /* KymDesign */,
 				5C4E115569DF698E731BE8E4 /* KymLearning */,
 				F7295DAC5D15144FB490B97A /* KymTutorAI */,
+				9A7F6C4B2607AE522FC3BB35 /* KymLiveVoice */,
+				681F980F34376177C4C79F47 /* KymBookKit */,
 			);
 			productName = "KymMaths-iPad";
 			productReference = C20E2798CF589C928229BBE1 /* KymMaths-iPad.app */;
@@ -885,6 +895,8 @@
 				85FA254BF7FA5BEDB125FFAA /* KymDesign */,
 				AC0A96A710F6DBCC1DB4D47D /* KymLearning */,
 				7842BAC63A7BE3E80B7DF86E /* KymTutorAI */,
+				451D2FFB781C3B8576BE826D /* KymLiveVoice */,
+				45019E8B32F01C1EC36FA67A /* KymBookKit */,
 			);
 			productName = KymMaths;
 			productReference = 9D22B0CB8F90E5F10BF12F8C /* KymMaths.app */;
@@ -1595,9 +1607,21 @@
 			package = A1FDF51F128EECE36EA5D99D /* XCRemoteSwiftPackageReference "GRDB.swift" */;
 			productName = GRDB;
 		};
+		45019E8B32F01C1EC36FA67A /* KymBookKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KymBookKit;
+		};
+		451D2FFB781C3B8576BE826D /* KymLiveVoice */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KymLiveVoice;
+		};
 		5C4E115569DF698E731BE8E4 /* KymLearning */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = KymLearning;
+		};
+		681F980F34376177C4C79F47 /* KymBookKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KymBookKit;
 		};
 		7842BAC63A7BE3E80B7DF86E /* KymTutorAI */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1606,6 +1630,10 @@
 		85FA254BF7FA5BEDB125FFAA /* KymDesign */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = KymDesign;
+		};
+		9A7F6C4B2607AE522FC3BB35 /* KymLiveVoice */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KymLiveVoice;
 		};
 		A4DCB1779ACDDFED5F6AF76D /* KymDesign */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -20,6 +20,15 @@ struct MathsJournalHomeView: View {
     @State private var polyaStepsText: String = ""
     @State private var isWriting = false
     @State private var pageWidth: CGFloat = 600
+    @State private var journalBrowseMode: String = "calendar"
+    @State private var voiceNoteBookmarkQuote: String = ""
+    @State private var voiceNoteBookmarks: [BookKitVoiceNoteBookmark] = []
+    @State private var voiceNoteSpeed: String = "1×"
+    @State private var voicePlaybackBanner: String?
+    @State private var distillDraft: String = ""
+    @State private var distillStatusBanner: String?
+    @State private var showRootGlossaryDrawer = false
+    @State private var voiceNarrator = ChapterAudioNarrator()
 
     private let templates = [
         ("proof_log", "A proof"),
@@ -28,20 +37,34 @@ struct MathsJournalHomeView: View {
         ("lab_log", "An investigation")
     ]
 
+    private let browseModes = [
+        ("calendar", "Calendar"),
+        ("by_chapter", "By chapter"),
+        ("all_pages", "All pages")
+    ]
+
     private let papers = ["grid", "dots", "lined", "blank", "cornell"]
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: StandardSpacing.xl) {
                 header
+                browseAndRootPromptBar
+
+                if journalBrowseMode == "calendar" {
+                    calendarHeatStrip
+                }
 
                 ReadingSpread {
                     if isWriting { writingCard } else { pageCard }
                 } margin: {
                     ideasCard
+                    voiceNotesMarginCard
+                    distillRuleMarginCard
                     topicStatus
                 }
 
+                exemplarTemplatesBand
                 otherPages
                 ideaCollection
                 deleteRow
@@ -90,6 +113,8 @@ struct MathsJournalHomeView: View {
 
     private var headerActions: some View {
         HStack(spacing: StandardSpacing.sm) {
+            Button("Deadlines & calendar") { store.showCalendarSheet = true }
+                .buttonStyle(OutlineButtonStyle())
             Button("Add a page") { startNewEntry() }
                 .buttonStyle(OutlineButtonStyle())
             Button(isWriting ? "Read it" : "Write") { isWriting.toggle() }
@@ -104,6 +129,233 @@ struct MathsJournalHomeView: View {
                 }
             }
             .buttonStyle(InkButtonStyle())
+        }
+    }
+
+    private var browseAndRootPromptBar: some View {
+        let suggested = BookKitRootGlossaryCatalog.suggestedRoot(
+            forSubject: "math",
+            chapterOrdinal: max(1, store.selectedChapterNumber + 1)
+        )
+        let mathRoots = BookKitRootGlossaryCatalog.roots(for: "math")
+        return VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+            FlowLayout(spacing: StandardSpacing.xs) {
+                ForEach(browseModes, id: \.0) { code, label in
+                    PatternedChip(label, isSelected: journalBrowseMode == code) {
+                        journalBrowseMode = code
+                    }
+                }
+                Button(showRootGlossaryDrawer ? "Hide word roots" : "Greek & Latin word roots") {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        showRootGlossaryDrawer.toggle()
+                    }
+                }
+                .buttonStyle(OutlineButtonStyle())
+            }
+            HStack(spacing: StandardSpacing.xs) {
+                Kicker("Word root prompt", muted: true)
+                Button("Try using “\(suggested.headword)” (\(suggested.originLanguage) \(suggested.rootForm): \(suggested.literalMeaning))") {
+                    isWriting = true
+                    let line = "\(suggested.headword.capitalized) (\(suggested.literalMeaning)): \(suggested.plainExplanation)"
+                    if bodyText.isEmpty {
+                        bodyText = line
+                    } else {
+                        bodyText += "\n\(line)"
+                    }
+                }
+                .buttonStyle(OutlineButtonStyle())
+            }
+            if showRootGlossaryDrawer {
+                VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                    Kicker("Greek & Latin mathematics roots · why the words mean what they do")
+                    ForEach(mathRoots) { root in
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("\(root.headword) · \(root.originLanguage) \(root.rootForm) (“\(root.literalMeaning)”)")
+                                .standardType(.uiHeadline)
+                                .foregroundStyle(theme.ink)
+                            Text(root.plainExplanation)
+                                .patternedType(.readingSmall)
+                                .foregroundStyle(theme.mute(theme.ink))
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                        .padding(.vertical, 4)
+                    }
+                }
+                .paperCard(padding: StandardSpacing.md)
+            }
+        }
+    }
+
+    private var calendarHeatStrip: some View {
+        let cal = Calendar.current
+        let today = cal.startOfDay(for: Date())
+        let days: [Date] = (0..<14).compactMap { offset in
+            cal.date(byAdding: .day, value: -(13 - offset), to: today)
+        }
+        return VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+            HStack {
+                Kicker("14-day study & journal calendar · heat dots", muted: true)
+                Spacer(minLength: 0)
+                Button("Open test deadlines") {
+                    store.showCalendarSheet = true
+                }
+                .buttonStyle(OutlineButtonStyle())
+            }
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: StandardSpacing.xs), count: 7), spacing: StandardSpacing.xs) {
+                ForEach(days, id: \.self) { day in
+                    let count = store.journalEntries.filter { cal.isDate($0.updatedAt, inSameDayAs: day) }.count
+                    VStack(spacing: 4) {
+                        Text(day.formatted(.dateTime.weekday(.narrow)))
+                            .standardType(.uiCaption)
+                            .foregroundStyle(theme.mute(theme.ink))
+                        Text(day.formatted(.dateTime.day()))
+                            .standardType(.uiBody)
+                            .fontWeight(cal.isDateInToday(day) ? .bold : .regular)
+                            .foregroundStyle(theme.ink)
+                        Circle()
+                            .fill(count > 0 ? theme.patterned.provenColor : theme.faint(theme.ink))
+                            .frame(width: 7, height: 7)
+                    }
+                    .padding(.vertical, StandardSpacing.xs)
+                    .frame(maxWidth: .infinity)
+                    .background(RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous).fill(theme.surface))
+                    .overlay(RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous).strokeBorder(cal.isDateInToday(day) ? theme.ink : theme.hairline(), lineWidth: 1))
+                }
+            }
+        }
+        .paperCard(padding: StandardSpacing.md)
+    }
+
+    private var voiceNotesMarginCard: some View {
+        let nextSec = (voiceNoteBookmarks.count + 1) * 14
+        let nextStamp = BookKitVoiceBookmarkParser.formatVoiceTimestamp(nextSec)
+        return VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+            Kicker("Voice notes & bookmarks", muted: true)
+            Text("Bookmark a step while speaking out loud, listen back at \(voiceNoteSpeed), or send it to your coach.")
+                .patternedType(.readingSmall)
+                .foregroundStyle(theme.mute(theme.ink))
+
+            HStack(spacing: StandardSpacing.xs) {
+                TextField("Step or quote…", text: $voiceNoteBookmarkQuote)
+                    .textFieldStyle(.plain)
+                    .paperField()
+                Button("+ [\(nextStamp)]") {
+                    let quote = voiceNoteBookmarkQuote.isEmpty ? "Ch \(store.selectedChapterNumber) · Topic \(linkedTopicCode)" : voiceNoteBookmarkQuote
+                    let bm = BookKitVoiceNoteBookmark(
+                        timeSeconds: nextSec,
+                        pageOrSectionRef: "Topic \(linkedTopicCode)",
+                        quote: quote
+                    )
+                    voiceNoteBookmarks.append(bm)
+                    let tag = BookKitVoiceBookmarkParser.formatBookmarkTag(bm)
+                    if bodyText.isEmpty {
+                        bodyText = tag
+                    } else {
+                        bodyText += "\n\(tag)"
+                    }
+                    voiceNoteBookmarkQuote = ""
+                    voicePlaybackBanner = "Added bookmark \(tag)"
+                }
+                .buttonStyle(OutlineButtonStyle())
+            }
+
+            if !voiceNoteBookmarks.isEmpty {
+                FlowLayout(spacing: StandardSpacing.xs) {
+                    ForEach(voiceNoteBookmarks) { bm in
+                        let tag = BookKitVoiceBookmarkParser.formatBookmarkTag(bm)
+                        Button(tag) {
+                            let spoken = bm.quote ?? bodyText
+                            voiceNarrator.togglePlayPause(text: spoken, beatIndex: 0, beatId: bm.id)
+                            voicePlaybackBanner = "Playing \(tag) at \(voiceNoteSpeed)"
+                        }
+                        .buttonStyle(OutlineButtonStyle())
+                    }
+                }
+            }
+
+            HStack(spacing: StandardSpacing.xs) {
+                ForEach(["1×", "1.5×", "2×"], id: \.self) { spd in
+                    PatternedChip(spd, isSelected: voiceNoteSpeed == spd) {
+                        voiceNoteSpeed = spd
+                        voiceNarrator.playbackSpeedMultiplier = spd == "2×" ? 2.0 : (spd == "1.5×" ? 1.5 : 1.0)
+                    }
+                }
+                Button("Ask coach") {
+                    store.activeRoom = .coach
+                }
+                .buttonStyle(OutlineButtonStyle())
+            }
+
+            if let banner = voicePlaybackBanner {
+                Text(banner)
+                    .standardType(.uiCaption)
+                    .foregroundStyle(theme.patterned.provenColor)
+            }
+        }
+        .paperCard()
+    }
+
+    private var distillRuleMarginCard: some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+            Kicker("Distill into rule card · own words check", muted: true)
+            Text("Turn this page's main idea into a review card. Must be in your own words, not copied straight from the chapter.")
+                .patternedType(.readingSmall)
+                .foregroundStyle(theme.mute(theme.ink))
+            TextField("In my own words, the rule works because…", text: $distillDraft)
+                .textFieldStyle(.plain)
+                .paperField()
+            Button("Distill into rule card") {
+                let candidate = distillDraft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                    ? summaryText
+                    : distillDraft
+                let source = store.selectedChapter.intuitionToFormula.ahaInvariant
+                let check = BookKitParaphraseValidator.validate(ownWords: candidate, sourceExcerpt: source)
+                guard check.isAccepted else {
+                    distillStatusBanner = check.feedbackMessage
+                    return
+                }
+                let item = LiveVoiceTakeawayItem(
+                    frontPrompt: title.isEmpty ? "Rule from Ch \(store.selectedChapterNumber) · \(store.selectedChapter.title)" : title,
+                    backExplanation: candidate,
+                    topicTag: linkedTopicCode
+                )
+                store.saveVoiceTakeawayFlashcard(item)
+                distillDraft = ""
+                distillStatusBanner = "Saved to your review cards (own-words check passed)."
+            }
+            .buttonStyle(OutlineButtonStyle())
+            if let status = distillStatusBanner {
+                Text(status)
+                    .standardType(.uiCaption)
+                    .foregroundStyle(theme.patterned.provenColor)
+            }
+        }
+        .paperCard()
+    }
+
+    private var exemplarTemplatesBand: some View {
+        let manifest = PatternedBook.bookManifest(
+            chaptersCount: max(1, store.seedPack.chapters.count),
+            learnerName: store.learnerDisplayName
+        )
+        let chapterSpec = PatternedBook.chapterSpec(for: store.selectedChapter, manifest: manifest)
+        let exemplars = BookKitJournalExemplarCatalog.exemplars(for: manifest, firstChapter: chapterSpec)
+        return VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+            Kicker("Example starter pages · 4 ways to begin", muted: true)
+            FlowLayout(spacing: StandardSpacing.xs) {
+                ForEach(exemplars) { ex in
+                    Button(ex.title) {
+                        isWriting = true
+                        templateKind = ex.templateKind.rawValue
+                        paperStyle = ex.paperStyle.rawValue
+                        title = ex.title
+                        cueText = ex.cueQuestions
+                        bodyText = ex.bodyText
+                        summaryText = ex.oneSentenceSummary
+                    }
+                    .buttonStyle(OutlineButtonStyle())
+                }
+            }
         }
     }
 
@@ -467,47 +719,64 @@ struct MathsJournalHomeView: View {
 
     @ViewBuilder
     private var otherPages: some View {
-        let others = store.journalEntries.filter { $0.id != selectedEntryId }
+        let others = journalBrowseMode == "all_pages"
+            ? store.journalEntries
+            : store.journalEntries.filter { $0.id != selectedEntryId }
         if !others.isEmpty {
             VStack(alignment: .leading, spacing: StandardSpacing.sm) {
-                Kicker("Your other pages", muted: true)
-                VStack(spacing: 0) {
-                    ForEach(others) { entry in
-                        Button {
-                            loadEntry(entry)
-                        } label: {
-                            HStack(spacing: StandardSpacing.md) {
-                                Image(systemName: "doc.text")
-                                    .foregroundStyle(theme.mute(theme.ink))
-                                    .accessibilityHidden(true)
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(entry.title)
-                                        .standardType(.uiHeadline)
-                                        .foregroundStyle(theme.ink)
-                                        .multilineTextAlignment(.leading)
-                                    Text(entry.updatedAt.formatted(.dateTime.weekday(.wide).day().month(.wide)))
-                                        .standardType(.uiCaption)
-                                        .foregroundStyle(theme.mute(theme.ink))
-                                }
-                                Spacer(minLength: 0)
-                                Image(systemName: "chevron.right")
-                                    .imageScale(.small)
-                                    .foregroundStyle(theme.mute(theme.ink))
-                                    .accessibilityHidden(true)
-                            }
-                            .padding(.vertical, StandardSpacing.sm)
-                            .frame(minHeight: StandardAccessibility.touchTarget)
-                            .contentShape(Rectangle())
-                        }
-                        .buttonStyle(.plain)
-                        if entry.id != others.last?.id {
-                            Rectangle().fill(theme.hairline()).frame(height: 1)
+                Kicker(journalBrowseMode == "by_chapter" ? "Pages grouped by chapter" : "Your other pages", muted: true)
+                if journalBrowseMode == "by_chapter" {
+                    let chapters = Array(Set(others.map { $0.linkedChapterNumber ?? 0 })).sorted()
+                    ForEach(chapters, id: \.self) { chNum in
+                        let chTitle = store.seedPack.chapters.first(where: { $0.number == chNum })?.title ?? "Chapter \(chNum)"
+                        VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                            Kicker("Chapter \(chNum) · \(chTitle)")
+                            entryListCard(others.filter { ($0.linkedChapterNumber ?? 0) == chNum })
                         }
                     }
+                } else {
+                    entryListCard(others)
                 }
-                .paperCard(padding: StandardSpacing.md)
             }
         }
+    }
+
+    private func entryListCard(_ list: [LabJournalEntryRecord]) -> some View {
+        VStack(spacing: 0) {
+            ForEach(list) { entry in
+                Button {
+                    loadEntry(entry)
+                } label: {
+                    HStack(spacing: StandardSpacing.md) {
+                        Image(systemName: "doc.text")
+                            .foregroundStyle(theme.mute(theme.ink))
+                            .accessibilityHidden(true)
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(entry.title)
+                                .standardType(.uiHeadline)
+                                .foregroundStyle(theme.ink)
+                                .multilineTextAlignment(.leading)
+                            Text("Ch \(entry.linkedChapterNumber ?? 0) · \(entry.updatedAt.formatted(.dateTime.weekday(.wide).day().month(.wide)))")
+                                .standardType(.uiCaption)
+                                .foregroundStyle(theme.mute(theme.ink))
+                        }
+                        Spacer(minLength: 0)
+                        Image(systemName: "chevron.right")
+                            .imageScale(.small)
+                            .foregroundStyle(theme.mute(theme.ink))
+                            .accessibilityHidden(true)
+                    }
+                    .padding(.vertical, StandardSpacing.sm)
+                    .frame(minHeight: StandardAccessibility.touchTarget)
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                if entry.id != list.last?.id {
+                    Rectangle().fill(theme.hairline()).frame(height: 1)
+                }
+            }
+        }
+        .paperCard(padding: StandardSpacing.md)
     }
 
     private var ideaCollection: some View {

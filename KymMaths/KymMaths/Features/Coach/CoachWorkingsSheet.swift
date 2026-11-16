@@ -128,6 +128,7 @@ struct CoachWorkingsSheet: View {
         switch provider {
         case .geminiLive: return "Cloud voice"
         case .geminiLiveExtendedThinking: return "Cloud voice, slower and more careful"
+        case .elevenLabsBritish: return "British English voice"
         case .openAIRealtime: return "Second cloud voice"
         case .offlineSimulated: return "On this iPad"
         }

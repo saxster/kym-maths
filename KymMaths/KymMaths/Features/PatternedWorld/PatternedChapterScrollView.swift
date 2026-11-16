@@ -23,6 +23,7 @@ struct PatternedChapterScrollView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: StandardSpacing.xl) {
             opening
+            openerComicStrip
             predictions
             bridgeSteps
             ChapterFigure(
@@ -39,6 +40,7 @@ struct PatternedChapterScrollView: View {
             sections
             thinkingNote
             checks
+            cheatSheetAndCloserStrip
             finish
         }
     }
@@ -311,6 +313,87 @@ struct PatternedChapterScrollView: View {
             )
         }
         .buttonStyle(OutlineButtonStyle())
+    }
+
+    // MARK: Comic Bookends & Tear-Out Cheat Sheet
+
+    private var bookManifest: BookManifest {
+        PatternedBook.bookManifest(
+            chaptersCount: max(1, store.seedPack.chapters.count),
+            learnerName: store.learnerDisplayName
+        )
+    }
+
+    private var openerComicStrip: some View {
+        let manifest = bookManifest
+        return BookKitComicStripView(
+            strip: PatternedBook.openerStrip(for: chapter, manifest: manifest),
+            emblem: manifest.resolvedAtelierIdentity.emblem,
+            availableWidth: 680
+        )
+    }
+
+    private var cheatSheetAndCloserStrip: some View {
+        let manifest = bookManifest
+        let nextChapter = store.seedPack.chapters.first { $0.number == chapter.number + 1 }
+        let spec = PatternedBook.chapterSpec(
+            for: chapter,
+            manifest: manifest,
+            nextChapterTitle: nextChapter?.title
+        )
+        let misc = PatternedBook.misconceptionSpec(for: chapter)
+        return VStack(alignment: .leading, spacing: StandardSpacing.md) {
+            BookKitFiresideDialogueCard(
+                chapter: spec,
+                misconception: misc
+            )
+
+            BookKitCheatSheetCard(
+                chapter: spec,
+                misconception: misc,
+                onSaveConsolidationNote: { ownWords in
+                    let now = Date()
+                    let entry = LabJournalEntryRecord(
+                        id: "journal-consolidation-ch\(chapter.number)-\(Int(now.timeIntervalSince1970))",
+                        title: "Ch \(chapter.number) Consolidation · \(chapter.title)",
+                        templateKind: "proof_log",
+                        paperStyle: "cornell",
+                        linkedTopicCode: store.selectedTopicCode,
+                        linkedChapterNumber: chapter.number,
+                        linkedWidgetId: chapter.widgets.first ?? store.selectedWidgetId,
+                        cueColumnText: chapter.hookSummary,
+                        bodyNotesText: ownWords,
+                        summaryText: ownWords,
+                        hypothesisText: "",
+                        independentVarText: "",
+                        dependentVarText: "",
+                        controlVarsText: "",
+                        drawingData: nil,
+                        snapshotPNGData: nil,
+                        createdAt: now,
+                        updatedAt: now
+                    )
+                    store.saveJournalEntry(entry)
+                },
+                onOpenToolkit: {
+                    store.activeRoom = .mathsJournal
+                }
+            )
+
+            BookKitComicStripView(
+                strip: PatternedBook.closerStrip(
+                    for: chapter,
+                    manifest: manifest,
+                    nextChapterTitle: nextChapter?.title
+                ),
+                emblem: manifest.resolvedAtelierIdentity.emblem,
+                availableWidth: 680,
+                continuationTitle: nextChapter.map { "Turn to Ch \($0.number) · \($0.title)" },
+                onContinue: nextChapter.map { target in
+                    { reading.open(chapter: target.number, store: store) }
+                }
+            )
+        }
     }
 
     // MARK: Finish

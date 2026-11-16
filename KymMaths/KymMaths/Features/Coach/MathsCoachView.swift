@@ -13,6 +13,7 @@ struct MathsCoachView: View {
     @State private var safetyEvalReport: SafetyEvalSuiteReport = ChildSafetyEvalHarness.runFullSuite()
     @State private var latestCouncilVerdict: AdversarialCouncil.CouncilVerdict?
     @State private var showWorkings = false
+    @State private var showCoachMemory = false
     @State private var roomWidth: CGFloat = 700
 
     private let starterPrompts = [
@@ -321,6 +322,34 @@ struct MathsCoachView: View {
                         }
                         .buttonStyle(OutlineButtonStyle())
                         .disabled(isSaved)
+
+                        Button {
+                            let now = Date()
+                            let entry = LabJournalEntryRecord(
+                                id: "journal-voice-\(item.id.prefix(8))",
+                                title: "Coach Call Note — \(item.frontPrompt)",
+                                templateKind: "cornell",
+                                paperStyle: "cornell",
+                                linkedTopicCode: store.selectedTopicCode,
+                                linkedChapterNumber: store.selectedChapterNumber,
+                                linkedWidgetId: store.selectedWidgetId,
+                                cueColumnText: item.frontPrompt,
+                                bodyNotesText: item.backExplanation,
+                                summaryText: item.backExplanation,
+                                hypothesisText: "",
+                                independentVarText: "",
+                                dependentVarText: "",
+                                controlVarsText: "",
+                                drawingData: nil,
+                                snapshotPNGData: nil,
+                                createdAt: now,
+                                updatedAt: now
+                            )
+                            store.saveJournalEntry(entry)
+                        } label: {
+                            Label("Save to journal", systemImage: "book.pages")
+                        }
+                        .buttonStyle(OutlineButtonStyle())
                     }
                 }
             }
@@ -346,9 +375,47 @@ struct MathsCoachView: View {
                 TutorCanvasView(canvas: annotatedCanvas, allowEditing: true, kicker: "Your working, with the coach's notes")
             }
 
+            coachMemoryCard
+
             Button("How the coach works") { showWorkings = true }
                 .buttonStyle(TextLinkButtonStyle(arrow: false))
         }
+    }
+
+    private var coachMemoryCard: some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+            HStack {
+                Kicker("What the coach remembers")
+                Spacer(minLength: 0)
+                Button(showCoachMemory ? "Fold" : "Inspect") {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        showCoachMemory.toggle()
+                    }
+                }
+                .buttonStyle(OutlineButtonStyle())
+            }
+            Text("Chapter \(store.selectedChapterNumber) · \(store.selectedChapter.title) · British voice: \(liveVoiceController.selectedBritishPreset.displayName)")
+                .standardType(.uiCaption)
+                .foregroundStyle(theme.mute(theme.ink))
+
+            if showCoachMemory {
+                VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                    Text("• Active idea: \(store.selectedChapter.intuitionToFormula.ahaInvariant)")
+                        .patternedType(.readingSmall)
+                        .foregroundStyle(theme.ink)
+                    if let recentJournal = store.journalEntries.first {
+                        Text("• Latest journal page: \(recentJournal.title)")
+                            .patternedType(.readingSmall)
+                            .foregroundStyle(theme.ink)
+                    }
+                    Text("• Recent turns in this session: \(store.mentorTurns.count)")
+                        .patternedType(.readingSmall)
+                        .foregroundStyle(theme.mute(theme.ink))
+                }
+                .padding(.top, StandardSpacing.xxs)
+            }
+        }
+        .paperCard(padding: StandardSpacing.md)
     }
 
     // MARK: Sending

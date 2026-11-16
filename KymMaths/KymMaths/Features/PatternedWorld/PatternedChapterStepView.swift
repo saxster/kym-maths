@@ -17,11 +17,25 @@ struct PatternedChapterStepView: View {
     private var beat: ChapterInteractiveBeat { beats[beatIndex] }
     private var isUnlocked: Bool { PatternedChapterGates.isUnlocked(beat, reading: reading, store: store) }
     private var terms: [FormulaTermMapping] { chapter.intuitionToFormula.termMappings }
+    private var bookManifest: BookManifest {
+        PatternedBook.bookManifest(
+            chaptersCount: max(1, store.seedPack.chapters.count),
+            learnerName: store.learnerDisplayName
+        )
+    }
 
     var body: some View {
+        let manifest = bookManifest
         VStack(alignment: .leading, spacing: StandardSpacing.lg) {
             VStack(alignment: .leading, spacing: StandardSpacing.sm) {
                 Kicker("\(beat.code(chapter: chapter.number))  ·  \(beat.plainLabel)")
+                if beat.kind == .everydayHook {
+                    BookKitComicStripView(
+                        strip: PatternedBook.openerStrip(for: chapter, manifest: manifest),
+                        emblem: manifest.resolvedAtelierIdentity.emblem,
+                        availableWidth: 680
+                    )
+                }
                 WonderQuestion(heading)
                 if beat.kind == .everydayHook {
                     Text(chapter.subtitle)
@@ -97,6 +111,60 @@ struct PatternedChapterStepView: View {
                 LockedNote(lockedText)
             }
 
+            if beat.kind == .chapterSynthesis {
+                let nextChapter = store.seedPack.chapters.first { $0.number == chapter.number + 1 }
+                let spec = PatternedBook.chapterSpec(
+                    for: chapter,
+                    manifest: manifest,
+                    nextChapterTitle: nextChapter?.title
+                )
+                let misc = PatternedBook.misconceptionSpec(for: chapter)
+                BookKitCheatSheetCard(
+                    chapter: spec,
+                    misconception: misc,
+                    onSaveConsolidationNote: { ownWords in
+                        let now = Date()
+                        let entry = LabJournalEntryRecord(
+                            id: "journal-consolidation-ch\(chapter.number)-\(Int(now.timeIntervalSince1970))",
+                            title: "Ch \(chapter.number) Consolidation · \(chapter.title)",
+                            templateKind: "proof_log",
+                            paperStyle: "cornell",
+                            linkedTopicCode: store.selectedTopicCode,
+                            linkedChapterNumber: chapter.number,
+                            linkedWidgetId: chapter.widgets.first ?? store.selectedWidgetId,
+                            cueColumnText: chapter.hookSummary,
+                            bodyNotesText: ownWords,
+                            summaryText: ownWords,
+                            hypothesisText: "",
+                            independentVarText: "",
+                            dependentVarText: "",
+                            controlVarsText: "",
+                            drawingData: nil,
+                            snapshotPNGData: nil,
+                            createdAt: now,
+                            updatedAt: now
+                        )
+                        store.saveJournalEntry(entry)
+                    },
+                    onOpenToolkit: {
+                        store.activeRoom = .mathsJournal
+                    }
+                )
+                BookKitComicStripView(
+                    strip: PatternedBook.closerStrip(
+                        for: chapter,
+                        manifest: manifest,
+                        nextChapterTitle: nextChapter?.title
+                    ),
+                    emblem: manifest.resolvedAtelierIdentity.emblem,
+                    availableWidth: 680,
+                    continuationTitle: nextChapter.map { "Turn to Ch \($0.number) · \($0.title)" },
+                    onContinue: nextChapter.map { target in
+                        { reading.open(chapter: target.number, store: store) }
+                    }
+                )
+            }
+
             wayOn
         }
     }
@@ -161,15 +229,18 @@ struct PatternedChapterStepView: View {
                 reading.completedBeatIds.insert(beat.id)
             }
         } else {
-            VStack(alignment: .leading, spacing: StandardSpacing.xs) {
-                Kicker(callout.badgeText)
-                Text(callout.title)
-                    .standardType(.headlineSm)
-                    .foregroundStyle(theme.ink)
-                ConceptText(PatternedBook.byrneMarked(callout.body, terms: terms), linking: chapter.linksConcepts)
-                    .patternedType(.readingDefault)
-                    .foregroundStyle(theme.ink)
-                    .fixedSize(horizontal: false, vertical: true)
+            HStack(alignment: .top, spacing: StandardSpacing.sm) {
+                BookKitSignpostMedallion(callout.kind == "careful" ? .warning : .remember)
+                VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                    Kicker(callout.badgeText)
+                    Text(callout.title)
+                        .standardType(.headlineSm)
+                        .foregroundStyle(theme.ink)
+                    ConceptText(PatternedBook.byrneMarked(callout.body, terms: terms), linking: chapter.linksConcepts)
+                        .patternedType(.readingDefault)
+                        .foregroundStyle(theme.ink)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
             }
             .paperCard()
         }

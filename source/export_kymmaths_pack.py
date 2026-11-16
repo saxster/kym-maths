@@ -721,7 +721,7 @@ def build_school_textbook():
                 "bridgeIds": bridges,
                 "summary": summaries.get(code, summary),
                 "cambridgeWatchouts": [
-                    f"Always draw the Concrete → Pictorial bar model or geometric sketch before writing the symbolic formula for {code}.",
+                    f"Always draw the bar model or geometric sketch before writing the formula for {code}.",
                     "Check units, negative signs, and significant figures at the final step.",
                 ],
             })
@@ -4261,7 +4261,7 @@ def _visual_math_tips():
             "id": "tip-pythag-trig",
             "title": "Why sin²θ + cos²θ = 1 for Every Angle",
             "chapter": 12,
-            "visualIntuition": "On the @saxster/atlas unit circle of radius 1, level light casts vertical shadow sin θ and top light casts horizontal shadow cos θ.",
+            "visualIntuition": "On the unit circle of radius 1, level light casts vertical shadow sin θ and top light casts horizontal shadow cos θ.",
             "ahaMoment": "Those two shadows are the legs of a right triangle with hypotenuse 1 — so their squares always add to 1² = 1!",
             "formula": "cos²θ + sin²θ = 1² = 1",
         },
@@ -4269,7 +4269,7 @@ def _visual_math_tips():
             "id": "tip-bayes-square",
             "title": "Why a Positive Result from a 95% Accurate Test Is Wrong 72% of the Time",
             "chapter": 16,
-            "visualIntuition": "In the @saxster/atlas 1,000-person unit square at 2% prevalence, only 20 people are sick while 980 are healthy.",
+            "visualIntuition": "In the 1,000-person unit square at 2% prevalence, only 20 people are sick while 980 are healthy.",
             "ahaMoment": "5% false alarms on 980 healthy people creates 49 false positives (amber), dwarfing the 19 true positives (red)!",
             "formula": "P(D | +) = TP / (TP + FP) = 19 / (19 + 49) ≈ 27.9%",
         },
@@ -4285,7 +4285,7 @@ def _visual_math_tips():
             "id": "tip-matrix-det",
             "title": "Why det(A) = ad − bc Is Area",
             "chapter": 20,
-            "visualIntuition": "Drag the red basis vector Aî = (a, c) and blue basis vector Aĵ = (b, d) in the @saxster/atlas 2×2 Matrix Sandbox.",
+            "visualIntuition": "Drag the red basis vector Aî = (a, c) and blue basis vector Aĵ = (b, d) in the 2×2 Matrix Sandbox.",
             "ahaMoment": "The unit 1×1 square deforms into a parallelogram whose bounding box (a+b)(c+d), minus four right triangles and two b×c rectangles, leaves exact area ad − bc!",
             "formula": "Area(A · Square) = det(A) = ad − bc",
         },
@@ -4456,10 +4456,42 @@ h1 {{
 canvas#sim-canvas {{
   width: 100%;
   height: 290px;
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image: radial-gradient(var(--border) 1.1px, transparent 1.1px);
+  background-size: 16px 16px;
   border-radius: 10px;
   border: 1px solid var(--border);
   display: block;
+  transition: filter 0.18s ease;
+}}
+html[data-medium="pencil-wash"] canvas#sim-canvas {{ filter: sepia(0.14) contrast(0.96); }}
+html[data-medium="moebius"] canvas#sim-canvas {{ filter: contrast(1.08) saturate(1.06); }}
+html[data-medium="risograph"] canvas#sim-canvas {{ filter: contrast(1.12) saturate(1.18); }}
+html[data-medium="ciechanow"] canvas#sim-canvas {{ filter: contrast(1.04) brightness(0.99); }}
+.medium-bar {{
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 3px;
+  border-radius: 999px;
+  background: var(--elevated);
+  border: 1px solid var(--border);
+}}
+.medium-pill {{
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  font: 600 11.5px -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+}}
+.medium-pill[aria-pressed="true"] {{
+  background: var(--card);
+  color: var(--ink);
+  border-color: var(--border);
 }}
 .slider-row {{
   display: flex;
@@ -4539,7 +4571,16 @@ iframe.atlas-frame {{
 </section>
 
 <section class="card" id="widget-stage-card">
-  <div class="kicker">Try it · move the sliders and watch what stays the same</div>
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+    <div class="kicker">Try it · move the sliders and watch what stays the same</div>
+    <div class="medium-bar" role="group" aria-label="Print medium">
+      <button type="button" class="medium-pill" data-medium="pencil-wash" aria-pressed="false">Sketchbook</button>
+      <button type="button" class="medium-pill" data-medium="paper-ink" aria-pressed="true">Textbook</button>
+      <button type="button" class="medium-pill" data-medium="moebius" aria-pressed="false">Ligne-claire</button>
+      <button type="button" class="medium-pill" data-medium="risograph" aria-pressed="false">Risograph</button>
+      <button type="button" class="medium-pill" data-medium="ciechanow" aria-pressed="false">Mechanism</button>
+    </div>
+  </div>
   <div class="interactive-stage" style="margin-top:10px;">
     <canvas id="sim-canvas" width="560" height="290"></canvas>
     <div>
@@ -5475,6 +5516,26 @@ function drawSandbox() {{
 
 ['param-a', 'param-b', 'param-c'].forEach(id => {{
   document.getElementById(id).addEventListener('input', drawSandbox);
+}});
+
+document.querySelectorAll('.medium-pill').forEach(btn => {{
+  btn.addEventListener('click', () => {{
+    const med = btn.getAttribute('data-medium') || 'paper-ink';
+    document.documentElement.setAttribute('data-medium', med);
+    document.querySelectorAll('.medium-pill').forEach(b => {{
+      b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+    }});
+    try {{
+      const frame = document.getElementById('atlas-iframe');
+      if (frame && frame.contentDocument && frame.contentDocument.documentElement) {{
+        frame.contentDocument.documentElement.setAttribute('data-medium', med);
+      }}
+      if (frame && frame.contentWindow && typeof frame.contentWindow.__atlasSetMedium === 'function') {{
+        frame.contentWindow.__atlasSetMedium(med);
+      }}
+    }} catch (e) {{}}
+    drawSandbox();
+  }});
 }});
 
 document.getElementById('btn-prev').addEventListener('click', () => {{

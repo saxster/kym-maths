@@ -1,12 +1,12 @@
-Atlas runtime vendored from ../visualisations/atlas (bcc247c) by scripts/vendor-atlas-runtime.mjs.
+Atlas runtime vendored from ../visualisations/atlas (55aaaff) by scripts/vendor-atlas-runtime.mjs.
 Do not edit files inside Sources/KymBookKit/Resources/AtlasRuntime by hand; run:
   node scripts/vendor-atlas-runtime.mjs
 Files (56):
   0acda0b62c8a5fdeb74b931bc741b0e2319e3f7abe610662dcac6a6f8a4667b5  LICENSE
-  15b938b2c280d5abac6fe39efab7cb416e45f53883f3218bff4d5a2278f3122f  adapters/kym-live.js
+  969bfee80135c45724b0090d350125b0182f345f7467fed78950dced924a414f  adapters/kym-live.js
   d544d03ff7b80375967f3aa4099690a73eaf38c4310d315d6d8840c749771b9c  adapters/molecule.js
   3442fff5451b8137ba9417421594f4b1bd5238de237de29870e946a82fdd34a6  adapters/specimen.js
-  0c4e4b751c07d4ba4fdc96fbd43799faaf2711589bc27b82d4f71f1dbda33d0a  engine/atlas.css
+  deebf732893e225dee3278953e14a39486490f70211555680928e976aa4a112e  engine/atlas.css
   98523e51dee3e031eac340de8ff39c10422ccdd87bd39f2776d4f02cd253f116  engine/bio_kit.js
   9abede7b54f83c51a7495ec9509dad4c51afb563b315dd29e1738f122a1762b5  engine/book.css
   1dd666b82aeda88a2063ed5cd33f45c78b01e61fcb79a314a5d4186e34d79bd5  engine/book.js
@@ -20,7 +20,7 @@ Files (56):
   e7e988813a66d533af53da12f9e97772da10bb534d4f820ecd037ad107e303b0  engine/explorer.js
   a9e782cb89bfdc0ef9d96739983e05d1025043dbf819cba9385a88da8d387e0c  engine/figure.css
   8858f6dbea24db76d1ac133800a9d79597e6df6ac8b5d18a58e1ee7b60c5fa91  engine/framing.js
-  5cd2b1ba7f3b127954644271434d1b80846ba604f3f2c868d4d455b6adb52a06  engine/index.js
+  9a22dda3d958fc1dde49f76fc8de3ac20f168c461214d7a7d715d56de2c608b0  engine/index.js
   62ed95fb1b5e6aefe2050aba24711ecf546a89c061788a73866d52390710a1b9  engine/kinematics.js
   7f8b809b55329a72bca19c0763d31a17756d9a83ae7b62ee7239ec71d563223f  engine/labels.css
   a191b546a81a27a2514f3405df453d413b108d4fb167effcd2bdbce84b8e7b49  engine/machine.js
@@ -32,14 +32,14 @@ Files (56):
   1cd5bcce80d5f217e4cff49dba52dcfe1dc6173b0e9884f2d725f797b613436c  engine/phys_kit.js
   d27c5135a2e1c78e652881da17ec2631aa7fbd11313b9ddd2ec49f0b191a888a  engine/prims.js
   031aa8663ed6c40efde44fef4773f224016206751f4bc99fbbe0112ca0872be4  engine/prose.js
-  06858360b0f78a538c9946efd60b6957a89e682157c11ddad22edc5da77616e1  engine/render.js
+  a6031d19c80e5a688327dca5e314d16a4ad876789f784ee59cee7e91605dc224  engine/render.js
   5d5358e0c978325add5e3f159cfab414e0bd6715463b1f4cb71428c38ce77476  engine/rng.js
   58a45192aa688a30eb95d9f823aa5576fdd48864302d78335205cf05efe5a4aa  engine/sandbox.js
   0592d0b2a2038d48e00d7b8a02e7875488af08b5c124d3ff735d28e615daeb73  engine/search.js
   f819822f2856fdcd027d1cc85b855f8fa5c611ea0369d885e5286486bbb8fc3e  engine/shelf.css
   9c1030383926d721c9fcf2582fa9d81deaf795cc76d7a24bbaa292b189d85a6c  engine/solvers.js
   fbfa0c07be84d4e9ddcee990be895455dd8a254a55940326e66123a8141a71d7  engine/sound.js
-  58a20b4b414f7af96a9b2a0c0a88f7434b871067183b946caebd6db99fbc772e  engine/stage.js
+  687881c55c7b36c769968c97713a6ee41efed90cda3d1c6e880be068aa11eaad  engine/stage.js
   75316ee2bba65b59dc7fbcd4df4f5663de1cccfc40fa401d2129ea6430755941  engine/theme.js
   8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc  node_modules/three/LICENSE
   9edde002b066a9a05676a6127f67735b62baf399bdea529f2f7e31657da769e6  node_modules/three/build/three.core.js

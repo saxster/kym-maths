@@ -12,6 +12,10 @@ struct PatternedChapterView: View {
 
     @Environment(\.standardTheme) private var theme
     @State private var width: CGFloat = 700
+    @State private var hideChapterContents = false
+    @State private var showDeskQuietField = false
+    @State private var deskQuietDraft = ""
+    @State private var deskTutorReply: String?
     /// The part of the whole-chapter page a contents row asked to scroll to.
     @State private var scrollTarget: String?
 
@@ -28,13 +32,16 @@ struct PatternedChapterView: View {
             Rectangle().fill(theme.hairline()).frame(height: 1)
             ScrollViewReader { proxy in
                 ScrollView {
-                    page
-                        .padding(.horizontal, StandardSpacing.xl)
-                        .padding(.top, StandardSpacing.xl)
-                        .padding(.bottom, StandardSpacing.xl3)
-                        .frame(maxWidth: 1180, alignment: .leading)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .readWidth($width)
+                    VStack(alignment: .leading, spacing: StandardSpacing.xl) {
+                        page
+                        deskTutorBar
+                    }
+                    .padding(.horizontal, StandardSpacing.xl)
+                    .padding(.top, StandardSpacing.xl)
+                    .padding(.bottom, StandardSpacing.xl3)
+                    .frame(maxWidth: hideChapterContents ? .infinity : 1180, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .readWidth($width)
                 }
                 .onChange(of: scrollTarget) { _, target in
                     guard let target else { return }
@@ -46,6 +53,7 @@ struct PatternedChapterView: View {
         .background(theme.bg)
         .onChange(of: store.selectedChapterNumber) {
             reading.activeBeatIndex = 0
+            deskTutorReply = nil
         }
     }
 
@@ -53,17 +61,19 @@ struct PatternedChapterView: View {
 
     @ViewBuilder private var page: some View {
         let spreadWidth = width - Self.contentsWidth - StandardSpacing.xl
-        if BookSpread<EmptyView, EmptyView>.fitsSideBySide(spreadWidth) {
+        if !hideChapterContents && BookSpread<EmptyView, EmptyView>.fitsSideBySide(spreadWidth) {
             HStack(alignment: .top, spacing: StandardSpacing.xl) {
                 contents
                     .frame(width: Self.contentsWidth, alignment: .leading)
                 BookSpread(width: spreadWidth) { mainColumn } margin: { margin(showContents: false) }
             }
         } else if BookSpread<EmptyView, EmptyView>.fitsSideBySide(width) {
-            BookSpread(width: width) { mainColumn } margin: { margin(showContents: true) }
+            BookSpread(width: width) { mainColumn } margin: { margin(showContents: !hideChapterContents) }
         } else {
             VStack(alignment: .leading, spacing: StandardSpacing.lg) {
-                contents
+                if !hideChapterContents {
+                    contents
+                }
                 BookSpread(width: width) { mainColumn } margin: { margin(showContents: false) }
             }
         }
@@ -141,6 +151,14 @@ struct PatternedChapterView: View {
 
     private var listenButtons: some View {
         HStack(spacing: StandardSpacing.xs) {
+            Button(hideChapterContents ? "Show contents" : "Full width") {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    hideChapterContents.toggle()
+                }
+            }
+            .buttonStyle(OutlineButtonStyle())
+            .accessibilityLabel(hideChapterContents ? "Show chapter contents" : "Hide chapter contents for full width")
+
             Button {
                 reading.narrator.togglePlayPause(
                     text: currentBeat.spokenScript,
@@ -296,6 +314,115 @@ struct PatternedChapterView: View {
         store.visiblePatternedWorldChapters
             .filter { $0.number == chapter.number + 1 }
             .map { ChainLink(code: "Ch \($0.number)", title: $0.title) }
+    }
+
+    // MARK: Ambient British Coach Desk Bar
+
+    private var deskTutorBar: some View {
+        let preset = KymLiveBritishVoiceCatalog.defaultPreset
+        return VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+            ViewThatFits(in: .horizontal) {
+                HStack(alignment: .center, spacing: StandardSpacing.sm) {
+                    deskTutorHeader(preset: preset)
+                    Spacer(minLength: StandardSpacing.sm)
+                    deskTutorButtons
+                }
+                VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                    deskTutorHeader(preset: preset)
+                    deskTutorButtons
+                }
+            }
+
+            if let reply = deskTutorReply {
+                VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                    Kicker("Clara · British Coach (en-GB)", muted: true)
+                    ByrneText(reply)
+                        .patternedType(.readingSmall)
+                        .foregroundStyle(theme.ink)
+                        .fixedSize(horizontal: false, vertical: true)
+                    HStack(spacing: StandardSpacing.xs) {
+                        Button("Save takeaway to journal") {
+                            let now = Date()
+                            let entry = LabJournalEntryRecord(
+                                id: "journal-desk-coach-ch\(chapter.number)-\(Int(now.timeIntervalSince1970))",
+                                title: "British Coach Takeaway · Ch \(chapter.number) \(chapter.title)",
+                                templateKind: "cornell",
+                                paperStyle: "cornell",
+                                linkedTopicCode: store.selectedTopicCode,
+                                linkedChapterNumber: chapter.number,
+                                linkedWidgetId: chapter.widgets.first ?? store.selectedWidgetId,
+                                cueColumnText: chapter.hookSummary,
+                                bodyNotesText: reply,
+                                summaryText: chapter.intuitionToFormula.ahaInvariant,
+                                hypothesisText: "",
+                                independentVarText: "",
+                                dependentVarText: "",
+                                controlVarsText: "",
+                                drawingData: nil,
+                                snapshotPNGData: nil,
+                                createdAt: now,
+                                updatedAt: now
+                            )
+                            store.saveJournalEntry(entry)
+                            deskTutorReply = "Saved to your Chapter \(chapter.number) Journal & Calendar."
+                        }
+                        .buttonStyle(OutlineButtonStyle())
+                    }
+                }
+            }
+
+            if showDeskQuietField {
+                HStack(spacing: StandardSpacing.xs) {
+                    TextField("Ask or reply quietly about this step…", text: $deskQuietDraft)
+                        .textFieldStyle(.plain)
+                        .paperField()
+                    Button("Send") {
+                        let q = deskQuietDraft.trimmingCharacters(in: .whitespacesAndNewlines)
+                        guard !q.isEmpty else { return }
+                        deskTutorReply = "Let's test “\(q)” against what stays fixed in \(chapter.title): \(chapter.intuitionToFormula.ahaInvariant) Where does \(chapter.intuitionToFormula.formulaDisplay) show that on the figure?"
+                        deskQuietDraft = ""
+                    }
+                    .buttonStyle(OutlineButtonStyle())
+                    .disabled(deskQuietDraft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                }
+            }
+        }
+        .paperCard(padding: StandardSpacing.md)
+    }
+
+    private func deskTutorHeader(preset: KymLiveBritishVoicePreset) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Kicker("British Coach (\(preset.displayName)) · Standing beside you")
+            Text(chapter.hookSummary)
+                .patternedType(.readingSmall)
+                .foregroundStyle(theme.ink)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+    }
+
+    private var deskTutorButtons: some View {
+        FlowLayout(spacing: StandardSpacing.xs) {
+            Button("Talk with coach") {
+                store.activeRoom = .coach
+            }
+            .buttonStyle(OutlineButtonStyle())
+
+            Button(showDeskQuietField ? "Hide typing" : "Type quietly") {
+                showDeskQuietField.toggle()
+            }
+            .buttonStyle(OutlineButtonStyle())
+
+            Button("Give me a moment") {
+                reading.narrator.stop()
+                deskTutorReply = "Floor held — take all the time you need to work through the step on paper."
+            }
+            .buttonStyle(OutlineButtonStyle())
+
+            Button("Journal & notes") {
+                store.activeRoom = .mathsJournal
+            }
+            .buttonStyle(OutlineButtonStyle())
+        }
     }
 
     // MARK: Gates

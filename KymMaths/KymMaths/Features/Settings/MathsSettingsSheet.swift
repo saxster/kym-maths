@@ -13,6 +13,8 @@ struct MathsSettingsSheet: View {
     @State private var geminiKeyInput: String = ""
     @State private var anthropicKeyInput: String = ""
     @State private var openAIKeyInput: String = ""
+    @State private var elevenLabsKeyInput: String = ""
+    @AppStorage("kymmaths.britishVoicePresetID") private var britishVoicePresetID: String = KymLiveBritishVoiceCatalog.defaultPreset.id
     @State private var keySaveBanner: String?
     @State private var keyRevision = 0
     @State private var showMoreThemes = false
@@ -360,10 +362,46 @@ struct MathsSettingsSheet: View {
         keyCard("Anthropic", provider: .anthropic, text: $anthropicKeyInput, keyStore: keyStore)
         keyCard("Gemini", provider: .gemini, text: $geminiKeyInput, keyStore: keyStore)
         keyCard("OpenAI", provider: .openAI, text: $openAIKeyInput, keyStore: keyStore)
+        elevenLabsKeyCard
+    }
+
+    private var elevenLabsKeyCard: some View {
+        let familyKeychain = KymLiveFamilyKeychain()
+        let hasKey = familyKeychain.loadElevenLabsAPIKey() != nil
+        return VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+            Kicker("ElevenLabs (British en-GB)", muted: true)
+            SecureField(hasKey ? "Saved · type to replace" : "Not set", text: $elevenLabsKeyInput)
+                .textFieldStyle(.plain)
+                .standardType(.uiHeadline)
+                .foregroundStyle(theme.ink)
+                .frame(minHeight: 28)
+                .onSubmit { saveElevenLabsKey() }
+            if !elevenLabsKeyInput.isEmpty {
+                Button("Save ElevenLabs key") {
+                    saveElevenLabsKey()
+                }
+                .buttonStyle(OutlineButtonStyle())
+            }
+        }
+        .padding(StandardSpacing.sm)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous).fill(theme.surface))
+        .overlay(RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous).strokeBorder(theme.hairline(), lineWidth: 1))
+    }
+
+    private func saveElevenLabsKey() {
+        let value = elevenLabsKeyInput.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !value.isEmpty else { return }
+        let familyKeychain = KymLiveFamilyKeychain()
+        try? familyKeychain.saveElevenLabsAPIKey(value)
+        elevenLabsKeyInput = ""
+        keySaveBanner = "Saved the ElevenLabs British voice key to the shared family Keychain."
+        keyRevision += 1
     }
 
     private func keyCard(_ name: String, provider: AIProvider, text: Binding<String>, keyStore: KeychainFrontierKeyStore) -> some View {
-        let hasKey = keyStore.hasKey(for: provider)
+        let familyKeychain = KymLiveFamilyKeychain()
+        let hasKey = keyStore.hasKey(for: provider) || (provider == .gemini && familyKeychain.loadGeminiAPIKey() != nil)
         return VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
             Kicker(name, muted: true)
             SecureField(hasKey ? "Saved · type to replace" : "Not set", text: text)
@@ -389,6 +427,10 @@ struct MathsSettingsSheet: View {
         let value = text.wrappedValue.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !value.isEmpty else { return }
         keyStore.saveKey(value, for: provider)
+        if provider == .gemini {
+            let familyKeychain = KymLiveFamilyKeychain()
+            try? familyKeychain.saveAPIKey(value, provider: "gemini")
+        }
         text.wrappedValue = ""
         keySaveBanner = "Saved the \(name) key to the Keychain."
         keyRevision += 1
@@ -407,6 +449,16 @@ struct MathsSettingsSheet: View {
                     .standardType(.uiBody)
                     .foregroundStyle(theme.mute(theme.ink))
                     .fixedSize(horizontal: false, vertical: true)
+            }
+            VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+                PaperFieldLabel("British English voice preset (en-GB)")
+                FlowLayout(spacing: StandardSpacing.xs) {
+                    ForEach(KymLiveBritishVoiceCatalog.presets) { preset in
+                        PatternedChip(preset.displayName, isSelected: britishVoicePresetID == preset.id) {
+                            britishVoicePresetID = preset.id
+                        }
+                    }
+                }
             }
             ForEach(AgentSoulOverrideKey.allCases) { key in
                 VStack(alignment: .leading, spacing: StandardSpacing.xxs) {

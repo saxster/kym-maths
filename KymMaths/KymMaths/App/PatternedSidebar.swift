@@ -4,6 +4,7 @@ import SwiftUI
 /// two grown-up places (Deadlines, Settings) at the foot.
 struct PatternedSidebar: View {
     @Bindable var store: AppStore
+    var onHideSidebar: (() -> Void)? = nil
     @Environment(\.standardTheme) private var theme
 
     var body: some View {
@@ -44,10 +45,15 @@ struct PatternedSidebar: View {
     }
 
     private var masthead: some View {
-        VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+        let manifest = PatternedBook.bookManifest(
+            chaptersCount: max(1, store.seedPack.chapters.count),
+            learnerName: store.learnerDisplayName
+        )
+        return VStack(alignment: .leading, spacing: StandardSpacing.xs) {
             HStack(spacing: StandardSpacing.xs) {
                 Text("VOL. I · MATH")
-                    .font(.system(size: 10, weight: .bold, design: .monospaced))
+                    .standardType(.uiMicro)
+                    .fontWeight(.bold)
                     .tracking(1.4)
                     .foregroundStyle(theme.bg)
                     .padding(.horizontal, 7)
@@ -58,22 +64,26 @@ struct PatternedSidebar: View {
                     )
                 ByrneMark()
                 Spacer(minLength: 0)
+                if let onHideSidebar {
+                    Button(action: onHideSidebar) {
+                        Image(systemName: "sidebar.left")
+                            .foregroundStyle(theme.mute(theme.ink))
+                            .frame(width: StandardAccessibility.touchTarget, height: StandardAccessibility.touchTarget)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .keyboardShortcut("\\", modifiers: [.command])
+                    .accessibilityLabel("Hide left spine for maximum work area")
+                }
             }
-            .padding(.bottom, 2)
-            Text("The Patterned World")
-                .standardType(.headlineSm)
-                .foregroundStyle(theme.ink)
-            Text("Kym's mathematics · Curious Atelier")
-                .standardType(.uiCaption)
-                .foregroundStyle(theme.mute(theme.ink))
-            Rectangle()
-                .fill(theme.brass.opacity(0.45))
-                .frame(height: 1)
-                .padding(.top, 4)
+            BookKitCoverBanner(
+                manifest: manifest,
+                chapterCount: max(1, store.seedPack.chapters.count),
+                activeOrdinal: max(1, store.selectedChapterNumber + 1),
+                compact: true
+            )
         }
-        .padding(.horizontal, StandardSpacing.xs)
-        .accessibilityElement(children: .combine)
-        .accessibilityAddTraits(.isHeader)
+        .accessibilityElement(children: .contain)
     }
 
     @ViewBuilder private var upNext: some View {
