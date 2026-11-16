@@ -26,6 +26,7 @@ from book import ch05 as book_ch05
 from book import ch06 as book_ch06
 from book import ch07 as book_ch07
 from book import ch08 as book_ch08
+from book import ch09 as book_ch09
 from book import concepts as book_concepts
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -34,7 +35,7 @@ BOOK_OUT = ROOT / "KymMaths" / "KymMaths" / "Resources" / "PatternedWorldBook" /
 GOLDEN_OUT = ROOT / "KymMaths" / "Tests" / "Golden" / "concept-links.json"
 
 # Chapters rewritten by hand to docs/CONTENT_BRIEF.md. The content checks apply to these.
-BOOK_CHAPTERS = (book_ch00, book_ch01, book_ch02, book_ch03, book_ch04, book_ch05, book_ch06, book_ch07, book_ch08)
+BOOK_CHAPTERS = (book_ch00, book_ch01, book_ch02, book_ch03, book_ch04, book_ch05, book_ch06, book_ch07, book_ch08, book_ch09)
 # Saved learner responses key on callout ids, so a rewritten chapter keeps the old ids.
 CALLOUT_ID_SUFFIX = {"predict": "predict", "check": "aha", "careful": "trap"}
 
@@ -267,23 +268,6 @@ def build_volumes():
 
 def build_chapters():
     raw_specs = [
-        (
-            9, 3, "Compass & Straightedge: Locus, Quadrilaterals & 3D Nets",
-            "OUP Ch 3 · Quadrilateral hierarchy, 3D nets & elevations, 3-figure bearings & Euclidean locus constructions",
-            "A circle is the locus of points at a fixed distance from one point; two equal circles intersect on the locus equidistant from two points.",
-            "Sweep two equal-radius compass arcs from endpoints A and B and connect their intersections P and Q.",
-            "Because AP = BP = AQ = BQ = r, the four radii form a rhombus — and the diagonals of a rhombus always bisect each other at 90°!",
-            "|PA| = |PB|  ⇔  P lies on perpendicular bisector of AB;   Euler: V − E + F = 2",
-            [
-                {"symbol": "|PA| = |PB| = r", "visualPart": "Blue equal compass rings centred on A and B", "colorRole": "blue", "meaning": "Rhombus side invariant"},
-                {"symbol": "PQ ⊥ AB", "visualPart": "Red perpendicular bisector through the two crossings", "colorRole": "red", "meaning": "Every point on it is the same distance from A and B"},
-                {"symbol": "000°–360°", "visualPart": "Amber bearing ray from A to B, read clockwise from the green North lines", "colorRole": "amber", "meaning": "Back-bearing differs by ±180°"},
-                {"symbol": "V − E + F = 2", "visualPart": "Amber cube wireframe folded from its net", "colorRole": "amber", "meaning": "Euler characteristic of any convex polyhedron"}
-            ],
-            "maths/ch09-loci-constructions/index.html",
-            ["Locus", "Perpendicular Bisector", "Angle Bisector", "SSS / SAS / ASA Triangle Construction", "3-Figure Bearing", "Plan & Elevation", "Euler's Formula"],
-            ["w_euclid_compass_locus", "w_bearings_back_bearing_radar", "w_polyhedron_net_folder"]
-        ),
         (
             10, 3, "Slicing Space: Circles, Prisms, Pyramids & Archimedes' π",
             "OUP Ch 5 · Circumference, circle area sector rearrangement, parallelogram/trapezium shear & prism/pyramid volumes",
@@ -4791,7 +4775,7 @@ const CH_SLIDERS = {{
   6:  [{{lbl:'Number of terms:',min:3,max:8,step:1,val:5,u:''}}, {{lbl:'First term:',min:1,max:4,step:1,val:1,u:''}}, {{lbl:'Common difference:',min:1,max:3,step:1,val:1,u:''}}],
   7:  [{{lbl:'Gradient:',min:-3,max:3,step:0.5,val:2,u:''}}, {{lbl:'Crosses the y-axis at:',min:-3,max:3,step:1,val:1,u:''}}, {{lbl:'Step across:',min:1,max:3,step:1,val:1,u:''}}],
   8:  [{{lbl:'Angle at A:',min:30,max:65,step:5,val:50,u:'°'}}, {{lbl:'Angle at B:',min:30,max:65,step:5,val:60,u:'°'}}, {{lbl:'Sides of the shape:',min:3,max:8,step:1,val:6,u:''}}],
-  9:  [{{lbl:'Segment AB:',min:4,max:8,step:0.5,val:6,u:'cm'}}, {{lbl:'Compass r/AB:',min:0.6,max:1.0,step:0.05,val:0.8,u:'×'}}, {{lbl:'Bearing from N:',min:20,max:160,step:5,val:65,u:'°'}}],
+  9:  [{{lbl:'Length of AB:',min:4,max:8,step:1,val:6,u:' cm'}}, {{lbl:'Compass opening:',min:2,max:5,step:0.5,val:4,u:' cm'}}, {{lbl:'Height of P above AB:',min:0,max:4,step:1,val:2,u:' cm'}}],
   10: [{{lbl:'Circle radius r:',min:2,max:6,step:0.5,val:4,u:'cm'}}, {{lbl:'Trap top a:',min:2,max:6,step:0.5,val:3,u:'cm'}}, {{lbl:'Trap base b:',min:4,max:9,step:0.5,val:6,u:'cm'}}],
   11: [{{lbl:'Scale factor k:',min:1,max:3,step:0.5,val:2,u:'×'}}, {{lbl:'Base triangle b:',min:2,max:5,step:0.5,val:3,u:'cm'}}, {{lbl:'Height h:',min:2,max:4,step:0.5,val:2,u:'cm'}}],
   12: [{{lbl:'Leg a:',min:3,max:8,step:1,val:3,u:''}}, {{lbl:'Leg b:',min:3,max:8,step:1,val:4,u:''}}, {{lbl:'Angle θ:',min:0,max:360,step:15,val:50,u:'°'}}],
@@ -5207,25 +5191,55 @@ function drawSandbox() {{
       break;
     }}
     case 9: {{
-      // Ch 9: Compass Perpendicular Bisector Rhombus & 3-Figure Bearings
-      const ab = a, rRatio = b, rPx = ab * rRatio * 22;
-      const xA = 115, xB = 225, yM = 145, xm = (xA + xB) / 2;
-      const halfAB = (xB - xA) / 2, hPQ = Math.sqrt(Math.max(100, rPx * rPx - halfAB * halfAB));
-      ctx.strokeStyle = blue + '88'; ctx.lineWidth = 1.8;
-      ctx.beginPath(); ctx.arc(xA, yM, rPx, -1.1, 1.1); ctx.stroke();
-      ctx.beginPath(); ctx.arc(xB, yM, rPx, Math.PI - 1.1, Math.PI + 1.1); ctx.stroke();
-      ctx.strokeStyle = ink; ctx.lineWidth = 2.5;
+      // Ch 9: equal compass arcs from A and B, the perpendicular bisector through their crossings, and a point P on it
+      const ab = a, r = b, hP = c, s = 14, xm = 160, yM = 85, half = ab / 2;
+      const xA = xm - half * s, xB = xm + half * s;
+      const cm = v => {{ const t = Math.round(v * 10) / 10; return Math.abs(v - t) < 1e-9 ? `${{t}} cm` : `about ${{t.toFixed(1)}} cm`; }};
+      const cross = r > half + 1e-9, touch = Math.abs(r - half) < 1e-9;
+      const hx = cross ? Math.sqrt(r * r - half * half) : 0;
+      const arcAround = (x, y, ang, sp) => {{ ctx.beginPath(); ctx.arc(x, y, r * s, ang - sp, ang + sp); ctx.stroke(); }};
+      ctx.strokeStyle = blue; ctx.lineWidth = 1.8;
+      if (cross) {{
+        for (const sy of [-1, 1]) {{
+          const py = yM + sy * hx * s;
+          arcAround(xA, yM, Math.atan2(py - yM, xm - xA), 0.3);
+          arcAround(xB, yM, Math.atan2(py - yM, xm - xB), 0.3);
+        }}
+      }} else {{
+        arcAround(xA, yM, 0, 0.6); arcAround(xB, yM, Math.PI, 0.6);
+      }}
+      ctx.strokeStyle = ink; ctx.lineWidth = 2.4;
       ctx.beginPath(); ctx.moveTo(xA, yM); ctx.lineTo(xB, yM); ctx.stroke();
-      ctx.strokeStyle = red; ctx.lineWidth = 2.5;
-      ctx.beginPath(); ctx.moveTo(xm, yM - hPQ); ctx.lineTo(xm, yM + hPQ); ctx.stroke();
-      ctx.strokeRect(xm, yM - 10, 10, 10);
-      ctx.fillStyle = ink; ctx.fillText('A', xA - 16, yM + 5); ctx.fillText('B', xB + 8, yM + 5);
-      ctx.fillStyle = red; ctx.fillText('P (|PA|=|PB|)', xm - 34, yM - hPQ - 8);
-      const backB = (c + 180) % 360;
-      ctx.fillStyle = amber; ctx.fillText(`Fwd Bearing: ${{String(c).padStart(3,'0')}}°`, 320, 105);
-      ctx.fillStyle = green; ctx.fillText(`Back-Bearing: ${{String(backB).padStart(3,'0')}}°`, 320, 138);
-      ctx.fillStyle = ink; ctx.fillText(`Euler Polyhedra: V − E + F = 2`, 320, 172);
-      readoutHtml = `Rhombus APBQ diagonals meet at <b>90°</b> · Bearing <b>${{String(c).padStart(3,'0')}}°</b> ↔ Back-bearing <b>${{String(backB).padStart(3,'0')}}°</b>`;
+      const dot = (x, y, col, rad) => {{ ctx.fillStyle = col; ctx.beginPath(); ctx.arc(x, y, rad, 0, 2 * Math.PI); ctx.fill(); }};
+      const yP = yM - hP * s;
+      if (cross) {{
+        ctx.strokeStyle = red; ctx.lineWidth = 2.4;
+        ctx.beginPath(); ctx.moveTo(xm, Math.max(20, yM - hx * s - 10)); ctx.lineTo(xm, Math.min(150, yM + hx * s + 10)); ctx.stroke();
+        ctx.lineWidth = 1.4; ctx.strokeRect(xm, yM - 8, 8, 8);
+        dot(xm, yM - hx * s, blue, 3); dot(xm, yM + hx * s, blue, 3);
+        ctx.setLineDash([5, 4]); ctx.strokeStyle = green; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(xA, yM); ctx.lineTo(xm, yP); ctx.lineTo(xB, yM); ctx.stroke(); ctx.setLineDash([]);
+        dot(xm, yP, green, 4);
+      }}
+      dot(xA, yM, ink, 3.5); dot(xB, yM, ink, 3.5); dot(xm, yM, muted, 3);
+      ctx.font = '600 11px -apple-system, BlinkMacSystemFont, sans-serif'; ctx.textAlign = 'center';
+      ctx.fillStyle = ink; ctx.fillText('A', xA - 11, yM + 4); ctx.fillText('B', xB + 11, yM + 4);
+      ctx.fillStyle = muted; ctx.fillText('M', xm + 12, yM + 15);
+      if (cross) {{ ctx.fillStyle = green; ctx.fillText('P', xm - 12, yP - 5); }}
+      ctx.textAlign = 'left'; ctx.font = '600 12.5px -apple-system, BlinkMacSystemFont, sans-serif';
+      ctx.fillStyle = ink; ctx.fillText(`AB = ${{ab}} cm, so M is ${{cm(half)}} from A`, 46, 168);
+      if (cross) {{
+        ctx.fillStyle = blue; ctx.fillText(`Arcs of ${{r}} cm cross twice`, 46, 194);
+        ctx.fillStyle = red; ctx.fillText('Red line: through both crossings', 46, 212);
+        ctx.fillStyle = green; ctx.fillText(hP === 0 ? 'P is at M' : `P is ${{hP}} cm above M`, 46, 230);
+        ctx.fillText(`PA = PB = ${{cm(Math.hypot(half, hP))}}`, 46, 254);
+        readoutHtml = `PA = <b style="color:${{green}}">${{cm(Math.hypot(half, hP))}}</b> = PB · M is <b>${{cm(half)}}</b> from A and from B`;
+      }} else {{
+        ctx.fillStyle = amber; ctx.fillText(touch ? `Arcs of ${{r}} cm only touch, at M` : `Arcs of ${{r}} cm do not meet`, 46, 194);
+        ctx.fillText(`Open wider than ${{cm(half)}}`, 46, 212);
+        ctx.fillStyle = muted; ctx.fillText('No red line to draw yet', 46, 230);
+        readoutHtml = `The arcs do not cross: open the compasses wider than <b>${{cm(half)}}</b>`;
+      }}
       break;
     }}
     case 10: {{

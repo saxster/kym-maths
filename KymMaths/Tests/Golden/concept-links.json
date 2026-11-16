@@ -14250,6 +14250,1830 @@
     "links": []
   },
   {
+    "text": "Constructions, bearings and nets",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearings",
+        "offset": 15
+      }
+    ]
+  },
+  {
+    "text": "School book chapter 3 · Compass drawings, four-sided shapes, directions and solids",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "With only a pencil, a ruler and a pair of compasses you can cut a line exactly in half. No measuring is needed. Why do two arcs know where the middle is?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Drawing exact shapes with compasses, giving directions as bearings, and counting the parts of a solid",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearings",
+        "offset": 58
+      }
+    ]
+  },
+  {
+    "text": "With no calculator: a ship sails on a bearing of 070°. What is the bearing back to its start? A solid with no holes has 5 vertices and 8 edges: how many faces does it have? Three angles of a quadrilateral are 90°, 80° and 105°: find the fourth.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearing",
+        "offset": 38
+      },
+      {
+        "concept": "vertices-edges-faces",
+        "text": "vertices",
+        "offset": 122
+      },
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 179
+      },
+      {
+        "concept": "quadrilateral",
+        "text": "quadrilateral",
+        "offset": 191
+      }
+    ]
+  },
+  {
+    "text": "The bearing back is 070° + 180° = 250°. Euler's formula gives 5 − 8 + F = 2, so F = 5. The fourth angle is 360° − 275° = 85°.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearing",
+        "offset": 4
+      },
+      {
+        "concept": "eulers-formula",
+        "text": "Euler's formula",
+        "offset": 40
+      },
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 98
+      }
+    ]
+  },
+  {
+    "text": "Sailors and pilots steer by bearings, and builders draw exact views of a house before anyone lays a brick. A compass drawing shows where every point that obeys a rule must lie.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearings",
+        "offset": 28
+      }
+    ]
+  },
+  {
+    "text": "Chapter 8: angle facts, co-interior angles and the midpoint",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 11
+      },
+      {
+        "concept": "co-interior-angles",
+        "text": "co-interior angles",
+        "offset": 24
+      },
+      {
+        "concept": "midpoint",
+        "text": "midpoint",
+        "offset": 51
+      }
+    ]
+  },
+  {
+    "text": "Chapter 7: parallel lines",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 11
+      }
+    ]
+  },
+  {
+    "text": "Measuring lengths with a ruler and angles in degrees",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 35
+      }
+    ]
+  },
+  {
+    "text": "Chapter 10: circles, and how much a solid holds",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 11: moving and resizing shapes",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 12: the straight-line distance across a journey with a turn in it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set AB to 6 cm and the compass opening to 4 cm. The blue arcs from A and B cross above and below AB, and the red line joins the two crossings.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Move P up and down the red line. PA and PB change, but they always stay equal. So every point on the red line is as far from A as it is from B.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "PA = PB for every point P on the perpendicular bisector of AB",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "perpendicular-bisector",
+        "text": "perpendicular bisector",
+        "offset": 33
+      }
+    ]
+  },
+  {
+    "text": "the arcs",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The blue arcs",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Points one compass opening from A, and points one compass opening from B",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "the perpendicular bisector",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "perpendicular-bisector",
+        "text": "perpendicular bisector",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "The red line",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The line through both crossings, at a right angle to AB",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "right angle",
+        "offset": 38
+      }
+    ]
+  },
+  {
+    "text": "PA = PB",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The two green dashed lines",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The distance from P to A, and the distance from P to B",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "9.1 Every point at one distance",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "9.2 Equally far from two points",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "9.3 Cutting an angle in half",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 15
+      }
+    ]
+  },
+  {
+    "text": "9.4 Triangles that must match",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "9.5 Four sides and two diagonals",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "9.6 Directions as bearings",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearings",
+        "offset": 18
+      }
+    ]
+  },
+  {
+    "text": "9.7 Flat drawings of a solid",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "9.8 Corners, edges and faces",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Predict first",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set AB to 8 cm and the compass opening to 3 cm. Predict whether the two arcs will cross, then look.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Explain it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A goat is tied to a post by a rope 5 m long. Explain to a friend why the edge of the grass it can reach is a circle.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Every point, not one",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A rule such as 3 cm from a pin is obeyed by a whole circle of points, not by one. Find every point that obeys the rule.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Locus",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "locus",
+        "text": "Locus",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Perpendicular bisector",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "perpendicular-bisector",
+        "text": "Perpendicular bisector",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Angle bisector",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle-bisector",
+        "text": "Angle bisector",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Congruent",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "congruent",
+        "text": "Congruent",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Quadrilateral",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "quadrilateral",
+        "text": "Quadrilateral",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Bearing",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "Bearing",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Net of a solid",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "net-of-a-solid",
+        "text": "Net of a solid",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Plan and elevation",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "plan-and-elevation",
+        "text": "Plan and elevation",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Vertices, edges and faces",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "vertices-edges-faces",
+        "text": "Vertices, edges and faces",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Euler's formula",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "eulers-formula",
+        "text": "Euler's formula",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Which way is back?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A boat sails from a harbour on a bearing of 300°. Asha and Rohan work out the bearing of the harbour from the boat.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearing",
+        "offset": 33
+      }
+    ]
+  },
+  {
+    "text": "Asha",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The way back is the opposite way, so add 180°. The back bearing is 480°.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "back bearing",
+        "offset": 51
+      }
+    ]
+  },
+  {
+    "text": "Rohan",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A bearing stays under 360°, so take 180° away instead. The back bearing is 120°.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearing",
+        "offset": 2
+      }
+    ]
+  },
+  {
+    "text": "Asha is right (480°)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "To face the other way, always add 180°.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Turning 480° clockwise from north is more than a full turn. Take away the full turn of 360°: which way do you face then?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Rohan is right (120°)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "For a bearing over 180°, take 180° away to get the way back.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearing",
+        "offset": 6
+      }
+    ]
+  },
+  {
+    "text": "Yes. 300° − 180° = 120°, and adding 180° to 120° brings you round to 300° again.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Neither. It is 060°.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The way back is 360° − 300°.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "360° − 300° is the turn from north the other way round. Does 060° point exactly opposite to 300°, or somewhere else?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The back bearing is half a turn from the bearing. Add 180° or take 180° away, whichever lands from 000° to 359°.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "back bearing",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "Two arcs and a straight line",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Move the compass slider to its smallest setting. Predict whether the two arcs still cross, then look.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Each crossing is one compass opening from A and the same opening from B. So the four lines from A and B to the crossings are equal, and together they make a rhombus.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "quadrilateral",
+        "text": "rhombus",
+        "offset": 157
+      }
+    ]
+  },
+  {
+    "text": "The rule: every point on the perpendicular bisector of AB is as far from A as from B",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "perpendicular-bisector",
+        "text": "perpendicular bisector",
+        "offset": 29
+      }
+    ]
+  },
+  {
+    "text": "1. Try it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Move the compass slider and watch the two arcs from A and B.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2. Notice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The red line through the crossings meets AB at its midpoint, at a right angle.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "midpoint",
+        "text": "midpoint",
+        "offset": 51
+      },
+      {
+        "concept": "angle",
+        "text": "right angle",
+        "offset": 66
+      }
+    ]
+  },
+  {
+    "text": "3. Match the rule",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Each crossing is as far from A as from B, so it lies on the perpendicular bisector.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "perpendicular-bisector",
+        "text": "perpendicular bisector",
+        "offset": 60
+      }
+    ]
+  },
+  {
+    "text": "4. Push it further",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Open the compasses as wide as they go. Does the red line move?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "5. Draw it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw a line in your journal and bisect it with compasses, keeping the arcs.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Bearings there and back",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "Bearings",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Set the bearing from A to 065°. Predict the back bearing from B before you read it.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearing",
+        "offset": 8
+      }
+    ]
+  },
+  {
+    "text": "The north arrows at A and B are parallel, so the way back points the exact opposite way. The angles at the path are co-interior angles, 65° + 115° = 180°, and the back bearing is 245°.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 32
+      },
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 93
+      },
+      {
+        "concept": "co-interior-angles",
+        "text": "co-interior angles",
+        "offset": 116
+      },
+      {
+        "concept": "bearing",
+        "text": "back bearing",
+        "offset": 163
+      }
+    ]
+  },
+  {
+    "text": "The rule: back bearing = bearing + 180°, or bearing − 180° when the bearing is over 180°",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "back bearing",
+        "offset": 10
+      }
+    ]
+  },
+  {
+    "text": "1. Try it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Move the bearing slider slowly from 25° up to 160°.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearing",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "2. Notice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The back bearing is always 180° more than the bearing.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "back bearing",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "3. Match the rule",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "065° + 180° = 245°, read along one path in the two directions.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "4. Push it further",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "On paper, start from 245°. It is over 180°, so take 180° away. Where do you land?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "5. Draw it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Write both bearings in your journal, each with three figures.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearings",
+        "offset": 11
+      }
+    ]
+  },
+  {
+    "text": "Folding a cube from its net",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Move the fold slider from flat to closed. Predict how many vertices the closed cube has before you count them.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "vertices-edges-faces",
+        "text": "vertices",
+        "offset": 59
+      }
+    ]
+  },
+  {
+    "text": "Folding joins edges and corners together, but never adds or removes a face. The cube has 8 vertices, 12 edges and 6 faces, and 8 − 12 + 6 = 2.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "vertices-edges-faces",
+        "text": "vertices",
+        "offset": 91
+      }
+    ]
+  },
+  {
+    "text": "The rule: Euler's formula, V − E + F = 2, for a solid with flat faces and no holes",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "eulers-formula",
+        "text": "Euler's formula",
+        "offset": 10
+      }
+    ]
+  },
+  {
+    "text": "1. Try it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the fold slider to 0, so the net of the cube lies flat.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "net-of-a-solid",
+        "text": "net of the cube",
+        "offset": 33
+      }
+    ]
+  },
+  {
+    "text": "2. Notice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Slide it to 1. Six squares close up into a cube with 8 vertices.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "vertices-edges-faces",
+        "text": "vertices",
+        "offset": 55
+      }
+    ]
+  },
+  {
+    "text": "3. Match the rule",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Count 12 edges and 6 faces: 8 − 12 + 6 = 2.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "4. Push it further",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "On paper, count a pyramid on a square: 5 − 8 + 5. Is it 2 again?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "5. Draw it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw a different cube net in your journal, then check that it folds.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "net-of-a-solid",
+        "text": "cube net",
+        "offset": 17
+      }
+    ]
+  },
+  {
+    "text": "Chapter 9 · Two arcs and a fold",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why does the line through two equal arc crossings cut AB in half at a right angle?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "right angle",
+        "offset": 70
+      }
+    ]
+  },
+  {
+    "text": "Each crossing is the same distance from A as from B. Fold the page along the line through them and A lands on B, so the fold meets AB at its midpoint.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "midpoint",
+        "text": "midpoint",
+        "offset": 141
+      }
+    ]
+  },
+  {
+    "text": "The rule: the perpendicular bisector of AB is the locus of points equally far from A and B",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "perpendicular-bisector",
+        "text": "perpendicular bisector",
+        "offset": 14
+      },
+      {
+        "concept": "locus",
+        "text": "locus",
+        "offset": 50
+      }
+    ]
+  },
+  {
+    "text": "With only a pencil, a ruler and a pair of compasses you can cut a line exactly in half. No measuring is needed. Why do two arcs know where the middle is?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 9 · Turning round on a bearing",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearing",
+        "offset": 31
+      }
+    ]
+  },
+  {
+    "text": "Why does a back bearing differ from the bearing by 180°?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "back bearing",
+        "offset": 11
+      }
+    ]
+  },
+  {
+    "text": "The north arrows at the start and at the finish are parallel. The path back points the opposite way, and opposite directions are half a turn apart.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 52
+      }
+    ]
+  },
+  {
+    "text": "The rule: back bearing = bearing ± 180°, written with three figures",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "back bearing",
+        "offset": 10
+      }
+    ]
+  },
+  {
+    "text": "With only a pencil, a ruler and a pair of compasses you can cut a line exactly in half. No measuring is needed. Why do two arcs know where the middle is?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 9 · Vertices minus edges plus faces",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "vertices-edges-faces",
+        "text": "Vertices",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Why does V − E + F come to 2 for a cube and for a pyramid alike?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Slicing a corner off a solid adds 2 vertices, 3 edges and 1 face. So V − E + F changes by 2 − 3 + 1 = 0, and it stays at 2.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "vertices-edges-faces",
+        "text": "vertices",
+        "offset": 36
+      }
+    ]
+  },
+  {
+    "text": "The rule: V − E + F = 2 for a solid with flat faces and no holes",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "With only a pencil, a ruler and a pair of compasses you can cut a line exactly in half. No measuring is needed. Why do two arcs know where the middle is?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A goat is tied to a post by a rope 3 m long. It walks round with the rope pulled tight. What shape does it trace on the grass?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Every spot it reaches with the rope tight is exactly 3 m from the post. Those spots make a circle, with the post at its centre.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Push a pin into card and loop a 3 cm thread round the pin and a pencil. Draw with the thread pulled tight. Every pencil mark is 3 cm from the pin.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why a circle, and nothing else? A spot closer than 3 m leaves the rope slack. A spot further away needs a longer rope. Only the spots at exactly 3 m are left.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "All the points that obey a rule make up a locus, and more than one locus are loci. The locus of points 3 m from a post is a circle round the post.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "locus",
+        "text": "locus",
+        "offset": 42
+      }
+    ]
+  },
+  {
+    "text": "The locus of points 2 cm from a point O is a circle round O. The point 2 cm to the left of O is on it. A point 1 cm from O is inside the circle, so it is not on the locus.",
+    "exclude": null,
+    "linked": [
+      "locus"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to mark one point that obeys the rule and stop. A locus is every point that obeys it, so it is usually a whole line or curve.",
+    "exclude": null,
+    "linked": [
+      "locus"
+    ],
+    "links": []
+  },
+  {
+    "text": "A goat's rope is 4 m long and tied to a post. How wide is the circle its rope traces, from one side to the other through the post?",
+    "exclude": null,
+    "linked": [
+      "locus"
+    ],
+    "links": []
+  },
+  {
+    "text": "A locus is every point that obeys a rule. Points at one distance from a point make a circle.",
+    "exclude": null,
+    "linked": [
+      "locus"
+    ],
+    "links": []
+  },
+  {
+    "text": "Two friends live at A and B, 6 km apart. They want a café exactly as far from one home as from the other. Where could it go?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The point halfway between A and B works, 3 km from each. So does any point straight above or below that halfway point, on a line across AB.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "In the figure, set AB to 6 cm and the compass opening to 4 cm. The blue arcs from A and B cross twice, above and below AB. The red line joins the two crossings.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why is each crossing equally far from A and B? Both arcs were drawn with the same opening, 4 cm. Fold the paper along the red line and A lands on B, so every point on the fold is equally far from both.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "To bisect something is to cut it into two equal parts. The red line is the perpendicular bisector of AB: it cuts AB in half at its midpoint, at a right angle. It is the locus of points equally far from A and B.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "perpendicular-bisector",
+        "text": "perpendicular bisector",
+        "offset": 75
+      },
+      {
+        "concept": "midpoint",
+        "text": "midpoint",
+        "offset": 131
+      },
+      {
+        "concept": "angle",
+        "text": "right angle",
+        "offset": 146
+      },
+      {
+        "concept": "locus",
+        "text": "locus",
+        "offset": 169
+      }
+    ]
+  },
+  {
+    "text": "A and B are 8 cm apart. Open the compasses to 5 cm and draw an arc from each end. The line through the two crossings meets AB 4 cm from each end, at a right angle.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "locus",
+      "midpoint",
+      "perpendicular-bisector"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to open the compasses to half of AB or less. Then the two arcs only touch, or miss each other, and there is no line to draw.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "locus",
+      "midpoint",
+      "perpendicular-bisector"
+    ],
+    "links": []
+  },
+  {
+    "text": "A and B are 10 cm apart. A point P is on the perpendicular bisector of AB, and PA is 13 cm. What is PB?",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "locus",
+      "midpoint",
+      "perpendicular-bisector"
+    ],
+    "links": []
+  },
+  {
+    "text": "Every point on the perpendicular bisector of AB is as far from A as it is from B.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "locus",
+      "midpoint",
+      "perpendicular-bisector"
+    ],
+    "links": []
+  },
+  {
+    "text": "Two straight fences meet at a corner at 70°. A gardener wants a path that stays as far from one fence as from the other. Which way should it run?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The path should split the corner evenly, into two angles of 35°. Then every point on it is the same distance from each fence.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 50
+      }
+    ]
+  },
+  {
+    "text": "Draw a 70° angle. Put the compass point on the corner and draw an arc that crosses both arms. From each crossing, draw an arc of one size so the two meet inside. Rule a line from the corner through that point.",
+    "exclude": null,
+    "linked": [
+      "angle"
+    ],
+    "links": []
+  },
+  {
+    "text": "Why are the two halves equal? Join the meeting point to the two crossings, and you have two triangles. Their three sides match pair by pair, so their angles match too, including the two halves at the corner.",
+    "exclude": null,
+    "linked": [
+      "angle"
+    ],
+    "links": []
+  },
+  {
+    "text": "The line that cuts an angle into two equal angles is its angle bisector. It is the locus of points the same distance from both arms of the angle.",
+    "exclude": null,
+    "linked": [
+      "angle"
+    ],
+    "links": [
+      {
+        "concept": "angle-bisector",
+        "text": "angle bisector",
+        "offset": 57
+      },
+      {
+        "concept": "locus",
+        "text": "locus",
+        "offset": 83
+      }
+    ]
+  },
+  {
+    "text": "The angle bisector of a 130° angle makes two angles of 65°. A point on it that is 4 cm from one arm is 4 cm from the other arm too.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "angle-bisector",
+      "locus"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to measure the distance to an arm along a slant. The distance from a point to a line is the shortest one, at a right angle to the line.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "angle-bisector",
+      "locus"
+    ],
+    "links": []
+  },
+  {
+    "text": "An angle of 148° is cut by its angle bisector. What size is each of the two new angles?",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "angle-bisector",
+      "locus"
+    ],
+    "links": []
+  },
+  {
+    "text": "An angle bisector cuts an angle into two equal halves, and its points are equally far from both arms.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "angle-bisector",
+      "locus"
+    ],
+    "links": []
+  },
+  {
+    "text": "Kym and a friend each draw a triangle with sides of 5 cm, 6 cm and 7 cm. Must their two triangles be exactly the same?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Yes. Draw the 7 cm side first. The third corner must be 5 cm from one end and 6 cm from the other, and only one point above the line is both.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Rule a 7 cm line. Open the compasses to 5 cm and draw an arc from the left end. Open them to 6 cm and draw an arc from the right end. Join the crossing to both ends.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why is there no other choice? Each arc is a locus, every point at one distance from an end. Above the line the two arcs cross once. The crossing below gives the same triangle, flipped over.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "locus",
+        "text": "locus",
+        "offset": 44
+      }
+    ]
+  },
+  {
+    "text": "Shapes with exactly the same shape and size are congruent. Two triangles are congruent if all three sides match, written SSS. Two sides and the angle between them also fix a triangle, written SAS. So do two angles and the side between them, written ASA.",
+    "exclude": null,
+    "linked": [
+      "locus"
+    ],
+    "links": [
+      {
+        "concept": "congruent",
+        "text": "congruent",
+        "offset": 48
+      },
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 144
+      }
+    ]
+  },
+  {
+    "text": "Triangle ABC has AB = 6 cm, angle A = 40° and AC = 9 cm. Every triangle drawn from those three facts is congruent to it, by SAS. So its third side and its other two angles match ABC's as well.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "congruent",
+      "locus"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to use three matching angles. A triangle with every angle 60° can have sides of 1 cm or of 1 km. Matching angles fix the shape, but not the size.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "congruent",
+      "locus"
+    ],
+    "links": []
+  },
+  {
+    "text": "Triangle PQR is congruent to triangle ABC, with P matching A, Q matching B and R matching C. Angle A is 50° and angle B is 70°. What is angle R?",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "congruent",
+      "locus"
+    ],
+    "links": []
+  },
+  {
+    "text": "Congruent shapes match exactly. SSS, SAS or ASA is enough to show that two triangles are congruent.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "congruent",
+      "locus"
+    ],
+    "links": []
+  },
+  {
+    "text": "In 9.2, each arc crossing was 4 cm from A and 4 cm from B. Join A, the top crossing, B and the bottom crossing in order. What shape do the four lines make?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "All four sides are 4 cm, so it is a diamond with equal sides. Line AB and the red line join its opposite corners, and they cross at a right angle, halfway along each.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "right angle",
+        "offset": 134
+      }
+    ]
+  },
+  {
+    "text": "Draw a square, a rectangle, a diamond with equal sides and a kite. In each, join opposite corners with two straight lines. Mark where they cross at a right angle.",
+    "exclude": null,
+    "linked": [
+      "angle"
+    ],
+    "links": []
+  },
+  {
+    "text": "Why do the angles of any four-sided shape add to 360°? A line between opposite corners cuts it into 2 triangles. Each triangle's angles add to 180°, and 2 × 180° = 360°.",
+    "exclude": null,
+    "linked": [
+      "angle"
+    ],
+    "links": []
+  },
+  {
+    "text": "A polygon with four sides is a quadrilateral, and its angles add to 360°. A rhombus has four equal sides, and a parallelogram has two pairs of parallel sides. The lines joining opposite corners are the diagonals.",
+    "exclude": null,
+    "linked": [
+      "angle"
+    ],
+    "links": [
+      {
+        "concept": "polygon",
+        "text": "polygon",
+        "offset": 2
+      },
+      {
+        "concept": "quadrilateral",
+        "text": "quadrilateral",
+        "offset": 31
+      },
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 143
+      }
+    ]
+  },
+  {
+    "text": "A kite has angles of 110°, 110° and 50°. Its fourth angle is 360° − 110° − 110° − 50° = 90°. Its diagonals cross at a right angle, as a kite's always do.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "parallel-lines",
+      "polygon",
+      "quadrilateral"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to say a square is not a rhombus. A square has four equal sides, so it is a rhombus, one that has right angles too.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "parallel-lines",
+      "polygon",
+      "quadrilateral"
+    ],
+    "links": []
+  },
+  {
+    "text": "Three angles of a quadrilateral are 85°, 95° and 110°. What is the fourth angle?",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "parallel-lines",
+      "polygon",
+      "quadrilateral"
+    ],
+    "links": []
+  },
+  {
+    "text": "A quadrilateral has four sides and angles adding to 360°. Its sides and diagonals tell which kind it is.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "parallel-lines",
+      "polygon",
+      "quadrilateral"
+    ],
+    "links": []
+  },
+  {
+    "text": "A boat leaves a harbour heading north-east, and the captain writes the direction as 045°. What does that number measure, and why does it have three figures?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Face north, then turn clockwise until you face the boat's way. North-east is halfway to east, so the turn is 45°. Writing 045° keeps every direction to three figures, from 000° to 359°.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw a north arrow at the harbour and the boat's path. Mark the turn from north to the path, clockwise. Then draw a north arrow at the boat, and look back along the path to the harbour.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why does the way back differ by 180°? The two north arrows are parallel. The angles between them and the path are co-interior angles, so they add to 180°.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 63
+      },
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 77
+      },
+      {
+        "concept": "co-interior-angles",
+        "text": "co-interior angles",
+        "offset": 114
+      }
+    ]
+  },
+  {
+    "text": "A direction measured clockwise from north, in three figures, is a bearing. The bearing of the way back is the back bearing. Add 180° to a bearing under 180°, and take 180° from a bearing over 180°.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "co-interior-angles",
+      "parallel-lines"
+    ],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearing",
+        "offset": 66
+      }
+    ]
+  },
+  {
+    "text": "A boat sails on a bearing of 065°. Its back bearing is 065° + 180° = 245°. A plane flies on a bearing of 290°, so its back bearing is 290° − 180° = 110°.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "bearing",
+      "co-interior-angles",
+      "parallel-lines"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to turn anticlockwise from north. West is a quarter turn anticlockwise, but its bearing is 270°, three quarter turns clockwise.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "bearing",
+      "co-interior-angles",
+      "parallel-lines"
+    ],
+    "links": []
+  },
+  {
+    "text": "A ship sails from a port on a bearing of 130°. What is the bearing of the port from the ship?",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "bearing",
+      "co-interior-angles",
+      "parallel-lines"
+    ],
+    "links": []
+  },
+  {
+    "text": "A bearing turns clockwise from north and has three figures. The back bearing differs from it by 180°.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "bearing",
+      "co-interior-angles",
+      "parallel-lines"
+    ],
+    "links": []
+  },
+  {
+    "text": "A cereal box is opened out flat along its folds. What shapes make up the flat card, and could you fold it back into the box?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The flat card is six rectangles joined at the folds: front, back, two sides, top and bottom. Fold along the lines and it closes into the box again.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw six equal squares in a cross: a row of four, with one more above and one below the second square. Cut it out and fold along every line. It closes into a cube.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why do some patterns of six squares fail? If two squares fold onto the same side of the cube, another side stays open. The cross works because each square lands on a different side.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A flat pattern that folds into a solid is a net of a solid. A solid can also be drawn as three flat views. The view from directly above is the plan view. The views from the front and the side are the front elevation and the side elevation.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "net-of-a-solid",
+        "text": "net of a solid",
+        "offset": 44
+      },
+      {
+        "concept": "plan-and-elevation",
+        "text": "plan view",
+        "offset": 143
+      }
+    ]
+  },
+  {
+    "text": "A cuboid is 5 cm long, 3 cm wide and 2 cm tall. Its plan view is a 5 cm by 3 cm rectangle. Its front elevation is 5 cm by 2 cm, and its side elevation is 3 cm by 2 cm.",
+    "exclude": null,
+    "linked": [
+      "net-of-a-solid",
+      "plan-and-elevation"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to draw the plan view on a slant, the way the solid looks from a corner. A plan view looks straight down, so a cuboid's is a plain rectangle.",
+    "exclude": null,
+    "linked": [
+      "net-of-a-solid",
+      "plan-and-elevation"
+    ],
+    "links": []
+  },
+  {
+    "text": "A cuboid is 6 cm long, 4 cm wide and 3 cm tall. What is the area of its plan view?",
+    "exclude": null,
+    "linked": [
+      "net-of-a-solid",
+      "plan-and-elevation"
+    ],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 60
+      }
+    ]
+  },
+  {
+    "text": "A net of a solid folds up into it. The plan view and the elevations show it from above, the front and the side.",
+    "exclude": null,
+    "linked": [
+      "area",
+      "net-of-a-solid",
+      "plan-and-elevation"
+    ],
+    "links": []
+  },
+  {
+    "text": "A cube has 8 corners, 12 edges and 6 flat sides. Work out 8 − 12 + 6. Then do the same for a pyramid on a square. What do you notice?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "For the cube, 8 − 12 + 6 = 2. The pyramid has 5 corners, 8 edges and 5 flat sides, and 5 − 8 + 5 = 2 as well.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Hold a box, or draw one. Touch and count each corner, then each edge, then each flat side. Write the three counts in a table, and add a row for the pyramid.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why does the answer stay at 2? Slice one corner off a cube. You lose 1 corner and gain 3, you gain 3 edges, and you gain 1 flat side. So corners − edges + sides changes by 2 − 3 + 1 = 0.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The flat surfaces of a solid are its faces, the lines where two faces meet are its edges, and the corners are its vertices. One corner is a vertex. For a solid with no holes, Euler's formula says V − E + F = 2.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "vertices-edges-faces",
+        "text": "vertices",
+        "offset": 114
+      },
+      {
+        "concept": "eulers-formula",
+        "text": "Euler's formula",
+        "offset": 175
+      }
+    ]
+  },
+  {
+    "text": "A pyramid on a triangle has 4 vertices, 6 edges and 4 faces, and 4 − 6 + 4 = 2. A solid with 12 vertices and 30 edges has 30 − 12 + 2 = 20 faces.",
+    "exclude": null,
+    "linked": [
+      "eulers-formula",
+      "vertices-edges-faces"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to count only the edges you can see in a drawing. A cube drawn on paper shows 9 of its edges, and the other 3 hide at the back.",
+    "exclude": null,
+    "linked": [
+      "eulers-formula",
+      "vertices-edges-faces"
+    ],
+    "links": []
+  },
+  {
+    "text": "A solid with no holes has 7 faces and 10 vertices. Use Euler's formula to find its number of edges.",
+    "exclude": null,
+    "linked": [
+      "eulers-formula",
+      "vertices-edges-faces"
+    ],
+    "links": []
+  },
+  {
+    "text": "Count the vertices, the edges and the faces. For a solid with no holes, V − E + F = 2.",
+    "exclude": null,
+    "linked": [
+      "eulers-formula",
+      "vertices-edges-faces"
+    ],
+    "links": []
+  },
+  {
     "text": "Negative number",
     "exclude": "negative-number",
     "linked": [],
@@ -15161,6 +16985,18 @@
     ]
   },
   {
+    "text": "Plan and elevation",
+    "exclude": "area",
+    "linked": [],
+    "links": [
+      {
+        "concept": "plan-and-elevation",
+        "text": "Plan and elevation",
+        "offset": 0
+      }
+    ]
+  },
+  {
     "text": "Percentage",
     "exclude": "percentage",
     "linked": [],
@@ -15444,6 +17280,42 @@
       {
         "concept": "interior-angle",
         "text": "Interior angle",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Angle bisector",
+    "exclude": "angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle-bisector",
+        "text": "Angle bisector",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Congruent",
+    "exclude": "angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "congruent",
+        "text": "Congruent",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Bearing",
+    "exclude": "angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "Bearing",
         "offset": 0
       }
     ]
@@ -24753,6 +26625,18 @@
     ]
   },
   {
+    "text": "Bearing",
+    "exclude": "co-interior-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "Bearing",
+        "offset": 0
+      }
+    ]
+  },
+  {
     "text": "Proof",
     "exclude": "proof",
     "linked": [],
@@ -25069,6 +26953,30 @@
     ]
   },
   {
+    "text": "Quadrilateral",
+    "exclude": "polygon",
+    "linked": [],
+    "links": [
+      {
+        "concept": "quadrilateral",
+        "text": "Quadrilateral",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Net of a solid",
+    "exclude": "polygon",
+    "linked": [],
+    "links": [
+      {
+        "concept": "net-of-a-solid",
+        "text": "Net of a solid",
+        "offset": 0
+      }
+    ]
+  },
+  {
     "text": "Interior angle",
     "exclude": "interior-angle",
     "linked": [],
@@ -25278,6 +27186,1022 @@
         "concept": "proof",
         "text": "proof",
         "offset": 23
+      }
+    ]
+  },
+  {
+    "text": "Perpendicular bisector",
+    "exclude": "midpoint",
+    "linked": [],
+    "links": [
+      {
+        "concept": "perpendicular-bisector",
+        "text": "Perpendicular bisector",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Locus",
+    "exclude": "locus",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Every point that obeys a rule, such as every point 3 cm from a pin.",
+    "exclude": "locus",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A goat on a tight rope, sweeping a circle round its post.",
+    "exclude": "locus",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The locus of points 5 cm from a point O is a circle round O. Every point on it is 5 cm from O, and no other point is.",
+    "exclude": "locus",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Read the rule, such as exactly 2 cm from a point O.",
+    "exclude": "locus",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Mark a few points that obey it, and a few that do not.",
+    "exclude": "locus",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Join up all the points that obey it. That line or curve is the locus.",
+    "exclude": "locus",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The locus of points 6 cm from a point O is a circle. How far is it across the circle, through O?",
+    "exclude": "locus",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "12 cm",
+    "exclude": "locus",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "one point",
+    "exclude": "locus",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A point 3 cm from O is on the locus, but it is not the locus. The locus is the whole circle of such points.",
+    "exclude": "locus",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 9 · Constructions, bearings and nets",
+    "exclude": "locus",
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearings",
+        "offset": 27
+      }
+    ]
+  },
+  {
+    "text": "Perpendicular bisector",
+    "exclude": "locus",
+    "linked": [],
+    "links": [
+      {
+        "concept": "perpendicular-bisector",
+        "text": "Perpendicular bisector",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Angle bisector",
+    "exclude": "locus",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle-bisector",
+        "text": "Angle bisector",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Perpendicular bisector",
+    "exclude": "perpendicular-bisector",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The line that cuts a line segment in half at a right angle. Every point on it is equally far from both ends.",
+    "exclude": "perpendicular-bisector",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "right angle",
+        "offset": 47
+      }
+    ]
+  },
+  {
+    "text": "A sheet folded so that A lands on B. The crease is the perpendicular bisector of AB.",
+    "exclude": "perpendicular-bisector",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A and B are 6 cm apart. With the compasses open to 4 cm, the arcs cross twice. The line through the crossings meets AB at its midpoint, 3 cm from each end.",
+    "exclude": "perpendicular-bisector",
+    "linked": [],
+    "links": [
+      {
+        "concept": "midpoint",
+        "text": "midpoint",
+        "offset": 126
+      }
+    ]
+  },
+  {
+    "text": "Open the compasses to more than half of AB.",
+    "exclude": "perpendicular-bisector",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw an arc from A and an arc from B with that one opening, crossing above and below AB.",
+    "exclude": "perpendicular-bisector",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Rule a line through the two crossings.",
+    "exclude": "perpendicular-bisector",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "P is on the perpendicular bisector of AB, and PA = 7 cm. What is PB?",
+    "exclude": "perpendicular-bisector",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "7 cm",
+    "exclude": "perpendicular-bisector",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "any line through the midpoint",
+    "exclude": "perpendicular-bisector",
+    "linked": [],
+    "links": [
+      {
+        "concept": "midpoint",
+        "text": "midpoint",
+        "offset": 21
+      }
+    ]
+  },
+  {
+    "text": "A slanted line through the midpoint cuts AB in half too. Only the one at a right angle keeps every point equally far from A and B.",
+    "exclude": "perpendicular-bisector",
+    "linked": [],
+    "links": [
+      {
+        "concept": "midpoint",
+        "text": "midpoint",
+        "offset": 27
+      },
+      {
+        "concept": "angle",
+        "text": "right angle",
+        "offset": 75
+      }
+    ]
+  },
+  {
+    "text": "Chapter 9 · Constructions, bearings and nets",
+    "exclude": "perpendicular-bisector",
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearings",
+        "offset": 27
+      }
+    ]
+  },
+  {
+    "text": "Angle bisector",
+    "exclude": "angle-bisector",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The line that cuts an angle into two equal angles. Every point on it is equally far from the two arms.",
+    "exclude": "angle-bisector",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 22
+      }
+    ]
+  },
+  {
+    "text": "A paper corner folded so that one arm lies on the other. The crease is the angle bisector.",
+    "exclude": "angle-bisector",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The angle bisector of an 80° angle makes two angles of 40°. A point on it that is 3 cm from one arm is 3 cm from the other.",
+    "exclude": "angle-bisector",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 29
+      }
+    ]
+  },
+  {
+    "text": "Put the compass point on the corner, and draw an arc that crosses both arms.",
+    "exclude": "angle-bisector",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "From each crossing, draw an arc of the same size, so the two arcs meet inside the angle.",
+    "exclude": "angle-bisector",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 82
+      }
+    ]
+  },
+  {
+    "text": "Rule a line from the corner through that meeting point.",
+    "exclude": "angle-bisector",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "An angle bisector makes two angles of 37°. How big was the whole angle?",
+    "exclude": "angle-bisector",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 28
+      }
+    ]
+  },
+  {
+    "text": "74°",
+    "exclude": "angle-bisector",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A perpendicular bisector cuts a line segment in half. An angle bisector cuts an angle in half.",
+    "exclude": "angle-bisector",
+    "linked": [],
+    "links": [
+      {
+        "concept": "perpendicular-bisector",
+        "text": "perpendicular bisector",
+        "offset": 2
+      },
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 80
+      }
+    ]
+  },
+  {
+    "text": "Chapter 9 · Constructions, bearings and nets",
+    "exclude": "angle-bisector",
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearings",
+        "offset": 27
+      }
+    ]
+  },
+  {
+    "text": "Congruent",
+    "exclude": "congruent",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Exactly the same shape and size, so that one fits on the other, perhaps after flipping it over.",
+    "exclude": "congruent",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Two prints from one rubber stamp: every side and every angle matches.",
+    "exclude": "congruent",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 55
+      }
+    ]
+  },
+  {
+    "text": "Two triangles both have sides of 4 cm, 5 cm and 6 cm. They are congruent by SSS. So the angle between the 5 cm and 6 cm sides is the same in both.",
+    "exclude": "congruent",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 88
+      }
+    ]
+  },
+  {
+    "text": "Match up the sides and the angles of the two triangles.",
+    "exclude": "congruent",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 27
+      }
+    ]
+  },
+  {
+    "text": "Look for three equal sides (SSS), two sides and the angle between them (SAS), or two angles and the side between them (ASA).",
+    "exclude": "congruent",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 52
+      }
+    ]
+  },
+  {
+    "text": "If one of those matches, the triangles are congruent, and every other side and angle matches too.",
+    "exclude": "congruent",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 79
+      }
+    ]
+  },
+  {
+    "text": "Triangle ABC is congruent to triangle DEF, with A matching D, B matching E and C matching F. Angle D = 35° and angle E = 100°. What is angle C?",
+    "exclude": "congruent",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "Angle",
+        "offset": 93
+      }
+    ]
+  },
+  {
+    "text": "45°",
+    "exclude": "congruent",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "same shape, different size",
+    "exclude": "congruent",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Two triangles with every angle 60°, one with 2 cm sides and one with 5 cm sides, are not congruent. Congruent shapes match in size too.",
+    "exclude": "congruent",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 25
+      }
+    ]
+  },
+  {
+    "text": "Chapter 9 · Constructions, bearings and nets",
+    "exclude": "congruent",
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearings",
+        "offset": 27
+      }
+    ]
+  },
+  {
+    "text": "Quadrilateral",
+    "exclude": "quadrilateral",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A polygon with four straight sides. Its four angles add to 360°.",
+    "exclude": "quadrilateral",
+    "linked": [],
+    "links": [
+      {
+        "concept": "polygon",
+        "text": "polygon",
+        "offset": 2
+      },
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 45
+      }
+    ]
+  },
+  {
+    "text": "A family tree: squares sit inside both the rectangles and the rhombuses, and all of them sit inside the parallelograms.",
+    "exclude": "quadrilateral",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A parallelogram has an angle of 70°. The angle next to it is 180° − 70° = 110°, because the two are co-interior angles. Its angles are 70°, 110°, 70° and 110°, which add to 360°.",
+    "exclude": "quadrilateral",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 23
+      },
+      {
+        "concept": "co-interior-angles",
+        "text": "co-interior angles",
+        "offset": 100
+      }
+    ]
+  },
+  {
+    "text": "Count the sides. Four straight sides make a quadrilateral.",
+    "exclude": "quadrilateral",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Check which sides are equal and which are parallel.",
+    "exclude": "quadrilateral",
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 42
+      }
+    ]
+  },
+  {
+    "text": "Join opposite corners with the two diagonals. A rhombus or a kite has them crossing at a right angle, and a rectangle has them equal.",
+    "exclude": "quadrilateral",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "right angle",
+        "offset": 89
+      }
+    ]
+  },
+  {
+    "text": "Three angles of a quadrilateral are 90°, 90° and 125°. What is the fourth angle?",
+    "exclude": "quadrilateral",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 6
+      }
+    ]
+  },
+  {
+    "text": "55°",
+    "exclude": "quadrilateral",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "rhombus and square",
+    "exclude": "quadrilateral",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Every square is a rhombus, but a rhombus with angles of 60° and 120° is not a square. A square needs right angles too.",
+    "exclude": "quadrilateral",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 46
+      }
+    ]
+  },
+  {
+    "text": "Chapter 9 · Constructions, bearings and nets",
+    "exclude": "quadrilateral",
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearings",
+        "offset": 27
+      }
+    ]
+  },
+  {
+    "text": "Bearing",
+    "exclude": "bearing",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A direction given as the angle turned clockwise from north, written with three figures.",
+    "exclude": "bearing",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 25
+      }
+    ]
+  },
+  {
+    "text": "A compass needle pointing north, and an arm swinging clockwise from it to the way you want to go.",
+    "exclude": "bearing",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "East is a quarter turn clockwise from north, so its bearing is 090°. South is 180°, and west is 270°.",
+    "exclude": "bearing",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw a north arrow where you start.",
+    "exclude": "bearing",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Measure the angle clockwise from north to the direction.",
+    "exclude": "bearing",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Write it with three figures, so 45° is written 045°.",
+    "exclude": "bearing",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A boat sails on a bearing of 240°. What is its back bearing?",
+    "exclude": "bearing",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "060°",
+    "exclude": "bearing",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "an angle from east",
+    "exclude": "bearing",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 3
+      }
+    ]
+  },
+  {
+    "text": "On a graph, angles are often measured anticlockwise from the east. A bearing always starts at north and turns clockwise.",
+    "exclude": "bearing",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Chapter 9 · Constructions, bearings and nets",
+    "exclude": "bearing",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Net of a solid",
+    "exclude": "net-of-a-solid",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A flat pattern of shapes that folds up into a solid.",
+    "exclude": "net-of-a-solid",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A cereal box opened out flat along its folds.",
+    "exclude": "net-of-a-solid",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A cube net has 6 squares. A row of 4 squares, with one more above and one below the second, folds into a cube.",
+    "exclude": "net-of-a-solid",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Count the flat sides of the solid, and note their shapes.",
+    "exclude": "net-of-a-solid",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw them joined edge to edge, so that each fold is a shared line.",
+    "exclude": "net-of-a-solid",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Fold it in your head and check that no two shapes land on the same side.",
+    "exclude": "net-of-a-solid",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A net of a solid has 2 triangles and 3 rectangles. How many flat sides does the solid have?",
+    "exclude": "net-of-a-solid",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "5",
+    "exclude": "net-of-a-solid",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "any six squares",
+    "exclude": "net-of-a-solid",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Six squares in a row do not fold into a cube. The last two squares land on the first two, and two sides stay open.",
+    "exclude": "net-of-a-solid",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 9 · Constructions, bearings and nets",
+    "exclude": "net-of-a-solid",
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearings",
+        "offset": 27
+      }
+    ]
+  },
+  {
+    "text": "Plan and elevation",
+    "exclude": "plan-and-elevation",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Flat views of a solid: the plan view from directly above, and the elevations from the front and the side.",
+    "exclude": "plan-and-elevation",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A drone photo of a house from straight above, next to photos taken level with its front and its side.",
+    "exclude": "plan-and-elevation",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A tin can standing upright has a circle for its plan view. Its front and side elevations are both rectangles.",
+    "exclude": "plan-and-elevation",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "For the plan view, look straight down and draw the outline you see.",
+    "exclude": "plan-and-elevation",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "For the front elevation, look straight at the front from level with it.",
+    "exclude": "plan-and-elevation",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "For the side elevation, do the same from the side.",
+    "exclude": "plan-and-elevation",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A cuboid is 7 cm long, 2 cm wide and 4 cm tall, with its long side at the front. What is the area of its front elevation?",
+    "exclude": "plan-and-elevation",
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 93
+      }
+    ]
+  },
+  {
+    "text": "28 cm²",
+    "exclude": "plan-and-elevation",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A net shows every side laid out flat, ready to fold. A plan view or an elevation shows only what you see from one direction.",
+    "exclude": "plan-and-elevation",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 9 · Constructions, bearings and nets",
+    "exclude": "plan-and-elevation",
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearings",
+        "offset": 27
+      }
+    ]
+  },
+  {
+    "text": "Vertices, edges and faces",
+    "exclude": "vertices-edges-faces",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The corners, the fold lines and the flat surfaces of a solid. One corner is a vertex.",
+    "exclude": "vertices-edges-faces",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A dice, with 8 corners, 12 edges and 6 square faces.",
+    "exclude": "vertices-edges-faces",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A pyramid on a square has 5 faces: 1 square and 4 triangles. It has 8 edges and 5 vertices.",
+    "exclude": "vertices-edges-faces",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Count the flat surfaces. These are the faces.",
+    "exclude": "vertices-edges-faces",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Count the lines where two faces meet. These are the edges.",
+    "exclude": "vertices-edges-faces",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Count the corners. These are the vertices.",
+    "exclude": "vertices-edges-faces",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "How many vertices does a pyramid on a pentagon have?",
+    "exclude": "vertices-edges-faces",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "6",
+    "exclude": "vertices-edges-faces",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "edges you can see",
+    "exclude": "vertices-edges-faces",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A picture of a cube shows 9 edges, but a real cube has 12. Count the hidden ones at the back too.",
+    "exclude": "vertices-edges-faces",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 9 · Constructions, bearings and nets",
+    "exclude": "vertices-edges-faces",
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearings",
+        "offset": 27
+      }
+    ]
+  },
+  {
+    "text": "Euler's formula",
+    "exclude": "vertices-edges-faces",
+    "linked": [],
+    "links": [
+      {
+        "concept": "eulers-formula",
+        "text": "Euler's formula",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Euler's formula",
+    "exclude": "eulers-formula",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "For a solid with flat faces and no holes, the vertices take away the edges, add the faces, make 2.",
+    "exclude": "eulers-formula",
+    "linked": [],
+    "links": [
+      {
+        "concept": "vertices-edges-faces",
+        "text": "vertices",
+        "offset": 46
+      }
+    ]
+  },
+  {
+    "text": "A cube, with 8 − 12 + 6 = 2, beside a pyramid on a square, with 5 − 8 + 5 = 2.",
+    "exclude": "eulers-formula",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A solid has 8 faces and 12 edges. Then V − 12 + 8 = 2, so V = 6.",
+    "exclude": "eulers-formula",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Count the vertices V, the edges E and the faces F.",
+    "exclude": "eulers-formula",
+    "linked": [],
+    "links": [
+      {
+        "concept": "vertices-edges-faces",
+        "text": "vertices",
+        "offset": 10
+      }
+    ]
+  },
+  {
+    "text": "Work out V − E + F.",
+    "exclude": "eulers-formula",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "If one count is missing, put the other two into V − E + F = 2 and solve.",
+    "exclude": "eulers-formula",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A solid with no holes has 6 vertices and 9 edges. How many faces does it have?",
+    "exclude": "eulers-formula",
+    "linked": [],
+    "links": [
+      {
+        "concept": "vertices-edges-faces",
+        "text": "vertices",
+        "offset": 28
+      }
+    ]
+  },
+  {
+    "text": "5",
+    "exclude": "eulers-formula",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "a solid with a hole",
+    "exclude": "eulers-formula",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A picture frame with flat sides and a hole through the middle gives V − E + F = 0. The formula is for solids with no holes.",
+    "exclude": "eulers-formula",
+    "linked": [],
+    "links": [
+      {
+        "concept": "formula",
+        "text": "formula",
+        "offset": 87
+      }
+    ]
+  },
+  {
+    "text": "Chapter 9 · Constructions, bearings and nets",
+    "exclude": "eulers-formula",
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearings",
+        "offset": 27
       }
     ]
   },
@@ -25543,6 +28467,189 @@
     "exclude": null,
     "linked": [],
     "links": []
+  },
+  {
+    "text": "A coastguard boat sails from Mumbai Harbour (M) on a three-figure bearing of 068° to a buoy (B). Calculate the back-bearing of Mumbai Harbour (M) from the buoy (B).",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "three-figure bearing",
+        "offset": 53
+      }
+    ]
+  },
+  {
+    "text": "Step 1: Draw a north arrow at M and another at B. North arrows all point the same way, so they are parallel.\nStep 2: The path from B back to M points the exact opposite way to the path from M to B.\nStep 3: 068° is under 180°, so the back bearing is 068° + 180° = 248°.\nStep 4: Check: 248° − 180° = 068°, the bearing out again.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 99
+      },
+      {
+        "concept": "bearing",
+        "text": "back bearing",
+        "offset": 233
+      }
+    ]
+  },
+  {
+    "text": "068° is under 180°, so the back bearing of M from B is 068° + 180° = ___°.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "back bearing",
+        "offset": 27
+      }
+    ]
+  },
+  {
+    "text": "A convex polyhedron has 8 faces (F = 8) and 6 vertices (V = 6). Using Euler's formula V − E + F = 2, find the number of edges E.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "vertices-edges-faces",
+        "text": "vertices",
+        "offset": 46
+      },
+      {
+        "concept": "eulers-formula",
+        "text": "Euler's formula",
+        "offset": 70
+      }
+    ]
+  },
+  {
+    "text": "Step 1: Write down Euler's formula: V − E + F = 2.\nStep 2: Put in V = 6 and F = 8: 6 − E + 8 = 2, so 14 − E = 2.\nStep 3: Take E to the other side: E = 14 − 2 = 12.\nStep 4: Check: 6 − 12 + 8 = 2.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "eulers-formula",
+        "text": "Euler's formula",
+        "offset": 19
+      }
+    ]
+  },
+  {
+    "text": "6 − E + 8 = 2, so 14 − E = 2 and E = ___.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Triangle ABC is constructed with AB = 8 cm, AC = 6 cm, and BC = 10 cm. Which angle is 90°, and what locus does the perpendicular bisector of AB represent?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 77
+      },
+      {
+        "concept": "locus",
+        "text": "locus",
+        "offset": 100
+      },
+      {
+        "concept": "perpendicular-bisector",
+        "text": "perpendicular bisector",
+        "offset": 115
+      }
+    ]
+  },
+  {
+    "text": "Step 1: The longest side is BC = 10 cm, and the corner opposite it is A.\nStep 2: 6² + 8² = 36 + 64 = 100, which is 10². When this happens, the angle opposite the longest side is 90°. Chapter 12 shows why.\nStep 3: So angle BAC = 90°.\nStep 4: The perpendicular bisector of AB is the locus of points equidistant from A and B, the same distance from each.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 143
+      },
+      {
+        "concept": "perpendicular-bisector",
+        "text": "perpendicular bisector",
+        "offset": 245
+      },
+      {
+        "concept": "locus",
+        "text": "locus",
+        "offset": 281
+      }
+    ]
+  },
+  {
+    "text": "6² + 8² = 10², so the right angle is opposite BC, at angle ___. The perpendicular bisector of AB is the locus of points ___ from A and B.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "right angle",
+        "offset": 22
+      },
+      {
+        "concept": "perpendicular-bisector",
+        "text": "perpendicular bisector",
+        "offset": 68
+      },
+      {
+        "concept": "locus",
+        "text": "locus",
+        "offset": 104
+      }
+    ]
+  },
+  {
+    "text": "A ship sails 12 km on a bearing of 040° and then 16 km on a bearing of 130°. Find its direct distance from the starting port.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearing",
+        "offset": 24
+      }
+    ]
+  },
+  {
+    "text": "Step 1: The ship turns from 040° to 130°, a turn of 90°. So the two legs of the journey meet at a right angle.\nStep 2: The direct distance is the longest side of a triangle with a right angle between sides of 12 km and 16 km.\nStep 3: For such a triangle, the two shorter sides squared add to the longest side squared: 12² + 16² = 144 + 256 = 400.\nStep 4: √400 = 20, so the ship is 20 km from the port. Chapter 12 shows why the rule works.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "right angle",
+        "offset": 98
+      },
+      {
+        "concept": "square-root",
+        "text": "√",
+        "offset": 355
+      }
+    ]
+  },
+  {
+    "text": "The legs meet at a right angle, so the distance squared is 12² + 16² = ___, and the distance is ___ km.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "right angle",
+        "offset": 19
+      }
+    ]
   },
   {
     "text": "Prove algebraically that the recurring decimal x = 0.272727… (0.2̇7̇) equals 3/11 in simplest form.",
@@ -26563,6 +29670,101 @@
     ]
   },
   {
+    "text": "A quadrilateral has four sides, and its angles add to 360°. A rhombus and a kite have diagonals that cross at right angles, and a rectangle has diagonals of equal length.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "quadrilateral",
+        "text": "quadrilateral",
+        "offset": 2
+      },
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 40
+      }
+    ]
+  },
+  {
+    "text": "A net of a solid folds up into it, and the plan view and elevations show it from above, the front and the side. For a solid with no holes, Euler's formula says V − E + F = 2.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "net-of-a-solid",
+        "text": "net of a solid",
+        "offset": 2
+      },
+      {
+        "concept": "plan-and-elevation",
+        "text": "plan view",
+        "offset": 43
+      },
+      {
+        "concept": "eulers-formula",
+        "text": "Euler's formula",
+        "offset": 139
+      }
+    ]
+  },
+  {
+    "text": "A bearing is measured clockwise from north and written with three figures, from 000° to 359°. The back bearing differs by 180°, so 065° gives 245°.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "bearing",
+        "text": "bearing",
+        "offset": 2
+      }
+    ]
+  },
+  {
+    "text": "Three sides (SSS), two sides and the angle between them (SAS), or two angles and the side between them (ASA) fix a triangle. Triangles that match in one of these ways are congruent.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 37
+      },
+      {
+        "concept": "congruent",
+        "text": "congruent",
+        "offset": 171
+      }
+    ]
+  },
+  {
+    "text": "The perpendicular bisector of AB is the locus of points equally far from A and B. An angle bisector is the locus of points equally far from the two arms of the angle.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "perpendicular-bisector",
+        "text": "perpendicular bisector",
+        "offset": 4
+      },
+      {
+        "concept": "locus",
+        "text": "locus",
+        "offset": 40
+      },
+      {
+        "concept": "angle-bisector",
+        "text": "angle bisector",
+        "offset": 85
+      },
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 160
+      }
+    ]
+  },
+  {
     "text": "Multiply decimals as whole numbers, then count the decimal places back in. To divide by a decimal, first multiply both numbers by 10 or 100 so you divide by a whole number.",
     "exclude": null,
     "linked": [],
@@ -27217,6 +30419,11 @@
         "concept": "interior-angle",
         "text": "interior angle",
         "offset": 112
+      },
+      {
+        "concept": "bearing",
+        "text": "bearing",
+        "offset": 188
       }
     ]
   },

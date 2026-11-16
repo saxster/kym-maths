@@ -765,10 +765,10 @@ public enum MathematicalDebateEngine {
 
 public enum MathematicalDebateCatalog {
     public static let all: [MathematicalDebateScenario] = [
-        // Parked on ch 9 -> OUP Ch 12 (Ratio, Rate & Unitary Bar Models); see CONTENT_PLAN amendment 5
+        // Parked on ch 11 -> OUP Ch 12 (Ratio, Rate & Unitary Bar Models); see CONTENT_PLAN amendment 5
         MathematicalDebateScenario(
             id: "debate-ch07-ratio",
-            chapterNumber: 9,
+            chapterNumber: 11,
             oupUnitNumber: 12,
             title: "The Marble Transfer Conservation Law",
             contextPrompt: "Kym and Aarav hold marbles in ratio 5 : 3. After Kym gives Aarav 10 marbles, they have equal shares (1 : 1). Reyansh and Ira debate how many marbles 1 bar unit represents:",
@@ -836,42 +836,6 @@ public enum MathematicalDebateCatalog {
                 )
             ],
             invariantTakeaway: "Volume equals cross-sectional area times perpendicular height: V = A_cross × h_⊥."
-        ),
-        // Ch 11 -> OUP Ch 3 (Pythagoras, Bearings & Constructions)
-        MathematicalDebateScenario(
-            id: "debate-ch11-pythagoras",
-            chapterNumber: 11,
-            oupUnitNumber: 3,
-            title: "The Return Bearing Trap",
-            contextPrompt: "A rescue boat sails from Mumbai Harbour (M) to a lighthouse (L) on a three-figure bearing of 065°. Tara and Rohan debate the back-bearing to return from L to M:",
-            speakerAName: "Rohan",
-            speakerAClaim: "Just subtract from 360°: 360° − 065° = 295°!",
-            speakerBName: "Tara",
-            speakerBClaim: "Reversing direction along the same straight line turns by a half-circle (180°), and the North lines at M and L are parallel: 065° + 180° = 245°!",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch11-a",
-                    speakerLabel: "Rohan is right (295°)",
-                    reasoningStatement: "Opposite bearings always sum to 360°.",
-                    isCorrect: false,
-                    socraticRebuttal: "295° points North-West! Since the boat sailed North-East (065°), to return home it must sail South-West (245°)."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch11-b",
-                    speakerLabel: "Tara is right (245°)",
-                    reasoningStatement: "By alternate angles on parallel North lines, the reverse direction differs by exactly 180°.",
-                    isCorrect: true,
-                    socraticRebuttal: "Spot on! Back-bearing = θ ± 180°, never 360° − θ."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch11-c",
-                    speakerLabel: "Neither — it is 180° − 065° = 115°",
-                    reasoningStatement: "Co-interior angles on parallel North lines sum to 180°.",
-                    isCorrect: false,
-                    socraticRebuttal: "115° is the angle measured anticlockwise from South or internal to the parallel lines, not the clockwise angle from North."
-                )
-            ],
-            invariantTakeaway: "Because all North lines are parallel, the back-bearing of θ is always θ + 180° (if θ < 180°) or θ − 180° (if θ ≥ 180°)."
         ),
         // Ch 12 -> OUP Ch 4 (Scale Drawings, Similarity & Trigonometry)
         MathematicalDebateScenario(
