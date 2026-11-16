@@ -765,10 +765,10 @@ public enum MathematicalDebateEngine {
 
 public enum MathematicalDebateCatalog {
     public static let all: [MathematicalDebateScenario] = [
-        // Ch 8 -> OUP Ch 12 (Ratio, Rate & Unitary Bar Models)
+        // Parked on ch 9 -> OUP Ch 12 (Ratio, Rate & Unitary Bar Models); see CONTENT_PLAN amendment 5
         MathematicalDebateScenario(
             id: "debate-ch07-ratio",
-            chapterNumber: 8,
+            chapterNumber: 9,
             oupUnitNumber: 12,
             title: "The Marble Transfer Conservation Law",
             contextPrompt: "Kym and Aarav hold marbles in ratio 5 : 3. After Kym gives Aarav 10 marbles, they have equal shares (1 : 1). Reyansh and Ira debate how many marbles 1 bar unit represents:",
@@ -800,42 +800,6 @@ public enum MathematicalDebateCatalog {
                 )
             ],
             invariantTakeaway: "In an internal transfer between two people, the sum of bar units is conserved, and moving Δ units changes their gap by 2Δ."
-        ),
-        // Ch 9 -> OUP Ch 8 (Polygons, Parallel Lines & Exterior Turns)
-        MathematicalDebateScenario(
-            id: "debate-ch09-polygons",
-            chapterNumber: 9,
-            oupUnitNumber: 8,
-            title: "Walking the Decagon Perimeter",
-            contextPrompt: "What happens to the sum of exterior angles when you increase a regular polygon from 5 sides to 10 sides?",
-            speakerAName: "Aarav",
-            speakerAClaim: "Since there are twice as many corners, the sum of exterior angles doubles from 360° to 720°!",
-            speakerBName: "Meera",
-            speakerBClaim: "Walking all the way around ANY closed polygon spins you through exactly one full turn of 360°—each exterior angle just halves from 72° to 36°.",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch09-a",
-                    speakerLabel: "Aarav is right (720°)",
-                    reasoningStatement: "More vertices always mean a larger total exterior angle sum.",
-                    isCorrect: false,
-                    socraticRebuttal: "It is the INTERIOR angle sum (n − 2) × 180° that grows with n; the exterior turns always close a single 360° loop."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch09-b",
-                    speakerLabel: "Meera is right (always 360°)",
-                    reasoningStatement: "One complete circuit around a convex perimeter rotates your heading by 360° regardless of n.",
-                    isCorrect: true,
-                    socraticRebuttal: "Spot on! That is why 180° − 360°/n is the fastest route to any regular interior angle."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch09-c",
-                    speakerLabel: "Neither — exterior angles sum to 180°",
-                    reasoningStatement: "Angles on a straight line sum to 180°.",
-                    isCorrect: false,
-                    socraticRebuttal: "One interior + one exterior pair sums to 180°, but all n exterior turns together complete a 360° circle."
-                )
-            ],
-            invariantTakeaway: "The exterior angles of any convex polygon sum to 360°, so each regular interior angle is 180° − 360°/n."
         ),
         // Ch 10 -> OUP Ch 5 (Circles, Sectors & Prism Extrusion)
         MathematicalDebateScenario(

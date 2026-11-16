@@ -25,6 +25,7 @@ from book import ch04 as book_ch04
 from book import ch05 as book_ch05
 from book import ch06 as book_ch06
 from book import ch07 as book_ch07
+from book import ch08 as book_ch08
 from book import concepts as book_concepts
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -33,7 +34,7 @@ BOOK_OUT = ROOT / "KymMaths" / "KymMaths" / "Resources" / "PatternedWorldBook" /
 GOLDEN_OUT = ROOT / "KymMaths" / "Tests" / "Golden" / "concept-links.json"
 
 # Chapters rewritten by hand to docs/CONTENT_BRIEF.md. The content checks apply to these.
-BOOK_CHAPTERS = (book_ch00, book_ch01, book_ch02, book_ch03, book_ch04, book_ch05, book_ch06, book_ch07)
+BOOK_CHAPTERS = (book_ch00, book_ch01, book_ch02, book_ch03, book_ch04, book_ch05, book_ch06, book_ch07, book_ch08)
 # Saved learner responses key on callout ids, so a rewritten chapter keeps the old ids.
 CALLOUT_ID_SUFFIX = {"predict": "predict", "check": "aha", "careful": "trap"}
 
@@ -266,22 +267,6 @@ def build_volumes():
 
 def build_chapters():
     raw_specs = [
-        (
-            8, 3, "Angle Chasing, Parallel Lines & Deductive Proof",
-            "OUP Ch 8 · Alternate, corresponding & co-interior angles, exterior angle of a triangle & midpoint formula",
-            "A transversal slicing two parallel lines carries the exact same 4-angle intersection down the track.",
-            "Slide the top intersection along a transversal onto the bottom parallel line, and tear the two base angles α, β off a triangle to place them into the exterior angle.",
-            "Because a parallel translation changes no angles, α and β fit flush inside the exterior angle next to γ — proving both α + β + γ = 180° and ext = α + β at once!",
-            "θ_ext = α + β,   ∑ interior angles of n-gon = (n − 2) × 180°,   M = ((x₁+x₂)/2, (y₁+y₂)/2)",
-            [
-                {"symbol": "α + β", "visualPart": "Red + Blue remote interior angles translated along parallel line", "colorRole": "red", "meaning": "Fit exactly into the exterior angle"},
-                {"symbol": "(n − 2) × 180°", "visualPart": "Amber fan of (n − 2) non-overlapping triangles from one vertex", "colorRole": "amber", "meaning": "Every n-gon triangulates into n − 2 triangles"},
-                {"symbol": "((x₁+x₂)/2, (y₁+y₂)/2)", "visualPart": "Green midpoint of the bounding coordinate box", "colorRole": "green", "meaning": "Average of endpoints on each axis"}
-            ],
-            "maths/ch08-angles-parallel/index.html",
-            ["Alternate (Z) Angles", "Corresponding (F) Angles", "Co-interior (C) Angles", "Exterior Angle Theorem", "Polygon Triangulation", "Midpoint"],
-            ["w_parallel_transversal_proof", "w_exterior_angle_tear_proof"]
-        ),
         (
             9, 3, "Compass & Straightedge: Locus, Quadrilaterals & 3D Nets",
             "OUP Ch 3 · Quadrilateral hierarchy, 3D nets & elevations, 3-figure bearings & Euclidean locus constructions",
@@ -4805,7 +4790,7 @@ const CH_SLIDERS = {{
   5:  [{{lbl:'Bags:',min:2,max:6,step:1,val:4,u:''}}, {{lbl:'Loose marbles:',min:1,max:9,step:1,val:3,u:''}}, {{lbl:'Marbles in a bag:',min:1,max:5,step:1,val:3,u:''}}],
   6:  [{{lbl:'Number of terms:',min:3,max:8,step:1,val:5,u:''}}, {{lbl:'First term:',min:1,max:4,step:1,val:1,u:''}}, {{lbl:'Common difference:',min:1,max:3,step:1,val:1,u:''}}],
   7:  [{{lbl:'Gradient:',min:-3,max:3,step:0.5,val:2,u:''}}, {{lbl:'Crosses the y-axis at:',min:-3,max:3,step:1,val:1,u:''}}, {{lbl:'Step across:',min:1,max:3,step:1,val:1,u:''}}],
-  8:  [{{lbl:'Angle α:',min:30,max:75,step:5,val:50,u:'°'}}, {{lbl:'Angle β:',min:30,max:75,step:5,val:60,u:'°'}}, {{lbl:'Polygon sides n:',min:3,max:8,step:1,val:6,u:''}}],
+  8:  [{{lbl:'Angle at A:',min:30,max:65,step:5,val:50,u:'°'}}, {{lbl:'Angle at B:',min:30,max:65,step:5,val:60,u:'°'}}, {{lbl:'Sides of the shape:',min:3,max:8,step:1,val:6,u:''}}],
   9:  [{{lbl:'Segment AB:',min:4,max:8,step:0.5,val:6,u:'cm'}}, {{lbl:'Compass r/AB:',min:0.6,max:1.0,step:0.05,val:0.8,u:'×'}}, {{lbl:'Bearing from N:',min:20,max:160,step:5,val:65,u:'°'}}],
   10: [{{lbl:'Circle radius r:',min:2,max:6,step:0.5,val:4,u:'cm'}}, {{lbl:'Trap top a:',min:2,max:6,step:0.5,val:3,u:'cm'}}, {{lbl:'Trap base b:',min:4,max:9,step:0.5,val:6,u:'cm'}}],
   11: [{{lbl:'Scale factor k:',min:1,max:3,step:0.5,val:2,u:'×'}}, {{lbl:'Base triangle b:',min:2,max:5,step:0.5,val:3,u:'cm'}}, {{lbl:'Height h:',min:2,max:4,step:0.5,val:2,u:'cm'}}],
@@ -5177,21 +5162,48 @@ function drawSandbox() {{
       break;
     }}
     case 8: {{
-      // Ch 8: Parallel Transversal & Exterior Angle θ_ext = α + β
-      const alpha = a, beta = b, ext = alpha + beta, gamma = 180 - ext, nSides = Math.round(c);
-      const xA = 75, yA = 195, xB = 225, yB = 195, xC = 145, yC = 75;
+      // Ch 8: a triangle, the line through C parallel to AB, and the outside angle at B
+      const A = Math.round(a), B = Math.round(b), C = 180 - A - B, n = Math.round(c);
+      const rad = d => d * Math.PI / 180, base = 134, xA = 52;
+      const hUnit = Math.sin(rad(A)) * Math.sin(rad(B)) / Math.sin(rad(A + B));
+      const L = Math.min(165, 100 / hUnit), xB = xA + L, ac = L * Math.sin(rad(B)) / Math.sin(rad(A + B));
+      const xC = xA + ac * Math.cos(rad(A)), yC = base - ac * Math.sin(rad(A));
+      const wedge = (x, y, r, s, e, col) => {{
+        ctx.beginPath(); ctx.moveTo(x, y); ctx.arc(x, y, r, s, e); ctx.closePath();
+        ctx.fillStyle = col + '40'; ctx.fill();
+        ctx.strokeStyle = col; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.arc(x, y, r, s, e); ctx.stroke();
+      }};
+      const label = (x, y, r, mid, text, col) => {{
+        const rr = Math.max(r, 13 / Math.max(0.2, Math.abs(Math.sin(mid))));
+        ctx.fillStyle = col; ctx.fillText(text, x + rr * Math.cos(mid), y + rr * Math.sin(mid) + 4);
+      }};
+      ctx.setLineDash([6, 4]); ctx.strokeStyle = green; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(40, yC); ctx.lineTo(280, yC); ctx.stroke(); ctx.setLineDash([]);
+      wedge(xA, base, 18, -rad(A), 0, red);
+      wedge(xB, base, 18, -Math.PI, rad(B) - Math.PI, blue);
+      wedge(xB, base, 22, rad(B) - Math.PI, 0, amber);
+      wedge(xC, yC, 16, 0, rad(B), blue);
+      wedge(xC, yC, 16, rad(B), Math.PI - rad(A), muted);
+      wedge(xC, yC, 16, Math.PI - rad(A), Math.PI, red);
       ctx.strokeStyle = ink; ctx.lineWidth = 2.4;
-      ctx.beginPath(); ctx.moveTo(xA, yA); ctx.lineTo(310, yB); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(xA, yA); ctx.lineTo(xC, yC); ctx.lineTo(xB, yB); ctx.stroke();
-      // Auxiliary parallel line at B
-      ctx.setLineDash([5, 4]); ctx.strokeStyle = green;
-      ctx.beginPath(); ctx.moveTo(xB, yB); ctx.lineTo(xB + (xC - xA), yC); ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.fillStyle = red; ctx.fillText(`α=${{alpha}}°`, xA + 22, yA - 10);
-      ctx.fillStyle = blue; ctx.fillText(`β=${{beta}}°`, xC - 14, yC + 34);
-      ctx.fillStyle = amber; ctx.fillText(`θ_ext = α + β = ${{ext}}°`, xB + 14, yB - 14);
-      ctx.fillStyle = green; ctx.fillText(`${{nSides}}-gon splits into (${{nSides}}−2) = ${{nSides-2}} triangles = ${{(nSides-2)*180}}°`, 315, 125);
-      readoutHtml = `Exterior Angle: <b>θ_ext = α (${{alpha}}°) + β (${{beta}}°) = ${{ext}}°</b> (γ = ${{gamma}}°) · ${{nSides}}-gon sum = <b>${{(nSides-2)*180}}°</b>`;
+      ctx.beginPath(); ctx.moveTo(xA, base); ctx.lineTo(xB + 58, base); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(xA, base); ctx.lineTo(xC, yC); ctx.lineTo(xB, base); ctx.stroke();
+      ctx.font = '600 11px -apple-system, BlinkMacSystemFont, sans-serif'; ctx.textAlign = 'center';
+      label(xA, base, 32, -rad(A) / 2, `${{A}}°`, red);
+      label(xB, base, 32, rad(B) / 2 - Math.PI, `${{B}}°`, blue);
+      label(xB, base, 36, (rad(B) - Math.PI) / 2, `${{180 - B}}°`, amber);
+      label(xC, yC, 30, rad(B) / 2, `${{B}}°`, blue);
+      label(xC, yC, 30, (rad(B) + Math.PI - rad(A)) / 2, `${{C}}°`, muted);
+      label(xC, yC, 30, Math.PI - rad(A) / 2, `${{A}}°`, red);
+      ctx.fillStyle = ink; ctx.fillText('A', xA - 10, base + 12); ctx.fillText('B', xB, base + 14); ctx.fillText('C', xC, yC - 7);
+      ctx.textAlign = 'left'; ctx.font = '600 12.5px -apple-system, BlinkMacSystemFont, sans-serif';
+      const total = (n - 2) * 180;
+      ctx.fillStyle = ink; ctx.fillText(`Triangle: ${{A}}° + ${{B}}° + ${{C}}° = 180°`, 46, 168);
+      ctx.fillStyle = amber; ctx.fillText(`Outside angle at B: ${{180 - B}}°`, 46, 194);
+      ctx.fillText(`That is ${{A}}° + ${{C}}°, at A and C`, 46, 212);
+      ctx.fillStyle = muted; ctx.fillText(`${{n === 8 ? 'An' : 'A'}} ${{n}}-sided shape cuts into ${{n - 2}} triangle${{n === 3 ? '' : 's'}}`, 46, 230);
+      ctx.fillText(`Its inside angles add to ${{total}}°`, 46, 254);
+      readoutHtml = `<b style="color:${{red}}">${{A}}°</b> + <b style="color:${{blue}}">${{B}}°</b> + ${{C}}° = <b>180°</b> · outside angle at B <b style="color:${{amber}}">${{180 - B}}°</b>`;
       break;
     }}
     case 9: {{

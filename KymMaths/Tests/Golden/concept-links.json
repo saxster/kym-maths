@@ -54,14 +54,14 @@
     ]
   },
   {
-    "text": "Working out chances means counting outcomes in groups that overlap, so it needs this way of counting. A proof in geometry is a chain of if-then steps. One counterexample stops you from trusting a false rule.",
+    "text": "Working out chances means counting outcomes in groups that overlap, so it needs this way of counting. In geometry, each step of a reason is an if-then step. One counterexample stops you from trusting a false rule.",
     "exclude": null,
     "linked": [],
     "links": [
       {
         "concept": "counterexample",
         "text": "counterexample",
-        "offset": 155
+        "offset": 161
       }
     ]
   },
@@ -96,10 +96,16 @@
     ]
   },
   {
-    "text": "Chapter 8: angles and proof, built from if-then steps",
+    "text": "Chapter 8: angle facts, each one reasoned from if-then steps",
     "exclude": null,
     "linked": [],
-    "links": []
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 11
+      }
+    ]
   },
   {
     "text": "Chapter 15: counting outcomes, often drawn as Venn diagrams",
@@ -8027,7 +8033,13 @@
     "text": "Every later chapter that finds a missing length, angle or amount",
     "exclude": null,
     "linked": [],
-    "links": []
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 49
+      }
+    ]
   },
   {
     "text": "Set the bags to 4, the loose marbles to 3 and the marbles in a bag to 3. The right pan shows 15 marbles.",
@@ -12073,6 +12085,11 @@
         "concept": "gradient",
         "text": "gradient",
         "offset": 98
+      },
+      {
+        "concept": "angle",
+        "text": "right angle",
+        "offset": 130
       }
     ]
   },
@@ -12080,6 +12097,7 @@
     "text": "Find the line parallel to y = 3x − 1 through (2, 11). It has gradient 3, so it is y = 3x + c. Put in x = 2 and y = 11: 11 = 6 + c, so c = 5. The line is y = 3x + 5.",
     "exclude": null,
     "linked": [
+      "angle",
       "gradient",
       "parallel-lines"
     ],
@@ -12089,6 +12107,7 @@
     "text": "The tempting slip is to think y = 2x + 1 and y = x + 2 are parallel because they use the same numbers. Their gradients are 2 and 1, so they cross, at (1, 3).",
     "exclude": null,
     "linked": [
+      "angle",
       "gradient",
       "parallel-lines"
     ],
@@ -12098,6 +12117,7 @@
     "text": "Which line is parallel to y = 5x + 2: y = 2x + 5, y = 5x − 3 or y = −5x + 2?",
     "exclude": null,
     "linked": [
+      "angle",
       "gradient",
       "parallel-lines"
     ],
@@ -12107,6 +12127,7 @@
     "text": "Parallel lines have the same gradient and cross the y-axis at different places.",
     "exclude": null,
     "linked": [
+      "angle",
       "gradient",
       "parallel-lines"
     ],
@@ -12189,6 +12210,2042 @@
     "linked": [
       "gradient",
       "real-life-graph"
+    ],
+    "links": []
+  },
+  {
+    "text": "Angles and proof",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "Angles",
+        "offset": 0
+      },
+      {
+        "concept": "proof",
+        "text": "proof",
+        "offset": 11
+      }
+    ]
+  },
+  {
+    "text": "School book chapter 8 · Crossing lines, parallel lines, triangles, polygons and midpoints",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 40
+      },
+      {
+        "concept": "polygon",
+        "text": "polygons",
+        "offset": 67
+      },
+      {
+        "concept": "midpoint",
+        "text": "midpoints",
+        "offset": 80
+      }
+    ]
+  },
+  {
+    "text": "Tear the three corners off a paper triangle and lay them side by side, points touching. They make a straight line every time. Why does that work for every triangle?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Finding missing angles, and giving a reason for each step",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 16
+      }
+    ]
+  },
+  {
+    "text": "With no calculator: a line crosses two parallel lines and makes an angle of 65° with one of them. Give the alternate angle and the co-interior angle. Two angles of a triangle are 40° and 75°: find the exterior angle at the third corner. Find the midpoint of (−2, 5) and (6, 1).",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 39
+      },
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 67
+      },
+      {
+        "concept": "alternate-angles",
+        "text": "alternate angle",
+        "offset": 107
+      },
+      {
+        "concept": "co-interior-angles",
+        "text": "co-interior angle",
+        "offset": 131
+      },
+      {
+        "concept": "exterior-angle",
+        "text": "exterior angle",
+        "offset": 201
+      },
+      {
+        "concept": "midpoint",
+        "text": "midpoint",
+        "offset": 246
+      }
+    ]
+  },
+  {
+    "text": "The alternate angle is 65° and the co-interior angle is 115°. The exterior angle is 40° + 75° = 115°. The midpoint is (2, 3).",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "alternate-angles",
+        "text": "alternate angle",
+        "offset": 4
+      },
+      {
+        "concept": "co-interior-angles",
+        "text": "co-interior angle",
+        "offset": 35
+      },
+      {
+        "concept": "exterior-angle",
+        "text": "exterior angle",
+        "offset": 66
+      },
+      {
+        "concept": "midpoint",
+        "text": "midpoint",
+        "offset": 106
+      }
+    ]
+  },
+  {
+    "text": "Builders, map makers and designers find angles they cannot measure from angles they can. Giving a reason for each step is how mathematics makes sure a fact holds every time.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 40
+      }
+    ]
+  },
+  {
+    "text": "Chapter 7: parallel lines and coordinates",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 11
+      },
+      {
+        "concept": "coordinates",
+        "text": "coordinates",
+        "offset": 30
+      }
+    ]
+  },
+  {
+    "text": "Chapter 0: if-then statements",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "if-then-statement",
+        "text": "if-then statements",
+        "offset": 11
+      }
+    ]
+  },
+  {
+    "text": "Measuring an angle in degrees, with 360° in a full turn",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 13
+      }
+    ]
+  },
+  {
+    "text": "Chapter 9: drawing exact shapes and finding directions on a map",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 12: the sides and angles of right-angled triangles",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 26
+      }
+    ]
+  },
+  {
+    "text": "Every later proof about shapes, built from the facts in this chapter",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "proof",
+        "text": "proof",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Set the angle at A to 50° and the angle at B to 60°. The dashed green line runs through C, parallel to the side AB.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 8
+      },
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 91
+      }
+    ]
+  },
+  {
+    "text": "Drag either slider. The red copy, the grey angle and the blue copy at C always fill the green line. So the three angles of the triangle always add to 180°.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 43
+      }
+    ]
+  },
+  {
+    "text": "A + B + C = 180°,   exterior angle at B = A + C",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "exterior-angle",
+        "text": "exterior angle",
+        "offset": 20
+      }
+    ]
+  },
+  {
+    "text": "A",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The red angles",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 8
+      }
+    ]
+  },
+  {
+    "text": "The angle at corner A, and its copy at C",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "B",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The blue angles",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "The angle at corner B, and its copy at C",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "the line through C",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The green dashed line",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A line through C, parallel to AB",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 18
+      }
+    ]
+  },
+  {
+    "text": "exterior angle at B",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "exterior-angle",
+        "text": "exterior angle",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "The amber angle",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 10
+      }
+    ]
+  },
+  {
+    "text": "The angle between side BC and the side AB carried on past B",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "8.1 Where two lines cross",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "8.2 A line across parallel lines",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 18
+      }
+    ]
+  },
+  {
+    "text": "8.3 Z angles and C angles",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 6
+      }
+    ]
+  },
+  {
+    "text": "8.4 Why a triangle's angles make 180°",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 21
+      }
+    ]
+  },
+  {
+    "text": "8.5 The angle outside a triangle",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 8
+      }
+    ]
+  },
+  {
+    "text": "8.6 Angles in any shape with straight sides",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "Angles",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "8.7 Halfway between two points",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Predict first",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Predict the angle at C when the angles at A and B are both 65°. Then set both sliders to 65° and read the grey angle.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Explain it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Two lines cross and one angle is 70°. Explain to a friend why the angle straight across the crossing must be 70° too.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 24
+      }
+    ]
+  },
+  {
+    "text": "Beside or opposite",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Where two lines cross, the angles opposite each other are equal. Angles side by side share a straight line, so they add to 180°.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 27
+      }
+    ]
+  },
+  {
+    "text": "Angle",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "Angle",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Vertically opposite angles",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "vertically-opposite-angles",
+        "text": "Vertically opposite angles",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Transversal",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "transversal",
+        "text": "Transversal",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Corresponding angles",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "corresponding-angles",
+        "text": "Corresponding angles",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Alternate angles",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "alternate-angles",
+        "text": "Alternate angles",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Co-interior angles",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "co-interior-angles",
+        "text": "Co-interior angles",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Proof",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "proof",
+        "text": "Proof",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Exterior angle",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "exterior-angle",
+        "text": "Exterior angle",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Polygon",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "polygon",
+        "text": "Polygon",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Interior angle",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "interior-angle",
+        "text": "Interior angle",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Midpoint",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "midpoint",
+        "text": "Midpoint",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Equal, or adding to 180°?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A transversal crosses two parallel lines. Meera and Dev look at the two angles between the lines, on the same side of the transversal. One of them is 65°.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "transversal",
+        "text": "transversal",
+        "offset": 2
+      },
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 26
+      },
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 72
+      }
+    ]
+  },
+  {
+    "text": "Meera",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Angles between parallel lines match, so the other one is 65° too.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "Angles",
+        "offset": 0
+      },
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 15
+      }
+    ]
+  },
+  {
+    "text": "Dev",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "They are co-interior angles, so they add to 180° and the other one is 115°.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "co-interior-angles",
+        "text": "co-interior angles",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "Meera is right (65°)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Any two angles between parallel lines are equal.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 8
+      },
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 23
+      }
+    ]
+  },
+  {
+    "text": "Draw the transversal at a steep slant. Do the two angles on the same side look the same, or is one wide and the other narrow?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "transversal",
+        "text": "transversal",
+        "offset": 9
+      },
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 50
+      }
+    ]
+  },
+  {
+    "text": "Dev is right (115°)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Co-interior angles, in a C shape, add to 180°.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "co-interior-angles",
+        "text": "Co-interior angles",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Yes. The angle beside the 65° on the same parallel line is 115°. It is alternate to the other angle in the C, so that one is 115° as well.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 9
+      },
+      {
+        "concept": "parallel-lines",
+        "text": "parallel line",
+        "offset": 42
+      }
+    ]
+  },
+  {
+    "text": "Neither. Each is 90°.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Two angles that add to 180° must each be 90°.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "Is 65° + 115° also 180°? What does adding to 180° tell you about each angle on its own?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 70
+      }
+    ]
+  },
+  {
+    "text": "Alternate angles are equal, and co-interior angles add to 180°. Find the Z or the C before you decide.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "alternate-angles",
+        "text": "Alternate angles",
+        "offset": 0
+      },
+      {
+        "concept": "co-interior-angles",
+        "text": "co-interior angles",
+        "offset": 32
+      }
+    ]
+  },
+  {
+    "text": "Copying the angles across",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Set the angle at A to 30° and the angle at B to 65°. Predict the angle at C before you read the first line of text.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 8
+      }
+    ]
+  },
+  {
+    "text": "The green line through C is parallel to AB. The red and blue copies at C are alternate angles, so the three angles at C fill a straight line.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 28
+      },
+      {
+        "concept": "alternate-angles",
+        "text": "alternate angles",
+        "offset": 77
+      },
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 108
+      }
+    ]
+  },
+  {
+    "text": "The rule: the angles of a triangle add to 180°",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 14
+      }
+    ]
+  },
+  {
+    "text": "1. Try it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the angle at A to 50° and the angle at B to 60°.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 8
+      }
+    ]
+  },
+  {
+    "text": "2. Notice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The red copy at C sits in a Z with the angle at A, so the two are equal.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 39
+      }
+    ]
+  },
+  {
+    "text": "3. Match the rule",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The red, grey and blue angles at C fill the green line: 50° + 70° + 60° = 180°.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 23
+      }
+    ]
+  },
+  {
+    "text": "4. Push it further",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set both sliders to 65°. How small does the grey angle at C get?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 49
+      }
+    ]
+  },
+  {
+    "text": "5. Draw it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw a triangle in your journal with a line through one corner, parallel to the opposite side.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 64
+      }
+    ]
+  },
+  {
+    "text": "The angle outside the triangle",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "Set the angle at A to 45° and the angle at B to 55°. Predict the amber angle outside B before you read it.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 8
+      }
+    ]
+  },
+  {
+    "text": "The amber angle and the angle at B share a straight line, so the amber angle is 180° − 55° = 125°. That equals 45° + 80°, the angles at A and C.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 10
+      }
+    ]
+  },
+  {
+    "text": "The rule: an exterior angle of a triangle = the sum of the angles at the other two corners",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "exterior-angle",
+        "text": "exterior angle",
+        "offset": 13
+      },
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 59
+      }
+    ]
+  },
+  {
+    "text": "1. Try it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the angle at A to 40° and the angle at B to 70°.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 8
+      }
+    ]
+  },
+  {
+    "text": "2. Notice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The amber angle is 110°, and the angles at A and C are 40° and 70°.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 10
+      }
+    ]
+  },
+  {
+    "text": "3. Match the rule",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "40° + 70° = 110°, so the exterior angle equals the two angles away from it.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "exterior-angle",
+        "text": "exterior angle",
+        "offset": 25
+      },
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 55
+      }
+    ]
+  },
+  {
+    "text": "4. Push it further",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the sides of the shape to 8. How many triangles does the text say it cuts into?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "5. Draw it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw a triangle, carry one side on with a ruler, and measure the angle outside.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 65
+      }
+    ]
+  },
+  {
+    "text": "Chapter 8 · Parallel lines keep their angles",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "Parallel lines",
+        "offset": 12
+      },
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 38
+      }
+    ]
+  },
+  {
+    "text": "Why are corresponding angles equal when the lines are parallel?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "corresponding-angles",
+        "text": "corresponding angles",
+        "offset": 8
+      },
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 54
+      }
+    ]
+  },
+  {
+    "text": "Slide one parallel line along the transversal onto the other. It moves without turning, so every angle at the first crossing lands on the matching angle at the second.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel line",
+        "offset": 10
+      },
+      {
+        "concept": "transversal",
+        "text": "transversal",
+        "offset": 34
+      },
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 97
+      }
+    ]
+  },
+  {
+    "text": "The rule: corresponding and alternate angles are equal, and co-interior angles add to 180°",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "alternate-angles",
+        "text": "alternate angles",
+        "offset": 28
+      },
+      {
+        "concept": "co-interior-angles",
+        "text": "co-interior angles",
+        "offset": 60
+      }
+    ]
+  },
+  {
+    "text": "Tear the three corners off a paper triangle and lay them side by side, points touching. They make a straight line every time. Why does that work for every triangle?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 8 · One proof for every triangle",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "proof",
+        "text": "proof",
+        "offset": 16
+      }
+    ]
+  },
+  {
+    "text": "How can one drawing show that the angles of every triangle add to 180°?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 34
+      }
+    ]
+  },
+  {
+    "text": "Draw a line through one corner parallel to the opposite side. Alternate angles copy the other two corners onto that line, and a straight line is 180°.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 31
+      },
+      {
+        "concept": "alternate-angles",
+        "text": "Alternate angles",
+        "offset": 62
+      }
+    ]
+  },
+  {
+    "text": "The rule: the angles of a triangle add to 180°",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 14
+      }
+    ]
+  },
+  {
+    "text": "Tear the three corners off a paper triangle and lay them side by side, points touching. They make a straight line every time. Why does that work for every triangle?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 8 · Cutting a polygon into triangles",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "polygon",
+        "text": "polygon",
+        "offset": 22
+      }
+    ]
+  },
+  {
+    "text": "Why do the interior angles of an n-sided polygon add to (n − 2) × 180°?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "interior-angle",
+        "text": "interior angles",
+        "offset": 11
+      },
+      {
+        "concept": "polygon",
+        "text": "polygon",
+        "offset": 41
+      }
+    ]
+  },
+  {
+    "text": "Lines from one corner cut the polygon into triangles, two fewer than it has sides. The angles of those triangles fill its corners, 180° for each triangle.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "polygon",
+        "text": "polygon",
+        "offset": 30
+      },
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 87
+      }
+    ]
+  },
+  {
+    "text": "The rule: the interior angles of an n-sided polygon add to (n − 2) × 180°",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "interior-angle",
+        "text": "interior angles",
+        "offset": 14
+      },
+      {
+        "concept": "polygon",
+        "text": "polygon",
+        "offset": 44
+      }
+    ]
+  },
+  {
+    "text": "Tear the three corners off a paper triangle and lay them side by side, points touching. They make a straight line every time. Why does that work for every triangle?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Two straight roads cross, and one corner of the crossing measures 70°. What are the other three angles at the crossing?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 96
+      }
+    ]
+  },
+  {
+    "text": "Angles along a straight line add to 180°, half a full turn. So the angle next to the 70° is 180° − 70° = 110°. Next to that is 70° again, then 110°.",
+    "exclude": null,
+    "linked": [
+      "angle"
+    ],
+    "links": []
+  },
+  {
+    "text": "Draw two lines crossing like an X. Mark the 70° angle, then the angle straight across the crossing from it. Shade both of them in one colour, and the other two in another.",
+    "exclude": null,
+    "linked": [
+      "angle"
+    ],
+    "links": []
+  },
+  {
+    "text": "Why are the opposite angles equal? Each one sits beside the same 110° angle on a straight line. So each is 180° − 110°, which is 70° both times.",
+    "exclude": null,
+    "linked": [
+      "angle"
+    ],
+    "links": []
+  },
+  {
+    "text": "The angles opposite each other where two lines cross are vertically opposite angles, and they are equal. Vertically here means at the same corner point, not up and down. Angles on a straight line add to 180°, and angles all the way round a point add to 360°.",
+    "exclude": null,
+    "linked": [
+      "angle"
+    ],
+    "links": [
+      {
+        "concept": "vertically-opposite-angles",
+        "text": "vertically opposite angles",
+        "offset": 57
+      }
+    ]
+  },
+  {
+    "text": "Two lines cross, and one angle is 38°. The angle opposite it is 38°, and the two beside it are 180° − 38° = 142° each. Check: 38 + 142 + 38 + 142 = 360. If another pair of opposite angles is 2x and 142°, then x = 71.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "vertically-opposite-angles"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to make the angle beside it equal, instead of the one opposite. Angles side by side share a straight line, so they add to 180°.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "vertically-opposite-angles"
+    ],
+    "links": []
+  },
+  {
+    "text": "Two lines cross. One angle is 3x and the angle opposite it is 75°. Find x.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "vertically-opposite-angles"
+    ],
+    "links": []
+  },
+  {
+    "text": "Vertically opposite angles are equal, and angles side by side on a straight line add to 180°.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "vertically-opposite-angles"
+    ],
+    "links": []
+  },
+  {
+    "text": "A road crosses two parallel railway tracks. At the first track the road makes an angle of 60°. What angle does it make at the second track, in the same position?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 19
+      },
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 81
+      }
+    ]
+  },
+  {
+    "text": "The tracks point the same way, so the road meets each one at the same slant. Slide the first crossing along the road to the second and it fits exactly. The angle is 60° again.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "parallel-lines"
+    ],
+    "links": []
+  },
+  {
+    "text": "Draw two parallel lines across the page and a slanted line cutting both. At each crossing, shade the angle above the parallel line and to the right of the slanted line.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "parallel-lines"
+    ],
+    "links": []
+  },
+  {
+    "text": "Why are the two shaded angles equal? Sliding the top line down the slanted line moves it onto the bottom line without turning it. Nothing turns, so no angle changes.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "parallel-lines"
+    ],
+    "links": []
+  },
+  {
+    "text": "A line that cuts across two or more lines is a transversal. Angles in the same position at each crossing are corresponding angles. When the lines are parallel, corresponding angles are equal, and together they trace a letter F.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "parallel-lines"
+    ],
+    "links": [
+      {
+        "concept": "transversal",
+        "text": "transversal",
+        "offset": 47
+      },
+      {
+        "concept": "corresponding-angles",
+        "text": "corresponding angles",
+        "offset": 109
+      }
+    ]
+  },
+  {
+    "text": "A transversal crosses two parallel lines. At the top crossing, the angle above the line and left of the transversal is 112°. The corresponding angle at the bottom crossing is 112° too. The angle beside it on the bottom line is 180° − 112° = 68°.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "corresponding-angles",
+      "parallel-lines",
+      "transversal"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to use corresponding angles when the lines are not parallel. If the two lines lean towards each other, the angles at the two crossings differ. Look for the arrows that mark parallel lines first.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "corresponding-angles",
+      "parallel-lines",
+      "transversal"
+    ],
+    "links": []
+  },
+  {
+    "text": "A transversal crosses two parallel lines. One angle is 47°, and its corresponding angle is (2x + 7)°. Find x.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "corresponding-angles",
+      "parallel-lines",
+      "transversal"
+    ],
+    "links": []
+  },
+  {
+    "text": "A transversal meets parallel lines at the same slant, so its corresponding angles are equal.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "corresponding-angles",
+      "parallel-lines",
+      "transversal"
+    ],
+    "links": []
+  },
+  {
+    "text": "A transversal crosses two parallel lines. Below the top line, on the left of the transversal, the angle is 70°. What is the angle above the bottom line, on the right?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "transversal",
+        "text": "transversal",
+        "offset": 2
+      },
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 26
+      },
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 98
+      }
+    ]
+  },
+  {
+    "text": "The corresponding angle, below the bottom line on the left, is 70°. The angle you want is vertically opposite that one, so it is 70° as well.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "parallel-lines",
+      "transversal"
+    ],
+    "links": [
+      {
+        "concept": "corresponding-angles",
+        "text": "corresponding angle",
+        "offset": 4
+      },
+      {
+        "concept": "vertically-opposite-angles",
+        "text": "vertically opposite",
+        "offset": 90
+      }
+    ]
+  },
+  {
+    "text": "Shade the two 70° angles. Both sit between the parallel lines, on opposite sides of the transversal, in the corners of a Z. Then shade the angle above the bottom line on the left. With the first 70° it makes a C.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "corresponding-angles",
+      "parallel-lines",
+      "transversal",
+      "vertically-opposite-angles"
+    ],
+    "links": []
+  },
+  {
+    "text": "Why do the two angles in the C add to 180°? The lower one sits on the bottom line beside the other 70°, so it is 110°. And 70° + 110° = 180°.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "corresponding-angles",
+      "parallel-lines",
+      "transversal",
+      "vertically-opposite-angles"
+    ],
+    "links": []
+  },
+  {
+    "text": "Angles between the parallel lines on opposite sides of the transversal are alternate angles, and they are equal. Angles between the lines on the same side are co-interior angles, and they add to 180°. Look for a Z or a C.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "corresponding-angles",
+      "parallel-lines",
+      "transversal",
+      "vertically-opposite-angles"
+    ],
+    "links": [
+      {
+        "concept": "alternate-angles",
+        "text": "alternate angles",
+        "offset": 75
+      },
+      {
+        "concept": "co-interior-angles",
+        "text": "co-interior angles",
+        "offset": 159
+      }
+    ]
+  },
+  {
+    "text": "An angle of 54° between two parallel lines has an alternate angle of 54°. Two co-interior angles are x and x + 40. Then 2x + 40 = 180, so x = 70, and the angles are 70° and 110°.",
+    "exclude": null,
+    "linked": [
+      "alternate-angles",
+      "angle",
+      "co-interior-angles",
+      "corresponding-angles",
+      "parallel-lines",
+      "transversal",
+      "vertically-opposite-angles"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to make co-interior angles equal, like alternate angles. Equal co-interior angles would each be 90°, which happens only when the transversal crosses at a right angle.",
+    "exclude": null,
+    "linked": [
+      "alternate-angles",
+      "angle",
+      "co-interior-angles",
+      "corresponding-angles",
+      "parallel-lines",
+      "transversal",
+      "vertically-opposite-angles"
+    ],
+    "links": []
+  },
+  {
+    "text": "Two parallel lines are cut by a transversal. Two co-interior angles are (4x)° and (2x + 42)°. Find x.",
+    "exclude": null,
+    "linked": [
+      "alternate-angles",
+      "angle",
+      "co-interior-angles",
+      "corresponding-angles",
+      "parallel-lines",
+      "transversal",
+      "vertically-opposite-angles"
+    ],
+    "links": []
+  },
+  {
+    "text": "Alternate angles, in a Z, are equal. Co-interior angles, in a C, add to 180°.",
+    "exclude": null,
+    "linked": [
+      "alternate-angles",
+      "angle",
+      "co-interior-angles",
+      "corresponding-angles",
+      "parallel-lines",
+      "transversal",
+      "vertically-opposite-angles"
+    ],
+    "links": []
+  },
+  {
+    "text": "Tear the corners off a paper triangle and they make a straight line. But nobody can tear every triangle there is. How can you be sure the angles add to 180° every time?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 138
+      }
+    ]
+  },
+  {
+    "text": "Draw a line through the top corner, parallel to the bottom side. The three angles at the top corner fill that straight line, so they add to 180°. Each one matches an angle of the triangle.",
+    "exclude": null,
+    "linked": [
+      "angle"
+    ],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 36
+      }
+    ]
+  },
+  {
+    "text": "In the figure, set the angle at A to 50° and the angle at B to 60°. The red angle at A has a red copy at C, and the blue angle at B has a blue copy there too.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "parallel-lines"
+    ],
+    "links": []
+  },
+  {
+    "text": "Why are the copies equal? Each copy and its angle at A or B sit in a Z between the green line and side AB. So they are alternate angles. The grey angle between the copies is the angle of the triangle at C.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "parallel-lines"
+    ],
+    "links": [
+      {
+        "concept": "alternate-angles",
+        "text": "alternate angles",
+        "offset": 119
+      }
+    ]
+  },
+  {
+    "text": "A chain of steps like this, each with its reason, is a proof. Each step is an if-then statement: if two lines are parallel, then alternate angles are equal. A proof shows a fact holds for every triangle, not only the ones you drew.",
+    "exclude": null,
+    "linked": [
+      "alternate-angles",
+      "angle",
+      "parallel-lines"
+    ],
+    "links": [
+      {
+        "concept": "proof",
+        "text": "proof",
+        "offset": 55
+      },
+      {
+        "concept": "if-then-statement",
+        "text": "if-then statement",
+        "offset": 78
+      }
+    ]
+  },
+  {
+    "text": "A triangle has angles of 47° and 68°. The third angle is 180° − 47° − 68° = 65°. The reason is that the angles in a triangle add to 180°.",
+    "exclude": null,
+    "linked": [
+      "alternate-angles",
+      "angle",
+      "if-then-statement",
+      "parallel-lines",
+      "proof"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to measure a few triangles and call it a proof. A protractor reads to about 1°, and checking ten triangles still leaves every other triangle unchecked.",
+    "exclude": null,
+    "linked": [
+      "alternate-angles",
+      "angle",
+      "if-then-statement",
+      "parallel-lines",
+      "proof"
+    ],
+    "links": []
+  },
+  {
+    "text": "A triangle's angles are x, 2x and 3x degrees. Find x.",
+    "exclude": null,
+    "linked": [
+      "alternate-angles",
+      "angle",
+      "if-then-statement",
+      "parallel-lines",
+      "proof"
+    ],
+    "links": []
+  },
+  {
+    "text": "A proof gives a reason for every step, so its fact holds for every triangle.",
+    "exclude": null,
+    "linked": [
+      "alternate-angles",
+      "angle",
+      "if-then-statement",
+      "parallel-lines",
+      "proof"
+    ],
+    "links": []
+  },
+  {
+    "text": "A triangle has angles of 50°, 60° and 70°. Carry one side on past the 60° corner with a ruler. What angle does the new line make with the other side at that corner?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 15
+      }
+    ]
+  },
+  {
+    "text": "The new angle and the 60° angle sit together on a straight line, so the new one is 180° − 60° = 120°. That is the same as 50° + 70°, the angles at the other two corners.",
+    "exclude": null,
+    "linked": [
+      "angle"
+    ],
+    "links": []
+  },
+  {
+    "text": "Draw the triangle and carry one side on past a corner. Shade the angle outside the triangle, between the new line and the side next to it.",
+    "exclude": null,
+    "linked": [
+      "angle"
+    ],
+    "links": []
+  },
+  {
+    "text": "Why do the other two angles add up to the outside one? The two angles at that corner make 180°, and so do the three angles of the triangle. Take the angle inside that corner away from both.",
+    "exclude": null,
+    "linked": [
+      "angle"
+    ],
+    "links": []
+  },
+  {
+    "text": "The angle between one side carried on and the next side is an exterior angle. An exterior angle of a triangle equals the sum of the angles at the other two corners.",
+    "exclude": null,
+    "linked": [
+      "angle"
+    ],
+    "links": [
+      {
+        "concept": "exterior-angle",
+        "text": "exterior angle",
+        "offset": 62
+      }
+    ]
+  },
+  {
+    "text": "A triangle has angles of 35° and 85° at two corners. The exterior angle at the third corner is 35° + 85° = 120°. Check: the third angle is 180° − 120° = 60°, and 35 + 85 + 60 = 180.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "exterior-angle"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to add in the angle beside the exterior angle as well. The exterior angle equals the two angles away from it, not all three.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "exterior-angle"
+    ],
+    "links": []
+  },
+  {
+    "text": "A triangle has angles of 42° and 71° at two corners. What is the exterior angle at the third corner?",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "exterior-angle"
+    ],
+    "links": []
+  },
+  {
+    "text": "An exterior angle of a triangle equals the two angles at the other corners added together.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "exterior-angle"
+    ],
+    "links": []
+  },
+  {
+    "text": "A shape has five straight sides. From one corner, draw a line to every other corner that is not next to it. How many triangles do you make, and what do the angles of the shape add to?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 156
+      }
+    ]
+  },
+  {
+    "text": "From one corner of a five-sided shape you can draw 2 lines, which cut it into 3 triangles. Their angles fill the corners of the shape exactly. So the shape's angles add to 3 × 180° = 540°.",
+    "exclude": null,
+    "linked": [
+      "angle"
+    ],
+    "links": []
+  },
+  {
+    "text": "Draw a six-sided shape and cut it up the same way from one corner. You get 4 triangles. Each extra side adds one more triangle.",
+    "exclude": null,
+    "linked": [
+      "angle"
+    ],
+    "links": []
+  },
+  {
+    "text": "Why are there always 2 fewer triangles than sides? Every side makes one triangle with the starting corner, except the two sides that touch that corner.",
+    "exclude": null,
+    "linked": [
+      "angle"
+    ],
+    "links": []
+  },
+  {
+    "text": "A flat shape with straight sides is a polygon, and the angles inside it at its corners are its interior angles. For n sides, the interior angles add to (n − 2) × 180°. A regular polygon has all its sides equal and all its angles equal.",
+    "exclude": null,
+    "linked": [
+      "angle"
+    ],
+    "links": [
+      {
+        "concept": "polygon",
+        "text": "polygon",
+        "offset": 38
+      },
+      {
+        "concept": "interior-angle",
+        "text": "interior angles",
+        "offset": 95
+      }
+    ]
+  },
+  {
+    "text": "An eight-sided polygon has interior angles adding to (8 − 2) × 180° = 1080°. If it is regular, each is 1080° ÷ 8 = 135°. Each exterior angle is then 180° − 135° = 45°. Walking once round the shape turns you a full 360°, and 8 × 45° = 360°.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "interior-angle",
+      "polygon"
+    ],
+    "links": [
+      {
+        "concept": "exterior-angle",
+        "text": "exterior angle",
+        "offset": 126
+      }
+    ]
+  },
+  {
+    "text": "The tempting slip is to count one triangle for each side and use n × 180°. A square would then add to 720°, but its four right angles make 360°.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "exterior-angle",
+      "interior-angle",
+      "polygon"
+    ],
+    "links": []
+  },
+  {
+    "text": "What do the interior angles of a seven-sided polygon add to?",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "exterior-angle",
+      "interior-angle",
+      "polygon"
+    ],
+    "links": []
+  },
+  {
+    "text": "A polygon with n sides cuts into n − 2 triangles, so its interior angles add to (n − 2) × 180°.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "exterior-angle",
+      "interior-angle",
+      "polygon"
+    ],
+    "links": []
+  },
+  {
+    "text": "On a map grid, Kym's house is at (2, 1) and a friend's house is at (8, 5). They walk towards each other and meet halfway. Where do they meet?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Across, halfway from 2 to 8 is 5. Up, halfway from 1 to 5 is 3. So they meet at (5, 3).",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Mark both houses on squared paper and join them with a ruler. Draw the step under the line: 6 across and 4 up. Halfway along the line is half of each, 3 across and 2 up from (2, 1).",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why average each coordinate? Halfway along the line means halfway across and halfway up. The number halfway between two numbers is their total divided by 2.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A line segment is the part of a line between two points, and the point halfway along it is its midpoint. For ends (x₁, y₁) and (x₂, y₂), the midpoint is ((x₁ + x₂) ÷ 2, (y₁ + y₂) ÷ 2).",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "midpoint",
+        "text": "midpoint",
+        "offset": 95
+      }
+    ]
+  },
+  {
+    "text": "The midpoint of (−3, 4) and (5, −2) is ((−3 + 5) ÷ 2, (4 + (−2)) ÷ 2), which is (1, 1).",
+    "exclude": null,
+    "linked": [
+      "midpoint"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to take the ends away instead of adding them: (5 − (−3)) ÷ 2 = 4. That is how far across the midpoint is from each end, not its x-coordinate.",
+    "exclude": null,
+    "linked": [
+      "midpoint"
+    ],
+    "links": [
+      {
+        "concept": "coordinates",
+        "text": "x-coordinate",
+        "offset": 149
+      }
+    ]
+  },
+  {
+    "text": "What is the midpoint of (−6, 3) and (2, 9)?",
+    "exclude": null,
+    "linked": [
+      "coordinates",
+      "midpoint"
+    ],
+    "links": []
+  },
+  {
+    "text": "A midpoint averages the x-coordinates of the ends, then their y-coordinates.",
+    "exclude": null,
+    "linked": [
+      "coordinates",
+      "midpoint"
     ],
     "links": []
   },
@@ -13213,6 +15270,180 @@
       {
         "concept": "simple-interest",
         "text": "Simple interest",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Angle",
+    "exclude": "angle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The amount of turn between two lines that meet, measured in degrees.",
+    "exclude": "angle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A door swinging open from its frame. A quarter of the way round, it makes a right angle, 90°. Half a turn is 180°, a straight line, and a full turn is 360°.",
+    "exclude": "angle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A straight line is half a turn, 180°. So a 130° angle on a straight line leaves 180° − 130° = 50° beside it.",
+    "exclude": "angle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Put the centre of the protractor on the corner where the two lines meet.",
+    "exclude": "angle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Line up 0° with one of the lines.",
+    "exclude": "angle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Read the scale where the other line crosses it, counting up from that 0°.",
+    "exclude": "angle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A clock's hands point at 12 and at 3. What angle do they make?",
+    "exclude": "angle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "90°",
+    "exclude": "angle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "the length of the lines",
+    "exclude": "angle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Drawing the lines of an angle longer does not make it bigger. The angle is the turn between them, not how far they reach.",
+    "exclude": "angle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 8 · Angles and proof",
+    "exclude": "angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "proof",
+        "text": "proof",
+        "offset": 23
+      }
+    ]
+  },
+  {
+    "text": "Vertically opposite angles",
+    "exclude": "angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "vertically-opposite-angles",
+        "text": "Vertically opposite angles",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Transversal",
+    "exclude": "angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "transversal",
+        "text": "Transversal",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Corresponding angles",
+    "exclude": "angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "corresponding-angles",
+        "text": "Corresponding angles",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Alternate angles",
+    "exclude": "angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "alternate-angles",
+        "text": "Alternate angles",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Co-interior angles",
+    "exclude": "angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "co-interior-angles",
+        "text": "Co-interior angles",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Exterior angle",
+    "exclude": "angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "exterior-angle",
+        "text": "Exterior angle",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Polygon",
+    "exclude": "angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "polygon",
+        "text": "Polygon",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Interior angle",
+    "exclude": "angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "interior-angle",
+        "text": "Interior angle",
         "offset": 0
       }
     ]
@@ -14562,6 +16793,18 @@
       {
         "concept": "contrapositive",
         "text": "Contrapositive",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Proof",
+    "exclude": "if-then-statement",
+    "linked": [],
+    "links": [
+      {
+        "concept": "proof",
+        "text": "Proof",
         "offset": 0
       }
     ]
@@ -21185,6 +23428,18 @@
     "links": []
   },
   {
+    "text": "Midpoint",
+    "exclude": "coordinates",
+    "linked": [],
+    "links": [
+      {
+        "concept": "midpoint",
+        "text": "Midpoint",
+        "offset": 0
+      }
+    ]
+  },
+  {
     "text": "Gradient",
     "exclude": "gradient",
     "linked": [],
@@ -21619,6 +23874,11 @@
         "concept": "gradient",
         "text": "gradients",
         "offset": 26
+      },
+      {
+        "concept": "angle",
+        "text": "right angle",
+        "offset": 68
       }
     ]
   },
@@ -21631,6 +23891,18 @@
         "concept": "linear-graph",
         "text": "Straight-line graphs",
         "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Transversal",
+    "exclude": "parallel-lines",
+    "linked": [],
+    "links": [
+      {
+        "concept": "transversal",
+        "text": "Transversal",
+        "offset": 0
       }
     ]
   },
@@ -21733,6 +24005,1279 @@
         "concept": "linear-graph",
         "text": "Straight-line graphs",
         "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Vertically opposite angles",
+    "exclude": "vertically-opposite-angles",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The angles opposite each other where two straight lines cross. They are equal.",
+    "exclude": "vertically-opposite-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "Scissors opened into an X: the gap between the blades and the gap between the handles are the same angle.",
+    "exclude": "vertically-opposite-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 99
+      }
+    ]
+  },
+  {
+    "text": "Two lines cross, and one angle is 125°. The angle opposite is 125°, and each of the other two is 180° − 125° = 55°.",
+    "exclude": "vertically-opposite-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 25
+      }
+    ]
+  },
+  {
+    "text": "Find where two straight lines cross.",
+    "exclude": "vertically-opposite-angles",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Pick an angle, and look straight across the crossing to the angle opposite it.",
+    "exclude": "vertically-opposite-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 8
+      }
+    ]
+  },
+  {
+    "text": "Those two are equal. Each angle beside them makes 180° with them.",
+    "exclude": "vertically-opposite-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 26
+      }
+    ]
+  },
+  {
+    "text": "Two lines cross. One angle is 2x and the angle opposite it is 84°. Find x.",
+    "exclude": "vertically-opposite-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 21
+      }
+    ]
+  },
+  {
+    "text": "42",
+    "exclude": "vertically-opposite-angles",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "angles side by side",
+    "exclude": "vertically-opposite-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "The angle beside a 125° angle is not 125°. The two share a straight line, so it is 55°.",
+    "exclude": "vertically-opposite-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "Chapter 8 · Angles and proof",
+    "exclude": "vertically-opposite-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "Angles",
+        "offset": 12
+      },
+      {
+        "concept": "proof",
+        "text": "proof",
+        "offset": 23
+      }
+    ]
+  },
+  {
+    "text": "Transversal",
+    "exclude": "transversal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A line that crosses two or more other lines.",
+    "exclude": "transversal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A road crossing two railway tracks, with a crossing at each track.",
+    "exclude": "transversal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A transversal crosses two parallel lines. At the top crossing the four angles are 65°, 115°, 65° and 115°. The bottom crossing has the same four angles.",
+    "exclude": "transversal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 26
+      },
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 71
+      }
+    ]
+  },
+  {
+    "text": "Find the line that cuts across the others.",
+    "exclude": "transversal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Look at the four angles at each crossing.",
+    "exclude": "transversal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 17
+      }
+    ]
+  },
+  {
+    "text": "If the lines it crosses are parallel, the angles at one crossing match the angles at the other.",
+    "exclude": "transversal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 28
+      },
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 42
+      }
+    ]
+  },
+  {
+    "text": "A transversal crosses two parallel lines. How many angles does it make in all, at the two crossings?",
+    "exclude": "transversal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 26
+      },
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 51
+      }
+    ]
+  },
+  {
+    "text": "8",
+    "exclude": "transversal",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "one of the parallel lines",
+    "exclude": "transversal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 11
+      }
+    ]
+  },
+  {
+    "text": "The parallel lines point the same way. The transversal is the line that cuts across them at a slant.",
+    "exclude": "transversal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "Chapter 8 · Angles and proof",
+    "exclude": "transversal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "Angles",
+        "offset": 12
+      },
+      {
+        "concept": "proof",
+        "text": "proof",
+        "offset": 23
+      }
+    ]
+  },
+  {
+    "text": "Corresponding angles",
+    "exclude": "transversal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "corresponding-angles",
+        "text": "Corresponding angles",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Alternate angles",
+    "exclude": "transversal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "alternate-angles",
+        "text": "Alternate angles",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Co-interior angles",
+    "exclude": "transversal",
+    "linked": [],
+    "links": [
+      {
+        "concept": "co-interior-angles",
+        "text": "Co-interior angles",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Corresponding angles",
+    "exclude": "corresponding-angles",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Angles in the same position at each crossing of a transversal. They are equal when the lines are parallel.",
+    "exclude": "corresponding-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "Angles",
+        "offset": 0
+      },
+      {
+        "concept": "transversal",
+        "text": "transversal",
+        "offset": 50
+      },
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 97
+      }
+    ]
+  },
+  {
+    "text": "A capital F: its two arms are the parallel lines, and the angles under each arm match.",
+    "exclude": "corresponding-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 34
+      },
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 58
+      }
+    ]
+  },
+  {
+    "text": "At the top crossing, the angle above the line and right of the transversal is 72°. At the bottom crossing, the angle above the line and right of the transversal is 72° too.",
+    "exclude": "corresponding-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 25
+      },
+      {
+        "concept": "transversal",
+        "text": "transversal",
+        "offset": 63
+      }
+    ]
+  },
+  {
+    "text": "Find the transversal and the parallel lines.",
+    "exclude": "corresponding-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "transversal",
+        "text": "transversal",
+        "offset": 9
+      },
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 29
+      }
+    ]
+  },
+  {
+    "text": "Pick an angle at one crossing, and note which side of each line it is on.",
+    "exclude": "corresponding-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 8
+      }
+    ]
+  },
+  {
+    "text": "The angle on the same sides at the other crossing is its corresponding angle, and it is equal.",
+    "exclude": "corresponding-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "A transversal crosses two parallel lines. One angle is (3x + 10)° and its corresponding angle is 100°. Find x.",
+    "exclude": "corresponding-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "transversal",
+        "text": "transversal",
+        "offset": 2
+      },
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 26
+      },
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 46
+      }
+    ]
+  },
+  {
+    "text": "30",
+    "exclude": "corresponding-angles",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Corresponding angles sit on the same side of the transversal, in an F. Alternate angles sit on opposite sides, between the lines, in a Z.",
+    "exclude": "corresponding-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "transversal",
+        "text": "transversal",
+        "offset": 49
+      },
+      {
+        "concept": "alternate-angles",
+        "text": "Alternate angles",
+        "offset": 71
+      }
+    ]
+  },
+  {
+    "text": "Chapter 8 · Angles and proof",
+    "exclude": "corresponding-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "Angles",
+        "offset": 12
+      },
+      {
+        "concept": "proof",
+        "text": "proof",
+        "offset": 23
+      }
+    ]
+  },
+  {
+    "text": "Alternate angles",
+    "exclude": "alternate-angles",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Angles between two lines, on opposite sides of a transversal. They are equal when the lines are parallel.",
+    "exclude": "alternate-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "Angles",
+        "offset": 0
+      },
+      {
+        "concept": "transversal",
+        "text": "transversal",
+        "offset": 49
+      },
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 96
+      }
+    ]
+  },
+  {
+    "text": "A capital Z: its top and bottom strokes are the parallel lines, and the two sharp corners inside it are equal.",
+    "exclude": "alternate-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 48
+      }
+    ]
+  },
+  {
+    "text": "A Z drawn across two parallel lines has one inside corner of 48°. The other inside corner is 48° as well, because the two are alternate angles.",
+    "exclude": "alternate-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 21
+      }
+    ]
+  },
+  {
+    "text": "Find the transversal and the two parallel lines.",
+    "exclude": "alternate-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "transversal",
+        "text": "transversal",
+        "offset": 9
+      },
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 33
+      }
+    ]
+  },
+  {
+    "text": "Look only between the parallel lines.",
+    "exclude": "alternate-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 22
+      }
+    ]
+  },
+  {
+    "text": "An angle on one side of the transversal equals the angle on the other side, at the other crossing.",
+    "exclude": "alternate-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 3
+      },
+      {
+        "concept": "transversal",
+        "text": "transversal",
+        "offset": 28
+      }
+    ]
+  },
+  {
+    "text": "Two alternate angles are (5x)° and (3x + 40)°. Find x.",
+    "exclude": "alternate-angles",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "20",
+    "exclude": "alternate-angles",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Alternate angles sit on opposite sides of the transversal and are equal. Co-interior angles sit on the same side and add to 180°.",
+    "exclude": "alternate-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "transversal",
+        "text": "transversal",
+        "offset": 46
+      },
+      {
+        "concept": "co-interior-angles",
+        "text": "Co-interior angles",
+        "offset": 73
+      }
+    ]
+  },
+  {
+    "text": "Chapter 8 · Angles and proof",
+    "exclude": "alternate-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "Angles",
+        "offset": 12
+      },
+      {
+        "concept": "proof",
+        "text": "proof",
+        "offset": 23
+      }
+    ]
+  },
+  {
+    "text": "Co-interior angles",
+    "exclude": "co-interior-angles",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Angles between two lines, on the same side of a transversal. They add to 180° when the lines are parallel.",
+    "exclude": "co-interior-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "Angles",
+        "offset": 0
+      },
+      {
+        "concept": "transversal",
+        "text": "transversal",
+        "offset": 48
+      },
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 97
+      }
+    ]
+  },
+  {
+    "text": "A capital C: its top and bottom are the parallel lines, and its two inside corners add to 180°.",
+    "exclude": "co-interior-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 40
+      }
+    ]
+  },
+  {
+    "text": "Two co-interior angles are 3x and 6x. Then 9x = 180, so x = 20, and the angles are 60° and 120°.",
+    "exclude": "co-interior-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 72
+      }
+    ]
+  },
+  {
+    "text": "Find the transversal and the two parallel lines.",
+    "exclude": "co-interior-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "transversal",
+        "text": "transversal",
+        "offset": 9
+      },
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 33
+      }
+    ]
+  },
+  {
+    "text": "Look between the lines, on one side of the transversal.",
+    "exclude": "co-interior-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "transversal",
+        "text": "transversal",
+        "offset": 43
+      }
+    ]
+  },
+  {
+    "text": "The two angles there add to 180°.",
+    "exclude": "co-interior-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 8
+      }
+    ]
+  },
+  {
+    "text": "One co-interior angle is 74°. What is the other?",
+    "exclude": "co-interior-angles",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "106°",
+    "exclude": "co-interior-angles",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Co-interior angles add to 180°, and they are equal only when both are 90°. Alternate angles are always equal.",
+    "exclude": "co-interior-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "alternate-angles",
+        "text": "Alternate angles",
+        "offset": 75
+      }
+    ]
+  },
+  {
+    "text": "Chapter 8 · Angles and proof",
+    "exclude": "co-interior-angles",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "Angles",
+        "offset": 12
+      },
+      {
+        "concept": "proof",
+        "text": "proof",
+        "offset": 23
+      }
+    ]
+  },
+  {
+    "text": "Proof",
+    "exclude": "proof",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A chain of steps, each with a reason, that shows a fact is true in every case.",
+    "exclude": "proof",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A row of dominoes: each step knocks over the next, starting from facts you already trust.",
+    "exclude": "proof",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "To show vertically opposite angles are equal: a + b = 180 on one straight line, and b + c = 180 on the other. So a = c.",
+    "exclude": "proof",
+    "linked": [],
+    "links": [
+      {
+        "concept": "vertically-opposite-angles",
+        "text": "vertically opposite angles",
+        "offset": 8
+      }
+    ]
+  },
+  {
+    "text": "Write down what you know.",
+    "exclude": "proof",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Make one step at a time, and give each step its reason.",
+    "exclude": "proof",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Finish with the fact you set out to show.",
+    "exclude": "proof",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Finish this step of a proof: the angles in a triangle add to 180°, so a triangle with angles of 90° and 35° has a third angle of ___.",
+    "exclude": "proof",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 33
+      }
+    ]
+  },
+  {
+    "text": "55°",
+    "exclude": "proof",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "checking some examples",
+    "exclude": "proof",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Measuring ten triangles is a check, not a proof. A proof gives a reason that covers every triangle, even the ones nobody drew.",
+    "exclude": "proof",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 8 · Angles and proof",
+    "exclude": "proof",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "Angles",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Exterior angle",
+    "exclude": "exterior-angle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The angle between one side of a shape carried on past a corner and the next side.",
+    "exclude": "exterior-angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "A triangle with one side drawn on past a corner, and the angle outside the triangle shaded.",
+    "exclude": "exterior-angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 57
+      }
+    ]
+  },
+  {
+    "text": "A triangle has angles of 30°, 70° and 80°. The exterior angle at the 80° corner is 180° − 80° = 100°, which is 30° + 70°.",
+    "exclude": "exterior-angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 15
+      }
+    ]
+  },
+  {
+    "text": "Carry one side on past a corner with a ruler.",
+    "exclude": "exterior-angle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The angle outside, between that line and the next side, is the exterior angle.",
+    "exclude": "exterior-angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "It and the angle inside at that corner add to 180°.",
+    "exclude": "exterior-angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 11
+      }
+    ]
+  },
+  {
+    "text": "A triangle has angles of 58° and 64° at two corners. What is the exterior angle at the third corner?",
+    "exclude": "exterior-angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 15
+      }
+    ]
+  },
+  {
+    "text": "122°",
+    "exclude": "exterior-angle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "An interior angle is inside the shape at a corner. The exterior angle is outside it, and the two add to 180°.",
+    "exclude": "exterior-angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "interior-angle",
+        "text": "interior angle",
+        "offset": 3
+      }
+    ]
+  },
+  {
+    "text": "Chapter 8 · Angles and proof",
+    "exclude": "exterior-angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "Angles",
+        "offset": 12
+      },
+      {
+        "concept": "proof",
+        "text": "proof",
+        "offset": 23
+      }
+    ]
+  },
+  {
+    "text": "Polygon",
+    "exclude": "polygon",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A flat shape with straight sides that join up, such as a triangle, a square or a hexagon.",
+    "exclude": "polygon",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A five-sided shape cut by 2 lines from one corner into 3 triangles.",
+    "exclude": "polygon",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A stop sign has 8 equal straight sides and 8 equal angles, so it is a regular octagon.",
+    "exclude": "polygon",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 51
+      }
+    ]
+  },
+  {
+    "text": "Check that every side is straight and that the sides join up.",
+    "exclude": "polygon",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Count the sides: 5 sides make a pentagon, 6 a hexagon and 8 an octagon.",
+    "exclude": "polygon",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "If all the sides and all the angles are equal, it is a regular polygon.",
+    "exclude": "polygon",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 29
+      }
+    ]
+  },
+  {
+    "text": "Lines from one corner cut a 10-sided polygon into triangles. How many triangles?",
+    "exclude": "polygon",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "8",
+    "exclude": "polygon",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "a shape with a curve",
+    "exclude": "polygon",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A semicircle is not a polygon, because part of its outline is curved.",
+    "exclude": "polygon",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 8 · Angles and proof",
+    "exclude": "polygon",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "Angles",
+        "offset": 12
+      },
+      {
+        "concept": "proof",
+        "text": "proof",
+        "offset": 23
+      }
+    ]
+  },
+  {
+    "text": "Interior angle",
+    "exclude": "polygon",
+    "linked": [],
+    "links": [
+      {
+        "concept": "interior-angle",
+        "text": "Interior angle",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Interior angle",
+    "exclude": "interior-angle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "An angle inside a polygon, at one of its corners.",
+    "exclude": "interior-angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 3
+      },
+      {
+        "concept": "polygon",
+        "text": "polygon",
+        "offset": 18
+      }
+    ]
+  },
+  {
+    "text": "A hexagon cut from one corner into 4 triangles, with its six corner angles shaded inside.",
+    "exclude": "interior-angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 68
+      }
+    ]
+  },
+  {
+    "text": "A regular pentagon has interior angles adding to (5 − 2) × 180° = 540°. Each one is 540° ÷ 5 = 108°.",
+    "exclude": "interior-angle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Count the sides, n.",
+    "exclude": "interior-angle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The interior angles add to (n − 2) × 180°.",
+    "exclude": "interior-angle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "For a regular polygon, divide that total by n to get each one.",
+    "exclude": "interior-angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "polygon",
+        "text": "regular polygon",
+        "offset": 6
+      }
+    ]
+  },
+  {
+    "text": "Each interior angle of a regular polygon is 150°. How many sides does it have?",
+    "exclude": "interior-angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "polygon",
+        "text": "regular polygon",
+        "offset": 25
+      }
+    ]
+  },
+  {
+    "text": "12",
+    "exclude": "interior-angle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Each interior angle of a regular hexagon is 120°, and each exterior angle is 60°. At any one corner, the two add to 180°.",
+    "exclude": "interior-angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "exterior-angle",
+        "text": "exterior angle",
+        "offset": 59
+      }
+    ]
+  },
+  {
+    "text": "Chapter 8 · Angles and proof",
+    "exclude": "interior-angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "Angles",
+        "offset": 12
+      },
+      {
+        "concept": "proof",
+        "text": "proof",
+        "offset": 23
+      }
+    ]
+  },
+  {
+    "text": "Midpoint",
+    "exclude": "midpoint",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The point halfway along a line segment, found by averaging the coordinates of its ends.",
+    "exclude": "midpoint",
+    "linked": [],
+    "links": [
+      {
+        "concept": "coordinates",
+        "text": "coordinates",
+        "offset": 63
+      }
+    ]
+  },
+  {
+    "text": "A rope tied between two posts, with a knot exactly in the middle.",
+    "exclude": "midpoint",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The midpoint of (1, 6) and (7, 2) is ((1 + 7) ÷ 2, (6 + 2) ÷ 2), which is (4, 4).",
+    "exclude": "midpoint",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Add the two x-coordinates and halve the total.",
+    "exclude": "midpoint",
+    "linked": [],
+    "links": [
+      {
+        "concept": "coordinates",
+        "text": "x-coordinates",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Add the two y-coordinates and halve the total.",
+    "exclude": "midpoint",
+    "linked": [],
+    "links": [
+      {
+        "concept": "coordinates",
+        "text": "y-coordinates",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Write the answers as a point, x first.",
+    "exclude": "midpoint",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "What is the midpoint of (3, −1) and (9, 5)?",
+    "exclude": "midpoint",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "(6, 2)",
+    "exclude": "midpoint",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "half the step",
+    "exclude": "midpoint",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "From (3, −1) to (9, 5) the step is 6 across and 6 up. Half the step, 3 and 3, says how far to go, not where the midpoint is.",
+    "exclude": "midpoint",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 8 · Angles and proof",
+    "exclude": "midpoint",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "Angles",
+        "offset": 12
+      },
+      {
+        "concept": "proof",
+        "text": "proof",
+        "offset": 23
       }
     ]
   },
@@ -22291,6 +25836,167 @@
     "exclude": null,
     "linked": [],
     "links": []
+  },
+  {
+    "text": "In triangle ABC, side BC is extended to D. Given ∠BAC = (2x + 15)°, ∠ABC = (x + 20)°, and exterior angle ∠ACD = (4x − 5)°, find x and ∠ACD.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "exterior-angle",
+        "text": "exterior angle",
+        "offset": 90
+      }
+    ]
+  },
+  {
+    "text": "Step 1: ∠ACD is an exterior angle, so it equals the angles at the other two corners, ∠BAC + ∠ABC.\nStep 2: 4x − 5 = (2x + 15) + (x + 20) = 3x + 35.\nStep 3: Take 3x from both sides and add 5: x = 40.\nStep 4: So ∠ACD = 4 × 40 − 5 = 155°. Check: ∠BAC = 95° and ∠ABC = 60°, and 95 + 60 = 155.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "exterior-angle",
+        "text": "exterior angle",
+        "offset": 19
+      },
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 52
+      }
+    ]
+  },
+  {
+    "text": "4x − 5 = 3x + 35, so x = ___ and ∠ACD = 4x − 5 = ___°.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find the midpoint M of the line segment joining A(−4, 7) and B(10, −3).",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "midpoint",
+        "text": "midpoint",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "Step 1: Add the x-coordinates and halve: (−4 + 10) ÷ 2 = 6 ÷ 2 = 3.\nStep 2: Add the y-coordinates and halve: (7 + (−3)) ÷ 2 = 4 ÷ 2 = 2.\nStep 3: So M = (3, 2).\nStep 4: Check: from A to M is 7 across and 5 down, and from M to B is 7 across and 5 down too.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "coordinates",
+        "text": "x-coordinates",
+        "offset": 16
+      }
+    ]
+  },
+  {
+    "text": "(−4 + 10) ÷ 2 = 3 and (7 + (−3)) ÷ 2 = ___, so M = (3, ___).",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Two parallel lines are cut by a transversal. The co-interior angles are (3y + 10)° and (2y − 5)°. Find y.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 4
+      },
+      {
+        "concept": "transversal",
+        "text": "transversal",
+        "offset": 32
+      },
+      {
+        "concept": "co-interior-angles",
+        "text": "co-interior angles",
+        "offset": 49
+      }
+    ]
+  },
+  {
+    "text": "Step 1: Co-interior angles add to 180°, so (3y + 10) + (2y − 5) = 180.\nStep 2: Collect like terms: 5y + 5 = 180.\nStep 3: Take 5 from both sides: 5y = 175, so y = 35.\nStep 4: Check: the angles are 115° and 65°, and 115 + 65 = 180.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "co-interior-angles",
+        "text": "Co-interior angles",
+        "offset": 8
+      },
+      {
+        "concept": "like-terms",
+        "text": "like terms",
+        "offset": 87
+      },
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 185
+      }
+    ]
+  },
+  {
+    "text": "(3y + 10) + (2y − 5) = 180 gives 5y + 5 = 180, so 5y = ___ and y = ___.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Each interior angle of a regular polygon is 156°. How many sides n does the polygon have?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "interior-angle",
+        "text": "interior angle",
+        "offset": 5
+      },
+      {
+        "concept": "polygon",
+        "text": "regular polygon",
+        "offset": 25
+      }
+    ]
+  },
+  {
+    "text": "Step 1: Each exterior angle is 180° − 156° = 24°.\nStep 2: The exterior angles of a polygon add to 360°, one at each corner.\nStep 3: So there are 360 ÷ 24 = 15 corners, and 15 sides.\nStep 4: Check: (15 − 2) × 180° = 2340°, and 2340 ÷ 15 = 156.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "exterior-angle",
+        "text": "exterior angle",
+        "offset": 13
+      },
+      {
+        "concept": "polygon",
+        "text": "polygon",
+        "offset": 83
+      }
+    ]
+  },
+  {
+    "text": "Each exterior angle is 180° − 156° = 24°, so the number of sides is 360 ÷ 24 = ___.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "exterior-angle",
+        "text": "exterior angle",
+        "offset": 5
+      }
+    ]
   },
   {
     "text": "After a 15% monsoon discount, a jacket costs ₹2,040. Using a reverse-percentage multiplier, find its original price before the discount.",
@@ -23030,6 +26736,77 @@
     ]
   },
   {
+    "text": "An exterior angle of a triangle lies between one side carried on and the next side. It equals the sum of the angles at the other two corners, so angles of 50° and 70° give an exterior angle of 120°.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "exterior-angle",
+        "text": "exterior angle",
+        "offset": 3
+      },
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 109
+      }
+    ]
+  },
+  {
+    "text": "Where two lines cross, vertically opposite angles are equal. When a transversal cuts parallel lines, corresponding angles (F) and alternate angles (Z) are equal, and co-interior angles (C) add to 180°.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "vertically-opposite-angles",
+        "text": "vertically opposite angles",
+        "offset": 23
+      },
+      {
+        "concept": "transversal",
+        "text": "transversal",
+        "offset": 68
+      },
+      {
+        "concept": "parallel-lines",
+        "text": "parallel lines",
+        "offset": 85
+      },
+      {
+        "concept": "corresponding-angles",
+        "text": "corresponding angles",
+        "offset": 101
+      },
+      {
+        "concept": "alternate-angles",
+        "text": "alternate angles",
+        "offset": 130
+      },
+      {
+        "concept": "co-interior-angles",
+        "text": "co-interior angles",
+        "offset": 166
+      }
+    ]
+  },
+  {
+    "text": "The midpoint of a line segment averages the coordinates of its ends. The midpoint of (x₁, y₁) and (x₂, y₂) is ((x₁ + x₂) ÷ 2, (y₁ + y₂) ÷ 2).",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "midpoint",
+        "text": "midpoint",
+        "offset": 4
+      },
+      {
+        "concept": "coordinates",
+        "text": "coordinates",
+        "offset": 44
+      }
+    ]
+  },
+  {
     "text": "Multiplying by a number between 0 and 1 makes a positive amount smaller. 0.4 of something is less than all of it.",
     "exclude": null,
     "linked": [],
@@ -23417,9 +27194,29 @@
     "linked": [],
     "links": [
       {
+        "concept": "co-interior-angles",
+        "text": "Co-interior angles",
+        "offset": 0
+      },
+      {
         "concept": "parallel-lines",
         "text": "parallel lines",
         "offset": 27
+      },
+      {
+        "concept": "exterior-angle",
+        "text": "exterior angle",
+        "offset": 62
+      },
+      {
+        "concept": "polygon",
+        "text": "polygon",
+        "offset": 82
+      },
+      {
+        "concept": "interior-angle",
+        "text": "interior angle",
+        "offset": 112
       }
     ]
   },
@@ -23428,6 +27225,11 @@
     "exclude": null,
     "linked": [],
     "links": [
+      {
+        "concept": "midpoint",
+        "text": "midpoint",
+        "offset": 4
+      },
       {
         "concept": "coordinates",
         "text": "x-coordinates",
