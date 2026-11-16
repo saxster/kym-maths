@@ -16,10 +16,10 @@ struct ConceptLinkTests {
         Self.library.linker.links(in: text, exclude: exclude, linked: linked).map(\.concept)
     }
 
-    @Test("The pack carries the cards of chapters 0 to 10, and their nine-step sections")
+    @Test("The pack carries the cards of chapters 0 to 11, and their nine-step sections")
     func packDecodesCardsAndSteps() throws {
-        #expect(Self.pack.concepts.count == 112)
-        #expect(Self.pack.conceptStopPhrases.contains("scale factor"))
+        #expect(Self.pack.concepts.count == 122)
+        #expect(Self.pack.conceptStopPhrases.contains("conversion factor"))
         let chapter = try #require(Self.pack.chapters.first { $0.number == 1 })
         #expect(chapter.skillCard != nil)
         #expect(chapter.linksConcepts)
@@ -99,8 +99,15 @@ struct ConceptLinkTests {
             #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
         }
         #expect(ten.callouts.map(\.id) == ["ch10-c-predict", "ch10-c-aha", "ch10-c-trap"])
-        let others = Self.pack.chapters.filter { $0.number > 10 }
-        #expect(others.count == 10)
+        let eleven = try #require(Self.pack.chapters.first { $0.number == 11 })
+        #expect(eleven.skillCard != nil && eleven.linksConcepts && !eleven.goesBeyondSchoolBook)
+        #expect(eleven.sections.count == 8)
+        for section in eleven.sections {
+            #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
+        }
+        #expect(eleven.callouts.map(\.id) == ["ch11-c-predict", "ch11-c-aha", "ch11-c-trap"])
+        let others = Self.pack.chapters.filter { $0.number > 11 }
+        #expect(others.count == 9)
         #expect(others.allSatisfy { !$0.linksConcepts && $0.skillCard == nil })
         for card in Self.pack.concepts {
             for id in card.standsOn + [card.mixUp.with].compactMap({ $0 }) {
@@ -113,7 +120,8 @@ struct ConceptLinkTests {
     func linkerRule() {
         #expect(concepts("The highest common factor of 12 and 18 is 6.") == ["hcf"])
         #expect(concepts("Write 12 as a product of its prime factors.") == ["prime-factors"])
-        #expect(concepts("The scale factor is 2.").isEmpty)
+        #expect(concepts("The conversion factor is 2.").isEmpty)
+        #expect(concepts("The scale factor is 2.") == ["scale-factor"])
         #expect(concepts("A factor of a factor", exclude: "factor").isEmpty)
         #expect(concepts("A factor of a factor") == ["factor"])
         #expect(concepts("Find a factor of 12.", linked: ["factor"]).isEmpty)

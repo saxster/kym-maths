@@ -204,7 +204,7 @@ class CardFilesTest(unittest.TestCase):
     """Cards live in the file of the chapter that teaches them, and bedrock cards in book/bedrock.py (risk R5)."""
 
     def test_cards_built_from_their_chapter_files_equal_the_pack(self):
-        from book import bedrock, ch01, ch02, ch03, ch04, ch05, ch06, ch07, ch08, ch09, ch10
+        from book import bedrock, ch01, ch02, ch03, ch04, ch05, ch06, ch07, ch08, ch09, ch10, ch11
         k = exporter.helpers()
         self.assertEqual(set(bedrock.cards(k)), {"negative-number", "factor", "multiple", "power", "fraction",
                                                  "decimal-place", "percentage", "area", "angle"})
@@ -232,6 +232,9 @@ class CardFilesTest(unittest.TestCase):
         self.assertEqual(set(ch10.cards(k)), {"radius-and-diameter", "pi", "circumference", "trapezium", "area-of-a-circle",
                                               "sector", "volume", "prism", "cross-section", "surface-area",
                                               "cavalieris-principle"})
+        self.assertEqual(set(ch11.cards(k)), {"transformation", "translation", "column-vector", "reflection", "rotation",
+                                              "symmetry", "enlargement", "scale-factor", "similar-shapes",
+                                              "area-scale-factor"})
         self.assertEqual(set(ch01.cards(k)), {"prime-number", "prime-factors", "hcf", "lcm", "index-laws",
                                               "square-root", "irrational-number"})
         self.assertTrue(all(card["standsOn"] == [] for card in bedrock.cards(k).values()))
@@ -288,7 +291,8 @@ class LinkerTest(unittest.TestCase):
         self.assertEqual(self.concepts("Its prime factors are 2 and 3"), ["prime-factors"])
 
     def test_stop_phrase_links_nothing(self):
-        self.assertEqual(self.concepts("The scale factor is 2"), [])
+        self.assertEqual(self.concepts("The conversion factor is 2"), [])
+        self.assertEqual(self.concepts("The scale factor is 2"), ["scale-factor"])
 
     def test_word_edges(self):
         self.assertEqual(self.concepts("A factorial, a powerful idea"), [])

@@ -28,6 +28,7 @@ from book import ch07 as book_ch07
 from book import ch08 as book_ch08
 from book import ch09 as book_ch09
 from book import ch10 as book_ch10
+from book import ch11 as book_ch11
 from book import concepts as book_concepts
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -36,7 +37,7 @@ BOOK_OUT = ROOT / "KymMaths" / "KymMaths" / "Resources" / "PatternedWorldBook" /
 GOLDEN_OUT = ROOT / "KymMaths" / "Tests" / "Golden" / "concept-links.json"
 
 # Chapters rewritten by hand to docs/CONTENT_BRIEF.md. The content checks apply to these.
-BOOK_CHAPTERS = (book_ch00, book_ch01, book_ch02, book_ch03, book_ch04, book_ch05, book_ch06, book_ch07, book_ch08, book_ch09, book_ch10)
+BOOK_CHAPTERS = (book_ch00, book_ch01, book_ch02, book_ch03, book_ch04, book_ch05, book_ch06, book_ch07, book_ch08, book_ch09, book_ch10, book_ch11)
 # Saved learner responses key on callout ids, so a rewritten chapter keeps the old ids.
 CALLOUT_ID_SUFFIX = {"predict": "predict", "check": "aha", "careful": "trap"}
 
@@ -269,22 +270,6 @@ def build_volumes():
 
 def build_chapters():
     raw_specs = [
-        (
-            11, 3, "Symmetry & Motion: Translations, Reflections, Rotations & Enlargements",
-            "OUP Ch 13 · Vector translations, mirror lines, rotational symmetry & enlargement area/volume scaling (k, k², k³)",
-            "Translations, reflections, and rotations are rigid isometries; enlargements scale lengths by k, areas by k², and volumes by k³.",
-            "Drag the centre of enlargement C and scale factor slider k from −2 to +3 on a coordinate grid.",
-            "Every vertex P moves along the ray CP so that |CP′| = |k| · |CP| — and doubling every side (k = 2) packs k² = 4 copies of the original triangle inside the image!",
-            "OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object)",
-            [
-                {"symbol": "k(OP − OC)", "visualPart": "Red ray vector from centre C to image P′", "colorRole": "red", "meaning": "Multiplies distance from centre of enlargement by k"},
-                {"symbol": "k²", "visualPart": "Amber tiled sub-triangles inside enlarged shape", "colorRole": "amber", "meaning": "2D area scales as the square of linear factor k"},
-                {"symbol": "k < 0", "visualPart": "Blue inverted ray through centre C", "colorRole": "blue", "meaning": "Negative scale factor enlarges and rotates by 180°"}
-            ],
-            "maths/ch13-indices-standard-form/index.html#1",
-            ["Isometry", "Translation Vector", "Reflection Line", "Centre of Rotation", "Centre of Enlargement", "Fractional & Negative Scale Factor", "Area Scale k²"],
-            ["w_transformation_isometry_stage", "w_enlargement_ray_scaler"]
-        ),
         (
             12, 3, "Shadows of the Circle: Pythagoras, Sine, Cosine & Radians",
             "Advanced Geometry & Trig · @saxster/atlas unit-circle (8 pages): Pythagoras, SOHCAHTOA, unit-circle shadows, radians & Cosine Rule",
@@ -4762,7 +4747,7 @@ const CH_SLIDERS = {{
   8:  [{{lbl:'Angle at A:',min:30,max:65,step:5,val:50,u:'°'}}, {{lbl:'Angle at B:',min:30,max:65,step:5,val:60,u:'°'}}, {{lbl:'Sides of the shape:',min:3,max:8,step:1,val:6,u:''}}],
   9:  [{{lbl:'Length of AB:',min:4,max:8,step:1,val:6,u:' cm'}}, {{lbl:'Compass opening:',min:2,max:5,step:0.5,val:4,u:' cm'}}, {{lbl:'Height of P above AB:',min:0,max:4,step:1,val:2,u:' cm'}}],
   10: [{{lbl:'Radius:',min:2,max:6,step:1,val:4,u:' cm'}}, {{lbl:'Number of slices:',min:4,max:24,step:2,val:12,u:''}}, {{lbl:'Angle of the green slice:',min:0,max:360,step:30,val:90,u:'°'}}],
-  11: [{{lbl:'Scale factor k:',min:1,max:3,step:0.5,val:2,u:'×'}}, {{lbl:'Base triangle b:',min:2,max:5,step:0.5,val:3,u:'cm'}}, {{lbl:'Height h:',min:2,max:4,step:0.5,val:2,u:'cm'}}],
+  11: [{{lbl:'Scale factor:',min:0.5,max:3,step:0.5,val:2,u:''}}, {{lbl:'Centre across:',min:0,max:3,step:1,val:0,u:''}}, {{lbl:'Centre up:',min:0,max:2,step:1,val:0,u:''}}],
   12: [{{lbl:'Leg a:',min:3,max:8,step:1,val:3,u:''}}, {{lbl:'Leg b:',min:3,max:8,step:1,val:4,u:''}}, {{lbl:'Angle θ:',min:0,max:360,step:15,val:50,u:'°'}}],
   13: [{{lbl:'Pop SD σ:',min:6,max:24,step:2,val:12,u:''}}, {{lbl:'Sample size n:',min:4,max:64,step:4,val:16,u:''}}, {{lbl:'Engine hits:',min:0,max:5,step:1,val:1,u:''}}],
   14: [{{lbl:'Wide bin Δx₃:',min:10,max:40,step:5,val:25,u:'min'}}, {{lbl:'Wide bin freq f₃:',min:15,max:60,step:5,val:30,u:''}}, {{lbl:'IQR Q₃ − Q₁:',min:10,max:30,step:2,val:18,u:''}}],
@@ -5271,22 +5256,64 @@ function drawSandbox() {{
       break;
     }}
     case 11: {{
-      // Ch 11: Enlargement Ray Scaler (k, k^2, k^3)
-      const k = a, baseB = b, hTri = c, area0 = 0.5 * baseB * hTri, areaImg = k * k * area0;
-      const cx = 48, cy = 225;
-      ctx.fillStyle = amber; ctx.beginPath(); ctx.arc(cx, cy, 5, 0, Math.PI * 2); ctx.fill();
-      ctx.fillText('Centre C', cx - 10, cy + 20);
-      const p1 = [cx + 70, cy - 25], p2 = [cx + 120, cy - 25], p3 = [cx + 70, cy - 75];
-      const q1 = [cx + 70 * k, cy - 25 * k], q2 = [cx + 120 * k, cy - 25 * k], q3 = [cx + 70 * k, cy - 75 * k];
-      ctx.setLineDash([4, 4]); ctx.strokeStyle = muted;
-      [q1, q2, q3].forEach(q => {{ ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(q[0], q[1]); ctx.stroke(); }});
+      // Ch 11: triangle PQR enlarged about a centre C; green lines cut the image into k × k copies when k is whole
+      const k = a, ccx = b, ccy = c, u = 10, ox = 46, oy = 146;
+      const X = gx => ox + gx * u, Y = gy => oy - gy * u;
+      const fmt = v => String(Math.round(v * 100) / 100);
+      const obj = [[3, 3], [5, 3], [3, 4]], names = ['P', 'Q', 'R'];
+      const img = obj.map(([x, y]) => [ccx + k * (x - ccx), ccy + k * (y - ccy)]);
+      ctx.save();
+      ctx.strokeStyle = muted; ctx.globalAlpha = 0.22; ctx.lineWidth = 0.6;
+      for (let gx = 0; gx <= 23; gx++) {{ ctx.beginPath(); ctx.moveTo(X(gx), Y(0)); ctx.lineTo(X(gx), Y(12)); ctx.stroke(); }}
+      for (let gy = 0; gy <= 12; gy++) {{ ctx.beginPath(); ctx.moveTo(X(0), Y(gy)); ctx.lineTo(X(23), Y(gy)); ctx.stroke(); }}
+      ctx.globalAlpha = 1; ctx.setLineDash([4, 4]); ctx.lineWidth = 1;
+      obj.forEach((p, i) => {{
+        const far = k >= 1 ? img[i] : p;
+        ctx.beginPath(); ctx.moveTo(X(ccx), Y(ccy)); ctx.lineTo(X(far[0]), Y(far[1])); ctx.stroke();
+      }});
       ctx.setLineDash([]);
-      ctx.fillStyle = blue + '38'; ctx.strokeStyle = blue; ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.moveTo(...p1); ctx.lineTo(...p2); ctx.lineTo(...p3); ctx.closePath(); ctx.fill(); ctx.stroke();
-      ctx.fillStyle = red + '30'; ctx.strokeStyle = red; ctx.lineWidth = 2.4;
-      ctx.beginPath(); ctx.moveTo(...q1); ctx.lineTo(...q2); ctx.lineTo(...q3); ctx.closePath(); ctx.fill(); ctx.stroke();
-      ctx.fillStyle = green; ctx.fillText(`Scale k = ${{k}}× ⇒ Area scales by k² = ${{(k*k).toFixed(2)}}× (Volume by k³ = ${{(k*k*k).toFixed(2)}}×)`, 190, 248);
-      readoutHtml = `Linear Scale <b>k = ${{k}}×</b> · Object Area = ${{area0.toFixed(1)}} cm² → Image Area = <b>k²·A = ${{(k*k).toFixed(2)}} × ${{area0.toFixed(1)}} = ${{areaImg.toFixed(2)}} cm²</b>`;
+      const tri = (pts, fill, stroke, width) => {{
+        ctx.beginPath(); ctx.moveTo(X(pts[0][0]), Y(pts[0][1]));
+        pts.slice(1).forEach(([x, y]) => ctx.lineTo(X(x), Y(y))); ctx.closePath();
+        ctx.fillStyle = fill; ctx.globalAlpha = 0.22; ctx.fill();
+        ctx.globalAlpha = 1; ctx.strokeStyle = stroke; ctx.lineWidth = width; ctx.stroke();
+      }};
+      tri(img, red, red, 2.2);
+      const whole = Number.isInteger(k) && k >= 2;
+      if (whole) {{
+        ctx.strokeStyle = green; ctx.lineWidth = 1.2;
+        for (let v = 0; v < 3; v++) {{
+          const V = img[v], W1 = img[(v + 1) % 3], W2 = img[(v + 2) % 3];
+          for (let i = 1; i < k; i++) {{
+            const t = i / k;
+            ctx.beginPath();
+            ctx.moveTo(X(V[0] + t * (W1[0] - V[0])), Y(V[1] + t * (W1[1] - V[1])));
+            ctx.lineTo(X(V[0] + t * (W2[0] - V[0])), Y(V[1] + t * (W2[1] - V[1])));
+            ctx.stroke();
+          }}
+        }}
+      }}
+      tri(obj, blue, blue, 2);
+      ctx.fillStyle = ink; ctx.beginPath(); ctx.arc(X(ccx), Y(ccy), 3.5, 0, 2 * Math.PI); ctx.fill();
+      ctx.font = '600 11px -apple-system, BlinkMacSystemFont, sans-serif';
+      ctx.fillText('C', X(ccx) - 12, Y(ccy) + 4);
+      const offs = [[-13, 4], [4, 12], [-11, -3]];
+      ctx.fillStyle = blue; obj.forEach((p, i) => ctx.fillText(names[i], X(p[0]) + offs[i][0], Y(p[1]) + offs[i][1]));
+      if (k !== 1) {{
+        ctx.fillStyle = red; img.forEach((p, i) => ctx.fillText(names[i] + '′', X(p[0]) + offs[i][0] - 2, Y(p[1]) + offs[i][1]));
+      }}
+      ctx.restore();
+      ctx.textAlign = 'left'; ctx.font = '600 12.5px -apple-system, BlinkMacSystemFont, sans-serif';
+      ctx.fillStyle = ink; ctx.fillText(`Scale factor ${{fmt(k)}}, centre C at (${{ccx}}, ${{ccy}})`, 46, 168);
+      ctx.fillStyle = blue; ctx.fillText(`PQ = 2 cm, so P′Q′ = ${{fmt(2 * k)}} cm`, 46, 194);
+      ctx.fillStyle = red; ctx.fillText(`C to P′ is ${{fmt(k)}} times C to P`, 46, 212);
+      ctx.fillStyle = ink; ctx.fillText(`Area × ${{fmt(k * k)}}: 1 cm² becomes ${{fmt(k * k)}} cm²`, 46, 230);
+      ctx.fillStyle = green;
+      ctx.fillText(whole ? `${{k * k}} copies of PQR fit inside P′Q′R′`
+        : k === 1 ? 'Scale factor 1: the same size as PQR'
+        : k < 1 ? 'Less than 1: smaller than PQR'
+        : 'Not whole: copies do not fit exactly', 46, 254);
+      readoutHtml = `Scale factor <b>${{fmt(k)}}</b> · every length × ${{fmt(k)}} · every area × <b>${{fmt(k * k)}}</b>`;
       break;
     }}
     case 12: {{

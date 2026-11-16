@@ -765,10 +765,10 @@ public enum MathematicalDebateEngine {
 
 public enum MathematicalDebateCatalog {
     public static let all: [MathematicalDebateScenario] = [
-        // Parked on ch 11 -> OUP Ch 12 (Ratio, Rate & Unitary Bar Models); see CONTENT_PLAN amendment 5
+        // Parked on ch 14 -> OUP Ch 12 (Ratio, Rate & Unitary Bar Models); see CONTENT_PLAN amendment 5
         MathematicalDebateScenario(
             id: "debate-ch07-ratio",
-            chapterNumber: 11,
+            chapterNumber: 14,
             oupUnitNumber: 12,
             title: "The Marble Transfer Conservation Law",
             contextPrompt: "Kym and Aarav hold marbles in ratio 5 : 3. After Kym gives Aarav 10 marbles, they have equal shares (1 : 1). Reyansh and Ira debate how many marbles 1 bar unit represents:",
@@ -872,42 +872,6 @@ public enum MathematicalDebateCatalog {
                 )
             ],
             invariantTakeaway: "In a histogram, bar AREA (Width × Frequency Density) equals Frequency."
-        ),
-        // Ch 14 -> OUP Ch 15 (Combinatorics & Probability Trees)
-        MathematicalDebateScenario(
-            id: "debate-ch14-combinatorics",
-            chapterNumber: 14,
-            oupUnitNumber: 15,
-            title: "Podium Medals vs Project Team",
-            contextPrompt: "From 6 students, how does choosing Gold, Silver, Bronze medallists differ from choosing a 3-person cleanup team?",
-            speakerAName: "Kabir",
-            speakerAClaim: "Both choose 3 people from 6, so both have 6 × 5 × 4 = 120 ways!",
-            speakerBName: "Diya",
-            speakerBClaim: "For the cleanup team, {A, B, C} in any order is the SAME team! So we divide 120 by 3! = 6 permutations to get 20 teams.",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch14-a",
-                    speakerLabel: "Kabir is right (both are 120)",
-                    reasoningStatement: "Selecting 3 people out of 6 always uses 6 × 5 × 4.",
-                    isCorrect: false,
-                    socraticRebuttal: "If Aarav, Zoya, and Dev are on the cleanup team, does it matter who was named first? All 6 orderings give the exact same team!"
-                ),
-                MathematicalDebateChoice(
-                    id: "ch14-b",
-                    speakerLabel: "Diya is right (120 podiums vs 20 teams)",
-                    reasoningStatement: "Unordered combinations divide ordered permutations by k! to collapse duplicate orderings.",
-                    isCorrect: true,
-                    socraticRebuttal: "Exact! 6P3 = 120 ordered podiums; 6C3 = 120 / 6 = 20 unordered committees."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch14-c",
-                    speakerLabel: "Divide by 3 instead of 3! = 6",
-                    reasoningStatement: "There are 3 spots, so divide by 3.",
-                    isCorrect: false,
-                    socraticRebuttal: "Three people can be arranged in 3 × 2 × 1 = 6 ways, not 3 ways."
-                )
-            ],
-            invariantTakeaway: "nCr = nPr / r! because every unordered subset of size r corresponds to r! ordered permutations."
         ),
         // Ch 15 -> OUP Ch 15 (Bayes & Conditional Probability)
         MathematicalDebateScenario(

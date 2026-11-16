@@ -7473,85 +7473,785 @@
       "number": 11,
       "volumeNumber": 3,
       "volumeTitle": "Volume III · Euclid's Compass, Mensuration & Trigonometry",
-      "title": "Symmetry & Motion: Translations, Reflections, Rotations & Enlargements",
-      "subtitle": "School book Ch 13 · Vector translations, mirror lines, rotational symmetry & enlargement area/volume scaling (k, k², k³)",
-      "hookSummary": "Translations, reflections, and rotations are rigid isometries; enlargements scale lengths by k, areas by k², and volumes by k³.",
+      "title": "Moving and resizing shapes",
+      "subtitle": "School book chapter 13 · Sliding, flipping, turning and enlarging shapes on a grid",
+      "hookSummary": "A torch makes a shadow of a cut-out triangle, twice as tall on the wall. Is the shadow's area twice as big too?",
+      "beyondSchoolBook": false,
+      "skillCard": {
+        "skill": "Sliding, flipping, turning and enlarging shapes on a grid, and saying what each move keeps the same",
+        "sheCan": {
+          "prompt": "With no calculator: slide the point (2, 5) by 3 across and −1 up. Turn the point (4, 1) through 180° about (0, 0). A triangle of area 4 cm² is enlarged by scale factor 3. What is its new area?",
+          "answer": "The slide gives (5, 4). The half turn gives (−4, −1). The new area is 3 × 3 × 4 = 36 cm²."
+        },
+        "whyItMatters": "Every computer game slides, turns and resizes its pictures with these rules. Maps, models and photo prints are enlargements, so their lengths and areas follow the same rules.",
+        "standsOn": [
+          "Chapter 7: points on a grid, written as coordinates",
+          "Chapter 9: the perpendicular bisector, and shapes that match exactly",
+          "Chapter 3: ratio"
+        ],
+        "unlocks": [
+          "Chapter 12: right-angled triangles, where matching triangles share their ratios",
+          "Chapter 19: vectors, which grow out of this chapter's column vectors",
+          "Chapter 20: matrices, which do every move in this chapter with four numbers"
+        ]
+      },
       "intuitionToFormula": {
-        "concreteAction": "Drag the centre of enlargement C and scale factor slider k from −2 to +3 on a coordinate grid.",
-        "ahaInvariant": "Every vertex P moves along the ray CP so that |CP′| = |k| · |CP| — and doubling every side (k = 2) packs k² = 4 copies of the original triangle inside the image!",
-        "formulaDisplay": "OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object)",
+        "concreteAction": "Set the scale factor to 2 and the centre to (0, 0). Dashed lines run from the centre C through each corner of the blue triangle PQR.",
+        "ahaInvariant": "Each corner of the red triangle P′Q′R′ is twice as far from C as the matching corner of PQR. And 4 copies of PQR fit inside P′Q′R′.",
+        "formulaDisplay": "CP′ = k × CP,   new area = k² × old area",
         "termMappings": [
           {
-            "symbol": "k(OP − OC)",
-            "visualPart": "Red ray vector from centre C to image P′",
+            "symbol": "CP",
+            "visualPart": "The blue triangle PQR, and its distance from C",
+            "colorRole": "blue",
+            "meaning": "The shape you start with"
+          },
+          {
+            "symbol": "k × CP",
+            "visualPart": "The red triangle P′Q′R′, k times as far from C",
             "colorRole": "red",
-            "meaning": "Multiplies distance from centre of enlargement by k"
+            "meaning": "Every distance from the centre, multiplied by the scale factor"
           },
           {
             "symbol": "k²",
-            "visualPart": "Amber tiled sub-triangles inside enlarged shape",
-            "colorRole": "amber",
-            "meaning": "2D area scales as the square of linear factor k"
-          },
-          {
-            "symbol": "k < 0",
-            "visualPart": "Blue inverted ray through centre C",
-            "colorRole": "blue",
-            "meaning": "Negative scale factor enlarges and rotates by 180°"
+            "visualPart": "The green lines that cut P′Q′R′ into copies of PQR",
+            "colorRole": "green",
+            "meaning": "How many copies of the old area fit inside the new one"
           }
         ],
-        "atlasFigureRef": "maths/ch13-indices-standard-form/index.html#1"
+        "atlasFigureRef": "maths/linear-algebra/index.html#1"
       },
       "sections": [
         {
           "id": "ch11-s1",
-          "heading": "11.1 See it in a picture",
-          "excerpt": "Drag the centre of enlargement C and scale factor slider k from −2 to +3 on a coordinate grid. Every vertex P moves along the ray CP so that |CP′| = |k| · |CP| — and doubling every side (k = 2) packs k² = 4 copies of the original triangle inside the image!"
+          "heading": "11.1 Sliding a shape",
+          "excerpt": "Only its place changes. Every corner moves 4 squares right and 1 square up. Its shape, its size and the way it faces stay the same.",
+          "teaches": [
+            "transformation",
+            "translation"
+          ],
+          "steps": [
+            {
+              "id": "ch11-s1-question",
+              "kind": "question",
+              "text": "Slide a paper triangle across a squared page, 4 squares right and 1 square up, without turning it. What changes, and what stays the same?"
+            },
+            {
+              "id": "ch11-s1-idea",
+              "kind": "idea",
+              "text": "Only its place changes. Every corner moves 4 squares right and 1 square up. Its shape, its size and the way it faces stay the same."
+            },
+            {
+              "id": "ch11-s1-picture",
+              "kind": "picture",
+              "text": "On squared paper, draw a triangle with corners at (1, 1), (3, 1) and (1, 2). Add 4 to each x-coordinate and 1 to each y-coordinate, and draw the new triangle."
+            },
+            {
+              "id": "ch11-s1-reason",
+              "kind": "reason",
+              "text": "Why does every side keep its length? Every corner moves by the same amount. So the gap between any two corners does not change."
+            },
+            {
+              "id": "ch11-s1-name",
+              "kind": "name",
+              "text": "A change that moves or resizes a shape is a transformation. The shape you start with is the object, and the result is the image. A slide with no turning is a translation."
+            },
+            {
+              "id": "ch11-s1-example",
+              "kind": "example",
+              "text": "Translate the triangle 4 right and 1 up. The corner (1, 1) goes to (5, 2), (3, 1) goes to (7, 2), and (1, 2) goes to (5, 3)."
+            },
+            {
+              "id": "ch11-s1-mistake",
+              "kind": "mistake",
+              "text": "The tempting slip is to move one corner and redraw the rest by eye. Every corner must move by the same amount, or the shape bends out of true."
+            },
+            {
+              "id": "ch11-s1-turn",
+              "kind": "turn",
+              "text": "The point (2, 6) is translated 3 squares left and 4 squares down. Where does it land?",
+              "answer": "(−1, 2)",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "sequence",
+                        "values": [
+                          "-1",
+                          "2"
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "(−1, 2)",
+                  "(-1, 2)",
+                  "−1, 2"
+                ],
+                "rejects": [
+                  "(5, 10)",
+                  "(−1, 10)",
+                  "(5, 2)"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch11-s1-sayBack",
+              "kind": "sayBack",
+              "text": "A translation slides every point of a shape by the same amount. Its shape, its size and the way it faces stay the same."
+            }
+          ]
         },
         {
           "id": "ch11-s2",
-          "heading": "11.2 Write it in symbols",
-          "excerpt": "Every piece of the geometry locks onto a symbol in OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object). Once you see why each term exists, you never have to guess a sign or denominator."
+          "heading": "11.2 Two numbers for a slide",
+          "excerpt": "Write the steps across first and the steps up second. A step south is a step up of −1, so 2 steps south is −2. The slide is 5, then −2.",
+          "teaches": [
+            "column-vector"
+          ],
+          "steps": [
+            {
+              "id": "ch11-s2-question",
+              "kind": "question",
+              "text": "A treasure map says: walk 5 steps east, then 2 steps south. How can you write that slide with only two numbers?"
+            },
+            {
+              "id": "ch11-s2-idea",
+              "kind": "idea",
+              "text": "Write the steps across first and the steps up second. A step south is a step up of −1, so 2 steps south is −2. The slide is 5, then −2."
+            },
+            {
+              "id": "ch11-s2-picture",
+              "kind": "picture",
+              "text": "Draw an arrow on squared paper from (0, 0) to (5, −2). It goes 5 squares across and 2 squares down."
+            },
+            {
+              "id": "ch11-s2-reason",
+              "kind": "reason",
+              "text": "Why a minus sign? Steps to the left and steps down go the opposite way to the axes. So they are negative numbers, as on a number line."
+            },
+            {
+              "id": "ch11-s2-name",
+              "kind": "name",
+              "text": "A column vector writes a translation as two numbers in a column, the step across on top and the step up below. In a line of text this book writes it as 5 over −2."
+            },
+            {
+              "id": "ch11-s2-example",
+              "kind": "example",
+              "text": "The column vector 3 over 4 moves the point (1, 2) to (1 + 3, 2 + 4), which is (4, 6)."
+            },
+            {
+              "id": "ch11-s2-mistake",
+              "kind": "mistake",
+              "text": "The tempting slip is to read the top number as the step up. 3 over 4 means 3 across and 4 up, not 3 up and 4 across."
+            },
+            {
+              "id": "ch11-s2-turn",
+              "kind": "turn",
+              "text": "Translate the point (2, 5) by the column vector 3 over −4. Where does it land?",
+              "answer": "(5, 1)",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "sequence",
+                        "values": [
+                          "5",
+                          "1"
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "(5, 1)",
+                  "5, 1",
+                  "(5,1)"
+                ],
+                "rejects": [
+                  "(5, 9)",
+                  "(−2, 8)",
+                  "(−1, 9)"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch11-s2-sayBack",
+              "kind": "sayBack",
+              "text": "A column vector has the step across on top and the step up below. Add them to a point's coordinates to slide it."
+            }
+          ]
         },
         {
           "id": "ch11-s3",
-          "heading": "11.3 Bar models and stretch problems",
-          "excerpt": "Apply Symmetry & Motion: Translations, Reflections, Rotations & Enlargements across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
+          "heading": "11.3 Mirror images",
+          "excerpt": "A mirror sends each point to the other side, the same distance away. The round part on the right of the b ends up on the left.",
+          "teaches": [
+            "reflection"
+          ],
+          "steps": [
+            {
+              "id": "ch11-s3-question",
+              "kind": "question",
+              "text": "Hold a letter b up to a mirror. Why does it look like a d?"
+            },
+            {
+              "id": "ch11-s3-idea",
+              "kind": "idea",
+              "text": "A mirror sends each point to the other side, the same distance away. The round part on the right of the b ends up on the left."
+            },
+            {
+              "id": "ch11-s3-picture",
+              "kind": "picture",
+              "text": "On squared paper, use the y-axis as a mirror. Plot (3, 2), count 3 squares to the mirror and 3 more beyond it. You land on (−3, 2)."
+            },
+            {
+              "id": "ch11-s3-reason",
+              "kind": "reason",
+              "text": "Why the same distance on each side? The mirror is the perpendicular bisector of each point and its image. It crosses the line between them halfway, at a right angle."
+            },
+            {
+              "id": "ch11-s3-name",
+              "kind": "name",
+              "text": "Flipping a shape over a line is a reflection, and the line is the mirror line. Reflecting in the y-axis changes the sign of the x-coordinate."
+            },
+            {
+              "id": "ch11-s3-example",
+              "kind": "example",
+              "text": "Reflect the point (4, 1) in the x-axis. It is 1 square above the mirror, so its image is 1 square below, at (4, −1)."
+            },
+            {
+              "id": "ch11-s3-mistake",
+              "kind": "mistake",
+              "text": "The tempting slip is to measure to the mirror along a slant. Always count straight across to the mirror, at a right angle to it."
+            },
+            {
+              "id": "ch11-s3-turn",
+              "kind": "turn",
+              "text": "Reflect the point (5, 3) in the y-axis. Where is its image?",
+              "answer": "(−5, 3)",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "sequence",
+                        "values": [
+                          "-5",
+                          "3"
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "(−5, 3)",
+                  "(-5, 3)",
+                  "−5, 3"
+                ],
+                "rejects": [
+                  "(5, −3)",
+                  "(−5, −3)",
+                  "(3, 5)"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch11-s3-sayBack",
+              "kind": "sayBack",
+              "text": "A reflection sends each point to the far side of the mirror line, the same distance away, measured straight across."
+            }
+          ]
+        },
+        {
+          "id": "ch11-s4",
+          "heading": "11.4 Turning about a point",
+          "excerpt": "At 3. The tip stays the same distance from the pin, and sweeps through 90°.",
+          "teaches": [
+            "rotation"
+          ],
+          "steps": [
+            {
+              "id": "ch11-s4-question",
+              "kind": "question",
+              "text": "A clock hand turns about the pin in the middle. It points at 12. Where does its tip point after a quarter turn clockwise?"
+            },
+            {
+              "id": "ch11-s4-idea",
+              "kind": "idea",
+              "text": "At 3. The tip stays the same distance from the pin, and sweeps through 90°."
+            },
+            {
+              "id": "ch11-s4-picture",
+              "kind": "picture",
+              "text": "Plot (3, 1) and the point (0, 0). Lay tracing paper over them, pin it at (0, 0) with a pencil, and give it a half turn. The dot lands on (−3, −1)."
+            },
+            {
+              "id": "ch11-s4-reason",
+              "kind": "reason",
+              "text": "Why do both signs change in a half turn? A half turn sends every point straight through the pin. It ends up the same distance away on the other side."
+            },
+            {
+              "id": "ch11-s4-name",
+              "kind": "name",
+              "text": "Turning a shape about a fixed point is a rotation, and the fixed point is the centre of rotation. To describe one, give the centre, the angle, and clockwise or anticlockwise."
+            },
+            {
+              "id": "ch11-s4-example",
+              "kind": "example",
+              "text": "Rotate (4, 1) by 90° anticlockwise about (0, 0). The step 4 across and 1 up turns into 1 to the left and 4 up, so the image is (−1, 4)."
+            },
+            {
+              "id": "ch11-s4-mistake",
+              "kind": "mistake",
+              "text": "The tempting slip is to turn about a corner of the shape and forget the centre. Ask which point stays still, and turn about that one."
+            },
+            {
+              "id": "ch11-s4-turn",
+              "kind": "turn",
+              "text": "Rotate the point (2, 5) by 180° about (0, 0). Where does it land?",
+              "answer": "(−2, −5)",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "sequence",
+                        "values": [
+                          "-2",
+                          "-5"
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "(−2, −5)",
+                  "(-2, -5)",
+                  "−2, −5"
+                ],
+                "rejects": [
+                  "(−2, 5)",
+                  "(2, −5)",
+                  "(5, 2)"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch11-s4-sayBack",
+              "kind": "sayBack",
+              "text": "A rotation turns every point about one centre through the same angle. Describe it by its centre, its angle and its direction."
+            }
+          ]
+        },
+        {
+          "id": "ch11-s5",
+          "heading": "11.5 Shapes that fit themselves",
+          "excerpt": "Four: two folds across the middle and two folds from corner to corner. Each fold is a mirror that leaves the square looking as it did.",
+          "teaches": [
+            "symmetry"
+          ],
+          "steps": [
+            {
+              "id": "ch11-s5-question",
+              "kind": "question",
+              "text": "Fold a paper square so that the two halves match exactly. How many different folds work?"
+            },
+            {
+              "id": "ch11-s5-idea",
+              "kind": "idea",
+              "text": "Four: two folds across the middle and two folds from corner to corner. Each fold is a mirror that leaves the square looking as it did."
+            },
+            {
+              "id": "ch11-s5-picture",
+              "kind": "picture",
+              "text": "Draw a square and its four folds. Put a dot in one corner, give the square a quarter turn, and watch it fit its outline again."
+            },
+            {
+              "id": "ch11-s5-reason",
+              "kind": "reason",
+              "text": "Why does a quarter turn fit? The four sides are equal and the four corners are equal. So after a quarter turn, each side lands where its neighbour was."
+            },
+            {
+              "id": "ch11-s5-name",
+              "kind": "name",
+              "text": "A mirror line that flips a shape onto itself is a line of symmetry. A shape that fits onto itself in less than a full turn has rotational symmetry. Its order is how many times it fits in one full turn."
+            },
+            {
+              "id": "ch11-s5-example",
+              "kind": "example",
+              "text": "A rectangle that is not a square has 2 lines of symmetry. A half turn fits it onto itself, so its order of rotational symmetry is 2."
+            },
+            {
+              "id": "ch11-s5-mistake",
+              "kind": "mistake",
+              "text": "The tempting slip is to count a rectangle's corner-to-corner folds as lines of symmetry. Fold one that way and its corners do not meet."
+            },
+            {
+              "id": "ch11-s5-turn",
+              "kind": "turn",
+              "text": "A regular hexagon has 6 equal sides and 6 equal corners. What is its order of rotational symmetry?",
+              "answer": "6",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "6"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "6",
+                  "order 6",
+                  "6 times"
+                ],
+                "rejects": [
+                  "3",
+                  "2",
+                  "12"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch11-s5-sayBack",
+              "kind": "sayBack",
+              "text": "A line of symmetry flips a shape onto itself. The order of rotational symmetry counts how often it fits in one full turn."
+            }
+          ]
+        },
+        {
+          "id": "ch11-s6",
+          "heading": "11.6 Growing from a point",
+          "excerpt": "At the torch bulb. Each ray starts there, passes a corner of the cut-out, and goes on to twice that distance to reach the shadow.",
+          "teaches": [
+            "enlargement",
+            "scale-factor"
+          ],
+          "steps": [
+            {
+              "id": "ch11-s6-question",
+              "kind": "question",
+              "text": "A torch shines on a cut-out triangle, and its shadow on the wall is twice as tall. Where do the edges of the light all meet?"
+            },
+            {
+              "id": "ch11-s6-idea",
+              "kind": "idea",
+              "text": "At the torch bulb. Each ray starts there, passes a corner of the cut-out, and goes on to twice that distance to reach the shadow."
+            },
+            {
+              "id": "ch11-s6-picture",
+              "kind": "picture",
+              "text": "In the figure, set the top slider to 2 and the centre to (0, 0). Each dashed line runs from C through a corner of PQR to a corner of P′Q′R′."
+            },
+            {
+              "id": "ch11-s6-reason",
+              "kind": "reason",
+              "text": "Why is P′ twice as far from C as P? Each corner moves along its own line from C, to twice the distance. So every side doubles as well."
+            },
+            {
+              "id": "ch11-s6-name",
+              "kind": "name",
+              "text": "Growing or shrinking a shape from a fixed point like this is an enlargement, and the point is the centre of enlargement. The number every length is multiplied by is the scale factor."
+            },
+            {
+              "id": "ch11-s6-example",
+              "kind": "example",
+              "text": "Enlarge P(3, 3) by scale factor 2 about C(0, 0). P is 3 across and 3 up from C, so P′ is 6 across and 6 up, at (6, 6). With scale factor ½, P′ would be at (1.5, 1.5), and the shape would shrink."
+            },
+            {
+              "id": "ch11-s6-mistake",
+              "kind": "mistake",
+              "text": "The tempting slip is to double the sides and draw the image anywhere. The centre fixes where it goes, so measure every distance from C."
+            },
+            {
+              "id": "ch11-s6-turn",
+              "kind": "turn",
+              "text": "Enlarge the point (2, 1) by scale factor 3 about (0, 0). Where does it land?",
+              "answer": "(6, 3)",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "sequence",
+                        "values": [
+                          "6",
+                          "3"
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "(6, 3)",
+                  "6, 3",
+                  "(6,3)"
+                ],
+                "rejects": [
+                  "(5, 4)",
+                  "(6, 1)",
+                  "(2, 3)"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch11-s6-sayBack",
+              "kind": "sayBack",
+              "text": "An enlargement multiplies every distance from its centre by the scale factor. The image keeps its shape and the way it faces."
+            }
+          ],
+          "figure": true
+        },
+        {
+          "id": "ch11-s7",
+          "heading": "11.7 Same shape, different size",
+          "excerpt": "30 cm. The width has doubled, so the height must double too. Every length is multiplied by the same number.",
+          "teaches": [
+            "similar-shapes"
+          ],
+          "steps": [
+            {
+              "id": "ch11-s7-question",
+              "kind": "question",
+              "text": "A photo is printed 10 cm wide and 15 cm tall. A bigger print is 20 cm wide. How tall must it be so that nobody in it looks stretched?"
+            },
+            {
+              "id": "ch11-s7-idea",
+              "kind": "idea",
+              "text": "30 cm. The width has doubled, so the height must double too. Every length is multiplied by the same number."
+            },
+            {
+              "id": "ch11-s7-picture",
+              "kind": "picture",
+              "text": "Draw a triangle with sides of 3 cm, 4 cm and 5 cm. Draw a second one with every side doubled: 6 cm, 8 cm and 10 cm. Measure the angles of both."
+            },
+            {
+              "id": "ch11-s7-reason",
+              "kind": "reason",
+              "text": "Why do the angles match? The second triangle is an enlargement of the first, and an enlargement keeps every angle. Only the lengths change, all by one scale factor."
+            },
+            {
+              "id": "ch11-s7-name",
+              "kind": "name",
+              "text": "Shapes like these are similar shapes: one is an enlargement of the other. Their angles are equal, and every pair of matching sides is in the same ratio. Congruent shapes are the case with scale factor 1."
+            },
+            {
+              "id": "ch11-s7-example",
+              "kind": "example",
+              "text": "A triangle with sides of 4, 6 and 8 cm matches one with sides of 6, 9 and 12 cm. Each side is multiplied by 1.5, so the two are similar shapes."
+            },
+            {
+              "id": "ch11-s7-mistake",
+              "kind": "mistake",
+              "text": "The tempting slip is to add the same amount to each side. Adding 2 cm to each side of the 3, 4, 5 triangle gives 5, 6, 7, which is a different shape."
+            },
+            {
+              "id": "ch11-s7-turn",
+              "kind": "turn",
+              "text": "Two triangles are similar shapes. The small one has sides of 3 cm, 4 cm and 5 cm. The large one's shortest side is 6 cm. How long is its longest side?",
+              "answer": "10 cm",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "10"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "10",
+                  "10 cm",
+                  "10cm"
+                ],
+                "rejects": [
+                  "8",
+                  "7",
+                  "5"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch11-s7-sayBack",
+              "kind": "sayBack",
+              "text": "Similar shapes have equal angles, and every length in one is the matching length in the other times one scale factor."
+            }
+          ]
+        },
+        {
+          "id": "ch11-s8",
+          "heading": "11.8 What happens to the area",
+          "excerpt": "No. The new tile is 3 cm by 3 cm, and 9 of the small tiles fit inside it.",
+          "teaches": [
+            "area-scale-factor"
+          ],
+          "steps": [
+            {
+              "id": "ch11-s8-question",
+              "kind": "question",
+              "text": "A square floor tile with 1 cm sides is enlarged by scale factor 3. Is the new tile 3 times as big?"
+            },
+            {
+              "id": "ch11-s8-idea",
+              "kind": "idea",
+              "text": "No. The new tile is 3 cm by 3 cm, and 9 of the small tiles fit inside it."
+            },
+            {
+              "id": "ch11-s8-picture",
+              "kind": "picture",
+              "text": "Draw a 1 cm square, a 2 cm square and a 3 cm square on squared paper. Count the 1 cm squares inside each one: 1, then 4, then 9."
+            },
+            {
+              "id": "ch11-s8-reason",
+              "kind": "reason",
+              "text": "Why k × k? An area spreads across and up at once. Both directions are multiplied by the scale factor k, so the area is multiplied by k twice."
+            },
+            {
+              "id": "ch11-s8-name",
+              "kind": "name",
+              "text": "The number an area is multiplied by is the area scale factor. For an enlargement with scale factor k it is k². Volumes are multiplied by k³."
+            },
+            {
+              "id": "ch11-s8-example",
+              "kind": "example",
+              "text": "A triangle of area 6 cm² is enlarged by scale factor 3. Its new area is 3² × 6 = 9 × 6 = 54 cm²."
+            },
+            {
+              "id": "ch11-s8-mistake",
+              "kind": "mistake",
+              "text": "The tempting slip is to multiply the area by the scale factor itself. Doubling every side of a 5 cm² shape gives 20 cm², not 10 cm²."
+            },
+            {
+              "id": "ch11-s8-turn",
+              "kind": "turn",
+              "text": "A shape with an area of 5 cm² is enlarged by scale factor 4. What is its new area?",
+              "answer": "80 cm²",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "80"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "80",
+                  "80 cm²",
+                  "80 cm2"
+                ],
+                "rejects": [
+                  "20",
+                  "25",
+                  "9"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch11-s8-sayBack",
+              "kind": "sayBack",
+              "text": "When lengths are multiplied by k, areas are multiplied by k², and volumes by k³."
+            }
+          ]
         }
       ],
       "callouts": [
         {
           "id": "ch11-c-predict",
           "kind": "predict",
-          "title": "Predict Before You Drag",
-          "body": "Before moving the slider in Transformation Isometry Stage, predict which geometric quantity changes and which invariant stays locked."
+          "title": "Predict first",
+          "body": "Set the top slider to 3. Predict how many copies of the small blue triangle will fit inside the red one, then look."
         },
         {
           "id": "ch11-c-aha",
           "kind": "check",
-          "title": "The Intuition → Formula Bridge",
-          "body": "Every vertex P moves along the ray CP so that |CP′| = |k| · |CP| — and doubling every side (k = 2) packs k² = 4 copies of the original triangle inside the image! Formula: OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object)"
+          "title": "Explain it",
+          "body": "Explain to a friend why sliding, flipping or turning a shape never changes its area, but growing it from a point does."
         },
         {
           "id": "ch11-c-trap",
           "kind": "careful",
-          "title": "Classic Algebraic Trap to Avoid",
-          "body": "Whenever a formula in Chapter 11 looks tempting to shortcut, test a concrete 2×2 area or small integer example (x = 2, y = 3) first!"
+          "title": "Measure from the centre",
+          "body": "When a shape turns or grows, every distance is measured from the centre. Pick the wrong centre and the image lands in the wrong place."
         }
       ],
       "keyTerms": [
-        "Isometry",
-        "Translation Vector",
-        "Reflection Line",
-        "Centre of Rotation",
-        "Centre of Enlargement",
-        "Fractional & Negative Scale Factor",
-        "Area Scale k²"
+        "Transformation",
+        "Translation",
+        "Column vector",
+        "Reflection",
+        "Rotation",
+        "Line and rotational symmetry",
+        "Enlargement",
+        "Scale factor",
+        "Similar shapes",
+        "Area scale factor"
       ],
       "widgets": [
         "w_transformation_isometry_stage",
         "w_enlargement_ray_scaler"
-      ]
+      ],
+      "debate": {
+        "id": "debate-ch11-transformations",
+        "chapterNumber": 11,
+        "oupUnitNumber": 13,
+        "title": "Can an enlargement make a shape smaller?",
+        "contextPrompt": "A triangle is enlarged by scale factor ½ about a point C. Asha and Rohan argue about the result.",
+        "speakerAName": "Asha",
+        "speakerAClaim": "Enlarging means making bigger. A scale factor of ½ is not allowed.",
+        "speakerBName": "Rohan",
+        "speakerBClaim": "A scale factor of ½ halves every distance from C. It is still an enlargement, and the image is smaller.",
+        "choices": [
+          {
+            "id": "ch11-a",
+            "speakerLabel": "Asha is right (it must grow)",
+            "reasoningStatement": "In everyday words, to enlarge is to make bigger.",
+            "isCorrect": false,
+            "socraticRebuttal": "Follow the rule: multiply the distance from C by ½. Does anything in the rule stop you using ½?"
+          },
+          {
+            "id": "ch11-b",
+            "speakerLabel": "Rohan is right (it can shrink)",
+            "reasoningStatement": "The rule works for any scale factor, and ½ halves every length.",
+            "isCorrect": true,
+            "socraticRebuttal": "Yes. The image has the same shape and the same angles, with every side half as long. In maths the word covers shrinking too."
+          },
+          {
+            "id": "ch11-c",
+            "speakerLabel": "Neither. It depends where C is.",
+            "reasoningStatement": "If C is inside the triangle, the image might grow.",
+            "isCorrect": false,
+            "socraticRebuttal": "Put C anywhere and halve the distance from C to each corner. How long is each side of the image now?"
+          }
+        ],
+        "invariantTakeaway": "In maths an enlargement can shrink a shape: a scale factor between 0 and 1 makes every length smaller."
+      }
     },
     {
       "id": "ch12",
@@ -8951,52 +9651,52 @@
     {
       "id": "atlas-ch11-1",
       "widget": "w_transformation_isometry_stage",
-      "title": "Ch 11.1 · Symmetry & Motion: Translations, Reflections, Rotations & Enlargements (Concrete Manipulation)",
+      "title": "Chapter 11 · Lines from the centre",
       "chapter": 11,
       "figure": "maths/ch13-indices-standard-form/index.html#1",
-      "question": "How does touching the geometry of Symmetry & Motion: Translations, Reflections, Rotations & Enlargements reveal its structure?",
-      "explanation": "Drag the centre of enlargement C and scale factor slider k from −2 to +3 on a coordinate grid.",
-      "limits": "Formula: OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object)",
+      "question": "Why does an enlargement keep a shape's angles?",
+      "explanation": "Every corner moves along its own line from the centre, to k times as far. Every side is multiplied by k, so the shape stays the same, only bigger or smaller.",
+      "limits": "The rule: an enlargement with scale factor k multiplies every length by k",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
         "Atlas figures"
       ],
       "stories": [
-        "Translations, reflections, and rotations are rigid isometries; enlargements scale lengths by k, areas by k², and volumes by k³."
+        "A torch makes a shadow of a cut-out triangle, twice as tall on the wall. Is the shadow's area twice as big too?"
       ]
     },
     {
       "id": "atlas-ch11-2",
       "widget": "w_transformation_isometry_stage",
-      "title": "Ch 11.2 · Symmetry & Motion: Translations, Reflections, Rotations & Enlargements (The Visual 'Aha!' Invariant)",
+      "title": "Chapter 11 · Moves that keep the size",
       "chapter": 11,
       "figure": "maths/ch13-indices-standard-form/index.html#1",
-      "question": "What stays constant in Symmetry & Motion: Translations, Reflections, Rotations & Enlargements when you deform or slice the figure?",
-      "explanation": "Every vertex P moves along the ray CP so that |CP′| = |k| · |CP| — and doubling every side (k = 2) packs k² = 4 copies of the original triangle inside the image!",
-      "limits": "Formula: OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object)",
+      "question": "Why do a translation, a reflection and a rotation never change an area?",
+      "explanation": "Each one moves every point but keeps the distance between any two points. The image is congruent to the object, so its area is the same.",
+      "limits": "The rule: translations, reflections and rotations give congruent images",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
         "Atlas figures"
       ],
       "stories": [
-        "Translations, reflections, and rotations are rigid isometries; enlargements scale lengths by k, areas by k², and volumes by k³."
+        "A torch makes a shadow of a cut-out triangle, twice as tall on the wall. Is the shadow's area twice as big too?"
       ]
     },
     {
       "id": "atlas-ch11-3",
       "widget": "w_transformation_isometry_stage",
-      "title": "Ch 11.3 · Symmetry & Motion: Translations, Reflections, Rotations & Enlargements (Symbolic Formula Lockstep)",
+      "title": "Chapter 11 · Copies inside the image",
       "chapter": 11,
       "figure": "maths/ch13-indices-standard-form/index.html#1",
-      "question": "How does the picture translate term-by-term into OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object)?",
-      "explanation": "Every term in OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object) corresponds to a colour-coded geometric part in maths/ch13-indices-standard-form/index.html#1.",
-      "limits": "Formula: OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object)",
+      "question": "Why does scale factor 3 make an area 9 times as big?",
+      "explanation": "Each length is 3 times as long, across and up at once. So 3 × 3 = 9 copies of the shape fit inside the image.",
+      "limits": "The rule: lengths × k, areas × k², volumes × k³",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
         "Atlas figures"
       ],
       "stories": [
-        "Translations, reflections, and rotations are rigid isometries; enlargements scale lengths by k, areas by k², and volumes by k³."
+        "A torch makes a shadow of a cut-out triangle, twice as tall on the wall. Is the shadow's area twice as big too?"
       ]
     },
     {
@@ -10294,65 +10994,65 @@
     },
     {
       "id": "w_transformation_isometry_stage",
-      "title": "Transformation Isometry Stage",
+      "title": "A whole grid moved at once",
       "chapter": 11,
       "is3D": false,
       "atlasRoute": "maths/ch13-indices-standard-form/index.html#1",
-      "challengePrompt": "Manipulate Transformation Isometry Stage until the visual invariant locks in, then verify OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object).",
-      "cutaway": "Intuition → Formula Lockstep: Every vertex P moves along the ray CP so that |CP′| = |k| · |CP| — and doubling every side (k = 2) packs k² = 4 copies of the original triangle inside the image!",
-      "idealised": "Formula Anatomy: OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object)",
+      "challengePrompt": "Open the page called Shear and rotation. Before you move anything, predict whether the square's area will change.",
+      "cutaway": "A shear slides each row of the grid sideways, like pushing a pile of cards. The square leans over, but its bottom and its height stay 1, so its area stays 1.",
+      "idealised": "Beyond this chapter: a whole grid can be slid, turned or leaned in one move",
       "watchSteps": [
         {
-          "title": "1. Concrete Touch",
-          "caption": "Drag the centre of enlargement C and scale factor slider k from −2 to +3 on a coordinate grid."
+          "title": "1. Try it",
+          "caption": "Open the page called Shear and rotation, and watch the grid."
         },
         {
-          "title": "2. Spot the Invariant ('Aha!')",
-          "caption": "Every vertex P moves along the ray CP so that |CP′| = |k| · |CP| — and doubling every side (k = 2) packs k² = 4 copies of the original triangle inside the image!"
+          "title": "2. Notice",
+          "caption": "The grid lines stay straight, parallel and evenly spaced."
         },
         {
-          "title": "3. Colour-Map the Symbols",
-          "caption": "Match red, blue, amber, and green geometry to OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object)."
+          "title": "3. Match the rule",
+          "caption": "The square leans, but its bottom and height stay 1, so its area stays 1."
         },
         {
-          "title": "4. Test a Boundary Case",
-          "caption": "Push the slider to 0, 1, or 90° and verify that the formula predicts the exact extreme state."
+          "title": "4. Push it further",
+          "caption": "Find the move on the page that turns the grid without stretching it."
         },
         {
-          "title": "5. Stamp & Sketch in Journal",
-          "caption": "Freeze the state into your Cornell Proof & Construction Journal."
+          "title": "5. Draw it",
+          "caption": "Draw a square on squared paper, then the same square slid, flipped and turned."
         }
       ]
     },
     {
       "id": "w_enlargement_ray_scaler",
-      "title": "Enlargement Ray Scaler",
+      "title": "Areas under a stretch",
       "chapter": 11,
       "is3D": false,
       "atlasRoute": "maths/ch13-indices-standard-form/index.html#1",
-      "challengePrompt": "Manipulate Enlargement Ray Scaler until the visual invariant locks in, then verify OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object).",
-      "cutaway": "Intuition → Formula Lockstep: Every vertex P moves along the ray CP so that |CP′| = |k| · |CP| — and doubling every side (k = 2) packs k² = 4 copies of the original triangle inside the image!",
-      "idealised": "Formula Anatomy: OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object)",
+      "challengePrompt": "Open the page called The determinant is area. Predict whether the stretched square covers more or less than 1 square.",
+      "cutaway": "Every small square of the grid is stretched by the same amount. So the area of every shape on the grid is multiplied by one number.",
+      "idealised": "The rule: an enlargement with scale factor k multiplies every area by k²",
       "watchSteps": [
         {
-          "title": "1. Concrete Touch",
-          "caption": "Drag the centre of enlargement C and scale factor slider k from −2 to +3 on a coordinate grid."
+          "title": "1. Try it",
+          "caption": "Open the page called The determinant is area."
         },
         {
-          "title": "2. Spot the Invariant ('Aha!')",
-          "caption": "Every vertex P moves along the ray CP so that |CP′| = |k| · |CP| — and doubling every side (k = 2) packs k² = 4 copies of the original triangle inside the image!"
+          "title": "2. Notice",
+          "caption": "Every small square inside the big one grows by the same amount."
         },
         {
-          "title": "3. Colour-Map the Symbols",
-          "caption": "Match red, blue, amber, and green geometry to OP′ − OC = k(OP − OC),   Area(Image) = k² · Area(Object),   Vol(Image) = k³ · Vol(Object)."
+          "title": "3. Match the rule",
+          "caption": "The area grows from 1 to 1.625, the same number for every shape on the grid."
         },
         {
-          "title": "4. Test a Boundary Case",
-          "caption": "Push the slider to 0, 1, or 90° and verify that the formula predicts the exact extreme state."
+          "title": "4. Push it further",
+          "caption": "For an enlargement with scale factor 2, predict what number the area is multiplied by."
         },
         {
-          "title": "5. Stamp & Sketch in Journal",
-          "caption": "Freeze the state into your Cornell Proof & Construction Journal."
+          "title": "5. Draw it",
+          "caption": "Draw a 1 cm square and its enlargement with scale factor 3, and count the squares inside."
         }
       ]
     },
@@ -12595,7 +13295,7 @@
               "bridge-bio-sa-vol",
               "bridge-cs-boolean-matrices"
             ],
-            "summary": "Specify by column vector (dx, dy); orientation and size remain invariant.",
+            "summary": "A translation slides a shape without turning it. It is written as a column vector, the step across on top and the step up below. The shape's size and the way it faces stay the same.",
             "cambridgeWatchouts": [
               "Draw the bar model or a sketch before you write the formula for 13.1.",
               "Check units, negative signs, and significant figures at the final step."
@@ -12618,7 +13318,7 @@
               "bridge-bio-sa-vol",
               "bridge-cs-boolean-matrices"
             ],
-            "summary": "Mirror line is the perpendicular bisector of every point P and its image P′ (y = x swaps coordinates).",
+            "summary": "A reflection flips a shape over a mirror line. Each point and its image are the same distance from the mirror, measured at a right angle. Reflecting in the line y = x swaps the two coordinates.",
             "cambridgeWatchouts": [
               "Draw the bar model or a sketch before you write the formula for 13.2.",
               "Check units, negative signs, and significant figures at the final step."
@@ -12641,7 +13341,7 @@
               "bridge-bio-sa-vol",
               "bridge-cs-boolean-matrices"
             ],
-            "summary": "Specify angle, direction (clockwise/anticlockwise), and centre of rotation (x₀, y₀).",
+            "summary": "A rotation turns a shape about a centre of rotation. To describe one, give the centre, the angle, and clockwise or anticlockwise.",
             "cambridgeWatchouts": [
               "Draw the bar model or a sketch before you write the formula for 13.3.",
               "Check units, negative signs, and significant figures at the final step."
@@ -12664,7 +13364,7 @@
               "bridge-bio-sa-vol",
               "bridge-cs-boolean-matrices"
             ],
-            "summary": "Lines of reflection symmetry and order of rotational symmetry in 2D polygons and 3D solids.",
+            "summary": "A line of symmetry flips a shape onto itself. The order of rotational symmetry counts how many times a shape fits onto itself in one full turn. A cube can be cut into two mirror halves in 9 ways.",
             "cambridgeWatchouts": [
               "Draw the bar model or a sketch before you write the formula for 13.4.",
               "Check units, negative signs, and significant figures at the final step."
@@ -12687,7 +13387,7 @@
               "bridge-bio-sa-vol",
               "bridge-cs-boolean-matrices"
             ],
-            "summary": "Multiply ray distances from centre of enlargement by scale factor k; area scales by k².",
+            "summary": "An enlargement multiplies every distance from the centre of enlargement by the scale factor k. Lengths are multiplied by k, areas by k² and volumes by k³.",
             "cambridgeWatchouts": [
               "Draw the bar model or a sketch before you write the formula for 13.5.",
               "Check units, negative signs, and significant figures at the final step."
@@ -24450,8 +25150,8 @@
       "commandWord": "Calculate & Prove",
       "marks": 3,
       "prompt": "Triangle T has area 6 cm² and vertex A(2, 3). It is enlarged by scale factor k = 3 about centre C(1, 1). Find the coordinates of image A′ and the area of image T′.",
-      "workedExample": "Step 1: Displacement from C(1, 1) to A(2, 3) is CA = (2−1, 3−1) = (1, 2).\nStep 2: Multiply ray by k = 3: CA′ = 3 × (1, 2) = (3, 6) ⇒ A′ = (1+3, 1+6) = (4, 7).\nStep 3: Area scales by k² = 3² = 9: Area(T′) = 9 × 6 = 54 cm².",
-      "fadedPrompt": "CA = (1, 2) ⇒ CA′ = (3, 6) ⇒ A′ = (4, 7), and Area(T′) = 3² × 6 = ___ cm².",
+      "workedExample": "Step 1: The step from C(1, 1) to A(2, 3) is 1 across and 2 up.\nStep 2: Multiply the step by the scale factor 3: 3 across and 6 up.\nStep 3: Add it to C. The image of A is at (1 + 3, 1 + 6) = (4, 7).\nStep 4: The area is multiplied by 3² = 9, so the image has area 9 × 6 = 54 cm².",
+      "fadedPrompt": "The step from C to A is 1 across and 2 up, so the step to its image is 3 across and 6 up. The image of A is at (4, 7), and the area is 3² × 6 = ___ cm².",
       "fadedAnswer": "A′ = (4, 7), Area = 54 cm²",
       "modelAnswer": "A′ = (4, 7) and Area = 54 cm² because linear rays from (1, 1) multiply by k = 3 while 2D area multiplies by k² = 9.",
       "linkedChapter": 11,
@@ -24715,8 +25415,8 @@
       "commandWord": "Work out",
       "marks": 2,
       "prompt": "Reflect the point P(−3, 5) in the line y = x.",
-      "workedExample": "Apply the core invariant of 13.5 step by step.",
-      "fadedPrompt": "Target result for 13.5: ___",
+      "workedExample": "Step 1: The line y = x runs through (0, 0), (1, 1) and (2, 2), at 45° to the axes.\nStep 2: Reflecting in it swaps the x-coordinate and the y-coordinate.\nStep 3: So P(−3, 5) goes to (5, −3).\nStep 4: Check: halfway between P and P′ is (1, 1), which is on the mirror line.",
+      "fadedPrompt": "Reflecting in y = x swaps the coordinates, so P(−3, 5) goes to P′ = ___.",
       "fadedAnswer": "P′ = (5, −3)",
       "modelAnswer": "P′ = (5, −3)",
       "linkedChapter": 11,
@@ -24972,8 +25672,8 @@
       "commandWord": "Model & Solve",
       "marks": 3,
       "prompt": "Rotate the point Q(4, 1) by 90° anticlockwise about the origin (0, 0).",
-      "workedExample": "Sketch the Singapore Bar Model or geometric diagram first, then solve: Q′ = (−1, 4).",
-      "fadedPrompt": "Singapore Bar-Model solution: ___",
+      "workedExample": "Step 1: Q is 4 across and 1 up from the centre (0, 0).\nStep 2: A quarter turn anticlockwise turns a step across into a step up, and a step up into a step left.\nStep 3: So 4 across becomes 4 up, and 1 up becomes 1 to the left.\nStep 4: Q′ = (−1, 4). Check: Q and Q′ are the same distance from (0, 0).",
+      "fadedPrompt": "Q is 4 across and 1 up. After a quarter turn anticlockwise it is 1 to the left and 4 up, so Q′ = ___.",
       "fadedAnswer": "Q′ = (−1, 4)",
       "modelAnswer": "Q′ = (−1, 4)",
       "linkedChapter": 11,
@@ -25206,8 +25906,8 @@
       "commandWord": "Prove & Generalise",
       "marks": 4,
       "prompt": "Enlarge the point R(5, 3) by negative scale factor k = −2 about centre C(3, 2).",
-      "workedExample": "Bridge from visual intuition to the symbolic invariant: R′ = (−1, 0).",
-      "fadedPrompt": "Horizon invariant result: ___",
+      "workedExample": "Step 1: The step from C(3, 2) to R(5, 3) is 2 across and 1 up.\nStep 2: Multiply the step by −2: 4 to the left and 2 down.\nStep 3: Add it to C: R′ = (3 − 4, 2 − 2) = (−1, 0).\nStep 4: A negative scale factor puts the image on the other side of the centre, upside down.",
+      "fadedPrompt": "The step from C to R is 2 across and 1 up. Times −2 it is 4 left and 2 down, so R′ = ___.",
       "fadedAnswer": "R′ = (−1, 0)",
       "modelAnswer": "R′ = (−1, 0)",
       "linkedChapter": 11,
@@ -32238,6 +32938,10 @@
         {
           "concept": "gradient",
           "label": "Gradient"
+        },
+        {
+          "concept": "column-vector",
+          "label": "Column vector"
         }
       ]
     },
@@ -32685,6 +33389,10 @@
         {
           "concept": "surface-area",
           "label": "Surface area"
+        },
+        {
+          "concept": "area-scale-factor",
+          "label": "Area scale factor"
         }
       ]
     },
@@ -32860,6 +33568,14 @@
         {
           "concept": "sector",
           "label": "Sector"
+        },
+        {
+          "concept": "rotation",
+          "label": "Rotation"
+        },
+        {
+          "concept": "similar-shapes",
+          "label": "Similar shapes"
         }
       ]
     },
@@ -34941,6 +35657,18 @@
         {
           "concept": "inverse-proportion",
           "label": "Inverse proportion"
+        },
+        {
+          "concept": "enlargement",
+          "label": "Enlargement"
+        },
+        {
+          "concept": "scale-factor",
+          "label": "Scale factor"
+        },
+        {
+          "concept": "similar-shapes",
+          "label": "Similar shapes"
         }
       ]
     },
@@ -37284,6 +38012,18 @@
         {
           "concept": "midpoint",
           "label": "Midpoint"
+        },
+        {
+          "concept": "transformation",
+          "label": "Transformation"
+        },
+        {
+          "concept": "translation",
+          "label": "Translation"
+        },
+        {
+          "concept": "reflection",
+          "label": "Reflection"
         }
       ]
     },
@@ -38127,6 +38867,10 @@
         {
           "concept": "prism",
           "label": "Prism"
+        },
+        {
+          "concept": "symmetry",
+          "label": "Line and rotational symmetry"
         }
       ]
     },
@@ -38379,6 +39123,10 @@
         {
           "chapter": 9,
           "label": "Chapter 9 · Constructions, bearings and nets"
+        },
+        {
+          "concept": "reflection",
+          "label": "Reflection"
         }
       ]
     },
@@ -39572,13 +40320,670 @@
           "label": "Chapter 10 · Circles, prisms and volume"
         }
       ]
+    },
+    {
+      "id": "transformation",
+      "name": "Transformation",
+      "aliases": [
+        "transformation",
+        "transformations"
+      ],
+      "oneSentence": "A change that moves, turns, flips or resizes a shape. The shape you start with is the object, and the result is the image.",
+      "picture": "A paper triangle slid across a page, flipped over, turned, and photocopied larger.",
+      "steps": [
+        "Name the object, the shape you start with.",
+        "Say what the move does: slide, flip, turn or resize.",
+        "Draw the image, the shape the move makes."
+      ],
+      "workedExample": "Sliding a triangle 4 squares right is a transformation. The triangle you start with is the object, and the slid one is its image.",
+      "check": {
+        "id": "transformation-check",
+        "prompt": "A triangle with sides of 3, 4 and 5 cm is slid 6 squares to the right. How long is its longest side now, in cm?",
+        "answer": "5 cm",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "5"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "5",
+            "5 cm",
+            "5cm"
+          ],
+          "rejects": [
+            "11",
+            "6",
+            "30"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "only moving",
+        "how": "A transformation can also resize a shape. Slides, flips and turns keep the size, but an enlargement changes it."
+      },
+      "standsOn": [
+        "coordinates"
+      ],
+      "footing": "transformations",
+      "usedIn": [
+        {
+          "chapter": 11,
+          "label": "Chapter 11 · Moving and resizing shapes"
+        },
+        {
+          "concept": "translation",
+          "label": "Translation"
+        },
+        {
+          "concept": "reflection",
+          "label": "Reflection"
+        },
+        {
+          "concept": "rotation",
+          "label": "Rotation"
+        },
+        {
+          "concept": "enlargement",
+          "label": "Enlargement"
+        }
+      ]
+    },
+    {
+      "id": "translation",
+      "name": "Translation",
+      "aliases": [
+        "translation",
+        "translations"
+      ],
+      "oneSentence": "A slide with no turning: every point of the shape moves the same distance in the same direction.",
+      "picture": "A chess piece slid across the board without lifting or turning it.",
+      "steps": [
+        "Read how far the shape moves across and how far up.",
+        "Move every corner by that amount.",
+        "Join the new corners. The image faces the same way as the object."
+      ],
+      "workedExample": "Translate (1, 2) by 3 across and 4 up. The image is (1 + 3, 2 + 4) = (4, 6).",
+      "check": {
+        "id": "translation-check",
+        "prompt": "The point (4, −1) is translated 2 squares left and 5 squares up. Where does it land?",
+        "answer": "(2, 4)",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "sequence",
+                  "values": [
+                    "2",
+                    "4"
+                  ]
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "(2, 4)",
+            "2, 4",
+            "(2,4)"
+          ],
+          "rejects": [
+            "(6, 4)",
+            "(2, −6)",
+            "(9, 1)"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "rotation",
+        "how": "A translation never turns the shape. A rotation turns it about a centre."
+      },
+      "standsOn": [
+        "transformation",
+        "coordinates"
+      ],
+      "usedIn": [
+        {
+          "chapter": 11,
+          "label": "Chapter 11 · Moving and resizing shapes"
+        },
+        {
+          "concept": "column-vector",
+          "label": "Column vector"
+        }
+      ]
+    },
+    {
+      "id": "column-vector",
+      "name": "Column vector",
+      "aliases": [
+        "column vector",
+        "column vectors"
+      ],
+      "oneSentence": "Two numbers in a column that describe a translation: the step across on top, the step up below.",
+      "picture": "An arrow on squared paper, 5 squares across and 2 squares down, labelled 5 over −2.",
+      "steps": [
+        "Read the top number as the step across. Positive is right, negative is left.",
+        "Read the bottom number as the step up. Positive is up, negative is down.",
+        "Add the two steps to the point's x-coordinate and y-coordinate."
+      ],
+      "workedExample": "Translate (6, 1) by the column vector −2 over 3. The image is (6 − 2, 1 + 3) = (4, 4).",
+      "check": {
+        "id": "column-vector-check",
+        "prompt": "Translate the point (−3, 2) by the column vector 4 over −6. Where does it land?",
+        "answer": "(1, −4)",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "sequence",
+                  "values": [
+                    "1",
+                    "-4"
+                  ]
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "(1, −4)",
+            "(1, -4)",
+            "1, −4"
+          ],
+          "rejects": [
+            "(3, −1)",
+            "(−7, 8)",
+            "(1, 8)"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "coordinates",
+        "how": "Coordinates give a place on the grid. A column vector gives a move, which can start from any place."
+      },
+      "standsOn": [
+        "translation",
+        "negative-number"
+      ],
+      "usedIn": [
+        {
+          "chapter": 11,
+          "label": "Chapter 11 · Moving and resizing shapes"
+        }
+      ]
+    },
+    {
+      "id": "reflection",
+      "name": "Reflection",
+      "aliases": [
+        "reflection",
+        "reflections",
+        "mirror line",
+        "mirror lines"
+      ],
+      "oneSentence": "A flip over a mirror line. Each point lands the same distance away on the other side, measured at a right angle.",
+      "picture": "A letter b held up to a mirror, looking like a d.",
+      "steps": [
+        "Find the mirror line.",
+        "From each corner, count straight across to the mirror at a right angle.",
+        "Count the same distance beyond it, and mark the image corner."
+      ],
+      "workedExample": "Reflect (2, 3) in the y-axis. It is 2 squares right of the mirror, so its image is 2 squares left, at (−2, 3).",
+      "check": {
+        "id": "reflection-check",
+        "prompt": "Reflect the point (2, −7) in the x-axis. Where is its image?",
+        "answer": "(2, 7)",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "sequence",
+                  "values": [
+                    "2",
+                    "7"
+                  ]
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "(2, 7)",
+            "2, 7",
+            "(2,7)"
+          ],
+          "rejects": [
+            "(−2, −7)",
+            "(−2, 7)",
+            "(7, 2)"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "a half turn",
+        "how": "A reflection flips the shape over, so its image faces the other way round. A half turn spins it about a point."
+      },
+      "standsOn": [
+        "transformation",
+        "perpendicular-bisector",
+        "coordinates"
+      ],
+      "usedIn": [
+        {
+          "chapter": 11,
+          "label": "Chapter 11 · Moving and resizing shapes"
+        },
+        {
+          "concept": "symmetry",
+          "label": "Line and rotational symmetry"
+        }
+      ]
+    },
+    {
+      "id": "rotation",
+      "name": "Rotation",
+      "aliases": [
+        "rotation",
+        "rotations",
+        "centre of rotation",
+        "centres of rotation"
+      ],
+      "oneSentence": "A turn about a fixed point, the centre of rotation, through an angle, clockwise or anticlockwise.",
+      "picture": "A clock hand turning about the pin in the middle.",
+      "steps": [
+        "Find the centre of rotation, the point that stays still.",
+        "Turn each corner about it through the angle, in the right direction.",
+        "Check that each corner is the same distance from the centre as before."
+      ],
+      "workedExample": "A half turn about (0, 0) sends (3, 1) to (−3, −1). Both signs change, and the distance from (0, 0) stays the same.",
+      "check": {
+        "id": "rotation-check",
+        "prompt": "Rotate the point (3, 2) by 90° clockwise about (0, 0). Where does it land?",
+        "answer": "(2, −3)",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "sequence",
+                  "values": [
+                    "2",
+                    "-3"
+                  ]
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "(2, −3)",
+            "(2, -3)",
+            "2, −3"
+          ],
+          "rejects": [
+            "(−2, 3)",
+            "(−3, −2)",
+            "(3, −2)"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "reflection",
+        "how": "A rotation keeps the shape the same way round. A reflection flips it over, like a mirror image."
+      },
+      "standsOn": [
+        "transformation",
+        "angle"
+      ],
+      "usedIn": [
+        {
+          "chapter": 11,
+          "label": "Chapter 11 · Moving and resizing shapes"
+        },
+        {
+          "concept": "symmetry",
+          "label": "Line and rotational symmetry"
+        }
+      ]
+    },
+    {
+      "id": "symmetry",
+      "name": "Line and rotational symmetry",
+      "aliases": [
+        "line of symmetry",
+        "lines of symmetry",
+        "rotational symmetry",
+        "order of rotational symmetry"
+      ],
+      "oneSentence": "A line of symmetry flips a shape onto itself. Rotational symmetry means a turn of less than a full turn fits it onto itself.",
+      "picture": "A paper square folded corner to corner, its halves matching exactly.",
+      "steps": [
+        "Look for each fold that makes the two halves match. Each one is a line of symmetry.",
+        "Turn the shape slowly through one full turn.",
+        "Count how many times it fits its outline. That count is its order of rotational symmetry."
+      ],
+      "workedExample": "An equilateral triangle has 3 lines of symmetry, and it fits its outline 3 times in a full turn, so its order is 3.",
+      "check": {
+        "id": "symmetry-check",
+        "prompt": "How many lines of symmetry does a square have?",
+        "answer": "4",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "4"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "4",
+            "4 lines",
+            "4 lines of symmetry"
+          ],
+          "rejects": [
+            "2",
+            "8",
+            "1"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "order 1",
+        "how": "Every shape fits itself once in a full turn. A shape with order 1 has no rotational symmetry."
+      },
+      "standsOn": [
+        "reflection",
+        "rotation",
+        "polygon"
+      ],
+      "usedIn": [
+        {
+          "chapter": 11,
+          "label": "Chapter 11 · Moving and resizing shapes"
+        }
+      ]
+    },
+    {
+      "id": "enlargement",
+      "name": "Enlargement",
+      "aliases": [
+        "enlargement",
+        "enlargements",
+        "centre of enlargement",
+        "centres of enlargement"
+      ],
+      "oneSentence": "A resize from a fixed point, the centre of enlargement: every distance from it is multiplied by the same number.",
+      "picture": "A torch shining on a cut-out triangle, making a bigger shadow on the wall.",
+      "steps": [
+        "Find the step from the centre to a corner.",
+        "Multiply the step by the scale factor.",
+        "Add it to the centre to place the image corner. Repeat for each corner."
+      ],
+      "workedExample": "Enlarge (3, 2) by scale factor 2 about (1, 1). The step is 2 across and 1 up, doubled to 4 and 2, so the image is (5, 3).",
+      "check": {
+        "id": "enlargement-check",
+        "prompt": "Enlarge the point (1, 4) by scale factor 2 about (0, 0). Where does it land?",
+        "answer": "(2, 8)",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "sequence",
+                  "values": [
+                    "2",
+                    "8"
+                  ]
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "(2, 8)",
+            "2, 8",
+            "(2,8)"
+          ],
+          "rejects": [
+            "(3, 6)",
+            "(1, 8)",
+            "(2, 4)"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "only bigger",
+        "how": "In maths an enlargement can shrink a shape too, when the scale factor is between 0 and 1."
+      },
+      "standsOn": [
+        "transformation",
+        "ratio"
+      ],
+      "footing": "transformations",
+      "usedIn": [
+        {
+          "chapter": 11,
+          "label": "Chapter 11 · Moving and resizing shapes"
+        },
+        {
+          "concept": "scale-factor",
+          "label": "Scale factor"
+        },
+        {
+          "concept": "similar-shapes",
+          "label": "Similar shapes"
+        }
+      ]
+    },
+    {
+      "id": "scale-factor",
+      "name": "Scale factor",
+      "aliases": [
+        "scale factor",
+        "scale factors"
+      ],
+      "oneSentence": "The number every length is multiplied by in an enlargement.",
+      "picture": "A 2 cm side drawn beside its 6 cm image: three times as long.",
+      "steps": [
+        "Pick a side of the object and the matching side of the image.",
+        "Divide the image length by the object length.",
+        "Check that every other pair of sides gives the same answer."
+      ],
+      "workedExample": "A 4 cm side becomes 10 cm. The scale factor is 10 ÷ 4 = 2.5.",
+      "check": {
+        "id": "scale-factor-check",
+        "prompt": "A side of 5 cm becomes 15 cm after an enlargement. What is the scale factor?",
+        "answer": "3",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "3"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "3",
+            "× 3",
+            "k = 3"
+          ],
+          "rejects": [
+            "10",
+            "20",
+            "75"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "the amount added",
+        "how": "A scale factor multiplies each length. Adding the same amount to each side changes the shape."
+      },
+      "standsOn": [
+        "enlargement",
+        "ratio"
+      ],
+      "usedIn": [
+        {
+          "chapter": 11,
+          "label": "Chapter 11 · Moving and resizing shapes"
+        },
+        {
+          "concept": "area-scale-factor",
+          "label": "Area scale factor"
+        }
+      ]
+    },
+    {
+      "id": "similar-shapes",
+      "name": "Similar shapes",
+      "aliases": [
+        "similar shapes",
+        "similar triangles",
+        "mathematically similar"
+      ],
+      "oneSentence": "Shapes where one is an enlargement of the other: equal angles, and matching sides all in one ratio.",
+      "picture": "A small photo and a big print of it, with nobody stretched.",
+      "steps": [
+        "Match each side of one shape with a side of the other.",
+        "Divide each pair to find the scale factor.",
+        "If every pair gives the same scale factor, and the angles match, the shapes are similar shapes."
+      ],
+      "workedExample": "Triangles with sides 2, 3, 4 and 6, 9, 12 are similar shapes: every side is multiplied by 3.",
+      "check": {
+        "id": "similar-shapes-check",
+        "prompt": "Two rectangles are similar shapes. One is 2 cm by 5 cm. The other has a short side of 6 cm. How long is its long side, in cm?",
+        "answer": "15 cm",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "15"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "15",
+            "15 cm",
+            "15cm"
+          ],
+          "rejects": [
+            "9",
+            "12",
+            "30"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "congruent",
+        "how": "Congruent shapes are the same size. Similar shapes can be different sizes, with one scale factor between them."
+      },
+      "standsOn": [
+        "enlargement",
+        "angle",
+        "ratio"
+      ],
+      "usedIn": [
+        {
+          "chapter": 11,
+          "label": "Chapter 11 · Moving and resizing shapes"
+        }
+      ]
+    },
+    {
+      "id": "area-scale-factor",
+      "name": "Area scale factor",
+      "aliases": [
+        "area scale factor",
+        "area scale factors"
+      ],
+      "oneSentence": "The number an area is multiplied by in an enlargement. With scale factor k it is k².",
+      "picture": "A 1 cm square tile beside a 3 cm square tile, with 9 small tiles fitting inside the big one.",
+      "steps": [
+        "Find the scale factor k.",
+        "Multiply it by itself to get k².",
+        "Multiply the old area by k² to get the new area."
+      ],
+      "workedExample": "A rug of 2 m² is copied with scale factor 3. Its area is multiplied by 3² = 9, so the copy is 18 m².",
+      "check": {
+        "id": "area-scale-factor-check",
+        "prompt": "A shape is enlarged by scale factor 5. What number is its area multiplied by?",
+        "answer": "25",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "25"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "25",
+            "× 25",
+            "25 times"
+          ],
+          "rejects": [
+            "5",
+            "10",
+            "125"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "scale-factor",
+        "how": "The scale factor multiplies each length. The area scale factor is that number times itself."
+      },
+      "standsOn": [
+        "scale-factor",
+        "area"
+      ],
+      "usedIn": [
+        {
+          "chapter": 11,
+          "label": "Chapter 11 · Moving and resizing shapes"
+        }
+      ]
     }
   ],
   "conceptStopPhrases": [
-    "scale factor",
-    "scale factors",
     "conversion factor",
     "multiple choice",
-    "multiple-choice"
+    "multiple-choice",
+    "image A′"
   ]
 }

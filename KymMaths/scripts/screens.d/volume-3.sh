@@ -11,3 +11,7 @@ shot chapter/10 4 13-chapter-10
 shot concept/area-of-a-circle 3 42-concept-area-of-a-circle
 shot concept/sector 3 43-concept-sector
 shot proof/5 3 09-proof-unit-5
+shot chapter/11 4 14-chapter-11
+shot concept/enlargement 3 44-concept-enlargement
+shot concept/column-vector 3 45-concept-column-vector
+shot proof/13 3 10-proof-unit-13
