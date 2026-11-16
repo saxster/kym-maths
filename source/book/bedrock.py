@@ -214,6 +214,30 @@ def cards(k):
             "standsOn": [],
             "footing": "percentages",
         },
+        "angle": {
+            "name": "Angle",
+            "aliases": ["angle", "angles", "right angle", "right angles"],
+            "oneSentence": "The amount of turn between two lines that meet, measured in degrees.",
+            "picture": "A door swinging open from its frame. A quarter of the way round, it makes a right angle, 90°. "
+                       "Half a turn is 180°, a straight line, and a full turn is 360°.",
+            "steps": [
+                "Put the centre of the protractor on the corner where the two lines meet.",
+                "Line up 0° with one of the lines.",
+                "Read the scale where the other line crosses it, counting up from that 0°.",
+            ],
+            "workedExample": "A straight line is half a turn, 180°. So a 130° angle on a straight line leaves 180° − 130° = 50° beside it.",
+            "check": {
+                "prompt": "A clock's hands point at 12 and at 3. What angle do they make?",
+                "answer": "90°",
+                "answerKey": k.one(k.num("90"), accepts=["90", "90°", "= 90°"], rejects=["3", "180", "45"]),
+            },
+            "mixUp": {
+                "name": "the length of the lines",
+                "how": "Drawing the lines of an angle longer does not make it bigger. The angle is the turn between them, not how far they reach.",
+            },
+            "standsOn": [],
+            "footing": "angle-facts",
+        },
     }
 
 
@@ -281,6 +305,10 @@ def sums():
         ("8 by 5 tiles", 8 * 5, 40),
         ("the table top", (12 * 9, 12 * 5, 12 * 4, 60 + 48), (108, 60, 48, 108)),
         ("the rug", (7 * 3, 2 * (7 + 3)), (21, 20)),
+        # angle
+        ("a quarter turn, half a turn", (360 // 4, 360 // 2), (90, 180)),
+        ("beside a 130° angle", 180 - 130, 50),
+        ("clock hands at 12 and 3", 3 * (360 // 12), 90),
     ]
 
 
@@ -295,4 +323,5 @@ def answers():
         "decimal-place-check": round_dp("7.286", 2),
         "percentage-check": Fraction(20, 100) * 250,
         "area-check": 7 * 3,
+        "angle-check": 3 * (360 // 12),
     }

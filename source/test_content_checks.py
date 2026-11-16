@@ -164,12 +164,12 @@ class WholePackReportTest(unittest.TestCase):
     """G10: checks 3 and 4 over the whole pack, counted, never stopping the run."""
 
     def test_report_counts_a_banned_word_in_an_unrewritten_chapter(self):
-        self.assertNotIn(8, REWRITTEN)
+        self.assertNotIn(13, REWRITTEN)
         before = content_checks.report(PACK)
         pack = copy.deepcopy(PACK)
-        chapter(pack, 8)["hookSummary"] = "Obviously this is clearly a hook."
+        chapter(pack, 13)["hookSummary"] = "Obviously this is clearly a hook."
         after = content_checks.report(pack)
-        self.assertEqual(after["ch08"]["banned"], before["ch08"]["banned"] + 2)
+        self.assertEqual(after["ch13"]["banned"], before["ch13"]["banned"] + 2)
         self.assertEqual(after["total"]["banned"], before["total"]["banned"] + 2)
         self.assertEqual(set(after), {f"ch{n:02d}" for n in range(21)} | {"cards", "total"})
 
@@ -204,10 +204,10 @@ class CardFilesTest(unittest.TestCase):
     """Cards live in the file of the chapter that teaches them, and bedrock cards in book/bedrock.py (risk R5)."""
 
     def test_cards_built_from_their_chapter_files_equal_the_pack(self):
-        from book import bedrock, ch01, ch02, ch03, ch04, ch05, ch06, ch07
+        from book import bedrock, ch01, ch02, ch03, ch04, ch05, ch06, ch07, ch08, ch09, ch10, ch11, ch12
         k = exporter.helpers()
         self.assertEqual(set(bedrock.cards(k)), {"negative-number", "factor", "multiple", "power", "fraction",
-                                                 "decimal-place", "percentage", "area"})
+                                                 "decimal-place", "percentage", "area", "angle"})
         self.assertEqual(set(ch02.cards(k)), {"numerator-denominator", "equivalent-fractions", "simplest-form",
                                               "common-denominator", "improper-fraction", "mixed-number", "reciprocal",
                                               "significant-figures", "terminating-decimal", "recurring-decimal"})
@@ -223,6 +223,21 @@ class CardFilesTest(unittest.TestCase):
                                               "geometric-sequence", "nth-term", "quadratic-sequence", "triangular-number"})
         self.assertEqual(set(ch07.cards(k)), {"function-machine", "inverse-function", "coordinates", "gradient",
                                               "intercept", "linear-graph", "parallel-lines", "real-life-graph"})
+        self.assertEqual(set(ch08.cards(k)), {"vertically-opposite-angles", "transversal", "corresponding-angles",
+                                              "alternate-angles", "co-interior-angles", "proof", "exterior-angle",
+                                              "polygon", "interior-angle", "midpoint"})
+        self.assertEqual(set(ch09.cards(k)), {"locus", "perpendicular-bisector", "angle-bisector", "congruent",
+                                              "quadrilateral", "bearing", "net-of-a-solid", "plan-and-elevation",
+                                              "vertices-edges-faces", "eulers-formula"})
+        self.assertEqual(set(ch10.cards(k)), {"radius-and-diameter", "pi", "circumference", "trapezium", "area-of-a-circle",
+                                              "sector", "volume", "prism", "cross-section", "surface-area",
+                                              "cavalieris-principle"})
+        self.assertEqual(set(ch11.cards(k)), {"transformation", "translation", "column-vector", "reflection", "rotation",
+                                              "symmetry", "enlargement", "scale-factor", "similar-shapes",
+                                              "area-scale-factor"})
+        self.assertEqual(set(ch12.cards(k)), {"right-angled-triangle", "hypotenuse", "pythagoras-theorem", "theta",
+                                              "tangent", "sine", "cosine", "unit-circle", "pythagorean-identity", "radian",
+                                              "sine-rule", "cosine-rule"})
         self.assertEqual(set(ch01.cards(k)), {"prime-number", "prime-factors", "hcf", "lcm", "index-laws",
                                               "square-root", "irrational-number"})
         self.assertTrue(all(card["standsOn"] == [] for card in bedrock.cards(k).values()))
@@ -279,7 +294,8 @@ class LinkerTest(unittest.TestCase):
         self.assertEqual(self.concepts("Its prime factors are 2 and 3"), ["prime-factors"])
 
     def test_stop_phrase_links_nothing(self):
-        self.assertEqual(self.concepts("The scale factor is 2"), [])
+        self.assertEqual(self.concepts("The conversion factor is 2"), [])
+        self.assertEqual(self.concepts("The scale factor is 2"), ["scale-factor"])
 
     def test_word_edges(self):
         self.assertEqual(self.concepts("A factorial, a powerful idea"), [])

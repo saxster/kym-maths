@@ -39,7 +39,7 @@ def build(k):
             "unlocks": [
                 "Chapter 2: fractions and decimals that repeat",
                 "Chapter 4: taking out a common factor in algebra",
-                "Chapter 12: Pythagoras, which needs square roots",
+                "Chapter 12: the longest side of a right-angled triangle, which needs square roots",
             ],
         },
         "intuitionToFormula": {

@@ -16,10 +16,10 @@ struct ConceptLinkTests {
         Self.library.linker.links(in: text, exclude: exclude, linked: linked).map(\.concept)
     }
 
-    @Test("The pack carries the cards of chapters 0 to 7, and their nine-step sections")
+    @Test("The pack carries the cards of chapters 0 to 12, and their nine-step sections")
     func packDecodesCardsAndSteps() throws {
-        #expect(Self.pack.concepts.count == 80)
-        #expect(Self.pack.conceptStopPhrases.contains("scale factor"))
+        #expect(Self.pack.concepts.count == 134)
+        #expect(Self.pack.conceptStopPhrases.contains("conversion factor"))
         let chapter = try #require(Self.pack.chapters.first { $0.number == 1 })
         #expect(chapter.skillCard != nil)
         #expect(chapter.linksConcepts)
@@ -78,8 +78,43 @@ struct ConceptLinkTests {
             #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
         }
         #expect(seven.callouts.map(\.id) == ["ch07-c-predict", "ch07-c-aha", "ch07-c-trap"])
-        let others = Self.pack.chapters.filter { $0.number > 7 }
-        #expect(others.count == 13)
+        let eight = try #require(Self.pack.chapters.first { $0.number == 8 })
+        #expect(eight.skillCard != nil && eight.linksConcepts && !eight.goesBeyondSchoolBook)
+        #expect(eight.sections.count == 7)
+        for section in eight.sections {
+            #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
+        }
+        #expect(eight.callouts.map(\.id) == ["ch08-c-predict", "ch08-c-aha", "ch08-c-trap"])
+        let nine = try #require(Self.pack.chapters.first { $0.number == 9 })
+        #expect(nine.skillCard != nil && nine.linksConcepts && !nine.goesBeyondSchoolBook)
+        #expect(nine.sections.count == 8)
+        for section in nine.sections {
+            #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
+        }
+        #expect(nine.callouts.map(\.id) == ["ch09-c-predict", "ch09-c-aha", "ch09-c-trap"])
+        let ten = try #require(Self.pack.chapters.first { $0.number == 10 })
+        #expect(ten.skillCard != nil && ten.linksConcepts && !ten.goesBeyondSchoolBook)
+        #expect(ten.sections.count == 8)
+        for section in ten.sections {
+            #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
+        }
+        #expect(ten.callouts.map(\.id) == ["ch10-c-predict", "ch10-c-aha", "ch10-c-trap"])
+        let eleven = try #require(Self.pack.chapters.first { $0.number == 11 })
+        #expect(eleven.skillCard != nil && eleven.linksConcepts && !eleven.goesBeyondSchoolBook)
+        #expect(eleven.sections.count == 8)
+        for section in eleven.sections {
+            #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
+        }
+        #expect(eleven.callouts.map(\.id) == ["ch11-c-predict", "ch11-c-aha", "ch11-c-trap"])
+        let twelve = try #require(Self.pack.chapters.first { $0.number == 12 })
+        #expect(twelve.skillCard != nil && twelve.linksConcepts && twelve.goesBeyondSchoolBook)
+        #expect(twelve.sections.count == 8)
+        for section in twelve.sections {
+            #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
+        }
+        #expect(twelve.callouts.map(\.id) == ["ch12-c-predict", "ch12-c-aha", "ch12-c-trap"])
+        let others = Self.pack.chapters.filter { $0.number > 12 }
+        #expect(others.count == 8)
         #expect(others.allSatisfy { !$0.linksConcepts && $0.skillCard == nil })
         for card in Self.pack.concepts {
             for id in card.standsOn + [card.mixUp.with].compactMap({ $0 }) {
@@ -92,7 +127,8 @@ struct ConceptLinkTests {
     func linkerRule() {
         #expect(concepts("The highest common factor of 12 and 18 is 6.") == ["hcf"])
         #expect(concepts("Write 12 as a product of its prime factors.") == ["prime-factors"])
-        #expect(concepts("The scale factor is 2.").isEmpty)
+        #expect(concepts("The conversion factor is 2.").isEmpty)
+        #expect(concepts("The scale factor is 2.") == ["scale-factor"])
         #expect(concepts("A factor of a factor", exclude: "factor").isEmpty)
         #expect(concepts("A factor of a factor") == ["factor"])
         #expect(concepts("Find a factor of 12.", linked: ["factor"]).isEmpty)
@@ -178,7 +214,7 @@ struct ConceptLinkTests {
             #expect(beat.bodyParagraphs == beat.teachingSteps.map(\.text))
             #expect(beat.spokenScript.contains(beat.teachingSteps[0].text))
         }
-        let other = try #require(Self.pack.chapters.first { $0.number == 8 })
+        let other = try #require(Self.pack.chapters.first { $0.number == 13 })
         #expect(ChapterInteractiveBeatEngine.beats(for: other).allSatisfy { $0.teachingSteps.isEmpty })
     }
 
@@ -265,7 +301,7 @@ struct ChapterWrapperTests {
         #expect(try !Self.beat(for: s5, in: beats).showsFigure)
         #expect(beats.first { $0.kind == .interactiveLabAndFormula }?.showsFigure == true)
         // A chapter not yet rewritten keeps the figure beside every section.
-        let other = try Self.chapter(8)
+        let other = try Self.chapter(13)
         let otherBeats = ChapterInteractiveBeatEngine.beats(for: other)
         for section in other.sections {
             #expect(try Self.beat(for: section, in: otherBeats).showsFigure, "\(section.id)")

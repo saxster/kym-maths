@@ -26,12 +26,12 @@ def build(k):
                           "5 breaks the claim, because it is odd and not a multiple of 3. So do 1, 7, 11 and 13.",
             },
             "whyItMatters": "Working out chances means counting outcomes in groups that overlap, so it needs this way of counting. "
-                            "A proof in geometry is a chain of if-then steps. "
+                            "In geometry, each step of a reason is an if-then step. "
                             "One counterexample stops you from trusting a false rule.",
             "standsOn": ["Multiples and times tables", "Adding and taking away up to 100",
                          "Powers of 2, like 2³ = 8"],
             "unlocks": [
-                "Chapter 8: angles and proof, built from if-then steps",
+                "Chapter 8: angle facts, each one reasoned from if-then steps",
                 "Chapter 15: counting outcomes, often drawn as Venn diagrams",
                 "Chapter 16: Bayes, which counts people in overlapping groups",
             ],

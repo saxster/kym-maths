@@ -765,10 +765,10 @@ public enum MathematicalDebateEngine {
 
 public enum MathematicalDebateCatalog {
     public static let all: [MathematicalDebateScenario] = [
-        // Ch 8 -> OUP Ch 12 (Ratio, Rate & Unitary Bar Models)
+        // Parked on ch 14 -> OUP Ch 12 (Ratio, Rate & Unitary Bar Models); see CONTENT_PLAN amendment 5
         MathematicalDebateScenario(
             id: "debate-ch07-ratio",
-            chapterNumber: 8,
+            chapterNumber: 14,
             oupUnitNumber: 12,
             title: "The Marble Transfer Conservation Law",
             contextPrompt: "Kym and Aarav hold marbles in ratio 5 : 3. After Kym gives Aarav 10 marbles, they have equal shares (1 : 1). Reyansh and Ira debate how many marbles 1 bar unit represents:",
@@ -801,118 +801,10 @@ public enum MathematicalDebateCatalog {
             ],
             invariantTakeaway: "In an internal transfer between two people, the sum of bar units is conserved, and moving Δ units changes their gap by 2Δ."
         ),
-        // Ch 9 -> OUP Ch 8 (Polygons, Parallel Lines & Exterior Turns)
-        MathematicalDebateScenario(
-            id: "debate-ch09-polygons",
-            chapterNumber: 9,
-            oupUnitNumber: 8,
-            title: "Walking the Decagon Perimeter",
-            contextPrompt: "What happens to the sum of exterior angles when you increase a regular polygon from 5 sides to 10 sides?",
-            speakerAName: "Aarav",
-            speakerAClaim: "Since there are twice as many corners, the sum of exterior angles doubles from 360° to 720°!",
-            speakerBName: "Meera",
-            speakerBClaim: "Walking all the way around ANY closed polygon spins you through exactly one full turn of 360°—each exterior angle just halves from 72° to 36°.",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch09-a",
-                    speakerLabel: "Aarav is right (720°)",
-                    reasoningStatement: "More vertices always mean a larger total exterior angle sum.",
-                    isCorrect: false,
-                    socraticRebuttal: "It is the INTERIOR angle sum (n − 2) × 180° that grows with n; the exterior turns always close a single 360° loop."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch09-b",
-                    speakerLabel: "Meera is right (always 360°)",
-                    reasoningStatement: "One complete circuit around a convex perimeter rotates your heading by 360° regardless of n.",
-                    isCorrect: true,
-                    socraticRebuttal: "Spot on! That is why 180° − 360°/n is the fastest route to any regular interior angle."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch09-c",
-                    speakerLabel: "Neither — exterior angles sum to 180°",
-                    reasoningStatement: "Angles on a straight line sum to 180°.",
-                    isCorrect: false,
-                    socraticRebuttal: "One interior + one exterior pair sums to 180°, but all n exterior turns together complete a 360° circle."
-                )
-            ],
-            invariantTakeaway: "The exterior angles of any convex polygon sum to 360°, so each regular interior angle is 180° − 360°/n."
-        ),
-        // Ch 10 -> OUP Ch 5 (Circles, Sectors & Prism Extrusion)
-        MathematicalDebateScenario(
-            id: "debate-ch10-mensuration",
-            chapterNumber: 10,
-            oupUnitNumber: 5,
-            title: "Cavalieri's Tilted Coin Stack",
-            contextPrompt: "Two stacks of 20 identical ₹10 coins sit on a desk: Stack A is straight and vertical; Stack B is pushed into a leaning slant of the same height. Zoya and Dev compare their volumes:",
-            speakerAName: "Zoya",
-            speakerAClaim: "Stack B has longer slanted edges, so its volume must be greater than Stack A!",
-            speakerBName: "Dev",
-            speakerBClaim: "Both stacks are made of the exact same 20 coins (identical cross-sectional area at every height), so their volumes are identical!",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch10-a",
-                    speakerLabel: "Zoya is right (slanted stack has more volume)",
-                    reasoningStatement: "Longer slant length means more 3D space.",
-                    isCorrect: false,
-                    socraticRebuttal: "Did sliding the coins sideways create any new metal? Volume depends on cross-section area × perpendicular height, not slant length!"
-                ),
-                MathematicalDebateChoice(
-                    id: "ch10-b",
-                    speakerLabel: "Dev is right (volumes are equal)",
-                    reasoningStatement: "Horizontal shearing preserves every slice's area and the perpendicular height (Cavalieri's Principle).",
-                    isCorrect: true,
-                    socraticRebuttal: "Exact! V = A_cross × h_perp holds whether a prism or cylinder is right or oblique."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch10-c",
-                    speakerLabel: "Stack B has less volume because it leans",
-                    reasoningStatement: "Tilting compresses the space.",
-                    isCorrect: false,
-                    socraticRebuttal: "Each coin keeps its exact thickness and circular area, so total volume is unchanged."
-                )
-            ],
-            invariantTakeaway: "Volume equals cross-sectional area times perpendicular height: V = A_cross × h_⊥."
-        ),
-        // Ch 11 -> OUP Ch 3 (Pythagoras, Bearings & Constructions)
-        MathematicalDebateScenario(
-            id: "debate-ch11-pythagoras",
-            chapterNumber: 11,
-            oupUnitNumber: 3,
-            title: "The Return Bearing Trap",
-            contextPrompt: "A rescue boat sails from Mumbai Harbour (M) to a lighthouse (L) on a three-figure bearing of 065°. Tara and Rohan debate the back-bearing to return from L to M:",
-            speakerAName: "Rohan",
-            speakerAClaim: "Just subtract from 360°: 360° − 065° = 295°!",
-            speakerBName: "Tara",
-            speakerBClaim: "Reversing direction along the same straight line turns by a half-circle (180°), and the North lines at M and L are parallel: 065° + 180° = 245°!",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch11-a",
-                    speakerLabel: "Rohan is right (295°)",
-                    reasoningStatement: "Opposite bearings always sum to 360°.",
-                    isCorrect: false,
-                    socraticRebuttal: "295° points North-West! Since the boat sailed North-East (065°), to return home it must sail South-West (245°)."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch11-b",
-                    speakerLabel: "Tara is right (245°)",
-                    reasoningStatement: "By alternate angles on parallel North lines, the reverse direction differs by exactly 180°.",
-                    isCorrect: true,
-                    socraticRebuttal: "Spot on! Back-bearing = θ ± 180°, never 360° − θ."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch11-c",
-                    speakerLabel: "Neither — it is 180° − 065° = 115°",
-                    reasoningStatement: "Co-interior angles on parallel North lines sum to 180°.",
-                    isCorrect: false,
-                    socraticRebuttal: "115° is the angle measured anticlockwise from South or internal to the parallel lines, not the clockwise angle from North."
-                )
-            ],
-            invariantTakeaway: "Because all North lines are parallel, the back-bearing of θ is always θ + 180° (if θ < 180°) or θ − 180° (if θ ≥ 180°)."
-        ),
-        // Ch 12 -> OUP Ch 4 (Scale Drawings, Similarity & Trigonometry)
+        // Parked on ch 16 -> OUP Ch 4 (the only unit-4 debate, though it is about trigonometry); see CONTENT_PLAN amendment 5
         MathematicalDebateScenario(
             id: "debate-ch12-trig",
-            chapterNumber: 12,
+            chapterNumber: 16,
             oupUnitNumber: 4,
             title: "Scaling the Triangle vs Scaling the Sine",
             contextPrompt: "A right-angled triangle with legs 3 cm, 4 cm, and hypotenuse 5 cm is enlarged by scale factor 3 to become 9 cm, 12 cm, 15 cm. What happens to sin θ?",
@@ -981,42 +873,6 @@ public enum MathematicalDebateCatalog {
             ],
             invariantTakeaway: "In a histogram, bar AREA (Width × Frequency Density) equals Frequency."
         ),
-        // Ch 14 -> OUP Ch 15 (Combinatorics & Probability Trees)
-        MathematicalDebateScenario(
-            id: "debate-ch14-combinatorics",
-            chapterNumber: 14,
-            oupUnitNumber: 15,
-            title: "Podium Medals vs Project Team",
-            contextPrompt: "From 6 students, how does choosing Gold, Silver, Bronze medallists differ from choosing a 3-person cleanup team?",
-            speakerAName: "Kabir",
-            speakerAClaim: "Both choose 3 people from 6, so both have 6 × 5 × 4 = 120 ways!",
-            speakerBName: "Diya",
-            speakerBClaim: "For the cleanup team, {A, B, C} in any order is the SAME team! So we divide 120 by 3! = 6 permutations to get 20 teams.",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch14-a",
-                    speakerLabel: "Kabir is right (both are 120)",
-                    reasoningStatement: "Selecting 3 people out of 6 always uses 6 × 5 × 4.",
-                    isCorrect: false,
-                    socraticRebuttal: "If Aarav, Zoya, and Dev are on the cleanup team, does it matter who was named first? All 6 orderings give the exact same team!"
-                ),
-                MathematicalDebateChoice(
-                    id: "ch14-b",
-                    speakerLabel: "Diya is right (120 podiums vs 20 teams)",
-                    reasoningStatement: "Unordered combinations divide ordered permutations by k! to collapse duplicate orderings.",
-                    isCorrect: true,
-                    socraticRebuttal: "Exact! 6P3 = 120 ordered podiums; 6C3 = 120 / 6 = 20 unordered committees."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch14-c",
-                    speakerLabel: "Divide by 3 instead of 3! = 6",
-                    reasoningStatement: "There are 3 spots, so divide by 3.",
-                    isCorrect: false,
-                    socraticRebuttal: "Three people can be arranged in 3 × 2 × 1 = 6 ways, not 3 ways."
-                )
-            ],
-            invariantTakeaway: "nCr = nPr / r! because every unordered subset of size r corresponds to r! ordered permutations."
-        ),
         // Ch 15 -> OUP Ch 15 (Bayes & Conditional Probability)
         MathematicalDebateScenario(
             id: "debate-ch15-bayes",
@@ -1052,42 +908,6 @@ public enum MathematicalDebateCatalog {
                 )
             ],
             invariantTakeaway: "Conditioning on event B restricts the denominator to ONLY the outcomes where B occurred: P(A|B) = |A ∩ B| / |B|."
-        ),
-        // Ch 16 -> OUP Ch 14 (Coordinate Geometry & Straight-Line Graphs)
-        MathematicalDebateScenario(
-            id: "debate-ch16-graphs",
-            chapterNumber: 16,
-            oupUnitNumber: 14,
-            title: "Perpendicular Gradients in the Plane",
-            contextPrompt: "Line L₁ has gradient m₁ = 2/3. Ira and Reyansh debate the gradient m₂ of a line L₂ perpendicular (at 90°) to L₁:",
-            speakerAName: "Reyansh",
-            speakerAClaim: "Flip the fraction upside down to get the reciprocal: m₂ = 3/2!",
-            speakerBName: "Ira",
-            speakerBClaim: "Rotating a right-angled slope triangle by 90° swaps rise and run AND reverses one sign: m₂ = −3/2 (so m₁ × m₂ = −1).",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch16-a",
-                    speakerLabel: "Reyansh is right (m₂ = +3/2)",
-                    reasoningStatement: "Perpendicular lines have reciprocal positive slopes.",
-                    isCorrect: false,
-                    socraticRebuttal: "Both +2/3 and +3/2 slope uphill from left to right—two uphill lines can never meet at 90°!"
-                ),
-                MathematicalDebateChoice(
-                    id: "ch16-b",
-                    speakerLabel: "Ira is right (m₂ = −3/2)",
-                    reasoningStatement: "A 90° rotation maps vector (3, 2) to (−2, 3), giving slope 3/(−2) = −3/2.",
-                    isCorrect: true,
-                    socraticRebuttal: "Exact! (2/3) × (−3/2) = −1."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch16-c",
-                    speakerLabel: "Neither — m₂ = −2/3",
-                    reasoningStatement: "Just negate the slope without flipping the fraction.",
-                    isCorrect: false,
-                    socraticRebuttal: "m = −2/3 is a reflection across the y-axis, not a 90° rotation!"
-                )
-            ],
-            invariantTakeaway: "Perpendicular lines satisfy m₁ × m₂ = −1 because rotating (Δx, Δy) by 90° gives (−Δy, Δx)."
         ),
         // Ch 17 -> OUP Ch 14 (Calculus I: Secant to Tangent Derivative)
         MathematicalDebateScenario(
