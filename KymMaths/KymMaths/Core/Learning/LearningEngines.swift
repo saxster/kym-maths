@@ -801,10 +801,10 @@ public enum MathematicalDebateCatalog {
             ],
             invariantTakeaway: "In an internal transfer between two people, the sum of bar units is conserved, and moving Δ units changes their gap by 2Δ."
         ),
-        // Ch 12 -> OUP Ch 4 (Scale Drawings, Similarity & Trigonometry)
+        // Parked on ch 16 -> OUP Ch 4 (the only unit-4 debate, though it is about trigonometry); see CONTENT_PLAN amendment 5
         MathematicalDebateScenario(
             id: "debate-ch12-trig",
-            chapterNumber: 12,
+            chapterNumber: 16,
             oupUnitNumber: 4,
             title: "Scaling the Triangle vs Scaling the Sine",
             contextPrompt: "A right-angled triangle with legs 3 cm, 4 cm, and hypotenuse 5 cm is enlarged by scale factor 3 to become 9 cm, 12 cm, 15 cm. What happens to sin θ?",
@@ -908,42 +908,6 @@ public enum MathematicalDebateCatalog {
                 )
             ],
             invariantTakeaway: "Conditioning on event B restricts the denominator to ONLY the outcomes where B occurred: P(A|B) = |A ∩ B| / |B|."
-        ),
-        // Ch 16 -> OUP Ch 14 (Coordinate Geometry & Straight-Line Graphs)
-        MathematicalDebateScenario(
-            id: "debate-ch16-graphs",
-            chapterNumber: 16,
-            oupUnitNumber: 14,
-            title: "Perpendicular Gradients in the Plane",
-            contextPrompt: "Line L₁ has gradient m₁ = 2/3. Ira and Reyansh debate the gradient m₂ of a line L₂ perpendicular (at 90°) to L₁:",
-            speakerAName: "Reyansh",
-            speakerAClaim: "Flip the fraction upside down to get the reciprocal: m₂ = 3/2!",
-            speakerBName: "Ira",
-            speakerBClaim: "Rotating a right-angled slope triangle by 90° swaps rise and run AND reverses one sign: m₂ = −3/2 (so m₁ × m₂ = −1).",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch16-a",
-                    speakerLabel: "Reyansh is right (m₂ = +3/2)",
-                    reasoningStatement: "Perpendicular lines have reciprocal positive slopes.",
-                    isCorrect: false,
-                    socraticRebuttal: "Both +2/3 and +3/2 slope uphill from left to right—two uphill lines can never meet at 90°!"
-                ),
-                MathematicalDebateChoice(
-                    id: "ch16-b",
-                    speakerLabel: "Ira is right (m₂ = −3/2)",
-                    reasoningStatement: "A 90° rotation maps vector (3, 2) to (−2, 3), giving slope 3/(−2) = −3/2.",
-                    isCorrect: true,
-                    socraticRebuttal: "Exact! (2/3) × (−3/2) = −1."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch16-c",
-                    speakerLabel: "Neither — m₂ = −2/3",
-                    reasoningStatement: "Just negate the slope without flipping the fraction.",
-                    isCorrect: false,
-                    socraticRebuttal: "m = −2/3 is a reflection across the y-axis, not a 90° rotation!"
-                )
-            ],
-            invariantTakeaway: "Perpendicular lines satisfy m₁ × m₂ = −1 because rotating (Δx, Δy) by 90° gives (−Δy, Δx)."
         ),
         // Ch 17 -> OUP Ch 14 (Calculus I: Secant to Tangent Derivative)
         MathematicalDebateScenario(

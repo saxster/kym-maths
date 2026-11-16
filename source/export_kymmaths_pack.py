@@ -29,6 +29,7 @@ from book import ch08 as book_ch08
 from book import ch09 as book_ch09
 from book import ch10 as book_ch10
 from book import ch11 as book_ch11
+from book import ch12 as book_ch12
 from book import concepts as book_concepts
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -37,7 +38,7 @@ BOOK_OUT = ROOT / "KymMaths" / "KymMaths" / "Resources" / "PatternedWorldBook" /
 GOLDEN_OUT = ROOT / "KymMaths" / "Tests" / "Golden" / "concept-links.json"
 
 # Chapters rewritten by hand to docs/CONTENT_BRIEF.md. The content checks apply to these.
-BOOK_CHAPTERS = (book_ch00, book_ch01, book_ch02, book_ch03, book_ch04, book_ch05, book_ch06, book_ch07, book_ch08, book_ch09, book_ch10, book_ch11)
+BOOK_CHAPTERS = (book_ch00, book_ch01, book_ch02, book_ch03, book_ch04, book_ch05, book_ch06, book_ch07, book_ch08, book_ch09, book_ch10, book_ch11, book_ch12)
 # Saved learner responses key on callout ids, so a rewritten chapter keeps the old ids.
 CALLOUT_ID_SUFFIX = {"predict": "predict", "check": "aha", "careful": "trap"}
 
@@ -270,22 +271,6 @@ def build_volumes():
 
 def build_chapters():
     raw_specs = [
-        (
-            12, 3, "Shadows of the Circle: Pythagoras, Sine, Cosine & Radians",
-            "Advanced Geometry & Trig · @saxster/atlas unit-circle (8 pages): Pythagoras, SOHCAHTOA, unit-circle shadows, radians & Cosine Rule",
-            "Sine is the vertical shadow of a turning point on the unit circle; cosine is its horizontal shadow.",
-            "Open the @saxster/atlas 3D Unit Circle stage: shine level light from the right for sin θ, top light for cos θ, and unfold the three squares on the right triangle.",
-            "Because the hypotenuse of the unit-circle triangle is 1, the red vertical shadow is sin θ, the blue horizontal shadow is cos θ, and Pythagoras immediately gives sin²θ + cos²θ = 1² for every angle!",
-            "P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C",
-            [
-                {"symbol": "sin θ", "visualPart": "Red vertical shadow bar cast by level light", "colorRole": "red", "meaning": "y-coordinate of P on unit circle (Opposite / Hypotenuse)"},
-                {"symbol": "cos θ", "visualPart": "Blue horizontal shadow bar cast by top light", "colorRole": "blue", "meaning": "x-coordinate of P on unit circle (Adjacent / Hypotenuse)"},
-                {"symbol": "sin²θ + cos²θ = 1", "visualPart": "Red square + Blue square folding onto Grey radius square", "colorRole": "amber", "meaning": "Pythagorean identity on the unit circle"}
-            ],
-            "maths/ch16-trigonometry-unit-circle/index.html#1",
-            ["Pythagoras' Theorem", "Unit Circle", "Sine (sin θ)", "Cosine (cos θ)", "Tangent (tan θ)", "Radian (s = rθ)", "Pythagorean Identity", "Sine & Cosine Rules"],
-            ["w_atlas_unit_circle", "w_pythagoras_garfield_proof", "w_cosine_rule_generaliser"]
-        ),
         (
             13, 4, "How Not to Be Fooled by a Sample",
             "OUP Ch 4 · Sampling methods, bias forensics, Abraham Wald's bombers & @saxster/atlas σ/√n standard error",
@@ -4748,7 +4733,7 @@ const CH_SLIDERS = {{
   9:  [{{lbl:'Length of AB:',min:4,max:8,step:1,val:6,u:' cm'}}, {{lbl:'Compass opening:',min:2,max:5,step:0.5,val:4,u:' cm'}}, {{lbl:'Height of P above AB:',min:0,max:4,step:1,val:2,u:' cm'}}],
   10: [{{lbl:'Radius:',min:2,max:6,step:1,val:4,u:' cm'}}, {{lbl:'Number of slices:',min:4,max:24,step:2,val:12,u:''}}, {{lbl:'Angle of the green slice:',min:0,max:360,step:30,val:90,u:'°'}}],
   11: [{{lbl:'Scale factor:',min:0.5,max:3,step:0.5,val:2,u:''}}, {{lbl:'Centre across:',min:0,max:3,step:1,val:0,u:''}}, {{lbl:'Centre up:',min:0,max:2,step:1,val:0,u:''}}],
-  12: [{{lbl:'Leg a:',min:3,max:8,step:1,val:3,u:''}}, {{lbl:'Leg b:',min:3,max:8,step:1,val:4,u:''}}, {{lbl:'Angle θ:',min:0,max:360,step:15,val:50,u:'°'}}],
+  12: [{{lbl:'Angle θ:',min:0,max:90,step:5,val:30,u:'°'}}, {{lbl:'Radius:',min:2,max:4,step:1,val:2,u:''}}, {{lbl:'Compare with angle:',min:0,max:90,step:5,val:60,u:'°'}}],
   13: [{{lbl:'Pop SD σ:',min:6,max:24,step:2,val:12,u:''}}, {{lbl:'Sample size n:',min:4,max:64,step:4,val:16,u:''}}, {{lbl:'Engine hits:',min:0,max:5,step:1,val:1,u:''}}],
   14: [{{lbl:'Wide bin Δx₃:',min:10,max:40,step:5,val:25,u:'min'}}, {{lbl:'Wide bin freq f₃:',min:15,max:60,step:5,val:30,u:''}}, {{lbl:'IQR Q₃ − Q₁:',min:10,max:30,step:2,val:18,u:''}}],
   15: [{{lbl:'Galton rows n:',min:4,max:10,step:1,val:6,u:''}}, {{lbl:'Successes k:',min:0,max:6,step:1,val:3,u:''}}, {{lbl:'Drop prob p:',min:30,max:70,step:10,val:50,u:'%'}}],
@@ -5296,58 +5281,116 @@ function drawSandbox() {{
       tri(obj, blue, blue, 2);
       ctx.fillStyle = ink; ctx.beginPath(); ctx.arc(X(ccx), Y(ccy), 3.5, 0, 2 * Math.PI); ctx.fill();
       ctx.font = '600 11px -apple-system, BlinkMacSystemFont, sans-serif';
-      ctx.fillText('C', X(ccx) - 12, Y(ccy) + 4);
-      const offs = [[-13, 4], [4, 12], [-11, -3]];
-      ctx.fillStyle = blue; obj.forEach((p, i) => ctx.fillText(names[i], X(p[0]) + offs[i][0], Y(p[1]) + offs[i][1]));
+      // Place each label at the first spot round its point that clears every point and every label already placed
+      const dots = [[X(ccx), Y(ccy)], ...obj.map(([x, y]) => [X(x), Y(y)]), ...(k !== 1 ? img.map(([x, y]) => [X(x), Y(y)]) : [])];
+      const boxes = [];
+      const centroid = pts => [pts.reduce((s, p) => s + p[0], 0) / 3, pts.reduce((s, p) => s + p[1], 0) / 3];
+      const place = (text, px, py, away, colour) => {{
+        const w = ctx.measureText(text).width, h = 9;
+        const out = Math.atan2(py - away[1], px - away[0]);
+        const tries = [0, 1, -1, 2, -2, 3, -3, 4].map(n => out + n * Math.PI / 4);
+        let spot = null;
+        for (const dist of [9, 14, 20]) {{
+          for (const t of tries) {{
+            const cx = px + dist * Math.cos(t), cy = py + dist * Math.sin(t);
+            const b = [cx - w / 2, cy - h / 2, cx + w / 2, cy + h / 2];
+            const hitsBox = boxes.some(o => b[0] < o[2] + 2 && b[2] > o[0] - 2 && b[1] < o[3] + 2 && b[3] > o[1] - 2);
+            const hitsDot = dots.some(([dx, dy]) => dx > b[0] - 4 && dx < b[2] + 4 && dy > b[1] - 4 && dy < b[3] + 4);
+            if (!hitsBox && !hitsDot && b[3] < 156) {{ spot = b; break; }}
+          }}
+          if (spot) break;
+        }}
+        if (!spot) spot = [px + 5, py - 13, px + 5 + w, py - 4];
+        boxes.push(spot);
+        ctx.fillStyle = colour; ctx.fillText(text, spot[0], spot[3]);
+      }};
+      const objMid = centroid(obj.map(([x, y]) => [X(x), Y(y)]));
+      place('C', X(ccx), Y(ccy), objMid, ink);
+      obj.forEach((p, i) => place(names[i], X(p[0]), Y(p[1]), objMid, blue));
       if (k !== 1) {{
-        ctx.fillStyle = red; img.forEach((p, i) => ctx.fillText(names[i] + '′', X(p[0]) + offs[i][0] - 2, Y(p[1]) + offs[i][1]));
+        const imgMid = centroid(img.map(([x, y]) => [X(x), Y(y)]));
+        img.forEach((p, i) => place(names[i] + '′', X(p[0]), Y(p[1]), imgMid, red));
       }}
       ctx.restore();
       ctx.textAlign = 'left'; ctx.font = '600 12.5px -apple-system, BlinkMacSystemFont, sans-serif';
       ctx.fillStyle = ink; ctx.fillText(`Scale factor ${{fmt(k)}}, centre C at (${{ccx}}, ${{ccy}})`, 46, 168);
       ctx.fillStyle = blue; ctx.fillText(`PQ = 2 cm, so P′Q′ = ${{fmt(2 * k)}} cm`, 46, 194);
       ctx.fillStyle = red; ctx.fillText(`C to P′ is ${{fmt(k)}} times C to P`, 46, 212);
-      ctx.fillStyle = ink; ctx.fillText(`Area × ${{fmt(k * k)}}: 1 cm² becomes ${{fmt(k * k)}} cm²`, 46, 230);
+      ctx.fillStyle = ink; ctx.fillText(`1 cm² becomes ${{fmt(k)}} × ${{fmt(k)}} = ${{fmt(k * k)}} cm²`, 46, 230);
       ctx.fillStyle = green;
       ctx.fillText(whole ? `${{k * k}} copies of PQR fit inside P′Q′R′`
-        : k === 1 ? 'Scale factor 1: the same size as PQR'
-        : k < 1 ? 'Less than 1: smaller than PQR'
-        : 'Not whole: copies do not fit exactly', 46, 254);
+        : k === 1 ? 'Factor 1: the image covers PQR'
+        : k < 1 ? 'Below 1: the image is smaller'
+        : 'Copies fit only for whole factors', 46, 254);
       readoutHtml = `Scale factor <b>${{fmt(k)}}</b> · every length × ${{fmt(k)}} · every area × <b>${{fmt(k * k)}}</b>`;
       break;
     }}
     case 12: {{
-      // Ch 12: Unit Circle Shadows (cos, sin, tan) & Sine Wave Unrolling
-      const rad = (c * Math.PI) / 180, cosV = Math.cos(rad), sinV = Math.sin(rad);
-      const cx = 135, cy = 145, r = 84;
-      ctx.strokeStyle = muted; ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
-      const px = cx + r * cosV, py = cy - r * sinV;
-      ctx.strokeStyle = blue; ctx.lineWidth = 3.2;
-      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(px, cy); ctx.stroke();
-      ctx.strokeStyle = red;
-      ctx.beginPath(); ctx.moveTo(px, cy); ctx.lineTo(px, py); ctx.stroke();
-      ctx.strokeStyle = green;
-      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(px, py); ctx.stroke();
-      // Unrolled sine wave on right
-      const wx0 = 255, ww = 250;
-      ctx.strokeStyle = muted + '66'; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(wx0, cy); ctx.lineTo(wx0 + ww, cy); ctx.stroke();
-      ctx.strokeStyle = red; ctx.lineWidth = 2.2;
-      ctx.beginPath();
-      for (let d = 0; d <= 360; d += 4) {{
-        const sx = wx0 + (d / 360) * ww, sy = cy - r * Math.sin((d * Math.PI) / 180);
-        if (d === 0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
+      // Ch 12: a right-angled triangle under a point on a quarter circle; its sides give sin, cos and tan of θ
+      const deg = a, r = b, cmp = c, u = 28, ox = 60, oy = 135;
+      const fmt = v => String(Math.round(v * 1000) / 1000);
+      const fmt2 = v => String(Math.round(v * 100) / 100);
+      const S = d => (d === 90 ? 1 : Math.sin(d * Math.PI / 180)), C = d => (d === 90 ? 0 : Math.cos(d * Math.PI / 180));
+      const sinV = S(deg), cosV = C(deg), R = r * u;
+      const px = ox + R * cosV, py = oy - R * sinV;
+      ctx.save();
+      ctx.strokeStyle = muted; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox + 4 * u + 10, oy); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox, oy - 4 * u - 6); ctx.stroke();
+      ctx.lineWidth = 1.4; ctx.beginPath(); ctx.arc(ox, oy, R, -Math.PI / 2, 0); ctx.stroke();
+      if (cmp !== deg) {{
+        const qx = ox + R * C(cmp), qy = oy - R * S(cmp);
+        ctx.setLineDash([4, 4]); ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(qx, qy); ctx.lineTo(qx, oy); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = muted; ctx.beginPath(); ctx.arc(qx, qy, 3, 0, 2 * Math.PI); ctx.fill();
+        ctx.font = '600 10.5px -apple-system, BlinkMacSystemFont, sans-serif';
+        ctx.fillText(`${{cmp}}°`, qx + 6, qy - 4);
       }}
-      ctx.stroke();
-      const curWx = wx0 + (c / 360) * ww;
-      ctx.setLineDash([4, 3]); ctx.strokeStyle = amber;
-      ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(curWx, py); ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.fillStyle = red; ctx.beginPath(); ctx.arc(curWx, py, 5, 0, Math.PI * 2); ctx.fill();
-      const hyp = Math.hypot(a, b);
-      ctx.fillStyle = ink; ctx.fillText(`Pythagoras: √(${{a}}²+${{b}}²) = ${{hyp.toFixed(2)}} · sin²θ + cos²θ = 1.000`, 42, 258);
-      readoutHtml = `θ = ${{c}}° · <b style="color:${{blue}}">cos θ = ${{cosV.toFixed(3)}}</b> · <b style="color:${{red}}">sin θ = ${{sinV.toFixed(3)}}</b> · <b>cos²θ + sin²θ = 1.000</b>`;
+      if (deg > 0 && deg < 90) {{
+        ctx.strokeStyle = ink; ctx.lineWidth = 1;
+        const m = Math.min(6, R * cosV - 2, R * sinV - 2);
+        if (m > 2) ctx.strokeRect(px - m, oy - m, m, m);
+      }}
+      ctx.lineWidth = 2.6; ctx.strokeStyle = blue;
+      ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(px, oy); ctx.stroke();
+      ctx.strokeStyle = red;
+      ctx.beginPath(); ctx.moveTo(px, oy); ctx.lineTo(px, py); ctx.stroke();
+      ctx.strokeStyle = green;
+      ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(px, py); ctx.stroke();
+      if (deg > 0) {{
+        ctx.strokeStyle = ink; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.arc(ox, oy, 15, -deg * Math.PI / 180, 0); ctx.stroke();
+      }}
+      ctx.fillStyle = ink; ctx.beginPath(); ctx.arc(ox, oy, 3, 0, 2 * Math.PI); ctx.fill();
+      ctx.beginPath(); ctx.arc(px, py, 3.5, 0, 2 * Math.PI); ctx.fill();
+      ctx.font = '600 11px -apple-system, BlinkMacSystemFont, sans-serif';
+      ctx.fillText('O', ox - 14, oy + 4);
+      ctx.fillText('P', px + 6, py - 5);
+      const half = deg * Math.PI / 360;
+      if (deg >= 15) ctx.fillText('θ', ox + 21 * Math.cos(half) + 1, oy - 21 * Math.sin(half) + 4);
+      ctx.fillStyle = green;
+      ctx.fillText(`${{r}}`, ox + R * cosV / 2 - 11 * sinV - 4, oy - R * sinV / 2 - 11 * cosV + 2);
+      if (R * sinV > 12) {{
+        // Right of the red side if the arc leaves room, else inside the triangle, else just outside the arc
+        const txt = fmt2(r * sinV), w = ctx.measureText(txt).width, my = oy - R * sinV / 2;
+        const gap = R * (Math.sqrt(1 - sinV * sinV / 4) - cosV);
+        ctx.fillStyle = red;
+        if (gap > w + 8) ctx.fillText(txt, px + 5, my + 4);
+        else if (R * cosV / 2 > w + 10 && R * sinV > 28) {{ ctx.textAlign = 'right'; ctx.fillText(txt, px - 5, my + 4); ctx.textAlign = 'left'; }}
+        else ctx.fillText(txt, ox + R + 6, my + 4);
+      }}
+      if (R * cosV > 14) {{ ctx.fillStyle = blue; ctx.fillText(fmt2(r * cosV), ox + R * cosV / 2 - 8, oy + 13); }}
+      ctx.restore();
+      ctx.textAlign = 'left'; ctx.font = '600 12.5px -apple-system, BlinkMacSystemFont, sans-serif';
+      ctx.fillStyle = ink; ctx.fillText(`Angle θ = ${{deg}}°, radius ${{r}}`, 46, 168);
+      ctx.fillStyle = red; ctx.fillText(`sin θ = height ÷ radius = ${{fmt(sinV)}}`, 46, 194);
+      ctx.fillStyle = blue; ctx.fillText(`cos θ = across ÷ radius = ${{fmt(cosV)}}`, 46, 212);
+      ctx.fillStyle = ink;
+      ctx.fillText(deg === 90 ? 'tan 90°: across is 0, so no value' : `tan θ = height ÷ across = ${{fmt(sinV / cosV)}}`, 46, 230);
+      ctx.fillStyle = green;
+      ctx.fillText(`sin²θ + cos²θ = ${{fmt2(sinV * sinV)}} + ${{fmt2(cosV * cosV)}} = 1`, 46, 254);
+      readoutHtml = `sin ${{deg}}° = <b>${{fmt(sinV)}}</b> at every radius · dashed: sin ${{cmp}}° = <b>${{fmt(S(cmp))}}</b>`;
       break;
     }}
     case 13: {{

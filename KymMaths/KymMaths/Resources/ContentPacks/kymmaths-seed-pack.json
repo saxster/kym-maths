@@ -795,7 +795,7 @@
         "unlocks": [
           "Chapter 2: fractions and decimals that repeat",
           "Chapter 4: taking out a common factor in algebra",
-          "Chapter 12: Pythagoras, which needs square roots"
+          "Chapter 12: the longest side of a right-angled triangle, which needs square roots"
         ]
       },
       "intuitionToFormula": {
@@ -8258,87 +8258,776 @@
       "number": 12,
       "volumeNumber": 3,
       "volumeTitle": "Volume III · Euclid's Compass, Mensuration & Trigonometry",
-      "title": "Shadows of the Circle: Pythagoras, Sine, Cosine & Radians",
-      "subtitle": "Advanced Geometry & Trig · Atlas unit-circle (8 pages): Pythagoras, SOHCAHTOA, unit-circle shadows, radians & Cosine Rule",
-      "hookSummary": "Sine is the vertical shadow of a turning point on the unit circle; cosine is its horizontal shadow.",
+      "title": "Pythagoras and trigonometry",
+      "subtitle": "Beyond the school book · The longest side of a right-angled triangle, and the ratios that tie its sides to its angles",
+      "hookSummary": "A ladder 5 m long leans on a wall, with its foot 3 m out. How high up the wall does it reach, without climbing it?",
+      "beyondSchoolBook": true,
+      "skillCard": {
+        "skill": "Finding a missing side of a right-angled triangle, and linking its sides to its angles with sine, cosine and tangent",
+        "sheCan": {
+          "prompt": "With no calculator: a right-angled triangle has shorter sides of 5 cm and 12 cm. What is the length of its longest side? A ramp 10 m long makes 30° with the ground, and sin 30° = 0.5. How high does it rise?",
+          "answer": "5² + 12² = 25 + 144 = 169, and 13² = 169, so the longest side is 13 cm. The ramp rises 10 × 0.5 = 5 m."
+        },
+        "whyItMatters": "Builders, pilots and phone maps all find distances they cannot measure with a tape. They use a right-angled triangle and one of these rules.",
+        "standsOn": [
+          "Chapter 1: square numbers and square roots",
+          "Chapter 8: angles and the right angle",
+          "Chapter 10: the radius of a circle",
+          "Chapter 11: similar shapes, which keep their ratios"
+        ],
+        "unlocks": [
+          "Chapter 17: slopes of curves, measured like the steepness of a ramp",
+          "Chapter 19: vectors, whose lengths come from Pythagoras' theorem",
+          "Chapter 20: matrices that turn a shape, built from sine and cosine"
+        ]
+      },
       "intuitionToFormula": {
-        "concreteAction": "Open the 3D Unit Circle stage: shine level light from the right for sin θ, top light for cos θ, and unfold the three squares on the right triangle.",
-        "ahaInvariant": "Because the hypotenuse of the unit-circle triangle is 1, the red vertical shadow is sin θ, the blue horizontal shadow is cos θ, and Pythagoras immediately gives sin²θ + cos²θ = 1² for every angle!",
-        "formulaDisplay": "P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C",
+        "concreteAction": "Set the angle θ to 30° and the radius to 2. Then move the radius slider up to 4, one step at a time.",
+        "ahaInvariant": "The triangle grows, but its height ÷ radius stays 0.5 at 30°. The ratio belongs to the angle, not to the size of the triangle.",
+        "formulaDisplay": "sin θ = height ÷ radius,   cos θ = across ÷ radius,   sin²θ + cos²θ = 1",
         "termMappings": [
           {
             "symbol": "sin θ",
-            "visualPart": "Red vertical shadow bar cast by level light",
+            "visualPart": "The red side, straight up from the ground to P",
             "colorRole": "red",
-            "meaning": "y-coordinate of P on unit circle (Opposite / Hypotenuse)"
+            "meaning": "The height for every 1 unit of slope"
           },
           {
             "symbol": "cos θ",
-            "visualPart": "Blue horizontal shadow bar cast by top light",
+            "visualPart": "The blue side along the ground",
             "colorRole": "blue",
-            "meaning": "x-coordinate of P on unit circle (Adjacent / Hypotenuse)"
+            "meaning": "The distance across for every 1 unit of slope"
           },
           {
-            "symbol": "sin²θ + cos²θ = 1",
-            "visualPart": "Red square + Blue square folding onto Grey radius square",
-            "colorRole": "amber",
-            "meaning": "Pythagorean identity on the unit circle"
+            "symbol": "radius",
+            "visualPart": "The green slope from O to P",
+            "colorRole": "green",
+            "meaning": "The longest side, which the other two are divided by"
           }
         ],
-        "atlasFigureRef": "maths/ch16-trigonometry-unit-circle/index.html#1"
+        "atlasFigureRef": "maths/unit-circle/index.html#1"
       },
       "sections": [
         {
           "id": "ch12-s1",
-          "heading": "12.1 See it in a picture",
-          "excerpt": "Open the 3D Unit Circle stage: shine level light from the right for sin θ, top light for cos θ, and unfold the three squares on the right triangle. Because the hypotenuse of the unit-circle triangle is 1, the red vertical shadow is sin θ, the blue horizontal shadow is cos θ, and Pythagoras immediately gives sin²θ + cos²θ = 1² for every angle!"
+          "heading": "12.1 The longest side",
+          "excerpt": "The edge across from the square corner. The square corner is the biggest angle in the triangle, and the biggest angle faces the longest side.",
+          "teaches": [
+            "right-angled-triangle",
+            "hypotenuse"
+          ],
+          "steps": [
+            {
+              "id": "ch12-s1-question",
+              "kind": "question",
+              "text": "Pick up a set square. One of its corners is square, like the corner of a page. Which of its three edges is the longest?"
+            },
+            {
+              "id": "ch12-s1-idea",
+              "kind": "idea",
+              "text": "The edge across from the square corner. The square corner is the biggest angle in the triangle, and the biggest angle faces the longest side."
+            },
+            {
+              "id": "ch12-s1-picture",
+              "kind": "picture",
+              "text": "Draw a triangle with a square corner, with sides of 3 cm and 4 cm along it. Join their ends and measure the third side. It is 5 cm."
+            },
+            {
+              "id": "ch12-s1-reason",
+              "kind": "reason",
+              "text": "Why must it be the longest? The other two angles add up to 90°, so each is smaller than the square corner. A smaller angle faces a shorter side."
+            },
+            {
+              "id": "ch12-s1-name",
+              "kind": "name",
+              "text": "A triangle with one 90° corner is a right-angled triangle. The side across from the right angle is the hypotenuse, and it is always the longest side."
+            },
+            {
+              "id": "ch12-s1-example",
+              "kind": "example",
+              "text": "A triangle has sides of 6 cm, 8 cm and 10 cm, with the right angle between the 6 cm and 8 cm sides. The 10 cm side faces it, so 10 cm is the hypotenuse."
+            },
+            {
+              "id": "ch12-s1-mistake",
+              "kind": "mistake",
+              "text": "The tempting slip is to call the side at the bottom of the drawing the hypotenuse. Find the right angle first. The hypotenuse is the side that does not touch it."
+            },
+            {
+              "id": "ch12-s1-turn",
+              "kind": "turn",
+              "text": "A right-angled triangle has angles of 90° and 35°. What is its third angle, in degrees?",
+              "answer": "55°",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "55"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "55",
+                  "55°",
+                  "55 degrees"
+                ],
+                "rejects": [
+                  "125",
+                  "145",
+                  "35"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch12-s1-sayBack",
+              "kind": "sayBack",
+              "text": "In a right-angled triangle, the side across from the right angle is the hypotenuse, the longest side."
+            }
+          ]
         },
         {
           "id": "ch12-s2",
-          "heading": "12.2 Write it in symbols",
-          "excerpt": "Every piece of the geometry locks onto a symbol in P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C. Once you see why each term exists, you never have to guess a sign or denominator."
+          "heading": "12.2 Squares on the sides",
+          "excerpt": "4 m. Draw a square on each side of the triangle. The two small squares together cover exactly as much as the big one.",
+          "teaches": [
+            "pythagoras-theorem"
+          ],
+          "steps": [
+            {
+              "id": "ch12-s2-question",
+              "kind": "question",
+              "text": "A ladder 5 m long leans on a wall, with its foot 3 m out from the wall. How high up the wall does it reach?"
+            },
+            {
+              "id": "ch12-s2-idea",
+              "kind": "idea",
+              "text": "4 m. Draw a square on each side of the triangle. The two small squares together cover exactly as much as the big one."
+            },
+            {
+              "id": "ch12-s2-picture",
+              "kind": "picture",
+              "text": "On squared paper, draw the 3, 4, 5 triangle and a square on each side. Count the small squares: 9 and 16 on the short sides, 25 on the longest."
+            },
+            {
+              "id": "ch12-s2-reason",
+              "kind": "reason",
+              "text": "Why does it always work? Four copies of the triangle fit round a tilted square inside a big square. Move them and the space left over becomes the two smaller squares."
+            },
+            {
+              "id": "ch12-s2-name",
+              "kind": "name",
+              "text": "This is Pythagoras' theorem. In a right-angled triangle with shorter sides a and b and hypotenuse c, a² + b² = c²."
+            },
+            {
+              "id": "ch12-s2-example",
+              "kind": "example",
+              "text": "The shorter sides are 5 cm and 12 cm. Then c² = 25 + 144 = 169, and the square root of 169 is 13. So the hypotenuse is 13 cm."
+            },
+            {
+              "id": "ch12-s2-mistake",
+              "kind": "mistake",
+              "text": "The tempting slip is to add the sides themselves. 3 + 4 = 7, but the hypotenuse of the 3, 4, 5 triangle is 5. Square the sides first."
+            },
+            {
+              "id": "ch12-s2-turn",
+              "kind": "turn",
+              "text": "A right-angled triangle has shorter sides of 6 cm and 8 cm. How long is its hypotenuse?",
+              "answer": "10 cm",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "10"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "10",
+                  "10 cm",
+                  "10cm"
+                ],
+                "rejects": [
+                  "14",
+                  "100",
+                  "48"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch12-s2-sayBack",
+              "kind": "sayBack",
+              "text": "The two shorter sides squared and added make the hypotenuse squared: a² + b² = c²."
+            }
+          ]
         },
         {
           "id": "ch12-s3",
-          "heading": "12.3 Bar models and stretch problems",
-          "excerpt": "Apply Shadows of the Circle: Pythagoras, Sine, Cosine & Radians across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions."
+          "heading": "12.3 How steep is a ramp",
+          "excerpt": "Neither. Both rise a quarter of a metre for every metre along, so they make the same angle with the ground.",
+          "teaches": [
+            "theta",
+            "tangent"
+          ],
+          "steps": [
+            {
+              "id": "ch12-s3-question",
+              "kind": "question",
+              "text": "One ramp rises 1 m for every 4 m along the ground. Another rises 2 m for every 8 m. Which is steeper?"
+            },
+            {
+              "id": "ch12-s3-idea",
+              "kind": "idea",
+              "text": "Neither. Both rise a quarter of a metre for every metre along, so they make the same angle with the ground."
+            },
+            {
+              "id": "ch12-s3-picture",
+              "kind": "picture",
+              "text": "Draw a ramp 4 cm along and 1 cm up, and another 8 cm along and 2 cm up. Measure the angle at the bottom of each with a protractor."
+            },
+            {
+              "id": "ch12-s3-reason",
+              "kind": "reason",
+              "text": "Why the same angle? The big ramp is an enlargement of the small one with scale factor 2. Its rise and its run double together, so rise ÷ run stays the same."
+            },
+            {
+              "id": "ch12-s3-name",
+              "kind": "name",
+              "text": "The angle we are working with is often called θ, said theta. The rise ÷ the run is the tangent of θ, written tan θ. Each angle has its own tangent."
+            },
+            {
+              "id": "ch12-s3-example",
+              "kind": "example",
+              "text": "A ramp rises 2 m over 5 m along the ground. tan θ = 2 ÷ 5 = 0.4. Any ramp that rises 0.4 m per metre along makes the same angle θ."
+            },
+            {
+              "id": "ch12-s3-mistake",
+              "kind": "mistake",
+              "text": "The tempting slip is to divide the run by the rise. The rise goes on top, so a gentle ramp has a small tangent."
+            },
+            {
+              "id": "ch12-s3-turn",
+              "kind": "turn",
+              "text": "A ramp rises 3 m over 4 m along the ground. What is tan θ?",
+              "answer": "0.75",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "0.75"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "0.75",
+                  "3/4",
+                  "tan θ = 0.75"
+                ],
+                "rejects": [
+                  "1.33",
+                  "7",
+                  "12"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch12-s3-sayBack",
+              "kind": "sayBack",
+              "text": "tan θ is the rise ÷ the run. It depends on the angle θ, not on how big the ramp is."
+            }
+          ]
+        },
+        {
+          "id": "ch12-s4",
+          "heading": "12.4 Height for every metre of slope",
+          "excerpt": "Half a metre. At 30°, a ladder reaches up half of its own length, however long the ladder is.",
+          "teaches": [
+            "sine",
+            "cosine"
+          ],
+          "steps": [
+            {
+              "id": "ch12-s4-question",
+              "kind": "question",
+              "text": "A ladder leans at 30° to the ground. How high does it reach for every metre of its length?"
+            },
+            {
+              "id": "ch12-s4-idea",
+              "kind": "idea",
+              "text": "Half a metre. At 30°, a ladder reaches up half of its own length, however long the ladder is."
+            },
+            {
+              "id": "ch12-s4-picture",
+              "kind": "picture",
+              "text": "In the figure, set θ to 30° and the radius to 2. The red height is 1. Move the radius up to 4: the height grows to 2, and height ÷ radius stays 0.5."
+            },
+            {
+              "id": "ch12-s4-reason",
+              "kind": "reason",
+              "text": "Why does the ratio stay? Each bigger triangle is an enlargement of the first. Every side is multiplied by the same scale factor, so their ratios do not change."
+            },
+            {
+              "id": "ch12-s4-name",
+              "kind": "name",
+              "text": "The height ÷ the slope is the sine of θ, written sin θ. The distance across ÷ the slope is the cosine of θ, written cos θ. So sin 30° = 0.5."
+            },
+            {
+              "id": "ch12-s4-example",
+              "kind": "example",
+              "text": "A ladder 6 m long makes 30° with the ground. Its top is 6 × sin 30° = 6 × 0.5 = 3 m up the wall."
+            },
+            {
+              "id": "ch12-s4-mistake",
+              "kind": "mistake",
+              "text": "The tempting slip is to divide by the side along the ground. Sine and cosine divide by the slope, the hypotenuse. Only tangent divides by the run."
+            },
+            {
+              "id": "ch12-s4-turn",
+              "kind": "turn",
+              "text": "A ramp 8 m long makes 30° with the ground, and sin 30° = 0.5. How high does it rise?",
+              "answer": "4 m",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "4"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "4",
+                  "4 m",
+                  "4m"
+                ],
+                "rejects": [
+                  "16",
+                  "8",
+                  "0.5"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch12-s4-sayBack",
+              "kind": "sayBack",
+              "text": "sin θ is height ÷ hypotenuse and cos θ is across ÷ hypotenuse. Both belong to the angle, whatever the size."
+            }
+          ],
+          "figure": true
+        },
+        {
+          "id": "ch12-s5",
+          "heading": "12.5 One circle for every angle",
+          "excerpt": "Your spoke is the hypotenuse, 1 unit long. So your height is sin θ and your distance across is cos θ.",
+          "teaches": [
+            "unit-circle",
+            "pythagorean-identity"
+          ],
+          "steps": [
+            {
+              "id": "ch12-s5-question",
+              "kind": "question",
+              "text": "You sit on a Ferris wheel whose spokes are 1 unit long. As it turns, how high above the hub and how far to the side are you?"
+            },
+            {
+              "id": "ch12-s5-idea",
+              "kind": "idea",
+              "text": "Your spoke is the hypotenuse, 1 unit long. So your height is sin θ and your distance across is cos θ."
+            },
+            {
+              "id": "ch12-s5-picture",
+              "kind": "picture",
+              "text": "Draw a circle of radius 10 cm centred on (0, 0). Mark the point at 30° round from the right. Measure its height, 5 cm, and its distance across, about 8.7 cm."
+            },
+            {
+              "id": "ch12-s5-reason",
+              "kind": "reason",
+              "text": "Why do the squares add up to 1? The height, the distance across and the spoke make a right-angled triangle. Pythagoras' theorem says height² + across² = 1²."
+            },
+            {
+              "id": "ch12-s5-name",
+              "kind": "name",
+              "text": "A circle of radius 1 centred on (0, 0) is the unit circle. The point at angle θ is (cos θ, sin θ). The rule sin²θ + cos²θ = 1 is the Pythagorean identity."
+            },
+            {
+              "id": "ch12-s5-example",
+              "kind": "example",
+              "text": "At 30°, sin θ = 0.5, so sin²θ = 0.25. Then cos²θ = 1 − 0.25 = 0.75, and cos 30° is about 0.866."
+            },
+            {
+              "id": "ch12-s5-mistake",
+              "kind": "mistake",
+              "text": "The tempting slip is to think sin θ + cos θ = 1. At 30° that would make cos 30° = 0.5. It is the squares that add to 1."
+            },
+            {
+              "id": "ch12-s5-turn",
+              "kind": "turn",
+              "text": "For an angle less than 90°, sin θ = 0.6. Use sin²θ + cos²θ = 1 to find cos θ.",
+              "answer": "0.8",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "0.8"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "0.8",
+                  "cos θ = 0.8",
+                  "4/5"
+                ],
+                "rejects": [
+                  "0.4",
+                  "0.64",
+                  "0.36"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch12-s5-sayBack",
+              "kind": "sayBack",
+              "text": "On the unit circle the point at angle θ is (cos θ, sin θ), and sin²θ + cos²θ = 1 at every angle."
+            }
+          ]
+        },
+        {
+          "id": "ch12-s6",
+          "heading": "12.6 Measuring a turn by its arc",
+          "excerpt": "A little less than 60°, about 57°. The angle depends only on how many radii fit along the arc, not on the size of the circle.",
+          "teaches": [
+            "radian"
+          ],
+          "steps": [
+            {
+              "id": "ch12-s6-question",
+              "kind": "question",
+              "text": "Cut a piece of string as long as a circle's radius, and lay it round the edge of the circle. What angle does it make at the centre?"
+            },
+            {
+              "id": "ch12-s6-idea",
+              "kind": "idea",
+              "text": "A little less than 60°, about 57°. The angle depends only on how many radii fit along the arc, not on the size of the circle."
+            },
+            {
+              "id": "ch12-s6-picture",
+              "kind": "picture",
+              "text": "Draw a circle of radius 5 cm and bend a 5 cm strip of paper along its edge. Join both ends of the strip to the centre and measure the angle."
+            },
+            {
+              "id": "ch12-s6-reason",
+              "kind": "reason",
+              "text": "Why about 57°? The whole circumference is 2π radii long, about 6.28 of them. So one radius of arc is 360° ÷ 6.28, about 57.3°."
+            },
+            {
+              "id": "ch12-s6-name",
+              "kind": "name",
+              "text": "An angle whose arc is one radius long is 1 radian. A full turn is 2π radians and a half turn is π radians."
+            },
+            {
+              "id": "ch12-s6-example",
+              "kind": "example",
+              "text": "A half turn is 180°, which is π radians, about 3.14. So 90°, half of that, is π ÷ 2 radians, about 1.57."
+            },
+            {
+              "id": "ch12-s6-mistake",
+              "kind": "mistake",
+              "text": "The tempting slip is to read 1 radian as 1°. A radian is far bigger: about 57 degrees fit inside it."
+            },
+            {
+              "id": "ch12-s6-turn",
+              "kind": "turn",
+              "text": "A full turn is 2π radians, about 6.28. How many radians is a quarter turn, to 2 decimal places?",
+              "answer": "1.57",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "1.57"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "1.57",
+                  "1.57 radians",
+                  "about 1.57"
+                ],
+                "rejects": [
+                  "90",
+                  "3.14",
+                  "6.28"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch12-s6-sayBack",
+              "kind": "sayBack",
+              "text": "One radian is the angle whose arc is one radius long. A full turn is 2π radians."
+            }
+          ]
+        },
+        {
+          "id": "ch12-s7",
+          "heading": "12.7 Triangles with no right angle",
+          "excerpt": "Yes. Drop a line from one corner straight down to the opposite side. That splits the field into two right-angled triangles that share their height.",
+          "teaches": [
+            "sine-rule"
+          ],
+          "steps": [
+            {
+              "id": "ch12-s7-question",
+              "kind": "question",
+              "text": "A field is a triangle with no square corner. Can you still find a side you cannot reach from a side and two angles you can measure?"
+            },
+            {
+              "id": "ch12-s7-idea",
+              "kind": "idea",
+              "text": "Yes. Drop a line from one corner straight down to the opposite side. That splits the field into two right-angled triangles that share their height."
+            },
+            {
+              "id": "ch12-s7-picture",
+              "kind": "picture",
+              "text": "Draw any triangle ABC and drop a line from C straight down to AB. Label the side across from A as a, and the side across from B as b."
+            },
+            {
+              "id": "ch12-s7-reason",
+              "kind": "reason",
+              "text": "Why do the two sides match up? The shared height is b × sin A in one triangle and a × sin B in the other. So b × sin A = a × sin B."
+            },
+            {
+              "id": "ch12-s7-name",
+              "kind": "name",
+              "text": "Divide both sides and you get the sine rule: a ÷ sin A = b ÷ sin B = c ÷ sin C. Each side ÷ the sine of the angle across from it gives the same number."
+            },
+            {
+              "id": "ch12-s7-example",
+              "kind": "example",
+              "text": "In a triangle, a = 6 cm, sin A = 0.5 and sin B = 0.8. Then b = 6 × 0.8 ÷ 0.5 = 9.6 cm."
+            },
+            {
+              "id": "ch12-s7-mistake",
+              "kind": "mistake",
+              "text": "The tempting slip is to pair a side with an angle at one of its own ends. Each side goes with the angle across from it."
+            },
+            {
+              "id": "ch12-s7-turn",
+              "kind": "turn",
+              "text": "In a triangle, a = 8 cm, sin A = 0.4 and sin B = 0.6. Use the sine rule to find b.",
+              "answer": "12 cm",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "12"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "12",
+                  "12 cm",
+                  "b = 12"
+                ],
+                "rejects": [
+                  "5.33",
+                  "4.8",
+                  "3.2"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch12-s7-sayBack",
+              "kind": "sayBack",
+              "text": "In any triangle, each side ÷ the sine of the angle across from it gives the same number."
+            }
+          ]
+        },
+        {
+          "id": "ch12-s8",
+          "heading": "12.8 Pythagoras with a correction",
+          "excerpt": "7 cm. With a right angle it would be about 9.4 cm, from Pythagoras' theorem. A smaller angle pulls the ends closer, so you take something away.",
+          "teaches": [
+            "cosine-rule"
+          ],
+          "steps": [
+            {
+              "id": "ch12-s8-question",
+              "kind": "question",
+              "text": "Two sides of a triangle are 5 cm and 8 cm, with 60° between them. How long is the third side?"
+            },
+            {
+              "id": "ch12-s8-idea",
+              "kind": "idea",
+              "text": "7 cm. With a right angle it would be about 9.4 cm, from Pythagoras' theorem. A smaller angle pulls the ends closer, so you take something away."
+            },
+            {
+              "id": "ch12-s8-picture",
+              "kind": "picture",
+              "text": "Hinge two sticks of 5 cm and 8 cm together. Open them to 90°, then close them to 60°. Watch the gap between their free ends shrink."
+            },
+            {
+              "id": "ch12-s8-reason",
+              "kind": "reason",
+              "text": "Why take away 2ab cos C? Cosine measures how much one side leans along the other. At 90° the lean is zero and the rule turns back into Pythagoras' theorem."
+            },
+            {
+              "id": "ch12-s8-name",
+              "kind": "name",
+              "text": "The cosine rule says c² = a² + b² − 2ab cos C, where C is the angle between sides a and b."
+            },
+            {
+              "id": "ch12-s8-example",
+              "kind": "example",
+              "text": "Sides of 3 cm and 5 cm meet at 60°, and cos 60° = 0.5. Then c² = 9 + 25 − 2 × 3 × 5 × 0.5 = 19, so c is about 4.36 cm."
+            },
+            {
+              "id": "ch12-s8-mistake",
+              "kind": "mistake",
+              "text": "The tempting slip is to use an angle that is not between the two known sides. The angle C must sit where sides a and b meet."
+            },
+            {
+              "id": "ch12-s8-turn",
+              "kind": "turn",
+              "text": "Sides of 5 cm and 8 cm meet at 60°, and cos 60° = 0.5. Use the cosine rule to find the third side.",
+              "answer": "7 cm",
+              "answerKey": {
+                "parts": [
+                  {
+                    "label": "answer",
+                    "anyOf": [
+                      {
+                        "kind": "number",
+                        "value": "7"
+                      }
+                    ]
+                  }
+                ],
+                "accepts": [
+                  "7",
+                  "7 cm",
+                  "c = 7"
+                ],
+                "rejects": [
+                  "49",
+                  "9.43",
+                  "13"
+                ],
+                "mistakes": []
+              }
+            },
+            {
+              "id": "ch12-s8-sayBack",
+              "kind": "sayBack",
+              "text": "The cosine rule c² = a² + b² − 2ab cos C is Pythagoras' theorem with a correction for the angle."
+            }
+          ]
         }
       ],
       "callouts": [
         {
           "id": "ch12-c-predict",
           "kind": "predict",
-          "title": "Predict Before You Drag",
-          "body": "Before moving the slider in 3D Atlas: Unit Circle, predict which geometric quantity changes and which invariant stays locked."
+          "title": "Predict first",
+          "body": "Set θ to 45°. Predict whether the red height or the blue side along the ground will be longer, then look."
         },
         {
           "id": "ch12-c-aha",
           "kind": "check",
-          "title": "The Intuition → Formula Bridge",
-          "body": "Because the hypotenuse of the unit-circle triangle is 1, the red vertical shadow is sin θ, the blue horizontal shadow is cos θ, and Pythagoras immediately gives sin²θ + cos²θ = 1² for every angle! Formula: P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C"
+          "title": "Explain it",
+          "body": "Explain to a friend why sin 30° is 0.5 in every right-angled triangle with a 30° angle, from a set square to a mountain."
         },
         {
           "id": "ch12-c-trap",
           "kind": "careful",
-          "title": "Classic Algebraic Trap to Avoid",
-          "body": "Whenever a formula in Chapter 12 looks tempting to shortcut, test a concrete 2×2 area or small integer example (x = 2, y = 3) first!"
+          "title": "Name the angle first",
+          "body": "The side across from an angle and the side beside it swap when you move to the other angle. Name the angle you are working with, then name its sides."
         }
       ],
       "keyTerms": [
-        "Pythagoras' Theorem",
-        "Unit Circle",
-        "Sine (sin θ)",
-        "Cosine (cos θ)",
-        "Tangent (tan θ)",
-        "Radian (s = rθ)",
-        "Pythagorean Identity",
-        "Sine & Cosine Rules"
+        "Right-angled triangle",
+        "Hypotenuse",
+        "Pythagoras' theorem",
+        "Theta",
+        "Tangent",
+        "Sine",
+        "Cosine",
+        "Unit circle",
+        "Pythagorean identity",
+        "Radian",
+        "Sine rule",
+        "Cosine rule"
       ],
       "widgets": [
         "w_atlas_unit_circle",
         "w_pythagoras_garfield_proof",
         "w_cosine_rule_generaliser"
-      ]
+      ],
+      "debate": {
+        "id": "debate-ch12-pythagoras-trig",
+        "chapterNumber": 12,
+        "oupUnitNumber": 8,
+        "title": "Double the angle, double the sine?",
+        "contextPrompt": "sin 30° = 0.5. Asha and Rohan argue about sin 60°.",
+        "speakerAName": "Asha",
+        "speakerAClaim": "60° is twice 30°, so sin 60° is twice 0.5. That makes it 1.",
+        "speakerBName": "Rohan",
+        "speakerBClaim": "sin 60° can't be 1. That would make the height as long as the slope, and only 90° does that.",
+        "choices": [
+          {
+            "id": "ch12-a",
+            "speakerLabel": "Asha is right (sin 60° = 1)",
+            "reasoningStatement": "The angle doubles, so the height for every metre of slope doubles too.",
+            "isCorrect": false,
+            "socraticRebuttal": "If sin 60° were 1, the height would equal the slope. What would sin 90° be, and could any height be longer than the slope?"
+          },
+          {
+            "id": "ch12-b",
+            "speakerLabel": "Rohan is right (sin 60° is less than 1)",
+            "reasoningStatement": "The height can never be longer than the slope, and only a 90° angle makes them equal.",
+            "isCorrect": true,
+            "socraticRebuttal": "Yes. sin 60° is about 0.866. Doubling an angle does not double its sine: the height grows more and more slowly near 90°."
+          },
+          {
+            "id": "ch12-c",
+            "speakerLabel": "Neither. It depends how big the triangle is.",
+            "reasoningStatement": "A bigger triangle has a bigger height.",
+            "isCorrect": false,
+            "socraticRebuttal": "A bigger triangle has a longer slope too. What happens to height ÷ slope when both grow by the same scale factor?"
+          }
+        ],
+        "invariantTakeaway": "A sine belongs to its angle, but it does not grow in step with it: sin 60° is about 0.866, not twice sin 30°."
+      }
     },
     {
       "id": "ch13",
@@ -9702,52 +10391,52 @@
     {
       "id": "atlas-ch12-1",
       "widget": "w_atlas_unit_circle",
-      "title": "Ch 12.1 · Shadows of the Circle: Pythagoras, Sine, Cosine & Radians (Concrete Manipulation)",
+      "title": "Chapter 12 · The squares on a right-angled triangle",
       "chapter": 12,
       "figure": "maths/ch16-trigonometry-unit-circle/index.html#1",
-      "question": "How does touching the geometry of Shadows of the Circle: Pythagoras, Sine, Cosine & Radians reveal its structure?",
-      "explanation": "Open the 3D Unit Circle stage: shine level light from the right for sin θ, top light for cos θ, and unfold the three squares on the right triangle.",
-      "limits": "Formula: P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C",
+      "question": "Why do the squares on the two shorter sides add up to the square on the hypotenuse?",
+      "explanation": "Four copies of the triangle fit round a tilted square inside a bigger square. Moved around, they leave two smaller squares uncovered instead, with the same area.",
+      "limits": "The rule: a² + b² = c² works only when the angle between a and b is 90°",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
         "Atlas figures"
       ],
       "stories": [
-        "Sine is the vertical shadow of a turning point on the unit circle; cosine is its horizontal shadow."
+        "A ladder 5 m long leans on a wall, with its foot 3 m out. How high up the wall does it reach, without climbing it?"
       ]
     },
     {
       "id": "atlas-ch12-2",
       "widget": "w_atlas_unit_circle",
-      "title": "Ch 12.2 · Shadows of the Circle: Pythagoras, Sine, Cosine & Radians (The Visual 'Aha!' Invariant)",
+      "title": "Chapter 12 · Ratios that belong to an angle",
       "chapter": 12,
       "figure": "maths/ch16-trigonometry-unit-circle/index.html#1",
-      "question": "What stays constant in Shadows of the Circle: Pythagoras, Sine, Cosine & Radians when you deform or slice the figure?",
-      "explanation": "Because the hypotenuse of the unit-circle triangle is 1, the red vertical shadow is sin θ, the blue horizontal shadow is cos θ, and Pythagoras immediately gives sin²θ + cos²θ = 1² for every angle!",
-      "limits": "Formula: P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C",
+      "question": "Why is sin 30° the same in a set square and in a mountain?",
+      "explanation": "Any two right-angled triangles with a 30° angle are similar shapes. One is an enlargement of the other, so height ÷ hypotenuse is the same in both.",
+      "limits": "The rule: sin θ, cos θ and tan θ depend only on the angle θ",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
         "Atlas figures"
       ],
       "stories": [
-        "Sine is the vertical shadow of a turning point on the unit circle; cosine is its horizontal shadow."
+        "A ladder 5 m long leans on a wall, with its foot 3 m out. How high up the wall does it reach, without climbing it?"
       ]
     },
     {
       "id": "atlas-ch12-3",
       "widget": "w_atlas_unit_circle",
-      "title": "Ch 12.3 · Shadows of the Circle: Pythagoras, Sine, Cosine & Radians (Symbolic Formula Lockstep)",
+      "title": "Chapter 12 · The point on the circle",
       "chapter": 12,
       "figure": "maths/ch16-trigonometry-unit-circle/index.html#1",
-      "question": "How does the picture translate term-by-term into P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C?",
-      "explanation": "Every term in P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C corresponds to a colour-coded geometric part in maths/ch16-trigonometry-unit-circle/index.html#1.",
-      "limits": "Formula: P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C",
+      "question": "Why is the point at angle θ on the unit circle at (cos θ, sin θ)?",
+      "explanation": "Its radius is 1 and is the hypotenuse of the triangle under it. Height ÷ 1 is sin θ and across ÷ 1 is cos θ.",
+      "limits": "The rule: sin²θ + cos²θ = 1 at every angle",
       "sources": [
         "Oxford Complete Mathematics 8 (2nd Ed.)",
         "Atlas figures"
       ],
       "stories": [
-        "Sine is the vertical shadow of a turning point on the unit circle; cosine is its horizontal shadow."
+        "A ladder 5 m long leans on a wall, with its foot 3 m out. How high up the wall does it reach, without climbing it?"
       ]
     },
     {
@@ -11058,97 +11747,97 @@
     },
     {
       "id": "w_atlas_unit_circle",
-      "title": "3D Atlas: Unit Circle",
+      "title": "A point that goes round",
       "chapter": 12,
       "is3D": true,
       "atlasRoute": "maths/ch16-trigonometry-unit-circle/index.html#1",
-      "challengePrompt": "Manipulate 3D Atlas: Unit Circle until the visual invariant locks in, then verify P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C.",
-      "cutaway": "Intuition → Formula Lockstep: Because the hypotenuse of the unit-circle triangle is 1, the red vertical shadow is sin θ, the blue horizontal shadow is cos θ, and Pythagoras immediately gives sin²θ + cos²θ = 1² for every angle!",
-      "idealised": "Formula Anatomy: P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C",
+      "challengePrompt": "Turn the point round the circle. Before you start, predict the angle where its height is greatest.",
+      "cutaway": "The point sits on a circle of radius 1. Its height above the centre is sin θ, and its distance across is cos θ.",
+      "idealised": "The rule: the point at angle θ on the unit circle is (cos θ, sin θ)",
       "watchSteps": [
         {
-          "title": "1. Concrete Touch",
-          "caption": "Open the 3D Unit Circle stage: shine level light from the right for sin θ, top light for cos θ, and unfold the three squares on the right triangle."
+          "title": "1. Try it",
+          "caption": "Turn the point slowly from 0° round to 90°."
         },
         {
-          "title": "2. Spot the Invariant ('Aha!')",
-          "caption": "Because the hypotenuse of the unit-circle triangle is 1, the red vertical shadow is sin θ, the blue horizontal shadow is cos θ, and Pythagoras immediately gives sin²θ + cos²θ = 1² for every angle!"
+          "title": "2. Notice",
+          "caption": "The height grows from 0 to 1, and the distance across shrinks from 1 to 0."
         },
         {
-          "title": "3. Colour-Map the Symbols",
-          "caption": "Match red, blue, amber, and green geometry to P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C."
+          "title": "3. Match the rule",
+          "caption": "Height is sin θ and distance across is cos θ, because the radius is 1."
         },
         {
-          "title": "4. Test a Boundary Case",
-          "caption": "Push the slider to 0, 1, or 90° and verify that the formula predicts the exact extreme state."
+          "title": "4. Push it further",
+          "caption": "Turn past 90°. Predict which of the two becomes negative first."
         },
         {
-          "title": "5. Stamp & Sketch in Journal",
-          "caption": "Freeze the state into your Cornell Proof & Construction Journal."
+          "title": "5. Draw it",
+          "caption": "Draw a circle of radius 10 cm and mark the points at 30°, 45° and 60°."
         }
       ]
     },
     {
       "id": "w_pythagoras_garfield_proof",
-      "title": "Pythagoras: Three Squares Under P",
+      "title": "Three squares on one triangle",
       "chapter": 12,
       "is3D": true,
       "atlasRoute": "maths/unit-circle/index.html#3",
-      "challengePrompt": "Watch P sway between 20° and 70° on the unit circle and follow the three squares on the right triangle under P. Check that the red square and the blue square together always cover the grey square on the radius: sin²θ + cos²θ = 1.",
-      "cutaway": "This page shows Pythagoras on one right triangle, the one with hypotenuse 1. Its sides are cos θ across (blue) and sin θ up (red), so the squares on them are cos²θ and sin²θ, and together they match the grey 1² square on the radius. It checks the theorem at every angle; it does not prove it.",
-      "idealised": "Formula Anatomy: sin²θ + cos²θ = 1², the squares on the two legs and the hypotenuse of the triangle under P",
+      "challengePrompt": "Look at the triangle under the point on the circle. Predict what the squares on its two shorter sides add up to.",
+      "cutaway": "The triangle under the point has a hypotenuse of 1, the radius. Its shorter sides are sin θ and cos θ, so their squares add to 1² = 1.",
+      "idealised": "The rule: a² + b² = c², so sin²θ + cos²θ = 1",
       "watchSteps": [
         {
-          "title": "1. Concrete Touch",
-          "caption": "Click the triangle under P: the red, blue and grey squares fold part way up off the board."
+          "title": "1. Try it",
+          "caption": "Move the point and watch the three squares change size."
         },
         {
-          "title": "2. Spot the Invariant ('Aha!')",
-          "caption": "Red plus blue covers grey at every angle. At 30°: (½)² + (√3/2)² = ¼ + ¾ = 1."
+          "title": "2. Notice",
+          "caption": "The two small squares trade area, but the big square on the radius stays the same."
         },
         {
-          "title": "3. Colour-Map the Symbols",
-          "caption": "Red is the square on the side up, sin θ. Blue is the square on the side across, cos θ. Grey is the square on the radius, 1."
+          "title": "3. Match the rule",
+          "caption": "The square on the radius is 1 × 1 = 1, so the two small squares add to 1."
         },
         {
-          "title": "4. Test a Boundary Case",
-          "caption": "On paper, take θ = 0°: the red square vanishes and the blue square is the whole grey one, 0 + 1 = 1."
+          "title": "4. Push it further",
+          "caption": "Find the angle where the two small squares are equal. Predict it first."
         },
         {
-          "title": "5. Stamp & Sketch in Journal",
-          "caption": "Draw the triangle and its three squares in your Cornell Proof & Construction Journal."
+          "title": "5. Draw it",
+          "caption": "Draw the 3, 4, 5 triangle with a square on each side, and count the small squares."
         }
       ]
     },
     {
       "id": "w_cosine_rule_generaliser",
-      "title": "Cosine Rule Generaliser",
+      "title": "Opening a hinge",
       "chapter": 12,
       "is3D": true,
       "atlasRoute": "maths/ch16-trigonometry-unit-circle/index.html#1",
-      "challengePrompt": "Manipulate Cosine Rule Generaliser until the visual invariant locks in, then verify P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C.",
-      "cutaway": "Intuition → Formula Lockstep: Because the hypotenuse of the unit-circle triangle is 1, the red vertical shadow is sin θ, the blue horizontal shadow is cos θ, and Pythagoras immediately gives sin²θ + cos²θ = 1² for every angle!",
-      "idealised": "Formula Anatomy: P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C",
+      "challengePrompt": "Open the angle between two sides from 60° to 90° and then to 120°. Predict whether the third side grows or shrinks.",
+      "cutaway": "Two sides are hinged at angle C. Below 90° the far side is shorter than Pythagoras' theorem gives, and above 90° it is longer.",
+      "idealised": "The rule: c² = a² + b² − 2ab cos C",
       "watchSteps": [
         {
-          "title": "1. Concrete Touch",
-          "caption": "Open the 3D Unit Circle stage: shine level light from the right for sin θ, top light for cos θ, and unfold the three squares on the right triangle."
+          "title": "1. Try it",
+          "caption": "Open the hinge slowly and watch the third side."
         },
         {
-          "title": "2. Spot the Invariant ('Aha!')",
-          "caption": "Because the hypotenuse of the unit-circle triangle is 1, the red vertical shadow is sin θ, the blue horizontal shadow is cos θ, and Pythagoras immediately gives sin²θ + cos²θ = 1² for every angle!"
+          "title": "2. Notice",
+          "caption": "At 90° the third side is what Pythagoras' theorem gives."
         },
         {
-          "title": "3. Colour-Map the Symbols",
-          "caption": "Match red, blue, amber, and green geometry to P = (cos θ, sin θ),   sin²θ + cos²θ = 1,   tan θ = sin θ / cos θ,   c² = a² + b² − 2ab cos C."
+          "title": "3. Match the rule",
+          "caption": "cos 90° = 0, so the part taken away is 0 at a right angle."
         },
         {
-          "title": "4. Test a Boundary Case",
-          "caption": "Push the slider to 0, 1, or 90° and verify that the formula predicts the exact extreme state."
+          "title": "4. Push it further",
+          "caption": "Past 90°, cos C is negative. Predict what that does to c²."
         },
         {
-          "title": "5. Stamp & Sketch in Journal",
-          "caption": "Freeze the state into your Cornell Proof & Construction Journal."
+          "title": "5. Draw it",
+          "caption": "Draw sides of 5 cm and 8 cm at 60°, and measure the third side. It is 7 cm."
         }
       ]
     },
@@ -30421,11 +31110,11 @@
     },
     {
       "id": "tip-pythag-trig",
-      "title": "Why sin²θ + cos²θ = 1 for Every Angle",
+      "title": "Why sin²θ + cos²θ = 1 for every angle",
       "chapter": 12,
-      "visualIntuition": "On the unit circle of radius 1, level light casts vertical shadow sin θ and top light casts horizontal shadow cos θ.",
-      "ahaMoment": "Those two shadows are the legs of a right triangle with hypotenuse 1 — so their squares always add to 1² = 1!",
-      "formula": "cos²θ + sin²θ = 1² = 1"
+      "visualIntuition": "On a circle of radius 1, the point at angle θ sits sin θ up and cos θ across from the centre.",
+      "ahaMoment": "Those two lengths are the shorter sides of a right-angled triangle whose hypotenuse is 1.",
+      "formula": "sin²θ + cos²θ = 1² = 1"
     },
     {
       "id": "tip-bayes-square",
@@ -33393,6 +34082,10 @@
         {
           "concept": "area-scale-factor",
           "label": "Area scale factor"
+        },
+        {
+          "concept": "pythagoras-theorem",
+          "label": "Pythagoras' theorem"
         }
       ]
     },
@@ -33576,6 +34269,10 @@
         {
           "concept": "similar-shapes",
           "label": "Similar shapes"
+        },
+        {
+          "concept": "radian",
+          "label": "Radian"
         }
       ]
     },
@@ -34904,6 +35601,10 @@
         {
           "concept": "irrational-number",
           "label": "Irrational number"
+        },
+        {
+          "concept": "pythagoras-theorem",
+          "label": "Pythagoras' theorem"
         }
       ]
     },
@@ -35669,6 +36370,22 @@
         {
           "concept": "similar-shapes",
           "label": "Similar shapes"
+        },
+        {
+          "concept": "tangent",
+          "label": "Tangent"
+        },
+        {
+          "concept": "sine",
+          "label": "Sine"
+        },
+        {
+          "concept": "cosine",
+          "label": "Cosine"
+        },
+        {
+          "concept": "sine-rule",
+          "label": "Sine rule"
         }
       ]
     },
@@ -38024,6 +38741,10 @@
         {
           "concept": "reflection",
           "label": "Reflection"
+        },
+        {
+          "concept": "unit-circle",
+          "label": "Unit circle"
         }
       ]
     },
@@ -39699,6 +40420,14 @@
         {
           "concept": "circumference",
           "label": "Circumference"
+        },
+        {
+          "concept": "unit-circle",
+          "label": "Unit circle"
+        },
+        {
+          "concept": "radian",
+          "label": "Radian"
         }
       ]
     },
@@ -40917,6 +41646,10 @@
         {
           "chapter": 11,
           "label": "Chapter 11 · Moving and resizing shapes"
+        },
+        {
+          "concept": "sine",
+          "label": "Sine"
         }
       ]
     },
@@ -40976,6 +41709,771 @@
         {
           "chapter": 11,
           "label": "Chapter 11 · Moving and resizing shapes"
+        }
+      ]
+    },
+    {
+      "id": "right-angled-triangle",
+      "name": "Right-angled triangle",
+      "aliases": [
+        "right-angled triangle",
+        "right-angled triangles",
+        "right triangle",
+        "right triangles"
+      ],
+      "oneSentence": "A triangle with one corner of exactly 90°, a square corner like the corner of a page.",
+      "picture": "A set square, with one square corner and two pointed ones.",
+      "steps": [
+        "Look for the corner marked with a small square.",
+        "The other two angles add up to 90°.",
+        "The side across from the square corner is the longest."
+      ],
+      "workedExample": "A triangle has angles of 90°, 60° and 30°. It has a square corner, so it is a right-angled triangle.",
+      "check": {
+        "id": "right-angled-triangle-check",
+        "prompt": "A right-angled triangle has one angle of 25°, besides the right angle. What is its third angle, in degrees?",
+        "answer": "65°",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "65"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "65",
+            "65°",
+            "65 degrees"
+          ],
+          "rejects": [
+            "155",
+            "115",
+            "25"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "any triangle with a big angle",
+        "how": "Only an angle of exactly 90° counts. A triangle with a 100° angle is not a right-angled triangle."
+      },
+      "standsOn": [],
+      "usedIn": [
+        {
+          "chapter": 12,
+          "label": "Chapter 12 · Pythagoras and trigonometry"
+        },
+        {
+          "concept": "hypotenuse",
+          "label": "Hypotenuse"
+        },
+        {
+          "concept": "tangent",
+          "label": "Tangent"
+        }
+      ]
+    },
+    {
+      "id": "hypotenuse",
+      "name": "Hypotenuse",
+      "aliases": [
+        "hypotenuse",
+        "hypotenuses"
+      ],
+      "oneSentence": "The side of a right-angled triangle across from the right angle. It is always the longest side.",
+      "picture": "A ladder leaning on a wall: the ladder itself, from the ground to the wall.",
+      "steps": [
+        "Find the right angle.",
+        "Look across the triangle from it.",
+        "The side you see is the hypotenuse. It does not touch the right angle."
+      ],
+      "workedExample": "A triangle has sides of 5, 12 and 13 cm with a right angle between the 5 cm and 12 cm sides. The hypotenuse is the 13 cm side.",
+      "check": {
+        "id": "hypotenuse-check",
+        "prompt": "A right-angled triangle has sides of 7 cm, 24 cm and 25 cm. How long is its hypotenuse, in cm?",
+        "answer": "25 cm",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "25"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "25",
+            "25 cm",
+            "25cm"
+          ],
+          "rejects": [
+            "7",
+            "24",
+            "31"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "the bottom side",
+        "how": "The hypotenuse is found from the right angle, not from how the triangle is drawn. It can point any way."
+      },
+      "standsOn": [
+        "right-angled-triangle"
+      ],
+      "usedIn": [
+        {
+          "chapter": 12,
+          "label": "Chapter 12 · Pythagoras and trigonometry"
+        },
+        {
+          "concept": "pythagoras-theorem",
+          "label": "Pythagoras' theorem"
+        },
+        {
+          "concept": "sine",
+          "label": "Sine"
+        },
+        {
+          "concept": "cosine",
+          "label": "Cosine"
+        }
+      ]
+    },
+    {
+      "id": "pythagoras-theorem",
+      "name": "Pythagoras' theorem",
+      "aliases": [
+        "Pythagoras' theorem",
+        "Pythagoras's theorem",
+        "Pythagoras theorem",
+        "Pythagoras"
+      ],
+      "oneSentence": "In a right-angled triangle, the squares on the two shorter sides add up to the square on the hypotenuse: a² + b² = c².",
+      "picture": "A 3, 4, 5 triangle on squared paper, with 9 and 16 small squares on its short sides and 25 on its longest.",
+      "steps": [
+        "Square the two shorter sides.",
+        "Add the two squares.",
+        "Take the square root to get the hypotenuse."
+      ],
+      "workedExample": "Shorter sides of 8 cm and 15 cm give 64 + 225 = 289. The square root of 289 is 17, so the hypotenuse is 17 cm.",
+      "check": {
+        "id": "pythagoras-theorem-check",
+        "prompt": "A right-angled triangle has shorter sides of 9 cm and 12 cm. How long is its hypotenuse, in cm?",
+        "answer": "15 cm",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "15"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "15",
+            "15 cm",
+            "15cm"
+          ],
+          "rejects": [
+            "21",
+            "225",
+            "108"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "adding the sides",
+        "how": "The squares add up, not the sides. 3 + 4 is 7, but the hypotenuse is 5."
+      },
+      "standsOn": [
+        "hypotenuse",
+        "square-root",
+        "area"
+      ],
+      "usedIn": [
+        {
+          "chapter": 12,
+          "label": "Chapter 12 · Pythagoras and trigonometry"
+        },
+        {
+          "concept": "pythagorean-identity",
+          "label": "Pythagorean identity"
+        },
+        {
+          "concept": "cosine-rule",
+          "label": "Cosine rule"
+        }
+      ]
+    },
+    {
+      "id": "theta",
+      "name": "Theta",
+      "aliases": [
+        "θ",
+        "theta"
+      ],
+      "oneSentence": "A Greek letter, said theta, used as the name of an angle we are working with.",
+      "picture": "A ramp with a small arc at its foot, labelled θ.",
+      "steps": [
+        "Find the angle marked θ.",
+        "Measure it, or work it out from the other angles.",
+        "Use θ in a rule wherever that angle appears."
+      ],
+      "workedExample": "In a right-angled triangle, θ and 40° are the two smaller angles. They add to 90°, so θ = 50°.",
+      "check": {
+        "id": "theta-check",
+        "prompt": "In a right-angled triangle, θ and 70° are the two smaller angles. What is θ, in degrees?",
+        "answer": "20°",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "20"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "20",
+            "20°",
+            "θ = 20"
+          ],
+          "rejects": [
+            "110",
+            "70",
+            "290"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "a length",
+        "how": "θ names an angle, measured in degrees or radians. Letters like a, b and c name sides."
+      },
+      "standsOn": [],
+      "usedIn": [
+        {
+          "chapter": 12,
+          "label": "Chapter 12 · Pythagoras and trigonometry"
+        }
+      ]
+    },
+    {
+      "id": "tangent",
+      "name": "Tangent",
+      "aliases": [
+        "tangent",
+        "tan θ",
+        "tan"
+      ],
+      "oneSentence": "In a right-angled triangle, the side across from angle θ ÷ the side beside it. For a ramp it is rise ÷ run.",
+      "picture": "A ramp 4 m along and 1 m up: tan θ = 1 ÷ 4 = 0.25.",
+      "steps": [
+        "Find the side across from θ, the rise.",
+        "Find the side beside θ that is not the hypotenuse, the run.",
+        "Divide the rise by the run."
+      ],
+      "workedExample": "A ramp rises 1.5 m over 6 m along the ground. tan θ = 1.5 ÷ 6 = 0.25.",
+      "check": {
+        "id": "tangent-check",
+        "prompt": "A ramp rises 5 m over 5 m along the ground. What is tan θ?",
+        "answer": "1",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "1"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "1",
+            "tan θ = 1",
+            "1.0"
+          ],
+          "rejects": [
+            "5",
+            "10",
+            "0.5"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "sine",
+        "how": "Tangent divides the rise by the run. Sine divides the rise by the hypotenuse, the slope."
+      },
+      "standsOn": [
+        "right-angled-triangle",
+        "ratio"
+      ],
+      "usedIn": [
+        {
+          "chapter": 12,
+          "label": "Chapter 12 · Pythagoras and trigonometry"
+        }
+      ]
+    },
+    {
+      "id": "sine",
+      "name": "Sine",
+      "aliases": [
+        "sine",
+        "sines",
+        "sin θ",
+        "sin"
+      ],
+      "oneSentence": "In a right-angled triangle, the side across from angle θ ÷ the hypotenuse.",
+      "picture": "A ladder leaning at 30°: its top is half of its length up the wall, so sin 30° = 0.5.",
+      "steps": [
+        "Find the side across from θ, the height.",
+        "Find the hypotenuse, the slope.",
+        "Divide the height by the hypotenuse."
+      ],
+      "workedExample": "A slope 10 m long rises 6 m. sin θ = 6 ÷ 10 = 0.6.",
+      "check": {
+        "id": "sine-check",
+        "prompt": "A right-angled triangle has a hypotenuse of 20 cm and an angle θ of 30°, and sin 30° = 0.5. How long is the side across from θ, in cm?",
+        "answer": "10 cm",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "10"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "10",
+            "10 cm",
+            "10cm"
+          ],
+          "rejects": [
+            "40",
+            "20",
+            "17.3"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "cosine",
+        "how": "Sine uses the side across from θ. Cosine uses the side beside θ."
+      },
+      "standsOn": [
+        "hypotenuse",
+        "ratio",
+        "similar-shapes"
+      ],
+      "usedIn": [
+        {
+          "chapter": 12,
+          "label": "Chapter 12 · Pythagoras and trigonometry"
+        },
+        {
+          "concept": "unit-circle",
+          "label": "Unit circle"
+        },
+        {
+          "concept": "sine-rule",
+          "label": "Sine rule"
+        }
+      ]
+    },
+    {
+      "id": "cosine",
+      "name": "Cosine",
+      "aliases": [
+        "cosine",
+        "cosines",
+        "cos θ",
+        "cos"
+      ],
+      "oneSentence": "In a right-angled triangle, the side beside angle θ ÷ the hypotenuse.",
+      "picture": "A ladder leaning at 60°: its foot is half of its length out from the wall, so cos 60° = 0.5.",
+      "steps": [
+        "Find the side beside θ that is not the hypotenuse.",
+        "Find the hypotenuse.",
+        "Divide the side beside θ by the hypotenuse."
+      ],
+      "workedExample": "A slope 10 m long covers 8 m along the ground. cos θ = 8 ÷ 10 = 0.8.",
+      "check": {
+        "id": "cosine-check",
+        "prompt": "A ladder 12 m long makes 60° with the ground, and cos 60° = 0.5. How far is its foot from the wall, in m?",
+        "answer": "6 m",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "6"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "6",
+            "6 m",
+            "6m"
+          ],
+          "rejects": [
+            "24",
+            "12",
+            "10.4"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "sine",
+        "how": "Cosine uses the side beside θ. Sine uses the side across from θ."
+      },
+      "standsOn": [
+        "hypotenuse",
+        "ratio"
+      ],
+      "usedIn": [
+        {
+          "chapter": 12,
+          "label": "Chapter 12 · Pythagoras and trigonometry"
+        },
+        {
+          "concept": "unit-circle",
+          "label": "Unit circle"
+        },
+        {
+          "concept": "cosine-rule",
+          "label": "Cosine rule"
+        }
+      ]
+    },
+    {
+      "id": "unit-circle",
+      "name": "Unit circle",
+      "aliases": [
+        "unit circle",
+        "unit circles"
+      ],
+      "oneSentence": "A circle of radius 1 centred on (0, 0). The point at angle θ on it is (cos θ, sin θ).",
+      "picture": "A Ferris wheel with spokes 1 unit long, its hub at (0, 0).",
+      "steps": [
+        "Start at (1, 0), on the right.",
+        "Turn anticlockwise through angle θ.",
+        "Read off the point: its x-coordinate is cos θ and its y-coordinate is sin θ."
+      ],
+      "workedExample": "At 90° the point is straight above the centre, at (0, 1). So cos 90° = 0 and sin 90° = 1.",
+      "check": {
+        "id": "unit-circle-check",
+        "prompt": "Where on the unit circle is the point at 0°?",
+        "answer": "(1, 0)",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "sequence",
+                  "values": [
+                    "1",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "(1, 0)",
+            "1, 0",
+            "(1,0)"
+          ],
+          "rejects": [
+            "(0, 1)",
+            "(0, 0)",
+            "(−1, 0)"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "a circle of another size",
+        "how": "Only a circle of radius 1 gives sin θ and cos θ directly. On a bigger circle, divide by the radius first."
+      },
+      "standsOn": [
+        "radius-and-diameter",
+        "coordinates",
+        "sine",
+        "cosine"
+      ],
+      "usedIn": [
+        {
+          "chapter": 12,
+          "label": "Chapter 12 · Pythagoras and trigonometry"
+        },
+        {
+          "concept": "pythagorean-identity",
+          "label": "Pythagorean identity"
+        }
+      ]
+    },
+    {
+      "id": "pythagorean-identity",
+      "name": "Pythagorean identity",
+      "aliases": [
+        "Pythagorean identity",
+        "Pythagorean identities"
+      ],
+      "oneSentence": "The rule sin²θ + cos²θ = 1, true for every angle θ.",
+      "picture": "The triangle under a point on the unit circle, with sides sin θ and cos θ and a hypotenuse of 1.",
+      "steps": [
+        "Square the sine you know.",
+        "Take it away from 1 to get the cosine squared.",
+        "Take the square root."
+      ],
+      "workedExample": "If cos θ = 0.6, then sin²θ = 1 − 0.36 = 0.64, so sin θ = 0.8 for an angle less than 90°.",
+      "check": {
+        "id": "pythagorean-identity-check",
+        "prompt": "For an angle less than 90°, cos θ = 0.8. What is sin θ?",
+        "answer": "0.6",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "0.6"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "0.6",
+            "sin θ = 0.6",
+            "3/5"
+          ],
+          "rejects": [
+            "0.2",
+            "0.36",
+            "0.64"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "sin θ + cos θ = 1",
+        "how": "The squares add to 1, not the sine and cosine themselves. At 45° each is about 0.707."
+      },
+      "standsOn": [
+        "pythagoras-theorem",
+        "unit-circle"
+      ],
+      "usedIn": [
+        {
+          "chapter": 12,
+          "label": "Chapter 12 · Pythagoras and trigonometry"
+        }
+      ]
+    },
+    {
+      "id": "radian",
+      "name": "Radian",
+      "aliases": [
+        "radian",
+        "radians"
+      ],
+      "oneSentence": "The angle whose arc is one radius long, about 57.3°. A full turn is 2π radians.",
+      "picture": "A piece of string as long as the radius, bent round the edge of the circle.",
+      "steps": [
+        "To change degrees to radians, divide by 180.",
+        "Then multiply by π.",
+        "Check: 180° is π radians, about 3.14."
+      ],
+      "workedExample": "60° is 60 ÷ 180 × π = π ÷ 3 radians, about 1.05.",
+      "check": {
+        "id": "radian-check",
+        "prompt": "A half turn is π radians. How many radians is that, to 2 decimal places?",
+        "answer": "3.14",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "3.14"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "3.14",
+            "3.14 radians",
+            "about 3.14"
+          ],
+          "rejects": [
+            "180",
+            "6.28",
+            "1.57"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "name": "a degree",
+        "how": "A radian is about 57 times as big as a degree."
+      },
+      "standsOn": [
+        "radius-and-diameter",
+        "angle"
+      ],
+      "usedIn": [
+        {
+          "chapter": 12,
+          "label": "Chapter 12 · Pythagoras and trigonometry"
+        }
+      ]
+    },
+    {
+      "id": "sine-rule",
+      "name": "Sine rule",
+      "aliases": [
+        "sine rule",
+        "sine rules"
+      ],
+      "oneSentence": "In any triangle, each side ÷ the sine of the angle across from it gives the same number: a ÷ sin A = b ÷ sin B.",
+      "picture": "A triangle split by a line dropped from its top corner into two right-angled triangles with one shared height.",
+      "steps": [
+        "Pair each side with the angle across from it.",
+        "Write a ÷ sin A = b ÷ sin B with the values you know.",
+        "Solve for the one you are missing."
+      ],
+      "workedExample": "a = 6 cm, sin A = 0.3 and sin B = 0.5. Then b = 6 × 0.5 ÷ 0.3 = 10 cm.",
+      "check": {
+        "id": "sine-rule-check",
+        "prompt": "In a triangle, a = 10 cm, sin A = 0.5 and sin B = 0.3. How long is b, in cm?",
+        "answer": "6 cm",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "6"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "6",
+            "6 cm",
+            "b = 6"
+          ],
+          "rejects": [
+            "16.7",
+            "1.5",
+            "3"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "cosine-rule",
+        "how": "The sine rule needs a side and the angle across from it. The cosine rule needs two sides and the angle between them."
+      },
+      "standsOn": [
+        "sine",
+        "ratio"
+      ],
+      "usedIn": [
+        {
+          "chapter": 12,
+          "label": "Chapter 12 · Pythagoras and trigonometry"
+        }
+      ]
+    },
+    {
+      "id": "cosine-rule",
+      "name": "Cosine rule",
+      "aliases": [
+        "cosine rule",
+        "cosine rules"
+      ],
+      "oneSentence": "In any triangle, c² = a² + b² − 2ab cos C, where C is the angle between sides a and b.",
+      "picture": "Two sticks hinged together, the gap between their free ends shrinking as the hinge closes.",
+      "steps": [
+        "Find the two known sides and the angle between them.",
+        "Work out a² + b² − 2ab cos C.",
+        "Take the square root to get c."
+      ],
+      "workedExample": "a = 4 cm, b = 6 cm and C = 60°, with cos 60° = 0.5. Then c² = 16 + 36 − 24 = 28, so c is about 5.29 cm.",
+      "check": {
+        "id": "cosine-rule-check",
+        "prompt": "Sides of 3 cm and 4 cm meet at 90°, and cos 90° = 0. How long is the third side, in cm?",
+        "answer": "5 cm",
+        "answerKey": {
+          "parts": [
+            {
+              "label": "answer",
+              "anyOf": [
+                {
+                  "kind": "number",
+                  "value": "5"
+                }
+              ]
+            }
+          ],
+          "accepts": [
+            "5",
+            "5 cm",
+            "c = 5"
+          ],
+          "rejects": [
+            "7",
+            "25",
+            "1"
+          ],
+          "mistakes": []
+        }
+      },
+      "mixUp": {
+        "with": "pythagoras-theorem",
+        "how": "Pythagoras' theorem is the cosine rule at 90°, where cos C = 0. At any other angle the correction matters."
+      },
+      "standsOn": [
+        "pythagoras-theorem",
+        "cosine"
+      ],
+      "usedIn": [
+        {
+          "chapter": 12,
+          "label": "Chapter 12 · Pythagoras and trigonometry"
         }
       ]
     }

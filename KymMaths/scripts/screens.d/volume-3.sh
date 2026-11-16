@@ -15,3 +15,6 @@ shot chapter/11 4 14-chapter-11
 shot concept/enlargement 3 44-concept-enlargement
 shot concept/column-vector 3 45-concept-column-vector
 shot proof/13 3 10-proof-unit-13
+shot chapter/12 4 15-chapter-12
+shot concept/sine 3 46-concept-sine
+shot concept/pythagoras-theorem 3 47-concept-pythagoras-theorem
