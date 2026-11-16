@@ -162,6 +162,32 @@ def cards(k):
             "standsOn": [],
             "footing": "place-value",
         },
+        "area": {
+            "name": "Area",
+            "aliases": ["area", "areas"],
+            "oneSentence": "The amount of flat space a shape covers, counted in unit squares.",
+            "picture": "A classroom floor is laid with square tiles, 8 along and 5 across. "
+                       "It holds 8 × 5 = 40 tiles, so its area is 40 tiles.",
+            "steps": [
+                "Pick a unit square, such as 1 cm by 1 cm.",
+                "For a rectangle, count the squares in one row: that is the length.",
+                "Count the rows: that is the width.",
+                "Multiply, so the area is length × width, in square units such as cm².",
+            ],
+            "workedExample": "A table top is 12 cm by 9 cm. Its area is 12 × 9 = 108 cm². "
+                             "Cut it into a 12 by 5 piece and a 12 by 4 piece, and the areas 60 and 48 still make 108.",
+            "check": {
+                "prompt": "A rug is 7 m long and 3 m wide. What is its area in m²?",
+                "answer": "21 m²",
+                "answerKey": k.one(k.num("21"), accepts=["21", "21 m²", "= 21"], rejects=["20", "10", "42"]),
+            },
+            "mixUp": {
+                "name": "the perimeter",
+                "how": "The perimeter is the distance round the edge. The 7 m by 3 m rug has area 21 m² but perimeter 20 m.",
+            },
+            "standsOn": [],
+            "footing": "area-and-perimeter",
+        },
         "percentage": {
             "name": "Percentage",
             "aliases": ["percentage", "percentages", "per cent", "percent"],
@@ -251,6 +277,10 @@ def sums():
         ("35% of ₹800", Fraction(35, 100) * 800, 280),
         ("20% of 250", Fraction(20, 100) * 250, 50),
         ("20% of 50 and of 500", (Fraction(20, 100) * 50, Fraction(20, 100) * 500), (10, 100)),
+        # area
+        ("8 by 5 tiles", 8 * 5, 40),
+        ("the table top", (12 * 9, 12 * 5, 12 * 4, 60 + 48), (108, 60, 48, 108)),
+        ("the rug", (7 * 3, 2 * (7 + 3)), (21, 20)),
     ]
 
 
@@ -264,4 +294,5 @@ def answers():
         "fraction-check": Fraction(8 - 3, 8),
         "decimal-place-check": round_dp("7.286", 2),
         "percentage-check": Fraction(20, 100) * 250,
+        "area-check": 7 * 3,
     }

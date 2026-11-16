@@ -164,12 +164,12 @@ class WholePackReportTest(unittest.TestCase):
     """G10: checks 3 and 4 over the whole pack, counted, never stopping the run."""
 
     def test_report_counts_a_banned_word_in_an_unrewritten_chapter(self):
-        self.assertNotIn(5, REWRITTEN)
+        self.assertNotIn(8, REWRITTEN)
         before = content_checks.report(PACK)
         pack = copy.deepcopy(PACK)
-        chapter(pack, 5)["hookSummary"] = "Obviously this is clearly a hook."
+        chapter(pack, 8)["hookSummary"] = "Obviously this is clearly a hook."
         after = content_checks.report(pack)
-        self.assertEqual(after["ch05"]["banned"], before["ch05"]["banned"] + 2)
+        self.assertEqual(after["ch08"]["banned"], before["ch08"]["banned"] + 2)
         self.assertEqual(after["total"]["banned"], before["total"]["banned"] + 2)
         self.assertEqual(set(after), {f"ch{n:02d}" for n in range(21)} | {"cards", "total"})
 
@@ -204,16 +204,25 @@ class CardFilesTest(unittest.TestCase):
     """Cards live in the file of the chapter that teaches them, and bedrock cards in book/bedrock.py (risk R5)."""
 
     def test_cards_built_from_their_chapter_files_equal_the_pack(self):
-        from book import bedrock, ch01, ch02, ch03
+        from book import bedrock, ch01, ch02, ch03, ch04, ch05, ch06, ch07
         k = exporter.helpers()
         self.assertEqual(set(bedrock.cards(k)), {"negative-number", "factor", "multiple", "power", "fraction",
-                                                 "decimal-place", "percentage"})
+                                                 "decimal-place", "percentage", "area"})
         self.assertEqual(set(ch02.cards(k)), {"numerator-denominator", "equivalent-fractions", "simplest-form",
                                               "common-denominator", "improper-fraction", "mixed-number", "reciprocal",
                                               "significant-figures", "terminating-decimal", "recurring-decimal"})
         self.assertEqual(set(ch03.cards(k)), {"ratio", "unitary-method", "direct-proportion", "inverse-proportion",
                                               "percentage-multiplier", "reverse-percentage", "simple-interest",
                                               "compound-growth", "rule-of-72"})
+        self.assertEqual(set(ch04.cards(k)), {"variable", "expression", "substitution", "term", "coefficient",
+                                              "like-terms", "expanding-brackets", "factorising", "quadratic-expression",
+                                              "difference-of-two-squares"})
+        self.assertEqual(set(ch05.cards(k)), {"equation", "inverse-operation", "solving-equations", "formula",
+                                              "subject-of-a-formula", "inequality"})
+        self.assertEqual(set(ch06.cards(k)), {"sequence", "term-to-term-rule", "common-difference", "arithmetic-sequence",
+                                              "geometric-sequence", "nth-term", "quadratic-sequence", "triangular-number"})
+        self.assertEqual(set(ch07.cards(k)), {"function-machine", "inverse-function", "coordinates", "gradient",
+                                              "intercept", "linear-graph", "parallel-lines", "real-life-graph"})
         self.assertEqual(set(ch01.cards(k)), {"prime-number", "prime-factors", "hcf", "lcm", "index-laws",
                                               "square-root", "irrational-number"})
         self.assertTrue(all(card["standsOn"] == [] for card in bedrock.cards(k).values()))
@@ -273,7 +282,7 @@ class LinkerTest(unittest.TestCase):
         self.assertEqual(self.concepts("The scale factor is 2"), [])
 
     def test_word_edges(self):
-        self.assertEqual(self.concepts("Factorise it, a powerful idea"), [])
+        self.assertEqual(self.concepts("A factorial, a powerful idea"), [])
         self.assertEqual(self.concepts("√2 is about 1.41"), ["square-root"])
 
     def test_exclude_and_scope(self):

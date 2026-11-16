@@ -765,118 +765,10 @@ public enum MathematicalDebateEngine {
 
 public enum MathematicalDebateCatalog {
     public static let all: [MathematicalDebateScenario] = [
-        // Ch 4 -> OUP Ch 2 (Algebraic Expressions & Area Models). The id keeps its old number.
-        MathematicalDebateScenario(
-            id: "debate-ch03-algebra",
-            chapterNumber: 4,
-            oupUnitNumber: 2,
-            title: "The Freshman's Dream Tile Trap",
-            contextPrompt: "An architect expands a square courtyard of side x meters by adding 3 meters to both length and width. Vivaan and Ananya debate the new area (x + 3)²:",
-            speakerAName: "Vivaan",
-            speakerAClaim: "Square each piece inside the bracket: (x + 3)² = x² + 3² = x² + 9.",
-            speakerBName: "Ananya",
-            speakerBClaim: "Draw the 2×2 square! Besides x² and 9, there are two side rectangles of area 3x each, so (x + 3)² = x² + 6x + 9.",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch03-a",
-                    speakerLabel: "Vivaan is right (x² + 9)",
-                    reasoningStatement: "Exponents distribute cleanly across addition.",
-                    isCorrect: false,
-                    socraticRebuttal: "Test x = 2: (2 + 3)² = 25, whereas 2² + 9 = 13! You missed the two 3 × 2 = 6 border strips."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch03-b",
-                    speakerLabel: "Ananya is right (x² + 6x + 9)",
-                    reasoningStatement: "A square of side (x + 3) partitions into four regions: x², 3x, 3x, and 9.",
-                    isCorrect: true,
-                    socraticRebuttal: "Verified both geometrically and numerically: at x = 2, 4 + 12 + 9 = 25 = 5²."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch03-c",
-                    speakerLabel: "Neither — there is only one 3x strip (x² + 3x + 9)",
-                    reasoningStatement: "Extending length and width creates only one cross-term.",
-                    isCorrect: false,
-                    socraticRebuttal: "Because BOTH the top edge and the right edge grow by 3, there are two distinct 3 × x rectangles."
-                )
-            ],
-            invariantTakeaway: "(a + b)² = a² + 2ab + b²; the two cross-rectangles 2ab only vanish when one sign is negative, as in (a + b)(a − b)."
-        ),
-        // Ch 5 -> OUP Ch 7 (Linear Equations & Inequalities)
-        MathematicalDebateScenario(
-            id: "debate-ch05-equations",
-            chapterNumber: 5,
-            oupUnitNumber: 7,
-            title: "The Inequality Mirror Flip",
-            contextPrompt: "While solving −3x < 12, Arjun and Tara disagree on whether the inequality arrow flips when dividing by −3:",
-            speakerAName: "Arjun",
-            speakerAClaim: "Divide both sides by −3 and keep the sign the same: x < −4.",
-            speakerBName: "Tara",
-            speakerBClaim: "Multiplying or dividing by a negative reflects the entire number line across 0, reversing left-to-right order: x > −4!",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch05-a",
-                    speakerLabel: "Arjun is right (x < −4)",
-                    reasoningStatement: "Division never changes the direction of an inequality.",
-                    isCorrect: false,
-                    socraticRebuttal: "Test x = −5 (which satisfies x < −4): −3 × (−5) = +15, and 15 is NOT less than 12!"
-                ),
-                MathematicalDebateChoice(
-                    id: "ch05-b",
-                    speakerLabel: "Tara is right (x > −4)",
-                    reasoningStatement: "Negation reflects every point across zero, swapping 'to the left of' and 'to the right of'.",
-                    isCorrect: true,
-                    socraticRebuttal: "Spot on! Test x = 0 (which satisfies x > −4): −3(0) = 0 < 12."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch05-c",
-                    speakerLabel: "Flip the sign even when adding or subtracting a negative",
-                    reasoningStatement: "Any negative number in a step flips the inequality.",
-                    isCorrect: false,
-                    socraticRebuttal: "Adding or subtracting shifts both points by the same step without reversing their left-to-right order."
-                )
-            ],
-            invariantTakeaway: "Scaling by a negative factor reflects the number line across 0, reversing '<' and '>'."
-        ),
-        // Ch 6 -> OUP Ch 9 (Percentages & Compound Multipliers)
-        MathematicalDebateScenario(
-            id: "debate-ch06-percentages",
-            chapterNumber: 6,
-            oupUnitNumber: 9,
-            title: "Festival Markup & Discount Illusion",
-            contextPrompt: "A Bandra shop raises a ₹1,000 jacket by 20% and then offers a 20% sale discount. Neel and Priya debate the final price:",
-            speakerAName: "Neel",
-            speakerAClaim: "+20% and −20% cancel out to 0%, so the jacket is back to ₹1,000!",
-            speakerBName: "Priya",
-            speakerBClaim: "The 20% discount applies to ₹1,200, not ₹1,000! So 1.20 × 0.80 = 0.96, giving ₹960.",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch06-a",
-                    speakerLabel: "Neel is right (₹1,000)",
-                    reasoningStatement: "Equal percentage increases and decreases always cancel.",
-                    isCorrect: false,
-                    socraticRebuttal: "20% of ₹1,200 is ₹240, whereas 20% of ₹1,000 was only ₹200—you subtract more than you added!"
-                ),
-                MathematicalDebateChoice(
-                    id: "ch06-b",
-                    speakerLabel: "Priya is right (₹960)",
-                    reasoningStatement: "Chained percentage changes multiply their scale factors: (1 + 0.20)(1 − 0.20) = 1 − 0.04 = 0.96.",
-                    isCorrect: true,
-                    socraticRebuttal: "Exact! By Difference of Two Squares, (1 + r)(1 − r) = 1 − r² is always less than 1."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch06-c",
-                    speakerLabel: "Neither — it becomes ₹1,040",
-                    reasoningStatement: "The markup dominates the discount.",
-                    isCorrect: false,
-                    socraticRebuttal: "Since the discount is taken on the LARGER ₹1,200 base, the downward step is larger than the upward step."
-                )
-            ],
-            invariantTakeaway: "Successive percentages multiply scale factors: (1 + r)(1 − r) = 1 − r²."
-        ),
-        // Ch 7 -> OUP Ch 12 (Ratio, Rate & Unitary Bar Models)
+        // Ch 8 -> OUP Ch 12 (Ratio, Rate & Unitary Bar Models)
         MathematicalDebateScenario(
             id: "debate-ch07-ratio",
-            chapterNumber: 7,
+            chapterNumber: 8,
             oupUnitNumber: 12,
             title: "The Marble Transfer Conservation Law",
             contextPrompt: "Kym and Aarav hold marbles in ratio 5 : 3. After Kym gives Aarav 10 marbles, they have equal shares (1 : 1). Reyansh and Ira debate how many marbles 1 bar unit represents:",
@@ -908,42 +800,6 @@ public enum MathematicalDebateCatalog {
                 )
             ],
             invariantTakeaway: "In an internal transfer between two people, the sum of bar units is conserved, and moving Δ units changes their gap by 2Δ."
-        ),
-        // Ch 8 -> OUP Ch 11 (Sequences, Patterns & Fenceposts)
-        MathematicalDebateScenario(
-            id: "debate-ch08-sequences",
-            chapterNumber: 8,
-            oupUnitNumber: 11,
-            title: "The Staircase Fencepost Trap",
-            contextPrompt: "A sequence starts at T₁ = 7 and adds d = 4 at each step (7, 11, 15, 19...). Kabir and Sia debate the formula for the 20th term T₂₀:",
-            speakerAName: "Kabir",
-            speakerAClaim: "For the 20th term, add twenty jumps of 4 to 7: T₂₀ = 7 + 20 × 4 = 87.",
-            speakerBName: "Sia",
-            speakerBClaim: "Term 1 is already at 7! To reach Term 20 from Term 1, you take 19 jumps of 4: T₂₀ = 7 + 19 × 4 = 83.",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch08-a",
-                    speakerLabel: "Kabir is right (T₂₀ = 87)",
-                    reasoningStatement: "Term n always adds n copies of the common difference d to a.",
-                    isCorrect: false,
-                    socraticRebuttal: "Check n = 1 with Kabir's rule: 7 + 1 × 4 = 11, which is already Term 2! You are off by one fencepost."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch08-b",
-                    speakerLabel: "Sia is right (T₂₀ = 83)",
-                    reasoningStatement: "Between 1st and nth posts there are (n − 1) gaps, so T_n = a + (n − 1)d.",
-                    isCorrect: true,
-                    socraticRebuttal: "Exact! Equivalently, since 4n starts at 4, adding +3 shifts it to start at 7: 4(20) + 3 = 83."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch08-c",
-                    speakerLabel: "Neither — T₂₀ = 20 × 7 = 140",
-                    reasoningStatement: "The 20th term is 20 times the first term.",
-                    isCorrect: false,
-                    socraticRebuttal: "Only sequences with common difference d = a (like 7, 14, 21...) are direct multiples of the first term."
-                )
-            ],
-            invariantTakeaway: "Reaching the nth term from the 1st term takes (n − 1) steps of d: T_n = a + (n − 1)d."
         ),
         // Ch 9 -> OUP Ch 8 (Polygons, Parallel Lines & Exterior Turns)
         MathematicalDebateScenario(

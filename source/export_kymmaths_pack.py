@@ -21,6 +21,10 @@ from book import ch00 as book_ch00
 from book import ch01 as book_ch01
 from book import ch02 as book_ch02
 from book import ch03 as book_ch03
+from book import ch04 as book_ch04
+from book import ch05 as book_ch05
+from book import ch06 as book_ch06
+from book import ch07 as book_ch07
 from book import concepts as book_concepts
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -29,7 +33,7 @@ BOOK_OUT = ROOT / "KymMaths" / "KymMaths" / "Resources" / "PatternedWorldBook" /
 GOLDEN_OUT = ROOT / "KymMaths" / "Tests" / "Golden" / "concept-links.json"
 
 # Chapters rewritten by hand to docs/CONTENT_BRIEF.md. The content checks apply to these.
-BOOK_CHAPTERS = (book_ch00, book_ch01, book_ch02, book_ch03)
+BOOK_CHAPTERS = (book_ch00, book_ch01, book_ch02, book_ch03, book_ch04, book_ch05, book_ch06, book_ch07)
 # Saved learner responses key on callout ids, so a rewritten chapter keeps the old ids.
 CALLOUT_ID_SUFFIX = {"predict": "predict", "check": "aha", "careful": "trap"}
 
@@ -262,70 +266,6 @@ def build_volumes():
 
 def build_chapters():
     raw_specs = [
-        (
-            4, 2, "From Bar Models to Algebraic Expressions",
-            "OUP Ch 2 · Expanding brackets, factorising by HCF, quadratics & Difference of Two Squares",
-            "An algebraic bracket a(b + c) is the area of a rectangle of height a and split width b + c.",
-            "Tile a partitioned rectangle of sides (x + a) and (x + b), or snip the corner b² from a square a².",
-            "When you cut a corner square b² from a² and rotate the remaining strip, it forms a single rectangle of length (a + b) and height (a − b)!",
-            "a(b + c) = ab + ac,   (x + a)(x + b) = x² + (a + b)x + ab,   a² − b² = (a − b)(a + b)",
-            [
-                {"symbol": "x²", "visualPart": "Red main square tile (x by x)", "colorRole": "red", "meaning": "Quadratic core area"},
-                {"symbol": "(a + b)x", "visualPart": "Blue flanking rectangles ax and bx", "colorRole": "blue", "meaning": "Linear cross-terms (why (x+a)² ≠ x² + a²!)"},
-                {"symbol": "ab", "visualPart": "Amber corner rectangle (a by b)", "colorRole": "amber", "meaning": "Constant product corner"}
-            ],
-            "maths/ch04-algebra-tiles/index.html",
-            ["Expression", "Term", "Coefficient", "Distributive Law", "Expanding", "Factorising", "Difference of Two Squares"],
-            ["w_algebra_area_tiles", "w_difference_of_squares_slicer"]
-        ),
-        (
-            5, 2, "The Balance Beam: Equations, Formulae & Inequalities",
-            "OUP Ch 7 · Deriving & solving equations, changing the subject of a formula & inequality number lines",
-            "An equation is a balanced beam; changing the subject of a formula peels the onion of operations in reverse order.",
-            "Drag weights off a twin-pan balance and flip an inequality interval across 0 by multiplying by −1.",
-            "Multiplying a number line by −1 reflects every point across 0 like a mirror — what was further right (>) becomes further left (<)!",
-            "ax + b = cx + d  ⇒  x = (d − b) / (a − c),   and   a < b  ⇒  −a > −b",
-            [
-                {"symbol": "ax − cx", "visualPart": "Red variable bars gathered on left pan", "colorRole": "red", "meaning": "Net unknown units (a − c)x"},
-                {"symbol": "d − b", "visualPart": "Blue constant weights on right pan", "colorRole": "blue", "meaning": "Net constant value"},
-                {"symbol": "a < b ⇒ −a > −b", "visualPart": "Amber mirror reflection across 0", "colorRole": "amber", "meaning": "Order reverses under negative reflection"}
-            ],
-            "maths/ch05-balance-equations/index.html",
-            ["Equation", "Formula", "Subject of a Formula", "Inverse Operation", "Open vs Closed Circle", "Inequality Flip"],
-            ["w_balance_beam_equations", "w_formula_subject_transposer", "w_inequality_mirror_line"]
-        ),
-        (
-            6, 2, "Patterns in Time: Sequences, nth Terms & Gauss's Sum",
-            "OUP Ch 11 · Term-to-term vs position-to-term rules, linear & quadratic sequences, and Gauss's staircase",
-            "A constant first difference means a linear staircase dn + c; a constant second difference 2a means a quadratic parabola an² + bn + c.",
-            "Duplicate an n-step staircase 1 + 2 + … + n, rotate the copy by 180°, and snap it on top of the original.",
-            "The two staircases lock together into a solid rectangle of width n and uniform height (n + 1) — so one staircase is exactly half the rectangle!",
-            "Tₙ = a₁ + (n − 1)d,   Sₙ = ½ n (a₁ + aₙ),   Quadratic 2nd diff = 2a",
-            [
-                {"symbol": "d", "visualPart": "Red step riser between consecutive terms", "colorRole": "red", "meaning": "Constant first difference (linear slope)"},
-                {"symbol": "a₁ + aₙ", "visualPart": "Blue combined height of flipped Gauss staircase", "colorRole": "blue", "meaning": "First term plus last term in every column"},
-                {"symbol": "½ n", "visualPart": "Green half-rectangle area factor", "colorRole": "green", "meaning": "n columns divided by 2 identical staircases"}
-            ],
-            "maths/ch06-sequences-gauss/index.html",
-            ["Sequence", "Term-to-Term", "nth Term Tₙ", "First Difference", "Second Difference", "Arithmetic Series", "Fibonacci & Golden Ratio"],
-            ["w_gauss_staircase_sum", "w_sequence_difference_engine"]
-        ),
-        (
-            7, 2, "Functions, Linear Graphs & Kinematics",
-            "OUP Ch 14 · Function machines, y = mx + c, gradient Δy/Δx, parallel/perpendicular lines & speed-time graphs",
-            "Every straight line is a constant rate of change m = Δy / Δx anchored at a vertical intercept c.",
-            "Slide two points P and Q along a line y = mx + c and inspect the right-angled rise/run staircase.",
-            "No matter how wide or narrow you make the horizontal run Δx, the vertical rise Δy scales in the exact same proportion, keeping Δy / Δx = m invariant!",
-            "y = mx + c,   m = (y₂ − y₁) / (x₂ − x₁),   m₁ · m₂ = −1 (perpendicular)",
-            [
-                {"symbol": "Δy = y₂ − y₁", "visualPart": "Red vertical rise segment", "colorRole": "red", "meaning": "Signed vertical change"},
-                {"symbol": "Δx = x₂ − x₁", "visualPart": "Blue horizontal run segment", "colorRole": "blue", "meaning": "Signed horizontal step"},
-                {"symbol": "c", "visualPart": "Green y-axis crossing (0, c)", "colorRole": "green", "meaning": "Starting value when x = 0"}
-            ],
-            "maths/ch07-functions-graphs/index.html",
-            ["Function f(x)", "Gradient m", "y-Intercept c", "x-Intercept", "Parallel Lines", "Perpendicular Gradient −1/m", "Travel Graphs"],
-            ["w_linear_graph_slope_explorer", "w_kinematics_travel_graph"]
-        ),
         (
             8, 3, "Angle Chasing, Parallel Lines & Deductive Proof",
             "OUP Ch 8 · Alternate, corresponding & co-interior angles, exterior angle of a triangle & midpoint formula",
@@ -2494,7 +2434,7 @@ STUCK_SHEETS = {
             stuck_step("Expand 2(2x + 1).",
                        one(forms("4x+2", "2+4x"), accepts=["4x + 2"], rejects=["4x + 1", "2x + 2", "4x"],
                            mistakes=[mistake("expand-first-term-only", forms("4x+1", "1+4x"),
-                                             next_step="Multiply every term inside the bracket, not just the first.",
+                                             next_step="Multiply every term inside the bracket, not only the first.",
                                              examples=["4x + 1"])]),
                        answer="4x + 2", working="2 × 2x = 4x and 2 × 1 = 2, so 4x + 2."),
             stuck_step("Expand −2(x − 4). Keep the sign in front.",
@@ -3566,7 +3506,7 @@ STUCK_SHEETS = {
                        one(forms("x=(y-5)/2", "(y-5)/2=x", "x=y/2-5/2", "x=1/2(y-5)"), accepts=["x = (y − 5)/2"],
                            rejects=["x = (y + 5)/2", "x = 2(y - 5)", "x = y - 5"],
                            mistakes=[mistake("inverse-wrong-order", forms("x=y/2-5"),
-                                             next_step="Divide the whole of the left side, not just the y.", examples=["x = y/2 − 5"])]),
+                                             next_step="Divide the whole of the left side, not only the y.", examples=["x = y/2 − 5"])]),
                        answer="x = (y − 5)/2", working="(y − 5) ÷ 2 gives x = (y − 5)/2."),
             stuck_step("Swap y for x to write f⁻¹(x).",
                        one(forms("(x-5)/2", "x/2-5/2", "1/2(x-5)", "1/2x-5/2", "(-5+x)/2", "0.5x-2.5"),
@@ -4861,10 +4801,10 @@ const CH_SLIDERS = {{
   1:  [{{lbl:'First number:',min:6,max:48,step:6,val:24,u:''}}, {{lbl:'Second number:',min:6,max:60,step:6,val:36,u:''}}, {{lbl:'Turns:',min:0,max:2,step:1,val:2,u:''}}],
   2:  [{{lbl:'Repeating digits:',min:9,max:81,step:9,val:36,u:''}}, {{lbl:'Whole number:',min:1,max:5,step:1,val:3,u:''}}, {{lbl:'Bottom of the fraction:',min:2,max:6,step:1,val:4,u:''}}],
   3:  [{{lbl:'Parts for A:',min:1,max:6,step:1,val:3,u:''}}, {{lbl:'Parts for B:',min:2,max:8,step:1,val:5,u:''}}, {{lbl:'Interest rate:',min:4,max:15,step:1,val:8,u:'%'}}],
-  4:  [{{lbl:'Square side x:',min:2,max:6,step:0.5,val:4,u:''}}, {{lbl:'Strip width a:',min:1,max:4,step:0.5,val:2,u:''}}, {{lbl:'Strip height b:',min:1,max:4,step:0.5,val:3,u:''}}],
-  5:  [{{lbl:'Left x-coeff a:',min:2,max:6,step:1,val:4,u:'x'}}, {{lbl:'Left const b:',min:1,max:10,step:1,val:3,u:''}}, {{lbl:'Right const d:',min:7,max:25,step:3,val:15,u:''}}],
-  6:  [{{lbl:'Stair steps n:',min:3,max:8,step:1,val:6,u:''}}, {{lbl:'First term a₁:',min:1,max:4,step:1,val:1,u:''}}, {{lbl:'Step diff d:',min:1,max:3,step:1,val:1,u:''}}],
-  7:  [{{lbl:'Gradient m:',min:-2,max:2.5,step:0.5,val:1.5,u:''}}, {{lbl:'y-Intercept c:',min:-1.5,max:2,step:0.5,val:0.5,u:''}}, {{lbl:'Run step Δx:',min:0.5,max:2,step:0.5,val:1.5,u:''}}],
+  4:  [{{lbl:'Side x:',min:3,max:6,step:1,val:4,u:''}}, {{lbl:'First number:',min:1,max:3,step:1,val:3,u:''}}, {{lbl:'Second number:',min:1,max:3,step:1,val:2,u:''}}],
+  5:  [{{lbl:'Bags:',min:2,max:6,step:1,val:4,u:''}}, {{lbl:'Loose marbles:',min:1,max:9,step:1,val:3,u:''}}, {{lbl:'Marbles in a bag:',min:1,max:5,step:1,val:3,u:''}}],
+  6:  [{{lbl:'Number of terms:',min:3,max:8,step:1,val:5,u:''}}, {{lbl:'First term:',min:1,max:4,step:1,val:1,u:''}}, {{lbl:'Common difference:',min:1,max:3,step:1,val:1,u:''}}],
+  7:  [{{lbl:'Gradient:',min:-3,max:3,step:0.5,val:2,u:''}}, {{lbl:'Crosses the y-axis at:',min:-3,max:3,step:1,val:1,u:''}}, {{lbl:'Step across:',min:1,max:3,step:1,val:1,u:''}}],
   8:  [{{lbl:'Angle α:',min:30,max:75,step:5,val:50,u:'°'}}, {{lbl:'Angle β:',min:30,max:75,step:5,val:60,u:'°'}}, {{lbl:'Polygon sides n:',min:3,max:8,step:1,val:6,u:''}}],
   9:  [{{lbl:'Segment AB:',min:4,max:8,step:0.5,val:6,u:'cm'}}, {{lbl:'Compass r/AB:',min:0.6,max:1.0,step:0.05,val:0.8,u:'×'}}, {{lbl:'Bearing from N:',min:20,max:160,step:5,val:65,u:'°'}}],
   10: [{{lbl:'Circle radius r:',min:2,max:6,step:0.5,val:4,u:'cm'}}, {{lbl:'Trap top a:',min:2,max:6,step:0.5,val:3,u:'cm'}}, {{lbl:'Trap base b:',min:4,max:9,step:0.5,val:6,u:'cm'}}],
@@ -5130,86 +5070,110 @@ function drawSandbox() {{
       break;
     }}
     case 4: {{
-      // Ch 4: Area-Array Expansion (x + a)(x + b) = x^2 + (a+b)x + ab
-      const sc = 22, wx = a * sc, wa = b * sc, hb = c * sc, x0 = 56, y0 = 36;
-      ctx.fillStyle = red + '32'; ctx.strokeStyle = red; ctx.lineWidth = 2.2;
-      ctx.fillRect(x0, y0, wx, wx); ctx.strokeRect(x0, y0, wx, wx);
-      ctx.fillStyle = blue + '32'; ctx.strokeStyle = blue;
-      ctx.fillRect(x0 + wx, y0, wa, wx); ctx.strokeRect(x0 + wx, y0, wa, wx);
-      ctx.fillRect(x0, y0 + wx, wx, hb); ctx.strokeRect(x0, y0 + wx, wx, hb);
-      ctx.fillStyle = amber + '38'; ctx.strokeStyle = amber;
-      ctx.fillRect(x0 + wx, y0 + wx, wa, hb); ctx.strokeRect(x0 + wx, y0 + wx, wa, hb);
-      ctx.fillStyle = red; ctx.fillText(`x²=${{(a*a).toFixed(1)}}`, x0 + 10, y0 + wx/2);
-      ctx.fillStyle = blue; ctx.fillText(`ax=${{(a*b).toFixed(1)}}`, x0 + wx + 6, y0 + wx/2);
-      ctx.fillText(`bx=${{(a*c).toFixed(1)}}`, x0 + 10, y0 + wx + hb/2 + 4);
-      ctx.fillStyle = amber; ctx.fillText(`ab=${{(b*c).toFixed(1)}}`, x0 + wx + 6, y0 + wx + hb/2 + 4);
-      const tot = (a + b) * (a + c);
-      ctx.fillStyle = green; ctx.fillText(`(${{a}}+${{b}})(${{a}}+${{c}}) = ${{(a*a).toFixed(1)}} + ${{(a*(b+c)).toFixed(1)}} + ${{(b*c).toFixed(1)}} = ${{tot.toFixed(1)}}`, 285, 110);
-      ctx.fillStyle = ink; ctx.fillText(`Diff of Squares: ${{a}}² − ${{b}}² = (${{a}}−${{b}})(${{a}}+${{b}}) = ${{(a*a - b*b).toFixed(1)}}`, 285, 148);
-      readoutHtml = `(x + a)(x + b) = <b style="color:${{red}}">x² (${{(a*a).toFixed(1)}})</b> + <b style="color:${{blue}}">(a+b)x (${{(a*(b+c)).toFixed(1)}})</b> + <b style="color:${{amber}}">ab (${{(b*c).toFixed(1)}})</b> = <b>${{tot.toFixed(1)}}</b>`;
+      // Ch 4: the rectangle (x + p)(x + q) cut into four pieces, and x² − p² from the same side and first number
+      const x = Math.round(a), p = Math.round(b), q = Math.round(c), u = 16, x0 = 46, y0 = 26;
+      const centre = (text, cx, cy) => ctx.fillText(text, cx - ctx.measureText(text).width / 2, cy + 4);
+      const piece = (px, py, pw, ph, colour, alpha, label) => {{
+        ctx.fillStyle = colour + alpha; ctx.strokeStyle = colour; ctx.lineWidth = 2;
+        ctx.fillRect(px, py, pw, ph); ctx.strokeRect(px, py, pw, ph);
+        ctx.fillStyle = colour; centre(label, px + pw / 2, py + ph / 2);
+      }};
+      const coef = (n) => (n === 1 ? 'x' : `${{n}}x`);
+      piece(x0, y0, x * u, x * u, red, '30', 'x²');
+      piece(x0 + x * u, y0, p * u, x * u, blue, '30', coef(p));
+      piece(x0, y0 + x * u, x * u, q * u, blue, '30', coef(q));
+      piece(x0 + x * u, y0 + x * u, p * u, q * u, amber, '38', `${{p * q}}`);
+      ctx.fillStyle = muted;
+      centre('x', x0 + x * u / 2, y0 - 10); centre(`${{p}}`, x0 + x * u + p * u / 2, y0 - 10);
+      centre('x', x0 - 12, y0 + x * u / 2); centre(`${{q}}`, x0 - 12, y0 + x * u + q * u / 2);
+      const tot = (x + p) * (x + q), dos = x * x - p * p;
+      ctx.fillStyle = green; ctx.fillText(`(x + ${{p}})(x + ${{q}}) = x² + ${{coef(p + q)}} + ${{p * q}}`, 46, 194);
+      ctx.fillStyle = ink; ctx.fillText(`When x = ${{x}}: ${{x + p}} × ${{x + q}} = ${{tot}}`, 46, 212);
+      ctx.fillText(`and ${{x * x}} + ${{p * x}} + ${{q * x}} + ${{p * q}} = ${{tot}}`, 46, 230);
+      ctx.fillStyle = amber; ctx.fillText('Difference of two squares:', 46, 254);
+      ctx.fillText(`${{x}}² − ${{p}}² = ${{x - p}} × ${{x + p}} = ${{dos}}`, 46, 272);
+      readoutHtml = `(x + ${{p}})(x + ${{q}}) = <b style="color:${{red}}">x²</b> + <b style="color:${{blue}}">${{coef(p + q)}}</b> + <b style="color:${{amber}}">${{p * q}}</b> · when x = ${{x}}, the rectangle is ${{x + p}} × ${{x + q}} = <b>${{tot}}</b> · ${{x}}² − ${{p}}² = ${{x - p}} × ${{x + p}} = <b>${{dos}}</b>`;
       break;
     }}
     case 5: {{
-      // Ch 5: Twin-Pan Balance Equation ax + b = x + d & Inequality Mirror
-      const netA = Math.max(1, a - 1), netD = c - b, xSol = netD / netA;
-      const cx = w * 0.5, by = 128;
+      // Ch 5: a balance with bags and loose marbles on the left and their total on the right
+      const n = Math.round(a), loose = Math.round(b), m = Math.round(c), R = n * m + loose, by = 118;
       ctx.strokeStyle = ink; ctx.lineWidth = 3;
-      ctx.beginPath(); ctx.moveTo(cx - 150, by); ctx.lineTo(cx + 150, by); ctx.stroke();
-      ctx.fillStyle = amber;
-      ctx.beginPath(); ctx.moveTo(cx, by); ctx.lineTo(cx - 22, by + 38); ctx.lineTo(cx + 22, by + 38); ctx.closePath(); ctx.fill();
-      ctx.fillStyle = red + '33'; ctx.strokeStyle = red; ctx.lineWidth = 2;
-      ctx.fillRect(cx - 175, by - 54, 120, 48); ctx.strokeRect(cx - 175, by - 54, 120, 48);
-      ctx.fillStyle = red; ctx.fillText(`${{a}}x + ${{b}}`, cx - 140, by - 25);
-      ctx.fillStyle = blue + '33'; ctx.strokeStyle = blue;
-      ctx.fillRect(cx + 55, by - 54, 120, 48); ctx.strokeRect(cx + 55, by - 54, 120, 48);
-      ctx.fillStyle = blue; ctx.fillText(`1x + ${{c}}`, cx + 90, by - 25);
-      ctx.fillStyle = green; ctx.fillText(`Subtract x and ${{b}} from both pans ⇒ ${{netA}}x = ${{netD}} ⇒ x = ${{xSol.toFixed(2)}}`, 52, 208);
-      ctx.fillStyle = amber; ctx.fillText(`Inequality ×(−1) Mirror: 2 < 5 reflects across 0 to −2 > −5`, 52, 238);
-      readoutHtml = `${{a}}x + ${{b}} = x + ${{c}} ⇒ <b>${{netA}}x = ${{netD}} ⇒ x = ${{xSol.toFixed(2)}}</b> (Both pans balance at <b>${{(a*xSol + b).toFixed(1)}}</b>)`;
+      ctx.beginPath(); ctx.moveTo(40, by); ctx.lineTo(260, by); ctx.stroke();
+      ctx.fillStyle = muted;
+      ctx.beginPath(); ctx.moveTo(150, by); ctx.lineTo(136, by + 24); ctx.lineTo(164, by + 24); ctx.closePath(); ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = ink + '55'; ctx.strokeRect(40, 56, 100, 56); ctx.strokeRect(160, 56, 100, 56);
+      ctx.fillStyle = muted; ctx.fillText('Left pan', 40, 48); ctx.fillText('Right pan', 160, 48);
+      for (let i = 0; i < n; i++) {{
+        ctx.fillStyle = red + '30'; ctx.strokeStyle = red;
+        ctx.fillRect(46 + i * 15, 62, 12, 16); ctx.strokeRect(46 + i * 15, 62, 12, 16);
+      }}
+      const dot = (x, y, colour) => {{ ctx.fillStyle = colour; ctx.beginPath(); ctx.arc(x, y, 3.2, 0, Math.PI * 2); ctx.fill(); }};
+      for (let i = 0; i < loose; i++) dot(50 + i * 10, 98, blue);
+      for (let i = 0; i < R; i++) dot(166 + (i % 11) * 8.6, 63 + Math.floor(i / 11) * 12, amber);
+      ctx.fillStyle = muted; ctx.fillText(`${{n}} bags and ${{loose}} marble${{loose === 1 ? '' : 's'}} balance ${{R}}`, 46, 168);
+      ctx.fillStyle = green; ctx.fillText(`${{n}}b + ${{loose}} = ${{R}}`, 46, 194);
+      ctx.fillStyle = ink; ctx.fillText(`Take ${{loose}} off both pans: ${{n}}b = ${{R - loose}}`, 46, 212);
+      ctx.fillText(`Share among ${{n}} bags: b = ${{m}}`, 46, 230);
+      ctx.fillStyle = muted; ctx.fillText(`Check: ${{n}} × ${{m}} + ${{loose}} = ${{R}}`, 46, 254);
+      readoutHtml = `<b style="color:${{red}}">${{n}}b</b> + <b style="color:${{blue}}">${{loose}}</b> = <b style="color:${{amber}}">${{R}}</b>, so <b>b = ${{m}}</b>`;
       break;
     }}
     case 6: {{
-      // Ch 6: Gauss's 180°-Rotated Interlocking Staircase
-      const n = Math.round(a), a1 = Math.round(b), d = Math.round(c);
-      const an = a1 + (n - 1) * d, pairH = a1 + an, sum = (n * pairH) / 2;
-      const bw = Math.min(38, 260 / n), uH = Math.min(18, 170 / pairH), x0 = 54, yBase = 225;
+      // Ch 6: a staircase of terms and its upside-down copy make a rectangle
+      const n = Math.round(a), first = Math.round(b), d = Math.round(c);
+      const last = first + (n - 1) * d, pair = first + last, sum = n * pair / 2, k = first - d;
+      const bw = Math.min(28, 220 / n), uH = Math.min(14, 130 / pair), x0 = 46, base = 150;
       for (let i = 0; i < n; i++) {{
-        const term = a1 + i * d, comp = pairH - term;
-        const h1 = term * uH, h2 = comp * uH;
-        ctx.fillStyle = red + '38'; ctx.strokeStyle = red; ctx.lineWidth = 1.8;
-        ctx.fillRect(x0 + i * bw, yBase - h1, bw - 2, h1); ctx.strokeRect(x0 + i * bw, yBase - h1, bw - 2, h1);
-        ctx.fillStyle = blue + '38'; ctx.strokeStyle = blue;
-        ctx.fillRect(x0 + i * bw, yBase - h1 - h2 - 3, bw - 2, h2); ctx.strokeRect(x0 + i * bw, yBase - h1 - h2 - 3, bw - 2, h2);
+        const term = first + i * d, h1 = term * uH, h2 = (pair - term) * uH, x = x0 + i * bw;
+        ctx.lineWidth = 1.6;
+        ctx.fillStyle = red + '38'; ctx.strokeStyle = red;
+        ctx.fillRect(x, base - h1, bw - 3, h1); ctx.strokeRect(x, base - h1, bw - 3, h1);
+        ctx.fillStyle = blue + '30'; ctx.strokeStyle = blue;
+        ctx.fillRect(x, base - h1 - h2, bw - 3, h2); ctx.strokeRect(x, base - h1 - h2, bw - 3, h2);
       }}
-      ctx.fillStyle = ink; ctx.fillText(`n = ${{n}} columns`, x0, 248);
-      ctx.fillStyle = blue; ctx.fillText(`Uniform height a₁ + aₙ = ${{a1}} + ${{an}} = ${{pairH}}`, 310, 95);
-      ctx.fillStyle = green; ctx.fillText(`Rectangle = ${{n}} × ${{pairH}} = ${{n * pairH}}`, 310, 130);
-      ctx.fillStyle = red; ctx.fillText(`One Staircase Sₙ = ½(${{n * pairH}}) = ${{sum}}`, 310, 165);
-      readoutHtml = `a₁ = ${{a1}}, aₙ = ${{an}}, Pair height = <b>${{pairH}}</b> · <b>Sₙ = ½ × ${{n}} × ${{pairH}} = ${{sum}}</b>`;
+      const all = Array.from({{length: n}}, (_, i) => first + i * d).join(', ');
+      const terms = all.length <= 26 ? all : `${{first}}, ${{first + d}}, …, ${{last}}`;
+      const rule = (d === 1 ? 'n' : `${{d}}n`) + (k === 0 ? '' : k > 0 ? ` + ${{k}}` : ` − ${{-k}}`);
+      ctx.fillStyle = muted; ctx.fillText(`Terms: ${{terms}}`, 46, 168);
+      ctx.fillStyle = green; ctx.fillText(`nth term: ${{rule}}`, 46, 194);
+      ctx.fillStyle = ink; ctx.fillText(`Each column: ${{first}} + ${{last}} = ${{pair}}`, 46, 212);
+      ctx.fillText(`Rectangle: ${{n}} × ${{pair}} = ${{n * pair}}`, 46, 230);
+      ctx.fillStyle = amber; ctx.fillText(`Sum of the terms: ${{n * pair}} ÷ 2 = ${{sum}}`, 46, 254);
+      readoutHtml = `<b style="color:${{red}}">${{terms}}</b> · sum = ${{n}} × ${{pair}} ÷ 2 = <b>${{sum}}</b>`;
       break;
     }}
     case 7: {{
-      // Ch 7: Linear Graph y = mx + c & Rise/Run Triangle
-      const m = a, cInt = b, dx = c, dy = m * dx;
-      const ox = 165, oy = 155, sc = 36;
-      drawArrow(ctx, 30, oy, 310, oy, muted, 1.5);
-      drawArrow(ctx, ox, 255, ox, 25, muted, 1.5);
-      ctx.strokeStyle = blue; ctx.lineWidth = 2.8;
-      ctx.beginPath();
-      ctx.moveTo(ox - 3 * sc, oy - (-3 * m + cInt) * sc);
-      ctx.lineTo(ox + 3 * sc, oy - (3 * m + cInt) * sc);
-      ctx.stroke();
-      const x1 = ox, y1 = oy - cInt * sc, x2 = ox + dx * sc, y2 = y1 - dy * sc;
-      ctx.strokeStyle = amber; ctx.lineWidth = 2.2;
-      ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y1); ctx.lineTo(x2, y2); ctx.stroke();
-      ctx.fillStyle = green; ctx.beginPath(); ctx.arc(x1, y1, 5, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = ink; ctx.fillText(`(0, ${{cInt}})`, x1 - 44, y1 - 6);
-      ctx.fillStyle = blue; ctx.fillText(`Run Δx = ${{dx}}`, 325, 88);
-      ctx.fillStyle = red; ctx.fillText(`Rise Δy = m·Δx = ${{dy.toFixed(2)}}`, 325, 118);
-      ctx.fillStyle = green; ctx.fillText(`Gradient m = Δy/Δx = ${{m.toFixed(2)}}`, 325, 148);
-      const mPerp = Math.abs(m) > 0.05 ? (-1 / m).toFixed(2) : '∞';
-      ctx.fillStyle = amber; ctx.fillText(`Perpendicular m₂ = −1/m = ${{mPerp}}`, 325, 178);
-      readoutHtml = `Line <b>y = ${{m}}x + ${{cInt}}</b> · Over Δx = ${{dx}}, Δy = <b>${{dy.toFixed(2)}}</b> ·Perp gradient <b>m₂ = ${{mPerp}}</b>`;
+      // Ch 7: the line y = mx + c on a grid, with a step under it
+      const m = a, k = Math.round(b), run = Math.round(c), rise = m * run;
+      const ox = 160, oy = 86, sc = 12, num = v => String(Math.round(v * 100) / 100).replace('-', '−');
+      ctx.save(); ctx.beginPath(); ctx.rect(40, 20, 240, 132); ctx.clip();
+      ctx.strokeStyle = ink + '18'; ctx.lineWidth = 1;
+      for (let i = -10; i <= 10; i++) {{ ctx.beginPath(); ctx.moveTo(ox + i * sc, 20); ctx.lineTo(ox + i * sc, 152); ctx.stroke(); }}
+      for (let j = -5; j <= 5; j++) {{ ctx.beginPath(); ctx.moveTo(40, oy - j * sc); ctx.lineTo(280, oy - j * sc); ctx.stroke(); }}
+      ctx.strokeStyle = muted; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(40, oy); ctx.lineTo(280, oy); ctx.moveTo(ox, 20); ctx.lineTo(ox, 152); ctx.stroke();
+      ctx.strokeStyle = blue; ctx.lineWidth = 2.6;
+      ctx.beginPath(); ctx.moveTo(ox - 10 * sc, oy - (-10 * m + k) * sc); ctx.lineTo(ox + 10 * sc, oy - (10 * m + k) * sc); ctx.stroke();
+      const sx = m === 0 ? -run / 2 : Math.max(-10, Math.min(10 - run, -k / m - run / 2)), sy = m * sx + k;
+      ctx.lineWidth = 2.2;
+      ctx.strokeStyle = ink; ctx.beginPath(); ctx.moveTo(ox + sx * sc, oy - sy * sc); ctx.lineTo(ox + (sx + run) * sc, oy - sy * sc); ctx.stroke();
+      ctx.strokeStyle = red; ctx.beginPath(); ctx.moveTo(ox + (sx + run) * sc, oy - sy * sc); ctx.lineTo(ox + (sx + run) * sc, oy - (sy + rise) * sc); ctx.stroke();
+      ctx.fillStyle = green; ctx.beginPath(); ctx.arc(ox, oy - k * sc, 4.5, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+      ctx.fillStyle = muted; ctx.fillText('x', 284, oy + 4); ctx.fillText('y', ox - 4, 15);
+      const mx = m === 0 ? '' : m === 1 ? 'x' : m === -1 ? '−x' : `${{num(m)}}x`;
+      const eq = m === 0 ? num(k) : mx + (k === 0 ? '' : k > 0 ? ` + ${{k}}` : ` − ${{-k}}`);
+      const step = rise === 0 ? `${{run}} across, flat` : `${{run}} across, ${{num(Math.abs(rise))}} ${{rise > 0 ? 'up' : 'down'}}`;
+      const thirds = v => {{ const t = Math.round(v * 3); if (Math.abs(v * 3 - t) > 1e-9 || t % 3 === 0) return num(v); const a = Math.abs(t), w = Math.floor(a / 3); return (t < 0 ? '−' : '') + (w || '') + (a % 3 === 1 ? '⅓' : '⅔'); }};
+      const xCross = m !== 0 ? `Crosses the x-axis at x = ${{thirds(-k / m)}}` : k === 0 ? 'Lies along the x-axis' : 'Never crosses the x-axis';
+      ctx.fillStyle = blue; ctx.fillText(`Line: y = ${{eq}}`, 46, 168);
+      ctx.fillStyle = green; ctx.fillText(`Crosses the y-axis at (0, ${{num(k)}})`, 46, 194);
+      ctx.fillStyle = ink; ctx.fillText(`Step: ${{step}}`, 46, 212);
+      ctx.fillStyle = red; ctx.fillText(`Gradient: ${{num(rise)}} ÷ ${{run}} = ${{num(m)}}`, 46, 230);
+      ctx.fillStyle = amber; ctx.fillText(xCross, 46, 254);
+      readoutHtml = `<b style="color:${{blue}}">y = ${{eq}}</b> · gradient <b>${{num(m)}}</b> · crosses the y-axis at <b>(0, ${{num(k)}})</b>`;
       break;
     }}
     case 8: {{

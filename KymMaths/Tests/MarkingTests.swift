@@ -68,8 +68,8 @@ struct MarkingTests {
         let checks = pack.concepts.map { ($0.check.id, $0.check.answer, $0.check.answerKey) }
         let turns = pack.chapters.flatMap(\.sections).flatMap(\.teachingSteps).filter { $0.kind == .turn }
             .compactMap { step in step.answerKey.map { (step.id, step.answer ?? "", $0) } }
-        #expect(checks.count == 47)
-        #expect(turns.count == 24)
+        #expect(checks.count == 80)
+        #expect(turns.count == 49)
         // Not the prompt itself, as above: a check that asks her to pick from a list ("21, 23 or 27")
         // has the answer among its numbers, and the marker looks for the number anywhere.
         for (id, answer, key) in checks + turns {
