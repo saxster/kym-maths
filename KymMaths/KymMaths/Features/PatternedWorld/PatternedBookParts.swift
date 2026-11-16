@@ -419,6 +419,16 @@ struct VolumeFigure: View {
         Canvas { context, size in
             let w = size.width, h = size.height
             let line = theme.ink
+            let dotTint = theme.faint(theme.ink).opacity(0.28)
+            var gx: CGFloat = 10
+            while gx < w {
+                var gy: CGFloat = 8
+                while gy < h {
+                    context.fill(Path(ellipseIn: CGRect(x: gx, y: gy, width: 1.4, height: 1.4)), with: .color(dotTint))
+                    gy += 14
+                }
+                gx += 14
+            }
             switch volume {
             case 1:
                 let r = h * 0.36

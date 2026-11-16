@@ -11,11 +11,13 @@ neither, so "factorise" does not match "factor". A match that is a stop phrase, 
 belongs to a concept already linked in this scope is consumed with no link. Matches never overlap.
 """
 
+from functools import lru_cache
 import unicodedata
 
 LETTER_CATEGORIES = {"Lu", "Ll", "Lt", "Lm", "Lo"}
 
 
+@lru_cache(maxsize=4096)
 def is_word_char(char):
     return unicodedata.category(char) in LETTER_CATEGORIES or unicodedata.numeric(char, None) is not None
 
@@ -35,14 +37,26 @@ class Linker:
             for alias in card["aliases"]:
                 phrases.setdefault(fold(alias), concept_id)
         self.phrases = sorted(phrases.items(), key=lambda item: (-len(item[0]), item[0]))
+        by_first = {}
+        for phrase, concept in self.phrases:
+            if phrase:
+                by_first.setdefault(phrase[0], []).append((phrase, concept))
+        self.phrases_by_first = by_first
 
     def matches(self, text):
         """Every phrase match, left to right, as (offset, length, concept id or None for a stop phrase)."""
         folded = fold(text)
         found = []
         at = 0
-        while at < len(folded):
-            hit = next(((phrase, concept) for phrase, concept in self.phrases if self._fits(folded, at, phrase)), None)
+        n = len(folded)
+        by_first = self.phrases_by_first
+        fits = self._fits
+        while at < n:
+            candidates = by_first.get(folded[at])
+            if not candidates:
+                at += 1
+                continue
+            hit = next(((phrase, concept) for phrase, concept in candidates if fits(folded, at, phrase)), None)
             if hit is None:
                 at += 1
                 continue

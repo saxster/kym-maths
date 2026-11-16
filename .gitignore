@@ -1,5 +1,10 @@
-node_modules/
-build/
+/node_modules/
+/build/
+KymMaths/build/
+!KymMaths/KymMaths/Resources/PatternedWorldBook/atlas/node_modules/
+!KymMaths/KymMaths/Resources/PatternedWorldBook/atlas/node_modules/**
+!KymMaths/KymMaths/Resources/PatternedWorldBook/atlas/node_modules/three/build/
+!KymMaths/KymMaths/Resources/PatternedWorldBook/atlas/node_modules/three/build/**
 __pycache__/
 *.pyc
 .DS_Store

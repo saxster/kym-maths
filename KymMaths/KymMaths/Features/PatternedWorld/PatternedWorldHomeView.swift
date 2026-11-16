@@ -129,6 +129,16 @@ struct PatternedLibraryView: View {
 
     // MARK: Volume cards
 
+    private func volumeSpineColor(_ number: Int) -> Color {
+        switch number {
+        case 1: theme.patterned.color(.moves)
+        case 2: theme.patterned.color(.stays)
+        case 3: theme.patterned.color(.given)
+        case 4: theme.brass
+        default: theme.ink
+        }
+    }
+
     private func volumeCard(_ vol: PatternedWorldVolume) -> some View {
         let parts = PatternedBook.volumeName(vol, chapters: store.seedPack.chapters)
         let isOpen = vol.chapters.contains { visibleNumbers.contains($0) }
@@ -136,6 +146,7 @@ struct PatternedLibraryView: View {
         let readCount = vol.chapters.filter { (store.readingProgressByChapter[$0]?.readFraction ?? 0) >= 0.9 }.count
         let started = vol.chapters.contains { (store.readingProgressByChapter[$0]?.readFraction ?? 0) > 0 }
         let status = started ? "\(readCount) of \(vol.chapters.count) read" : "Not started"
+        let spineTint = volumeSpineColor(vol.number)
 
         return Button {
             chosenVolume = vol.number
@@ -172,11 +183,40 @@ struct PatternedLibraryView: View {
                 }
             }
             .frame(maxWidth: .infinity, minHeight: 236, alignment: .topLeading)
-            .padding(StandardSpacing.sm)
+            .padding(.leading, StandardSpacing.sm + 6)
+            .padding(.trailing, StandardSpacing.sm)
+            .padding(.vertical, StandardSpacing.sm)
             .background(
                 RoundedRectangle(cornerRadius: StandardRadius.xl, style: .continuous)
                     .fill(theme.surface)
             )
+            .overlay(alignment: .leading) {
+                UnevenRoundedRectangle(
+                    topLeadingRadius: StandardRadius.xl,
+                    bottomLeadingRadius: StandardRadius.xl,
+                    bottomTrailingRadius: 0,
+                    topTrailingRadius: 0,
+                    style: .continuous
+                )
+                .fill(spineTint.opacity(isChosen ? 0.92 : 0.55))
+                .frame(width: 7)
+            }
+            .overlay(alignment: .topTrailing) {
+                if isChosen {
+                    Path { p in
+                        p.move(to: CGPoint(x: 0, y: 0))
+                        p.addLine(to: CGPoint(x: 12, y: 0))
+                        p.addLine(to: CGPoint(x: 12, y: 22))
+                        p.addLine(to: CGPoint(x: 6, y: 17))
+                        p.addLine(to: CGPoint(x: 0, y: 22))
+                        p.closeSubpath()
+                    }
+                    .fill(theme.patterned.color(.moves))
+                    .frame(width: 12, height: 22)
+                    .padding(.trailing, 14)
+                    .accessibilityHidden(true)
+                }
+            }
             .overlay(
                 RoundedRectangle(cornerRadius: StandardRadius.xl, style: .continuous)
                     .strokeBorder(isChosen ? theme.ink : theme.hairline(), lineWidth: isChosen ? 1.5 : 1)

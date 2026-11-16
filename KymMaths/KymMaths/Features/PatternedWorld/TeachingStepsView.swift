@@ -32,10 +32,30 @@ private struct TeachingStepRow: View {
     var body: some View {
         switch step.kind {
         case .question:
-            ConceptText(text, linked: linked)
-                .patternedType(.question)
-                .foregroundStyle(theme.ink)
-                .fixedSize(horizontal: false, vertical: true)
+            VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                HStack(spacing: StandardSpacing.xs) {
+                    Circle()
+                        .fill(theme.patterned.color(.moves))
+                        .frame(width: 7, height: 7)
+                    Text("WONDER FIRST · QUESTION")
+                        .patternedType(.kicker)
+                        .foregroundStyle(theme.brass)
+                }
+                ConceptText(text, linked: linked)
+                    .patternedType(.question)
+                    .foregroundStyle(theme.ink)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .padding(StandardSpacing.md)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                    .fill(theme.patterned.wash(.stays).opacity(0.6))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                    .strokeBorder(theme.brass.opacity(0.3), lineWidth: 1)
+            )
         case .turn:
             VStack(alignment: .leading, spacing: StandardSpacing.sm) {
                 labelled
@@ -53,6 +73,39 @@ private struct TeachingStepRow: View {
                 }
             }
             .paperCard()
+        case .name:
+            labelled
+                .padding(StandardSpacing.md)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                        .fill(theme.patterned.wash(.stays).opacity(0.5))
+                )
+                .overlay(alignment: .leading) {
+                    Capsule()
+                        .fill(theme.patterned.color(.stays))
+                        .frame(width: 3)
+                }
+        case .mistake:
+            labelled
+                .padding(.leading, StandardSpacing.md)
+                .overlay(alignment: .leading) {
+                    Capsule()
+                        .fill(theme.patterned.color(.moves))
+                        .frame(width: 3)
+                }
+        case .sayBack:
+            labelled
+                .padding(StandardSpacing.md)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                        .fill(theme.surface)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                        .strokeBorder(theme.brass.opacity(0.35), lineWidth: 1)
+                )
         default:
             labelled
         }

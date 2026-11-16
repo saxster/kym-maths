@@ -37,7 +37,7 @@ struct TutorCopyTests {
         let topic = Self.pack.schoolTextbook.topic(code: question.topicCode)
         let prompt = ElaborativeInterrogationEngine.makePrompt(for: question, topic: topic)
         #expect(prompt.question == "Why does this method always give the right HCF and LCM?")
-        #expect(prompt.invariantHint == "Venn diagram of prime factors: intersection = HCF, union = LCM, HCF × LCM = a × b.")
+        #expect(prompt.invariantHint == "Break each number into prime factors with a factor tree. The highest common factor (HCF) multiplies the shared primes; the lowest common multiple (LCM) takes each prime the most times it appears.")
     }
 
     @Test("No hint rung or Why prompt leaks another subject or an internal label, on any question")

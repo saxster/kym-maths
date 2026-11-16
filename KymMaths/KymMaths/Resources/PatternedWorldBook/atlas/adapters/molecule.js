@@ -1,7 +1,7 @@
 // "See the real molecule": a measured structure (XYZ text, ångström) in 3Dmol.js (BSD-3-Clause, github.com/3dmol/3Dmol.js),
 // loaded from jsDelivr only when a reader asks, so a page that never opens one pays nothing. Offline, it says so.
 // showMolecule(el, xyz, { background }) → Promise<{ viewer, source (the XYZ comment line), destroy() }>
-const SRC = 'https://cdn.jsdelivr.net/npm/3dmol@2.5.5/build/3Dmol-min.js';
+const SRC = (typeof location !== 'undefined' && location.protocol === 'kymbook:') ? '' : 'https://cdn.jsdelivr.net/npm/3dmol@2.5.5/build/3Dmol-min.js';
 let loading = null;
 export function load3Dmol() {
   if (window.$3Dmol) return Promise.resolve(window.$3Dmol);

@@ -739,12 +739,27 @@ public struct MathematicalDebateScenario: Identifiable, Codable, Equatable, Send
 }
 
 public enum MathematicalDebateEngine {
+    private static let fallback = MathematicalDebateScenario(
+        id: "debate-fallback",
+        chapterNumber: 0,
+        oupUnitNumber: 1,
+        title: "Who is right?",
+        contextPrompt: "",
+        speakerAName: "A",
+        speakerAClaim: "",
+        speakerBName: "B",
+        speakerBClaim: "",
+        choices: [],
+        invariantTakeaway: ""
+    )
+
     /// The chapter's own "Who is right?" from its pack record, or the catalog's while the chapter
     /// is not yet rewritten.
     static func scenario(for chapter: PatternedWorldChapter) -> MathematicalDebateScenario {
         chapter.debate
             ?? MathematicalDebateCatalog.all.first { $0.chapterNumber == chapter.number }
-            ?? MathematicalDebateCatalog.all[0]
+            ?? MathematicalDebateCatalog.all.first
+            ?? fallback
     }
 
     /// The first chapter's debate, in chapter order, that maps to this school unit.
@@ -752,7 +767,8 @@ public enum MathematicalDebateEngine {
         let scenarios = chapters.sorted { $0.number < $1.number }.map(scenario(for:))
         return scenarios.first { $0.oupUnitNumber == unitNumber }
             ?? scenarios.first
-            ?? MathematicalDebateCatalog.all[0]
+            ?? MathematicalDebateCatalog.all.first
+            ?? fallback
     }
 
     public static func evaluateChoice(
@@ -764,296 +780,7 @@ public enum MathematicalDebateEngine {
 }
 
 public enum MathematicalDebateCatalog {
-    public static let all: [MathematicalDebateScenario] = [
-        // Parked on ch 14 -> OUP Ch 12 (Ratio, Rate & Unitary Bar Models); see CONTENT_PLAN amendment 5
-        MathematicalDebateScenario(
-            id: "debate-ch07-ratio",
-            chapterNumber: 14,
-            oupUnitNumber: 12,
-            title: "The Marble Transfer Conservation Law",
-            contextPrompt: "Kym and Aarav hold marbles in ratio 5 : 3. After Kym gives Aarav 10 marbles, they have equal shares (1 : 1). Reyansh and Ira debate how many marbles 1 bar unit represents:",
-            speakerAName: "Reyansh",
-            speakerAClaim: "The ratio difference is 5 − 3 = 2 units, so 2 units = 10 marbles (1 unit = 5 marbles).",
-            speakerBName: "Ira",
-            speakerBClaim: "Total units stay 5 + 3 = 8, so equal shares are 4 : 4! Kym went from 5 units to 4 units, meaning 1 unit = 10 marbles.",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch07-a",
-                    speakerLabel: "Reyansh is right (1 unit = 5 marbles)",
-                    reasoningStatement: "The gap between 5 units and 3 units is 2 units.",
-                    isCorrect: false,
-                    socraticRebuttal: "When Kym gives 1 unit to Aarav, the gap closes by 2 units (Kym −1, Aarav +1)! So transferring 1 unit equalises a 2-unit gap."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch07-b",
-                    speakerLabel: "Ira is right (1 unit = 10 marbles, total = 80)",
-                    reasoningStatement: "Internal transfers conserve total units (8 units), so 5 : 3 becomes 4 : 4 by moving 1 unit.",
-                    isCorrect: true,
-                    socraticRebuttal: "Spot on! Kym starts with 50, gives 10 to Aarav (who starts with 30), and both end at 40."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch07-c",
-                    speakerLabel: "Neither — 5 units = 10 marbles",
-                    reasoningStatement: "The transfer equals Kym's full share.",
-                    isCorrect: false,
-                    socraticRebuttal: "Kym only gave away a fraction of his share so that both ended with 4 units."
-                )
-            ],
-            invariantTakeaway: "In an internal transfer between two people, the sum of bar units is conserved, and moving Δ units changes their gap by 2Δ."
-        ),
-        // Parked on ch 16 -> OUP Ch 4 (the only unit-4 debate, though it is about trigonometry); see CONTENT_PLAN amendment 5
-        MathematicalDebateScenario(
-            id: "debate-ch12-trig",
-            chapterNumber: 16,
-            oupUnitNumber: 4,
-            title: "Scaling the Triangle vs Scaling the Sine",
-            contextPrompt: "A right-angled triangle with legs 3 cm, 4 cm, and hypotenuse 5 cm is enlarged by scale factor 3 to become 9 cm, 12 cm, 15 cm. What happens to sin θ?",
-            speakerAName: "Vivaan",
-            speakerAClaim: "Since every side tripled, sin θ also triples from 3/5 to 9/5!",
-            speakerBName: "Ananya",
-            speakerBClaim: "Both Opposite and Hypotenuse tripled, so the ratio (3 × 3)/(3 × 5) = 9/15 simplifies right back to 3/5—the angle θ didn't change!",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch12-a",
-                    speakerLabel: "Vivaan is right (sin θ triples)",
-                    reasoningStatement: "Enlarging a triangle enlarges its trigonometric values.",
-                    isCorrect: false,
-                    socraticRebuttal: "Can sin θ ever exceed 1 in a right triangle? The hypotenuse is always the longest side!"
-                ),
-                MathematicalDebateChoice(
-                    id: "ch12-b",
-                    speakerLabel: "Ananya is right (sin θ stays 3/5 = 0.6)",
-                    reasoningStatement: "Similar triangles share identical side ratios because the scale factor k cancels in (k·Opp)/(k·Hyp).",
-                    isCorrect: true,
-                    socraticRebuttal: "Exact! Trigonometric ratios depend ONLY on the angle θ, never on the zoom level of the triangle."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch12-c",
-                    speakerLabel: "sin θ increases by 3² = 9 times",
-                    reasoningStatement: "Ratios scale with area.",
-                    isCorrect: false,
-                    socraticRebuttal: "Area scales by k² = 9, but length ratios scale by k/k = 1 (invariant)."
-                )
-            ],
-            invariantTakeaway: "Trigonometric ratios (sin, cos, tan) are scale-invariant properties of the angle θ itself."
-        ),
-        // Ch 13 -> OUP Ch 10 (Statistics, Histograms & Quartiles)
-        MathematicalDebateScenario(
-            id: "debate-ch13-statistics",
-            chapterNumber: 13,
-            oupUnitNumber: 10,
-            title: "The Unequal-Width Histogram Illusion",
-            contextPrompt: "In a commute-time histogram, Interval A (width 10 min) has bar height FD = 4, and Interval B (width 30 min) has bar height FD = 2. Which interval has more commuters?",
-            speakerAName: "Neel",
-            speakerAClaim: "Interval A has twice the bar height (4 vs 2), so Interval A has twice as many commuters!",
-            speakerBName: "Sana",
-            speakerBClaim: "In a histogram, AREA = Frequency! Interval A has area 10 × 4 = 40, while Interval B has area 30 × 2 = 60 commuters.",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch13-a",
-                    speakerLabel: "Neel is right (Interval A has more)",
-                    reasoningStatement: "The tallest bar always represents the highest frequency.",
-                    isCorrect: false,
-                    socraticRebuttal: "Height equals frequency ONLY when all class widths are equal. Here Interval B is 3 times wider!"
-                ),
-                MathematicalDebateChoice(
-                    id: "ch13-b",
-                    speakerLabel: "Sana is right (Interval B has 60 vs 40)",
-                    reasoningStatement: "Frequency = Frequency Density × Class Width (the area of the rectangle).",
-                    isCorrect: true,
-                    socraticRebuttal: "Spot on! Interval A is more crowded per minute, but Interval B spans 30 minutes and holds 60 commuters in total."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch13-c",
-                    speakerLabel: "They have the same frequency",
-                    reasoningStatement: "Width and height cancel out.",
-                    isCorrect: false,
-                    socraticRebuttal: "Check the products: 10 × 4 = 40 ≠ 30 × 2 = 60."
-                )
-            ],
-            invariantTakeaway: "In a histogram, bar AREA (Width × Frequency Density) equals Frequency."
-        ),
-        // Ch 15 -> OUP Ch 15 (Bayes & Conditional Probability)
-        MathematicalDebateScenario(
-            id: "debate-ch15-bayes",
-            chapterNumber: 15,
-            oupUnitNumber: 15,
-            title: "The Rare Disease Screening Paradox",
-            contextPrompt: "Out of 1,000 people, 10 are sick (and 9 test +) while 990 are healthy (and 9 test + as false alarms). If you test +, what is P(Sick | +)?",
-            speakerAName: "Arjun",
-            speakerAClaim: "Since 9 out of 10 sick people test positive, the test is 90% accurate—so you have a 90% chance of being sick!",
-            speakerBName: "Priya",
-            speakerBClaim: "Look at the 18 people who tested positive: 9 are truly sick and 9 are false alarms! So P(Sick | +) = 9 / 18 = 50%.",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch15-a",
-                    speakerLabel: "Arjun is right (90%)",
-                    reasoningStatement: "P(Sick | +) is the same as the test's sensitivity P(+ | Sick).",
-                    isCorrect: false,
-                    socraticRebuttal: "That's the Base-Rate Fallacy! Because healthy people outnumber sick people 99 to 1, even a 1% false-positive rate produces just as many positive tests as the sick group."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch15-b",
-                    speakerLabel: "Priya is right (9 / 18 = 50%)",
-                    reasoningStatement: "Conditioning on '+' restricts the sample space to the 18 total positive tests (9 true + 9 false).",
-                    isCorrect: true,
-                    socraticRebuttal: "Spot on! Zooming into the 18 positive tiles makes the 50% split unmistakable."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch15-c",
-                    speakerLabel: "Neither — it is 9 / 1,000 = 0.9%",
-                    reasoningStatement: "Always divide by the total population of 1,000.",
-                    isCorrect: false,
-                    socraticRebuttal: "0.9% is P(Sick AND +) before taking the test. Once you know the test is +, the 982 negative testers are eliminated!"
-                )
-            ],
-            invariantTakeaway: "Conditioning on event B restricts the denominator to ONLY the outcomes where B occurred: P(A|B) = |A ∩ B| / |B|."
-        ),
-        // Ch 17 -> OUP Ch 14 (Calculus I: Secant to Tangent Derivative)
-        MathematicalDebateScenario(
-            id: "debate-ch17-derivative",
-            chapterNumber: 17,
-            oupUnitNumber: 14,
-            title: "Zero Slope at the Peak of a Ball's Flight",
-            contextPrompt: "A cricket ball thrown straight up has height h(t) = 20t − 5t². At t = 2 s, its velocity dh/dt = 0. What does dh/dt = 0 mean?",
-            speakerAName: "Dev",
-            speakerAClaim: "It means the ball's height is 0 meters and gravity has switched off!",
-            speakerBName: "Sia",
-            speakerBClaim: "Height is h(2) = 20 m (the peak)! dh/dt = 0 means the tangent line is momentarily horizontal as the ball transitions from rising (+) to falling (−).",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch17-a",
-                    speakerLabel: "Dev is right (height is 0)",
-                    reasoningStatement: "When the derivative is zero, the function value is also zero.",
-                    isCorrect: false,
-                    socraticRebuttal: "Plug t = 2 into h(t): 20(2) − 5(4) = 20 meters high! Derivative measures slope, not height."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch17-b",
-                    speakerLabel: "Sia is right (horizontal tangent at maximum height)",
-                    reasoningStatement: "A smooth curve reaches its local maximum or minimum where its instantaneous rate of change passes through 0.",
-                    isCorrect: true,
-                    socraticRebuttal: "Spot on! To change from climbing (+slope) to descending (−slope), the tangent must pass through 0 slope at the summit."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch17-c",
-                    speakerLabel: "The ball hovers at rest forever after t = 2",
-                    reasoningStatement: "Zero velocity means no further motion.",
-                    isCorrect: false,
-                    socraticRebuttal: "Velocity is zero only at the single instant t = 2 s; acceleration (−10 m/s²) keeps pulling it downward."
-                )
-            ],
-            invariantTakeaway: "At a smooth peak or valley, the instantaneous rate of change dy/dx = 0 (horizontal tangent)."
-        ),
-        // Ch 18 -> OUP Ch 14 (Calculus II: Accumulation & Definite Integrals)
-        MathematicalDebateScenario(
-            id: "debate-ch18-integral",
-            chapterNumber: 18,
-            oupUnitNumber: 14,
-            title: "What the Area Under a Velocity Graph Means",
-            contextPrompt: "A metro train's speed v(t) (in m/s) is plotted against time t (in seconds). Zoya and Arjun debate what the area under the v(t) curve represents:",
-            speakerAName: "Arjun",
-            speakerAClaim: "Area is just geometry—it gives the train's acceleration!",
-            speakerBName: "Zoya",
-            speakerBClaim: "Each thin rectangle has height (m/s) × width (s) = meters! Summing all rectangles gives total distance travelled.",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch18-a",
-                    speakerLabel: "Arjun is right (acceleration)",
-                    reasoningStatement: "Anything derived from a velocity graph is acceleration.",
-                    isCorrect: false,
-                    socraticRebuttal: "Acceleration is the SLOPE (dv/dt) with units (m/s) ÷ s = m/s². Area multiplies axes!"
-                ),
-                MathematicalDebateChoice(
-                    id: "ch18-b",
-                    speakerLabel: "Zoya is right (total displacement in meters)",
-                    reasoningStatement: "Multiplying vertical units (m/s) by horizontal units (s) yields meters, accumulating distance.",
-                    isCorrect: true,
-                    socraticRebuttal: "Exact! Slope divides units (dy/dx); integral area multiplies units (∫ y dx)."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch18-c",
-                    speakerLabel: "Neither — it gives average speed",
-                    reasoningStatement: "Area equals average value.",
-                    isCorrect: false,
-                    socraticRebuttal: "To get average speed, you must divide that total area (total distance) by the time interval Δt."
-                )
-            ],
-            invariantTakeaway: "Derivative is slope (rate of change, y/x); definite integral is accumulated area (product of units, y × x)."
-        ),
-        // Ch 19 -> OUP Ch 16 (Vectors, Translations & Transformations)
-        MathematicalDebateScenario(
-            id: "debate-ch19-vectors",
-            chapterNumber: 19,
-            oupUnitNumber: 16,
-            title: "Triangle Law of Vector Addition",
-            contextPrompt: "A drone flies along vector a = (3, 4) (length 5 m) and then vector b = (5, −4) (length √41 m). What is the resultant displacement a + b?",
-            speakerAName: "Kabir",
-            speakerAClaim: "Add the two lengths together: |a + b| = |a| + |b|!",
-            speakerBName: "Meera",
-            speakerBClaim: "Place b nose-to-tail at the tip of a: the +4 up and −4 down cancel, leaving resultant a + b = (3 + 5, 4 − 4) = (8, 0) of length 8 m!",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch19-a",
-                    speakerLabel: "Kabir is right (add lengths directly)",
-                    reasoningStatement: "Vector magnitude distributes over addition.",
-                    isCorrect: false,
-                    socraticRebuttal: "|a + b| equals |a| + |b| ONLY when both vectors point in the exact same direction! Otherwise the triangle shortcut is shorter."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch19-b",
-                    speakerLabel: "Meera is right (add components: (8, 0), length 8)",
-                    reasoningStatement: "Horizontal and vertical displacements add independently by nose-to-tail chaining.",
-                    isCorrect: true,
-                    socraticRebuttal: "Spot on! By the Triangle Inequality, |a + b| ≤ |a| + |b|."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch19-c",
-                    speakerLabel: "Multiply components (3×5, 4×(−4))",
-                    reasoningStatement: "Combining vectors multiplies coordinates.",
-                    isCorrect: false,
-                    socraticRebuttal: "Walking 3 steps East then 5 steps East puts you 3 + 5 = 8 steps East, not 15."
-                )
-            ],
-            invariantTakeaway: "Vectors add component-wise (nose-to-tail), and the straight-line resultant satisfies |a + b| ≤ |a| + |b|."
-        ),
-        // Ch 20 -> OUP Ch 13 (Matrices, Determinants & Quadratic Factorisation)
-        MathematicalDebateScenario(
-            id: "debate-ch20-matrices",
-            chapterNumber: 20,
-            oupUnitNumber: 13,
-            title: "When a Matrix Collapses 2D Space to a Line",
-            contextPrompt: "Matrix A = [[2, 4], [1, 2]] transforms the unit square. Ananya and Vivaan debate the area of the transformed shape:",
-            speakerAName: "Vivaan",
-            speakerAClaim: "Since every entry is positive, the unit square stretches into a bigger parallelogram of area 2 × 4 + 1 × 2 = 10!",
-            speakerBName: "Ananya",
-            speakerBClaim: "Look at the columns: (4, 2) is just 2 times (2, 1)! Both basis vectors land on the SAME line, so det(A) = 2(2) − 4(1) = 0 and the area collapses to 0.",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch20-a",
-                    speakerLabel: "Vivaan is right (area = 10)",
-                    reasoningStatement: "Positive matrix entries always expand area.",
-                    isCorrect: false,
-                    socraticRebuttal: "Plot the two transformed basis vectors (2, 1) and (4, 2): they point along the exact same slope 1/2, enclosing zero width between them!"
-                ),
-                MathematicalDebateChoice(
-                    id: "ch20-b",
-                    speakerLabel: "Ananya is right (det(A) = ad − bc = 0)",
-                    reasoningStatement: "When one column is a scalar multiple of the other, the 2D plane squashes onto a 1D line of zero area.",
-                    isCorrect: true,
-                    socraticRebuttal: "Exact! Determinant ad − bc = 2(2) − 4(1) = 0 diagnoses collinear basis vectors."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch20-c",
-                    speakerLabel: "The area becomes negative",
-                    reasoningStatement: "Subtraction makes the area negative.",
-                    isCorrect: false,
-                    socraticRebuttal: "Here ad = 4 and bc = 4, so ad − bc = 0 (a flat line segment)."
-                )
-            ],
-            invariantTakeaway: "det([[a, b], [c, d]]) = ad − bc measures the signed area scale factor of a 2×2 linear transformation."
-        )
-    ]
+    public static let all: [MathematicalDebateScenario] = []
 }
 
 // MARK: - 8. Daily 15-Minute Flow Session Composer (Today Room Ritual)

@@ -77,7 +77,7 @@ struct WalkBackSheet: View {
                     .foregroundStyle(theme.patterned.assistedColor)
                     .fixedSize(horizontal: false, vertical: true)
                 Button("Next", action: next)
-                    .buttonStyle(InkButtonStyle())
+                    .buttonStyle(OutlineButtonStyle())
             } else {
                 AnswerCheckRow(typed: $typed, typing: $typing) { check(probe) }
             }

@@ -16,106 +16,30 @@ struct ConceptLinkTests {
         Self.library.linker.links(in: text, exclude: exclude, linked: linked).map(\.concept)
     }
 
-    @Test("The pack carries the cards of chapters 0 to 12, and their nine-step sections")
+    @Test("The pack carries the cards of chapters 0 to 20, and their nine-step sections")
     func packDecodesCardsAndSteps() throws {
-        #expect(Self.pack.concepts.count == 134)
+        #expect(Self.pack.concepts.count == 204)
         #expect(Self.pack.conceptStopPhrases.contains("conversion factor"))
-        let chapter = try #require(Self.pack.chapters.first { $0.number == 1 })
-        #expect(chapter.skillCard != nil)
-        #expect(chapter.linksConcepts)
-        #expect(chapter.sections.count == 5)
-        for section in chapter.sections {
-            #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
-            #expect(section.excerpt == section.teachingSteps.first { $0.kind == .idea }?.text)
+        let expected: [(Int, Int, Bool)] = [
+            (0, 7, true), (1, 5, false), (2, 6, false), (3, 6, false), (4, 7, false),
+            (5, 6, false), (6, 6, false), (7, 6, false), (8, 7, false), (9, 8, false),
+            (10, 8, false), (11, 8, false), (12, 8, true), (13, 4, false), (14, 4, false),
+            (15, 4, false), (16, 3, true), (17, 4, true), (18, 3, true), (19, 4, false),
+            (20, 4, true)
+        ]
+        for (num, sectionCount, beyond) in expected {
+            let ch = try #require(Self.pack.chapters.first { $0.number == num })
+            #expect(ch.skillCard != nil, "ch\(num) skillCard")
+            #expect(ch.linksConcepts, "ch\(num) linksConcepts")
+            #expect(ch.goesBeyondSchoolBook == beyond, "ch\(num) goesBeyondSchoolBook")
+            #expect(ch.sections.count == sectionCount, "ch\(num) section count")
+            for section in ch.sections {
+                #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
+                #expect(section.excerpt == section.teachingSteps.first { $0.kind == .idea }?.text)
+            }
+            let tag = String(format: "ch%02d", num)
+            #expect(ch.callouts.map(\.id) == ["\(tag)-c-predict", "\(tag)-c-aha", "\(tag)-c-trap"])
         }
-        #expect(chapter.callouts.map(\.id) == ["ch01-c-predict", "ch01-c-aha", "ch01-c-trap"])
-        let zero = try #require(Self.pack.chapters.first { $0.number == 0 })
-        #expect(zero.skillCard != nil && zero.linksConcepts && zero.goesBeyondSchoolBook)
-        #expect(zero.sections.count == 7)
-        for section in zero.sections {
-            #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
-        }
-        #expect(zero.callouts.map(\.id) == ["ch00-c-predict", "ch00-c-aha", "ch00-c-trap"])
-        let two = try #require(Self.pack.chapters.first { $0.number == 2 })
-        #expect(two.skillCard != nil && two.linksConcepts && !two.goesBeyondSchoolBook)
-        #expect(two.sections.count == 6)
-        for section in two.sections {
-            #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
-        }
-        #expect(two.callouts.map(\.id) == ["ch02-c-predict", "ch02-c-aha", "ch02-c-trap"])
-        let three = try #require(Self.pack.chapters.first { $0.number == 3 })
-        #expect(three.skillCard != nil && three.linksConcepts && !three.goesBeyondSchoolBook)
-        #expect(three.sections.count == 6)
-        for section in three.sections {
-            #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
-        }
-        #expect(three.callouts.map(\.id) == ["ch03-c-predict", "ch03-c-aha", "ch03-c-trap"])
-        let four = try #require(Self.pack.chapters.first { $0.number == 4 })
-        #expect(four.skillCard != nil && four.linksConcepts && !four.goesBeyondSchoolBook)
-        #expect(four.sections.count == 7)
-        for section in four.sections {
-            #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
-        }
-        #expect(four.callouts.map(\.id) == ["ch04-c-predict", "ch04-c-aha", "ch04-c-trap"])
-        let five = try #require(Self.pack.chapters.first { $0.number == 5 })
-        #expect(five.skillCard != nil && five.linksConcepts && !five.goesBeyondSchoolBook)
-        #expect(five.sections.count == 6)
-        for section in five.sections {
-            #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
-        }
-        #expect(five.callouts.map(\.id) == ["ch05-c-predict", "ch05-c-aha", "ch05-c-trap"])
-        let six = try #require(Self.pack.chapters.first { $0.number == 6 })
-        #expect(six.skillCard != nil && six.linksConcepts && !six.goesBeyondSchoolBook)
-        #expect(six.sections.count == 6)
-        for section in six.sections {
-            #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
-        }
-        #expect(six.callouts.map(\.id) == ["ch06-c-predict", "ch06-c-aha", "ch06-c-trap"])
-        let seven = try #require(Self.pack.chapters.first { $0.number == 7 })
-        #expect(seven.skillCard != nil && seven.linksConcepts && !seven.goesBeyondSchoolBook)
-        #expect(seven.sections.count == 6)
-        for section in seven.sections {
-            #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
-        }
-        #expect(seven.callouts.map(\.id) == ["ch07-c-predict", "ch07-c-aha", "ch07-c-trap"])
-        let eight = try #require(Self.pack.chapters.first { $0.number == 8 })
-        #expect(eight.skillCard != nil && eight.linksConcepts && !eight.goesBeyondSchoolBook)
-        #expect(eight.sections.count == 7)
-        for section in eight.sections {
-            #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
-        }
-        #expect(eight.callouts.map(\.id) == ["ch08-c-predict", "ch08-c-aha", "ch08-c-trap"])
-        let nine = try #require(Self.pack.chapters.first { $0.number == 9 })
-        #expect(nine.skillCard != nil && nine.linksConcepts && !nine.goesBeyondSchoolBook)
-        #expect(nine.sections.count == 8)
-        for section in nine.sections {
-            #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
-        }
-        #expect(nine.callouts.map(\.id) == ["ch09-c-predict", "ch09-c-aha", "ch09-c-trap"])
-        let ten = try #require(Self.pack.chapters.first { $0.number == 10 })
-        #expect(ten.skillCard != nil && ten.linksConcepts && !ten.goesBeyondSchoolBook)
-        #expect(ten.sections.count == 8)
-        for section in ten.sections {
-            #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
-        }
-        #expect(ten.callouts.map(\.id) == ["ch10-c-predict", "ch10-c-aha", "ch10-c-trap"])
-        let eleven = try #require(Self.pack.chapters.first { $0.number == 11 })
-        #expect(eleven.skillCard != nil && eleven.linksConcepts && !eleven.goesBeyondSchoolBook)
-        #expect(eleven.sections.count == 8)
-        for section in eleven.sections {
-            #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
-        }
-        #expect(eleven.callouts.map(\.id) == ["ch11-c-predict", "ch11-c-aha", "ch11-c-trap"])
-        let twelve = try #require(Self.pack.chapters.first { $0.number == 12 })
-        #expect(twelve.skillCard != nil && twelve.linksConcepts && twelve.goesBeyondSchoolBook)
-        #expect(twelve.sections.count == 8)
-        for section in twelve.sections {
-            #expect(section.teachingSteps.map(\.kind) == TeachingStepKind.allCases, "\(section.id) steps")
-        }
-        #expect(twelve.callouts.map(\.id) == ["ch12-c-predict", "ch12-c-aha", "ch12-c-trap"])
-        let others = Self.pack.chapters.filter { $0.number > 12 }
-        #expect(others.count == 8)
-        #expect(others.allSatisfy { !$0.linksConcepts && $0.skillCard == nil })
         for card in Self.pack.concepts {
             for id in card.standsOn + [card.mixUp.with].compactMap({ $0 }) {
                 #expect(Self.library.card(id) != nil, "\(card.id) names \(id)")
@@ -132,7 +56,7 @@ struct ConceptLinkTests {
         #expect(concepts("A factor of a factor", exclude: "factor").isEmpty)
         #expect(concepts("A factor of a factor") == ["factor"])
         #expect(concepts("Find a factor of 12.", linked: ["factor"]).isEmpty)
-        #expect(concepts("A factorial. A powerful idea.").isEmpty)
+        #expect(concepts("A factory. A powerful idea.").isEmpty)
         #expect(concepts("√2 is about 1.41.") == ["square-root"])
     }
 
@@ -214,8 +138,6 @@ struct ConceptLinkTests {
             #expect(beat.bodyParagraphs == beat.teachingSteps.map(\.text))
             #expect(beat.spokenScript.contains(beat.teachingSteps[0].text))
         }
-        let other = try #require(Self.pack.chapters.first { $0.number == 13 })
-        #expect(ChapterInteractiveBeatEngine.beats(for: other).allSatisfy { $0.teachingSteps.isEmpty })
     }
 
     @Test("A concept deep link opens its card")
@@ -300,12 +222,6 @@ struct ChapterWrapperTests {
         #expect(try Self.beat(for: s1, in: beats).showsFigure)
         #expect(try !Self.beat(for: s5, in: beats).showsFigure)
         #expect(beats.first { $0.kind == .interactiveLabAndFormula }?.showsFigure == true)
-        // A chapter not yet rewritten keeps the figure beside every section.
-        let other = try Self.chapter(13)
-        let otherBeats = ChapterInteractiveBeatEngine.beats(for: other)
-        for section in other.sections {
-            #expect(try Self.beat(for: section, in: otherBeats).showsFigure, "\(section.id)")
-        }
     }
 
     // G9

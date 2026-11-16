@@ -54,23 +54,55 @@ private struct PaperCard: ViewModifier {
 struct WonderQuestion: View {
     @Environment(\.standardTheme) private var theme
     private let text: String
+    private let framed: Bool
 
-    init(_ text: String) {
+    init(_ text: String, framed: Bool = true) {
         self.text = text
+        self.framed = framed
     }
 
     var body: some View {
-        ByrneText(text)
-            .patternedType(.question)
-            .foregroundStyle(theme.ink)
-            .fixedSize(horizontal: false, vertical: true)
+        if framed {
+            VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+                HStack(spacing: StandardSpacing.xs) {
+                    Circle()
+                        .fill(theme.patterned.color(.moves))
+                        .frame(width: 7, height: 7)
+                    Text("WONDER FIRST · THOUGHT EXPERIMENT")
+                        .patternedType(.kicker)
+                        .foregroundStyle(theme.brass)
+                }
+                ByrneText(text)
+                    .patternedType(.question)
+                    .foregroundStyle(theme.ink)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .padding(StandardSpacing.md)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                    .fill(theme.patterned.wash(.stays).opacity(0.65))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
+                    .strokeBorder(theme.brass.opacity(0.32), lineWidth: 1)
+            )
+            .accessibilityElement(children: .combine)
             .accessibilityLabel(ByrneMarkup.plain(text))
+        } else {
+            ByrneText(text)
+                .patternedType(.question)
+                .foregroundStyle(theme.ink)
+                .fixedSize(horizontal: false, vertical: true)
+                .accessibilityLabel(ByrneMarkup.plain(text))
+        }
     }
 }
 
 /// The reader's own handwriting, in Byrne blue: a prediction, a note to self.
 struct HandNote: View {
     @Environment(\.standardTheme) private var theme
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     private let text: String
 
     init(_ text: String) {
@@ -78,10 +110,32 @@ struct HandNote: View {
     }
 
     var body: some View {
-        Text(text)
-            .patternedType(.hand)
-            .foregroundStyle(theme.patterned.color(.given))
-            .fixedSize(horizontal: false, vertical: true)
+        VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+            Text("YOUR OWN WORDS · SKETCH NOTE")
+                .patternedType(.kicker)
+                .foregroundStyle(theme.patterned.color(.given))
+            Text(text)
+                .patternedType(.hand)
+                .foregroundStyle(theme.patterned.color(.given))
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(StandardSpacing.sm + 2)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous)
+                .fill(theme.patterned.wash(.given).opacity(0.45))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous)
+                .strokeBorder(theme.patterned.color(.given).opacity(0.28), style: StrokeStyle(lineWidth: 1, dash: [4, 3]))
+        )
+        .overlay(alignment: .top) {
+            Capsule()
+                .fill(theme.brass.opacity(0.38))
+                .frame(width: 44, height: 6)
+                .offset(y: -3)
+        }
+        .rotationEffect(.degrees(reduceMotion ? 0 : -0.55))
     }
 }
 
@@ -97,6 +151,7 @@ struct MarginNote: View {
     }
 
     @Environment(\.standardTheme) private var theme
+    @State private var isExpanded = false
     private let kind: Kind
     private let text: String
 
@@ -105,16 +160,30 @@ struct MarginNote: View {
         self.text = text
     }
 
+    private var canFold: Bool { text.count > 135 }
+
     var body: some View {
         switch kind {
         case .sidenote(let number):
-            HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.xs) {
-                Text("\(number)")
-                    .patternedType(.sidenote)
+            VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+                HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.xs) {
+                    Text("\(number)")
+                        .patternedType(.sidenote)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(theme.brass)
+                    ByrneText(text)
+                        .patternedType(.sidenote)
+                        .foregroundStyle(theme.mute(theme.ink))
+                        .lineLimit(canFold && !isExpanded ? 3 : nil)
+                }
+                if canFold {
+                    Button(isExpanded ? "Fold note ▴" : "In a nutshell ▾") {
+                        isExpanded.toggle()
+                    }
+                    .font(.system(size: 11, weight: .semibold))
                     .foregroundStyle(theme.brass)
-                ByrneText(text)
-                    .patternedType(.sidenote)
-                    .foregroundStyle(theme.mute(theme.ink))
+                    .buttonStyle(.plain)
+                }
             }
             .fixedSize(horizontal: false, vertical: true)
         case .history(let kicker):
@@ -123,7 +192,16 @@ struct MarginNote: View {
                 ByrneText(text)
                     .patternedType(.sidenote)
                     .foregroundStyle(theme.mute(theme.ink))
+                    .lineLimit(canFold && !isExpanded ? 3 : nil)
                     .fixedSize(horizontal: false, vertical: true)
+                if canFold {
+                    Button(isExpanded ? "Fold note ▴" : "In a nutshell ▾") {
+                        isExpanded.toggle()
+                    }
+                    .font(.system(size: 11, weight: .semibold))
+                    .foregroundStyle(theme.brass)
+                    .buttonStyle(.plain)
+                }
             }
             .padding(.leading, StandardSpacing.sm)
             .overlay(alignment: .leading) {
@@ -191,6 +269,14 @@ struct ChainCard: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: StandardSpacing.md) {
+            HStack(spacing: 6) {
+                Circle().fill(theme.patterned.color(.given)).frame(width: 6, height: 6)
+                Rectangle().fill(theme.hairline()).frame(height: 1)
+                Circle().fill(theme.brass).frame(width: 7, height: 7)
+                Rectangle().fill(theme.hairline()).frame(height: 1)
+                Circle().fill(theme.patterned.color(.moves)).frame(width: 6, height: 6)
+            }
+            .accessibilityHidden(true)
             group("Stands on", standsOn, empty: "Nothing yet. This is a first step.")
             group("Unlocks", unlocks, empty: "The end of this road, for now.")
         }

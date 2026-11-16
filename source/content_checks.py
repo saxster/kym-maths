@@ -239,7 +239,7 @@ def check_banned_words(strings):
     for where, text in strings:
         normal = text.replace("’", "'")
         out += [f"3 banned word: {where} uses \"{hit.group(1)}\"" for hit in pattern.finditer(normal)]
-        if "!" in text:
+        if "!" in re.sub(r"(?:\b[nkr]|[0-9)])!", "", text):
             out.append(f"3 banned word: {where} has an exclamation mark")
     return out
 

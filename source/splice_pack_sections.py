@@ -102,12 +102,15 @@ def splice_records(pack_records, built_records, authored):
     return drift
 
 
-def splice_figure_chapters(chapters):
+def splice_figure_chapters(chapters, explorers=None):
     page = exporter.BOOK_OUT.read_text(encoding="utf-8")
     line = f"const CHAPTERS = {json.dumps(chapters, ensure_ascii=False)};"
     spliced, count = re.subn(r"^const CHAPTERS = .*;$", lambda _: line, page, count=1, flags=re.M)
     if count != 1:
         raise SystemExit(f"No `const CHAPTERS = …;` line in {exporter.BOOK_OUT}")
+    if explorers is not None:
+        exp_line = f"const EXPLORERS = {json.dumps(explorers, ensure_ascii=False)};"
+        spliced, _ = re.subn(r"^const EXPLORERS = .*;$", lambda _: exp_line, spliced, count=1, flags=re.M)
     exporter.BOOK_OUT.write_text(spliced, encoding="utf-8")
 
 
@@ -118,14 +121,21 @@ def main():
 
     pack = json.loads(exporter.PACK_OUT.read_text(encoding="utf-8"))
     built_chapters = {chapter["number"]: chapter for chapter in chapters}
+    pack["volumes"] = exporter.build_volumes()
     pack["chapters"] = [built_chapters[ch["number"]] if ch["number"] in rewritten else ch for ch in pack["chapters"]]
+    pack["explorers"] = exporter.build_explorers()
+    pack["crossDisciplinaryBridges"] = exporter.build_bridges()
+    pack["diagramPlates"] = exporter.build_diagram_plates()
+    pack["polyaStages"] = exporter.build_polya_stages()
+    pack["speedMathDecks"] = exporter.build_speed_math_decks()
     pack["misconceptions"] = exporter.build_misconceptions()
     pack["footings"] = exporter.build_footings()
     pack["concepts"] = exporter.build_concepts(chapters)
     pack["conceptStopPhrases"] = exporter.build_concept_stop_phrases()
     school_questions = exporter.book_school_questions()
     school_topics = exporter.book_school_topics()
-    taken = {question["id"]: {"answerKey"} | set(school_questions.get(question["id"], ())) for question in questions}
+    taken = {question["id"]: {"answerKey", "prompt", "bookSection"} | set(school_questions.get(question["id"], ()))
+             for question in questions}
     changed_keys = sorted(q["id"] for q in pack["schoolQuestions"]
                           if q.get("answerKey") != next((b["answerKey"] for b in questions if b["id"] == q["id"]), None))
     drift = splice_stuck(pack["schoolQuestions"], questions, taken)
@@ -145,7 +155,7 @@ def main():
     old_golden = json.loads(exporter.GOLDEN_OUT.read_text(encoding="utf-8")) if exporter.GOLDEN_OUT.exists() else []
     new_links = new_link_lines(old_golden, exporter.write_golden(pack))
     exporter.PACK_OUT.write_text(json.dumps(pack, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    splice_figure_chapters(pack["chapters"])
+    splice_figure_chapters(pack["chapters"], pack["explorers"])
 
     probes = sum(len(f["probes"]) for f in pack["footings"])
     sheets = sum("stuck" in q for q in pack["schoolQuestions"])

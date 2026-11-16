@@ -785,7 +785,7 @@ struct QuestionProofPracticeView: View {
                 .foregroundStyle(theme.ink)
                 .fixedSize(horizontal: false, vertical: true)
             Button("Check the step underneath") { openWalkBack = walkBack }
-                .buttonStyle(InkButtonStyle())
+                .buttonStyle(OutlineButtonStyle())
         }
     }
 

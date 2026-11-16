@@ -378,6 +378,47 @@ def build(k):
                 "formula": "(−1) × (−1) = +1",
             },
         },
+        "schoolTopics": {
+            "1.1": "Multiplying or dividing by a negative number turns the sign round on the number line. "
+                   "Two negative signs make a positive; one negative and one positive make a negative.",
+            "1.2": "A square number is a whole number multiplied by itself, and a cube number is multiplied by itself three times. "
+                   "In prime factors, a square has even powers and a cube has powers that are multiples of 3.",
+            "1.3": "When multiplying powers of the same base, add the indices: aᵐ × aⁿ = aᵐ⁺ⁿ. "
+                   "When dividing, subtract the indices: aᵐ ÷ aⁿ = aᵐ⁻ⁿ, and a⁰ = 1.",
+            "1.4": "Break each number into prime factors with a factor tree. "
+                   "The highest common factor (HCF) multiplies the shared primes; the lowest common multiple (LCM) takes each prime the most times it appears.",
+            "1.5": "Work out brackets and powers before multiplying and dividing, and add or subtract last. "
+                   "Notice that (−3)² = +9, whereas −3² means −(3 × 3) = −9.",
+            "1.6": "Whole numbers, negative numbers and fractions are rational numbers, which stop or repeat as decimals. "
+                   "A square root of a non-square whole number, such as √2, is an irrational number.",
+        },
+        "schoolQuestions": {
+            "q-oup-ch01-sb": {
+                "workedExample": "Step 1: Break both into prime factors: 72 = 2³ × 3² and 120 = 2³ × 3 × 5.\n"
+                                 "Step 2: Multiply the primes they share for the HCF: 2³ × 3 = 8 × 3 = 24.\n"
+                                 "Step 3: Take the highest power of each prime for the LCM: 2³ × 3² × 5 = 360.\n"
+                                 "Step 4: Check: 24 × 360 = 8,640, and 72 × 120 = 8,640.",
+                "fadedPrompt": "72 = 2³ × 3² and 120 = 2³ × 3 × 5, so HCF = ___ and LCM = ___.",
+            },
+            "q-oup-ch01-wb-focus": {
+                "workedExample": "Step 1: Multiply and divide from left to right: (−6) × (−4) = +24, and 24 ÷ (−3) = −8.\n"
+                                 "Step 2: Work out the cube: (−2)³ = (−2) × (−2) × (−2) = −8.\n"
+                                 "Step 3: Add the two parts: −8 + (−8) = −16.",
+                "fadedPrompt": "(−6) × (−4) ÷ (−3) = −8 and (−2)³ = −8, so −8 + (−8) = ___.",
+            },
+            "q-oup-ch01-wb-practice": {
+                "workedExample": "Step 1: Break both gaps into prime factors: 18 = 2 × 3² and 24 = 2³ × 3.\n"
+                                 "Step 2: The lowest common multiple takes the highest power of each prime: 2³ × 3² = 8 × 9 = 72.\n"
+                                 "Step 3: Both lighthouses flash together again after 72 seconds.",
+                "fadedPrompt": "18 = 2 × 3² and 24 = 2³ × 3, so LCM = 2³ × 3² = ___ seconds.",
+            },
+            "q-oup-ch01-wb-challenge": {
+                "workedExample": "Step 1: For any two whole numbers, HCF × LCM = a × b.\n"
+                                 "Step 2: Multiply HCF and LCM: 12 × 180 = 2,160.\n"
+                                 "Step 3: Divide by a = 36: b = 2,160 ÷ 36 = 60.",
+                "fadedPrompt": "HCF × LCM = 12 × 180 = 2,160, so b = 2,160 ÷ 36 = ___.",
+            },
+        },
     }
 
 

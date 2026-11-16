@@ -30,6 +30,14 @@ from book import ch09 as book_ch09
 from book import ch10 as book_ch10
 from book import ch11 as book_ch11
 from book import ch12 as book_ch12
+from book import ch13 as book_ch13
+from book import ch14 as book_ch14
+from book import ch15 as book_ch15
+from book import ch16 as book_ch16
+from book import ch17 as book_ch17
+from book import ch18 as book_ch18
+from book import ch19 as book_ch19
+from book import ch20 as book_ch20
 from book import concepts as book_concepts
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -38,7 +46,11 @@ BOOK_OUT = ROOT / "KymMaths" / "KymMaths" / "Resources" / "PatternedWorldBook" /
 GOLDEN_OUT = ROOT / "KymMaths" / "Tests" / "Golden" / "concept-links.json"
 
 # Chapters rewritten by hand to docs/CONTENT_BRIEF.md. The content checks apply to these.
-BOOK_CHAPTERS = (book_ch00, book_ch01, book_ch02, book_ch03, book_ch04, book_ch05, book_ch06, book_ch07, book_ch08, book_ch09, book_ch10, book_ch11, book_ch12)
+BOOK_CHAPTERS = (
+    book_ch00, book_ch01, book_ch02, book_ch03, book_ch04, book_ch05, book_ch06,
+    book_ch07, book_ch08, book_ch09, book_ch10, book_ch11, book_ch12, book_ch13,
+    book_ch14, book_ch15, book_ch16, book_ch17, book_ch18, book_ch19, book_ch20,
+)
 # Saved learner responses key on callout ids, so a rewritten chapter keeps the old ids.
 CALLOUT_ID_SUFFIX = {"predict": "predict", "check": "aha", "careful": "trap"}
 
@@ -251,7 +263,7 @@ def build_volumes():
         {
             "id": "vol-3",
             "number": 3,
-            "title": "Volume III · Euclid's Compass, Mensuration & Trigonometry",
+            "title": "Volume III · Euclid's Compass, Circles & Trigonometry",
             "chapters": [8, 9, 10, 11, 12],
         },
         {
@@ -263,208 +275,15 @@ def build_volumes():
         {
             "id": "vol-5",
             "number": 5,
-            "title": "Volume V · The Horizon: Calculus, Vectors & Linear Algebra",
+            "title": "Volume V · Calculus, Vectors & Linear Algebra",
             "chapters": [17, 18, 19, 20],
         },
     ]
 
 
 def build_chapters():
-    raw_specs = [
-        (
-            13, 4, "How Not to Be Fooled by a Sample",
-            "OUP Ch 4 · Sampling methods, bias forensics, Abraham Wald's bombers & @saxster/atlas σ/√n standard error",
-            "A huge biased sample is worse than a small random one; repeated random samples cluster within ±σ / √n of the truth.",
-            "Run the @saxster/atlas Repeated Readings Explorer (`statistics/error`) and toggle survivorship filter on Wald's WWII aircraft.",
-            "Bullet holes on returning planes show where a plane can be hit and still fly home — the missing holes on the engines mark where fatal hits occurred!",
-            "Stratified nᵢ = n × (Nᵢ / N),   Standard Error SE = σ / √n",
-            [
-                {"symbol": "Nᵢ / N", "visualPart": "Blue stratum share of total population", "colorRole": "blue", "meaning": "Proportional representation weight"},
-                {"symbol": "σ / √n", "visualPart": "Red shrinking standard-error bracket around true mean μ", "colorRole": "red", "meaning": "Quadrupling sample size n halves the error bar"},
-                {"symbol": "Selection Bias", "visualPart": "Amber missing-data ghost region (Wald's engine armour)", "colorRole": "amber", "meaning": "Unobserved dropouts skew naive averages"}
-            ],
-            "statistics/error/index.html",
-            ["Population vs Sample", "Simple Random Sample", "Stratified Sample", "Systematic Sample", "Survivorship Bias", "Standard Error σ/√n"],
-            ["w_atlas_sampling_error", "w_wald_survivorship_bomber"]
-        ),
-        (
-            14, 4, "Seeing the Distribution: Histograms, Spread & Standard Deviation",
-            "OUP Ch 10 · Time-series trends, back-to-back stem-and-leaf, frequency-density histograms, IQR & standard deviation σ",
-            "In a true histogram, the area of each bar — not its height — represents frequency.",
-            "Change the width Δx of a histogram class interval and watch the bar height adjust so its area stays equal to frequency f.",
-            "If one class interval is twice as wide as another, keeping the bar at raw frequency makes it look twice as big by accident — dividing height by class width (Frequency Density = f / Δx) makes Area = FD × Δx = f exact!",
-            "Frequency Density = f / Δx,   μ = (∑ xᵢ) / n,   σ = √[ (∑(xᵢ − μ)²) / n ]",
-            [
-                {"symbol": "f / Δx", "visualPart": "Red bar height (Frequency Density)", "colorRole": "red", "meaning": "Customers per unit width"},
-                {"symbol": "FD × Δx = f", "visualPart": "Blue bar area", "colorRole": "blue", "meaning": "Area of rectangle equals exact count f"},
-                {"symbol": "σ", "visualPart": "Amber root-mean-square deviation arms from balance fulcrum μ", "colorRole": "amber", "meaning": "Typical distance of data points from the mean"}
-            ],
-            "maths/ch11-data-histograms/index.html",
-            ["Time Series", "Moving Average", "Back-to-Back Stem-and-Leaf", "Frequency Density", "Interquartile Range (IQR)", "Variance & Standard Deviation σ"],
-            ["w_histogram_frequency_density", "w_mean_fulcrum_std_dev"]
-        ),
-        (
-            15, 4, "Counting Worlds: Sample Spaces, Permutations & Combinations",
-            "OUP Ch 15 · Experimental vs theoretical probability, sample-space grids, @saxster/atlas Galton board, nPr & nCr",
-            "Drop 500 balls through rows of 50/50 pegs and binomial combinations C(n, k) build the normal bell curve before your eyes.",
-            "Open the @saxster/atlas Galton Pegboard Explorer (`statistics/galton`): predict the slot distribution and drop 500 seeded balls.",
-            "To land in slot k after n peg rows, a ball must bounce right k times and left (n − k) times — the number of distinct paths is Pascal's combination C(n, k) = n! / [k!(n − k)!]!",
-            "P(A ∩ B) = P(A) · P(B),   ⁿPᵣ = n! / (n − r)!,   ⁿCᵣ = n! / [r!(n − r)!]",
-            [
-                {"symbol": "n! / (n − r)!", "visualPart": "Red ordered slot choices n × (n−1) × …", "colorRole": "red", "meaning": "Permutations when order matters"},
-                {"symbol": "÷ r!", "visualPart": "Blue collapse of r! identical rearrangements", "colorRole": "blue", "meaning": "Divides out order to count combinations C(n,r)"},
-                {"symbol": "C(n,k) pᵏ(1−p)ⁿ⁻ᵏ", "visualPart": "Amber Galton pegboard bell column k", "colorRole": "amber", "meaning": "Exact binomial probability of k successes in n trials"}
-            ],
-            "statistics/galton/index.html",
-            ["Sample Space", "Mutually Exclusive", "Independent Events", "Tree Diagram", "Factorial n!", "Permutation nPr", "Combination nCr", "Galton Board & CLT"],
-            ["w_atlas_galton_board", "w_combinatorics_tree_builder"]
-        ),
-        (
-            16, 4, "Updating Belief: Conditional Probability & Bayes' Theorem",
-            "Advanced Probability · @saxster/atlas Bayes Explorer: why a positive result from a 95% accurate test on a 2% condition is right only 28% of the time",
-            "Evidence never acts in a vacuum — it slices and renormalizes the prior base rate inside a 1,000-person unit square.",
-            "Open the @saxster/atlas Bayes Unit-Square Explorer (`statistics/bayes`): set prevalence p = 2%, sensitivity = 95%, false-positive rate = 5%, and screen 1,000 people.",
-            "Conditioning on a positive test throws away everyone who tested negative! What remains is just two bars: 19 True Positives (red) from the 20 sick people, and 49 False Positives (amber) from the 980 healthy people — so P(D | +) = 19 / (19 + 49) ≈ 27.9%!",
-            "P(D | +) = [ P(+ | D) P(D) ] / [ P(+ | D) P(D) + P(+ | ¬D) P(¬D) ]",
-            [
-                {"symbol": "P(+ | D) P(D)", "visualPart": "Red True-Positive rectangle (19 of 1,000)", "colorRole": "red", "meaning": "Sick people correctly flagged positive"},
-                {"symbol": "P(+ | ¬D) P(¬D)", "visualPart": "Amber False-Positive rectangle (49 of 1,000)", "colorRole": "amber", "meaning": "Healthy people falsely flagged positive"},
-                {"symbol": "Red / (Red + Amber)", "visualPart": "Isolated posterior bar on the right of the 3D board", "colorRole": "green", "meaning": "Share of all positive tests that are genuinely sick"}
-            ],
-            "maths/ch17-bayes-probability/index.html",
-            ["Prior Probability P(D)", "Sensitivity P(+|D)", "Specificity", "False Positive P(+|¬D)", "Posterior Probability P(D|+)", "Base-Rate Fallacy", "Likelihood Ratio"],
-            ["w_atlas_bayes_square", "w_bayes_natural_frequency_tree"]
-        ),
-        (
-            17, 5, "Zooming In Forever: Limits, Secants & Derivatives",
-            "Advanced Calculus I · @saxster/atlas Calculus (pp. 0–2): secant slope to tangent limit, power rule & stationary points",
-            "A curve looks straight when you zoom in; its derivative f′(x) is the limit of the secant slope as step h shrinks to zero.",
-            "Open @saxster/atlas Calculus (`maths/calculus` pp. 0–2) and slide point Q toward P(1, ½) on f(x) = ½x², or expand a square of side x by dx.",
-            "Expanding a square x² by tiny strip dx adds two long strips of area x·dx and a tiny corner (dx)² — dividing Δ(x²)/dx = 2x + dx and letting dx → 0 leaves the exact derivative 2x!",
-            "f′(x) = lim_{h→0} [f(x + h) − f(x)] / h,   d/dx (xⁿ) = n xⁿ⁻¹",
-            [
-                {"symbol": "f(x + h) − f(x)", "visualPart": "Red vertical rise segment Δy between P and Q", "colorRole": "red", "meaning": "Change in height across step h"},
-                {"symbol": "h", "visualPart": "Blue horizontal run step", "colorRole": "blue", "meaning": "Step width shrinking toward 0"},
-                {"symbol": "f′(x) = 0", "visualPart": "Green level tangent at cubic peak (0, 2) and trough (2, ⅔)", "colorRole": "green", "meaning": "Stationary points (maxima and minima)"}
-            ],
-            "maths/ch18-differential-calculus/index.html",
-            ["Limit", "Secant Line", "Tangent Line", "Derivative dy/dx", "Power Rule nxⁿ⁻¹", "Stationary Point f′(x)=0", "Local Maximum & Minimum"],
-            ["w_atlas_calculus_derivative", "w_power_rule_square_growth"]
-        ),
-        (
-            18, 5, "Slicing to Infinity: Riemann Sums & The Fundamental Theorem of Calculus",
-            "Advanced Calculus II · @saxster/atlas Calculus (pp. 3–5): midpoint Riemann bars, definite integrals & why slope and area are inverses",
-            "Adding up infinitely many thin rate-times-time slivers reconstructs total change: integration and differentiation undo each other.",
-            "Open @saxster/atlas Calculus (`maths/calculus` pp. 3–5) and compare the blue area under f′(t) = t from 0 to x with the red height of the parabola f(x) = ½x².",
-            "Every tiny step dt adds a ribbon of area f′(t)·dt = df — which is the exact tiny rise in height of the original curve f(x)! That is why the area under the slope curve IS the height change f(b) − f(a)!",
-            "∫ₐᵇ f(x) dx = lim_{n→∞} ∑ f(xᵢ) Δx = F(b) − F(a)   where F′(x) = f(x)",
-            [
-                {"symbol": "f(xᵢ) Δx", "visualPart": "Blue midpoint Riemann rectangle of width Δx", "colorRole": "blue", "meaning": "Area of one thin strip"},
-                {"symbol": "∫₀ˣ f′(t) dt", "visualPart": "Blue shaded triangle under slope graph f′(t) = t", "colorRole": "blue", "meaning": "Accumulated area under rate curve"},
-                {"symbol": "f(x) − f(0)", "visualPart": "Red vertical height bar on antiderivative parabola ½x²", "colorRole": "red", "meaning": "Total net change in height"}
-            ],
-            "maths/ch19-integral-calculus/index.html",
-            ["Riemann Sum", "Midpoint Rule", "Definite Integral", "Antiderivative", "Fundamental Theorem of Calculus", "Signed Area"],
-            ["w_atlas_calculus_integral", "w_ftc_area_slope_duality"]
-        ),
-        (
-            19, 5, "Arrows in Space: Vectors, Dot Products & Geometric Proofs",
-            "OUP Ch 16 Bonus Chapter · Column vectors, triangle/parallelogram addition, magnitude |v|, dot product & vector geometry proofs",
-            "A vector is a pure displacement (dx, dy) free of any starting point; adding vectors chains journeys tip-to-tail.",
-            "Drag vectors a and b tip-to-tail on the grid, and project vector u onto v to measure their dot product.",
-            "Because midpoints M of AB and N of AC have position vectors ½b and ½c, the segment MN = ½c − ½b = ½(c − b) = ½BC — proving in one line that the midsegment of ANY triangle is parallel to the base and half its length!",
-            "AB = OB − OA,   |v| = √(x² + y²),   u · v = x₁x₂ + y₁y₂ = |u||v| cos θ",
-            [
-                {"symbol": "a + b", "visualPart": "Red vector a followed tip-to-tail by Blue vector b", "colorRole": "red", "meaning": "Resultant diagonal displacement"},
-                {"symbol": "½(b − a)", "visualPart": "Green midsegment vector MN parallel to base AB", "colorRole": "green", "meaning": "Simultaneously proves parallel direction and ½ length"},
-                {"symbol": "u · v = 0", "visualPart": "Amber 90° perpendicular shadow (zero projection)", "colorRole": "amber", "meaning": "Perpendicular vectors have zero dot product"}
-            ],
-            "maths/ch15-linear-graphs-inequalities/index.html",
-            ["Column Vector", "Position Vector", "Triangle Law", "Zero Vector", "Magnitude |v|", "Collinear Vectors", "Dot Product u·v", "Vector Midsegment Proof"],
-            ["w_vector_tip_to_tail_lab", "w_vector_geometric_proof_studio"]
-        ),
-        (
-            20, 5, "Stretching the Plane: 2×2 Matrices, Determinants & Eigenvectors",
-            "Advanced Linear Algebra · @saxster/atlas Linear Algebra & 2×2 Matrix Sandbox: basis columns, det(A) = ad − bc & eigenvectors",
-            "A 2×2 matrix is a machine that moves the entire coordinate grid by landing î at column 1 and ĵ at column 2.",
-            "Open the @saxster/atlas 2×2 Matrix Sandbox (`maths/matrix-sandbox`) and drag the red tip of Aî = (a, c) and blue tip of Aĵ = (b, d) directly in 3D.",
-            "The unit square stretches into an amber parallelogram of signed area det(A) = ad − bc; if the two columns line up, the whole 2D plane collapses onto a 1D line (det = 0), while green eigenvector lines stay on their own span (Av = λv)!",
-            "A[x, y]ᵀ = x Aî + y Aĵ,   det(A) = ad − bc,   A v = λ v  ⇔  det(A − λI) = 0",
-            [
-                {"symbol": "Column 1 (a, c)", "visualPart": "Red draggable basis vector Aî", "colorRole": "red", "meaning": "Where unit horizontal vector (1, 0) lands"},
-                {"symbol": "Column 2 (b, d)", "visualPart": "Blue draggable basis vector Aĵ", "colorRole": "blue", "meaning": "Where unit vertical vector (0, 1) lands"},
-                {"symbol": "det(A) = ad − bc", "visualPart": "Amber parallelogram spanned by Aî and Aĵ", "colorRole": "amber", "meaning": "Signed area scale factor for any shape in the plane"},
-                {"symbol": "A v = λ v", "visualPart": "Green invariant eigenvector axes", "colorRole": "green", "meaning": "Directions stretched by factor λ without rotating"}
-            ],
-            "maths/ch20-matrices-eigen/index.html",
-            ["Linear Transformation", "Basis Vectors î, ĵ", "2×2 Matrix", "Determinant ad − bc", "Singular Matrix (det = 0)", "Matrix Composition RS ≠ SR", "Eigenvector & Eigenvalue λ"],
-            ["w_atlas_linear_algebra", "w_atlas_matrix_sandbox"]
-        ),
-    ]
-
-    volumes_by_num = {v["number"]: v["title"] for v in build_volumes()}
-    chapters = []
-    for (
-        num, vol_num, title, subtitle, hook,
-        concrete_action, aha_invariant, formula_display, term_mappings, atlas_ref,
-        key_terms, widgets
-    ) in raw_specs:
-        chapters.append({
-            "id": f"ch{num:02d}",
-            "number": num,
-            "volumeNumber": vol_num,
-            "volumeTitle": volumes_by_num[vol_num],
-            "title": title,
-            "subtitle": subtitle,
-            "hookSummary": hook,
-            "intuitionToFormula": {
-                "concreteAction": concrete_action,
-                "ahaInvariant": aha_invariant,
-                "formulaDisplay": formula_display,
-                "termMappings": term_mappings,
-                "atlasFigureRef": atlas_ref,
-            },
-            "sections": [
-                {
-                    "id": f"ch{num:02d}-s1",
-                    "heading": f"{num}.1 Concrete & Pictorial Intuition (The Visual 'Aha!')",
-                    "excerpt": f"{concrete_action} {aha_invariant}",
-                },
-                {
-                    "id": f"ch{num:02d}-s2",
-                    "heading": f"{num}.2 Symbolic Lockstep & Formula Anatomy",
-                    "excerpt": f"Every piece of the geometry locks onto a symbol in {formula_display}. Once you see why each term exists, you never have to guess a sign or denominator.",
-                },
-                {
-                    "id": f"ch{num:02d}-s3",
-                    "heading": f"{num}.3 Singapore Bar-Model, Checkpoint & Olympiad Stretch",
-                    "excerpt": f"Apply {title} across Cambridge Stage 8 Checkpoint questions, Singapore multi-step problems, and horizon extensions.",
-                },
-            ],
-            "callouts": [
-                {
-                    "id": f"ch{num:02d}-c-predict",
-                    "kind": "predict",
-                    "title": "Predict Before You Drag",
-                    "body": f"Before moving the slider in {widget_title(widgets[0])}, predict which geometric quantity changes and which invariant stays locked.",
-                },
-                {
-                    "id": f"ch{num:02d}-c-aha",
-                    "kind": "check",
-                    "title": "The Intuition → Formula Bridge",
-                    "body": f"{aha_invariant} Formula: {formula_display}",
-                },
-                {
-                    "id": f"ch{num:02d}-c-trap",
-                    "kind": "careful",
-                    "title": "Classic Algebraic Trap to Avoid",
-                    "body": f"Whenever a formula in Chapter {num} looks tempting to shortcut, test a concrete 2×2 area or small integer example (x = 2, y = 3) first!",
-                },
-            ],
-            "keyTerms": key_terms,
-            "widgets": widgets,
-        })
-    chapters += [book_chapter_record(spec, build_volumes()) for spec in book_specs().values()]
+    volumes = build_volumes()
+    chapters = [book_chapter_record(spec, volumes) for spec in book_specs().values()]
     return sorted(chapters, key=lambda ch: ch["number"])
 
 
@@ -481,7 +300,7 @@ def build_explorers():
         {
             "id": "x_singapore_bar_engine",
             "title": "The Singapore CPA Bar-Model & Function Studio",
-            "subtitle": "Concrete → Pictorial → Abstract bar models translating word problems into equations",
+            "subtitle": "Bar models that turn a word problem into an equation: objects first, then a drawing, then symbols",
             "symbol": "rectangle.split.3x1.fill",
             "linkedChapters": [3, 4, 5, 6, 7],
             "summary": "Build part-whole, comparison, and before-after Singapore bar models and watch the brackets translate into live algebraic equations.",
@@ -489,15 +308,15 @@ def build_explorers():
         {
             "id": "x_euclid_compass",
             "title": "Euclid's Compass, Unit Circle & Trig Shadow Bench",
-            "subtitle": "Locus constructions, circle sector rearrangements, and @saxster/atlas unit-circle shadows",
+            "subtitle": "Locus constructions, circle sector rearrangements, and Atlas unit-circle shadows",
             "symbol": "compass.drawing",
             "linkedChapters": [8, 9, 10, 11, 12],
             "summary": "Construct bisectors, unroll radians, and shine level/top lamps on the 3D unit circle to see sin θ, cos θ, tan θ, and sin²θ + cos²θ = 1.",
         },
         {
             "id": "x_bayes_calculus_bridge",
-            "title": "The Bayes, Calculus & 2×2 Matrix Horizon Lab",
-            "subtitle": "@saxster/atlas 1,000-person Bayes square, Riemann sums, derivatives & 2×2 eigen-grids",
+            "title": "The Bayes, Calculus & 2×2 Matrix Lab",
+            "subtitle": "Atlas 1,000-person Bayes square, Riemann sums, derivatives & 2×2 eigen-grids",
             "symbol": "function",
             "linkedChapters": [13, 14, 15, 16, 17, 18, 19, 20],
             "summary": "Manipulate the 3D Bayes unit square, shrink secant step h → 0, sum Riemann rectangles, and drag 2×2 basis columns Aî and Aĵ.",
@@ -627,7 +446,7 @@ def build_bridges():
             "title": "Why Elephants Have Huge Ears & Cells Stay Microscopic (SA:V Scaling)",
             "schoolTopics": ["5.4", "12.2", "13.5"],
             "patternedWorldChapters": [10, 11],
-            "summary": "When a cell or organism enlarges by linear scale factor k, its surface area grows as k² while its metabolising volume grows as k³ — so SA/V = 6/L drops inversely with size.",
+            "summary": "When a cell or animal scales up by factor k, its surface area grows as k² while its volume grows as k³. So SA/V = 6/L drops inversely with size.",
             "keyEquation": "SA = 6L²,   V = L³   ⇒   SA : V = 6 / L",
             "microCheckQuestion": "If a cubical cell doubles its side length from L = 1 μm to L = 2 μm (k = 2), by what factor does its Surface-Area-to-Volume ratio change?",
             "microCheckAnswer": "Surface area multiplies by 2² = 4 and volume by 2³ = 8, so SA:V halves from 6:1 to 3:1.",
@@ -641,16 +460,16 @@ def build_bridges():
             "title": "Punnett Grids Are 2×2 Area Diagrams & Medical Tests Obey Bayes' Rule",
             "schoolTopics": ["15.3", "15.4"],
             "patternedWorldChapters": [15, 16],
-            "summary": "A Punnett square for Aa × Aa is literally the algebraic expansion (0.5A + 0.5a)² = 0.25AA + 0.50Aa + 0.25aa, and genetic carrier screening relies on Bayes' theorem.",
+            "summary": "A Punnett square for Aa × Aa is the algebraic expansion (0.5A + 0.5a)² = 0.25AA + 0.50Aa + 0.25aa, and genetic carrier screening relies on Bayes' theorem.",
             "keyEquation": "(p + q)² = p² + 2pq + q² = 1",
-            "microCheckQuestion": "In a cross between two heterozygotes (Aa × Aa), given that an offspring shows the dominant phenotype (AA or Aa), what is the conditional probability it is a carrier (Aa)?",
+            "microCheckQuestion": "In a cross Aa × Aa, an offspring shows the dominant trait (AA or Aa). What is the conditional probability that it is a carrier (Aa)?",
             "microCheckAnswer": "Out of 3 dominant-phenotype boxes (1 AA and 2 Aa), 2 are Aa, so P(Aa | Dominant) = 2/3.",
         },
         {
             "id": "bridge-phys-kinematics-calculus",
             "discipline": "physics",
             "sourceBook": "Atlas of Physics",
-            "sourceRef": "Atlas of Physics Ch 1 · Kinematics (Velocity Slope & Displacement Area)",
+            "sourceRef": "Atlas of Physics Ch 1 · Motion (Velocity Slope & Displacement Area)",
             "deepLink": "atlas://physics/kinematics",
             "title": "Velocity Is the Derivative of Position; Displacement Is the Area Under v(t)",
             "schoolTopics": ["14.2", "14.3"],
@@ -669,7 +488,7 @@ def build_bridges():
             "title": "Resolving Forces on a Ramp with Unit-Circle Sine & Cosine Shadows",
             "schoolTopics": ["3.3", "16.1", "16.2"],
             "patternedWorldChapters": [12, 19],
-            "summary": "A block of weight mg on a ramp of angle θ splits into a component mg sin θ pulling down the slope and mg cos θ pressing into the ramp.",
+            "summary": "A block of weight mg sits on a ramp at angle θ. Gravity splits into mg sin θ down the slope and mg cos θ into the ramp.",
             "keyEquation": "F_parallel = mg sin θ,   F_normal = mg cos θ",
             "microCheckQuestion": "For a 100 N crate on a 30° ramp, what component of gravity pulls it down the slope?",
             "microCheckAnswer": "100 × sin 30° = 100 × 0.5 = 50 N.",
@@ -725,7 +544,7 @@ def build_bridges():
             "title": "How iPad GPUs Rotate 3D Worlds with Matrices & CPUs Think with De Morgan Gates",
             "schoolTopics": ["1.3", "13.3", "16.2"],
             "patternedWorldChapters": [0, 11, 19, 20],
-            "summary": "Every pixel and 3D vertex on Kym's iPad is rotated and projected by matrix multiplication, while every CPU transistor evaluates Boolean logic gates (AND, OR, NOT, NAND).",
+            "summary": "Every 3D vertex on an iPad screen is turned and projected by matrix multiplication. Inside the processor, logic gates evaluate AND, OR, NOT and NAND rules.",
             "keyEquation": "R_θ = [[cos θ, −sin θ], [sin θ, cos θ]],   ¬(P ∧ Q) ⇔ (¬P) ∨ (¬Q)",
             "microCheckQuestion": "What is the determinant det(R_θ) of a 2D rotation matrix through any angle θ?",
             "microCheckAnswer": "det(R_θ) = cos²θ − (−sin²θ) = cos²θ + sin²θ = 1 (rotation preserves area).",
@@ -906,13 +725,14 @@ def build_school_textbook():
                     "Check units, negative signs, and significant figures at the final step.",
                 ],
             })
+        strand_label = "Vectors & Linear Algebra" if strand == "horizon_advanced" else strand.replace("_", " ").title()
         units.append({
             "id": f"oup-ch-{u_num:02d}",
             "unitNumber": u_num,
             "title": title,
             "discipline": strand,
             "schoolStatus": status,
-            "scienceStrands": [strand.replace("_", " ").title(), "Singapore CPA Bar-Model", "Intuition → Formula"],
+            "scienceStrands": [strand_label, "Singapore CPA Bar-Model", "Intuition → Formula"],
             "twsStrands": ["Pólya Problem Solving", "Conjecturing & Convincing", "Specialising & Generalising"],
             "scienceInContext": f"OUP Complete Mathematics 8 (2nd Ed.) pp. {p_start}–{p_end} + Built-In 3-Tier Singapore & Checkpoint Companion Workbook.",
             "learnersBookStartPage": p_start,
@@ -1117,7 +937,7 @@ FOOTINGS = {
         ]),
     "inverse-operations": footing(
         skill="Undo each step with its inverse",
-        teach="Undo the last step first and do the same to both sides: for x/2 + 3 = 8, take 3 from both sides to get x/2 = 5, then multiply by 2 to get x = 10. An inverse function f⁻¹ makes those undo steps; it is not 1 ÷ f.",
+        teach="Undo the last step first and do the same to both sides. For x/2 + 3 = 8, take 3 from both sides to get x/2 = 5, then multiply by 2 to get x = 10. An inverse function f⁻¹ makes those undo steps; it is not 1 ÷ f.",
         probes=[
             probe("Solve x + 9 = 4.",
                   one(num("-5"), accepts=["x = −5", "-5", "x=-5"], rejects=["13", "5", "x = 13"]),
@@ -1149,7 +969,7 @@ FOOTINGS = {
         ]),
     "factors-and-multiples": footing(
         skill="Find the HCF and LCM, and cancel fully",
-        teach="The HCF is the biggest number that divides both, and the LCM is the smallest number both divide into: for 4 and 10, the HCF is 2 and the LCM is 20, not 4 × 10 = 40. Cancel a fraction by the HCF so nothing common is left, as in 10/15 = 2/3.",
+        teach="The HCF is the biggest number that divides both, and the LCM is the smallest number both divide into. For 4 and 10, the HCF is 2 and the LCM is 20, not 4 × 10 = 40. Cancel a fraction by the HCF so nothing common is left, as in 10/15 = 2/3.",
         probes=[
             probe("Find the LCM of 6 and 8.",
                   one(num("24"), accepts=["24", "LCM = 24", "lcm 24"], rejects=["48", "2", "12"]),
@@ -1291,7 +1111,7 @@ FOOTINGS = {
         ]),
     "angle-facts": footing(
         skill="Use angle facts for parallel lines, polygons and bearings",
-        teach="Co-interior angles between parallel lines add to 180°, and an exterior angle of a polygon is 180° take away the interior angle, so an interior angle of 108° has exterior angle 72°. A back-bearing is the bearing plus 180°, or minus 180° if that passes 360°: the back-bearing of 050° is 230°.",
+        teach="Co-interior angles between parallel lines add to 180°. An exterior angle of a polygon is 180° take away the interior angle, so an interior angle of 108° has exterior angle 72°. A back-bearing is the bearing plus 180°, or minus 180° if that passes 360°: the back-bearing of 050° is 230°.",
         probes=[
             probe("Two parallel lines are cut by a transversal. One co-interior angle is 115°. Find the other.",
                   one(num("65"), accepts=["65", "65°", "180 − 115 = 65"], rejects=["115", "245", "25"]),
@@ -1319,7 +1139,7 @@ FOOTINGS = {
         ]),
     "transformations": footing(
         skill="Reflect, rotate and enlarge a point",
-        teach="Check the mirror line or centre before you move: reflecting (3, 4) in the y-axis gives (−3, 4), and a 90° turn clockwise about the origin takes (x, y) to (y, −x). To enlarge about a centre, multiply the step from the centre to the point, then add it back on: (3, 2) from centre (1, 1) by scale factor 3 is (7, 4).",
+        teach="Check the mirror line or centre before you move. Reflecting (3, 4) in the y-axis gives (−3, 4), and a 90° turn clockwise about the origin takes (x, y) to (y, −x). To enlarge about a centre, multiply the step from the centre to the point, then add it back on: (3, 2) from centre (1, 1) by scale factor 3 is (7, 4).",
         probes=[
             probe("Reflect the point (2, 5) in the x-axis.",
                   one(seq("2", "-5"), accepts=["(2, −5)", "(2, -5)", "2, -5"], rejects=["(-2, 5)", "(5, 2)", "(2, 5)"]),
@@ -1333,7 +1153,7 @@ FOOTINGS = {
         ]),
     "equally-likely-outcomes": footing(
         skill="List equally likely outcomes and count each once",
-        teach="List every outcome so each one is equally likely: a coin and a spinner numbered 1 to 3 give H1, H2, H3, T1, T2 and T3, six outcomes. When order does not matter, a pair like AB is the same as BA, so count it once.",
+        teach="List every outcome so each one is equally likely. A coin and a spinner numbered 1 to 3 give H1, H2, H3, T1, T2 and T3, six outcomes. When order does not matter, a pair like AB is the same as BA, so count it once.",
         probes=[
             probe("Two fair coins are flipped. What is the probability of one head and one tail?",
                   one(num("1/2"), accepts=["1/2", "2/4", "0.5"], rejects=["1/3", "1/4", "2/3"]),
@@ -1347,7 +1167,7 @@ FOOTINGS = {
         ]),
     "the-right-total": footing(
         skill="Use the right total for a probability",
-        teach="The total is the group you are picking from at that moment. If 1 of 10 sweets is eaten, the next pick is out of 9, and if you are told the person wears glasses, the total is only the people who wear glasses.",
+        teach="The total is the group you are picking from at that moment. If 1 of 10 sweets is eaten, the next pick is out of 9. If you are told the person wears glasses, the total is only the people who wear glasses.",
         probes=[
             probe("A bag has 4 red and 2 blue counters. A red counter is taken out and not put back. What is the probability that the next counter is red?",
                   one(num("3/5"), accepts=["3/5", "0.6", "= 3/5"], rejects=["2/3", "4/6", "3/6"]),
@@ -1489,7 +1309,7 @@ ANSWER_KEYS = {
         rejects=["HCF = 12, LCM = 360", "24", "360", "HCF = 240, LCM = 3600"],
         mistakes=[
             mistake("hcf-lcm-swapped", forms("hcf=72", "hcf is 72", "lcm=120", "lcm is 120"),
-                    next_step="The HCF takes the lower power of each shared prime and the LCM the higher power of every prime, so check which rule you used for each.",
+                    next_step="The HCF takes the lower power of each shared prime, and the LCM takes the higher power of every prime.",
                     examples=["HCF = 72, LCM = 360", "HCF = 24, LCM = 120"]),  # highest powers used for the HCF (2³ × 3² = 72), or lowest for the LCM (2³ × 3 × 5 = 120)
             mistake("lcm-as-product", num("8640"),
                     next_step="The LCM uses each prime once at its highest power, so rebuild it from the two prime factor lists.",
@@ -1539,7 +1359,7 @@ ANSWER_KEYS = {
                     next_step="Multiply the minus in front of the second bracket by each term inside it, and check the sign of each product.",
                     examples=["5x − 27", "11x + 3"]),  # (−3)(−5) taken as −15, or (−3)(x) as +3x
             mistake("expand-first-term-only", forms("5x-7", "-7+5x", "5x+12", "12+5x"),
-                    next_step="Check that the number outside each bracket multiplies every term inside it, not just the first.",
+                    next_step="Check that the number outside each bracket multiplies every term inside it, not only the first.",
                     examples=["5x − 7", "5x + 12"]),  # −3(x − 5) as −3x + 5, or 4(2x − 3) as 8x − 3
         ]),
     "q-oup-ch02-wb-focus": one(
@@ -1564,7 +1384,7 @@ ANSWER_KEYS = {
                     next_step="Taking away the small rectangle subtracts every term of its area, so check the sign of each term after the minus.",
                     examples=["8x + 22"]),  # −4 × (−2) taken as −8
             mistake("expand-first-term-only", forms("8x+13", "13+8x", "8x+32", "32+8x"),
-                    next_step="Check that each width multiplies both terms of its length, not just the first.",
+                    next_step="Check that each width multiplies both terms of its length, not only the first.",
                     examples=["8x + 13", "8x + 32"]),  # 6(2x + 5) as 12x + 5, or 4(x − 2) as 4x − 2
         ]),
     "q-oup-ch02-wb-challenge": one(
@@ -2189,7 +2009,7 @@ ANSWER_KEYS = {
         rejects=["25/64", "5/8", "15/56", "3/28", "0.4"],
         mistakes=[
             mistake("with-replacement", num("25/64"), num("5/16"),
-                    next_step="After the first red is taken out there is one red fewer and one marble fewer in the bag, so change both numbers for the second draw.",
+                    next_step="After the first red is taken out, one red and one marble are gone, so reduce both numbers for the second draw.",
                     examples=["25/64", "5/16"]),  # 5/8 × 5/8, or 5/8 × 4/8
         ]),
     "q-oup-ch15-wb-challenge": one(
@@ -2236,7 +2056,7 @@ ANSWER_KEYS = {
         rejects=["½(a − b)", "b − a", "½(a + b)", "2(b − a)", "½ab", "a/2 − b/2"],
         mistakes=[
             mistake("vector-combined-wrongly", forms("1/2(a-b)", "1/2 (a-b)", "(a-b)/2", "1/2a-1/2b", "a/2-b/2", "0.5(a-b)"),
-                    next_step="Go from M to N by heading back from M to O and then out from O to N, and check the direction of each piece.",
+                    next_step="Go from M to O and then from O to N, and check the sign of each step.",
                     examples=["½(a − b)"]),  # MN taken as OM − ON
             mistake("vector-combined-wrongly", forms("1/2(a+b)", "1/2 (a+b)", "(a+b)/2", "1/2a+1/2b", "a/2+b/2", "0.5(a+b)"),
                     next_step="Going from M to N starts by going back along OM, which reverses its direction.",
@@ -3795,7 +3615,7 @@ def build_school_questions():
             "−16",
             "Two Colaba lighthouses flash every 18 seconds and 24 seconds. They flash together at 19:00:00. After how many seconds will they next flash together?",
             "72 seconds",
-            "Given that HCF(a, b) = 12, LCM(a, b) = 180, and a = 36, find b using the prime-Venn invariant HCF × LCM = a × b.",
+            "Given that HCF(a, b) = 12, LCM(a, b) = 180, and a = 36, find b using HCF × LCM = a × b.",
             "b = 60"
         ),
         (
@@ -3837,7 +3657,7 @@ def build_school_questions():
             "Every 30th student (k = 30)",
             "Why would surveying only people leaving a sports gym at 6 am produce a biased estimate of average weekly exercise in Mumbai?",
             "Selection bias towards habitual early-morning exercisers",
-            "If the standard error of a sample mean is SE = σ / √n, by what factor must the sample size n increase to cut the error bar in half?",
+            "The standard error of a sample mean is SE = σ / √n. By what factor must the sample size n increase to cut the error bar in half?",
             "Multiply sample size by 4"
         ),
         (
@@ -4045,8 +3865,8 @@ def build_school_questions():
             "commandWord": "Work out",
             "marks": 2,
             "prompt": t1_q,
-            "workedExample": f"Apply the core invariant of {topic_code} step by step.",
-            "fadedPrompt": f"Target result for {topic_code}: ___",
+            "workedExample": f"Work out {topic_code} step by step.",
+            "fadedPrompt": f"Result for {topic_code}: ___",
             "fadedAnswer": t1_a,
             "modelAnswer": t1_a,
             "linkedChapter": ch_num,
@@ -4063,26 +3883,26 @@ def build_school_questions():
             "commandWord": "Model & Solve",
             "marks": 3,
             "prompt": t2_q,
-            "workedExample": f"Sketch the Singapore Bar Model or geometric diagram first, then solve: {t2_a}.",
-            "fadedPrompt": f"Singapore Bar-Model solution: ___",
+            "workedExample": f"Sketch the bar model or diagram first, then solve: {t2_a}.",
+            "fadedPrompt": f"Bar-model solution: ___",
             "fadedAnswer": t2_a,
             "modelAnswer": t2_a,
             "linkedChapter": ch_num,
             "linkedWidget": wid,
         })
-        # 4. Built-In Companion Workbook — Tier 3 (Challenge / Olympiad & Horizon Stretch)
+        # 4. Built-In Companion Workbook — Tier 3 (Challenge)
         questions.append({
             "id": f"q-oup-ch{u_num:02d}-wb-challenge",
             "unitNumber": u_num,
             "topicCode": topic_code,
             "sourceBook": "workbook",
-            "bookSection": f"Companion Workbook Ch {u_num} · Tier 3 (Olympiad & Horizon)",
+            "bookSection": f"Companion Workbook Ch {u_num} · Tier 3 (Challenge)",
             "tier": "Challenge",
             "commandWord": "Prove & Generalise",
             "marks": 4,
             "prompt": t3_q,
-            "workedExample": f"Bridge from visual intuition to the symbolic invariant: {t3_a}.",
-            "fadedPrompt": f"Horizon invariant result: ___",
+            "workedExample": f"Use the chapter rule step by step: {t3_a}.",
+            "fadedPrompt": f"Result: ___",
             "fadedAnswer": t3_a,
             "modelAnswer": t3_a,
             "linkedChapter": ch_num,
@@ -4202,7 +4022,7 @@ def build_diagram_plates():
             ("p10-c1", "1 Equal Unit Box", 0.26, 0.36, "Fundamental unitary block"),
             ("p10-c2", "Known Difference Bracket", 0.72, 0.36, "Extra units = Δvalue"),
             ("p10-c3", "Total Brace ∑ Units", 0.86, 0.56, "Sum of all parts"),
-            ("p10-c4", "Invariant Quantity", 0.48, 0.78, "Unchanged reference in Before/After"),
+            ("p10-c4", "Unchanged Quantity", 0.48, 0.78, "Unchanged reference in Before/After"),
         ]),
         ("plate-11-enlargement-rays", "Enlargement Ray Centre & k² Area Scaling", "OUP Ch 13.5 p. 204", 13, 11, "fig-enlargement", [
             ("p11-c1", "Centre of Enlargement C", 0.16, 0.76, "Ray origin point"),
@@ -4238,7 +4058,7 @@ def build_diagram_plates():
             ("p16-c1", "First Basis Column Aî = (a, c)", 0.46, 0.68, "Red landed unit x-vector"),
             ("p16-c2", "Second Basis Column Aĵ = (b, d)", 0.30, 0.34, "Blue landed unit y-vector"),
             ("p16-c3", "Parallelogram Area det(A) = ad − bc", 0.54, 0.46, "Signed 2D area scale factor"),
-            ("p16-c4", "Eigenvector Axis (A v = λ v)", 0.78, 0.24, "Invariant unrotated direction"),
+            ("p16-c4", "Eigenvector Axis (A v = λ v)", 0.78, 0.24, "Direction that stretches without turning"),
         ]),
     ]
 
@@ -4271,24 +4091,24 @@ def build_polya_stages():
             "prompts": [
                 "What is the unknown? Can I name it or draw it as a Singapore bar segment?",
                 "What are the data and units? Are any quantities hidden in words like 'bisects', 'regular', or 'independent'?",
-                "What is the invariant condition linking the data to the unknown? Is it enough to determine the unknown?",
+                "What condition links the data to the unknown? Is it enough to fix the unknown?",
             ],
             "exampleProblem": "A train passes a 300 m platform in 24 seconds and passes a standing lamp-post in 9 seconds at constant speed. Find the length of the train.",
-            "phaseBreakdown": "Unknown: Train length L. Data: Lamp-post time = 9 s (covers L only); Platform time = 24 s (covers L + 300 m). Invariant: Speed v is constant!",
+            "phaseBreakdown": "Unknown: Train length L. Data: Lamp-post time = 9 s (covers L only); Platform time = 24 s (covers L + 300 m). Same in both: speed v is constant.",
         },
         {
             "id": "polya-2-plan",
             "phaseNumber": 2,
             "title": "2. Devise a Plan",
-            "subtitle": "Select a heuristic: Draw a Bar Model, Try a Simpler Case, Work Backwards, or Look for Symmetry",
+            "subtitle": "Choose a plan: draw a bar model, try a simpler case, work backwards, or look for symmetry",
             "symbol": "map.fill",
             "prompts": [
-                "Can I draw a Concrete → Pictorial bar model or auxiliary geometric line?",
+                "Can I draw a bar model or add a helper line to the shape?",
                 "What happens in a tiny case (n = 1, 2, 3) — does a pattern of differences emerge?",
                 "Can I work backwards from the target or use an extreme case (h → 0, θ = 0° or 90°)?",
             ],
             "exampleProblem": "Compare the two journeys of the train on a single Singapore distance bar.",
-            "phaseBreakdown": "Draw two bars: Bar 1 = [Train L] takes 9 s. Bar 2 = [Train L] + [300 m] takes 24 s. The extra 300 m alone takes 24 − 9 = 15 s!",
+            "phaseBreakdown": "Draw two bars: Bar 1 = [Train L] takes 9 s. Bar 2 = [Train L] + [300 m] takes 24 s. The extra 300 m alone takes 24 − 9 = 15 s.",
         },
         {
             "id": "polya-3-execute",
@@ -4476,82 +4296,106 @@ def build_html_book(chapters, explorers, widgets):
     chapters_json = json.dumps(chapters, ensure_ascii=False)
     explorers_json = json.dumps(explorers, ensure_ascii=False)
     return f"""<!doctype html>
-<html lang="en-GB" data-theme="light">
+<html lang="en-GB">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>The Patterned World · KymMaths Interactive Book & Atlas</title>
+<title>The Patterned World · Figure</title>
 <style>
+/* Paper by day, Night after dark: the same values as theme.patterned in
+   Design/Patterned/PatternedPalette.swift and the kit's Paper and Dusk themes.
+   The app sets data-theme from its own theme; prefers-color-scheme covers the page opened alone. */
 :root {{
-  --bg: #F5F2FB;
-  --card: #FFFFFF;
-  --elevated: #ECE6F8;
-  --ink: #1C1726;
-  --muted: #58506B;
-  --accent: #6E56CF;
-  --red: #C83E37;
-  --blue: #2E66B8;
-  --amber: #C88A1E;
-  --green: #1E7A50;
-  --border: #DCD4EE;
+  --bg: #F7F4EC;
+  --card: #FFFDF7;
+  --elevated: #F1EADC;
+  --sunk: #EEE6D6;
+  --ink: #1F1B16;
+  --muted: rgba(31, 27, 22, 0.68);
+  --faint: rgba(31, 27, 22, 0.46);
+  --accent: #8F641F;
+  --red: #C3362B;
+  --blue: #23519C;
+  --amber: #E2A41C;
+  --amber-wash: #F8EACB;
+  --green: #4F6B45;
+  --border: rgba(31, 27, 22, 0.14);
+  color-scheme: light;
 }}
 html[data-theme="dark"] {{
-  --bg: #110E1A;
-  --card: #1B1628;
-  --elevated: #251F36;
-  --ink: #F5F2FC;
-  --muted: #B6ADCA;
-  --accent: #A890FF;
-  --red: #FF7A70;
-  --blue: #68B0F8;
-  --amber: #F5B945;
-  --green: #4ADE9B;
-  --border: #332B4A;
+  --bg: #181A1D;
+  --card: #22262A;
+  --elevated: #181612;
+  --sunk: #0F0E0B;
+  --ink: #F0ECE2;
+  --muted: rgba(240, 236, 226, 0.68);
+  --faint: rgba(240, 236, 226, 0.46);
+  --accent: #D7AA5F;
+  --red: #E5614F;
+  --blue: #7097DA;
+  --amber: #F0BC45;
+  --amber-wash: #3A2E14;
+  --green: #9DB88C;
+  --border: rgba(240, 236, 226, 0.14);
+  color-scheme: dark;
 }}
 * {{ box-sizing: border-box; }}
+html, body {{ background: var(--card); }}
 body {{
   margin: 0;
-  padding: 18px 20px 64px;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Inter, system-ui, sans-serif;
-  background: var(--bg);
+  padding: 4px 18px 40px;
+  display: flex;
+  flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
   color: var(--ink);
-  line-height: 1.55;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
 }}
+/* The chapter's title, idea and formula are drawn by the app beside this figure, so the page
+   keeps only its controls. */
+header.book-header > div:first-child,
+section.card.native-owned {{ display: none; }}
+/* The sandbox comes first; the chapter buttons and the stamp sit under it, beside what they act
+   on; the 3D figure follows. */
+#widget-stage-card {{ order: 1; border-bottom: none; }}
 header.book-header {{
+  order: 2;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding-bottom: 14px;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 0 0 16px;
   border-bottom: 1px solid var(--border);
-  margin-bottom: 18px;
 }}
+section.card:last-of-type {{ order: 3; }}
 .kicker {{
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   color: var(--accent);
 }}
 h1 {{
-  font-family: Georgia, "New York", serif;
-  font-size: 26px;
+  font-family: "New York", ui-serif, Georgia, serif;
+  font-weight: 500;
+  font-size: 24px;
   margin: 4px 0;
 }}
 .subtitle {{
   color: var(--muted);
-  font-size: 14px;
+  font-size: 13px;
 }}
 .card {{
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 18px;
-  margin-bottom: 16px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  padding: 16px 0 18px;
+  margin: 0;
+  box-shadow: none;
 }}
-#atlas-card[hidden] {{ display: none; }}
+.card:last-of-type {{ border-bottom: none; }}
 .bridge-grid {{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -4560,17 +4404,20 @@ h1 {{
 }}
 .step-box {{
   background: var(--elevated);
-  border-radius: 12px;
-  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: var(--ink);
 }}
+#live-readout b {{ font-weight: 600; }}
 .formula-banner {{
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 20px;
-  font-weight: 600;
-  padding: 12px 16px;
-  border-left: 4px solid var(--accent);
+  font-family: "New York", ui-serif, Georgia, serif;
+  font-size: 22px;
+  font-weight: 400;
+  padding: 10px 14px;
+  border-left: 2px solid var(--accent);
   background: var(--elevated);
-  border-radius: 8px;
+  border-radius: 6px;
   margin: 12px 0;
 }}
 .term-pills {{
@@ -4582,15 +4429,15 @@ h1 {{
 .term-pill {{
   font-size: 12px;
   padding: 6px 10px;
-  border-radius: 10px;
-  background: var(--elevated);
-  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--faint);
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: box-shadow 0.15s ease;
 }}
 .term-pill.active-role {{
-  transform: translateY(-1px);
-  box-shadow: 0 0 0 2px var(--ink);
+  box-shadow: 0 0 0 1.5px var(--ink);
   font-weight: 600;
 }}
 .term-pill.red {{ border-left-color: var(--red); }}
@@ -4600,7 +4447,7 @@ h1 {{
 .interactive-stage {{
   display: grid;
   grid-template-columns: 1.2fr 1fr;
-  gap: 16px;
+  gap: 18px;
   align-items: center;
 }}
 @media (max-width: 760px) {{
@@ -4609,8 +4456,8 @@ h1 {{
 canvas#sim-canvas {{
   width: 100%;
   height: 290px;
-  background: var(--elevated);
-  border-radius: 12px;
+  background: var(--bg);
+  border-radius: 10px;
   border: 1px solid var(--border);
   display: block;
 }}
@@ -4618,60 +4465,73 @@ canvas#sim-canvas {{
   display: flex;
   align-items: center;
   gap: 10px;
-  margin: 8px 0;
+  margin: 6px 0;
   font-size: 13px;
+  color: var(--muted);
+  min-height: 36px;
 }}
+.slider-row span {{ color: var(--ink); font-variant-numeric: tabular-nums; min-width: 3.5em; text-align: right; }}
 .slider-row input[type="range"] {{ flex: 1; accent-color: var(--accent); }}
 button.btn {{
   appearance: none;
-  border: none;
-  background: var(--accent);
-  color: #fff;
-  font-weight: 600;
-  font-size: 13px;
-  padding: 8px 14px;
-  border-radius: 999px;
+  -webkit-appearance: none;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--accent);
+  font: 600 13px -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  min-height: 36px;
+  padding: 7px 14px;
+  border-radius: 8px;
   cursor: pointer;
 }}
 button.btn.secondary {{
-  background: var(--elevated);
   color: var(--ink);
-  border: 1px solid var(--border);
 }}
+button.btn:active {{ background: var(--elevated); }}
 iframe.atlas-frame {{
   width: 100%;
   height: 440px;
   border: 1px solid var(--border);
-  border-radius: 12px;
-  background: #f3efe6;
+  border-radius: 10px;
+  background: var(--bg);
+}}
+#atlas-caption {{ color: var(--muted); font-size: 12px; }}
+#atlas-card[hidden] {{ display: none; }}
+@media (prefers-color-scheme: dark) {{
+  html:not([data-theme]) {{
+    --bg: #181A1D; --card: #22262A; --elevated: #181612; --sunk: #0F0E0B; --ink: #F0ECE2;
+    --muted: rgba(240, 236, 226, 0.68); --faint: rgba(240, 236, 226, 0.46); --accent: #D7AA5F;
+    --red: #E5614F; --blue: #7097DA; --amber: #F0BC45; --amber-wash: #3A2E14; --green: #9DB88C;
+    --border: rgba(240, 236, 226, 0.14); color-scheme: dark;
+  }}
 }}
 </style>
 </head>
 <body>
 <header class="book-header">
   <div>
-    <div class="kicker" id="ch-vol">THE PATTERNED WORLD · INTERACTIVE TEXTBOOK & @SAXSTER/ATLAS</div>
+    <div class="kicker" id="ch-vol">The Patterned World</div>
     <h1 id="ch-title">Chapter 0 · Sets, Venn Regions & The Laws of Thought</h1>
-    <div class="subtitle" id="ch-subtitle">Concrete Manipulation → Visual "Aha!" Invariant → Actual Formula</div>
+    <div class="subtitle" id="ch-subtitle"></div>
   </div>
   <div style="display:flex;gap:8px;flex-wrap:wrap;">
-    <button class="btn secondary" id="btn-prev">← Prev</button>
-    <button class="btn secondary" id="btn-next">Next →</button>
-    <button class="btn" id="btn-stamp">Stamp Challenge ✓</button>
+    <button class="btn secondary" id="btn-prev">← Chapter before</button>
+    <button class="btn secondary" id="btn-next">Chapter after →</button>
+    <button class="btn" id="btn-stamp">Stamp this result</button>
   </div>
 </header>
 
-<section class="card">
-  <div class="kicker">1 · INTUITION → "AHA!" INVARIANT → ACTUAL FORMULA BRIDGE</div>
-  <p id="ch-hook" style="font-family:Georgia,serif;font-size:17px;margin:8px 0;"></p>
+<section class="card native-owned">
+  <div class="kicker">From picture to formula</div>
+  <p id="ch-hook" style="font-family:'New York',ui-serif,Georgia,serif;font-size:17px;margin:8px 0;"></p>
   <div class="formula-banner" id="ch-formula"></div>
   <div class="bridge-grid">
     <div class="step-box">
-      <div class="kicker">Step 1 · Concrete Action (Touch)</div>
+      <div class="kicker">What you do</div>
       <div id="ch-concrete" style="font-size:13.5px;margin-top:4px;"></div>
     </div>
     <div class="step-box">
-      <div class="kicker">Step 2 · Visual "Aha!" Invariant (See)</div>
+      <div class="kicker">What stays the same</div>
       <div id="ch-aha" style="font-size:13.5px;margin-top:4px;"></div>
     </div>
   </div>
@@ -4679,7 +4539,7 @@ iframe.atlas-frame {{
 </section>
 
 <section class="card" id="widget-stage-card">
-  <div class="kicker">2 · LIVE VISUAL-TO-FORMULA SANDBOX</div>
+  <div class="kicker">Try it · move the sliders and watch what stays the same</div>
   <div class="interactive-stage" style="margin-top:10px;">
     <canvas id="sim-canvas" width="560" height="290"></canvas>
     <div>
@@ -4706,13 +4566,13 @@ iframe.atlas-frame {{
 <section class="card" id="atlas-card" hidden>
   <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
     <div>
-      <div class="kicker">3 · EMBEDDED @SAXSTER/ATLAS 3D/2D TEACHING STAGE (../visualisations/atlas)</div>
-      <div style="font-size:13px;color:var(--muted);" id="atlas-caption">Drag to turn the figure. Tap a part to look closer.</div>
+      <div class="kicker">Turn it round · the figure in 3D</div>
+      <div id="atlas-caption">Drag to turn the figure. Tap a part to look closer.</div>
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;">
-      <button class="btn secondary" id="btn-stage-primary">3D Chapter Apparatus</button>
-      <button class="btn secondary" id="btn-stage-companion">Companion Deep-Dive Book</button>
-      <button class="btn secondary" id="btn-reload-atlas">Reset 3D Camera</button>
+      <button class="btn secondary" id="btn-stage-primary">This chapter's figure</button>
+      <button class="btn secondary" id="btn-stage-companion">A deeper look</button>
+      <button class="btn secondary" id="btn-reload-atlas">Reset the view</button>
     </div>
   </div>
   <iframe class="atlas-frame" id="atlas-iframe" title="Atlas 3D Figure" src="./atlas/examples/maths/ch00-sets-logic/index.html"></iframe>
@@ -4761,14 +4621,14 @@ const CH_SLIDERS = {{
   10: [{{lbl:'Radius:',min:2,max:6,step:1,val:4,u:' cm'}}, {{lbl:'Number of slices:',min:4,max:24,step:2,val:12,u:''}}, {{lbl:'Angle of the green slice:',min:0,max:360,step:30,val:90,u:'°'}}],
   11: [{{lbl:'Scale factor:',min:0.5,max:3,step:0.5,val:2,u:''}}, {{lbl:'Centre across:',min:0,max:3,step:1,val:0,u:''}}, {{lbl:'Centre up:',min:0,max:2,step:1,val:0,u:''}}],
   12: [{{lbl:'Angle θ:',min:0,max:90,step:5,val:30,u:'°'}}, {{lbl:'Radius:',min:2,max:4,step:1,val:2,u:''}}, {{lbl:'Compare with angle:',min:0,max:90,step:5,val:60,u:'°'}}],
-  13: [{{lbl:'Pop SD σ:',min:6,max:24,step:2,val:12,u:''}}, {{lbl:'Sample size n:',min:4,max:64,step:4,val:16,u:''}}, {{lbl:'Engine hits:',min:0,max:5,step:1,val:1,u:''}}],
-  14: [{{lbl:'Wide bin Δx₃:',min:10,max:40,step:5,val:25,u:'min'}}, {{lbl:'Wide bin freq f₃:',min:15,max:60,step:5,val:30,u:''}}, {{lbl:'IQR Q₃ − Q₁:',min:10,max:30,step:2,val:18,u:''}}],
-  15: [{{lbl:'Galton rows n:',min:4,max:10,step:1,val:6,u:''}}, {{lbl:'Successes k:',min:0,max:6,step:1,val:3,u:''}}, {{lbl:'Drop prob p:',min:30,max:70,step:10,val:50,u:'%'}}],
-  16: [{{lbl:'Prevalence p:',min:1,max:20,step:1,val:2,u:'%'}}, {{lbl:'Sensitivity:',min:80,max:99,step:1,val:95,u:'%'}}, {{lbl:'False-pos rate:',min:1,max:20,step:1,val:5,u:'%'}}],
-  17: [{{lbl:'Anchor x₀:',min:0.5,max:2.5,step:0.25,val:1.25,u:''}}, {{lbl:'Step h = Δx:',min:0.05,max:1.0,step:0.05,val:0.45,u:''}}, {{lbl:'Square side x:',min:1,max:4,step:0.5,val:2,u:''}}],
-  18: [{{lbl:'Upper bound x:',min:1.0,max:3.0,step:0.2,val:2.4,u:''}}, {{lbl:'Riemann slabs N:',min:4,max:20,step:2,val:8,u:''}}, {{lbl:'Slope rate k:',min:0.5,max:1.5,step:0.25,val:1.0,u:''}}],
-  19: [{{lbl:'Vector a_x:',min:1,max:5,step:0.5,val:3.5,u:''}}, {{lbl:'Vector b_x:',min:1,max:4,step:0.5,val:2.0,u:''}}, {{lbl:'Angle between:',min:0,max:120,step:15,val:60,u:'°'}}],
-  20: [{{lbl:'Col 1 x (a):',min:0.5,max:2.5,step:0.25,val:2.0,u:''}}, {{lbl:'Off-diag (b=c):',min:-1.5,max:1.5,step:0.25,val:1.0,u:''}}, {{lbl:'Col 2 y (d):',min:0.5,max:2.5,step:0.25,val:2.0,u:''}}],
+  13: [{{lbl:'Spread σ:',min:6,max:24,step:2,val:12,u:''}}, {{lbl:'Sample size n:',min:4,max:64,step:4,val:16,u:''}}, {{lbl:'Engine hits:',min:0,max:5,step:1,val:1,u:''}}],
+  14: [{{lbl:'Wide class width:',min:10,max:40,step:5,val:25,u:' min'}}, {{lbl:'Wide class frequency:',min:15,max:60,step:5,val:30,u:''}}, {{lbl:'Middle spread (IQR):',min:10,max:30,step:2,val:18,u:''}}],
+  15: [{{lbl:'Rows of pegs n:',min:4,max:10,step:1,val:6,u:''}}, {{lbl:'Right bounces k:',min:0,max:6,step:1,val:3,u:''}}, {{lbl:'Right bounce chance:',min:30,max:70,step:10,val:50,u:'%'}}],
+  16: [{{lbl:'Base rate:',min:1,max:20,step:1,val:2,u:'%'}}, {{lbl:'Sensitivity:',min:80,max:99,step:1,val:95,u:'%'}}, {{lbl:'False-positive rate:',min:1,max:20,step:1,val:5,u:'%'}}],
+  17: [{{lbl:'Point x₀:',min:0.5,max:2.5,step:0.25,val:1.25,u:''}}, {{lbl:'Step h:',min:0.05,max:1.0,step:0.05,val:0.45,u:''}}, {{lbl:'Square side x:',min:1,max:4,step:0.5,val:2,u:''}}],
+  18: [{{lbl:'Right edge x:',min:1.0,max:3.0,step:0.2,val:2.4,u:''}}, {{lbl:'Number of strips N:',min:4,max:20,step:2,val:8,u:''}}, {{lbl:'Line slope k:',min:0.5,max:1.5,step:0.25,val:1.0,u:''}}],
+  19: [{{lbl:'Step across for a:',min:1,max:5,step:0.5,val:3.5,u:''}}, {{lbl:'Length of b:',min:1,max:4,step:0.5,val:2.0,u:''}}, {{lbl:'Angle of b from a:',min:0,max:120,step:15,val:60,u:'°'}}],
+  20: [{{lbl:'First column x (a):',min:0.5,max:2.5,step:0.25,val:2.0,u:''}}, {{lbl:'Off-diagonal (b = c):',min:-1.5,max:1.5,step:0.25,val:1.0,u:''}}, {{lbl:'Second column y (d):',min:0.5,max:2.5,step:0.25,val:2.0,u:''}}],
 }};
 
 function applyChapterSliders(chNum) {{
@@ -4905,12 +4765,12 @@ function drawSandbox() {{
   ctx.clearRect(0, 0, w, h);
 
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-  const red = isDark ? '#FF7A70' : '#C83E37';
-  const blue = isDark ? '#68B0F8' : '#2E66B8';
-  const amber = isDark ? '#F5B945' : '#C88A1E';
-  const green = isDark ? '#4ADE9B' : '#1E7A50';
-  const ink = isDark ? '#F5F2FC' : '#1C1726';
-  const muted = isDark ? '#A6A0BE' : '#5D566B';
+  const red = isDark ? '#E5614F' : '#C3362B';
+  const blue = isDark ? '#7097DA' : '#23519C';
+  const amber = isDark ? '#F0BC45' : '#E2A41C';
+  const green = isDark ? '#9DB88C' : '#4F6B45';
+  const ink = isDark ? '#F0ECE2' : '#1F1B16';
+  const muted = isDark ? '#A8A49C' : '#6B665E';
 
   ctx.font = '600 12.5px -apple-system, BlinkMacSystemFont, sans-serif';
   let readoutHtml = '';
@@ -4964,12 +4824,13 @@ function drawSandbox() {{
       const facing = `${{flips}} turn${{flips === 1 ? '' : 's'}}: facing ${{dir > 0 ? 'forward (+)' : 'backward (−)'}}`;
       ctx.fillStyle = amber; ctx.fillText(facing, 36, 34);
       // HCF & LCM bars
+      const barW = (w - 96 - 22) / 2, lcmX = 48 + barW + 22;
       ctx.fillStyle = blue + '33'; ctx.strokeStyle = blue; ctx.lineWidth = 2;
-      ctx.fillRect(48, 155, 190, 44); ctx.strokeRect(48, 155, 190, 44);
+      ctx.fillRect(48, 155, barW, 44); ctx.strokeRect(48, 155, barW, 44);
       ctx.fillStyle = blue; ctx.fillText(`HCF(${{A}}, ${{B}}) = ${{hcf}}`, 64, 182);
       ctx.fillStyle = amber + '33'; ctx.strokeStyle = amber;
-      ctx.fillRect(260, 155, 240, 44); ctx.strokeRect(260, 155, 240, 44);
-      ctx.fillStyle = amber; ctx.fillText(`LCM(${{A}}, ${{B}}) = ${{lcm}}`, 276, 182);
+      ctx.fillRect(lcmX, 155, barW, 44); ctx.strokeRect(lcmX, 155, barW, 44);
+      ctx.fillStyle = amber; ctx.fillText(`LCM(${{A}}, ${{B}}) = ${{lcm}}`, lcmX + 16, 182);
       ctx.fillStyle = green; ctx.fillText(`Check: HCF × LCM = ${{hcf}} × ${{lcm}} = ${{hcf * lcm}} = ${{A}} × ${{B}}`, 48, 232);
       readoutHtml = `${{facing}} · <b>HCF(${{A}}, ${{B}}) = ${{hcf}}</b> and <b>LCM(${{A}}, ${{B}}) = ${{lcm}}</b> · Check: HCF × LCM = ${{hcf}} × ${{lcm}} = ${{hcf * lcm}} = ${{A}} × ${{B}}`;
       break;
@@ -5439,7 +5300,7 @@ function drawSandbox() {{
       ctx.strokeStyle = blue; ctx.lineWidth = 2;
       ctx.strokeRect(360, 75, 140, 28); ctx.strokeRect(415, 42, 30, 95);
       ctx.fillStyle = amber; ctx.fillText(`Wald Bomber: Armour the`, 348, 165);
-      ctx.fillText(`MISSING engine hits (${{c}})!`, 348, 185);
+      ctx.fillText(`missing engine hits (${{c}}).`, 348, 185);
       readoutHtml = `Population σ = ${{sigma}}, Sample n = ${{n}} ⇒ <b>Standard Error SE = σ / √n = ${{sigma}} / ${{Math.sqrt(n).toFixed(2)}} = ${{se.toFixed(2)}}</b>`;
       break;
     }}
@@ -5550,19 +5411,21 @@ function drawSandbox() {{
       break;
     }}
     case 19: {{
-      // Ch 19: Vectors Tip-to-Tail Triangle Law & Dot Product
-      const ax = a, ay = 1.2, bx = b, by = 2.0, angRad = (c * Math.PI) / 180;
-      const ox = 64, oy = 225, sc = 36;
+      // Ch 19: vectors a and b placed nose to tail, with b turned by angle c from a
+      const ax = a, ay = 1.2, magB = b, angRad = (c * Math.PI) / 180;
+      const baseAng = Math.atan2(ay, ax);
+      const bx = magB * Math.cos(baseAng + angRad), by = magB * Math.sin(baseAng + angRad);
+      const ox = 64, oy = 225, sc = 32;
       const p1x = ox + ax * sc, p1y = oy - ay * sc;
       const p2x = p1x + bx * sc, p2y = p1y - by * sc;
       drawArrow(ctx, ox, oy, p1x, p1y, red, 3);
       drawArrow(ctx, p1x, p1y, p2x, p2y, blue, 3);
       drawArrow(ctx, ox, oy, p2x, p2y, green, 3.2);
       ctx.fillStyle = red; ctx.fillText(`a = (${{ax}}, ${{ay}})`, ox + 28, oy - 12);
-      ctx.fillStyle = blue; ctx.fillText(`b = (${{bx}}, ${{by}})`, p1x + 14, p1y - 18);
-      ctx.fillStyle = green; ctx.fillText(`a + b = (${{(ax+bx).toFixed(1)}}, ${{(ay+by).toFixed(1)}})`, ox + 15, oy - 95);
-      const magA = Math.hypot(ax, ay), magB = Math.hypot(bx, by), dot = magA * magB * Math.cos(angRad);
-      ctx.fillStyle = amber; ctx.fillText(`Dot Product |a||b|cos(${{c}}°) = ${{dot.toFixed(2)}}`, 305, 175);
+      ctx.fillStyle = blue; ctx.fillText(`b = (${{bx.toFixed(1)}}, ${{by.toFixed(1)}})`, p1x + 12, p1y - 12);
+      ctx.fillStyle = green; ctx.fillText(`a + b = (${{(ax+bx).toFixed(1)}}, ${{(ay+by).toFixed(1)}})`, ox + 12, 42);
+      const magA = Math.hypot(ax, ay), cosC = c === 90 ? 0 : Math.cos(angRad), dot = magA * magB * cosC;
+      ctx.fillStyle = amber; ctx.fillText(`Dot product |a||b|cos(${{c}}°) = ${{dot.toFixed(2)}}`, 290, 185);
       readoutHtml = `Resultant <b>a + b = (${{(ax+bx).toFixed(1)}}, ${{(ay+by).toFixed(1)}})</b> · |a+b| = <b>${{Math.hypot(ax+bx, ay+by).toFixed(2)}}</b> · Dot product = <b>${{dot.toFixed(2)}}</b>`;
       break;
     }}

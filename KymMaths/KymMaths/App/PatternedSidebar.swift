@@ -44,15 +44,32 @@ struct PatternedSidebar: View {
     }
 
     private var masthead: some View {
-        VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
-            ByrneMark()
-                .padding(.bottom, StandardSpacing.xs)
+        VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+            HStack(spacing: StandardSpacing.xs) {
+                Text("VOL. I · MATH")
+                    .font(.system(size: 10, weight: .bold, design: .monospaced))
+                    .tracking(1.4)
+                    .foregroundStyle(theme.bg)
+                    .padding(.horizontal, 7)
+                    .padding(.vertical, 3)
+                    .background(
+                        RoundedRectangle(cornerRadius: StandardRadius.sm, style: .continuous)
+                            .fill(theme.patterned.color(.moves))
+                    )
+                ByrneMark()
+                Spacer(minLength: 0)
+            }
+            .padding(.bottom, 2)
             Text("The Patterned World")
                 .standardType(.headlineSm)
                 .foregroundStyle(theme.ink)
-            Text("Kym's mathematics")
+            Text("Kym's mathematics · Curious Atelier")
                 .standardType(.uiCaption)
                 .foregroundStyle(theme.mute(theme.ink))
+            Rectangle()
+                .fill(theme.brass.opacity(0.45))
+                .frame(height: 1)
+                .padding(.top, 4)
         }
         .padding(.horizontal, StandardSpacing.xs)
         .accessibilityElement(children: .combine)
@@ -146,6 +163,13 @@ private struct SidebarRow: View {
                 RoundedRectangle(cornerRadius: StandardRadius.md, style: .continuous)
                     .strokeBorder(isActive ? theme.hairline() : Color.clear, lineWidth: 1)
             )
+            .overlay(alignment: .leading) {
+                if isActive {
+                    Capsule()
+                        .fill(theme.patterned.color(.moves))
+                        .frame(width: 3.5, height: 20)
+                }
+            }
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)

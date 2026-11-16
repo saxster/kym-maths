@@ -14,7 +14,7 @@
 //   - Optional user-initiated HTML5 sensor bridge (camera photometer, mic spirometer, device tilt)
 //   - Automatic 2D Canvas paper-and-ink fallback when WebGL is disabled
 import { createStage } from '../engine/stage.js';
-import { readTheme } from '../engine/theme.js';
+import { readTheme, srgbLuminance } from '../engine/theme.js';
 
 const CSS = `
 .atlas-stage { position: relative; width: 100%; border-radius: 6px; overflow: hidden; background: var(--sheet); touch-action: pan-y; box-sizing: border-box; }
@@ -34,7 +34,7 @@ const CSS = `
 .atlas-stage .lbl.axis { font: italic 14px/1 Georgia, serif; color: var(--muted); transform: translate(-100%, -50%); }
 .atlas-stage .atlas-title { position: absolute; top: 10px; right: 14px; font: italic 15px/1.3 Georgia, serif; color: var(--ink); pointer-events: none; text-align: right; max-width: 72%; background: color-mix(in srgb, var(--sheet) 82%, transparent); padding: 2px 7px; border-radius: 4px; }
 .atlas-stage .atlas-badge { position: absolute; bottom: 8px; left: 12px; font: 500 11px/1.3 var(--sans, system-ui, sans-serif); color: var(--muted); pointer-events: none; background: color-mix(in srgb, var(--sheet) 82%, transparent); padding: 2px 6px; border-radius: 4px; }
-.atlas-parts, .atlas-cuts, .atlas-pages { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; max-width: 100%; }
+.atlas-parts, .atlas-cuts, .atlas-pages, .atlas-mediums { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; max-width: 100%; }
 `;
 let styled = false;
 let activeAtlasStage = null;
@@ -49,7 +49,35 @@ const style = () => {
 };
 
 export const mountChapter = mountAtlas;
-export function mountAtlas(stage, params, api, chapter, defaults = {}) {
+
+function normalizeChapterOrFigure(raw) {
+  if (!raw || (Array.isArray(raw.PAGES) && raw.buildWorld?.length <= 1 && !raw.STEPS)) return raw;
+  const items = JSON.parse(JSON.stringify(raw.initialItems || []));
+  const resolvePages = () => {
+    if (Array.isArray(raw.PAGES) && raw.PAGES.length) return raw.PAGES;
+    if (typeof raw.PAGES === 'function') return raw.PAGES(raw.params || {}, items);
+    if (raw.intro || Array.isArray(raw.STEPS)) {
+      const intro = raw.intro || { cam: { target: [0, 0, 0], az: 0, el: 12, dist: 12 } };
+      return [
+        { tab: 'Overview', fig: raw.title || 'Overview', ...intro, look: intro.look || {} },
+        ...(raw.STEPS || []).map(s => ({ tab: s.label || s.fig, fig: s.fig || s.label, ...s, look: s.look || {} })),
+      ];
+    }
+    return [{ cam: { target: [0, 0, 0], az: 15, el: 15, dist: 10 }, fig: raw.title || '3D Figure' }];
+  };
+  const ch = {
+    ...raw,
+    params: { ...(raw.params || {}) },
+    PAGES: resolvePages(),
+    buildWorld: E => raw.buildWorld(E, ch.params, items, {}),
+    state: (clock, reduced) => raw.state(clock, reduced, ch.params, items),
+    readout: (s, P, pg) => (raw.readout ? raw.readout(s, ch.params, items, P, pg) : ''),
+  };
+  return ch;
+}
+
+export function mountAtlas(stage, params, api, rawChapter, defaults = {}) {
+  const chapter = normalizeChapterOrFigure(rawChapter);
   document.querySelectorAll('.atlas-stage, .live-3d').forEach(el => {
     if (el.parentElement !== stage) el.closest('figure')?.dispatchEvent(new CustomEvent('close-lesson'));
   });
@@ -98,7 +126,7 @@ export function mountAtlas(stage, params, api, chapter, defaults = {}) {
   title.className = 'atlas-title';
   badge.className = 'atlas-badge';
   title.textContent = P.tab || P.fig;
-  badge.textContent = '3D Atlas · Drag to orbit · Click part to explode';
+  badge.textContent = '3D Interactive · Drag to orbit · Tap part to inspect';
   wrap.append(canvas, labels, title, badge);
   stage.appendChild(wrap);
   const say = api.readout();
@@ -159,11 +187,14 @@ export function mountAtlas(stage, params, api, chapter, defaults = {}) {
       ctx.save();
       ctx.scale(dpr, dpr);
       const th = readTheme(stage);
-      const bg = th === 'dark' ? '#171c1b' : th === 'light' ? '#f9f7f2' : '#f2e8d5';
-      const ink = th === 'dark' ? '#e8e4da' : '#1d2422';
-      const muted = th === 'dark' ? '#9aa5a1' : '#5d6c66';
-      const accent = th === 'dark' ? '#68b0d8' : '#2f6d8f';
-      const warm = th === 'dark' ? '#e07a5f' : '#b8432f';
+      const explicitTheme = stage.closest('[data-theme]')?.dataset.theme;
+      const mode = explicitTheme === 'dark' || (th?.sheet && srgbLuminance(th.sheet) < 0.2) ? 'dark'
+        : explicitTheme === 'light' || (th?.sheet && srgbLuminance(th.sheet) > 0.9) ? 'light' : 'sepia';
+      const bg = th?.sheet || (mode === 'dark' ? '#171c1b' : mode === 'light' ? '#f9f7f2' : '#f2e8d5');
+      const ink = th?.ink || (mode === 'dark' ? '#e8e4da' : '#1d2422');
+      const muted = mode === 'dark' ? '#9aa5a1' : '#586660';
+      const accent = th?.blue || (mode === 'dark' ? '#68b0d8' : '#2b6180');
+      const warm = th?.red || (mode === 'dark' ? '#e07a5f' : '#a33b29');
       ctx.fillStyle = bg;
       ctx.fillRect(0, 0, w, h);
       if (chapter.drawFallback2D) {
@@ -443,6 +474,41 @@ export function mountAtlas(stage, params, api, chapter, defaults = {}) {
     controlsEl.appendChild(cutWrap);
   }
 
+  // ---------- 2b. 5-Medium Atelier Switcher ----------
+  const mediumList = [
+    ['paper-ink', 'Paper & Ink'],
+    ['pencil-wash', 'Sketchbook'],
+    ['ciechanow', 'Mechanism'],
+    ['moebius', 'Ligne-claire'],
+    ['risograph', 'Risograph'],
+  ];
+  let curMedium = chapter.medium || 'paper-ink';
+  const medWrap = document.createElement('div');
+  medWrap.className = 'live-tabs atlas-mediums';
+  medWrap.setAttribute('role', 'group');
+  medWrap.setAttribute('aria-label', 'Visual medium');
+  let medButtons = new Map();
+  for (const [m, lbl] of mediumList) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'live-ctl';
+    btn.textContent = lbl;
+    btn.setAttribute('aria-pressed', String(m === curMedium));
+    btn.addEventListener('click', () => {
+      curMedium = m;
+      document.documentElement.dataset.medium = m;
+      if (S && S.setMedium) S.setMedium(m);
+      for (const [k, b] of medButtons) b.setAttribute('aria-pressed', String(k === m));
+      kick();
+      api._refresh?.();
+    });
+    medWrap.appendChild(btn);
+    medButtons.set(m, btn);
+    if (Array.isArray(api._buttons)) api._buttons.push(btn);
+  }
+  if (Array.isArray(api._tabs)) api._tabs.push([...medButtons.values()]);
+  controlsEl.appendChild(medWrap);
+
   // ---------- 3. Interactive Sliders (coupled to chapter.params) ----------
   function syncSlidersFromParams() {
     if (!chapter.params) return;
@@ -458,14 +524,17 @@ export function mountAtlas(stage, params, api, chapter, defaults = {}) {
   if (Array.isArray(chapter.controls) && chapter.controls.length) {
     chapter.params = chapter.params || {};
     for (const c of chapter.controls) {
-      const initVal = chapter.params[c.id] !== undefined ? chapter.params[c.id] : c.value;
-      chapter.params[c.id] = initVal;
+      const cid = c.id || c.key;
+      if (!cid) continue;
+      const cfmt = c.format || c.fmt;
+      const initVal = chapter.params[cid] !== undefined ? chapter.params[cid] : (c.value ?? c.min ?? 0);
+      chapter.params[cid] = initVal;
       const row = document.createElement('div');
       row.className = 'live-slider';
       const lab = document.createElement('label');
       const inp = document.createElement('input');
       const out = document.createElement('output');
-      const uid = `atlas-sl-${c.id}-${Math.random().toString(36).slice(2, 7)}`;
+      const uid = `atlas-sl-${cid}-${Math.random().toString(36).slice(2, 7)}`;
       lab.htmlFor = uid;
       lab.textContent = c.label;
       inp.id = uid;
@@ -474,21 +543,22 @@ export function mountAtlas(stage, params, api, chapter, defaults = {}) {
       inp.max = String(c.max);
       inp.step = String(c.step ?? 1);
       inp.value = String(initVal);
-      const fmt = v => (c.format ? c.format(v) : `${v}${c.unit ? ' ' + c.unit : ''}`);
+      const fmt = v => (cfmt ? cfmt(v) : `${v}${c.unit ? ' ' + c.unit : ''}`);
       out.textContent = fmt(initVal);
       const applyVal = raw => {
         const val = Number(raw);
         inp.value = String(val);
-        chapter.params[c.id] = val;
+        chapter.params[cid] = val;
         out.textContent = fmt(val);
-        if (chapter.onParamChange) chapter.onParamChange(chapter.params, S, c.id, val);
+        if (c.rebuild) build();
+        if (chapter.onParamChange) chapter.onParamChange(chapter.params, S, cid, val);
         kick();
         api._refresh?.();
       };
       inp.addEventListener('input', () => applyVal(inp.value));
       row.append(lab, inp, out);
       controlsEl.appendChild(row);
-      sliderInputs.set(c.id, { input: inp, out, unit: c.unit, format: c.format });
+      sliderInputs.set(cid, { input: inp, out, unit: c.unit, format: cfmt });
       if (Array.isArray(api._sliders)) api._sliders.push({ label: c.label, input: inp, apply: applyVal });
     }
   }

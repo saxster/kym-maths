@@ -74,7 +74,7 @@ struct StuckSheetView: View {
                     .foregroundStyle(theme.patterned.assistedColor)
                     .fixedSize(horizontal: false, vertical: true)
                 Button("Next", action: next)
-                    .buttonStyle(InkButtonStyle())
+                    .buttonStyle(OutlineButtonStyle())
             default:
                 AnswerCheckRow(typed: $typed, typing: $typing, check: check)
             }

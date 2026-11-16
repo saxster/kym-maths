@@ -164,7 +164,6 @@ class WholePackReportTest(unittest.TestCase):
     """G10: checks 3 and 4 over the whole pack, counted, never stopping the run."""
 
     def test_report_counts_a_banned_word_in_an_unrewritten_chapter(self):
-        self.assertNotIn(13, REWRITTEN)
         before = content_checks.report(PACK)
         pack = copy.deepcopy(PACK)
         chapter(pack, 13)["hookSummary"] = "Obviously this is clearly a hook."
@@ -204,7 +203,8 @@ class CardFilesTest(unittest.TestCase):
     """Cards live in the file of the chapter that teaches them, and bedrock cards in book/bedrock.py (risk R5)."""
 
     def test_cards_built_from_their_chapter_files_equal_the_pack(self):
-        from book import bedrock, ch01, ch02, ch03, ch04, ch05, ch06, ch07, ch08, ch09, ch10, ch11, ch12
+        from book import (bedrock, ch01, ch02, ch03, ch04, ch05, ch06, ch07, ch08, ch09, ch10, ch11, ch12,
+                          ch13, ch14, ch15, ch16, ch17, ch18, ch19, ch20)
         k = exporter.helpers()
         self.assertEqual(set(bedrock.cards(k)), {"negative-number", "factor", "multiple", "power", "fraction",
                                                  "decimal-place", "percentage", "area", "angle"})
@@ -238,6 +238,27 @@ class CardFilesTest(unittest.TestCase):
         self.assertEqual(set(ch12.cards(k)), {"right-angled-triangle", "hypotenuse", "pythagoras-theorem", "theta",
                                               "tangent", "sine", "cosine", "unit-circle", "pythagorean-identity", "radian",
                                               "sine-rule", "cosine-rule"})
+        self.assertEqual(set(ch13.cards(k)), {"population", "sample", "random-sample", "systematic-sample",
+                                              "stratified-sample", "bias", "survivorship-bias", "mean",
+                                              "standard-error"})
+        self.assertEqual(set(ch14.cards(k)), {"time-series", "moving-average", "stem-and-leaf-diagram", "median",
+                                              "quartile", "interquartile-range", "class-width", "frequency-density",
+                                              "histogram", "sigma", "variance", "standard-deviation"})
+        self.assertEqual(set(ch15.cards(k)), {"outcome", "sample-space", "probability", "mutually-exclusive",
+                                              "experimental-probability", "independent-events", "tree-diagram",
+                                              "factorial", "permutation", "combination", "bell-curve"})
+        self.assertEqual(set(ch16.cards(k)), {"conditional-probability", "base-rate", "prior", "sensitivity",
+                                              "specificity", "false-positive", "posterior", "likelihood-ratio",
+                                              "bayes-theorem"})
+        self.assertEqual(set(ch17.cards(k)), {"secant-line", "limit", "tangent-line", "rate-of-change",
+                                              "derivative", "power-rule", "stationary-point", "maximum-and-minimum"})
+        self.assertEqual(set(ch18.cards(k)), {"riemann-sum", "midpoint-rule", "definite-integral", "signed-area",
+                                              "antiderivative", "fundamental-theorem-of-calculus"})
+        self.assertEqual(set(ch19.cards(k)), {"position-vector", "adding-vectors", "zero-vector", "magnitude",
+                                              "scalar-multiple", "collinear", "dot-product"})
+        self.assertEqual(set(ch20.cards(k)), {"basis-vectors", "linear-transformation", "matrix",
+                                              "matrix-multiplication", "determinant", "singular-matrix",
+                                              "eigenvector", "eigenvalue"})
         self.assertEqual(set(ch01.cards(k)), {"prime-number", "prime-factors", "hcf", "lcm", "index-laws",
                                               "square-root", "irrational-number"})
         self.assertTrue(all(card["standsOn"] == [] for card in bedrock.cards(k).values()))
@@ -298,7 +319,7 @@ class LinkerTest(unittest.TestCase):
         self.assertEqual(self.concepts("The scale factor is 2"), ["scale-factor"])
 
     def test_word_edges(self):
-        self.assertEqual(self.concepts("A factorial, a powerful idea"), [])
+        self.assertEqual(self.concepts("A factory, a powerful idea"), [])
         self.assertEqual(self.concepts("√2 is about 1.41"), ["square-root"])
 
     def test_exclude_and_scope(self):
