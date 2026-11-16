@@ -137,9 +137,8 @@ targets:
     entitlements:
       path: KymMaths/KymMaths-iPad.entitlements
       properties:
-        com.apple.security.application-groups:
-          - group.com.kymaia.science
-          - group.com.kymaia.maths
+        keychain-access-groups:
+          - "$(AppIdentifierPrefix)com.kymaia.family"
 
   KymMathsTests:
     type: bundle.unit-test
