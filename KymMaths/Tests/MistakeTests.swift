@@ -16,7 +16,7 @@ struct MistakeTests {
         switch matcher {
         case let .number(value, _, _): return [magnitude(value)]
         case let .sequence(values, _): return Set(values.map(magnitude))
-        case let .form(form): return Set(AnswerText(form).numbers.map { magnitude($0.value) })
+        case let .form(form), let .expression(form, _): return Set(AnswerText(form).numbers.map { magnitude($0.value) })
         case let .all(matchers): return matchers.reduce(into: []) { $0.formUnion(magnitudes(in: $1)) }
         case .words: return []
         }

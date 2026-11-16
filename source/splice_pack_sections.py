@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 Rewrites only the parts of the seed pack the exporter now owns, and leaves the rest as it is:
-the `misconceptions`, `footings`, `concepts` and `conceptStopPhrases` sections, the `stuck` sheet of
-each school question, and each chapter rewritten in source/book/ with its widgets, Atlas lessons and tip.
+the `misconceptions`, `footings`, `concepts` and `conceptStopPhrases` sections, the `stuck` sheet and
+`answerKey` of each school question, and each chapter rewritten in source/book/ with its widgets, Atlas lessons and tip.
 A chapter file's `schoolQuestions` (worked example, faded prompt) and `schoolTopics` (a topic's summary)
 are taken too; a topic's other fields stay as the pack has them.
 
@@ -125,8 +125,10 @@ def main():
     pack["conceptStopPhrases"] = exporter.build_concept_stop_phrases()
     school_questions = exporter.book_school_questions()
     school_topics = exporter.book_school_topics()
-    drift = splice_stuck(pack["schoolQuestions"], questions,
-                         {qid: set(fields) for qid, fields in school_questions.items()})
+    taken = {question["id"]: {"answerKey"} | set(school_questions.get(question["id"], ())) for question in questions}
+    changed_keys = sorted(q["id"] for q in pack["schoolQuestions"]
+                          if q.get("answerKey") != next((b["answerKey"] for b in questions if b["id"] == q["id"]), None))
+    drift = splice_stuck(pack["schoolQuestions"], questions, taken)
     splice_topic_summaries(pack["schoolTextbook"], exporter.build_school_textbook(), set(school_topics))
 
     widget_text = exporter.book_widget_text()
@@ -151,6 +153,7 @@ def main():
           f"{sheets} stuck sheets, {len(pack['concepts'])} concept cards, chapters {sorted(rewritten)} with "
           f"{len(widget_text)} widgets, {len(lessons)} Atlas lessons and {len(tips)} visual tip(s), "
           f"school text for {len(school_questions)} questions and {len(school_topics)} topics. Content checks passed.")
+    print(f"Answer keys rewritten: {len(changed_keys)}{': ' + ', '.join(changed_keys) if changed_keys else ''}")
     for line in drift:
         print(f"Left as it is in the pack, differs from the exporter: {line}")
     print(f"New links since the last splice: {len(new_links)}. Read each one for a link on an everyday word.")

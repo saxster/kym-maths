@@ -18,8 +18,21 @@ struct AnswerKey: Codable, Equatable, Sendable {
             }
         }
         let isCorrect = !matched.isEmpty && missing.isEmpty
-        let mistake = isCorrect ? nil : mistakes.first { $0.anyOf.contains { $0.matches(text) } }
+        let mistake = isCorrect ? nil : mistakes.first { $0.anyOf.contains { $0.matches(text) } } ?? unfinished(text, missing: missing)
         return AnswerMarking(matchedParts: matched, missingParts: missing, mistake: mistake)
+    }
+
+    /// The slip in an answer that is equal to a missing part's expression but not finished, such as a bracket left in.
+    private func unfinished(_ text: AnswerText, missing: [String]) -> KnownMistake? {
+        for part in parts where missing.contains(part.label) {
+            for case let .expression(value, form) in part.anyOf {
+                guard let target = AnswerExpression.parse(value) else { continue }
+                for expression in text.expressions where expression.isEquivalent(to: target) {
+                    if let slip = form.unfinished(expression) { return slip }
+                }
+            }
+        }
+        return nil
     }
 }
 
@@ -50,6 +63,8 @@ indirect enum AnswerMatcher: Equatable, Sendable {
     case number(value: AnswerNumber, tolerance: Double, simplest: Bool)
     case sequence(values: [AnswerNumber], ignoring: [AnswerNumber])
     case form(String)
+    /// Right when some piece of the answer is equal to `value` as algebra and has the shape `form` asks for.
+    case expression(value: String, form: ExpressionForm)
     case words(groups: [[String]], forbid: [String])
     case all([AnswerMatcher])
 
@@ -67,6 +82,9 @@ indirect enum AnswerMatcher: Equatable, Sendable {
             }
         case let .form(value):
             return text.containsForm(value)
+        case let .expression(value, form):
+            guard let target = AnswerExpression.parse(value) else { return false }
+            return text.expressions.contains { $0.isEquivalent(to: target) && form.accepts($0) }
         case let .words(groups, forbid):
             guard !groups.isEmpty, !forbid.contains(where: text.containsPhrase) else { return false }
             return groups.allSatisfy { $0.contains(where: text.containsPhrase) }
@@ -87,6 +105,7 @@ extension AnswerMatcher: Codable {
         var groups: [[String]]?
         var forbid: [String]?
         var of: [AnswerMatcher]?
+        var form: ExpressionForm?
     }
 
     init(from decoder: Decoder) throws {
@@ -108,6 +127,11 @@ extension AnswerMatcher: Codable {
         case "form":
             guard let value = wire.value, !value.isEmpty else { throw fail("needs a value") }
             self = .form(value)
+        case "expression":
+            guard let value = wire.value, AnswerExpression.parse(value) != nil else {
+                throw fail("needs a value that reads as an expression")
+            }
+            self = .expression(value: value, form: wire.form ?? .any)
         case "words":
             guard let groups = wire.groups, !groups.isEmpty, groups.allSatisfy({ !$0.isEmpty }) else {
                 throw fail("needs non-empty groups")
@@ -130,6 +154,8 @@ extension AnswerMatcher: Codable {
             wire = Wire(kind: "sequence", values: values.map(\.text), ignoring: ignoring.map(\.text))
         case let .form(value):
             wire = Wire(kind: "form", value: value)
+        case let .expression(value, form):
+            wire = Wire(kind: "expression", value: value, form: form)
         case let .words(groups, forbid):
             wire = Wire(kind: "words", groups: groups, forbid: forbid)
         case let .all(matchers):
@@ -214,12 +240,19 @@ struct AnswerText: Sendable {
     let numbers: [AnswerNumberToken]
     private let words: [String]
     private let tight: [Character]
+    private let normalised: String
 
     init(_ raw: String) {
         let normalised = Self.normalise(raw)
+        self.normalised = normalised
         numbers = Self.readNumbers(Array(normalised))
         words = Self.readWords(normalised)
         tight = Array(Self.tighten(normalised))
+    }
+
+    /// Every piece of the answer that reads as an expression.
+    var expressions: [AnswerExpression] {
+        AnswerExpression.segments(normalised: normalised).compactMap(\.expression)
     }
 
     func containsPhrase(_ phrase: String) -> Bool {

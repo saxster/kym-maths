@@ -945,6 +945,8 @@ def build_school_textbook():
 #   num    a number that stands on its own in the answer (not a coefficient)
 #   seq    numbers in this order with nothing between them (points, ratios)
 #   forms  an exact expression, spacing ignored; list every form you accept
+#   expr   any piece equal to this expression as algebra, in the shape `form` asks for
+#          ("expanded" or "factorised"); equal but unfinished names its own slip
 #   words  every group needs one whole-word hit; any `forbid` word fails it
 #   all_of every listed matcher must pass
 # `accepts` and `rejects` are sample answers. The app's tests run them through
@@ -969,6 +971,17 @@ def seq(*values, ignoring=()):
 
 def forms(*values):
     return [{"kind": "form", "value": value} for value in values]
+
+
+def expr(value, form="any"):
+    if marking.parse_expression(value) is None:
+        raise SystemExit(f"expr(\"{value}\") does not read as an expression")
+    if form not in ("any", "expanded", "factorised"):
+        raise SystemExit(f"expr(\"{value}\") has an unknown form {form}")
+    matcher = {"kind": "expression", "value": value}
+    if form != "any":
+        matcher["form"] = form
+    return matcher
 
 
 def words(*groups, forbid=()):
@@ -1121,12 +1134,12 @@ FOOTINGS = {
         teach="The number outside a bracket multiplies each term inside it: −3(x − 4) = −3x + 12. A squared bracket is two brackets, so (x + 2)² = (x + 2)(x + 2) = x² + 4x + 4, not x² + 4.",
         probes=[
             probe("Expand −2(x − 5).",
-                  one(forms("-2x+10", "10-2x"), accepts=["−2x + 10", "-2x+10", "10 − 2x"],
-                      rejects=["-2x - 5", "-2x - 10", "2x + 10", "-2x + 5"]),
+                  one(expr("-2x+10", "expanded"), accepts=["−2x + 10", "-2x+10", "10 − 2x", "10 + -2x"],
+                      rejects=["-2x - 5", "-2x - 10", "2x + 10", "-2x + 5", "−2(x − 5)"]),
                   answer="−2x + 10"),
             probe("Expand (x + 3)².",
-                  one(forms("x^2+6x+9"), accepts=["x² + 6x + 9", "x^2+6x+9", "= x² + 6x + 9"],
-                      rejects=["x² + 9", "x² + 3x + 9", "x² + 6x + 6"]),
+                  one(expr("x^2+6x+9", "expanded"), accepts=["x² + 6x + 9", "x^2+6x+9", "= x² + 6x + 9", "9 + 6x + x²"],
+                      rejects=["x² + 9", "x² + 3x + 9", "x² + 6x + 6", "(x + 3)²", "x² + 3x + 3x + 9"]),
                   answer="x² + 6x + 9"),
             probe("Work out 7² − 3², then (7 − 3)².",
                   key([part("7² − 3²", num("40")), part("(7 − 3)²", num("16"))],
@@ -1379,7 +1392,8 @@ FOOTINGS = {
         teach="Sequences start at n = 1, so test a rule by putting n = 1 and n = 2 back in: for 2, 7, 12, … the rule 5n − 3 gives 2, then 7. Counting from 3 to 6 including both ends gives 4 numbers, not 3.",
         probes=[
             probe("Find the nth term of 5, 8, 11, 14, …",
-                  one(forms("3n+2", "2+3n"), accepts=["3n + 2", "3n+2", "nth term = 3n + 2"], rejects=["3n + 5", "n + 3", "3n"]),
+                  one(expr("3n+2", "expanded"), accepts=["3n + 2", "3n+2", "nth term = 3n + 2", "2 + 3n"],
+                      rejects=["3n + 5", "n + 3", "3n", "3(n + 1) − 1"]),
                   answer="3n + 2"),
             probe("The nth term of a sequence is 4n − 1. Find the 10th term.",
                   one(num("39"), accepts=["39", "4 × 10 − 1 = 39", "= 39"], rejects=["40", "35", "43"]),
@@ -1516,9 +1530,10 @@ ANSWER_KEYS = {
         ]),
     # Chapter 2
     "q-oup-ch02-sb": one(
-        forms("5x+3", "3+5x"),
-        accepts=["5x+3", "5x + 3", "3 + 5x", "= 5x + 3"],
-        rejects=["5x - 3", "5x + 27", "5x", "11x + 3", "5x+3x"],
+        # The forms stay for an answer that runs on into its reason, as the model answer does.
+        expr("5x+3", "expanded"), forms("5x+3", "3+5x"),
+        accepts=["5x+3", "5x + 3", "3 + 5x", "= 5x + 3", "x·5 + 3", "3 + 2x + 3x = 5x + 3"],
+        rejects=["5x - 3", "5x + 27", "5x", "11x + 3", "5x+3x", "4(2x − 3) − 3(x − 5)", "8x − 12 − 3x + 15"],
         mistakes=[
             mistake("sign-of-product", forms("5x-27", "-27+5x", "11x+3", "3+11x"),
                     next_step="Multiply the minus in front of the second bracket by each term inside it, and check the sign of each product.",
@@ -1528,10 +1543,10 @@ ANSWER_KEYS = {
                     examples=["5x − 7", "5x + 12"]),  # −3(x − 5) as −3x + 5, or 4(2x − 3) as 8x − 3
         ]),
     "q-oup-ch02-wb-focus": one(
-        forms("6ab(3a-2b)", "6ab (3a-2b)", "6ba(3a-2b)", "6ba (3a-2b)", "6ab(-2b+3a)", "(3a-2b)6ab",
-              "6ab*(3a-2b)", "-6ab(2b-3a)"),
-        accepts=["6ab(3a − 2b)", "6ab(3a-2b)", "6ab (3a - 2b)", "6ba(3a-2b)"],
-        rejects=["6a(3ab − 2b²)", "6ab(3a + 2b)", "3ab(6a − 4b)", "6ab"],
+        expr("6ab(3a-2b)", "factorised"),
+        accepts=["6ab(3a − 2b)", "6ab(3a-2b)", "6ab (3a - 2b)", "6ba(3a-2b)", "(3a − 2b) × 6ab", "−6ab(2b − 3a)"],
+        rejects=["6a(3ab − 2b²)", "6ab(3a + 2b)", "3ab(6a − 4b)", "6ab", "18a²b − 12ab²", "2ab(9a − 6b)",
+                 "6b(3a² − 2ab)"],
         mistakes=[
             mistake("common-factor-left", forms("6a(3ab-2b^2)", "6b(3a^2-2ab)", "3ab(6a-4b)", "2ab(9a-6b)", "6(3a^2b-2ab^2)"),
                     next_step="Look inside your bracket: if its terms still share a number or a letter, take that out as well.",
@@ -1541,9 +1556,9 @@ ANSWER_KEYS = {
                     examples=["6ab(3a + 2b)"]),  # −12ab² ÷ 6ab written as +2b
         ]),
     "q-oup-ch02-wb-practice": one(
-        forms("8x+38", "38+8x", "2(4x+19)"),
-        accepts=["8x + 38", "8x+38 cm²", "8x + 38cm^2", "38 + 8x"],
-        rejects=["8x + 22", "8x", "16x + 38", "8x − 38"],
+        expr("8x+38", "expanded"), forms("2(4x+19)"),
+        accepts=["8x + 38", "8x+38 cm²", "8x + 38cm^2", "38 + 8x", "2(4x + 19)", "12x + 30 − 4x + 8 = 8x + 38"],
+        rejects=["8x + 22", "8x", "16x + 38", "8x − 38", "6(2x + 5) − 4(x − 2)", "12x + 30 − 4x + 8"],
         mistakes=[
             mistake("sign-of-product", forms("8x+22", "22+8x"),
                     next_step="Taking away the small rectangle subtracts every term of its area, so check the sign of each term after the minus.",
@@ -1787,8 +1802,8 @@ ANSWER_KEYS = {
                     examples=["x ≤ −16/3"]),  # 14 moved across as +14: −3x ≥ 16
         ]),
     "q-oup-ch07-wb-challenge": one(
-        forms("(y+2)/(y-3)", "(2+y)/(y-3)", "(y+2)/(-3+y)", "(-y-2)/(3-y)", "-(y+2)/(3-y)"),
-        accepts=["x = (y + 2) / (y − 3)", "(y+2)/(y-3)", "x=(2+y)/(y-3)"],
+        expr("(y+2)/(y-3)"),
+        accepts=["x = (y + 2) / (y − 3)", "(y+2)/(y-3)", "x=(2+y)/(y-3)", "x = (−y − 2)/(3 − y)", "x = 1 + 5/(y − 3)"],
         rejects=["x = (y − 2) / (y + 3)", "x = y + 2 / y − 3", "x = (y + 2) / (3 − y)", "x = (3x + 2) / (x − 1)"],
         mistakes=[
             mistake("rearranged-sign", forms("(2-y)/(y-3)", "(-y+2)/(y-3)", "(y+2)/(y+3)", "(2+y)/(y+3)"),
@@ -1941,9 +1956,11 @@ ANSWER_KEYS = {
         ]),
     # Chapter 11
     "q-oup-ch11-sb": key(
-        [part("the nth term", forms("4n+3", "3+4n")), part("the sum of 20 terms", num("900"))],
-        accepts=["Tₙ = 4n + 3, S₂₀ = 900", "4n+3 900", "4n + 3 and 900", "T_n = 3 + 4n, sum = 900"],
-        rejects=["4n + 3", "900", "4n + 7, 900", "4n + 3, 830", "n + 4, 900"],
+        # The forms stay for an nth term followed by the sum with only a space between.
+        [part("the nth term", expr("4n+3", "expanded"), forms("4n+3", "3+4n")), part("the sum of 20 terms", num("900"))],
+        accepts=["Tₙ = 4n + 3, S₂₀ = 900", "4n+3 900", "4n + 3 and 900", "T_n = 3 + 4n, sum = 900",
+                 "Tₙ = n·4 + 3, S₂₀ = 900"],
+        rejects=["4n + 3", "900", "4n + 7, 900", "4n + 3, 830", "n + 4, 900", "Tₙ = 4(n + 1) − 1, S₂₀ = 900"],
         mistakes=[
             mistake("off-by-one", forms("4n+7", "7+4n"),
                     next_step="Put n equal to one in your formula and check that it gives the first term.",
@@ -1964,9 +1981,9 @@ ANSWER_KEYS = {
         rejects=["I do not know", "Yes", "No", "yes because 147/4 is not whole", "Yes, n = 36.75",
                  "no because it is too big"]),
     "q-oup-ch11-wb-practice": one(
-        forms("n^2+2n", "2n+n^2", "n(n+2)", "n (n+2)", "n(2+n)", "(n+1)^2-1", "n*n+2n"),
-        accepts=["Tₙ = n² + 2n", "n^2 + 2n", "n(n+2)", "n squared + 2n"],
-        rejects=["n² + 2", "n² + 2n + 1", "2n + 1", "n^2"],
+        expr("n^2+2n"),
+        accepts=["Tₙ = n² + 2n", "n^2 + 2n", "n(n+2)", "n squared + 2n", "2n + n·n", "(n + 1)² − 1"],
+        rejects=["n² + 2", "n² + 2n + 1", "2n + 1", "n^2", "n2 + 2n"],
         mistakes=[
             mistake("off-by-one", forms("n^2-1", "-1+n^2"),
                     next_step="Put n equal to one in your formula and check that it gives the first term.",
@@ -2081,9 +2098,12 @@ ANSWER_KEYS = {
         ]),
     # Chapter 14
     "q-oup-ch14-sb": key(
-        [part("the equation", forms("2x+5", "5+2x")), part("the x-intercept", num("-2.5"))],
-        accepts=["y = 2x + 5, x-intercept = −2.5", "y=2x+5 -2.5", "y = 2x + 5 and (−2.5, 0)", "y=2x+5, x = -5/2"],
-        rejects=["y = 2x + 5", "-2.5", "y = 2x + 5, x = 2.5", "y = 2x + 3, −1.5", "y = 12x + 5, -2.5"],
+        # The forms stay for the equation followed by the intercept with only a space between.
+        [part("the equation", expr("2x+5", "expanded"), forms("2x+5", "5+2x")), part("the x-intercept", num("-2.5"))],
+        accepts=["y = 2x + 5, x-intercept = −2.5", "y=2x+5 -2.5", "y = 2x + 5 and (−2.5, 0)", "y=2x+5, x = -5/2",
+                 "y = x·2 + 5, x = −2.5"],
+        rejects=["y = 2x + 5", "-2.5", "y = 2x + 5, x = 2.5", "y = 2x + 3, −1.5", "y = 12x + 5, -2.5",
+                 "y = (4x + 10)/2, x = −2.5"],
         mistakes=[
             mistake("divided-wrong-way-round", forms("0.5x+2", "1/2x+2", "x/2+2"),
                     next_step="Gradient is the rise in y divided by the run in x, so check which change goes on top.",
@@ -2093,9 +2113,10 @@ ANSWER_KEYS = {
                     examples=["y = 2x + 5, x = 2.5"]),  # 0 = 2x + 5 solved as 2x = 5
         ]),
     "q-oup-ch14-wb-focus": one(
-        forms("(x+7)/3", "(7+x)/3", "x/3+7/3", "7/3+x/3", "1/3(x+7)", "1/3 (x+7)", "1/3x+7/3", "(x+7)*1/3"),
-        accepts=["f⁻¹(x) = (x + 7) / 3", "(x+7)/3", "y = (x + 7)/3", "f^-1(x) = x/3 + 7/3"],
-        rejects=["(x − 7) / 3", "3x + 7", "x + 7 / 3", "(x + 7) / 3x", "1 / (3x − 7)"],
+        expr("(x+7)/3"),
+        accepts=["f⁻¹(x) = (x + 7) / 3", "(x+7)/3", "y = (x + 7)/3", "f^-1(x) = x/3 + 7/3", "f⁻¹(x) = 7/3 + 1/3x",
+                 "(x + 7) ÷ 3"],
+        rejects=["(x − 7) / 3", "3x + 7", "x + 7 / 3", "(x + 7) / 3x", "1 / (3x − 7)", "3x − 7"],
         mistakes=[
             mistake("rearranged-sign", forms("(x-7)/3", "x/3-7/3", "1/3(x-7)"),
                     next_step="Undo each step with its opposite operation, so check the sign of the number you moved.",
@@ -2108,10 +2129,10 @@ ANSWER_KEYS = {
                     examples=["1 / (3x − 7)"]),  # f⁻¹ read as 1 ÷ f(x)
         ]),
     "q-oup-ch14-wb-practice": one(
-        forms("-1/2x+3", "-x/2+3", "3-1/2x", "3-x/2", "-0.5x+3", "3-0.5x", "-(1/2)x+3", "3-(1/2)x",
-              "-1/2*x+3", "-(x/2)+3"),
-        accepts=["y = −½x + 3", "y = -1/2x + 3", "y = -x/2 + 3", "y = 3 - 0.5x", "y = -0.5x + 3"],
-        rejects=["y = 2x + 3", "y = ½x + 3", "y = −2x + 3", "y = −½x + 5", "y = -1/2x"],
+        expr("-1/2x+3"),
+        accepts=["y = −½x + 3", "y = -1/2x + 3", "y = -x/2 + 3", "y = 3 - 0.5x", "y = -0.5x + 3", "y = 3 − ½x",
+                 "y = −½(x − 6)"],
+        rejects=["y = 2x + 3", "y = ½x + 3", "y = −2x + 3", "y = −½x + 5", "y = -1/2x", "y = 2x + 5"],
         mistakes=[
             mistake("perpendicular-gradient", forms("1/2x+3", "x/2+3", "0.5x+3", "3+1/2x", "3+x/2", "3+0.5x", "-2x+3", "3-2x", "2x+3", "3+2x"),
                     next_step="A perpendicular gradient is the original turned upside down with its sign changed, so check you did both.",
@@ -2209,10 +2230,10 @@ ANSWER_KEYS = {
                     examples=["(3, 9)"]),  # −2 read as 2: 2 + 7 = 9
         ]),
     "q-oup-ch16-wb-practice": one(
-        forms("1/2(b-a)", "1/2 (b-a)", "(1/2)(b-a)", "(b-a)/2", "(-a+b)/2", "1/2b-1/2a", "b/2-a/2", "0.5(b-a)",
-              "0.5b-0.5a", "-1/2a+1/2b", "-a/2+b/2", "1/2*(b-a)", "1/2(-a+b)"),
-        accepts=["MN = ½(b − a)", "1/2(b - a)", "(b - a)/2", "½b − ½a", "MN = ½(b − a) = ½AB"],
-        rejects=["½(a − b)", "b − a", "½(a + b)", "2(b − a)", "½ab"],
+        expr("1/2(b-a)"),
+        accepts=["MN = ½(b − a)", "1/2(b - a)", "(b - a)/2", "½b − ½a", "MN = ½(b − a) = ½AB", "MN = (b − a) × ½",
+                 "−(a − b)/2"],
+        rejects=["½(a − b)", "b − a", "½(a + b)", "2(b − a)", "½ab", "a/2 − b/2"],
         mistakes=[
             mistake("vector-combined-wrongly", forms("1/2(a-b)", "1/2 (a-b)", "(a-b)/2", "1/2a-1/2b", "a/2-b/2", "0.5(a-b)"),
                     next_step="Go from M to N by heading back from M to O and then out from O to N, and check the direction of each piece.",
@@ -2356,13 +2377,15 @@ STUCK_SHEETS = {
         "Expand and simplify 2(2x + 1) − 2(x − 4).",
         [
             stuck_step("Expand 2(2x + 1).",
-                       one(forms("4x+2", "2+4x"), accepts=["4x + 2"], rejects=["4x + 1", "2x + 2", "4x"],
+                       one(expr("4x+2", "expanded"), accepts=["4x + 2", "2 + 4x"],
+                           rejects=["4x + 1", "2x + 2", "4x", "2(2x + 1)"],
                            mistakes=[mistake("expand-first-term-only", forms("4x+1", "1+4x"),
                                              next_step="Multiply every term inside the bracket, not only the first.",
                                              examples=["4x + 1"])]),
                        answer="4x + 2", working="2 × 2x = 4x and 2 × 1 = 2, so 4x + 2."),
             stuck_step("Expand −2(x − 4). Keep the sign in front.",
-                       one(forms("-2x+8", "8-2x"), accepts=["−2x + 8"], rejects=["-2x - 8", "2x + 8", "-2x - 4"],
+                       one(expr("-2x+8", "expanded"), accepts=["−2x + 8", "8 − 2x"],
+                           rejects=["-2x - 8", "2x + 8", "-2x - 4", "−2(x − 4)"],
                            mistakes=[mistake("sign-of-product", forms("-2x-8", "-8-2x"),
                                              next_step="A negative times a negative is positive.", examples=["−2x − 8"]),
                                      mistake("expand-first-term-only", forms("-2x-4"),
@@ -2372,7 +2395,8 @@ STUCK_SHEETS = {
                                              next_step="Keep the minus sign in front of the bracket.", examples=["2x + 8"])]),
                        answer="−2x + 8", working="−2 × x = −2x and −2 × −4 = +8, so −2x + 8."),
             stuck_step("Collect the like terms in 4x + 2 − 2x + 8.",
-                       one(forms("2x+10", "10+2x"), accepts=["2x + 10"], rejects=["6x + 10", "2x - 6", "2x + 6"],
+                       one(expr("2x+10", "expanded"), accepts=["2x + 10", "10 + 2x"],
+                           rejects=["6x + 10", "2x - 6", "2x + 6", "4x + 2 − 2x + 8"],
                            mistakes=[mistake("dropped-minus", forms("6x+10", "10+6x"),
                                              next_step="Take the x terms away: 4x minus 2x.", examples=["6x + 10"]),
                                      mistake("sign-of-product", forms("2x-6", "-6+2x"),
@@ -2396,9 +2420,9 @@ STUCK_SHEETS = {
                            accepts=["3x and 2y", "3x, −2y"], rejects=["3x", "6x and 4y", "3xy and 2xy"]),
                        answer="3x and 2y", working="6x²y ÷ 2xy = 3x and 4xy² ÷ 2xy = 2y."),
             stuck_step("Write the full factorised form.",
-                       one(forms("2xy(3x-2y)", "2yx(3x-2y)", "2xy (3x-2y)", "(3x-2y)2xy", "2xy(-2y+3x)", "2xy*(3x-2y)"),
-                           accepts=["2xy(3x − 2y)"],
-                           rejects=["2xy(3x + 2y)", "xy(6x − 4y)", "2(3x²y − 2xy²)", "2x(3xy − 2y²)"],
+                       one(expr("2xy(3x-2y)", "factorised"),
+                           accepts=["2xy(3x − 2y)", "(3x − 2y) × 2xy"],
+                           rejects=["2xy(3x + 2y)", "xy(6x − 4y)", "2(3x²y − 2xy²)", "2x(3xy − 2y²)", "6x²y − 4xy²"],
                            mistakes=[mistake("common-factor-left",
                                              forms("xy(6x-4y)", "2(3x^2y-2xy^2)", "2x(3xy-2y^2)", "2y(3x^2-2xy)",
                                                    "x(6xy-4y^2)", "y(6x^2-4xy)"),
@@ -2413,18 +2437,21 @@ STUCK_SHEETS = {
         "A rectangle (x + 4) cm long and 3 cm wide has a smaller rectangle (x − 1) cm long and 2 cm wide cut out of it. Write a simplified expression for the area left.",
         [
             stuck_step("Find the area of the big rectangle, 3(x + 4).",
-                       one(forms("3x+12", "12+3x"), accepts=["3x + 12"], rejects=["3x + 4", "x + 12", "3x + 7"],
+                       one(expr("3x+12", "expanded"), accepts=["3x + 12", "12 + 3x"],
+                           rejects=["3x + 4", "x + 12", "3x + 7", "3(x + 4)"],
                            mistakes=[mistake("expand-first-term-only", forms("3x+4", "4+3x"),
                                              next_step="Multiply both terms in the bracket by 3.", examples=["3x + 4"])]),
                        answer="3x + 12", working="3 × x = 3x and 3 × 4 = 12, so 3x + 12."),
             stuck_step("Find the area of the small rectangle, 2(x − 1).",
-                       one(forms("2x-2", "-2+2x"), accepts=["2x − 2"], rejects=["2x - 1", "2x + 2", "x - 2"],
+                       one(expr("2x-2", "expanded"), accepts=["2x − 2", "−2 + 2x"],
+                           rejects=["2x - 1", "2x + 2", "x - 2", "2(x − 1)"],
                            mistakes=[mistake("expand-first-term-only", forms("2x-1", "-1+2x"),
                                              next_step="Multiply both terms in the bracket by the number outside.",
                                              examples=["2x − 1"])]),
                        answer="2x − 2", working="2 × x = 2x and 2 × −1 = −2, so 2x − 2."),
             stuck_step("Take the small area from the big one: (3x + 12) − (2x − 2).",
-                       one(forms("x+14", "14+x"), accepts=["x + 14"], rejects=["x + 10", "5x + 10", "x - 14"],
+                       one(expr("x+14", "expanded"), accepts=["x + 14", "14 + x"],
+                           rejects=["x + 10", "5x + 10", "x - 14", "3x + 12 − 2x + 2"],
                            mistakes=[mistake("sign-of-product", forms("x+10", "10+x"),
                                              next_step="Taking away a negative adds it, so the minus 2 becomes plus.",
                                              examples=["x + 10"])]),
@@ -3686,7 +3713,7 @@ def _magnitudes(answer_key):
             found.add(abs(marking.number(matcher["value"])))
         elif matcher["kind"] == "sequence":
             found.update(abs(marking.number(v)) for v in matcher["values"])
-        elif matcher["kind"] == "form":
+        elif matcher["kind"] in ("form", "expression"):
             found.update(abs(value) for value, _ in marking.AnswerText(matcher["value"]).numbers)
         elif matcher["kind"] == "all":
             for inner in matcher["of"]:
