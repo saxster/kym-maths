@@ -147,6 +147,27 @@ struct ConceptLinkTests {
         #expect(ConceptLibrary.concept(in: ConceptLibrary.url(for: "irrational-number")) == "irrational-number")
     }
 
+    @Test("A link through \"power of\" or \"multiple of\" underlines the name and leaves \"of\" plain")
+    func trailingOfIsNotUnderlined() throws {
+        let links = Self.library.linker.links(in: "No power of 10 is a multiple of 3, and 7³ is a power.")
+        let power = try #require(links.first { $0.concept == "power" })
+        #expect(power.text == "power of")
+        #expect(power.shownLength == 5)
+        let multiple = try #require(links.first { $0.concept == "multiple" })
+        #expect(multiple.text == "multiple of")
+        #expect(multiple.shownLength == 8)
+        let hcf = try #require(Self.library.linker.links(in: "Find the HCF.").first)
+        #expect(hcf.shownLength == hcf.length)
+
+        let text = ConceptMarkup.attributed(
+            "But no power of 10 is a multiple of 3.", palette: .paper, ink: .black, underline: .orange,
+            links: Self.library.linker, exclude: nil, linked: []
+        )
+        let underlined = text.runs.filter { $0.link != nil }.map { String(text[$0.range].characters) }
+        #expect(underlined == ["power", "multiple"])
+        #expect(String(text.characters) == "But no power of 10 is a multiple of 3.")
+    }
+
     @Test("A rewritten section's beat reads its steps")
     func beatsCarrySteps() throws {
         let chapter = try #require(Self.pack.chapters.first { $0.number == 1 })

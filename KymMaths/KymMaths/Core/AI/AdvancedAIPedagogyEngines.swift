@@ -667,17 +667,6 @@ public enum ConcretenessRepresentationStage: String, Codable, Sendable, CaseIter
         case .abstract: return "Stage 3 · Symbolic Abstract"
         }
     }
-
-    public var coachDirective: String {
-        switch self {
-        case .concrete:
-            return "Ground every quantity in a tangible Mumbai or physical story before drawing bars or writing x."
-        case .semiAbstract:
-            return "Draw a Singapore unitary bar model, area box, or 1,000-person frequency square and label the equal units."
-        case .abstract:
-            return "Translate the invariant directly into compact algebraic or calculus notation and prove equivalence."
-        }
-    }
 }
 
 public enum ConcretenessFadingEngine {

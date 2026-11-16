@@ -46,9 +46,9 @@ enum ConceptMarkup {
             var start = 0
             while start < scalars.count {
                 let here = at + start
-                let link = links.first { here >= $0.offset && here < $0.offset + $0.length }
+                let link = links.first { here >= $0.offset && here < $0.offset + $0.shownLength }
                 let next = links.first { $0.offset > here }?.offset
-                let end = link.map { $0.offset + $0.length } ?? next ?? Int.max
+                let end = link.map { $0.offset + $0.shownLength } ?? next ?? Int.max
                 let stop = min(scalars.count, end - at)
                 var piece = AttributedString(String(String.UnicodeScalarView(scalars[start..<stop])))
                 switch run.role {

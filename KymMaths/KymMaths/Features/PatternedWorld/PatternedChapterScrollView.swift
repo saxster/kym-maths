@@ -92,14 +92,17 @@ struct PatternedChapterScrollView: View {
     private var bridgeSteps: some View {
         let unlocked = PatternedChapterGates.isFormulaBridgeUnlocked(for: chapter, reading: reading, store: store)
         return VStack(alignment: .leading, spacing: StandardSpacing.md) {
+            partHeading(WholeChapterContents.picture)
             ViewThatFits(in: .horizontal) {
                 HStack(alignment: .top, spacing: StandardSpacing.md) { stepPanels }
                 VStack(alignment: .leading, spacing: StandardSpacing.md) { stepPanels }
             }
             if unlocked {
+                // The two panels above already say what you do and what stays the same.
                 IntuitionFormulaBridgeCard(
                     bridge: bridge,
-                    selectedTermSymbol: $reading.selectedTermSymbol
+                    selectedTermSymbol: $reading.selectedTermSymbol,
+                    showsSteps: false
                 ) { term in
                     reading.highlightedColorRole = term.colorRole
                 }
@@ -118,6 +121,15 @@ struct PatternedChapterScrollView: View {
         stepPanel(kicker: "What stays the same", text: bridge.ahaInvariant)
     }
 
+    /// A heading the contents list names, so a row there has the same words here and can scroll to them.
+    private func partHeading(_ part: WholeChapterContents.Row) -> some View {
+        Text(part.label)
+            .standardType(.headlineMd)
+            .foregroundStyle(theme.ink)
+            .accessibilityAddTraits(.isHeader)
+            .id(part.id)
+    }
+
     private func stepPanel(kicker: String, text: String) -> some View {
         VStack(alignment: .leading, spacing: StandardSpacing.xs) {
             Kicker(kicker)
@@ -134,7 +146,7 @@ struct PatternedChapterScrollView: View {
     private var debate: some View {
         let scenario = MathematicalDebateEngine.scenario(for: chapter)
         return VStack(alignment: .leading, spacing: StandardSpacing.sm) {
-            Kicker("Who is right, and why?")
+            partHeading(WholeChapterContents.debate)
             MathematicalDebateCardView(
                 scenario: scenario,
                 initialSelectedChoiceId: store.calloutResponses["debate-\(scenario.id)"]?.responseText,
@@ -171,6 +183,7 @@ struct PatternedChapterScrollView: View {
                             .padding(.top, StandardSpacing.xs)
                     }
                 }
+                .id(section.id)
             }
         }
     }
@@ -249,7 +262,7 @@ struct PatternedChapterScrollView: View {
         )
         LearnerTextInput(
             title: "",
-            placeholder: "Say what stays the same, and the rule it gives you…",
+            placeholder: YourTurnCard.answerPlaceholder,
             text: answer,
             minHeight: 72
         )
@@ -310,5 +323,22 @@ struct PatternedChapterScrollView: View {
             }
             .buttonStyle(ChapterActionStyle(filled: !isRead))
         }
+    }
+}
+
+/// The contents list for the whole chapter in one scroll: the parts under the opening, in the order
+/// the page shows them, each named by the heading it scrolls to. The step-by-step list has other
+/// rows ("Putting it together") and another order, which this page does not have.
+enum WholeChapterContents {
+    struct Row: Identifiable, Equatable {
+        let id: String
+        let label: String
+    }
+
+    static let picture = Row(id: "part-picture", label: "From picture to formula")
+    static let debate = Row(id: "part-debate", label: "Who is right?")
+
+    static func rows(for chapter: PatternedWorldChapter) -> [Row] {
+        [picture, debate] + chapter.sections.map { Row(id: $0.id, label: PatternedBook.stripCode($0.heading)) }
     }
 }
