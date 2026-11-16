@@ -16015,7 +16015,7 @@
     "links": []
   },
   {
-    "text": "Why does the answer stay at 2? Slice one corner off a cube. You lose 1 corner and gain 3, you gain 3 edges, and you gain 1 flat side. So corners − edges + sides changes by 2 − 3 + 1 = 0.",
+    "text": "Why does the answer stay at 2? Slice one corner off a cube. You lose 1 corner and gain 3 new ones. You also gain 3 edges and 1 flat side. So corners − edges + sides changes by 2 − 3 + 1 = 0.",
     "exclude": null,
     "linked": [],
     "links": []
@@ -16070,6 +16070,2082 @@
     "linked": [
       "eulers-formula",
       "vertices-edges-faces"
+    ],
+    "links": []
+  },
+  {
+    "text": "Circles, prisms and volume",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "prism",
+        "text": "prisms",
+        "offset": 9
+      },
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 20
+      }
+    ]
+  },
+  {
+    "text": "School book chapter 5 · The distance round a circle, the space inside shapes, and how much a solid holds",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A circle has no straight sides to measure along. So how can a pizza's area be worked out with a ruler?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 70
+      }
+    ]
+  },
+  {
+    "text": "Working out the distance round a circle, the area of curved and slanted shapes, and the space inside a solid",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 45
+      }
+    ]
+  },
+  {
+    "text": "With no calculator: a circle has a radius of 10 cm. Using π ≈ 3.14, find the distance round it and its area. A prism has a cross-section of 12 cm² and a length of 5 cm. What is its volume?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 35
+      },
+      {
+        "concept": "pi",
+        "text": "π",
+        "offset": 58
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 103
+      },
+      {
+        "concept": "prism",
+        "text": "prism",
+        "offset": 111
+      },
+      {
+        "concept": "cross-section",
+        "text": "cross-section",
+        "offset": 123
+      },
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 181
+      }
+    ]
+  },
+  {
+    "text": "The circumference is 2 × 3.14 × 10 = 62.8 cm. The area is 3.14 × 10 × 10 = 314 cm². The volume is 12 × 5 = 60 cm³.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "circumference",
+        "text": "circumference",
+        "offset": 4
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 50
+      },
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 88
+      }
+    ]
+  },
+  {
+    "text": "Wheels, pipes, tins and water tanks are round or long and straight. Working out how far a wheel rolls, or how much a tank holds, needs these rules.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 9: loci, nets and the faces of a solid",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "locus",
+        "text": "loci",
+        "offset": 11
+      }
+    ]
+  },
+  {
+    "text": "Chapter 8: polygons and their angles",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "polygon",
+        "text": "polygons",
+        "offset": 11
+      },
+      {
+        "concept": "angle",
+        "text": "angles",
+        "offset": 30
+      }
+    ]
+  },
+  {
+    "text": "The area of a rectangle, counted in unit squares",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "Chapter 11: moving and resizing shapes, and what resizing does to an area",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 69
+      }
+    ]
+  },
+  {
+    "text": "Chapter 12: the sides of a right-angled triangle",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 18: areas under curves, found by adding thin slices",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "areas",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Set the radius to 4 cm and the slices to 12. The circle's slices sit top to tail in a strip, points up and points down.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 8
+      }
+    ]
+  },
+  {
+    "text": "Move the slices slider up. The strip straightens into a rectangle πr long and r tall. So the circle's area is πr × r = πr².",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 102
+      }
+    ]
+  },
+  {
+    "text": "A = πr × r = πr²",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "πr",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The blue curved edges along the bottom of the strip",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Half of the distance round the circle",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "r",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The red height of the strip",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The radius, from the centre of the circle to its edge",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "the green slice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The green part of the circle",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A slice with the angle set by the third slider, and its share of the area",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 17
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 69
+      }
+    ]
+  },
+  {
+    "text": "10.1 Across a circle",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "10.2 The distance round",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "10.3 Slanted shapes",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "10.4 The space inside a circle",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "10.5 Slices of a circle",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "10.6 How much a solid holds",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "10.7 Wrapping a solid",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "10.8 Leaning stacks",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Predict first",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the slices slider to 4, then to 24. Predict which strip looks more like a rectangle, then look.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Explain it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A round rug and a square rug both measure 2 m across. Explain to a friend which one covers more floor, and why.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Height straight up",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "In every area and volume rule in this chapter, the height is measured at a right angle to the bottom. Never measure it along a slant.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 9
+      },
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 18
+      },
+      {
+        "concept": "angle",
+        "text": "right angle",
+        "offset": 75
+      }
+    ]
+  },
+  {
+    "text": "Radius and diameter",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "Radius and diameter",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Pi",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Circumference",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "circumference",
+        "text": "Circumference",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Trapezium",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "trapezium",
+        "text": "Trapezium",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Area of a circle",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area-of-a-circle",
+        "text": "Area of a circle",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Sector",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "sector",
+        "text": "Sector",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Volume",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "volume",
+        "text": "Volume",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Prism",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "prism",
+        "text": "Prism",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Cross-section",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "cross-section",
+        "text": "Cross-section",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Surface area",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "surface-area",
+        "text": "Surface area",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Cavalieri's principle",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "cavalieris-principle",
+        "text": "Cavalieri's principle",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Twice as wide, how much more pizza?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A small pizza has a radius of 10 cm, and a large one has a radius of 20 cm. Asha and Rohan argue about how much more pizza the large one has.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 20
+      }
+    ]
+  },
+  {
+    "text": "Asha",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The radius is twice as long, so the large pizza has twice as much.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 4
+      }
+    ]
+  },
+  {
+    "text": "Rohan",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The area is πr², and the radius is squared. So the large pizza has four times as much.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 4
+      },
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 25
+      }
+    ]
+  },
+  {
+    "text": "Asha is right (twice as much)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Double the size, double the pizza.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Work out both areas with π ≈ 3.14: 3.14 × 10 × 10 and 3.14 × 20 × 20. Is the second one double the first?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "areas",
+        "offset": 14
+      },
+      {
+        "concept": "pi",
+        "text": "π",
+        "offset": 25
+      }
+    ]
+  },
+  {
+    "text": "Rohan is right (four times as much)",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The radius is used twice in πr², so doubling it doubles the area twice.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 4
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 60
+      }
+    ]
+  },
+  {
+    "text": "Yes. 314 cm² becomes 1256 cm², which is 4 × 314. The large pizza is twice as long and twice as tall in every direction.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Neither. It is π times as much.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "pi",
+        "text": "π",
+        "offset": 15
+      }
+    ]
+  },
+  {
+    "text": "The rule has a π in it, so π decides how much more.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "pi",
+        "text": "π",
+        "offset": 15
+      }
+    ]
+  },
+  {
+    "text": "Both pizzas use the same π. Divide one area by the other: what is left once the π cancels?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "pi",
+        "text": "π",
+        "offset": 25
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 39
+      }
+    ]
+  },
+  {
+    "text": "Double the radius and the area of a circle is four times as big, because the radius is multiplied by itself.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 11
+      },
+      {
+        "concept": "area-of-a-circle",
+        "text": "area of a circle",
+        "offset": 26
+      }
+    ]
+  },
+  {
+    "text": "A circle laid out as a strip",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Set the unfold slider to 0, so you see the whole circle. Predict the length and height of the strip before you slide it to 1.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Half the slices have their curved edges along the bottom, half the circumference, πr. Each slice is one radius tall, so the strip covers πr × r = πr².",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "circumference",
+        "text": "circumference",
+        "offset": 67
+      },
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 104
+      }
+    ]
+  },
+  {
+    "text": "The rule: the area of a circle is πr²",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area-of-a-circle",
+        "text": "area of a circle",
+        "offset": 14
+      }
+    ]
+  },
+  {
+    "text": "1. Try it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Move the unfold slider slowly from 0 to 1.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2. Notice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The slices sit top to tail, and the strip looks like a rectangle.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3. Match the rule",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The strip is πr long and r tall, so its area is πr².",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 40
+      }
+    ]
+  },
+  {
+    "text": "4. Push it further",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Make the radius bigger. Does the strip get longer, taller, or both?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "5. Draw it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw a circle cut into 8 slices in your journal, and lay them top to tail.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Two trapeziums make a parallelogram",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "trapezium",
+        "text": "trapeziums",
+        "offset": 4
+      },
+      {
+        "concept": "quadrilateral",
+        "text": "parallelogram",
+        "offset": 22
+      }
+    ]
+  },
+  {
+    "text": "Set the top side a to 3 and the bottom side b to 6. Predict how long the parallelogram made of two copies will be.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "quadrilateral",
+        "text": "parallelogram",
+        "offset": 73
+      }
+    ]
+  },
+  {
+    "text": "Turn a copy of the trapezium over and put it beside the first. Together they make a parallelogram a + b long, so one trapezium is half of (a + b) × h.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "trapezium",
+        "text": "trapezium",
+        "offset": 19
+      },
+      {
+        "concept": "quadrilateral",
+        "text": "parallelogram",
+        "offset": 84
+      }
+    ]
+  },
+  {
+    "text": "The rule: the area of a trapezium is ½(a + b) × h",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 14
+      },
+      {
+        "concept": "trapezium",
+        "text": "trapezium",
+        "offset": 24
+      }
+    ]
+  },
+  {
+    "text": "1. Try it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Move the top side slider and the bottom side slider.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "2. Notice",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The two copies always fit together into a parallelogram.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "quadrilateral",
+        "text": "parallelogram",
+        "offset": 42
+      }
+    ]
+  },
+  {
+    "text": "3. Match the rule",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "With a = 3 and b = 6, the parallelogram is 9 long, so one trapezium is half of 9 × h.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "quadrilateral",
+        "text": "parallelogram",
+        "offset": 26
+      },
+      {
+        "concept": "trapezium",
+        "text": "trapezium",
+        "offset": 58
+      }
+    ]
+  },
+  {
+    "text": "4. Push it further",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Make a equal to b. What shape is the trapezium now?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "trapezium",
+        "text": "trapezium",
+        "offset": 37
+      }
+    ]
+  },
+  {
+    "text": "5. Draw it",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw a trapezium in your journal, and a second copy turned over beside it.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "trapezium",
+        "text": "trapezium",
+        "offset": 7
+      }
+    ]
+  },
+  {
+    "text": "Chapter 10 · A circle laid out flat",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why is the area of a circle πr²?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area-of-a-circle",
+        "text": "area of a circle",
+        "offset": 11
+      }
+    ]
+  },
+  {
+    "text": "Cut the circle into thin slices and lay them top to tail. The strip is half the circumference long, πr, and one radius tall, so it covers πr × r.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "circumference",
+        "text": "circumference",
+        "offset": 80
+      },
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 112
+      }
+    ]
+  },
+  {
+    "text": "The rule: the area of a circle is πr², and its circumference is 2πr",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area-of-a-circle",
+        "text": "area of a circle",
+        "offset": 14
+      },
+      {
+        "concept": "circumference",
+        "text": "circumference",
+        "offset": 47
+      }
+    ]
+  },
+  {
+    "text": "A circle has no straight sides to measure along. So how can a pizza's area be worked out with a ruler?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 70
+      }
+    ]
+  },
+  {
+    "text": "Chapter 10 · Two trapeziums side by side",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "trapezium",
+        "text": "trapeziums",
+        "offset": 17
+      }
+    ]
+  },
+  {
+    "text": "Why is a trapezium's area half of (a + b) × h?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "trapezium",
+        "text": "trapezium",
+        "offset": 9
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 21
+      }
+    ]
+  },
+  {
+    "text": "Two copies of the trapezium, one turned over, make a parallelogram a + b long and h tall. One trapezium is half of that parallelogram.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "trapezium",
+        "text": "trapezium",
+        "offset": 18
+      },
+      {
+        "concept": "quadrilateral",
+        "text": "parallelogram",
+        "offset": 53
+      }
+    ]
+  },
+  {
+    "text": "The rule: the area of a trapezium is ½(a + b) × h, with h at a right angle to the parallel sides",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 14
+      },
+      {
+        "concept": "trapezium",
+        "text": "trapezium",
+        "offset": 24
+      },
+      {
+        "concept": "angle",
+        "text": "right angle",
+        "offset": 63
+      },
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 82
+      }
+    ]
+  },
+  {
+    "text": "A circle has no straight sides to measure along. So how can a pizza's area be worked out with a ruler?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 70
+      }
+    ]
+  },
+  {
+    "text": "Chapter 10 · Slices that add up",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why is a prism's volume the area of its cross-section times its length?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "prism",
+        "text": "prism",
+        "offset": 9
+      },
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 17
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 28
+      },
+      {
+        "concept": "cross-section",
+        "text": "cross-section",
+        "offset": 40
+      }
+    ]
+  },
+  {
+    "text": "Each 1 cm slice along the prism holds as many cubes as the cross-section has squares. Count the slices and multiply.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "prism",
+        "text": "prism",
+        "offset": 26
+      },
+      {
+        "concept": "cross-section",
+        "text": "cross-section",
+        "offset": 59
+      }
+    ]
+  },
+  {
+    "text": "The rule: volume of a prism = area of the cross-section × length",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 10
+      },
+      {
+        "concept": "prism",
+        "text": "prism",
+        "offset": 22
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 30
+      },
+      {
+        "concept": "cross-section",
+        "text": "cross-section",
+        "offset": 42
+      }
+    ]
+  },
+  {
+    "text": "A circle has no straight sides to measure along. So how can a pizza's area be worked out with a ruler?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 70
+      }
+    ]
+  },
+  {
+    "text": "Why a circle's area is πr²",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 15
+      }
+    ]
+  },
+  {
+    "text": "Cut a circle into 24 thin slices and lay them top to tail, points up and points down.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The strip is half the circumference long, πr, and one radius tall, r.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "circumference",
+        "text": "circumference",
+        "offset": 22
+      },
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 54
+      }
+    ]
+  },
+  {
+    "text": "A = πr × r = πr²",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A bicycle wheel has spokes running from the hub to the rim, each 30 cm long. How far is it across the wheel, through the hub?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Each spoke reaches from the middle to the edge. Two spokes in one straight line reach right across, so the wheel is 60 cm across.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw a circle with the compasses open to 4 cm. Rule a line from the centre to the edge, then a line right across through the centre.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why is the line across twice the line out? The circle is the locus of points 4 cm from the centre. The line across is one 4 cm line out on each side.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "locus",
+        "text": "locus",
+        "offset": 61
+      }
+    ]
+  },
+  {
+    "text": "The distance from the centre of a circle to its edge is the radius, and more than one are radii. The distance across through the centre is the diameter, twice the radius.",
+    "exclude": null,
+    "linked": [
+      "locus"
+    ],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 60
+      }
+    ]
+  },
+  {
+    "text": "A coin has a diameter of 24 mm. Its radius is 24 ÷ 2 = 12 mm. A round table with a radius of 75 cm has a diameter of 150 cm.",
+    "exclude": null,
+    "linked": [
+      "locus",
+      "radius-and-diameter"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to measure across the circle without passing through the centre. Any line across that misses the centre is shorter than the diameter.",
+    "exclude": null,
+    "linked": [
+      "locus",
+      "radius-and-diameter"
+    ],
+    "links": []
+  },
+  {
+    "text": "A round pond has a diameter of 9 m. What is its radius?",
+    "exclude": null,
+    "linked": [
+      "locus",
+      "radius-and-diameter"
+    ],
+    "links": []
+  },
+  {
+    "text": "The radius runs from the centre to the edge. The diameter runs right across through the centre, and is twice the radius.",
+    "exclude": null,
+    "linked": [
+      "locus",
+      "radius-and-diameter"
+    ],
+    "links": []
+  },
+  {
+    "text": "Wrap a string once round a tin, then lay it beside the tin's diameter. How many diameters long is the string?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "diameter",
+        "offset": 61
+      }
+    ]
+  },
+  {
+    "text": "A little more than 3, every time. A coin, a tin and a plate all give the same answer, whether the circle is big or small.",
+    "exclude": null,
+    "linked": [
+      "radius-and-diameter"
+    ],
+    "links": []
+  },
+  {
+    "text": "Measure round three round things with string, and measure across each one. Divide the distance round by the distance across. Each answer comes out near 3.14.",
+    "exclude": null,
+    "linked": [
+      "radius-and-diameter"
+    ],
+    "links": []
+  },
+  {
+    "text": "Why is it the same for every circle? All circles are the same shape, only bigger or smaller. Double the diameter and the distance round doubles too, so the one divided by the other stays the same.",
+    "exclude": null,
+    "linked": [
+      "radius-and-diameter"
+    ],
+    "links": []
+  },
+  {
+    "text": "The distance round a circle is its circumference. It is always π times the diameter, where π, said pi, is about 3.14. So C = πd, or C = 2πr.",
+    "exclude": null,
+    "linked": [
+      "radius-and-diameter"
+    ],
+    "links": [
+      {
+        "concept": "circumference",
+        "text": "circumference",
+        "offset": 35
+      },
+      {
+        "concept": "pi",
+        "text": "π",
+        "offset": 63
+      }
+    ]
+  },
+  {
+    "text": "A plate has a diameter of 20 cm. Its circumference is π × 20, which is about 3.14 × 20 = 62.8 cm.",
+    "exclude": null,
+    "linked": [
+      "circumference",
+      "pi",
+      "radius-and-diameter"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to multiply the radius by π and stop. That gives half the circumference, because πd = π × 2r.",
+    "exclude": null,
+    "linked": [
+      "circumference",
+      "pi",
+      "radius-and-diameter"
+    ],
+    "links": []
+  },
+  {
+    "text": "A wheel has a radius of 5 cm. Using π ≈ 3.14, what is its circumference?",
+    "exclude": null,
+    "linked": [
+      "circumference",
+      "pi",
+      "radius-and-diameter"
+    ],
+    "links": []
+  },
+  {
+    "text": "Every circle's circumference is π times its diameter, and π is about 3.14.",
+    "exclude": null,
+    "linked": [
+      "circumference",
+      "pi",
+      "radius-and-diameter"
+    ],
+    "links": []
+  },
+  {
+    "text": "A parallelogram leans over, with a base of 6 cm and a height of 4 cm. Does it cover the same space as a 6 cm by 4 cm rectangle?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "quadrilateral",
+        "text": "parallelogram",
+        "offset": 2
+      }
+    ]
+  },
+  {
+    "text": "Yes. Cut a triangle off one slanted end and slide it to the other end. The parallelogram becomes a 6 cm by 4 cm rectangle, with area 24 cm².",
+    "exclude": null,
+    "linked": [
+      "quadrilateral"
+    ],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 128
+      }
+    ]
+  },
+  {
+    "text": "Draw a parallelogram on squared paper and cut it out. Cut straight down from one top corner, and move the triangle across. It fits into a rectangle.",
+    "exclude": null,
+    "linked": [
+      "area",
+      "quadrilateral"
+    ],
+    "links": []
+  },
+  {
+    "text": "Why the straight-up height and not the slanted side? Cutting and sliding keeps the area the same. The rectangle it makes is as tall as the straight-up height.",
+    "exclude": null,
+    "linked": [
+      "area",
+      "quadrilateral"
+    ],
+    "links": []
+  },
+  {
+    "text": "A parallelogram's area is base × height, with the height at a right angle to the base. A quadrilateral with one pair of parallel sides is a trapezium. Two copies make a parallelogram, so a trapezium's area is ½(a + b) × h.",
+    "exclude": null,
+    "linked": [
+      "area",
+      "quadrilateral"
+    ],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "right angle",
+        "offset": 62
+      },
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 120
+      },
+      {
+        "concept": "trapezium",
+        "text": "trapezium",
+        "offset": 140
+      }
+    ]
+  },
+  {
+    "text": "A trapezium has parallel sides of 5 cm and 9 cm, with 4 cm between them. Its area is ½ × (5 + 9) × 4 = 7 × 4 = 28 cm².",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "area",
+      "parallel-lines",
+      "quadrilateral",
+      "trapezium"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to use the slanted side as the height. A parallelogram with base 9 cm, slanted side 5 cm and height 4 cm has area 36 cm², not 45 cm².",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "area",
+      "parallel-lines",
+      "quadrilateral",
+      "trapezium"
+    ],
+    "links": []
+  },
+  {
+    "text": "A trapezium has parallel sides of 3 cm and 7 cm, and the height between them is 4 cm. What is its area?",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "area",
+      "parallel-lines",
+      "quadrilateral",
+      "trapezium"
+    ],
+    "links": []
+  },
+  {
+    "text": "A parallelogram's area is base × height. A trapezium's is half the two parallel sides added, × height. Use the straight-up height.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "area",
+      "parallel-lines",
+      "quadrilateral",
+      "trapezium"
+    ],
+    "links": []
+  },
+  {
+    "text": "A pizza has a radius of 10 cm. How much space does it cover? A circle has no straight sides to multiply together.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 14
+      }
+    ]
+  },
+  {
+    "text": "Cut it into thin slices and lay them top to tail, points up and points down. They make a shape that is nearly a rectangle.",
+    "exclude": null,
+    "linked": [
+      "radius-and-diameter"
+    ],
+    "links": []
+  },
+  {
+    "text": "In the figure, set the radius to 4 cm and the slices to 12. The slices sit top to tail in a strip. Move the slices slider up and watch the strip straighten.",
+    "exclude": null,
+    "linked": [
+      "radius-and-diameter"
+    ],
+    "links": []
+  },
+  {
+    "text": "Why is the strip πr long and r tall? Half the slices have their curved edges along the bottom, so the bottom is half the circumference, πr. Each slice is one radius tall.",
+    "exclude": null,
+    "linked": [
+      "radius-and-diameter"
+    ],
+    "links": [
+      {
+        "concept": "circumference",
+        "text": "circumference",
+        "offset": 121
+      }
+    ]
+  },
+  {
+    "text": "So the area of a circle is πr × r, written πr². With π ≈ 3.14, the pizza of radius 10 cm covers about 314 cm².",
+    "exclude": null,
+    "linked": [
+      "circumference",
+      "radius-and-diameter"
+    ],
+    "links": [
+      {
+        "concept": "area-of-a-circle",
+        "text": "area of a circle",
+        "offset": 7
+      },
+      {
+        "concept": "pi",
+        "text": "π",
+        "offset": 53
+      }
+    ]
+  },
+  {
+    "text": "A round rug has a radius of 2 m. Its area is π × 2², which is about 3.14 × 4 = 12.56 m².",
+    "exclude": null,
+    "linked": [
+      "area-of-a-circle",
+      "circumference",
+      "pi",
+      "radius-and-diameter"
+    ],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 37
+      }
+    ]
+  },
+  {
+    "text": "The tempting slip is to work out π × r × 2 in place of π × r × r. For a radius of 10 cm that gives 62.8, which is a length round the edge, not an area.",
+    "exclude": null,
+    "linked": [
+      "area",
+      "area-of-a-circle",
+      "circumference",
+      "pi",
+      "radius-and-diameter"
+    ],
+    "links": []
+  },
+  {
+    "text": "A circle has a radius of 3 cm. Using π ≈ 3.14, what is its area?",
+    "exclude": null,
+    "linked": [
+      "area",
+      "area-of-a-circle",
+      "circumference",
+      "pi",
+      "radius-and-diameter"
+    ],
+    "links": []
+  },
+  {
+    "text": "Lay a circle's slices top to tail and they make a strip πr long and r tall. So its area is πr².",
+    "exclude": null,
+    "linked": [
+      "area",
+      "area-of-a-circle",
+      "circumference",
+      "pi",
+      "radius-and-diameter"
+    ],
+    "links": []
+  },
+  {
+    "text": "A pizza of radius 10 cm is cut into 4 equal slices. How much pizza is in one slice, and how long is its crust?",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 11
+      }
+    ]
+  },
+  {
+    "text": "Each slice is a quarter of the pizza. So its area is a quarter of the whole area, and its crust is a quarter of the circumference.",
+    "exclude": null,
+    "linked": [
+      "radius-and-diameter"
+    ],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 45
+      },
+      {
+        "concept": "circumference",
+        "text": "circumference",
+        "offset": 116
+      }
+    ]
+  },
+  {
+    "text": "Draw a circle and two radii with 90° between them, and shade the slice between them. The 90° is a quarter of the 360° round the centre.",
+    "exclude": null,
+    "linked": [
+      "area",
+      "circumference",
+      "radius-and-diameter"
+    ],
+    "links": []
+  },
+  {
+    "text": "Why use the angle? The slices round the centre share 360° between them. A slice with an angle of 90° takes 90/360 of the circle, of its area and of its edge.",
+    "exclude": null,
+    "linked": [
+      "area",
+      "circumference",
+      "radius-and-diameter"
+    ],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "A slice of a circle between two radii is a sector. With an angle θ at the centre, its curved edge has an arc length of θ/360 × 2πr, and its area is θ/360 × πr².",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "area",
+      "circumference",
+      "radius-and-diameter"
+    ],
+    "links": [
+      {
+        "concept": "sector",
+        "text": "sector",
+        "offset": 43
+      }
+    ]
+  },
+  {
+    "text": "A sector has a radius of 10 cm and an angle of 90°. Its area is ¼ × 314 = 78.5 cm², and its arc length is ¼ × 62.8 = 15.7 cm.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "area",
+      "circumference",
+      "radius-and-diameter",
+      "sector"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to give the arc length as the distance round the whole sector. The distance round also takes in the two straight radii.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "area",
+      "circumference",
+      "radius-and-diameter",
+      "sector"
+    ],
+    "links": []
+  },
+  {
+    "text": "A sector has a radius of 6 cm and an angle of 60°. Using π ≈ 3.14, what is its arc length?",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "area",
+      "circumference",
+      "radius-and-diameter",
+      "sector"
+    ],
+    "links": [
+      {
+        "concept": "pi",
+        "text": "π",
+        "offset": 57
+      }
+    ]
+  },
+  {
+    "text": "A sector with angle θ is θ/360 of its circle. Its area and its arc length are that share of the whole.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "area",
+      "circumference",
+      "pi",
+      "radius-and-diameter",
+      "sector"
+    ],
+    "links": []
+  },
+  {
+    "text": "A box of chocolates is shaped like a long tent, with the same triangle at every point along it. How can you work out the space inside?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Cut it into slices 1 cm thick. Each slice is the same triangle, so each holds the same amount. Add up the slices.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Build a cuboid from 1 cm cubes, 4 cubes long, 3 across and 2 high. One layer across the end holds 3 × 2 = 6 cubes. Count the layers.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why multiply? There are 4 layers along the length, each with 6 cubes, so 6 × 4 = 24 cubes. The area of the end counts the cubes in one layer.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 95
+      }
+    ]
+  },
+  {
+    "text": "The space a solid fills is its volume, counted in cubes such as cm³. A solid with the same shape all along its length is a prism. A slice straight across it is its cross-section, and its volume is the area of the cross-section × its length.",
+    "exclude": null,
+    "linked": [
+      "area"
+    ],
+    "links": [
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 31
+      },
+      {
+        "concept": "prism",
+        "text": "prism",
+        "offset": 123
+      },
+      {
+        "concept": "cross-section",
+        "text": "cross-section",
+        "offset": 164
+      }
+    ]
+  },
+  {
+    "text": "The tent box has a triangle at each end with base 6 cm and height 4 cm, of area ½ × 6 × 4 = 12 cm². It is 20 cm long, so it holds 12 × 20 = 240 cm³.",
+    "exclude": null,
+    "linked": [
+      "area",
+      "cross-section",
+      "prism",
+      "volume"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to multiply every length you can see: 6 × 4 × 20 = 480 cm³. That is the box that would fit round the tent, twice as big.",
+    "exclude": null,
+    "linked": [
+      "area",
+      "cross-section",
+      "prism",
+      "volume"
+    ],
+    "links": []
+  },
+  {
+    "text": "A prism has a cross-section of area 15 cm² and is 8 cm long. What is its volume?",
+    "exclude": null,
+    "linked": [
+      "area",
+      "cross-section",
+      "prism",
+      "volume"
+    ],
+    "links": []
+  },
+  {
+    "text": "A prism has the same cross-section all along. Its volume is the area of the cross-section × its length.",
+    "exclude": null,
+    "linked": [
+      "area",
+      "cross-section",
+      "prism",
+      "volume"
+    ],
+    "links": []
+  },
+  {
+    "text": "How much paper does it take to cover a box 5 cm long, 3 cm wide and 2 cm tall, with no overlaps?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Open the box out flat into its net. The paper must cover every one of its six rectangles.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw the net of the box and label its rectangles. The top and bottom are 5 by 3, the front and back are 5 by 2, and the two ends are 3 by 2.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Why count each size twice? A cuboid's faces come in opposite pairs of the same size. So the paper needed is 2 × (15 + 10 + 6) = 62 cm².",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The total area of all the faces of a solid is its surface area. It is counted in squares such as cm², because it is a flat area folded round.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 10
+      },
+      {
+        "concept": "surface-area",
+        "text": "surface area",
+        "offset": 50
+      }
+    ]
+  },
+  {
+    "text": "A cube has edges of 3 cm. Each of its 6 faces is 3 × 3 = 9 cm², so its surface area is 6 × 9 = 54 cm².",
+    "exclude": null,
+    "linked": [
+      "area",
+      "surface-area"
+    ],
+    "links": []
+  },
+  {
+    "text": "The tempting slip is to mix up surface area and volume. The 5 by 3 by 2 box has a surface area of 62 cm² but a volume of 30 cm³.",
+    "exclude": null,
+    "linked": [
+      "area",
+      "surface-area"
+    ],
+    "links": [
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 48
+      }
+    ]
+  },
+  {
+    "text": "A cube has edges of 4 cm. What is its surface area?",
+    "exclude": null,
+    "linked": [
+      "area",
+      "surface-area",
+      "volume"
+    ],
+    "links": []
+  },
+  {
+    "text": "Surface area adds up the area of every face. Its net lays every face out flat to count.",
+    "exclude": null,
+    "linked": [
+      "area",
+      "surface-area",
+      "volume"
+    ],
+    "links": []
+  },
+  {
+    "text": "Stack 20 coins in a straight pile, then push the pile so it leans. Does the leaning pile hold more metal, less, or the same?",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The same. It is the same 20 coins, slid sideways. Each coin keeps its shape and its thickness.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw a straight stack of coins as a tall rectangle. Beside it, draw the same stack leaning, as a slanted parallelogram of the same height.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "quadrilateral",
+        "text": "parallelogram",
+        "offset": 105
+      }
+    ]
+  },
+  {
+    "text": "Why does leaning not change the volume? Cut both stacks at any height, and each cut is one coin's circle. Equal slices at every height add up to equal volumes.",
+    "exclude": null,
+    "linked": [
+      "quadrilateral"
+    ],
+    "links": [
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 32
+      }
+    ]
+  },
+  {
+    "text": "Cavalieri's principle says that two solids of the same height have the same volume if their cross-sections at every height have equal areas.",
+    "exclude": null,
+    "linked": [
+      "quadrilateral",
+      "volume"
+    ],
+    "links": [
+      {
+        "concept": "cavalieris-principle",
+        "text": "Cavalieri's principle",
+        "offset": 0
+      },
+      {
+        "concept": "cross-section",
+        "text": "cross-sections",
+        "offset": 92
+      },
+      {
+        "concept": "area",
+        "text": "areas",
+        "offset": 134
+      }
+    ]
+  },
+  {
+    "text": "A tin shaped like a cylinder has a radius of 4 cm and a height of 10 cm. Every slice is a circle of about 3.14 × 16 = 50.24 cm², so it holds about 502.4 cm³.",
+    "exclude": null,
+    "linked": [
+      "area",
+      "cavalieris-principle",
+      "cross-section",
+      "quadrilateral",
+      "volume"
+    ],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 35
+      }
+    ]
+  },
+  {
+    "text": "The tempting slip is to measure a leaning solid's height along its slant. The height is straight up, at a right angle to the bottom.",
+    "exclude": null,
+    "linked": [
+      "area",
+      "cavalieris-principle",
+      "cross-section",
+      "quadrilateral",
+      "radius-and-diameter",
+      "volume"
+    ],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "right angle",
+        "offset": 106
+      }
+    ]
+  },
+  {
+    "text": "A straight stack of 12 coins has a volume of 30 cm³. It is pushed over so that it leans. What is its volume now?",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "area",
+      "cavalieris-principle",
+      "cross-section",
+      "quadrilateral",
+      "radius-and-diameter",
+      "volume"
+    ],
+    "links": []
+  },
+  {
+    "text": "Equal slices at every height give equal volumes. Leaning a stack does not change how much it holds.",
+    "exclude": null,
+    "linked": [
+      "angle",
+      "area",
+      "cavalieris-principle",
+      "cross-section",
+      "quadrilateral",
+      "radius-and-diameter",
+      "volume"
     ],
     "links": []
   },
@@ -16997,6 +19073,66 @@
     ]
   },
   {
+    "text": "Trapezium",
+    "exclude": "area",
+    "linked": [],
+    "links": [
+      {
+        "concept": "trapezium",
+        "text": "Trapezium",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Area of a circle",
+    "exclude": "area",
+    "linked": [],
+    "links": [
+      {
+        "concept": "area-of-a-circle",
+        "text": "Area of a circle",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Volume",
+    "exclude": "area",
+    "linked": [],
+    "links": [
+      {
+        "concept": "volume",
+        "text": "Volume",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Cross-section",
+    "exclude": "area",
+    "linked": [],
+    "links": [
+      {
+        "concept": "cross-section",
+        "text": "Cross-section",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Surface area",
+    "exclude": "area",
+    "linked": [],
+    "links": [
+      {
+        "concept": "surface-area",
+        "text": "Surface area",
+        "offset": 0
+      }
+    ]
+  },
+  {
     "text": "Percentage",
     "exclude": "percentage",
     "linked": [],
@@ -17316,6 +19452,18 @@
       {
         "concept": "bearing",
         "text": "Bearing",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Sector",
+    "exclude": "angle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "sector",
+        "text": "Sector",
         "offset": 0
       }
     ]
@@ -26977,6 +29125,18 @@
     ]
   },
   {
+    "text": "Prism",
+    "exclude": "polygon",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prism",
+        "text": "Prism",
+        "offset": 0
+      }
+    ]
+  },
+  {
     "text": "Interior angle",
     "exclude": "interior-angle",
     "linked": [],
@@ -27299,6 +29459,18 @@
       {
         "concept": "angle-bisector",
         "text": "Angle bisector",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Radius and diameter",
+    "exclude": "locus",
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "Radius and diameter",
         "offset": 0
       }
     ]
@@ -27762,6 +29934,18 @@
     ]
   },
   {
+    "text": "Trapezium",
+    "exclude": "quadrilateral",
+    "linked": [],
+    "links": [
+      {
+        "concept": "trapezium",
+        "text": "Trapezium",
+        "offset": 0
+      }
+    ]
+  },
+  {
     "text": "Bearing",
     "exclude": "bearing",
     "linked": [],
@@ -27932,6 +30116,30 @@
         "concept": "bearing",
         "text": "bearings",
         "offset": 27
+      }
+    ]
+  },
+  {
+    "text": "Prism",
+    "exclude": "net-of-a-solid",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prism",
+        "text": "Prism",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Surface area",
+    "exclude": "net-of-a-solid",
+    "linked": [],
+    "links": [
+      {
+        "concept": "surface-area",
+        "text": "Surface area",
+        "offset": 0
       }
     ]
   },
@@ -28202,6 +30410,1395 @@
         "concept": "bearing",
         "text": "bearings",
         "offset": 27
+      }
+    ]
+  },
+  {
+    "text": "Radius and diameter",
+    "exclude": "radius-and-diameter",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The radius runs from the centre of a circle to its edge. The diameter runs right across through the centre, twice as long.",
+    "exclude": "radius-and-diameter",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A bicycle wheel: one spoke is a radius, and two spokes in a line make a diameter.",
+    "exclude": "radius-and-diameter",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A clock face has a diameter of 30 cm. Its radius is 30 ÷ 2 = 15 cm.",
+    "exclude": "radius-and-diameter",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find the centre of the circle.",
+    "exclude": "radius-and-diameter",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A straight line from the centre to the edge is a radius.",
+    "exclude": "radius-and-diameter",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A straight line from edge to edge through the centre is a diameter, two radii long.",
+    "exclude": "radius-and-diameter",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A circle has a radius of 8 cm. What is its diameter?",
+    "exclude": "radius-and-diameter",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "16 cm",
+    "exclude": "radius-and-diameter",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "any line across",
+    "exclude": "radius-and-diameter",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A line from edge to edge that misses the centre is shorter than the diameter. The diameter passes through the centre.",
+    "exclude": "radius-and-diameter",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 10 · Circles, prisms and volume",
+    "exclude": "radius-and-diameter",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prism",
+        "text": "prisms",
+        "offset": 22
+      },
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 33
+      }
+    ]
+  },
+  {
+    "text": "Pi",
+    "exclude": "radius-and-diameter",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Circumference",
+    "exclude": "radius-and-diameter",
+    "linked": [],
+    "links": [
+      {
+        "concept": "circumference",
+        "text": "Circumference",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Pi",
+    "exclude": "pi",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The number of diameters that fit round any circle, about 3.14. It is written π and said pi.",
+    "exclude": "pi",
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "diameters",
+        "offset": 14
+      }
+    ]
+  },
+  {
+    "text": "A string wrapped once round a tin, laid beside the tin's diameter: a little over 3 diameters long.",
+    "exclude": "pi",
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "diameter",
+        "offset": 57
+      }
+    ]
+  },
+  {
+    "text": "A hoop is 100 cm across and about 314 cm round. 314 ÷ 100 = 3.14, which is π to 2 decimal places.",
+    "exclude": "pi",
+    "linked": [],
+    "links": [
+      {
+        "concept": "decimal-place",
+        "text": "decimal places",
+        "offset": 82
+      }
+    ]
+  },
+  {
+    "text": "Measure the distance round a circle.",
+    "exclude": "pi",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Measure the distance across it, through the centre.",
+    "exclude": "pi",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Divide the first by the second. The answer is always about 3.14, which is π.",
+    "exclude": "pi",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A circle has a diameter of 10 cm. Using π ≈ 3.14, how far is it round the circle?",
+    "exclude": "pi",
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "diameter",
+        "offset": 15
+      }
+    ]
+  },
+  {
+    "text": "31.4 cm",
+    "exclude": "pi",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "exactly 3.14",
+    "exclude": "pi",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "3.14 is π to 2 decimal places. π goes on for ever without repeating: 3.14159…",
+    "exclude": "pi",
+    "linked": [],
+    "links": [
+      {
+        "concept": "decimal-place",
+        "text": "decimal places",
+        "offset": 15
+      }
+    ]
+  },
+  {
+    "text": "Chapter 10 · Circles, prisms and volume",
+    "exclude": "pi",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prism",
+        "text": "prisms",
+        "offset": 22
+      },
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 33
+      }
+    ]
+  },
+  {
+    "text": "Circumference",
+    "exclude": "pi",
+    "linked": [],
+    "links": [
+      {
+        "concept": "circumference",
+        "text": "Circumference",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Area of a circle",
+    "exclude": "pi",
+    "linked": [],
+    "links": [
+      {
+        "concept": "area-of-a-circle",
+        "text": "Area of a circle",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Circumference",
+    "exclude": "circumference",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The distance round a circle: π times the diameter, or 2πr.",
+    "exclude": "circumference",
+    "linked": [],
+    "links": [
+      {
+        "concept": "pi",
+        "text": "π",
+        "offset": 29
+      },
+      {
+        "concept": "radius-and-diameter",
+        "text": "diameter",
+        "offset": 41
+      }
+    ]
+  },
+  {
+    "text": "A wheel rolled along the ground for one full turn. The track it leaves is one circumference long.",
+    "exclude": "circumference",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A wheel has a diameter of 50 cm. One full turn rolls it π × 50, about 3.14 × 50 = 157 cm.",
+    "exclude": "circumference",
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "diameter",
+        "offset": 14
+      },
+      {
+        "concept": "pi",
+        "text": "π",
+        "offset": 56
+      }
+    ]
+  },
+  {
+    "text": "Find the diameter. If you know the radius, double it.",
+    "exclude": "circumference",
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "diameter",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "Multiply the diameter by π.",
+    "exclude": "circumference",
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "diameter",
+        "offset": 13
+      },
+      {
+        "concept": "pi",
+        "text": "π",
+        "offset": 25
+      }
+    ]
+  },
+  {
+    "text": "Give the answer as a length, such as cm.",
+    "exclude": "circumference",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A circle has a radius of 2 cm. Using π ≈ 3.14, what is its circumference?",
+    "exclude": "circumference",
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 15
+      },
+      {
+        "concept": "pi",
+        "text": "π",
+        "offset": 37
+      }
+    ]
+  },
+  {
+    "text": "12.56 cm",
+    "exclude": "circumference",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The circumference, 2πr, is a length round the edge. The area, πr², is the space inside, in squares.",
+    "exclude": "circumference",
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 56
+      }
+    ]
+  },
+  {
+    "text": "Chapter 10 · Circles, prisms and volume",
+    "exclude": "circumference",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prism",
+        "text": "prisms",
+        "offset": 22
+      },
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 33
+      }
+    ]
+  },
+  {
+    "text": "Sector",
+    "exclude": "circumference",
+    "linked": [],
+    "links": [
+      {
+        "concept": "sector",
+        "text": "Sector",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Trapezium",
+    "exclude": "trapezium",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A quadrilateral with one pair of parallel sides. Its area is half the two parallel sides added, times the height.",
+    "exclude": "trapezium",
+    "linked": [],
+    "links": [
+      {
+        "concept": "quadrilateral",
+        "text": "quadrilateral",
+        "offset": 2
+      },
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 33
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 53
+      }
+    ]
+  },
+  {
+    "text": "Two copies of a trapezium, one turned over, sitting together as a parallelogram.",
+    "exclude": "trapezium",
+    "linked": [],
+    "links": [
+      {
+        "concept": "quadrilateral",
+        "text": "parallelogram",
+        "offset": 66
+      }
+    ]
+  },
+  {
+    "text": "A trapezium has parallel sides of 4 cm and 10 cm, 6 cm apart. Its area is ½ × 14 × 6 = 42 cm².",
+    "exclude": "trapezium",
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 16
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 66
+      }
+    ]
+  },
+  {
+    "text": "Add the two parallel sides, a + b.",
+    "exclude": "trapezium",
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "Multiply by the height h, the distance between them at a right angle.",
+    "exclude": "trapezium",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "right angle",
+        "offset": 57
+      }
+    ]
+  },
+  {
+    "text": "Halve the answer.",
+    "exclude": "trapezium",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A trapezium has parallel sides of 2 cm and 8 cm, and a height of 5 cm. What is its area?",
+    "exclude": "trapezium",
+    "linked": [],
+    "links": [
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 16
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 83
+      }
+    ]
+  },
+  {
+    "text": "25 cm²",
+    "exclude": "trapezium",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "the slanted side",
+    "exclude": "trapezium",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The height of a trapezium is at a right angle to the parallel sides. A slanted side is longer than the height.",
+    "exclude": "trapezium",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "right angle",
+        "offset": 34
+      },
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 53
+      }
+    ]
+  },
+  {
+    "text": "Chapter 10 · Circles, prisms and volume",
+    "exclude": "trapezium",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prism",
+        "text": "prisms",
+        "offset": 22
+      },
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 33
+      }
+    ]
+  },
+  {
+    "text": "Area of a circle",
+    "exclude": "area-of-a-circle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The space inside a circle: π times the radius times the radius, written πr².",
+    "exclude": "area-of-a-circle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "pi",
+        "text": "π",
+        "offset": 27
+      },
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 39
+      }
+    ]
+  },
+  {
+    "text": "A circle cut into thin slices and laid top to tail as a strip, πr long and r tall.",
+    "exclude": "area-of-a-circle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A round table top has a radius of 50 cm. Its area is about 3.14 × 50 × 50 = 7850 cm².",
+    "exclude": "area-of-a-circle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 24
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 45
+      }
+    ]
+  },
+  {
+    "text": "Find the radius. If you know the diameter, halve it.",
+    "exclude": "area-of-a-circle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "Multiply the radius by itself.",
+    "exclude": "area-of-a-circle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 13
+      }
+    ]
+  },
+  {
+    "text": "Multiply by π, and give the answer in squares such as cm².",
+    "exclude": "area-of-a-circle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "pi",
+        "text": "π",
+        "offset": 12
+      }
+    ]
+  },
+  {
+    "text": "A circle has a diameter of 20 cm. Using π ≈ 3.14, what is its area?",
+    "exclude": "area-of-a-circle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "diameter",
+        "offset": 15
+      },
+      {
+        "concept": "pi",
+        "text": "π",
+        "offset": 40
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 62
+      }
+    ]
+  },
+  {
+    "text": "314 cm²",
+    "exclude": "area-of-a-circle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "using the diameter",
+    "exclude": "area-of-a-circle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "diameter",
+        "offset": 10
+      }
+    ]
+  },
+  {
+    "text": "πr² squares the radius. Squaring the diameter gives 4 times the area.",
+    "exclude": "area-of-a-circle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 16
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 64
+      }
+    ]
+  },
+  {
+    "text": "Chapter 10 · Circles, prisms and volume",
+    "exclude": "area-of-a-circle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prism",
+        "text": "prisms",
+        "offset": 22
+      },
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 33
+      }
+    ]
+  },
+  {
+    "text": "Sector",
+    "exclude": "area-of-a-circle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "sector",
+        "text": "Sector",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Sector",
+    "exclude": "sector",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A slice of a circle between two radii. With angle θ it has θ/360 of the circle's area and of its circumference.",
+    "exclude": "sector",
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "radii",
+        "offset": 32
+      },
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 44
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 81
+      },
+      {
+        "concept": "circumference",
+        "text": "circumference",
+        "offset": 97
+      }
+    ]
+  },
+  {
+    "text": "One slice of a pizza cut into equal slices from the centre.",
+    "exclude": "sector",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A sector has radius 10 cm and angle 36°, so it is 36/360 = 1/10 of the circle. Its area is about 314 ÷ 10 = 31.4 cm².",
+    "exclude": "sector",
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 13
+      },
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 30
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 83
+      }
+    ]
+  },
+  {
+    "text": "Find the angle θ at the centre.",
+    "exclude": "sector",
+    "linked": [],
+    "links": [
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "Write the share of the circle, θ/360.",
+    "exclude": "sector",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Multiply the circle's area, or its circumference, by that share.",
+    "exclude": "sector",
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 22
+      },
+      {
+        "concept": "circumference",
+        "text": "circumference",
+        "offset": 35
+      }
+    ]
+  },
+  {
+    "text": "A sector has a radius of 10 cm and an angle of 180°. Using π ≈ 3.14, what is its area?",
+    "exclude": "sector",
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 15
+      },
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 38
+      },
+      {
+        "concept": "pi",
+        "text": "π",
+        "offset": 59
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 81
+      }
+    ]
+  },
+  {
+    "text": "157 cm²",
+    "exclude": "sector",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "the arc length and the perimeter",
+    "exclude": "sector",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The arc length is the curved edge only. The perimeter of a sector adds the two straight radii.",
+    "exclude": "sector",
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "radii",
+        "offset": 88
+      }
+    ]
+  },
+  {
+    "text": "Chapter 10 · Circles, prisms and volume",
+    "exclude": "sector",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prism",
+        "text": "prisms",
+        "offset": 22
+      },
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 33
+      }
+    ]
+  },
+  {
+    "text": "Volume",
+    "exclude": "volume",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The space a solid fills, counted in cubes such as cm³.",
+    "exclude": "volume",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A box filled with 1 cm cubes, 4 long, 3 across and 2 high: 24 cubes.",
+    "exclude": "volume",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A cuboid is 5 cm long, 3 cm wide and 2 cm tall. One layer holds 5 × 3 = 15 cubes, and 2 layers hold 30 cm³.",
+    "exclude": "volume",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Pick a unit cube, such as 1 cm by 1 cm by 1 cm.",
+    "exclude": "volume",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Count the cubes in one layer.",
+    "exclude": "volume",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Multiply by the number of layers, and give the answer in cubes such as cm³.",
+    "exclude": "volume",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A cuboid is 6 cm long, 5 cm wide and 4 cm tall. What is its volume?",
+    "exclude": "volume",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "120 cm³",
+    "exclude": "volume",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Volume counts the cubes inside, in cm³. Surface area counts the squares on the outside, in cm².",
+    "exclude": "volume",
+    "linked": [],
+    "links": [
+      {
+        "concept": "surface-area",
+        "text": "Surface area",
+        "offset": 40
+      }
+    ]
+  },
+  {
+    "text": "Chapter 10 · Circles, prisms and volume",
+    "exclude": "volume",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prism",
+        "text": "prisms",
+        "offset": 22
+      }
+    ]
+  },
+  {
+    "text": "Cavalieri's principle",
+    "exclude": "volume",
+    "linked": [],
+    "links": [
+      {
+        "concept": "cavalieris-principle",
+        "text": "Cavalieri's principle",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Prism",
+    "exclude": "prism",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A solid with the same shape all along its length, such as a cuboid or a tent shape.",
+    "exclude": "prism",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A loaf of bread: every slice across it is the same shape.",
+    "exclude": "prism",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A tent shape with a triangle at each end is a triangular prism. A cuboid is a prism with a rectangle all along.",
+    "exclude": "prism",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Look along the solid from one end.",
+    "exclude": "prism",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Check that every slice straight across is the same shape and size.",
+    "exclude": "prism",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "If it is, the solid is a prism, named after the shape of its slices.",
+    "exclude": "prism",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A prism has a cross-section of area 9 cm² and a length of 7 cm. What is its volume?",
+    "exclude": "prism",
+    "linked": [],
+    "links": [
+      {
+        "concept": "cross-section",
+        "text": "cross-section",
+        "offset": 14
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 31
+      },
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 76
+      }
+    ]
+  },
+  {
+    "text": "63 cm³",
+    "exclude": "prism",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "a pyramid",
+    "exclude": "prism",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A pyramid narrows to a point, so its slices get smaller. A prism's slices stay the same all along.",
+    "exclude": "prism",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 10 · Circles, prisms and volume",
+    "exclude": "prism",
+    "linked": [],
+    "links": [
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 33
+      }
+    ]
+  },
+  {
+    "text": "Cross-section",
+    "exclude": "cross-section",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The flat shape you see when a solid is cut straight across.",
+    "exclude": "cross-section",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A cucumber cut straight across shows a circle.",
+    "exclude": "cross-section",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A tent-shaped prism has a triangle cross-section with base 6 cm and height 4 cm. Its area is ½ × 6 × 4 = 12 cm².",
+    "exclude": "cross-section",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prism",
+        "text": "prism",
+        "offset": 14
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 85
+      }
+    ]
+  },
+  {
+    "text": "Picture a cut straight across the solid.",
+    "exclude": "cross-section",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw the flat shape the cut shows.",
+    "exclude": "cross-section",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find its area, in squares such as cm².",
+    "exclude": "cross-section",
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "A prism's cross-section is a rectangle 3 cm by 5 cm. What is its area?",
+    "exclude": "cross-section",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prism",
+        "text": "prism",
+        "offset": 2
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 65
+      }
+    ]
+  },
+  {
+    "text": "15 cm²",
+    "exclude": "cross-section",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "a slice along the length",
+    "exclude": "cross-section",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A cut along a tent shape shows a rectangle. The cross-section is the cut straight across, the triangle.",
+    "exclude": "cross-section",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 10 · Circles, prisms and volume",
+    "exclude": "cross-section",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prism",
+        "text": "prisms",
+        "offset": 22
+      },
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 33
+      }
+    ]
+  },
+  {
+    "text": "Cavalieri's principle",
+    "exclude": "cross-section",
+    "linked": [],
+    "links": [
+      {
+        "concept": "cavalieris-principle",
+        "text": "Cavalieri's principle",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "text": "Surface area",
+    "exclude": "surface-area",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "The total area of all the faces of a solid, counted in squares such as cm².",
+    "exclude": "surface-area",
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 10
+      }
+    ]
+  },
+  {
+    "text": "Wrapping paper laid flat that covers a box exactly, with no overlaps.",
+    "exclude": "surface-area",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A cuboid 4 cm by 2 cm by 1 cm has faces of 8, 4 and 2 cm², two of each. Its surface area is 2 × 14 = 28 cm².",
+    "exclude": "surface-area",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Draw the net of the solid.",
+    "exclude": "surface-area",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Find the area of each face.",
+    "exclude": "surface-area",
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 9
+      }
+    ]
+  },
+  {
+    "text": "Add them all up, and give the answer in squares such as cm².",
+    "exclude": "surface-area",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A cube has edges of 5 cm. What is its surface area?",
+    "exclude": "surface-area",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "150 cm²",
+    "exclude": "surface-area",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Surface area counts squares on the outside, in cm². Volume counts cubes inside, in cm³.",
+    "exclude": "surface-area",
+    "linked": [],
+    "links": [
+      {
+        "concept": "volume",
+        "text": "Volume",
+        "offset": 52
+      }
+    ]
+  },
+  {
+    "text": "Chapter 10 · Circles, prisms and volume",
+    "exclude": "surface-area",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prism",
+        "text": "prisms",
+        "offset": 22
+      },
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 33
+      }
+    ]
+  },
+  {
+    "text": "Cavalieri's principle",
+    "exclude": "cavalieris-principle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Two solids of the same height have the same volume if their slices at every height have equal areas.",
+    "exclude": "cavalieris-principle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 44
+      },
+      {
+        "concept": "area",
+        "text": "areas",
+        "offset": 94
+      }
+    ]
+  },
+  {
+    "text": "A straight stack of coins beside the same stack pushed over so it leans.",
+    "exclude": "cavalieris-principle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A straight tin and a leaning tin are both 10 cm tall, with circles of 50 cm² at every height. Both hold 50 × 10 = 500 cm³.",
+    "exclude": "cavalieris-principle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Check that the two solids have the same height, measured straight up.",
+    "exclude": "cavalieris-principle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Cut both at the same height, and compare the areas of the two slices.",
+    "exclude": "cavalieris-principle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "areas",
+        "offset": 45
+      }
+    ]
+  },
+  {
+    "text": "If the areas match at every height, the volumes match too.",
+    "exclude": "cavalieris-principle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "areas",
+        "offset": 7
+      },
+      {
+        "concept": "volume",
+        "text": "volumes",
+        "offset": 40
+      }
+    ]
+  },
+  {
+    "text": "A leaning stack of coins is 6 cm tall, and every coin has an area of 5 cm². What is its volume?",
+    "exclude": "cavalieris-principle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 61
+      },
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 88
+      }
+    ]
+  },
+  {
+    "text": "30 cm³",
+    "exclude": "cavalieris-principle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "the slanted length",
+    "exclude": "cavalieris-principle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A leaning solid is measured straight up for its height. Its slanted side is longer than its height.",
+    "exclude": "cavalieris-principle",
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "Chapter 10 · Circles, prisms and volume",
+    "exclude": "cavalieris-principle",
+    "linked": [],
+    "links": [
+      {
+        "concept": "prism",
+        "text": "prisms",
+        "offset": 22
+      },
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 33
       }
     ]
   },
@@ -28648,6 +32245,244 @@
         "concept": "angle",
         "text": "right angle",
         "offset": 19
+      }
+    ]
+  },
+  {
+    "text": "A rainwater trough is a prism of length 2.5 m whose cross-section is a trapezium with parallel sides 40 cm and 60 cm and perpendicular height 30 cm. Find its capacity in litres.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "prism",
+        "text": "prism",
+        "offset": 24
+      },
+      {
+        "concept": "cross-section",
+        "text": "cross-section",
+        "offset": 52
+      },
+      {
+        "concept": "trapezium",
+        "text": "trapezium",
+        "offset": 71
+      },
+      {
+        "concept": "parallel-lines",
+        "text": "parallel",
+        "offset": 86
+      }
+    ]
+  },
+  {
+    "text": "Step 1: The cross-section is a trapezium, so its area is ½ × (40 + 60) × 30 = 50 × 30 = 1500 cm².\nStep 2: Put the length in the same unit: 2.5 m = 250 cm.\nStep 3: The volume is the area of the cross-section × the length: 1500 × 250 = 375,000 cm³.\nStep 4: 1 litre is 1000 cm³, so the trough holds 375,000 ÷ 1000 = 375 litres.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "cross-section",
+        "text": "cross-section",
+        "offset": 12
+      },
+      {
+        "concept": "trapezium",
+        "text": "trapezium",
+        "offset": 31
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 49
+      },
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 167
+      }
+    ]
+  },
+  {
+    "text": "The cross-section is ½ × (40 + 60) × 30 = 1500 cm². The volume is 1500 × 250 = 375,000 cm³, which is ___ litres.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "cross-section",
+        "text": "cross-section",
+        "offset": 4
+      },
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 56
+      }
+    ]
+  },
+  {
+    "text": "Find the exact circumference and area of a circle of radius r = 7 cm (use π ≈ 22/7).",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "circumference",
+        "text": "circumference",
+        "offset": 15
+      },
+      {
+        "concept": "area-of-a-circle",
+        "text": "area of a circle",
+        "offset": 33
+      },
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 53
+      },
+      {
+        "concept": "pi",
+        "text": "π",
+        "offset": 74
+      }
+    ]
+  },
+  {
+    "text": "Step 1: The circumference is 2πr = 2 × 22/7 × 7.\nStep 2: The 7s cancel, leaving 2 × 22 = 44 cm.\nStep 3: The area is πr² = 22/7 × 7 × 7.\nStep 4: One 7 cancels, leaving 22 × 7 = 154 cm².",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "circumference",
+        "text": "circumference",
+        "offset": 12
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 108
+      }
+    ]
+  },
+  {
+    "text": "C = 2 × 22/7 × 7 = ___ cm, and A = 22/7 × 7 × 7 = ___ cm².",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
+    "text": "A parallelogram has base 14 cm, slanted side 10 cm, and perpendicular height 8 cm. Calculate its perimeter and its area.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "quadrilateral",
+        "text": "parallelogram",
+        "offset": 2
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 115
+      }
+    ]
+  },
+  {
+    "text": "Step 1: The perimeter goes round all four sides: 14 + 10 + 14 + 10 = 48 cm.\nStep 2: The area uses the height at a right angle to the base, 8 cm, not the slanted side.\nStep 3: Area = base × height = 14 × 8 = 112 cm².\nStep 4: Check: using the slanted side would give 140 cm², too big, because the shape leans.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 88
+      },
+      {
+        "concept": "angle",
+        "text": "right angle",
+        "offset": 114
+      }
+    ]
+  },
+  {
+    "text": "Perimeter = 14 + 10 + 14 + 10 = ___ cm. Area = 14 × ___ = ___ cm².",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "area",
+        "text": "Area",
+        "offset": 40
+      }
+    ]
+  },
+  {
+    "text": "A circular pizza of radius 10 cm is cut into 6 equal sectors. Find the perimeter of one sector to 1 decimal place.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 20
+      },
+      {
+        "concept": "sector",
+        "text": "sectors",
+        "offset": 53
+      },
+      {
+        "concept": "decimal-place",
+        "text": "decimal place",
+        "offset": 100
+      }
+    ]
+  },
+  {
+    "text": "Step 1: Each slice is a sector with angle 360° ÷ 6 = 60°, so it is 1/6 of the pizza.\nStep 2: The arc length is 1/6 × 2 × π × 10, which is about 10.47 cm.\nStep 3: The distance round the slice also takes in its two straight radii: 10 + 10 = 20 cm.\nStep 4: The perimeter is about 20 + 10.47 = 30.47, which is 30.5 cm to 1 decimal place.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "sector",
+        "text": "sector",
+        "offset": 24
+      },
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 36
+      },
+      {
+        "concept": "pi",
+        "text": "π",
+        "offset": 121
+      },
+      {
+        "concept": "radius-and-diameter",
+        "text": "radii",
+        "offset": 222
+      },
+      {
+        "concept": "decimal-place",
+        "text": "decimal place",
+        "offset": 319
+      }
+    ]
+  },
+  {
+    "text": "Arc length = 1/6 × 2 × π × 10 ≈ ___ cm. Perimeter = 10 + 10 + arc length ≈ ___ cm.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "sector",
+        "text": "Arc length",
+        "offset": 0
+      },
+      {
+        "concept": "pi",
+        "text": "π",
+        "offset": 23
       }
     ]
   },
@@ -29765,6 +33600,120 @@
     ]
   },
   {
+    "text": "The circumference of a circle is π times its diameter, C = πd = 2πr, with π about 3.14. A sector with angle θ has θ/360 of the circle's area and of its circumference.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "circumference",
+        "text": "circumference",
+        "offset": 4
+      },
+      {
+        "concept": "pi",
+        "text": "π",
+        "offset": 33
+      },
+      {
+        "concept": "radius-and-diameter",
+        "text": "diameter",
+        "offset": 45
+      },
+      {
+        "concept": "sector",
+        "text": "sector",
+        "offset": 90
+      },
+      {
+        "concept": "angle",
+        "text": "angle",
+        "offset": 102
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 136
+      }
+    ]
+  },
+  {
+    "text": "A parallelogram's area is base × height. A trapezium's area is ½(a + b) × h. In both, the height is measured at a right angle to the base.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "quadrilateral",
+        "text": "parallelogram",
+        "offset": 2
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 18
+      },
+      {
+        "concept": "trapezium",
+        "text": "trapezium",
+        "offset": 43
+      },
+      {
+        "concept": "angle",
+        "text": "right angle",
+        "offset": 114
+      }
+    ]
+  },
+  {
+    "text": "The volume of a prism is the area of its cross-section × its length. A triangular prism with a 12 cm² triangle at each end and a length of 20 cm holds 240 cm³.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 4
+      },
+      {
+        "concept": "prism",
+        "text": "prism",
+        "offset": 16
+      },
+      {
+        "concept": "area",
+        "text": "area",
+        "offset": 29
+      },
+      {
+        "concept": "cross-section",
+        "text": "cross-section",
+        "offset": 41
+      }
+    ]
+  },
+  {
+    "text": "The surface area of a solid adds up the areas of all its faces. Draw its net, find the area of each face, and add them.",
+    "exclude": null,
+    "linked": [],
+    "links": [
+      {
+        "concept": "surface-area",
+        "text": "surface area",
+        "offset": 4
+      },
+      {
+        "concept": "area",
+        "text": "areas",
+        "offset": 40
+      }
+    ]
+  },
+  {
+    "text": "Some lengths, weights and amounts are still given in older units. 5 miles is about 8 km, 1 inch is about 2.5 cm, 1 kg is about 2.2 pounds, and 1 litre is about 1.76 pints.",
+    "exclude": null,
+    "linked": [],
+    "links": []
+  },
+  {
     "text": "Multiply decimals as whole numbers, then count the decimal places back in. To divide by a decimal, first multiply both numbers by 10 or 100 so you divide by a whole number.",
     "exclude": null,
     "linked": [],
@@ -30107,6 +34056,11 @@
         "concept": "area",
         "text": "area",
         "offset": 56
+      },
+      {
+        "concept": "volume",
+        "text": "volume",
+        "offset": 125
       }
     ]
   },
@@ -30387,6 +34341,16 @@
         "concept": "area",
         "text": "area",
         "offset": 13
+      },
+      {
+        "concept": "radius-and-diameter",
+        "text": "radius",
+        "offset": 148
+      },
+      {
+        "concept": "pi",
+        "text": "π",
+        "offset": 245
       }
     ]
   },

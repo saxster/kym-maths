@@ -801,42 +801,6 @@ public enum MathematicalDebateCatalog {
             ],
             invariantTakeaway: "In an internal transfer between two people, the sum of bar units is conserved, and moving Δ units changes their gap by 2Δ."
         ),
-        // Ch 10 -> OUP Ch 5 (Circles, Sectors & Prism Extrusion)
-        MathematicalDebateScenario(
-            id: "debate-ch10-mensuration",
-            chapterNumber: 10,
-            oupUnitNumber: 5,
-            title: "Cavalieri's Tilted Coin Stack",
-            contextPrompt: "Two stacks of 20 identical ₹10 coins sit on a desk: Stack A is straight and vertical; Stack B is pushed into a leaning slant of the same height. Zoya and Dev compare their volumes:",
-            speakerAName: "Zoya",
-            speakerAClaim: "Stack B has longer slanted edges, so its volume must be greater than Stack A!",
-            speakerBName: "Dev",
-            speakerBClaim: "Both stacks are made of the exact same 20 coins (identical cross-sectional area at every height), so their volumes are identical!",
-            choices: [
-                MathematicalDebateChoice(
-                    id: "ch10-a",
-                    speakerLabel: "Zoya is right (slanted stack has more volume)",
-                    reasoningStatement: "Longer slant length means more 3D space.",
-                    isCorrect: false,
-                    socraticRebuttal: "Did sliding the coins sideways create any new metal? Volume depends on cross-section area × perpendicular height, not slant length!"
-                ),
-                MathematicalDebateChoice(
-                    id: "ch10-b",
-                    speakerLabel: "Dev is right (volumes are equal)",
-                    reasoningStatement: "Horizontal shearing preserves every slice's area and the perpendicular height (Cavalieri's Principle).",
-                    isCorrect: true,
-                    socraticRebuttal: "Exact! V = A_cross × h_perp holds whether a prism or cylinder is right or oblique."
-                ),
-                MathematicalDebateChoice(
-                    id: "ch10-c",
-                    speakerLabel: "Stack B has less volume because it leans",
-                    reasoningStatement: "Tilting compresses the space.",
-                    isCorrect: false,
-                    socraticRebuttal: "Each coin keeps its exact thickness and circular area, so total volume is unchanged."
-                )
-            ],
-            invariantTakeaway: "Volume equals cross-sectional area times perpendicular height: V = A_cross × h_⊥."
-        ),
         // Ch 12 -> OUP Ch 4 (Scale Drawings, Similarity & Trigonometry)
         MathematicalDebateScenario(
             id: "debate-ch12-trig",

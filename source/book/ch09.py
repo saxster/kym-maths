@@ -342,7 +342,7 @@ def build(k):
                      "text": "Hold a box, or draw one. Touch and count each corner, then each edge, then each flat side. "
                              "Write the three counts in a table, and add a row for the pyramid."},
                     {"kind": "reason",
-                     "text": "Why does the answer stay at 2? Slice one corner off a cube. You lose 1 corner and gain 3, you gain 3 edges, and you gain 1 flat side. "
+                     "text": "Why does the answer stay at 2? Slice one corner off a cube. You lose 1 corner and gain 3 new ones. You also gain 3 edges and 1 flat side. "
                              "So corners − edges + sides changes by 2 − 3 + 1 = 0."},
                     {"kind": "name",
                      "text": "The flat surfaces of a solid are its faces, the lines where two faces meet are its edges, and the corners are its vertices. "

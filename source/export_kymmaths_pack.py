@@ -27,6 +27,7 @@ from book import ch06 as book_ch06
 from book import ch07 as book_ch07
 from book import ch08 as book_ch08
 from book import ch09 as book_ch09
+from book import ch10 as book_ch10
 from book import concepts as book_concepts
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -35,7 +36,7 @@ BOOK_OUT = ROOT / "KymMaths" / "KymMaths" / "Resources" / "PatternedWorldBook" /
 GOLDEN_OUT = ROOT / "KymMaths" / "Tests" / "Golden" / "concept-links.json"
 
 # Chapters rewritten by hand to docs/CONTENT_BRIEF.md. The content checks apply to these.
-BOOK_CHAPTERS = (book_ch00, book_ch01, book_ch02, book_ch03, book_ch04, book_ch05, book_ch06, book_ch07, book_ch08, book_ch09)
+BOOK_CHAPTERS = (book_ch00, book_ch01, book_ch02, book_ch03, book_ch04, book_ch05, book_ch06, book_ch07, book_ch08, book_ch09, book_ch10)
 # Saved learner responses key on callout ids, so a rewritten chapter keeps the old ids.
 CALLOUT_ID_SUFFIX = {"predict": "predict", "check": "aha", "careful": "trap"}
 
@@ -268,22 +269,6 @@ def build_volumes():
 
 def build_chapters():
     raw_specs = [
-        (
-            10, 3, "Slicing Space: Circles, Prisms, Pyramids & Archimedes' π",
-            "OUP Ch 5 · Circumference, circle area sector rearrangement, parallelogram/trapezium shear & prism/pyramid volumes",
-            "Every area and volume formula comes from slicing a curved or slanted shape into a familiar box.",
-            "Slice a circle of radius r into 24 sectors and comb-interlock them head-to-tail into a nearly rectangular parallelogram.",
-            "Half the circumference (πr) runs along the top and half along the bottom (base = πr), while the radius r stands upright as the height — giving Area = (πr) × r = πr²!",
-            "C = 2πr,   A_circle = πr²,   A_trap = ½(a + b)h,   V_prism = A_cross × L",
-            [
-                {"symbol": "πr", "visualPart": "Blue bottom scalloped arc of comb-interlocked sectors", "colorRole": "blue", "meaning": "Half of circumference 2πr"},
-                {"symbol": "r", "visualPart": "Red upright sector radius", "colorRole": "red", "meaning": "Height of the rearranged rectangle"},
-                {"symbol": "½(a + b)h", "visualPart": "Green doubled-trapezium parallelogram of base (a + b)", "colorRole": "green", "meaning": "Two identical trapeziums form a parallelogram of base a + b"}
-            ],
-            "maths/ch10-circles-mensuration/index.html",
-            ["Circumference", "Pi (π)", "Sector Rearrangement", "Cavalieri's Shear Principle", "Trapezium", "Triangular Prism Volume", "Surface Area Net"],
-            ["w_circle_sector_rearranger", "w_trapezium_prism_slicer"]
-        ),
         (
             11, 3, "Symmetry & Motion: Translations, Reflections, Rotations & Enlargements",
             "OUP Ch 13 · Vector translations, mirror lines, rotational symmetry & enlargement area/volume scaling (k, k², k³)",
@@ -4776,7 +4761,7 @@ const CH_SLIDERS = {{
   7:  [{{lbl:'Gradient:',min:-3,max:3,step:0.5,val:2,u:''}}, {{lbl:'Crosses the y-axis at:',min:-3,max:3,step:1,val:1,u:''}}, {{lbl:'Step across:',min:1,max:3,step:1,val:1,u:''}}],
   8:  [{{lbl:'Angle at A:',min:30,max:65,step:5,val:50,u:'°'}}, {{lbl:'Angle at B:',min:30,max:65,step:5,val:60,u:'°'}}, {{lbl:'Sides of the shape:',min:3,max:8,step:1,val:6,u:''}}],
   9:  [{{lbl:'Length of AB:',min:4,max:8,step:1,val:6,u:' cm'}}, {{lbl:'Compass opening:',min:2,max:5,step:0.5,val:4,u:' cm'}}, {{lbl:'Height of P above AB:',min:0,max:4,step:1,val:2,u:' cm'}}],
-  10: [{{lbl:'Circle radius r:',min:2,max:6,step:0.5,val:4,u:'cm'}}, {{lbl:'Trap top a:',min:2,max:6,step:0.5,val:3,u:'cm'}}, {{lbl:'Trap base b:',min:4,max:9,step:0.5,val:6,u:'cm'}}],
+  10: [{{lbl:'Radius:',min:2,max:6,step:1,val:4,u:' cm'}}, {{lbl:'Number of slices:',min:4,max:24,step:2,val:12,u:''}}, {{lbl:'Angle of the green slice:',min:0,max:360,step:30,val:90,u:'°'}}],
   11: [{{lbl:'Scale factor k:',min:1,max:3,step:0.5,val:2,u:'×'}}, {{lbl:'Base triangle b:',min:2,max:5,step:0.5,val:3,u:'cm'}}, {{lbl:'Height h:',min:2,max:4,step:0.5,val:2,u:'cm'}}],
   12: [{{lbl:'Leg a:',min:3,max:8,step:1,val:3,u:''}}, {{lbl:'Leg b:',min:3,max:8,step:1,val:4,u:''}}, {{lbl:'Angle θ:',min:0,max:360,step:15,val:50,u:'°'}}],
   13: [{{lbl:'Pop SD σ:',min:6,max:24,step:2,val:12,u:''}}, {{lbl:'Sample size n:',min:4,max:64,step:4,val:16,u:''}}, {{lbl:'Engine hits:',min:0,max:5,step:1,val:1,u:''}}],
@@ -5243,23 +5228,46 @@ function drawSandbox() {{
       break;
     }}
     case 10: {{
-      // Ch 10: Circle Sector Comb Rearrangement (A = pi * r^2) & Trapezium
-      const r = a, cx = 105, cy = 140, radPx = r * 14;
-      for (let i = 0; i < 16; i++) {{
-        const a0 = (i / 16) * Math.PI * 2, a1 = ((i + 1) / 16) * Math.PI * 2;
-        ctx.fillStyle = (i % 2 === 0 ? red : blue) + '44';
-        ctx.strokeStyle = i % 2 === 0 ? red : blue; ctx.lineWidth = 1.4;
-        ctx.beginPath(); ctx.moveTo(cx, cy); ctx.arc(cx, cy, radPx, a0, a1); ctx.closePath(); ctx.fill(); ctx.stroke();
+      // Ch 10: a circle cut into equal slices, the slices laid top to tail as a strip πr long and r tall, and a green slice
+      const r = a, n = b, ang = c, s = 7, R = r * s, cx = 76, cy = 85, x0 = 138;
+      const half = Math.PI / n, w = 2 * R * Math.sin(half), yTop = cy - R / 2, yBot = cy + R / 2;
+      const one = v => (Math.round(v * 10) / 10).toFixed(1);
+      const wedge = (x, y, mid, fill) => {{
+        ctx.beginPath(); ctx.moveTo(x, y); ctx.arc(x, y, R, mid - half, mid + half); ctx.closePath();
+        ctx.fillStyle = fill; ctx.fill(); ctx.strokeStyle = muted; ctx.lineWidth = 0.8; ctx.stroke();
+      }};
+      ctx.save();
+      for (let i = 0; i < n; i++) {{
+        ctx.globalAlpha = i % 2 ? 0.16 : 0.32;
+        wedge(cx, cy, -Math.PI / 2 + (2 * i + 1) * half, blue);
       }}
-      // Comb rectangle on right
-      const rx = 225, ry = cy - radPx / 2, rw = Math.PI * radPx, rh = radPx;
-      ctx.fillStyle = amber + '22'; ctx.strokeStyle = red; ctx.lineWidth = 2.2;
-      ctx.fillRect(rx, ry, rw, rh); ctx.strokeRect(rx, ry, rw, rh);
-      ctx.fillStyle = blue; ctx.fillText(`Base = πr = ${{(Math.PI * r).toFixed(2)}} cm`, rx + 12, ry + rh + 20);
-      ctx.fillStyle = red; ctx.fillText(`Height = r = ${{r}} cm`, rx + 12, ry - 8);
-      const trapArea = 0.5 * (b + c) * r;
-      ctx.fillStyle = green; ctx.fillText(`Circle πr² = ${{(Math.PI*r*r).toFixed(2)}} cm² · Trap ½(${{b}}+${{c}})×${{r}} = ${{trapArea.toFixed(1)}} cm²`, 40, 255);
-      readoutHtml = `Circle Comb: Base <b>πr (${{(Math.PI*r).toFixed(2)}})</b> × Height <b>r (${{r}})</b> = <b>πr² = ${{(Math.PI*r*r).toFixed(2)}} cm²</b> · Trapezium = <b>${{trapArea.toFixed(1)}} cm²</b>`;
+      if (ang > 0) {{
+        ctx.globalAlpha = 0.55; ctx.fillStyle = green; ctx.beginPath(); ctx.moveTo(cx, cy);
+        ctx.arc(cx, cy, R, -Math.PI / 2, -Math.PI / 2 + ang * Math.PI / 180); ctx.closePath(); ctx.fill();
+      }}
+      ctx.globalAlpha = 1; ctx.strokeStyle = ink; ctx.lineWidth = 1.6;
+      ctx.beginPath(); ctx.arc(cx, cy, R, 0, 2 * Math.PI); ctx.stroke();
+      for (let k = 0; k < n / 2; k++) {{
+        ctx.globalAlpha = 0.32; wedge(x0 + w / 2 + k * w, yBot, -Math.PI / 2, blue);
+        ctx.globalAlpha = 0.16; wedge(x0 + w + k * w, yTop, Math.PI / 2, blue);
+        ctx.globalAlpha = 1; ctx.strokeStyle = blue; ctx.lineWidth = 2.4;
+        ctx.beginPath(); ctx.arc(x0 + w + k * w, yTop, R, Math.PI / 2 - half, Math.PI / 2 + half); ctx.stroke();
+      }}
+      ctx.restore();
+      ctx.strokeStyle = red; ctx.lineWidth = 2.4;
+      ctx.beginPath(); ctx.moveTo(x0 - 6, yBot); ctx.lineTo(x0 - 6, yTop); ctx.stroke();
+      ctx.font = '600 11px -apple-system, BlinkMacSystemFont, sans-serif'; ctx.textAlign = 'center';
+      ctx.fillStyle = red; ctx.fillText('r', x0 - 13, cy + 4);
+      ctx.fillStyle = blue; ctx.fillText('πr', x0 + (n / 2) * w / 2 + w / 2, yBot + 16);
+      ctx.textAlign = 'left'; ctx.font = '600 12.5px -apple-system, BlinkMacSystemFont, sans-serif';
+      const area = Math.PI * r * r, part = area * ang / 360;
+      ctx.fillStyle = ink; ctx.fillText(`r = ${{r}} cm, cut into ${{n}} slices`, 46, 168);
+      ctx.fillStyle = blue; ctx.fillText(`Bottom of the strip: πr ≈ ${{one(Math.PI * r)}} cm`, 46, 194);
+      ctx.fillStyle = red; ctx.fillText(`Height of the strip: r = ${{r}} cm`, 46, 212);
+      ctx.fillStyle = ink; ctx.fillText(`Area: πr × r ≈ ${{one(area)}} cm²`, 46, 230);
+      ctx.fillStyle = green;
+      ctx.fillText(ang === 0 ? 'Green slice: none yet' : `Green: ${{ang}}/360 of it ≈ ${{one(part)}} cm²`, 46, 254);
+      readoutHtml = `Area = π × ${{r}} × ${{r}} ≈ <b>${{one(area)}} cm²</b> · the strip is about ${{one(Math.PI * r)}} cm by ${{r}} cm`;
       break;
     }}
     case 11: {{
