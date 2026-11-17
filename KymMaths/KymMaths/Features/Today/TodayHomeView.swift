@@ -1,4 +1,5 @@
 import SwiftUI
+import KymBookKit
 
 // MARK: - Room 1: Today
 
@@ -41,6 +42,18 @@ struct TodayHomeView: View {
                         subtitle: "One idea to wonder about, then four short steps. About \(plan.estimatedMinutes) minutes."
                     )
                     .padding(.bottom, -StandardSpacing.sm)
+
+                    BookKitStandaloneAtelierBanner(
+                        domainSlug: "maths",
+                        learnerName: store.learnerDisplayName,
+                        chapterNumber: plan.chapter.number,
+                        chapterTitle: plan.chapter.title,
+                        wonderQuestion: plan.chapter.hookSummary,
+                        formulaDisplay: plan.chapter.intuitionToFormula.formulaDisplay,
+                        onOpenChapter: {
+                            store.activeRoom = .patternedWorld
+                        }
+                    )
 
                     warmUpBand
 
