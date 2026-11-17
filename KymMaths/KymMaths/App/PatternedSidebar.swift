@@ -45,11 +45,7 @@ struct PatternedSidebar: View {
     }
 
     private var masthead: some View {
-        let manifest = PatternedBook.bookManifest(
-            chaptersCount: max(1, store.seedPack.chapters.count),
-            learnerName: store.learnerDisplayName
-        )
-        return VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+        VStack(alignment: .leading, spacing: StandardSpacing.xs) {
             HStack(spacing: StandardSpacing.xs) {
                 Text("VOL. I · MATH")
                     .standardType(.uiMicro)
@@ -76,13 +72,19 @@ struct PatternedSidebar: View {
                     .accessibilityLabel("Hide left spine for maximum work area")
                 }
             }
-            BookKitCoverBanner(
-                manifest: manifest,
-                chapterCount: max(1, store.seedPack.chapters.count),
-                activeOrdinal: max(1, store.selectedChapterNumber + 1),
-                compact: true
-            )
+            .padding(.bottom, 2)
+            Text("The Patterned World")
+                .standardType(.headlineSm)
+                .foregroundStyle(theme.ink)
+            Text("Kym's mathematics · Curious Atelier")
+                .standardType(.uiCaption)
+                .foregroundStyle(theme.mute(theme.ink))
+            Rectangle()
+                .fill(theme.brass.opacity(0.45))
+                .frame(height: 1)
+                .padding(.top, 4)
         }
+        .padding(.horizontal, StandardSpacing.xs)
         .accessibilityElement(children: .contain)
     }
 

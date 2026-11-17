@@ -41,13 +41,16 @@ struct KymMathsRootView: View {
     @AppStorage("kymmaths.userCollapsedSidebar") private var userCollapsedSidebar = false
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var sizeClass
+    private var isCompact: Bool { sizeClass == .compact }
+    #else
+    private var isCompact: Bool { false }
     #endif
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columns, preferredCompactColumn: $store.compactColumn) {
             PatternedSidebar(
                 store: store,
-                onHideSidebar: {
+                onHideSidebar: isCompact ? nil : {
                     withAnimation(.easeInOut(duration: 0.2)) {
                         userCollapsedSidebar = true
                         columns = .detailOnly
@@ -60,7 +63,7 @@ struct KymMathsRootView: View {
             #endif
         } detail: {
             VStack(spacing: 0) {
-                if columns == .detailOnly {
+                if columns == .detailOnly && !isCompact {
                     HStack(spacing: StandardSpacing.sm) {
                         Button {
                             withAnimation(.easeInOut(duration: 0.2)) {
@@ -118,14 +121,14 @@ struct KymMathsRootView: View {
             #if os(iOS)
             // On iPhone the room is pushed over the list, so it keeps the bar that holds the way back.
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar(sizeClass == .compact ? .visible : .hidden, for: .navigationBar)
+            .toolbar(isCompact ? .visible : .hidden, for: .navigationBar)
             #endif
         }
         .navigationSplitViewStyle(.balanced)
         .tint(theme.brass)
         .conceptLinks()
         .onAppear {
-            if userCollapsedSidebar {
+            if userCollapsedSidebar && !isCompact {
                 columns = .detailOnly
             }
         }
