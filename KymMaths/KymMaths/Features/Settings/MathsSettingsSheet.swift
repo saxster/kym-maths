@@ -15,6 +15,9 @@ struct MathsSettingsSheet: View {
     @State private var openAIKeyInput: String = ""
     @State private var elevenLabsKeyInput: String = ""
     @AppStorage("kymmaths.britishVoicePresetID") private var britishVoicePresetID: String = KymLiveBritishVoiceCatalog.defaultPreset.id
+    @State private var voiceProviderMode: KymLiveVoiceProviderMode = KymLiveFamilyKeychain().loadPreferredVoiceProviderMode()
+    @State private var liveModelTier: KymLiveModelTier = KymLiveFamilyKeychain().loadPreferredLiveModelTier()
+    @State private var liveThinkingTier: KymLiveThinkingTier = KymLiveFamilyKeychain().loadPreferredThinkingTier()
     @State private var keySaveBanner: String?
     @State private var keyRevision = 0
     @State private var showMoreThemes = false
@@ -360,7 +363,7 @@ struct MathsSettingsSheet: View {
     @ViewBuilder
     private func keyCards(_ keyStore: KeychainFrontierKeyStore) -> some View {
         keyCard("Anthropic", provider: .anthropic, text: $anthropicKeyInput, keyStore: keyStore)
-        keyCard("Gemini", provider: .gemini, text: $geminiKeyInput, keyStore: keyStore)
+        keyCard("Gemini Live (1-on-1 Full-Duplex Tutor)", provider: .gemini, text: $geminiKeyInput, keyStore: keyStore)
         keyCard("OpenAI", provider: .openAI, text: $openAIKeyInput, keyStore: keyStore)
         elevenLabsKeyCard
     }
@@ -369,7 +372,7 @@ struct MathsSettingsSheet: View {
         let familyKeychain = KymLiveFamilyKeychain()
         let hasKey = familyKeychain.loadElevenLabsAPIKey() != nil
         return VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
-            Kicker("ElevenLabs (British en-GB)", muted: true)
+            Kicker("ElevenLabs · Read Aloud Static Textbook (en-GB)", muted: true)
             SecureField(hasKey ? "Saved · type to replace" : "Not set", text: $elevenLabsKeyInput)
                 .textFieldStyle(.plain)
                 .standardType(.uiHeadline)
@@ -451,11 +454,40 @@ struct MathsSettingsSheet: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
             VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+                PaperFieldLabel("1-on-1 Voice Tutor Engine (Full-Duplex)")
+                FlowLayout(spacing: StandardSpacing.xs) {
+                    ForEach(KymLiveVoiceProviderMode.allCases) { mode in
+                        PatternedChip(mode.displayName, isSelected: voiceProviderMode == mode) {
+                            voiceProviderMode = mode
+                            try? KymLiveFamilyKeychain().savePreferredVoiceProviderMode(mode)
+                        }
+                    }
+                }
+            }
+            VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+                PaperFieldLabel("Gemini Live Full-Duplex Model & Pause Patience (VAD)")
+                FlowLayout(spacing: StandardSpacing.xs) {
+                    ForEach([KymLiveModelTier.conversational, .extendedThinking]) { tier in
+                        PatternedChip(tier.rawValue, isSelected: liveModelTier == tier) {
+                            liveModelTier = tier
+                            try? KymLiveFamilyKeychain().savePreferredLiveModelTier(tier)
+                        }
+                    }
+                    ForEach(KymLiveThinkingTier.allCases) { patience in
+                        PatternedChip(patience.displayTitle, isSelected: liveThinkingTier == patience) {
+                            liveThinkingTier = patience
+                            try? KymLiveFamilyKeychain().savePreferredThinkingTier(patience)
+                        }
+                    }
+                }
+            }
+            VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
                 PaperFieldLabel("British English voice preset (en-GB)")
                 FlowLayout(spacing: StandardSpacing.xs) {
                     ForEach(KymLiveBritishVoiceCatalog.presets) { preset in
                         PatternedChip(preset.displayName, isSelected: britishVoicePresetID == preset.id) {
                             britishVoicePresetID = preset.id
+                            try? KymLiveFamilyKeychain().savePreferredBritishVoiceID(preset.id)
                         }
                     }
                 }

@@ -777,8 +777,19 @@ public final class ChapterAudioNarrator: NSObject, AVSpeechSynthesizerDelegate {
         isSpeaking = true
 
         guard allowsHardwareSpeech else { return }
+        if KymLiveStaticTextNarrator.shared.hasElevenLabsKeyConfigured {
+            KymLiveStaticTextNarrator.shared.readAloud(
+                text: cleaned,
+                itemID: beatId ?? "maths-beat-\(beatIndex)",
+                rate: playbackSpeedMultiplier,
+                allowsHardwareSpeech: allowsHardwareSpeech
+            ) { [weak self] in
+                self?.handleUtteranceDidFinish()
+            }
+            return
+        }
         let utterance = AVSpeechUtterance(string: cleaned)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-IN") ?? AVSpeechSynthesisVoice(language: "en-GB")
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-GB") ?? AVSpeechSynthesisVoice(language: "en-IN")
         let baseRate = AVSpeechUtteranceDefaultSpeechRate
         utterance.rate = min(
             AVSpeechUtteranceMaximumSpeechRate,
@@ -818,6 +829,7 @@ public final class ChapterAudioNarrator: NSObject, AVSpeechSynthesizerDelegate {
     }
 
     public func stop() {
+        KymLiveStaticTextNarrator.shared.stop()
         if allowsHardwareSpeech && synthesizer.isSpeaking {
             synthesizer.stopSpeaking(at: .immediate)
         }
