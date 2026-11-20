@@ -4296,7 +4296,7 @@ def build_html_book(chapters, explorers, widgets):
     chapters_json = json.dumps(chapters, ensure_ascii=False)
     explorers_json = json.dumps(explorers, ensure_ascii=False)
     return f"""<!doctype html>
-<html lang="en-GB">
+<html lang="en-GB" data-quirk="slightly-quirky" data-medium="pencil-wash">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -4319,7 +4319,15 @@ def build_html_book(chapters, explorers, widgets):
   --amber: #E2A41C;
   --amber-wash: #F8EACB;
   --green: #4F6B45;
+  --red-ink: #b8343a;
+  --blue-ink: #244c8a;
+  --ochre-ink: #825b00;
+  --green-ink: #236b43;
   --border: rgba(31, 27, 22, 0.14);
+  --strong: var(--ink);
+  --text: var(--ink);
+  --mid: var(--muted);
+  --hi: var(--accent);
   color-scheme: light;
 }}
 html[data-theme="dark"] {{
@@ -4336,9 +4344,18 @@ html[data-theme="dark"] {{
   --amber: #F0BC45;
   --amber-wash: #3A2E14;
   --green: #9DB88C;
+  --red-ink: #ff8f85;
+  --blue-ink: #8eb8ff;
+  --ochre-ink: #f3c862;
+  --green-ink: #8fd4a4;
   --border: rgba(240, 236, 226, 0.14);
+  --strong: var(--ink);
+  --text: var(--ink);
+  --mid: var(--muted);
+  --hi: var(--accent);
   color-scheme: dark;
 }}
+html[data-stage-step="openPlay"] [data-role="symbolic"] {{ display: none !important; }}
 * {{ box-sizing: border-box; }}
 html, body {{ background: var(--card); }}
 body {{
@@ -4468,7 +4485,9 @@ html[data-medium="pencil-wash"] canvas#sim-canvas {{ filter: sepia(0.14) contras
 html[data-medium="moebius"] canvas#sim-canvas {{ filter: contrast(1.08) saturate(1.06); }}
 html[data-medium="risograph"] canvas#sim-canvas {{ filter: contrast(1.12) saturate(1.18); }}
 html[data-medium="ciechanow"] canvas#sim-canvas {{ filter: contrast(1.04) brightness(0.99); }}
-.medium-bar {{
+html[data-quirk="bland"] canvas#sim-canvas {{ filter: none; }}
+html[data-quirk="wild"] canvas#sim-canvas {{ filter: contrast(1.15) saturate(1.22); }}
+.medium-bar, .quirk-bar {{
   display: inline-flex;
   flex-wrap: wrap;
   gap: 4px;
@@ -4477,7 +4496,7 @@ html[data-medium="ciechanow"] canvas#sim-canvas {{ filter: contrast(1.04) bright
   background: var(--elevated);
   border: 1px solid var(--border);
 }}
-.medium-pill {{
+.medium-pill, .quirk-pill {{
   appearance: none;
   -webkit-appearance: none;
   border: 1px solid transparent;
@@ -4488,7 +4507,7 @@ html[data-medium="ciechanow"] canvas#sim-canvas {{ filter: contrast(1.04) bright
   border-radius: 999px;
   cursor: pointer;
 }}
-.medium-pill[aria-pressed="true"] {{
+.medium-pill[aria-pressed="true"], .quirk-pill[aria-pressed="true"] {{
   background: var(--card);
   color: var(--ink);
   border-color: var(--border);
@@ -4529,11 +4548,170 @@ iframe.atlas-frame {{
 }}
 #atlas-caption {{ color: var(--muted); font-size: 12px; }}
 #atlas-card[hidden] {{ display: none; }}
+.lab-toolbar {{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}}
+.lab-toolbar[hidden] {{ display: none; }}
+.lab-mode-bar {{
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 3px;
+  border-radius: 999px;
+  background: var(--elevated);
+  border: 1px solid var(--border);
+}}
+.challenge-banner {{
+  margin-top: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--amber-wash);
+  border: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--ink);
+}}
+.challenge-banner .badge {{
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-right: 6px;
+  color: var(--accent);
+}}
+.challenge-banner .badge.done {{ color: var(--green); }}
+.stage-utility-bar {{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 10px;
+}}
+.voicing-bar {{
+  font-size: 12px;
+  color: var(--muted);
+  flex: 1;
+  min-width: 180px;
+}}
+.snapshot-strip {{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}}
+.snapshot-strip[hidden] {{ display: none; }}
+.snap-card {{
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+}}
+.snap-card img {{
+  width: 100%;
+  height: 82px;
+  object-fit: contain;
+  border-radius: 6px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+}}
+.snap-meta {{ display: flex; flex-direction: column; gap: 2px; }}
+.snap-meta span {{ color: var(--muted); }}
+.snap-actions {{ display: flex; gap: 6px; flex-wrap: wrap; }}
+#sim-canvas[hidden], .atelier-svg-host[hidden], #reactive-prose:empty {{ display: none; }}
+.atelier-svg-host {{
+  width: 100%;
+  min-height: 290px;
+  background-color: var(--bg);
+  background-image: radial-gradient(var(--border) 1.1px, transparent 1.1px);
+  background-size: 16px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: filter 0.18s ease;
+}}
+.atelier-svg-host svg {{
+  display: block;
+  width: 100%;
+  height: auto;
+  touch-action: none;
+  user-select: none;
+}}
+html[data-medium="pencil-wash"] .atelier-svg-host {{ filter: sepia(0.10) contrast(0.97); }}
+html[data-medium="moebius"] .atelier-svg-host {{ filter: contrast(1.06) saturate(1.06); }}
+html[data-medium="risograph"] .atelier-svg-host {{ filter: contrast(1.10) saturate(1.16); }}
+html[data-medium="ciechanow"] .atelier-svg-host {{ filter: contrast(1.03); }}
+.reactive-prose {{
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--elevated);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink);
+}}
+.reactive-prose p {{ margin: 0 0 6px; }}
+.ink-card {{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}}
+.ink-key {{
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 11.5px;
+  color: var(--muted);
+}}
+.mode-pill {{
+  border-radius: 999px;
+}}
+.byrne-chip {{
+  vertical-align: middle;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1px 4px;
+  margin: 0 2px;
+  cursor: pointer;
+}}
+.byrne-chip:hover, .tk-term:hover {{
+  box-shadow: 0 0 0 1.5px var(--accent);
+}}
+.tk-term {{
+  font-weight: 600;
+  border-bottom: 1.5px dotted currentColor;
+  cursor: pointer;
+}}
+.tk-aside {{
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--muted);
+}}
+.reactive-prose .tk-aside-btn {{
+  color: var(--ink);
+  border-bottom-color: var(--muted);
+}}
+.tk-aside-card {{
+  margin-top: 6px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--ink);
+}}
 @media (prefers-color-scheme: dark) {{
   html:not([data-theme]) {{
     --bg: #181A1D; --card: #22262A; --elevated: #181612; --sunk: #0F0E0B; --ink: #F0ECE2;
     --muted: rgba(240, 236, 226, 0.68); --faint: rgba(240, 236, 226, 0.46); --accent: #D7AA5F;
     --red: #E5614F; --blue: #7097DA; --amber: #F0BC45; --amber-wash: #3A2E14; --green: #9DB88C;
+    --red-ink: #ff8f85; --blue-ink: #8eb8ff; --ochre-ink: #f3c862; --green-ink: #8fd4a4;
     --border: rgba(240, 236, 226, 0.14); color-scheme: dark;
   }}
 }}
@@ -4556,7 +4734,7 @@ iframe.atlas-frame {{
 <section class="card native-owned">
   <div class="kicker">From picture to formula</div>
   <p id="ch-hook" style="font-family:'New York',ui-serif,Georgia,serif;font-size:17px;margin:8px 0;"></p>
-  <div class="formula-banner" id="ch-formula"></div>
+  <div class="formula-banner" id="ch-formula" data-role="symbolic"></div>
   <div class="bridge-grid">
     <div class="step-box">
       <div class="kicker">What you do</div>
@@ -4572,16 +4750,26 @@ iframe.atlas-frame {{
 
 <section class="card" id="widget-stage-card">
   <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
-    <div class="kicker">Try it · move the sliders and watch what stays the same</div>
-    <div class="medium-bar" role="group" aria-label="Print medium">
-      <button type="button" class="medium-pill" data-medium="pencil-wash" aria-pressed="false">Sketchbook</button>
-      <button type="button" class="medium-pill" data-medium="paper-ink" aria-pressed="true">Textbook</button>
-      <button type="button" class="medium-pill" data-medium="moebius" aria-pressed="false">Ligne-claire</button>
-      <button type="button" class="medium-pill" data-medium="risograph" aria-pressed="false">Risograph</button>
-      <button type="button" class="medium-pill" data-medium="ciechanow" aria-pressed="false">Mechanism</button>
+    <div class="kicker">Try it · explore the figure and watch what stays the same</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;">
+      <div class="quirk-bar" role="group" aria-label="Drawing style">
+        <button type="button" class="quirk-pill" data-quirk="bland" data-default-medium="paper-ink" aria-pressed="false">Clean</button>
+        <button type="button" class="quirk-pill" data-quirk="atelier" data-default-medium="ciechanow" aria-pressed="false">Drafting</button>
+        <button type="button" class="quirk-pill" data-quirk="slightly-quirky" data-default-medium="pencil-wash" aria-pressed="true">Hand-inked</button>
+        <button type="button" class="quirk-pill" data-quirk="playful" data-default-medium="risograph" aria-pressed="false">Expressive</button>
+        <button type="button" class="quirk-pill" data-quirk="wild" data-default-medium="moebius" aria-pressed="false">Bold</button>
+      </div>
+      <div class="medium-bar" role="group" aria-label="Print medium">
+        <button type="button" class="medium-pill" data-medium="pencil-wash" aria-pressed="true">Sketchbook</button>
+        <button type="button" class="medium-pill" data-medium="paper-ink" aria-pressed="false">Textbook</button>
+        <button type="button" class="medium-pill" data-medium="moebius" aria-pressed="false">Ligne-claire</button>
+        <button type="button" class="medium-pill" data-medium="risograph" aria-pressed="false">Risograph</button>
+        <button type="button" class="medium-pill" data-medium="ciechanow" aria-pressed="false">Mechanism</button>
+      </div>
     </div>
   </div>
   <div class="interactive-stage" style="margin-top:10px;">
+    <div id="atelier-svg-host" class="atelier-svg-host" hidden></div>
     <canvas id="sim-canvas" width="560" height="290"></canvas>
     <div>
       <div class="slider-row">
@@ -4602,6 +4790,18 @@ iframe.atlas-frame {{
       <div class="step-box" id="live-readout" style="font-family:ui-monospace,monospace;font-size:12.5px;margin-top:10px;"></div>
     </div>
   </div>
+  <div id="reactive-prose" class="reactive-prose"></div>
+  <div class="lab-toolbar" id="lab-tools" hidden></div>
+  <div class="challenge-banner" id="challenge-banner" hidden></div>
+  <div class="stage-utility-bar">
+    <div class="voicing-bar" id="voicing-live" aria-live="polite"></div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+      <button type="button" class="btn secondary" id="btn-sound" aria-pressed="false">Sound</button>
+      <button type="button" class="btn secondary" id="btn-snapshot">Pin snapshot</button>
+      <button type="button" class="btn secondary" id="btn-reset-lab">Reset</button>
+    </div>
+  </div>
+  <div class="snapshot-strip" id="snapshot-strip" hidden></div>
 </section>
 
 <section class="card" id="atlas-card" hidden>
@@ -4616,7 +4816,7 @@ iframe.atlas-frame {{
       <button class="btn secondary" id="btn-reload-atlas">Reset the view</button>
     </div>
   </div>
-  <iframe class="atlas-frame" id="atlas-iframe" title="Atlas 3D Figure" src="./atlas/examples/maths/ch00-sets-logic/index.html"></iframe>
+  <iframe class="atlas-frame" id="atlas-iframe" title="Atlas 3D Figure" src="./atlas/examples/maths/ch00-sets-logic/index.html?embed=1"></iframe>
 </section>
 
 <script>
@@ -4693,7 +4893,12 @@ function parseHash() {{
 
 function setAtlasRoute(relPath) {{
   const iframe = document.getElementById('atlas-iframe');
-  const targetSrc = `./atlas/examples/${{relPath}}`;
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const parts = String(relPath || '').split('#');
+  const base = parts[0];
+  const hash = parts.length > 1 ? `#${{parts.slice(1).join('#')}}` : '';
+  const sep = base.includes('?') ? '&' : '?';
+  const targetSrc = `./atlas/examples/${{base}}${{sep}}embed=1&theme=${{isDark ? 'dark' : 'day'}}${{hash}}`;
   if (iframe.getAttribute('data-src') !== targetSrc) {{
     iframe.setAttribute('data-src', targetSrc);
     document.getElementById('atlas-card').hidden = true;
@@ -4704,6 +4909,8 @@ function setAtlasRoute(relPath) {{
 function renderChapter() {{
   const ch = CHAPTERS[currentChapter] || CHAPTERS[0];
   const br = ch.intuitionToFormula;
+  const stampBtn = document.getElementById('btn-stamp');
+  if (stampBtn) stampBtn.textContent = 'Stamp this result';
   document.getElementById('ch-vol').textContent = ch.volumeTitle.toUpperCase();
   document.getElementById('ch-title').textContent = `Chapter ${{ch.number}} · ${{ch.title}}`;
   document.getElementById('ch-subtitle').textContent = ch.subtitle;
@@ -4734,9 +4941,11 @@ function renderChapter() {{
 
 window.highlightedRole = null;
 window.highlightFormulaTerm = function(role) {{
-  window.highlightedRole = role || null;
+  const nextRole = role || null;
+  if (window.highlightedRole === nextRole) return;
+  window.highlightedRole = nextRole;
   document.querySelectorAll('.term-pill').forEach(pill => {{
-    if (role && pill.getAttribute('data-role') === role) {{
+    if (nextRole && pill.getAttribute('data-role') === nextRole) {{
       pill.classList.add('active-role');
     }} else {{
       pill.classList.remove('active-role');
@@ -5510,12 +5719,47 @@ function drawSandbox() {{
       ctx.restore();
     }}
   }}
+  const activeQuirk = document.documentElement.getAttribute('data-quirk') || 'slightly-quirky';
+  if (activeQuirk === 'slightly-quirky' || activeQuirk === 'playful' || activeQuirk === 'wild') {{
+    ctx.save();
+    ctx.strokeStyle = activeQuirk === 'wild' ? red : amber;
+    ctx.lineWidth = activeQuirk === 'wild' ? 2.2 : 1.2;
+    ctx.setLineDash(activeQuirk === 'wild' ? [5, 3] : [3, 4]);
+    ctx.strokeRect(8, 8, w - 16, h - 16);
+    ctx.restore();
+  }}
   ctx.restore();
   document.getElementById('live-readout').innerHTML = readoutHtml;
 }}
 
 ['param-a', 'param-b', 'param-c'].forEach(id => {{
-  document.getElementById(id).addEventListener('input', drawSandbox);
+  document.getElementById(id).addEventListener('input', () => drawSandbox());
+}});
+
+document.querySelectorAll('.quirk-pill').forEach(btn => {{
+  btn.addEventListener('click', () => {{
+    const q = btn.getAttribute('data-quirk') || 'slightly-quirky';
+    const defMed = btn.getAttribute('data-default-medium') || 'pencil-wash';
+    document.documentElement.setAttribute('data-quirk', q);
+    document.documentElement.setAttribute('data-medium', defMed);
+    document.querySelectorAll('.quirk-pill').forEach(b => {{
+      b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+    }});
+    document.querySelectorAll('.medium-pill').forEach(b => {{
+      b.setAttribute('aria-pressed', b.getAttribute('data-medium') === defMed ? 'true' : 'false');
+    }});
+    try {{
+      const frame = document.getElementById('atlas-iframe');
+      if (frame && frame.contentDocument && frame.contentDocument.documentElement) {{
+        frame.contentDocument.documentElement.setAttribute('data-quirk', q);
+        frame.contentDocument.documentElement.setAttribute('data-medium', defMed);
+      }}
+      if (frame && frame.contentWindow && typeof frame.contentWindow.__atlasSetQuirk === 'function') {{
+        frame.contentWindow.__atlasSetQuirk(q);
+      }}
+    }} catch (e) {{}}
+    drawSandbox();
+  }});
 }});
 
 document.querySelectorAll('.medium-pill').forEach(btn => {{
@@ -5564,12 +5808,40 @@ function figureHasContent(frame) {{
     return false;
   }}
 }}
+function syncIframeAppearance(frame) {{
+  try {{
+    const doc = frame && frame.contentDocument;
+    if (!doc || !doc.documentElement) return;
+    const t = document.documentElement.getAttribute('data-theme');
+    const q = document.documentElement.getAttribute('data-quirk');
+    const m = document.documentElement.getAttribute('data-medium');
+    if (t && doc.documentElement.getAttribute('data-theme') !== t) {{
+      doc.documentElement.setAttribute('data-theme', t);
+    }}
+    if (q) doc.documentElement.setAttribute('data-quirk', q);
+    if (m) doc.documentElement.setAttribute('data-medium', m);
+  }} catch (e) {{}}
+}}
 function showAtlasCardIfDrawn() {{
   const frame = document.getElementById('atlas-iframe');
   const card = document.getElementById('atlas-card');
   const src = frame.src;
+  syncIframeAppearance(frame);
   card.hidden = !figureHasContent(frame);
-  if (card.hidden) setTimeout(() => {{ if (frame.src === src) card.hidden = !figureHasContent(frame); }}, 1500);
+  if (card.hidden) {{
+    setTimeout(() => {{
+      if (frame.src === src) {{
+        syncIframeAppearance(frame);
+        card.hidden = !figureHasContent(frame);
+      }}
+    }}, 400);
+    setTimeout(() => {{
+      if (frame.src === src) {{
+        syncIframeAppearance(frame);
+        card.hidden = !figureHasContent(frame);
+      }}
+    }}, 1500);
+  }}
 }}
 document.getElementById('atlas-iframe').addEventListener('load', showAtlasCardIfDrawn);
 document.getElementById('atlas-iframe').addEventListener('error', () => {{
@@ -5593,11 +5865,13 @@ window.addEventListener('hashchange', () => {{
   parseHash();
   renderChapter();
 }});
-window.addEventListener('resize', drawSandbox);
+window.addEventListener('resize', () => drawSandbox());
 
 parseHash();
 renderChapter();
 </script>
+<script src="./phet_labs.js"></script>
+<script type="module" src="./atelier_stage.mjs"></script>
 </body>
 </html>
 """

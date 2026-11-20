@@ -179,6 +179,10 @@ final class AppStore {
     var activeLessonDAG: LessonDependencyDAG?
     var latestAnnotatedScratchpadCanvas: TutorCanvas?
     var webStageHealthVerified: Bool = false
+    var latestStageTelemetry: InteractiveStageTelemetry?
+    var stageGoalReachedByChapter: [Int: Bool] = [:]
+    var stageSnapshots: [StageSnapshotRecord] = []
+    var pendingStagePreset: StagePreset?
 
     // Reactive Database State
     var proofsByQuestionId: [String: QuestionProofRecord] = [:]
@@ -658,6 +662,61 @@ final class AppStore {
         refreshState()
     }
 
+    func recordStageTelemetry(_ telemetry: InteractiveStageTelemetry) {
+        if latestStageTelemetry != telemetry {
+            latestStageTelemetry = telemetry
+        }
+        if telemetry.goalReached, stageGoalReachedByChapter[telemetry.chapterNumber] != true {
+            stageGoalReachedByChapter[telemetry.chapterNumber] = true
+        }
+    }
+
+    func recordStageSnapshot(_ snapshot: StageSnapshotRecord) {
+        if let existing = stageSnapshots.firstIndex(where: { $0.id == snapshot.id }) {
+            stageSnapshots[existing] = snapshot
+        } else {
+            stageSnapshots.append(snapshot)
+            if stageSnapshots.count > 12 {
+                stageSnapshots.removeFirst(stageSnapshots.count - 12)
+            }
+        }
+    }
+
+    func saveStageSnapshotToJournal(_ snapshot: StageSnapshotRecord) {
+        let now = Date()
+        let widgetId = seedPack.widgets.first(where: { $0.chapter == snapshot.chapterNumber })?.id
+        let entry = LabJournalEntryRecord(
+            id: "journal-snap-\(snapshot.id)",
+            title: snapshot.title,
+            templateKind: "proof_log",
+            paperStyle: "grid",
+            linkedTopicCode: selectedTopicCode,
+            linkedChapterNumber: snapshot.chapterNumber,
+            linkedWidgetId: widgetId,
+            cueColumnText: snapshot.title,
+            bodyNotesText: snapshot.contextSentence,
+            summaryText: snapshot.summary,
+            hypothesisText: "",
+            independentVarText: "",
+            dependentVarText: "",
+            controlVarsText: "",
+            drawingData: nil,
+            snapshotPNGData: snapshot.pngData,
+            createdAt: now,
+            updatedAt: now
+        )
+        saveJournalEntry(entry)
+    }
+
+    func openLab(with preset: StagePreset) {
+        pendingStagePreset = preset
+        selectedChapterNumber = preset.chapterNumber
+        if let widget = seedPack.widgets.first(where: { $0.chapter == preset.chapterNumber }) {
+            selectedWidgetId = widget.id
+        }
+        activeRoom = .labsAtlas
+    }
+
     func markChapterRead(chapterNumber: Int, fraction: Double, incrementCounters: Bool = true) {
         let id = String(format: "ch%02d", chapterNumber)
         let current = readingProgressByChapter[chapterNumber]
@@ -877,13 +936,17 @@ final class AppStore {
             knowledgeContext = "Grounded in \(selectedChapter.title) (\(selectedUnit.title)): \(selectedChapter.intuitionToFormula.concreteAction) → \(selectedChapter.intuitionToFormula.formulaDisplay)"
         }
 
+        let liveStageSummary: String? = latestStageTelemetry.map { t in
+            "Ch \(t.chapterNumber) (\(t.mode)): \(t.voicing.context) [\(t.readoutPlain)]"
+        }
         let liveBrief = MathLiveTutorContext.brief(
             chapterTitle: selectedChapter.title,
             questionId: activeQuestion?.id,
             questionPrompt: activeQuestion?.prompt,
             workedSteps: activeQuestion.map { [$0.workedExample] } ?? [],
             learnerDraft: learnerDraft,
-            hasSharedHandwriting: didShareScratchpadWithCoach
+            hasSharedHandwriting: didShareScratchpadWithCoach,
+            liveStageContext: liveStageSummary
         )
 
         let requestContext = AIRequestContext.learnerDialogue(
@@ -992,9 +1055,10 @@ final class AppStore {
         case "coach":
             activeRoom = .coach
         case "euclid":
-            // `euclid`, `euclid/I.10`, `euclid/order:I.10` or `euclid/motif:M1`.
+            // `euclid`, `euclid/I.10`, `euclid/order:I.10`, `euclid/motif:M1` or `euclid/quadrilateral`.
             switch pathParts.first {
             case nil: activeRoom = .euclidWorkshop
+            case "quadrilateral": openEuclid(.quadrilateral)
             case let order? where order.hasPrefix("order:"): openEuclid(.stepOrder(PropositionID(String(order.dropFirst(6)))))
             case let motif? where motif.hasPrefix("motif:"): openEuclid(.motif(MotifID(String(motif.dropFirst(6)))))
             case let id?: openEuclid(.board(PropositionID(id)))

@@ -1,6 +1,7 @@
 // Ch 7 · Linear Graphs y = mx + c & Speed-Time Area — 3D Interactive Mathematics Atlas chapter.
 import { SUBJECT } from '../subject.js';
 import * as EKit from '../../../engine/math_kit.js';
+import { BYRNE_THEME } from '../../../engine/theme.js';
 import * as M from './model.js';
 
 export const PAGES = [
@@ -106,6 +107,7 @@ function buildWorld(rawE) {
     pTravel.position.set(0, -0.55, -0.2);
 
     return {
+      yDot,
       at(s, p) {
         const cY = p.intC * 0.35;
         yDot.position.set(0, cY, 0.08);
@@ -128,7 +130,12 @@ function buildWorld(rawE) {
     });
   });
   return {
-    labels: [],
+    labels: [
+      { text: () => `Δy/Δx = ${(CHAPTER.params || CHAPTER.defaultParams).gradM.toFixed(2)}`, cls: 'board', at: () => new THREE.Vector3(0.5, 0.25, 0.14), leader: [24, -18], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `(0, ${(CHAPTER.params || CHAPTER.defaultParams).intC.toFixed(1)})`, cls: 'board', at: () => built.yDot.position.clone(), leader: [-24, -16], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `m₁ · m₂ = −1`, cls: 'board', at: () => new THREE.Vector3(0, 0.35, 0.14), leader: [24, -22], on: () => (CHAPTER._pageIdx || 0) === 1 },
+      { text: () => `Area = Distance (96 m)`, cls: 'board', at: () => new THREE.Vector3(0, -0.55, 0.1), leader: [18, 22], on: () => (CHAPTER._pageIdx || 0) === 2 },
+    ],
     update(s, look) {
       const p = CHAPTER.params || CHAPTER.defaultParams;
       const pageIdx = CHAPTER._pageIdx || 0;
@@ -145,6 +152,9 @@ export const CHAPTER = {
   subject: SUBJECT,
   no: 7,
   title: 'Ch 7 · Linear Graphs y = mx + c & Speed-Time Area',
+  theme: BYRNE_THEME,
+  medium: 'pencil-wash',
+  quirk: 'slightly-quirky',
   PAGES,
   pages: PAGES,
   PLATES,
@@ -175,9 +185,12 @@ export const CHAPTER = {
     return `<b>Speed-Time Graph</b> · Ramp (0–4 s to 12 m/s) area = ${s.tr.distAccel} m + Cruise (4–10 s) area = ${s.tr.distCruise} m → <b>Total distance = ${s.tr.totalDist} m</b>.`;
   },
   sonify(ctx, s, pageIdx = 0, p = CHAPTER.defaultParams) {
-    const firstKey = Object.keys(p || CHAPTER.defaultParams)[0];
-    const v = Number((p || CHAPTER.defaultParams)[firstKey]) || 1;
-    EKit.playTone(ctx, { freq: 220 + (Math.abs(v) % 20) * 18, dur: 0.06, type: 'sine', gain: 0.03 });
+    if (pageIdx === 1 && s?.ls) {
+      EKit.playHarmonic(ctx, { ratio: s.ls.product, targetRatio: -1, baseFreq: 329.63, gain: 0.034 });
+    } else {
+      const m = s?.ls?.m ?? 1;
+      EKit.playTone(ctx, { freq: 240 + m * 36, dur: 0.07, type: 'sine', gain: 0.032 });
+    }
   },
   buildWorld,
   build: buildWorld,

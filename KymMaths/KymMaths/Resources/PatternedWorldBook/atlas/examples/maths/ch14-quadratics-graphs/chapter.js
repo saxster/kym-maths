@@ -1,6 +1,7 @@
 // Ch 14 · Completing the Square, Parabola Vertex Form & Kinematic Area — 3D Interactive Mathematics Atlas chapter.
 import { SUBJECT } from '../subject.js';
 import * as EKit from '../../../engine/math_kit.js';
+import { BYRNE_THEME } from '../../../engine/theme.js';
 import * as M from './model.js';
 
 export const PAGES = [
@@ -120,7 +121,12 @@ function buildWorld(rawE) {
     });
   });
   return {
-    labels: [],
+    labels: [
+      { text: () => `x² square`, cls: 'board', at: () => new THREE.Vector3(-0.85, 0.35, 0.1), leader: [-16, -14], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `(b/2)² corner`, cls: 'board', at: () => new THREE.Vector3(0.22, 1.15, 0.12), leader: [18, -14], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `Vertex turning pt`, cls: 'board', at: () => new THREE.Vector3(0, 0.45, 0.15), leader: [0, -18], on: () => (CHAPTER._pageIdx || 0) === 1 },
+      { text: () => `∫ v dt area`, cls: 'board', at: () => new THREE.Vector3(0.4, -0.55, -0.2), leader: [16, 14], on: () => (CHAPTER._pageIdx || 0) === 2 },
+    ],
     update(s, look) {
       const p = CHAPTER.params || CHAPTER.defaultParams;
       const pageIdx = CHAPTER._pageIdx || 0;
@@ -137,6 +143,9 @@ export const CHAPTER = {
   subject: SUBJECT,
   no: 14,
   title: 'Ch 14 · Completing the Square, Parabola Vertex Form & Kinematic Area',
+  theme: BYRNE_THEME,
+  medium: 'pencil-wash',
+  quirk: 'slightly-quirky',
   PAGES,
   pages: PAGES,
   PLATES,
@@ -168,9 +177,8 @@ export const CHAPTER = {
     return `<b>Kinematic Graph Duality</b> · Slope of v(t) = <b>acceleration a = dv/dt</b> · Area under v(t) = <b>displacement s = ∫ v dt</b>.`;
   },
   sonify(ctx, s, pageIdx = 0, p = CHAPTER.defaultParams) {
-    const firstKey = Object.keys(p || CHAPTER.defaultParams)[0];
-    const v = Number((p || CHAPTER.defaultParams)[firstKey]) || 1;
-    EKit.playTone(ctx, { freq: 220 + (Math.abs(v) % 20) * 18, dur: 0.06, type: 'sine', gain: 0.03 });
+    const disc = s?.cs?.discriminant ?? 0;
+    EKit.playInvariantSnap(ctx, { satisfied: disc >= 0, strength: 1.0, gain: 0.032 });
   },
   buildWorld,
   build: buildWorld,

@@ -37,6 +37,8 @@ struct PatternedWorldWebStageView: View {
     let chapterNumber: Int
     let atlasRoute: String?
     var highlightedColorRole: String? = nil
+    var stageStep: StageRevealStep? = nil
+    var stagePreset: StagePreset? = nil
     var onTermHighlighted: ((String, String) -> Void)? = nil
     /// Called with the page's height, so the host can size the stage to its figure.
     var onContentHeight: ((CGFloat) -> Void)? = nil
@@ -48,6 +50,8 @@ struct PatternedWorldWebStageView: View {
             chapterNumber: chapterNumber,
             atlasRoute: atlasRoute,
             highlightedColorRole: highlightedColorRole,
+            stageStep: stageStep,
+            stagePreset: stagePreset,
             onTermHighlighted: onTermHighlighted,
             onContentHeight: onContentHeight,
             store: store,
@@ -57,29 +61,76 @@ struct PatternedWorldWebStageView: View {
 }
 
 enum PatternedWorldWebStageBridge {
-    static func buildSyncScript(
-        chapterNumber: Int,
-        atlasRoute: String?,
-        highlightedColorRole: String?,
-        isDark: Bool? = nil
-    ) -> String {
-        var js = ""
-        if let isDark {
-            js += themeScript(isDark: isDark) + " "
+    static func encodeJSString(_ value: String) -> String {
+        var out = "'"
+        for scalar in value.unicodeScalars {
+            switch scalar {
+            case "\\": out += "\\\\"
+            case "'": out += "\\'"
+            case "\n": out += "\\n"
+            case "\r": out += "\\r"
+            case "\t": out += "\\t"
+            case "\u{2028}": out += "\\u2028"
+            case "\u{2029}": out += "\\u2029"
+            case "<": out += "\\u003C"
+            case ">": out += "\\u003E"
+            default: out.unicodeScalars.append(scalar)
+            }
         }
-        js += "if (window.selectChapter) { window.selectChapter(\(chapterNumber)); }"
-        if let route = atlasRoute, !route.isEmpty {
-            js += " if (window.setAtlasRoute) { window.setAtlasRoute('\(route)'); }"
-        }
-        let role = highlightedColorRole ?? ""
-        js += " if (window.highlightFormulaTerm) { window.highlightFormulaTerm('\(role)'); }"
-        return js
+        out += "'"
+        return out
     }
 
-    /// Sets the page's paper or night palette. The stage's CSS and canvas both read `data-theme`;
-    /// the app's theme can differ from the system's appearance, so the app sets it.
+    static func buildSyncScript(
+        chapterNumber: Int?,
+        atlasRoute: String?,
+        highlightedColorRole: String?,
+        shouldSyncHighlight: Bool = true,
+        isDark: Bool? = nil,
+        stageStep: StageRevealStep? = nil,
+        stagePreset: StagePreset? = nil
+    ) -> String {
+        var parts: [String] = []
+        if let isDark {
+            parts.append(themeScript(isDark: isDark))
+        }
+        if let chapterNumber {
+            parts.append("if (window.selectChapter) { window.selectChapter(\(chapterNumber)); }")
+        }
+        if let route = atlasRoute, !route.isEmpty {
+            parts.append("if (window.setAtlasRoute) { window.setAtlasRoute(\(encodeJSString(route))); }")
+        }
+        if let step = stageStep {
+            parts.append("if (window.setStageStep) { window.setStageStep(\(encodeJSString(step.rawValue))); }")
+        }
+        if let preset = stagePreset, let json = preset.jsonString() {
+            parts.append("if (window.configureStagePreset) { window.configureStagePreset(\(json)); }")
+        }
+        if shouldSyncHighlight {
+            let role = highlightedColorRole ?? ""
+            parts.append("if (window.highlightFormulaTerm) { window.highlightFormulaTerm(\(encodeJSString(role))); }")
+        }
+        return parts.joined(separator: " ")
+    }
+
+    /// Sets the page's paper or night palette cleanly without redundant attribute writes,
+    /// and keeps any embedded 3D Atlas iframe synchronized with the app theme.
     static func themeScript(isDark: Bool) -> String {
-        "document.documentElement.setAttribute('data-theme', '\(isDark ? "dark" : "light")');"
+        let mode = isDark ? "dark" : "light"
+        return """
+        (function(){
+          var t = '\(mode)';
+          if (document.documentElement.getAttribute('data-theme') !== t) {
+            document.documentElement.setAttribute('data-theme', t);
+          }
+          try {
+            var fr = document.getElementById('atlas-iframe');
+            if (fr && fr.contentDocument && fr.contentDocument.documentElement && fr.contentDocument.documentElement.getAttribute('data-theme') !== t) {
+              fr.contentDocument.documentElement.setAttribute('data-theme', t);
+            }
+          } catch (_) {}
+        })();
+        """
     }
 
     /// Posts the page's height whenever it changes. The book lays out by content, not by the
@@ -99,7 +150,9 @@ enum PatternedWorldWebStageBridge {
         coordinator: PatternedWorldWebStageCoordinator,
         chapterNumber: Int,
         atlasRoute: String? = nil,
-        isDark: Bool = false
+        isDark: Bool = false,
+        stageStep: StageRevealStep? = nil,
+        stagePreset: StagePreset? = nil
     ) -> WKWebView {
         let config = WKWebViewConfiguration()
         if config.urlSchemeHandler(forURLScheme: PatternedWorldBookSchemeHandler.scheme) == nil {
@@ -113,11 +166,24 @@ enum PatternedWorldWebStageBridge {
         )
         config.userContentController.addUserScript(
             WKUserScript(
-                source: buildSyncScript(chapterNumber: chapterNumber, atlasRoute: atlasRoute, highlightedColorRole: nil, isDark: isDark),
+                source: buildSyncScript(
+                    chapterNumber: chapterNumber,
+                    atlasRoute: atlasRoute,
+                    highlightedColorRole: nil,
+                    isDark: isDark,
+                    stageStep: stageStep,
+                    stagePreset: stagePreset
+                ),
                 injectionTime: .atDocumentEnd,
                 forMainFrameOnly: true
             )
         )
+        coordinator.lastSyncedChapter = chapterNumber
+        coordinator.lastSyncedAtlasRoute = atlasRoute
+        coordinator.lastSyncedHighlightRole = nil
+        coordinator.lastSyncedIsDark = isDark
+        coordinator.lastSyncedStep = stageStep
+        coordinator.lastAppliedPresetSignature = stagePreset?.jsonString()
         config.userContentController.addUserScript(
             WKUserScript(source: contentHeightScript, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         )
@@ -147,20 +213,56 @@ enum PatternedWorldWebStageBridge {
         onTermHighlighted: ((String, String) -> Void)?,
         store: AppStore,
         coordinator: PatternedWorldWebStageCoordinator,
-        isDark: Bool = false
+        isDark: Bool = false,
+        stageStep: StageRevealStep? = nil,
+        stagePreset: StagePreset? = nil
     ) {
         coordinator.onTermHighlighted = onTermHighlighted
+
+        let chapterChanged = coordinator.lastSyncedChapter != chapterNumber
+        let routeChanged = coordinator.lastSyncedAtlasRoute != atlasRoute
+        let roleChanged = coordinator.lastSyncedHighlightRole != highlightedColorRole
+        let themeChanged = coordinator.lastSyncedIsDark != isDark
+        let stepChanged = coordinator.lastSyncedStep != stageStep
+        let presetSignature = stagePreset?.jsonString()
+        let presetToApply: StagePreset?
+        if let presetSignature, presetSignature != coordinator.lastAppliedPresetSignature {
+            coordinator.lastAppliedPresetSignature = presetSignature
+            presetToApply = stagePreset
+        } else {
+            presetToApply = nil
+        }
+
+        guard chapterChanged || routeChanged || roleChanged || themeChanged || stepChanged || presetToApply != nil else {
+            return
+        }
+
+        coordinator.lastSyncedChapter = chapterNumber
+        coordinator.lastSyncedAtlasRoute = atlasRoute
+        coordinator.lastSyncedHighlightRole = highlightedColorRole
+        coordinator.lastSyncedIsDark = isDark
+        coordinator.lastSyncedStep = stageStep
+
         let js = buildSyncScript(
-            chapterNumber: chapterNumber,
-            atlasRoute: atlasRoute,
+            chapterNumber: chapterChanged ? chapterNumber : nil,
+            atlasRoute: (chapterChanged || routeChanged) ? atlasRoute : nil,
             highlightedColorRole: highlightedColorRole,
-            isDark: isDark
+            shouldSyncHighlight: roleChanged || chapterChanged,
+            isDark: themeChanged ? isDark : nil,
+            stageStep: stepChanged ? stageStep : nil,
+            stagePreset: presetToApply
         )
-        webView.evaluateJavaScript(js, completionHandler: nil)
-        webView.evaluateJavaScript(WebStageHealthProbe.verificationScript) { result, _ in
-            let report = WebStageHealthProbe.evaluateReport(from: result as? [String: Any])
-            Task { @MainActor in
-                store.webStageHealthVerified = report.isHealthy
+        if !js.isEmpty {
+            webView.evaluateJavaScript(js, completionHandler: nil)
+        }
+        if chapterChanged || !store.webStageHealthVerified {
+            webView.evaluateJavaScript(WebStageHealthProbe.verificationScript) { result, _ in
+                let report = WebStageHealthProbe.evaluateReport(from: result as? [String: Any])
+                Task { @MainActor in
+                    if store.webStageHealthVerified != report.isHealthy {
+                        store.webStageHealthVerified = report.isHealthy
+                    }
+                }
             }
         }
     }
@@ -231,6 +333,12 @@ final class PatternedWorldWebStageCoordinator: NSObject, WKScriptMessageHandler 
     var store: AppStore
     var onTermHighlighted: ((String, String) -> Void)?
     var onContentHeight: ((CGFloat) -> Void)?
+    var lastSyncedChapter: Int?
+    var lastSyncedAtlasRoute: String?
+    var lastSyncedHighlightRole: String?
+    var lastSyncedIsDark: Bool?
+    var lastSyncedStep: StageRevealStep?
+    var lastAppliedPresetSignature: String?
 
     init(store: AppStore, onTermHighlighted: ((String, String) -> Void)?) {
         self.store = store
@@ -243,13 +351,36 @@ final class PatternedWorldWebStageCoordinator: NSObject, WKScriptMessageHandler 
         Task { @MainActor in
             if type == "chapterRead", let ch = dict["chapter"] as? Int {
                 store.markChapterRead(chapterNumber: ch, fraction: 1.0)
+            } else if type == "stageState", let telemetry = InteractiveStageTelemetry.parse(from: dict) {
+                store.recordStageTelemetry(telemetry)
+            } else if type == "goalReached" {
+                let ch = (dict["chapterNumber"] as? Int) ?? (dict["chapter"] as? Int) ?? store.selectedChapterNumber
+                if store.stageGoalReachedByChapter[ch] != true {
+                    store.stageGoalReachedByChapter[ch] = true
+                }
+                if let telemetry = InteractiveStageTelemetry.parse(from: dict) {
+                    store.recordStageTelemetry(telemetry)
+                }
+            } else if type == "pinSnapshot", let snap = StageSnapshotRecord.parse(from: dict) {
+                store.recordStageSnapshot(snap)
+            } else if type == "saveSnapshotToJournal", let snap = StageSnapshotRecord.parse(from: dict) {
+                store.recordStageSnapshot(snap)
+                store.saveStageSnapshotToJournal(snap)
             } else if type == "stampWidget" || dict["widgetId"] != nil {
                 let wid = (dict["widgetId"] as? String) ?? ""
-                let readout = (dict["readout"] as? String) ?? "Stamped from interactive stage"
+                let readout = (dict["readout"] as? String) ?? ""
                 let ch = (dict["chapter"] as? Int) ?? store.selectedChapterNumber
+                let telemetry = store.latestStageTelemetry?.chapterNumber == ch ? store.latestStageTelemetry : nil
+                let gate = LabStampGate.evaluate(
+                    note: readout,
+                    telemetry: telemetry,
+                    chapterNumber: ch,
+                    goalAlreadyReached: store.stageGoalReachedByChapter[ch] ?? false
+                )
+                guard gate.canStamp else { return }
                 if let widget = store.seedPack.widgets.first(where: { $0.id == wid })
                     ?? store.seedPack.widgets.first(where: { $0.chapter == ch }) {
-                    store.stampWidgetChallenge(widget: widget, note: readout)
+                    store.stampWidgetChallenge(widget: widget, note: gate.cleanedNote)
                 }
             } else if type == "contentHeight", let height = dict["height"] as? Double {
                 onContentHeight?(CGFloat(height))
@@ -267,6 +398,8 @@ struct PatternedWorldWebViewRepresentable: NSViewRepresentable {
     let chapterNumber: Int
     let atlasRoute: String?
     var highlightedColorRole: String?
+    var stageStep: StageRevealStep?
+    var stagePreset: StagePreset?
     var onTermHighlighted: ((String, String) -> Void)?
     var onContentHeight: ((CGFloat) -> Void)?
     var store: AppStore
@@ -281,7 +414,9 @@ struct PatternedWorldWebViewRepresentable: NSViewRepresentable {
             coordinator: context.coordinator,
             chapterNumber: chapterNumber,
             atlasRoute: atlasRoute,
-            isDark: isDark
+            isDark: isDark,
+            stageStep: stageStep,
+            stagePreset: stagePreset
         )
     }
 
@@ -295,7 +430,9 @@ struct PatternedWorldWebViewRepresentable: NSViewRepresentable {
             onTermHighlighted: onTermHighlighted,
             store: store,
             coordinator: context.coordinator,
-            isDark: isDark
+            isDark: isDark,
+            stageStep: stageStep,
+            stagePreset: stagePreset
         )
     }
 }
@@ -304,6 +441,8 @@ struct PatternedWorldWebViewRepresentable: UIViewRepresentable {
     let chapterNumber: Int
     let atlasRoute: String?
     var highlightedColorRole: String?
+    var stageStep: StageRevealStep?
+    var stagePreset: StagePreset?
     var onTermHighlighted: ((String, String) -> Void)?
     var onContentHeight: ((CGFloat) -> Void)?
     var store: AppStore
@@ -318,7 +457,9 @@ struct PatternedWorldWebViewRepresentable: UIViewRepresentable {
             coordinator: context.coordinator,
             chapterNumber: chapterNumber,
             atlasRoute: atlasRoute,
-            isDark: isDark
+            isDark: isDark,
+            stageStep: stageStep,
+            stagePreset: stagePreset
         )
         webView.isOpaque = false
         webView.backgroundColor = .clear
@@ -335,7 +476,9 @@ struct PatternedWorldWebViewRepresentable: UIViewRepresentable {
             onTermHighlighted: onTermHighlighted,
             store: store,
             coordinator: context.coordinator,
-            isDark: isDark
+            isDark: isDark,
+            stageStep: stageStep,
+            stagePreset: stagePreset
         )
     }
 }

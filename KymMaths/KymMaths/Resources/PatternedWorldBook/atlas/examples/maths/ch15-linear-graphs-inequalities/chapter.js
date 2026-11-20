@@ -1,6 +1,7 @@
 // Ch 15 · Gradient Staircase (m = Δy/Δx), Perpendicular m₁m₂ = −1 & LP Feasible Region — 3D Interactive Mathematics Atlas chapter.
 import { SUBJECT } from '../subject.js';
 import * as EKit from '../../../engine/math_kit.js';
+import { BYRNE_THEME } from '../../../engine/theme.js';
 import * as M from './model.js';
 
 export const PAGES = [
@@ -122,7 +123,11 @@ function buildWorld(rawE) {
     });
   });
   return {
-    labels: [],
+    labels: [
+      { text: () => `y = mx + c`, cls: 'board', at: () => new THREE.Vector3(-0.3, 0.55, 0.1), leader: [-16, -16], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `m₁ · m₂ = −1`, cls: 'board', at: () => new THREE.Vector3(0.15, 0.45, 0.12), leader: [16, -16], on: () => (CHAPTER._pageIdx || 0) === 1 },
+      { text: () => `Optimal vertex`, cls: 'board', at: () => new THREE.Vector3(0.75, 0.85, -0.1), leader: [16, -16], on: () => (CHAPTER._pageIdx || 0) === 2 },
+    ],
     update(s, look) {
       const p = CHAPTER.params || CHAPTER.defaultParams;
       const pageIdx = CHAPTER._pageIdx || 0;
@@ -139,6 +144,9 @@ export const CHAPTER = {
   subject: SUBJECT,
   no: 15,
   title: 'Ch 15 · Gradient Staircase (m = Δy/Δx), Perpendicular m₁m₂ = −1 & LP Feasible Region',
+  theme: BYRNE_THEME,
+  medium: 'pencil-wash',
+  quirk: 'slightly-quirky',
   PAGES,
   pages: PAGES,
   PLATES,
@@ -169,9 +177,8 @@ export const CHAPTER = {
     return `<b>Feasible Region & Vertex Theorem</b> · Constraints x + 2y ≤ 8, 3x + y ≤ 9, x,y ≥ 0 → Optimal profit P = 4x + 5y peaks at corner <b>(2, 3) with P = 23</b>.`;
   },
   sonify(ctx, s, pageIdx = 0, p = CHAPTER.defaultParams) {
-    const firstKey = Object.keys(p || CHAPTER.defaultParams)[0];
-    const v = Number((p || CHAPTER.defaultParams)[firstKey]) || 1;
-    EKit.playTone(ctx, { freq: 220 + (Math.abs(v) % 20) * 18, dur: 0.06, type: 'sine', gain: 0.03 });
+    const product = s?.lm?.product ?? -1;
+    EKit.playHarmonic(ctx, { ratio: product, targetRatio: -1, baseFreq: 293.66, gain: 0.032 });
   },
   buildWorld,
   build: buildWorld,

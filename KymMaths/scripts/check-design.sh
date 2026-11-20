@@ -60,5 +60,15 @@ for f in KymMaths/Resources/ContentPacks/kymmaths-seed-pack.json KymMaths/Resour
   fi
 done
 
+JS_JARGON='>Bland<|Wild &amp; Whacky|Wild & Whacky|MAD ATELIER|\bSSR\b\s*=|\bOLS\b\s*=|lockstep|stair-pairing invariant|Buggy World'
+for f in KymMaths/Resources/PatternedWorldBook/index.html KymMaths/Resources/PatternedWorldBook/atelier_stage.mjs KymMaths/Resources/PatternedWorldBook/phet_labs.js KymMaths/Resources/PatternedWorldBook/atlas/adapters/kym-live.js; do
+  leaks=$(grep -oE "$JS_JARGON" "$f" | sort | uniq -c || true)
+  if [[ -n "$leaks" ]]; then
+    echo "reader-visible JS/HTML copy leaks in $f:"
+    echo "$leaks" | sed 's/^/  /'
+    status=1
+  fi
+done
+
 if (( status == 0 )); then echo "check-design: ${#files[@]} files and the seed copy clean"; fi
 exit $status

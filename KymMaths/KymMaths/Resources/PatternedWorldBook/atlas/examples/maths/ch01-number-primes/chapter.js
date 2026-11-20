@@ -1,6 +1,7 @@
 // Ch 1 · Directed Numbers, Primes & HCF × LCM = ab — 3D Interactive Mathematics Atlas chapter.
 import { SUBJECT } from '../subject.js';
 import * as EKit from '../../../engine/math_kit.js';
+import { BYRNE_THEME } from '../../../engine/theme.js';
 import * as M from './model.js';
 
 export const PAGES = [
@@ -130,7 +131,12 @@ function buildWorld(rawE) {
     });
   });
   return {
-    labels: [],
+    labels: [
+      { text: () => `180° flips`, cls: 'board', at: () => new THREE.Vector3(0, 0.35, 0.15), leader: [0, -18], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `HCF(a, b)`, cls: 'board', at: () => new THREE.Vector3(-0.55, 0.65, 0.1), leader: [-16, -16], on: () => (CHAPTER._pageIdx || 0) === 1 },
+      { text: () => `LCM(a, b)`, cls: 'board', at: () => new THREE.Vector3(0.55, 0.65, 0.1), leader: [16, -16], on: () => (CHAPTER._pageIdx || 0) === 1 },
+      { text: () => `√2 diagonal`, cls: 'board', at: () => new THREE.Vector3(0.25, -0.25, 0.25), leader: [16, -14], on: () => (CHAPTER._pageIdx || 0) === 2 },
+    ],
     update(s, look) {
       const p = CHAPTER.params || CHAPTER.defaultParams;
       const pageIdx = CHAPTER._pageIdx || 0;
@@ -147,6 +153,9 @@ export const CHAPTER = {
   subject: SUBJECT,
   no: 1,
   title: 'Ch 1 · Directed Numbers, Primes & HCF × LCM = ab',
+  theme: BYRNE_THEME,
+  medium: 'pencil-wash',
+  quirk: 'slightly-quirky',
   PAGES,
   pages: PAGES,
   PLATES,
@@ -179,9 +188,12 @@ export const CHAPTER = {
     return `<b>Index Laws & Surds</b> · 2^${s.expM} × 2² = 2^${s.expM + 2} = <b>${1 << (s.expM + 2)}</b> · Unit square diagonal d = <b>√2 ≈ 1.41421356</b>.`;
   },
   sonify(ctx, s, pageIdx = 0, p = CHAPTER.defaultParams) {
-    const firstKey = Object.keys(p || CHAPTER.defaultParams)[0];
-    const v = Number((p || CHAPTER.defaultParams)[firstKey]) || 1;
-    EKit.playTone(ctx, { freq: 220 + (Math.abs(v) % 20) * 18, dur: 0.06, type: 'sine', gain: 0.03 });
+    if (pageIdx === 0) {
+      EKit.playInvariantSnap(ctx, { satisfied: (s?.rot?.signedValue ?? 1) > 0, strength: 1.0, gain: 0.035 });
+    } else {
+      const match = s?.inv && s.inv.productHcfLcm === s.inv.productAB;
+      EKit.playInvariantSnap(ctx, { satisfied: !!match, strength: 1.15, gain: 0.035 });
+    }
   },
   buildWorld,
   build: buildWorld,

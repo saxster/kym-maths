@@ -490,6 +490,7 @@ struct ChapterFigure: View {
     @State private var stageHeight: CGFloat = 600
 
     var body: some View {
+        let telemetry = store.latestStageTelemetry?.chapterNumber == chapter.number ? store.latestStageTelemetry : nil
         VStack(alignment: .leading, spacing: StandardSpacing.sm) {
             if isShown {
                 PatternedWorldWebStageView(
@@ -506,15 +507,24 @@ struct ChapterFigure: View {
                     RoundedRectangle(cornerRadius: StandardRadius.xl, style: .continuous)
                         .strokeBorder(theme.hairline(), lineWidth: 1)
                 )
-                Text("Figure \(chapter.number) · Move the sliders and watch what changes and what stays the same.")
+                Text(telemetry?.voicing.context ?? "Figure \(chapter.number) · Move the figure and watch what changes and what stays the same.")
                     .patternedType(.readingSmall)
                     .foregroundStyle(theme.mute(theme.ink))
                     .fixedSize(horizontal: false, vertical: true)
+                    .accessibilityValue(telemetry?.voicing.spokenLine ?? "")
+
+                StageSnapshotStrip(chapterNumber: chapter.number, store: store, buttonStyleKind: .textLink)
             }
-            Button(isShown ? "Fold the figure away" : "Open the figure") {
-                isShown.toggle()
+            HStack(spacing: StandardSpacing.lg) {
+                Button(isShown ? "Fold the figure away" : "Open the figure") {
+                    isShown.toggle()
+                }
+                .buttonStyle(TextLinkButtonStyle(arrow: false))
+                Button("Open in full lab") {
+                    store.openLab(with: StagePreset(chapterNumber: chapter.number, step: .cutAway))
+                }
+                .buttonStyle(TextLinkButtonStyle(arrow: true))
             }
-            .buttonStyle(TextLinkButtonStyle(arrow: false))
         }
     }
 }
@@ -669,23 +679,53 @@ struct VolumeFigure: View {
                 }
                 gx += 14
             }
+            let regInk = theme.faint(theme.ink).opacity(0.45)
+            let tick: CGFloat = 6
+            var reg = Path()
+            reg.move(to: CGPoint(x: 6, y: 6 + tick)); reg.addLine(to: CGPoint(x: 6, y: 6)); reg.addLine(to: CGPoint(x: 6 + tick, y: 6))
+            reg.move(to: CGPoint(x: w - 6 - tick, y: 6)); reg.addLine(to: CGPoint(x: w - 6, y: 6)); reg.addLine(to: CGPoint(x: w - 6, y: 6 + tick))
+            reg.move(to: CGPoint(x: 6, y: h - 6 - tick)); reg.addLine(to: CGPoint(x: 6, y: h - 6)); reg.addLine(to: CGPoint(x: 6 + tick, y: h - 6))
+            reg.move(to: CGPoint(x: w - 6 - tick, y: h - 6)); reg.addLine(to: CGPoint(x: w - 6, y: h - 6)); reg.addLine(to: CGPoint(x: w - 6, y: h - 6 - tick))
+            context.stroke(reg, with: .color(regInk), lineWidth: 1)
+
             switch volume {
             case 1:
                 let r = h * 0.36
-                let a = CGRect(x: w * 0.5 - r * 1.55, y: h * 0.5 - r, width: r * 2, height: r * 2)
-                let b = CGRect(x: w * 0.5 - r * 0.45, y: h * 0.5 - r, width: r * 2, height: r * 2)
+                let a = CGRect(x: w * 0.5 - r * 1.5, y: h * 0.5 - r, width: r * 2, height: r * 2)
+                let b = CGRect(x: w * 0.5 - r * 0.5, y: h * 0.5 - r, width: r * 2, height: r * 2)
                 context.fill(Path(ellipseIn: a), with: .color(p.wash(.moves)))
-                context.stroke(Path(ellipseIn: a), with: .color(red), lineWidth: 2)
                 context.fill(Path(ellipseIn: b), with: .color(p.wash(.given).opacity(0.9)))
-                context.stroke(Path(ellipseIn: b), with: .color(blue), lineWidth: 2.5)
+                context.drawLayer { layer in
+                    layer.clip(to: Path(ellipseIn: a))
+                    layer.fill(Path(ellipseIn: b), with: .color(p.wash(.stays).opacity(0.85)))
+                }
+                context.stroke(Path(ellipseIn: a), with: .color(line), lineWidth: 2.6)
+                context.stroke(Path(ellipseIn: a), with: .color(red), lineWidth: 1.8)
+                context.stroke(Path(ellipseIn: b), with: .color(line), lineWidth: 2.8)
+                context.stroke(Path(ellipseIn: b), with: .color(blue), lineWidth: 2.0)
+                context.fill(Path(ellipseIn: CGRect(x: w * 0.5 - 3, y: h * 0.5 - 3, width: 6, height: 6)), with: .color(yellow))
             case 2:
-                let x = w * 0.08, bw = w * 0.84, bh = h * 0.17
-                context.fill(Path(CGRect(x: x, y: h * 0.12, width: bw, height: bh)), with: .color(yellow))
-                context.fill(Path(CGRect(x: x, y: h * 0.4, width: bw * 0.66, height: bh)), with: .color(red))
-                context.fill(Path(CGRect(x: x + bw * 0.66, y: h * 0.4, width: bw * 0.34, height: bh)), with: .color(blue))
-                context.stroke(Path(CGRect(x: x, y: h * 0.7, width: bw * 0.32, height: bh)), with: .color(line), lineWidth: 1.5)
+                let x = w * 0.1, bw = w * 0.8, bh = h * 0.16
+                let barWhole = CGRect(x: x, y: h * 0.14, width: bw, height: bh)
+                let barA = CGRect(x: x, y: h * 0.4, width: bw * 0.64, height: bh)
+                let barB = CGRect(x: x + bw * 0.64, y: h * 0.4, width: bw * 0.36, height: bh)
+                let barUnit = CGRect(x: x, y: h * 0.66, width: bw * 0.32, height: bh)
+                context.fill(Path(barWhole), with: .color(yellow))
+                context.stroke(Path(barWhole), with: .color(line), lineWidth: 1.4)
+                context.fill(Path(barA), with: .color(red))
+                context.stroke(Path(barA), with: .color(line), lineWidth: 1.4)
+                context.fill(Path(barB), with: .color(blue))
+                context.stroke(Path(barB), with: .color(line), lineWidth: 1.4)
+                context.stroke(Path(barUnit), with: .color(line), lineWidth: 1.4)
+                var fulc = Path()
+                fulc.move(to: CGPoint(x: w * 0.5, y: h * 0.64))
+                fulc.addLine(to: CGPoint(x: w * 0.5 + 8, y: h * 0.84))
+                fulc.addLine(to: CGPoint(x: w * 0.5 - 8, y: h * 0.84))
+                fulc.closeSubpath()
+                context.fill(fulc, with: .color(yellow))
+                context.stroke(fulc, with: .color(line), lineWidth: 1.2)
             case 3:
-                let r = h * 0.42
+                let r = h * 0.40
                 let c = CGPoint(x: w / 2, y: h / 2)
                 var tri = Path()
                 tri.move(to: CGPoint(x: c.x, y: c.y - r))
@@ -693,28 +733,39 @@ struct VolumeFigure: View {
                 tri.addLine(to: CGPoint(x: c.x - r * 0.866, y: c.y + r * 0.5))
                 tri.closeSubpath()
                 context.fill(tri, with: .color(red))
-                context.stroke(Path(ellipseIn: CGRect(x: c.x - r, y: c.y - r, width: r * 2, height: r * 2)), with: .color(blue), lineWidth: 2.5)
-                context.fill(Path(ellipseIn: CGRect(x: c.x - 3.5, y: c.y + r * 0.1 - 3.5, width: 7, height: 7)), with: .color(yellow))
+                context.stroke(tri, with: .color(line), lineWidth: 1.5)
+                var alt = Path()
+                alt.move(to: CGPoint(x: c.x, y: c.y - r))
+                alt.addLine(to: CGPoint(x: c.x, y: c.y + r * 0.5))
+                context.stroke(alt, with: .color(yellow), lineWidth: 1.6)
+                context.stroke(Path(ellipseIn: CGRect(x: c.x - r, y: c.y - r, width: r * 2, height: r * 2)), with: .color(blue), lineWidth: 2.4)
+                context.fill(Path(ellipseIn: CGRect(x: c.x - 3.5, y: c.y - 3.5, width: 7, height: 7)), with: .color(yellow))
             case 4:
                 let heights: [CGFloat] = [0.3, 0.62, 0.86, 0.72, 0.42, 0.16]
-                let base = h * 0.92, bw = w * 0.84 / CGFloat(heights.count), x0 = w * 0.08
+                let base = h * 0.88, bw = w * 0.8 / CGFloat(heights.count), x0 = w * 0.1
                 for (i, v) in heights.enumerated() {
-                    let rect = CGRect(x: x0 + CGFloat(i) * bw, y: base - h * 0.8 * v, width: bw - 2, height: h * 0.8 * v)
+                    let rect = CGRect(x: x0 + CGFloat(i) * bw, y: base - h * 0.74 * v, width: bw - 2, height: h * 0.74 * v)
                     context.fill(Path(rect), with: .color(blue))
+                    context.stroke(Path(rect), with: .color(line), lineWidth: 1)
                 }
                 var curve = Path()
                 for step in 0...40 {
                     let t = CGFloat(step) / 40
                     let gx = (t - 0.47) / 0.17
-                    let y = base - h * 0.88 * exp(-0.5 * gx * gx)
-                    let pt = CGPoint(x: x0 - bw * 0.2 + t * (w * 0.84 + bw * 0.4), y: y)
+                    let y = base - h * 0.82 * exp(-0.5 * gx * gx)
+                    let pt = CGPoint(x: x0 - bw * 0.15 + t * (w * 0.8 + bw * 0.3), y: y)
                     if step == 0 { curve.move(to: pt) } else { curve.addLine(to: pt) }
                 }
-                context.stroke(curve, with: .color(red), lineWidth: 2)
+                context.stroke(curve, with: .color(red), lineWidth: 2.2)
+                var baseAxis = Path()
+                baseAxis.move(to: CGPoint(x: x0 - 4, y: base))
+                baseAxis.addLine(to: CGPoint(x: x0 + w * 0.8 + 4, y: base))
+                context.stroke(baseAxis, with: .color(line), lineWidth: 1.4)
+                context.fill(Path(ellipseIn: CGRect(x: w * 0.48 - 3.5, y: base - 3.5, width: 7, height: 7)), with: .color(yellow))
             default:
-                let o = CGPoint(x: w * 0.1, y: h * 0.9)
-                let a = CGPoint(x: w * 0.3, y: h * 0.3)
-                let b = CGPoint(x: w * 0.62, y: h * 0.72)
+                let o = CGPoint(x: w * 0.14, y: h * 0.86)
+                let a = CGPoint(x: w * 0.32, y: h * 0.28)
+                let b = CGPoint(x: w * 0.64, y: h * 0.68)
                 var para = Path()
                 para.move(to: o)
                 para.addLine(to: a)
@@ -722,9 +773,11 @@ struct VolumeFigure: View {
                 para.addLine(to: b)
                 para.closeSubpath()
                 context.fill(para, with: .color(p.wash(.stays)))
-                context.stroke(Path { $0.move(to: o); $0.addLine(to: a) }, with: .color(blue), lineWidth: 2.5)
-                context.stroke(Path { $0.move(to: o); $0.addLine(to: b) }, with: .color(red), lineWidth: 2.5)
-                context.fill(Path(ellipseIn: CGRect(x: o.x - 3.5, y: o.y - 3.5, width: 7, height: 7)), with: .color(line))
+                context.stroke(para, with: .color(line), lineWidth: 1.2)
+                context.stroke(Path { $0.move(to: o); $0.addLine(to: a) }, with: .color(blue), lineWidth: 2.6)
+                context.stroke(Path { $0.move(to: o); $0.addLine(to: b) }, with: .color(red), lineWidth: 2.6)
+                context.fill(Path(ellipseIn: CGRect(x: o.x - 3.5, y: o.y - 3.5, width: 7, height: 7)), with: .color(yellow))
+                context.stroke(Path(ellipseIn: CGRect(x: o.x - 3.5, y: o.y - 3.5, width: 7, height: 7)), with: .color(line), lineWidth: 1)
             }
         }
         .accessibilityHidden(true)

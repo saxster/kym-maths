@@ -1,9 +1,10 @@
 // The sandbox: constructive play. Place, remove or drag pieces in 3D, type your own matrix or parameters, or pick a
 // preset, and watch the figure, chips and chart respond at once. Built on stage.js and draggable(), with shareable URLs
 // and a deterministic ?render tour across presets so tools/cards.mjs and tools/stills.mjs work out of the box.
-import { createStage, ease, mountShareButton, mountCutBar, mountMediumBar } from './stage.js';
+import { createStage, bindPlaybackLifecycle, ease, mountShareButton, mountCutBar, mountMediumBar } from './stage.js';
 import { bindProse } from './prose.js';
 import { mountSoundToggle, playClick, playBoop } from './sound.js';
+import { renderControl, updateControl, bindControls, mountControlModeBar } from './diegetic.js';
 
 function applySandboxChart(el, res, state, params, items) {
   if (!el || !res) return;
@@ -22,9 +23,17 @@ const clone = x => JSON.parse(JSON.stringify(x));
 export function startSandbox(figure) {
   const touch = matchMedia('(pointer: coarse)').matches;
   const narrowQ = matchMedia('(max-width: 900px)');
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const Q = new URLSearchParams(location.search), RENDER = Q.has('render');
   if (RENDER) document.documentElement.classList.add('render');
+  let S = null, raf = 0, frameReady = false, last = performance.now();
+  const life = RENDER ? { reduced: false, hidden: false, visible: true, active: true, destroy() {} } : bindPlaybackLifecycle({
+    onChange(st) {
+      S?.setReduced?.(st.reduced);
+      if (!frameReady) return;
+      if (st.hidden && raf) { cancelAnimationFrame(raf); raf = 0; }
+      else if (!st.hidden && !raf) { last = performance.now(); raf = requestAnimationFrame(frame); }
+    },
+  });
 
   const baseParams = { ...figure.params };
   const baseItems = clone(figure.initialItems || []);
@@ -50,7 +59,7 @@ export function startSandbox(figure) {
   document.title = `${figure.title} · Atlas`;
   $('figtitle').textContent = figure.title; $('figno').textContent = `Fig. ${figure.no}`;
   $('question').textContent = figure.question; $('bigidea').innerHTML = `<b>The big idea:</b> ${figure.bigIdea}`;
-  $('chips').innerHTML = (figure.chips || []).map((c, i) => `<div class="chip on" data-i="${i}"><span class="v">–</span><span class="l">${c.label}</span></div>`).join('');
+  $('chips').innerHTML = (figure.chips || []).map((c, i) => `<div class="chip on${c.tone === 'ink' ? ' chip-ink' : ''}" data-i="${i}"><span class="v">–</span><span class="l">${c.label}</span></div>`).join('');
   const chipEls = [...document.querySelectorAll('#chips .chip .v')];
 
   const shareUrl = () => {
@@ -65,7 +74,6 @@ export function startSandbox(figure) {
   const syncUrl = () => { if (!RENDER) history.replaceState(null, '', shareUrl()); };
 
   // ---------- optional cutaway / x-ray / section bar ----------
-  let S = null;
   cutBar = mountCutBar($('presets') || $('controls'), figure, () => S, {
     initialMode: Q.get('cut') || null,
     place: 'before',
@@ -103,7 +111,7 @@ export function startSandbox(figure) {
     const step = figure.matrix.step ?? 0.1;
     matrixEl.innerHTML = `<div class="kicker">${figure.matrix.title || 'Matrix entries'}</div>
       <div class="mat-bracket"><div class="mat-grid">${keys.map((k, i) =>
-        `<label class="mat-cell"><span>${labels[i]}</span><input type="number" step="${step}" data-mkey="${k}" value="${(+params[k]).toFixed(2)}"></label>`).join('')}</div></div>`;
+        `<label class="mat-cell"><span>${labels[i]}</span><input type="number" step="${step}" inputmode="decimal" enterkeyhint="done" data-mkey="${k}" value="${(+params[k]).toFixed(2)}"></label>`).join('')}</div></div>`;
   }
   if (matrixEl) {
     renderMatrix();
@@ -149,16 +157,22 @@ export function startSandbox(figure) {
 
   // ---------- controls ----------
   const fmt = c => (c.fmt || (v => String(v)))(params[c.key]);
+  const hasDiegetic = (figure.controls || []).some(c => c.ui?.kind);
+  let ctlMode = Q.get('controls') === 'creative' ? 'creative' : (Q.get('controls') === 'standard' ? 'standard' : (figure.controlMode || 'standard'));
   function renderControls() {
     if (!$('controls')) return;
-    $('controls').innerHTML = (figure.controls || []).map(c => `<label class="slider"><span class="name">${c.label}</span>
-      <input type="range" data-key="${c.key}" min="${c.min}" max="${c.max}" step="${c.step}" value="${params[c.key]}"><output>${fmt(c)}</output></label>`).join('');
+    $('controls').innerHTML = (figure.controls || []).map(c =>
+      renderControl(c, params[c.key], { mode: ctlMode, idPrefix: `sb-${figure.no || 'fig'}` })
+    ).join('');
   }
   renderControls();
   function syncSliders() {
     for (const c of figure.controls || []) {
       const inp = $('controls')?.querySelector(`input[data-key="${c.key}"]`);
-      if (inp) { inp.value = params[c.key]; inp.nextElementSibling.textContent = fmt(c); }
+      const out = inp?.closest('[data-ctl]')?.querySelector('[data-out]') || inp?.nextElementSibling;
+      if (inp) inp.value = params[c.key];
+      if (out) out.textContent = fmt(c);
+      updateControl($('controls'), c, params[c.key]);
     }
   }
   function syncMatrixInputs() {
@@ -172,11 +186,36 @@ export function startSandbox(figure) {
 
   $('controls')?.addEventListener('input', e => {
     const key = e.target.dataset.key; if (!key) return;
-    const c = figure.controls.find(x => x.key === key); params[key] = +e.target.value; e.target.nextElementSibling.textContent = fmt(c);
+    const c = figure.controls.find(x => x.key === key); if (!c) return;
+    params[key] = +e.target.value;
+    const out = e.target.closest('[data-ctl]')?.querySelector('[data-out]') || e.target.nextElementSibling;
+    if (out) out.textContent = fmt(c);
+    updateControl($('controls'), c, params[key]);
     activePreset = ''; renderPresets(); syncMatrixInputs();
     if (c.rebuild) build();
     syncUrl();
   });
+  if ($('controls')) {
+    bindControls($('controls'), {
+      getParams: () => params,
+      setParam: (k, v) => {
+        const c = (figure.controls || []).find(x => x.key === k); if (!c) return;
+        params[k] = +v;
+        if (ctlMode === 'creative' && c.ui?.kind) renderControls();
+        else syncSliders();
+        activePreset = ''; renderPresets(); syncMatrixInputs();
+        if (c.rebuild) build();
+        syncUrl();
+      },
+    });
+    if (hasDiegetic) {
+      mountControlModeBar($('controls'), {
+        initialMode: ctlMode,
+        place: 'before',
+        onChange: m => { ctlMode = m; renderControls(); syncUrl(); },
+      });
+    }
+  }
 
   function reset() {
     Object.assign(params, baseParams);
@@ -236,7 +275,7 @@ export function startSandbox(figure) {
       S.destroy();
       const fresh = document.createElement('canvas'); fresh.id = 'gl'; $('gl').replaceWith(fresh);
     }
-    S = createStage($('gl'), $('labels'), fig(), { reduced, touch, dprCap: touch ? 1.5 : 2 });
+    S = createStage($('gl'), $('labels'), fig(), { reduced: life.reduced, touch, dprCap: touch ? 1.5 : 2 });
     S.hooks.onHover = key => { prose.highlightPart(key); };
     S.hooks.onSelect = key => {
       const pl = $('plate');
@@ -252,7 +291,7 @@ export function startSandbox(figure) {
 
   let clock = !RENDER && Q.has('t') ? (+Q.get('t') || 0) : 0;
   function draw(now, dt, c) {
-    const state = S.step({ now, dt, s: 0, litPage: 0, running: !reduced, clockAt: c, narrow: narrowQ.matches, narrowZoom: figure.narrowZoom ?? 1 });
+    const state = S.step({ now, dt, s: 0, litPage: 0, running: !life.reduced, clockAt: c, narrow: narrowQ.matches, narrowZoom: figure.narrowZoom ?? 1 });
     $('readout').textContent = figure.readout(state, params, items);
     (figure.chips || []).forEach((ch, i) => {
       const txt = String(ch.value(state, params, items));
@@ -265,17 +304,17 @@ export function startSandbox(figure) {
     }
   }
 
-  let last = performance.now();
   function frame(now) {
     const dt = Math.min(Math.max((now - last) / 1000, 0), 1 / 20); last = now;
-    if (!reduced) clock += dt;
+    if (!life.reduced) clock += dt;
     draw(now, dt, clock);
-    if (!RENDER) requestAnimationFrame(frame);
+    if (!RENDER && !life.hidden) raf = requestAnimationFrame(frame);
+    else raf = 0;
   }
-  document.fonts.ready.then(() => requestAnimationFrame(t => { if (RENDER) draw(0, 0, 0); else frame(t); }));
+  document.fonts.ready.then(() => requestAnimationFrame(t => { frameReady = true; last = t; if (RENDER) draw(0, 0, 0); else frame(t); }));
 
   window.__atlas = {
-    E: S.E, S, N: 1, labelReport: S.labelReport, sceneReport: S.sceneReport, params, get items() { return items; },
+    E: S.E, S, N: 1, labelReport: S.labelReport, sceneReport: S.sceneReport, lifecycle: life, params, get items() { return items; },
     reset, shareUrl, setCut: c => cutBar?.apply(c, true), setParam: worldHooks.setParam, setParams: worldHooks.setParams, updateItem: worldHooks.updateItem,
     get state() { return { clock, params: { ...params }, items: clone(items), activePreset, cut: cutBar?.mode || 'solid' }; },
     get clock() { return S.clock; },

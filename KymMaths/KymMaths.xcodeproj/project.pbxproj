@@ -9,7 +9,9 @@
 /* Begin PBXBuildFile section */
 		00FABC5C42C20EFA388CDF08 /* StuckSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC574021641256698F8FDCA5 /* StuckSheetView.swift */; };
 		01D23B864B841308DD9FF108 /* JournalPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8354EF0023AF306FE6783B6E /* JournalPaper.swift */; };
+		02775C38D40237071E0B2399 /* QuadrilateralLabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EFECEA92A2EE51A46A1909 /* QuadrilateralLabView.swift */; };
 		035F3553E20B86D77D526FE7 /* LiveMentorVoiceEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CFAB6A642E6B4183DB6DEA /* LiveMentorVoiceEngine.swift */; };
+		046F701792E0D7559274BB29 /* StageSnapshotStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CD4D166FD664686B34D9A5 /* StageSnapshotStrip.swift */; };
 		0536A15085F0C93E1868A5C9 /* MotifScenes.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC86FFD5B5264B1612673EB /* MotifScenes.swift */; };
 		07360B6D3E9DF8422DB87A79 /* KymMathsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA0C47C2C0178C8A4F1E115 /* KymMathsTests.swift */; };
 		07371895019D3209CE34008F /* MathsJournalHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C90BAC6ED11793D40FD3EC /* MathsJournalHomeView.swift */; };
@@ -18,6 +20,7 @@
 		0B53BD03362D0AE868A3C51B /* PatternedChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DDA3070396C6EFF8E5A6FC /* PatternedChip.swift */; };
 		0BCBD3E279702D5CBEA2905F /* KymMathsAppIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE18E8E73216B45DE7361C45 /* KymMathsAppIntents.swift */; };
 		0CB7E9EEA02F9D7307CD3B21 /* PythagorasShearTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C59950286B98D15326C7CDA /* PythagorasShearTests.swift */; };
+		0DA09FDAFCEEE67C09940284 /* ModelSimplificationsCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE4E2B2C53C97BEA228606C /* ModelSimplificationsCatalog.swift */; };
 		0DA19BAC08DB5802EDEF97BE /* PatternedPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584FCB46592753CCBF781961 /* PatternedPalette.swift */; };
 		0FCF081751A5076A6FF93003 /* PromptSegmentComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFE67BC70377C4005738555 /* PromptSegmentComposer.swift */; };
 		102440F11824377FFC348183 /* KymTutorAI in Frameworks */ = {isa = PBXBuildFile; productRef = 7842BAC63A7BE3E80B7DF86E /* KymTutorAI */; };
@@ -54,6 +57,7 @@
 		2E0977BC7F08E666197C76D7 /* SeedPackModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDD75ED6882912482DEE178 /* SeedPackModels.swift */; };
 		2E216AD88A381B7788FBD96B /* AIFeatureKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E298CBDC92B37AD6CCD596 /* AIFeatureKey.swift */; };
 		2EBD574E7D10B880BA687342 /* WalkBackSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864315E9EDA42434023756E /* WalkBackSheet.swift */; };
+		2F061672ADB27448754BCEA8 /* AttemptMismatchDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBE21794C7EAC3A78EDDF57 /* AttemptMismatchDiff.swift */; };
 		300F96ED3676E1C7B89F23C4 /* KymLiveVoice in Frameworks */ = {isa = PBXBuildFile; productRef = 451D2FFB781C3B8576BE826D /* KymLiveVoice */; };
 		3089AAD92D0F9932F71710E0 /* MotifFigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875B06E6A3224E552E3C7FD1 /* MotifFigure.swift */; };
 		30D14E317EB3CDC8C094164F /* KymDesign in Frameworks */ = {isa = PBXBuildFile; productRef = 85FA254BF7FA5BEDB125FFAA /* KymDesign */; };
@@ -92,10 +96,12 @@
 		59B85F2A47525B52A6F6D3ED /* EuclidSpineMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AE7AF246F68167605FB3BF /* EuclidSpineMapView.swift */; };
 		5C011F130DF76899EF49D0E0 /* ConstructionBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CB984FA6B468824E1E8F9D /* ConstructionBoardTests.swift */; };
 		5C3DEA5736430B072CEA35A3 /* ConceptCardSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA118A9C18F6FB188E9FB4 /* ConceptCardSheet.swift */; };
+		5C70E2B93A0D79E8FBEECF5D /* QuadrilateralLabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EFECEA92A2EE51A46A1909 /* QuadrilateralLabView.swift */; };
 		5DF12A8B80896E38360D8A7D /* KymResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FF023306438E4C7AEEC773 /* KymResources.swift */; };
 		63658A3E580A116F611607B9 /* PatternedChapterScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205B2983E86313F2E7077C9D /* PatternedChapterScrollView.swift */; };
 		64A201EFF263B75164AE5291 /* TeachingStepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77167B28147DF2A17B5B5F6E /* TeachingStepsView.swift */; };
 		68AD6BCA4763E42D0CC7E685 /* WalkBackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C866FDF087EF58A42FE3E4D2 /* WalkBackTests.swift */; };
+		69C8647A2373C86D65F51F98 /* QuadrilateralLab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753CF749623D3C98D01378E1 /* QuadrilateralLab.swift */; };
 		6C2D0E3D46D5B89186EF44F1 /* JournalEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4173B76AB64277E0CBD69473 /* JournalEmptyState.swift */; };
 		6F59C491E9A17A3F8FA07256 /* DailyFlowPlayerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5F5F31B2B3C48F14B948C8 /* DailyFlowPlayerSheet.swift */; };
 		6FB4703E7D7E61AA7759ECF4 /* PatternedWorldWebStageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DD6A6AE6D9FB5B8A7419FE /* PatternedWorldWebStageView.swift */; };
@@ -155,11 +161,13 @@
 		A21437ACAE0675568D8D33DE /* EuclidBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3F4E8E551262FDC0F71D37 /* EuclidBoardView.swift */; };
 		A24C303050645AE83F3560E6 /* PythagorasShear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B496759A8E89BCAAF5ADA /* PythagorasShear.swift */; };
 		A4F609CDA38764EAD22FC501 /* STEMVerificationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472088539BE760CF1692992B /* STEMVerificationEngine.swift */; };
+		A56F693E6B5694D221D09B8D /* ModelSimplificationsCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE4E2B2C53C97BEA228606C /* ModelSimplificationsCatalog.swift */; };
 		A63D38559B02C7891F364911 /* MissingDesignElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41CF12BC90D33476C80DA5F /* MissingDesignElements.swift */; };
 		A66FB087EA63DBC55C0DAE81 /* PolicyDrivenAIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C78793C33CEEB8AEFDB87C5 /* PolicyDrivenAIProvider.swift */; };
 		A7AD6FB6F9BA5B1B39D60592 /* PatternedChapterStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC2094A326FF91499AF9AA6 /* PatternedChapterStepView.swift */; };
 		A8828885F3EB84A78CBA3ADE /* MathsJournalHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C90BAC6ED11793D40FD3EC /* MathsJournalHomeView.swift */; };
 		A8CDAA85326E97C004B6072E /* PatternedChapterScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205B2983E86313F2E7077C9D /* PatternedChapterScrollView.swift */; };
+		A98EC9B030A7B1E7B80D55EC /* StageSnapshotStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CD4D166FD664686B34D9A5 /* StageSnapshotStrip.swift */; };
 		A99C84FF4C58231E30FC8D17 /* QuestionProofPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B46C98F303914A0F5C6D18 /* QuestionProofPracticeView.swift */; };
 		AA04DCEB57994D8476B30F4C /* EuclidMapLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A258D2B1892D78BFB4821 /* EuclidMapLayoutTests.swift */; };
 		AA1556C625152978738BD916 /* PatternedPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584FCB46592753CCBF781961 /* PatternedPalette.swift */; };
@@ -182,6 +190,7 @@
 		B3D52DD85789E9A95FA36707 /* EuclidWorkshopSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3002A57F05CC2CD720C3AF1 /* EuclidWorkshopSessionTests.swift */; };
 		B46679657832F20A87746FB3 /* WalkBackRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50CCB6369735E9BFC7AB9CE /* WalkBackRule.swift */; };
 		B54DEB70E50DB8FAD160C916 /* Foothold.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551190802C272D689AB6CCA4 /* Foothold.swift */; };
+		B5AC9C50379A3FC293AC9762 /* PhetLabsIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5F0B1C0DB27F3DCB317016 /* PhetLabsIntegrationTests.swift */; };
 		B5EB1A362E135FEF89227E9A /* LearningEngineCharacterizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC8B11130353FC5CF72FBB3 /* LearningEngineCharacterizationTests.swift */; };
 		B5F9BE21FA0FA37BBB9A5C9F /* SchoolPatternedPieces.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84648813F20D787FBC24AA5 /* SchoolPatternedPieces.swift */; };
 		B6DEC981910CB72FEF0EA6F4 /* JournalCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1F5752D44BE7EF4D8BE9D1 /* JournalCard.swift */; };
@@ -190,6 +199,7 @@
 		B91F3B6108E77B316921C730 /* MathsScratchpadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFAE40635495E5AD63003F9 /* MathsScratchpadView.swift */; };
 		B9243B65A9F2646BA148F46C /* PatternedSidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E6365E9D7607C4F787EDDF /* PatternedSidebar.swift */; };
 		B953C95F5286F9C928201841 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DA3B0D277115D6FA1B1AE9 /* AppStore.swift */; };
+		BA235607327F9702E76A3108 /* InteractiveStageContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA28B75E1CF24DC87CE4CCC /* InteractiveStageContract.swift */; };
 		BA884C6049430CEAE51CF7F1 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DA3B0D277115D6FA1B1AE9 /* AppStore.swift */; };
 		BF6A378BE92A74A20632F46B /* KymBookKit in Frameworks */ = {isa = PBXBuildFile; productRef = 45019E8B32F01C1EC36FA67A /* KymBookKit */; };
 		BFC880E363669E4360AAB507 /* expression-reading.json in Resources */ = {isa = PBXBuildFile; fileRef = 4E0F598822D8FFCF0728880C /* expression-reading.json */; };
@@ -197,7 +207,9 @@
 		C0FC88A8141BCD7AFD65757D /* KymMathsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48816A9525967912876C42A /* KymMathsApp.swift */; };
 		C1FD5617BD8CCBDA295C3B22 /* StuckSheetState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B26E79D1A340FDEC314031E /* StuckSheetState.swift */; };
 		C21A6CF063F3891A745AACFB /* MotifFigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875B06E6A3224E552E3C7FD1 /* MotifFigure.swift */; };
+		C4069FA9B08264436B0C002A /* InteractiveStageContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA28B75E1CF24DC87CE4CCC /* InteractiveStageContract.swift */; };
 		C4BC27074C231D31AE6F73D0 /* AuditRegressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B917CD3353368098915809A /* AuditRegressionTests.swift */; };
+		C4C81D18C8233376A42D1EAB /* QuadrilateralLab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753CF749623D3C98D01378E1 /* QuadrilateralLab.swift */; };
 		C63B8945729B8C820D910B83 /* ConceptCardSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA118A9C18F6FB188E9FB4 /* ConceptCardSheet.swift */; };
 		C6C15EA3DAD1295429582951 /* ProofStepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AEDCB1D711BD0FC146C531 /* ProofStepsView.swift */; };
 		C8C6DC9D0118F5965D8291FC /* SchoolMathsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA29A7C3025EB034F6E598F8 /* SchoolMathsHomeView.swift */; };
@@ -249,6 +261,7 @@
 		F62740E271A1F2AFFF42AA2B /* MotifPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9B4278F3D9928DF5AA2C5D /* MotifPageView.swift */; };
 		F706B7E459677475EAD87EB9 /* EuclidRounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC31109B41192EECAF7F5A3 /* EuclidRounds.swift */; };
 		F800AD96803B83CFF9E60F1D /* KymMathsProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B645FBF7198CDC72BC6F0A6 /* KymMathsProfile.swift */; };
+		F88A9B324B16D80C61466F63 /* AttemptMismatchDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBE21794C7EAC3A78EDDF57 /* AttemptMismatchDiff.swift */; };
 		F892FEC77B0ECA682658A0A3 /* PythagorasShearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B90CDC692D92202D9559FD3 /* PythagorasShearView.swift */; };
 		F8AF2110343923842B6F8A12 /* EuclidKnowsWhenCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BED2477D1B3E8F2C23E55E /* EuclidKnowsWhenCard.swift */; };
 		FA8A4BB73A83751931073775 /* EuclidKnowsWhenCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BED2477D1B3E8F2C23E55E /* EuclidKnowsWhenCard.swift */; };
@@ -328,10 +341,12 @@
 		53BFF11E613DA5975AB669E8 /* AgentSoulDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentSoulDocument.swift; sourceTree = "<group>"; };
 		5464BD7F46CDCE7BEE81EB34 /* MotifProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotifProgress.swift; sourceTree = "<group>"; };
 		551190802C272D689AB6CCA4 /* Foothold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Foothold.swift; sourceTree = "<group>"; };
+		55CD4D166FD664686B34D9A5 /* StageSnapshotStrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageSnapshotStrip.swift; sourceTree = "<group>"; };
 		584FCB46592753CCBF781961 /* PatternedPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternedPalette.swift; sourceTree = "<group>"; };
 		5869FF14B75D208E85107D94 /* EuclidProgressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuclidProgressTests.swift; sourceTree = "<group>"; };
 		5C53EB16B46F825B1999FFE4 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		616A5CD3B25E7FB1261CE0D1 /* TutorProfileRegistrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorProfileRegistrationTests.swift; sourceTree = "<group>"; };
+		61EFECEA92A2EE51A46A1909 /* QuadrilateralLabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrilateralLabView.swift; sourceTree = "<group>"; };
 		6420E46A1C36A531648D8711 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6576FADCC848B8C8633A29E3 /* EuclidWorkshopSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuclidWorkshopSession.swift; sourceTree = "<group>"; };
 		665B496759A8E89BCAAF5ADA /* PythagorasShear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PythagorasShear.swift; sourceTree = "<group>"; };
@@ -341,6 +356,7 @@
 		6F4302D11AE917AE206377B3 /* concept-links.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "concept-links.json"; sourceTree = "<group>"; };
 		72FDA1744551CF5AE2658224 /* FactSprintSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactSprintSheet.swift; sourceTree = "<group>"; };
 		73763B9E1D3039C1E9C4AB5B /* SystemSurfaceSnapshotStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemSurfaceSnapshotStore.swift; sourceTree = "<group>"; };
+		753CF749623D3C98D01378E1 /* QuadrilateralLab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrilateralLab.swift; sourceTree = "<group>"; };
 		760AE45ED9F0A58C4C599F3C /* EuclidRoundsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuclidRoundsTests.swift; sourceTree = "<group>"; };
 		77167B28147DF2A17B5B5F6E /* TeachingStepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachingStepsView.swift; sourceTree = "<group>"; };
 		77DA3B0D277115D6FA1B1AE9 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
@@ -362,6 +378,7 @@
 		9B17A4E15B1C9562EEC7B186 /* PaperSheetPieces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperSheetPieces.swift; sourceTree = "<group>"; };
 		9D22B0CB8F90E5F10BF12F8C /* KymMaths.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KymMaths.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DED304239C5F1518DC70AD1 /* MathsSettingsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathsSettingsSheet.swift; sourceTree = "<group>"; };
+		9EBE21794C7EAC3A78EDDF57 /* AttemptMismatchDiff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttemptMismatchDiff.swift; sourceTree = "<group>"; };
 		A3002A57F05CC2CD720C3AF1 /* EuclidWorkshopSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuclidWorkshopSessionTests.swift; sourceTree = "<group>"; };
 		A30C275945F77A4F1451E7D4 /* EuclidWorkshopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuclidWorkshopView.swift; sourceTree = "<group>"; };
 		A3B8B5B1FBF210293D430BBA /* TodayHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayHomeView.swift; sourceTree = "<group>"; };
@@ -371,6 +388,7 @@
 		A9C90BAC6ED11793D40FD3EC /* MathsJournalHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathsJournalHomeView.swift; sourceTree = "<group>"; };
 		ABC86FFD5B5264B1612673EB /* MotifScenes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotifScenes.swift; sourceTree = "<group>"; };
 		AE18E8E73216B45DE7361C45 /* KymMathsAppIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KymMathsAppIntents.swift; sourceTree = "<group>"; };
+		AFA28B75E1CF24DC87CE4CCC /* InteractiveStageContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveStageContract.swift; sourceTree = "<group>"; };
 		B17A98EFACCCA0873E623412 /* MarkingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkingTests.swift; sourceTree = "<group>"; };
 		B50CCB6369735E9BFC7AB9CE /* WalkBackRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkBackRule.swift; sourceTree = "<group>"; };
 		B635A0E77CE8A08DE0915813 /* PropositionGraphEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropositionGraphEngine.swift; sourceTree = "<group>"; };
@@ -378,6 +396,7 @@
 		B973AA88678041CACAF0C8D8 /* AtlasPolyaPieces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtlasPolyaPieces.swift; sourceTree = "<group>"; };
 		BA29A7C3025EB034F6E598F8 /* SchoolMathsHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolMathsHomeView.swift; sourceTree = "<group>"; };
 		BA3A4BC5EF3D4DA66972985A /* ThemeCharacterizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeCharacterizationTests.swift; sourceTree = "<group>"; };
+		BC5F0B1C0DB27F3DCB317016 /* PhetLabsIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhetLabsIntegrationTests.swift; sourceTree = "<group>"; };
 		BD45FA29AF8FADF1BF0C51DC /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		BE1F5752D44BE7EF4D8BE9D1 /* JournalCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalCard.swift; sourceTree = "<group>"; };
 		BE53DDE845F2A6CA170F8B99 /* ConceptLinker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConceptLinker.swift; sourceTree = "<group>"; };
@@ -391,6 +410,7 @@
 		C4FF023306438E4C7AEEC773 /* KymResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KymResources.swift; sourceTree = "<group>"; };
 		C866FDF087EF58A42FE3E4D2 /* WalkBackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkBackTests.swift; sourceTree = "<group>"; };
 		C9CFAB6A642E6B4183DB6DEA /* LiveMentorVoiceEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMentorVoiceEngine.swift; sourceTree = "<group>"; };
+		CBE4E2B2C53C97BEA228606C /* ModelSimplificationsCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSimplificationsCatalog.swift; sourceTree = "<group>"; };
 		CC316AFB9459ADAEE1C8F5F2 /* TutorCopyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorCopyTests.swift; sourceTree = "<group>"; };
 		CC7D51FE1C610B72DCD85DB4 /* MotifSpineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotifSpineTests.swift; sourceTree = "<group>"; };
 		CEB8CFB101B40EA3E44EE644 /* AnswerKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerKey.swift; sourceTree = "<group>"; };
@@ -480,6 +500,7 @@
 				0B3A1EB314196A468C6BE475 /* PatternedLayout.swift */,
 				584FCB46592753CCBF781961 /* PatternedPalette.swift */,
 				015DC438C1A43D5D9D4384F9 /* PatternedType.swift */,
+				55CD4D166FD664686B34D9A5 /* StageSnapshotStrip.swift */,
 			);
 			path = Patterned;
 			sourceTree = "<group>";
@@ -541,6 +562,7 @@
 				ABC86FFD5B5264B1612673EB /* MotifScenes.swift */,
 				299616DB0409B9B2396CC09D /* MotifSpine.swift */,
 				665B496759A8E89BCAAF5ADA /* PythagorasShear.swift */,
+				753CF749623D3C98D01378E1 /* QuadrilateralLab.swift */,
 			);
 			path = Geometry;
 			sourceTree = "<group>";
@@ -622,6 +644,7 @@
 				41A9F620EF37597E56FA8594 /* MistakeTests.swift */,
 				CC7D51FE1C610B72DCD85DB4 /* MotifSpineTests.swift */,
 				F240C50A6AA96F969C5B1EA3 /* PatternedDesignTests.swift */,
+				BC5F0B1C0DB27F3DCB317016 /* PhetLabsIntegrationTests.swift */,
 				A43513DEB84B1D5B2F1F8DFD /* PhoneNavigationTests.swift */,
 				0C59950286B98D15326C7CDA /* PythagorasShearTests.swift */,
 				A3C9080BA3623901CE026FA7 /* SharedScreenTests.swift */,
@@ -763,6 +786,7 @@
 				FE9B4278F3D9928DF5AA2C5D /* MotifPageView.swift */,
 				37AEDCB1D711BD0FC146C531 /* ProofStepsView.swift */,
 				2B90CDC692D92202D9559FD3 /* PythagorasShearView.swift */,
+				61EFECEA92A2EE51A46A1909 /* QuadrilateralLabView.swift */,
 				207F62432EC6227F486B0AEA /* StepOrderRoundView.swift */,
 			);
 			path = EuclidWorkshop;
@@ -810,9 +834,12 @@
 			children = (
 				F7435C935BE639390BB63692 /* AnswerExpression.swift */,
 				CEB8CFB101B40EA3E44EE644 /* AnswerKey.swift */,
+				9EBE21794C7EAC3A78EDDF57 /* AttemptMismatchDiff.swift */,
 				BE53DDE845F2A6CA170F8B99 /* ConceptLinker.swift */,
 				26E7D5E7A534B9CF25518170 /* FactSprint.swift */,
+				AFA28B75E1CF24DC87CE4CCC /* InteractiveStageContract.swift */,
 				41BD99A8624A92C5BD4B8DF8 /* LearningEngines.swift */,
+				CBE4E2B2C53C97BEA228606C /* ModelSimplificationsCatalog.swift */,
 				B635A0E77CE8A08DE0915813 /* PropositionGraphEngine.swift */,
 				698AC9565B7F84B916956C39 /* SpeedMathAnswerCheck.swift */,
 				7B26E79D1A340FDEC314031E /* StuckSheetState.swift */,
@@ -1017,6 +1044,7 @@
 				9C9C0407BF60CEB78CE71B37 /* AppTheme.swift in Sources */,
 				45ADB7797B36855E50426A27 /* AtlasPolyaPieces.swift in Sources */,
 				E5F28BC85D5576A8429D99CE /* AtlasRecallView.swift in Sources */,
+				F88A9B324B16D80C61466F63 /* AttemptMismatchDiff.swift in Sources */,
 				9CAFBFE3BBF4153D2BF5349C /* BoardViewport.swift in Sources */,
 				DB3D2D55535D028F1F65A677 /* ByrneText.swift in Sources */,
 				27AE2BA3796D1A835D293477 /* CalendarHomeView.swift in Sources */,
@@ -1041,6 +1069,7 @@
 				A1FB65B2B63AC2D632A588B5 /* FactSprint.swift in Sources */,
 				58C6761069CAAE738835D921 /* FactSprintSheet.swift in Sources */,
 				B54DEB70E50DB8FAD160C916 /* Foothold.swift in Sources */,
+				C4069FA9B08264436B0C002A /* InteractiveStageContract.swift in Sources */,
 				AD8AE15B3BC609C72E55DCBD /* JournalBridges.swift in Sources */,
 				B6DEC981910CB72FEF0EA6F4 /* JournalCard.swift in Sources */,
 				FD6CB4D33209250ABB441938 /* JournalCardParts.swift in Sources */,
@@ -1064,6 +1093,7 @@
 				8219E12C6D7D6490E892756D /* MathsScratchpadView.swift in Sources */,
 				962F9AE3A1C72277DE3EDBB7 /* MathsSettingsSheet.swift in Sources */,
 				82A14B1594B0631C6172F891 /* MissingDesignElements.swift in Sources */,
+				0DA09FDAFCEEE67C09940284 /* ModelSimplificationsCatalog.swift in Sources */,
 				3089AAD92D0F9932F71710E0 /* MotifFigure.swift in Sources */,
 				F62740E271A1F2AFFF42AA2B /* MotifPageView.swift in Sources */,
 				EDFD83A33F47175768F7B0C1 /* MotifProgress.swift in Sources */,
@@ -1091,6 +1121,8 @@
 				1E5985D25D7FD5ABBFA59A48 /* PropositionGraphEngine.swift in Sources */,
 				A24C303050645AE83F3560E6 /* PythagorasShear.swift in Sources */,
 				433543BC9751E57FC14B0153 /* PythagorasShearView.swift in Sources */,
+				69C8647A2373C86D65F51F98 /* QuadrilateralLab.swift in Sources */,
+				5C70E2B93A0D79E8FBEECF5D /* QuadrilateralLabView.swift in Sources */,
 				7CB78DE01B0C060FF7E574DA /* QuantitativeMathsEngine.swift in Sources */,
 				760F8CA88B87279B3A09297E /* QuestionProofPracticeView.swift in Sources */,
 				1DD89161C4ACBE6C4AE98340 /* STEMVerificationEngine.swift in Sources */,
@@ -1099,6 +1131,7 @@
 				8BF72DEF1A548F9497CA8976 /* SeedPackModels.swift in Sources */,
 				E2DDC0AA994AE829E800AD17 /* SemanticStyles.swift in Sources */,
 				9663DADCB09A00F7B3ACEC71 /* SpeedMathAnswerCheck.swift in Sources */,
+				A98EC9B030A7B1E7B80D55EC /* StageSnapshotStrip.swift in Sources */,
 				9789D46385EFF21CD2164D92 /* StepOrderRoundView.swift in Sources */,
 				C1FD5617BD8CCBDA295C3B22 /* StuckSheetState.swift in Sources */,
 				AF3D878AF2BED0D8C748E080 /* StuckSheetView.swift in Sources */,
@@ -1134,6 +1167,7 @@
 				94CA46363D09B6177E75BD5C /* MistakeTests.swift in Sources */,
 				86A95BC79DE36FC50E630938 /* MotifSpineTests.swift in Sources */,
 				9F2D1BFB4F26674618B13970 /* PatternedDesignTests.swift in Sources */,
+				B5AC9C50379A3FC293AC9762 /* PhetLabsIntegrationTests.swift in Sources */,
 				1A6FA816D03B5894D2EE2BDF /* PhoneNavigationTests.swift in Sources */,
 				0CB7E9EEA02F9D7307CD3B21 /* PythagorasShearTests.swift in Sources */,
 				D67BD2015FAA65D5D9B85980 /* SharedScreenTests.swift in Sources */,
@@ -1158,6 +1192,7 @@
 				E18D81EB9D8708C6D63C570C /* AppTheme.swift in Sources */,
 				9555940FA8A8323852E8B909 /* AtlasPolyaPieces.swift in Sources */,
 				25496BB5FFCCCF74C280E48C /* AtlasRecallView.swift in Sources */,
+				2F061672ADB27448754BCEA8 /* AttemptMismatchDiff.swift in Sources */,
 				752F235C476917727AF4729E /* BoardViewport.swift in Sources */,
 				AFFE5AF7E40EDA81A485ED78 /* ByrneText.swift in Sources */,
 				1EC25236CD7B9365EB4635D6 /* CalendarHomeView.swift in Sources */,
@@ -1182,6 +1217,7 @@
 				D0EA9B7C1EDDB222996317BC /* FactSprint.swift in Sources */,
 				C8E3A30D6323AD8334C9484F /* FactSprintSheet.swift in Sources */,
 				FDCC6E848F49F858A0D383F2 /* Foothold.swift in Sources */,
+				BA235607327F9702E76A3108 /* InteractiveStageContract.swift in Sources */,
 				3A4A5A39E22E951F70943E36 /* JournalBridges.swift in Sources */,
 				AA8D6F3913BD922370A41CB4 /* JournalCard.swift in Sources */,
 				3C3AFB2742372D4C2C7608F3 /* JournalCardParts.swift in Sources */,
@@ -1205,6 +1241,7 @@
 				B91F3B6108E77B316921C730 /* MathsScratchpadView.swift in Sources */,
 				B3470CFFFD9729B2EDB9862C /* MathsSettingsSheet.swift in Sources */,
 				A63D38559B02C7891F364911 /* MissingDesignElements.swift in Sources */,
+				A56F693E6B5694D221D09B8D /* ModelSimplificationsCatalog.swift in Sources */,
 				C21A6CF063F3891A745AACFB /* MotifFigure.swift in Sources */,
 				3CD559EDE00FB44045079B83 /* MotifPageView.swift in Sources */,
 				1FD85E0A0B5162CD7B691B25 /* MotifProgress.swift in Sources */,
@@ -1232,6 +1269,8 @@
 				B11E9879DA1EA4799BAD8975 /* PropositionGraphEngine.swift in Sources */,
 				970EACAC7527C3F829C9243B /* PythagorasShear.swift in Sources */,
 				F892FEC77B0ECA682658A0A3 /* PythagorasShearView.swift in Sources */,
+				C4C81D18C8233376A42D1EAB /* QuadrilateralLab.swift in Sources */,
+				02775C38D40237071E0B2399 /* QuadrilateralLabView.swift in Sources */,
 				298D6E7606C80115514F4656 /* QuantitativeMathsEngine.swift in Sources */,
 				A99C84FF4C58231E30FC8D17 /* QuestionProofPracticeView.swift in Sources */,
 				A4F609CDA38764EAD22FC501 /* STEMVerificationEngine.swift in Sources */,
@@ -1240,6 +1279,7 @@
 				2E0977BC7F08E666197C76D7 /* SeedPackModels.swift in Sources */,
 				1D273B22BDAAE654E5EBBFA1 /* SemanticStyles.swift in Sources */,
 				0A1A4CEBDAD07D15C764CF81 /* SpeedMathAnswerCheck.swift in Sources */,
+				046F701792E0D7559274BB29 /* StageSnapshotStrip.swift in Sources */,
 				1998B70C869C719A9E394707 /* StepOrderRoundView.swift in Sources */,
 				E146395D169398F81FF82BD0 /* StuckSheetState.swift in Sources */,
 				00FABC5C42C20EFA388CDF08 /* StuckSheetView.swift in Sources */,

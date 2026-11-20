@@ -1,6 +1,7 @@
 // Ch 8 · Parallel Transversals, Exterior Angles & Polygons — 3D Interactive Mathematics Atlas chapter.
 import { SUBJECT } from '../subject.js';
 import * as EKit from '../../../engine/math_kit.js';
+import { BYRNE_THEME } from '../../../engine/theme.js';
 import * as M from './model.js';
 
 export const PAGES = [
@@ -125,7 +126,11 @@ function buildWorld(rawE) {
     });
   });
   return {
-    labels: [],
+    labels: [
+      { text: () => `Parallel rails`, cls: 'board', at: () => new THREE.Vector3(-0.7, 0.55, 0.1), leader: [-18, -14], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `Exterior θ = α + β`, cls: 'board', at: () => new THREE.Vector3(1.1, -0.45, 0.15), leader: [16, -16], on: () => (CHAPTER._pageIdx || 0) === 1 },
+      { text: () => `(n − 2) triangles`, cls: 'board', at: () => new THREE.Vector3(0, 0.15, -0.25), leader: [0, -18], on: () => (CHAPTER._pageIdx || 0) === 2 },
+    ],
     update(s, look) {
       const p = CHAPTER.params || CHAPTER.defaultParams;
       const pageIdx = CHAPTER._pageIdx || 0;
@@ -142,6 +147,9 @@ export const CHAPTER = {
   subject: SUBJECT,
   no: 8,
   title: 'Ch 8 · Parallel Transversals, Exterior Angles & Polygons',
+  theme: BYRNE_THEME,
+  medium: 'pencil-wash',
+  quirk: 'slightly-quirky',
   PAGES,
   pages: PAGES,
   PLATES,
@@ -172,9 +180,8 @@ export const CHAPTER = {
     return `<b>Polygon Triangulation (n = ${s.pg.sides})</b> · Splits into (n − 2) = <b>${s.pg.triangles} triangles</b> → Sum = ${s.pg.triangles} × 180° = <b>${s.pg.interiorSum}°</b> (Regular interior = ${s.pg.regularInterior.toFixed(1)}°).`;
   },
   sonify(ctx, s, pageIdx = 0, p = CHAPTER.defaultParams) {
-    const firstKey = Object.keys(p || CHAPTER.defaultParams)[0];
-    const v = Number((p || CHAPTER.defaultParams)[firstKey]) || 1;
-    EKit.playTone(ctx, { freq: 220 + (Math.abs(v) % 20) * 18, dur: 0.06, type: 'sine', gain: 0.03 });
+    const sum = s?.te ? (s.te.alphaDeg + s.te.betaDeg + s.te.gammaDeg) : 180;
+    EKit.playInvariantSnap(ctx, { satisfied: Math.abs(sum - 180) < 0.5, strength: 1.0, gain: 0.032 });
   },
   buildWorld,
   build: buildWorld,

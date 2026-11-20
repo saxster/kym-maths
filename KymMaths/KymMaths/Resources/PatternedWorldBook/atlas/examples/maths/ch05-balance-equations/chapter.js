@@ -1,6 +1,7 @@
 // Ch 5 · Twin-Pan Balance Equations & Inequality Mirror — 3D Interactive Mathematics Atlas chapter.
 import { SUBJECT } from '../subject.js';
 import * as EKit from '../../../engine/math_kit.js';
+import { BYRNE_THEME } from '../../../engine/theme.js';
 import * as M from './model.js';
 
 export const PAGES = [
@@ -87,14 +88,42 @@ function buildWorld(rawE) {
     pArm.add(E.rightTrianglePlate({ a: 0.45, b: 0.45, thickness: 0.25, color: E.MATH_COL.warn }));
 
     const pLeft = g('left_pan');
-    const lBlock = E.algebraTile({ width: 0.95, height: 0.65, depth: 0.35, color: E.MATH_COL.setA });
-    lBlock.position.set(-1.1, 0.42, 0);
-    pLeft.add(lBlock);
+    const lTray = E.algebraTile({ width: 1.25, height: 0.1, depth: 0.72, color: E.MATH_COL.inter });
+    lTray.position.set(-1.12, 0.16, 0);
+    pLeft.add(lTray);
+    const leftXBlocks = [];
+    for (let i = 0; i < 6; i++) {
+      const bx = E.algebraTile({ width: 0.2, height: 0.34, depth: 0.22, color: E.MATH_COL.setA });
+      bx.position.set(-1.5 + (i % 3) * 0.25, 0.38 + Math.floor(i / 3) * 0.36, -0.14);
+      pLeft.add(bx);
+      leftXBlocks.push(bx);
+    }
+    const leftUnits = [];
+    for (let i = 0; i < 12; i++) {
+      const coin = E.algebraTile({ width: 0.14, height: 0.11, depth: 0.14, color: E.MATH_COL.warn });
+      coin.position.set(-0.76 - (i % 3) * 0.16, 0.27 + Math.floor(i / 3) * 0.13, 0.16);
+      pLeft.add(coin);
+      leftUnits.push(coin);
+    }
 
     const pRight = g('right_pan');
-    const rBlock = E.algebraTile({ width: 0.95, height: 0.65, depth: 0.35, color: E.MATH_COL.setB });
-    rBlock.position.set(1.1, 0.42, 0);
-    pRight.add(rBlock);
+    const rTray = E.algebraTile({ width: 1.25, height: 0.1, depth: 0.72, color: E.MATH_COL.inter });
+    rTray.position.set(1.12, 0.16, 0);
+    pRight.add(rTray);
+    const rightXBlocks = [];
+    for (let i = 0; i < 6; i++) {
+      const bx = E.algebraTile({ width: 0.2, height: 0.34, depth: 0.22, color: E.MATH_COL.setA });
+      bx.position.set(0.74 + (i % 3) * 0.25, 0.38 + Math.floor(i / 3) * 0.36, -0.14);
+      pRight.add(bx);
+      rightXBlocks.push(bx);
+    }
+    const rightUnits = [];
+    for (let i = 0; i < 24; i++) {
+      const coin = E.algebraTile({ width: 0.12, height: 0.09, depth: 0.12, color: E.MATH_COL.setB });
+      coin.position.set(1.48 - (i % 4) * 0.14, 0.26 + Math.floor(i / 4) * 0.11, 0.16);
+      pRight.add(coin);
+      rightUnits.push(coin);
+    }
 
     const pOnion = g('onion_core');
     pOnion.add(E.ringTorus({ radius: 0.85, tube: 0.04, color: E.MATH_COL.proof }));
@@ -106,8 +135,10 @@ function buildWorld(rawE) {
 
     return {
       at(s, p) {
-        lBlock.scale.y = 0.5 + p.coefA * 0.12;
-        rBlock.scale.y = 0.5 + p.constD * 0.04;
+        leftXBlocks.forEach((m, i) => { m.visible = i < Math.round(p.coefA); });
+        leftUnits.forEach((m, i) => { m.visible = i < Math.round(p.constB); });
+        rightXBlocks.forEach((m, i) => { m.visible = i < Math.round(p.coefC); });
+        rightUnits.forEach((m, i) => { m.visible = i < Math.round(p.constD); });
       }
     };
 
@@ -124,7 +155,12 @@ function buildWorld(rawE) {
     });
   });
   return {
-    labels: [],
+    labels: [
+      { text: () => `${(CHAPTER.params || CHAPTER.defaultParams).coefA}x + ${(CHAPTER.params || CHAPTER.defaultParams).constB}`, cls: 'board', at: () => new THREE.Vector3(-1.12, 0.78, 0), leader: [-18, -22], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `${(CHAPTER.params || CHAPTER.defaultParams).coefC}x + ${(CHAPTER.params || CHAPTER.defaultParams).constD}`, cls: 'board', at: () => new THREE.Vector3(1.12, 0.78, 0), leader: [18, -22], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => 'Undo +b then ÷a', cls: 'board', at: () => new THREE.Vector3(0, 0.9, 0), leader: [0, -24], on: () => (CHAPTER._pageIdx || 0) === 1 },
+      { text: () => '×(−1) flips order', cls: 'board', at: () => new THREE.Vector3(0, -0.65, 0), leader: [24, -18], on: () => (CHAPTER._pageIdx || 0) === 2 },
+    ],
     update(s, look) {
       const p = CHAPTER.params || CHAPTER.defaultParams;
       const pageIdx = CHAPTER._pageIdx || 0;
@@ -141,6 +177,9 @@ export const CHAPTER = {
   subject: SUBJECT,
   no: 5,
   title: 'Ch 5 · Twin-Pan Balance Equations & Inequality Mirror',
+  theme: BYRNE_THEME,
+  medium: 'pencil-wash',
+  quirk: 'slightly-quirky',
   PAGES,
   pages: PAGES,
   PLATES,
@@ -173,9 +212,11 @@ export const CHAPTER = {
     return `<b>Inequality Sign Flip</b> · Multiplying 2 < 5 by −1 reflects both points across 0 → <b>−2 > −5</b> (mirror reflection reverses order!).`;
   },
   sonify(ctx, s, pageIdx = 0, p = CHAPTER.defaultParams) {
-    const firstKey = Object.keys(p || CHAPTER.defaultParams)[0];
-    const v = Number((p || CHAPTER.defaultParams)[firstKey]) || 1;
-    EKit.playTone(ctx, { freq: 220 + (Math.abs(v) % 20) * 18, dur: 0.06, type: 'sine', gain: 0.03 });
+    if (!s?.eq) return;
+    const lhs = s.eq.a * s.eq.x + s.eq.b;
+    const rhs = s.eq.c * s.eq.x + s.eq.d;
+    const balanced = Math.abs(lhs - rhs) < 1e-6;
+    EKit.playInvariantSnap(ctx, { satisfied: balanced, strength: 1.1, gain: 0.035 });
   },
   buildWorld,
   build: buildWorld,

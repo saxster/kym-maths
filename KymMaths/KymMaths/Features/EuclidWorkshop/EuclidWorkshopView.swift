@@ -6,6 +6,7 @@ enum EuclidRoute: Hashable {
     case board(PropositionID)
     case stepOrder(PropositionID)
     case motif(MotifID)
+    case quadrilateral
 }
 
 /// Room: Euclid's Workshop. Kym builds Book I with a compass and a straightedge.
@@ -25,6 +26,8 @@ struct EuclidWorkshopView: View {
         case let .motif(id):
             MotifPageView(store: store, id: id)
                 .id("motif-\(id)")
+        case .quadrilateral:
+            QuadrilateralLabView(store: store)
         }
     }
 }

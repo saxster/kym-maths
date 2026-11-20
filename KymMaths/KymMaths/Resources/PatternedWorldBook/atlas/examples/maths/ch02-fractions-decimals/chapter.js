@@ -1,6 +1,7 @@
 // Ch 2 · Fractions, Recurring Decimals & Reciprocal Scaling — 3D Interactive Mathematics Atlas chapter.
 import { SUBJECT } from '../subject.js';
 import * as EKit from '../../../engine/math_kit.js';
+import { BYRNE_THEME } from '../../../engine/theme.js';
 import * as M from './model.js';
 
 export const PAGES = [
@@ -136,7 +137,12 @@ function buildWorld(rawE) {
     });
   });
   return {
-    labels: [],
+    labels: [
+      { text: () => `100x`, cls: 'board', at: () => new THREE.Vector3(0.15, 0.72, 0.1), leader: [-16, -14], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `99x = d`, cls: 'board', at: () => new THREE.Vector3(-0.55, -0.3, 0.1), leader: [-16, -14], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `Unit slabs`, cls: 'board', at: () => new THREE.Vector3(-0.4, 0.35, -0.2), leader: [0, -18], on: () => (CHAPTER._pageIdx || 0) === 1 },
+      { text: () => `Rounding bar`, cls: 'board', at: () => new THREE.Vector3(0, -0.75, 0.1), leader: [0, -14], on: () => (CHAPTER._pageIdx || 0) === 2 },
+    ],
     update(s, look) {
       const p = CHAPTER.params || CHAPTER.defaultParams;
       const pageIdx = CHAPTER._pageIdx || 0;
@@ -153,6 +159,9 @@ export const CHAPTER = {
   subject: SUBJECT,
   no: 2,
   title: 'Ch 2 · Fractions, Recurring Decimals & Reciprocal Scaling',
+  theme: BYRNE_THEME,
+  medium: 'pencil-wash',
+  quirk: 'slightly-quirky',
   PAGES,
   pages: PAGES,
   PLATES,
@@ -183,9 +192,8 @@ export const CHAPTER = {
     return `<b>Significant Figures</b> · Value ${s.rec.decimal.toFixed(6)} rounded to 3 s.f. is <b>${s.rec.decimal.toPrecision(3)}</b>.`;
   },
   sonify(ctx, s, pageIdx = 0, p = CHAPTER.defaultParams) {
-    const firstKey = Object.keys(p || CHAPTER.defaultParams)[0];
-    const v = Number((p || CHAPTER.defaultParams)[firstKey]) || 1;
-    EKit.playTone(ctx, { freq: 220 + (Math.abs(v) % 20) * 18, dur: 0.06, type: 'sine', gain: 0.03 });
+    const ratio = pageIdx === 1 ? (s?.div?.quotient ?? 1) / Math.max(1, s?.div?.whole ?? 1) : (s?.rec?.decimal ?? 0.5);
+    EKit.playHarmonic(ctx, { ratio, targetRatio: 1, baseFreq: 293.66, gain: 0.032 });
   },
   buildWorld,
   build: buildWorld,

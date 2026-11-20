@@ -384,6 +384,28 @@ export function cubicBezier(x1, y1, x2, y2) {
 }
 export const bez = cubicBezier;
 
+// Emil Kowalski / Apple UI custom cubic-bezier curves (registered on `eases` for uniform lookup).
+eases.uiOut = cubicBezier(0.23, 1, 0.32, 1);
+eases.uiInOut = cubicBezier(0.77, 0, 0.175, 1);
+eases.drawer = cubicBezier(0.32, 0.72, 0, 1);
+
+// Apple WWDC (Designing Fluid Interfaces) progressive boundary resistance:
+// returns a signed displacement strictly bounded by `dimension`, with initial slope `constant` at overshoot = 0.
+export function rubberband(overshoot, dimension, constant = 0.55) {
+  const d = Math.abs(dimension);
+  if (!overshoot || d <= 0 || constant <= 0) return 0;
+  const x = Math.abs(overshoot);
+  return Math.sign(overshoot) * ((x * d * constant) / (d + constant * x));
+}
+
+// Apple WWDC exponential-decay momentum projection: projects where a gesture with `velocity` (units/s)
+// comes to rest at `decelerationRate` (0.998 normal scroll feel, 0.99 snappier).
+export function projectMomentum(velocity, decelerationRate = 0.998) {
+  if (!velocity) return 0;
+  const d = clamp(decelerationRate, 0.5, 0.9999);
+  return ((velocity / 1000) * d) / (1 - d);
+}
+
 // #002 Stagger: maps overall progress u in [0, 1] to item `index` of `count` items.
 // `overlap` in [0, 0.95] controls how much adjacent items overlap in time (0 = sequential, 0.5 = half-overlap).
 // Guaranteed 0 at u <= 0 and 1 at u >= 1 for every item.
@@ -528,5 +550,203 @@ export function camHandheld(pose, t, { ampAz = 0.45, ampEl = 0.3, ampY = 0.02, p
     el: (pose.el ?? 18) + ampEl * nEl,
   };
 }
+
+// Settled Flow: runs `cycles` finite ambient pass(es) of length `period`, then permanently
+// settles at `clamp01(settleAt)` so ambient diagrams do not loop forever. Pure function of `t`.
+export function settledFlowPhase(t, period = 4, { cycles = 1, settleAt = 1 } = {}) {
+  const p = Math.max(1e-6, Number(period) || 4);
+  const c = Math.max(1, Math.floor(Number(cycles) || 1));
+  if (!(t > 0)) return 0;
+  if (t >= c * p) return clamp01(settleAt);
+  return fract(t / p);
+}
+
+const GOVERNOR_PRIORITY = Object.freeze({
+  ambient: 10,
+  hover: 20,
+  step: 30,
+  tour: 40,
+  scrub: 50,
+  still: 100,
+  hidden: 100,
+  reduced: 100,
+});
+
+// Single-Owner Motion Governor: tokenized priority-lease arbiter so ambient loops, hover previews,
+// step/tour playback, scrubbing, Still mode, and reduced-motion never race or leave stale callbacks.
+export function createMotionGovernor({ reduced = false, still = false, hidden = false } = {}) {
+  let isReduced = !!reduced;
+  let isStill = !!still;
+  let isHidden = !!hidden;
+  let nextToken = 1;
+  let activeOwner = null;
+  let activeKind = null;
+  let activeToken = 0;
+
+  const mode = () => (isReduced ? 'reduced' : isHidden ? 'hidden' : isStill ? 'still' : 'live');
+  const blocked = () => isReduced || isStill || isHidden;
+
+  function clearActive() {
+    activeOwner = null;
+    activeKind = null;
+    activeToken = ++nextToken;
+  }
+
+  return {
+    acquire(owner, kind = 'step') {
+      const name = String(owner || '').trim();
+      if (!name || blocked()) {
+        return { granted: false, token: 0, activeOwner, activeKind };
+      }
+      const prio = GOVERNOR_PRIORITY[kind] ?? GOVERNOR_PRIORITY.step;
+      const curPrio = activeKind ? (GOVERNOR_PRIORITY[activeKind] ?? 0) : 0;
+      if (activeOwner && activeOwner !== name && prio < curPrio) {
+        return { granted: false, token: 0, activeOwner, activeKind };
+      }
+      activeOwner = name;
+      activeKind = kind;
+      activeToken = ++nextToken;
+      return { granted: true, token: activeToken, activeOwner, activeKind };
+    },
+    release(token) {
+      if (!token || token !== activeToken || !activeOwner) return false;
+      clearActive();
+      return true;
+    },
+    setStill(flag) {
+      isStill = !!flag;
+      if (isStill) clearActive();
+      return this.state();
+    },
+    setHidden(flag) {
+      isHidden = !!flag;
+      if (isHidden) clearActive();
+      return this.state();
+    },
+    setReduced(flag) {
+      isReduced = !!flag;
+      if (isReduced) clearActive();
+      return this.state();
+    },
+    state() {
+      return {
+        mode: mode(),
+        activeOwner,
+        activeKind,
+        token: activeToken,
+      };
+    },
+  };
+}
+
+// Shared Anchor Handoff: computes deterministic `stay / enter / leave` continuity sets and the
+// primary surviving anchor element across consecutive step or page transitions.
+export function sharedAnchorDelta(prevIds = [], nextIds = []) {
+  const norm = (list, label) => {
+    if (!Array.isArray(list)) throw new Error(`sharedAnchorDelta: ${label} must be an array`);
+    const seen = new Set();
+    const out = [];
+    for (const raw of list) {
+      const id = typeof raw === 'string' ? raw.trim() : '';
+      if (!id) throw new Error(`sharedAnchorDelta: empty or non-string ID in ${label}`);
+      if (seen.has(id)) throw new Error(`sharedAnchorDelta: duplicate ID "${id}" in ${label}`);
+      seen.add(id);
+      out.push(id);
+    }
+    return { list: out, set: seen };
+  };
+  const prev = norm(prevIds, 'prevIds');
+  const next = norm(nextIds, 'nextIds');
+  const stay = prev.list.filter(id => next.set.has(id));
+  const enter = next.list.filter(id => !prev.set.has(id));
+  const leave = prev.list.filter(id => !next.set.has(id));
+  const anchor = stay[0] ?? null;
+  return {
+    stay,
+    enter,
+    leave,
+    anchor,
+    status: anchor ? 'anchored' : 'no-anchor',
+    counts: { stay: stay.length, enter: enter.length, leave: leave.length },
+    summary: `=${stay.length} +${enter.length} −${leave.length}`,
+  };
+}
+
+// 7-segment jerk-limited S-curve indexing motion (symmetric cubic accel ramp-in/out, constant cruise,
+// symmetric cubic brake ramp-in/out). Exact C2 position/velocity/acceleration continuity and pinned endpoints.
+export function sCurveIndex(t, { start = 0, travel = 1, accel = 0.2, brake = accel, distance = 1, origin = 0 } = {}) {
+  if (!(travel > 0) || !Number.isFinite(travel)) throw new RangeError('sCurveIndex: travel must be positive');
+  if (accel < 0 || !Number.isFinite(accel)) throw new RangeError('sCurveIndex: accel must be non-negative');
+  if (brake < 0 || !Number.isFinite(brake)) throw new RangeError('sCurveIndex: brake must be non-negative');
+  const tau = t - start;
+  if (tau <= 0) return origin;
+  if (tau >= travel) return origin + distance;
+
+  let a = accel;
+  let b = brake;
+  if (a + b > travel) {
+    const scale = travel / (a + b);
+    a *= scale;
+    b *= scale;
+  }
+  const cruiseDenom = travel - 0.5 * (a + b);
+  const v = cruiseDenom > 1e-12 ? distance / cruiseDenom : 0;
+
+  const rampDisp = (u, T) => {
+    if (T <= 0 || u <= 0) return 0;
+    if (u >= T) return 0.5 * v * T;
+    const half = 0.5 * T;
+    const k = (2 * v) / (3 * T * T);
+    if (u <= half) return k * u * u * u;
+    const w = T - u;
+    return 0.5 * v * T - v * w + k * w * w * w;
+  };
+
+  if (tau < a) return origin + rampDisp(tau, a);
+  if (tau <= travel - b) return origin + 0.5 * v * a + v * (tau - a);
+  return origin + distance - rampDisp(travel - tau, b);
+}
+
+// Logarithmic nearest-stop snapping for optical f-stops, musical ratios, or calibrated engineering detents.
+export function snapLogStop(value, stops) {
+  if (!(value > 0) || !Number.isFinite(value)) throw new RangeError('snapLogStop: value must be positive');
+  if (!Array.isArray(stops) || !stops.length) throw new TypeError('snapLogStop: stops must be a non-empty array');
+  let best = null;
+  let bestErr = Infinity;
+  for (const cand of stops) {
+    if (!(cand > 0) || !Number.isFinite(cand)) throw new RangeError('snapLogStop: every stop must be positive');
+    const err = Math.abs(Math.log(cand / value));
+    if (err < bestErr) {
+      bestErr = err;
+      best = cand;
+    }
+  }
+  return best;
+}
+
+// Sorted, deduplicated timeline timestamps combining uniform 1/fps samples with exact analytical event timestamps
+// (e.g. contact, wall-crossing, apex) so discrete transitions never suffer 1-frame overshoot.
+export function eventKeyframes(t0, t1, { fps = 60, events = [] } = {}) {
+  if (!Number.isFinite(t0) || !Number.isFinite(t1) || t0 >= t1) {
+    throw new RangeError('eventKeyframes: require finite t0 < t1');
+  }
+  if (!(fps > 0) || !Number.isFinite(fps)) throw new RangeError('eventKeyframes: fps must be positive');
+  const raw = [t0, t1];
+  const steps = Math.max(1, Math.round((t1 - t0) * fps));
+  for (let i = 1; i < steps; i++) raw.push(t0 + (i / steps) * (t1 - t0));
+  for (const ev of events || []) {
+    if (typeof ev === 'number' && Number.isFinite(ev) && ev >= t0 - 1e-12 && ev <= t1 + 1e-12) {
+      raw.push(clamp(ev, t0, t1));
+    }
+  }
+  raw.sort((a, b) => a - b);
+  const out = [];
+  for (const v of raw) {
+    if (!out.length || Math.abs(v - out[out.length - 1]) > 1e-9) out.push(v);
+  }
+  if (out[out.length - 1] !== t1) out[out.length - 1] = t1;
+  return out;
+}
+
 
 

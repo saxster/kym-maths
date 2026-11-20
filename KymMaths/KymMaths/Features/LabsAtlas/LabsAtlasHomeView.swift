@@ -10,9 +10,11 @@ struct LabsAtlasHomeView: View {
     @Environment(\.standardTheme) private var theme
 
     @State private var mode: AtlasRoomMode = .lab
-    @State private var labStep: AtlasLabStep = .look
+    @State private var labStep: StageRevealStep = .openPlay
     @State private var challengeNote: String = ""
+    @State private var stampGuidance: String? = nil
     @State private var showEmbeddedWebStage: Bool = true
+    @State private var stageHeight: CGFloat = 560
 
     var body: some View {
         JournalPage {
@@ -23,11 +25,28 @@ struct LabsAtlasHomeView: View {
                 AtlasRecallView(store: store) { mode = .lab }
             }
         }
-        .onAppear(perform: readDeepLinkTail)
+        .onAppear {
+            readDeepLinkTail()
+            if let pending = store.pendingStagePreset {
+                labStep = pending.step
+            }
+        }
         .onChange(of: store.deepLinkTail) { _, _ in readDeepLinkTail() }
+        .onChange(of: store.pendingStagePreset) { _, preset in
+            if let preset {
+                labStep = preset.step
+            }
+        }
         .onChange(of: store.selectedWidgetId) { _, _ in
-            labStep = .look
+            if let pending = store.pendingStagePreset, pending.chapterNumber == store.selectedWidget.chapter {
+                labStep = pending.step
+            } else {
+                labStep = .openPlay
+                store.pendingStagePreset = nil
+            }
             challengeNote = ""
+            stampGuidance = nil
+            stageHeight = 560
         }
     }
 
@@ -187,8 +206,8 @@ struct LabsAtlasHomeView: View {
         VStack(alignment: .leading, spacing: StandardSpacing.lg) {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: StandardSpacing.xs) {
-                    ForEach(AtlasLabStep.allCases) { step in
-                        PatternedChip("\(step.rawValue) · \(step.title)", isSelected: labStep == step) {
+                    ForEach(StageRevealStep.allCases) { step in
+                        PatternedChip("\(step.stepIndex) · \(step.title)", isSelected: labStep == step) {
                             labStep = step
                         }
                     }
@@ -199,11 +218,15 @@ struct LabsAtlasHomeView: View {
 
             liveFigure(widget)
 
+            StageSnapshotStrip(chapterNumber: widget.chapter, store: store, buttonStyleKind: .outline)
+
             Rectangle().fill(theme.hairline()).frame(height: 1)
 
             stampRow(widget)
 
             chainLine(widget)
+
+            MarginNote(.sidenote(1), "What this picture leaves out. \(ModelSimplificationsCatalog.note(forChapter: widget.chapter))")
         }
         .paperCard()
     }
@@ -211,7 +234,7 @@ struct LabsAtlasHomeView: View {
     @ViewBuilder
     private func stepBody(_ widget: InteractiveWidgetSpec) -> some View {
         switch labStep {
-        case .look:
+        case .openPlay:
             VStack(alignment: .leading, spacing: StandardSpacing.md) {
                 if let first = widget.watchSteps.first {
                     stepSentence(first.caption)
@@ -235,14 +258,14 @@ struct LabsAtlasHomeView: View {
             }
         case .cutAway:
             stepSentence(RoomCopy.dropping("Intuition → Formula Lockstep: ", from: widget.cutaway))
-        case .ideal:
+        case .symbolic:
             VStack(alignment: .leading, spacing: StandardSpacing.xs) {
                 Text("With the mess taken away, the picture says:")
                     .patternedType(.readingSmall)
                     .foregroundStyle(theme.mute(theme.ink))
                 stepSentence(RoomCopy.dropping("Formula Anatomy: ", from: widget.idealised))
             }
-        case .task:
+        case .challenge:
             stepSentence(AtlasCopy.task(widget))
         }
     }
@@ -255,23 +278,36 @@ struct LabsAtlasHomeView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
     }
 
+    private func activePreset(for widget: InteractiveWidgetSpec) -> StagePreset? {
+        guard let pending = store.pendingStagePreset, pending.chapterNumber == widget.chapter else {
+            return nil
+        }
+        return pending
+    }
+
     private func liveFigure(_ widget: InteractiveWidgetSpec) -> some View {
-        VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+        let telemetry = store.latestStageTelemetry?.chapterNumber == widget.chapter ? store.latestStageTelemetry : nil
+        return VStack(alignment: .leading, spacing: StandardSpacing.sm) {
             if showEmbeddedWebStage {
                 PatternedWorldWebStageView(
                     chapterNumber: widget.chapter,
                     atlasRoute: widget.atlasRoute,
+                    stageStep: labStep,
+                    stagePreset: activePreset(for: widget),
+                    onContentHeight: { stageHeight = min(840, max(440, $0)) },
                     store: store
                 )
-                .frame(minHeight: 380, maxHeight: 480)
+                .frame(height: stageHeight)
                 .clipShape(RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous))
                 .overlay(
                     RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous)
                         .strokeBorder(theme.hairline(), lineWidth: 1)
                 )
-                Text("Live figure · Chapter \(widget.chapter)\(widget.is3D ? " · turn it in 3D" : "")")
+                Text(telemetry?.voicing.context ?? "Live figure · Chapter \(widget.chapter)\(widget.is3D ? " · turn it in 3D" : "")")
                     .standardType(.uiCaption)
                     .foregroundStyle(theme.mute(theme.ink))
+                    .fixedSize(horizontal: false, vertical: true)
+                    .accessibilityValue(telemetry?.voicing.spokenLine ?? "")
             }
 
             ViewThatFits(in: .horizontal) {
@@ -318,6 +354,12 @@ struct LabsAtlasHomeView: View {
                     stampButton(widget)
                 }
             }
+            if let stampGuidance {
+                Text(stampGuidance)
+                    .standardType(.uiCaption)
+                    .foregroundStyle(theme.patterned.assistedColor)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
             if let stamp = store.widgetStampsById[widget.id] {
                 StatusTag(.proven, label: "Stamp earned \(stamp.earnedAt.formatted(date: .abbreviated, time: .omitted))")
             }
@@ -332,9 +374,21 @@ struct LabsAtlasHomeView: View {
 
     private func stampButton(_ widget: InteractiveWidgetSpec) -> some View {
         Button {
-            let note = challengeNote.isEmpty ? "Verified invariant on \(widget.title)" : challengeNote
-            store.stampWidgetChallenge(widget: widget, note: note)
-            challengeNote = ""
+            let telemetry = store.latestStageTelemetry?.chapterNumber == widget.chapter ? store.latestStageTelemetry : nil
+            let goalDone = store.stageGoalReachedByChapter[widget.chapter] == true
+            let gate = LabStampGate.evaluate(
+                note: challengeNote,
+                telemetry: telemetry,
+                chapterNumber: widget.chapter,
+                goalAlreadyReached: goalDone
+            )
+            if gate.canStamp {
+                store.stampWidgetChallenge(widget: widget, note: gate.cleanedNote)
+                challengeNote = ""
+                stampGuidance = nil
+            } else {
+                stampGuidance = gate.guidance
+            }
         } label: {
             HStack(spacing: StandardSpacing.xs) {
                 Text("Earn the stamp")
@@ -395,22 +449,6 @@ struct LabsAtlasHomeView: View {
 
 enum AtlasRoomMode {
     case lab, recall
-}
-
-/// The four ways into a lab, in the order a reader takes them.
-enum AtlasLabStep: Int, CaseIterable, Identifiable {
-    case look = 1, cutAway, ideal, task
-
-    var id: Int { rawValue }
-
-    var title: String {
-        switch self {
-        case .look: "Look"
-        case .cutAway: "Cut away"
-        case .ideal: "Make it ideal"
-        case .task: "Your task"
-        }
-    }
 }
 
 private struct AtlasChapterGroup: Identifiable {

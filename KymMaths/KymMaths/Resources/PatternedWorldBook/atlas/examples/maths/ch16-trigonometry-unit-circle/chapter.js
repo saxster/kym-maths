@@ -1,6 +1,7 @@
 // Ch 16 · Bhaskara's c² Proof, Unit Circle Wave Unrolling & Sine/Cosine Rules — 3D Interactive Mathematics Atlas chapter.
 import { SUBJECT } from '../subject.js';
 import * as EKit from '../../../engine/math_kit.js';
+import { BYRNE_THEME } from '../../../engine/theme.js';
 import * as M from './model.js';
 
 export const PAGES = [
@@ -124,7 +125,11 @@ function buildWorld(rawE) {
     });
   });
   return {
-    labels: [],
+    labels: [
+      { text: () => `a² + b² = c²`, cls: 'board', at: () => new THREE.Vector3(-0.65, 0.35, -0.15), leader: [-16, -16], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `(cos θ, sin θ)`, cls: 'board', at: () => new THREE.Vector3(-0.2, 0.55, 0.1), leader: [16, -16], on: () => (CHAPTER._pageIdx || 0) === 1 },
+      { text: () => `Law of cosines`, cls: 'board', at: () => new THREE.Vector3(0.6, -0.75, 0.2), leader: [16, 14], on: () => (CHAPTER._pageIdx || 0) === 2 },
+    ],
     update(s, look) {
       const p = CHAPTER.params || CHAPTER.defaultParams;
       const pageIdx = CHAPTER._pageIdx || 0;
@@ -141,6 +146,9 @@ export const CHAPTER = {
   subject: SUBJECT,
   no: 16,
   title: "Ch 16 · Bhaskara's c² Proof, Unit Circle Wave Unrolling & Sine/Cosine Rules",
+  theme: BYRNE_THEME,
+  medium: 'pencil-wash',
+  quirk: 'slightly-quirky',
   PAGES,
   pages: PAGES,
   PLATES,
@@ -172,9 +180,12 @@ export const CHAPTER = {
     return `<b>Law of Cosines</b> · Angle C = ${s.cr.angleCDeg}° → c² = a² + b² − 2ab cos C = <b>${s.cr.cSq.toFixed(2)}</b> (c = <b>${s.cr.c.toFixed(2)}</b>) · Area = ½ab sin C = <b>${s.cr.area.toFixed(2)}</b>.`;
   },
   sonify(ctx, s, pageIdx = 0, p = CHAPTER.defaultParams) {
-    const firstKey = Object.keys(p || CHAPTER.defaultParams)[0];
-    const v = Number((p || CHAPTER.defaultParams)[firstKey]) || 1;
-    EKit.playTone(ctx, { freq: 220 + (Math.abs(v) % 20) * 18, dur: 0.06, type: 'sine', gain: 0.03 });
+    if (pageIdx === 1 && s?.uc) {
+      EKit.playHarmonic(ctx, { ratio: s.uc.pythagIdentity, targetRatio: 1, baseFreq: 261.63 + s.uc.sin * 110, gain: 0.032 });
+    } else {
+      const th = s?.uc?.thetaDeg ?? 35;
+      EKit.playTone(ctx, { freq: 220 + Math.abs(Math.sin((th * Math.PI) / 180)) * 220, dur: 0.07, type: 'sine', gain: 0.03 });
+    }
   },
   buildWorld,
   build: buildWorld,

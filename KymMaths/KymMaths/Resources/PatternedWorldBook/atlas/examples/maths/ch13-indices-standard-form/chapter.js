@@ -1,6 +1,7 @@
 // Ch 13 · Exponent Staircase (a⁰ = 1), Log Scales & Pyramid Scaling (k, k², k³) — 3D Interactive Mathematics Atlas chapter.
 import { SUBJECT } from '../subject.js';
 import * as EKit from '../../../engine/math_kit.js';
+import { BYRNE_THEME } from '../../../engine/theme.js';
 import * as M from './model.js';
 
 export const PAGES = [
@@ -115,7 +116,11 @@ function buildWorld(rawE) {
     });
   });
   return {
-    labels: [],
+    labels: [
+      { text: () => `a⁰ = 1 pivot`, cls: 'board', at: () => new THREE.Vector3(0, 0.45, 0.15), leader: [0, -18], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `k³ volume`, cls: 'board', at: () => new THREE.Vector3(1.15, 0.15, 0.55), leader: [16, -16], on: () => (CHAPTER._pageIdx || 0) === 1 },
+      { text: () => `log₁₀(10ⁿ)`, cls: 'board', at: () => new THREE.Vector3(0, -0.55, 0.15), leader: [0, 16], on: () => (CHAPTER._pageIdx || 0) === 2 },
+    ],
     update(s, look) {
       const p = CHAPTER.params || CHAPTER.defaultParams;
       const pageIdx = CHAPTER._pageIdx || 0;
@@ -132,6 +137,9 @@ export const CHAPTER = {
   subject: SUBJECT,
   no: 13,
   title: 'Ch 13 · Exponent Staircase (a⁰ = 1), Log Scales & Pyramid Scaling (k, k², k³)',
+  theme: BYRNE_THEME,
+  medium: 'pencil-wash',
+  quirk: 'slightly-quirky',
   PAGES,
   pages: PAGES,
   PLATES,
@@ -162,9 +170,8 @@ export const CHAPTER = {
     return `<b>Standard Form & Log Scale</b> · 10<sup>${s.sciExp}</sup> = <b>${Math.pow(10, s.sciExp)}</b> · log₁₀(10<sup>${s.sciExp}</sup>) = <b>${s.sciExp}</b> (each unit step = ×10).`;
   },
   sonify(ctx, s, pageIdx = 0, p = CHAPTER.defaultParams) {
-    const firstKey = Object.keys(p || CHAPTER.defaultParams)[0];
-    const v = Number((p || CHAPTER.defaultParams)[firstKey]) || 1;
-    EKit.playTone(ctx, { freq: 220 + (Math.abs(v) % 20) * 18, dur: 0.06, type: 'sine', gain: 0.03 });
+    const k = s?.sc?.k ?? 2;
+    EKit.playTone(ctx, { freq: 196 * Math.max(0.5, k), dur: 0.08, type: 'triangle', gain: 0.032 });
   },
   buildWorld,
   build: buildWorld,

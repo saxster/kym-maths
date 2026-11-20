@@ -1,6 +1,7 @@
 // Ch 4 · Area-Array Expansion (x + a)(x + b) & a² − b² — 3D Interactive Mathematics Atlas chapter.
 import { SUBJECT } from '../subject.js';
 import * as EKit from '../../../engine/math_kit.js';
+import { BYRNE_THEME } from '../../../engine/theme.js';
 import * as M from './model.js';
 
 export const PAGES = [
@@ -112,6 +113,7 @@ function buildWorld(rawE) {
     pHcf.add(E.wireBox({ width: 2.4, height: 1.2, depth: 0.28, color: E.MATH_COL.inter }));
 
     return {
+      tX2, tAX, tBX, tAB,
       at(s, p) {
         const x = p.valX * 0.32;
         const a = p.valA * 0.32;
@@ -140,7 +142,15 @@ function buildWorld(rawE) {
     });
   });
   return {
-    labels: [],
+    labels: [
+      { text: () => `x²`, cls: 'board', at: () => built.tX2.position.clone().add(new THREE.Vector3(0, 0, 0.2)), leader: [-22, -18], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `ax`, cls: 'board', at: () => built.tAX.position.clone().add(new THREE.Vector3(0, 0, 0.2)), leader: [24, -18], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `bx`, cls: 'board', at: () => built.tBX.position.clone().add(new THREE.Vector3(0, 0, 0.2)), leader: [-24, 22], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `ab`, cls: 'board', at: () => built.tAB.position.clone().add(new THREE.Vector3(0, 0, 0.2)), leader: [24, 22], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `a(a − b)`, cls: 'board', at: () => new THREE.Vector3(-0.4, 0.3, 0.15), leader: [-24, -18], on: () => (CHAPTER._pageIdx || 0) === 1 },
+      { text: () => `b(a − b)`, cls: 'board', at: () => new THREE.Vector3(0.85, 0.3, 0.15), leader: [24, -18], on: () => (CHAPTER._pageIdx || 0) === 1 },
+      { text: () => `a(b + c)`, cls: 'board', at: () => new THREE.Vector3(0, 0.1, 0.22), leader: [0, -24], on: () => (CHAPTER._pageIdx || 0) === 2 },
+    ],
     update(s, look) {
       const p = CHAPTER.params || CHAPTER.defaultParams;
       const pageIdx = CHAPTER._pageIdx || 0;
@@ -157,6 +167,9 @@ export const CHAPTER = {
   subject: SUBJECT,
   no: 4,
   title: 'Ch 4 · Area-Array Expansion (x + a)(x + b) & a² − b²',
+  theme: BYRNE_THEME,
+  medium: 'pencil-wash',
+  quirk: 'slightly-quirky',
   PAGES,
   pages: PAGES,
   PLATES,
@@ -187,9 +200,8 @@ export const CHAPTER = {
     return `<b>HCF Factorisation</b> · Common height a = ${s.ex.a} across widths ${s.ex.x} and ${s.ex.b} factors as <b>${s.ex.a}(${s.ex.x} + ${s.ex.b}) = ${(s.ex.a * (s.ex.x + s.ex.b)).toFixed(1)}</b>.`;
   },
   sonify(ctx, s, pageIdx = 0, p = CHAPTER.defaultParams) {
-    const firstKey = Object.keys(p || CHAPTER.defaultParams)[0];
-    const v = Number((p || CHAPTER.defaultParams)[firstKey]) || 1;
-    EKit.playTone(ctx, { freq: 220 + (Math.abs(v) % 20) * 18, dur: 0.06, type: 'sine', gain: 0.03 });
+    const partsMatch = s?.ex ? Math.abs(s.ex.total - (s.ex.x2 + s.ex.linearSum + s.ex.ab)) < 1e-6 : true;
+    EKit.playInvariantSnap(ctx, { satisfied: partsMatch, strength: 1.0, gain: 0.032 });
   },
   buildWorld,
   build: buildWorld,

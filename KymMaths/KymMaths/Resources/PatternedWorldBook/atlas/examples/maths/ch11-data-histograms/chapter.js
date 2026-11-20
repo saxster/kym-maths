@@ -1,6 +1,7 @@
 // Ch 11 · Frequency Density Histograms, Boxplots & Simpson's Paradox — 3D Interactive Mathematics Atlas chapter.
 import { SUBJECT } from '../subject.js';
 import * as EKit from '../../../engine/math_kit.js';
+import { BYRNE_THEME } from '../../../engine/theme.js';
 import * as M from './model.js';
 
 export const PAGES = [
@@ -100,6 +101,7 @@ function buildWorld(rawE) {
     pSimp.add(E.vectorArrow({ from: [-1.0, -1.1, 0.25], to: [1.2, -0.6, 0.25], color: E.MATH_COL.setB, radius: 0.035 }));
 
     return {
+      b3, outDot,
       at(s, p, pageIdx) {
         const wScale = p.wideBinWidth / 25;
         const dScale = s.bins[2].density / 1.2;
@@ -122,7 +124,12 @@ function buildWorld(rawE) {
     });
   });
   return {
-    labels: [],
+    labels: [
+      { text: () => `Wide Area = ${(CHAPTER.params || CHAPTER.defaultParams).wideBinFreq}`, cls: 'board', at: () => built.b3.position.clone().add(new THREE.Vector3(0, 0.35, 0.2)), leader: [22, -20], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `Median = 54`, cls: 'board', at: () => new THREE.Vector3(-0.2, 1.05, 0.18), leader: [-20, -18], on: () => (CHAPTER._pageIdx || 0) === 1 },
+      { text: () => `x_max = ${(CHAPTER.params || CHAPTER.defaultParams).outlierVal}`, cls: 'board', at: () => built.outDot.position.clone(), leader: [24, -18], on: () => (CHAPTER._pageIdx || 0) === 1 },
+      { text: () => `Subgroups beat · Pooled flips`, cls: 'board', at: () => new THREE.Vector3(0.1, -0.75, 0.25), leader: [20, -20], on: () => (CHAPTER._pageIdx || 0) === 2 },
+    ],
     update(s, look) {
       const p = CHAPTER.params || CHAPTER.defaultParams;
       const pageIdx = CHAPTER._pageIdx || 0;
@@ -139,6 +146,9 @@ export const CHAPTER = {
   subject: SUBJECT,
   no: 11,
   title: "Ch 11 · Frequency Density Histograms, Boxplots & Simpson's Paradox",
+  theme: BYRNE_THEME,
+  medium: 'pencil-wash',
+  quirk: 'slightly-quirky',
   PAGES,
   pages: PAGES,
   PLATES,
@@ -170,9 +180,12 @@ export const CHAPTER = {
     return `<b>Simpson's Paradox</b> · Subgroup A beats B in Mild (<b>93.1% > 86.7%</b>) AND Severe (<b>73.0% > 68.8%</b>), yet pooled A (<b>78.0%</b>) trails pooled B (<b>82.6%</b>) due to confounding case mix!`;
   },
   sonify(ctx, s, pageIdx = 0, p = CHAPTER.defaultParams) {
-    const firstKey = Object.keys(p || CHAPTER.defaultParams)[0];
-    const v = Number((p || CHAPTER.defaultParams)[firstKey]) || 1;
-    EKit.playTone(ctx, { freq: 220 + (Math.abs(v) % 20) * 18, dur: 0.06, type: 'sine', gain: 0.03 });
+    if (pageIdx === 1 && s?.tk) {
+      EKit.playInvariantSnap(ctx, { satisfied: !s.tk.isOutlier, strength: 1.0, gain: 0.035 });
+    } else {
+      const fd = s?.bins?.[2]?.density ?? 1.2;
+      EKit.playTone(ctx, { freq: 220 + Math.min(400, fd * 120), dur: 0.07, type: 'sine', gain: 0.03 });
+    }
   },
   buildWorld,
   build: buildWorld,

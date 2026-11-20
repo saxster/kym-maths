@@ -11,6 +11,7 @@ struct PatternedChapterScrollView: View {
     let chapter: PatternedWorldChapter
 
     @Environment(\.standardTheme) private var theme
+    @State private var columnWidth: CGFloat = 500
 
     private var bridge: IntuitionToFormulaBridge { chapter.intuitionToFormula }
     private var terms: [FormulaTermMapping] { bridge.termMappings }
@@ -43,6 +44,7 @@ struct PatternedChapterScrollView: View {
             cheatSheetAndCloserStrip
             finish
         }
+        .readWidth($columnWidth)
     }
 
     // MARK: Opening
@@ -329,7 +331,7 @@ struct PatternedChapterScrollView: View {
         return BookKitComicStripView(
             strip: PatternedBook.openerStrip(for: chapter, manifest: manifest),
             emblem: manifest.resolvedAtelierIdentity.emblem,
-            availableWidth: 680
+            availableWidth: max(280, columnWidth)
         )
     }
 
@@ -387,7 +389,7 @@ struct PatternedChapterScrollView: View {
                     nextChapterTitle: nextChapter?.title
                 ),
                 emblem: manifest.resolvedAtelierIdentity.emblem,
-                availableWidth: 680,
+                availableWidth: max(280, columnWidth),
                 continuationTitle: nextChapter.map { "Turn to Ch \($0.number) · \($0.title)" },
                 onContinue: nextChapter.map { target in
                     { reading.open(chapter: target.number, store: store) }

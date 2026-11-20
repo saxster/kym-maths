@@ -13,6 +13,7 @@ struct PatternedChapterStepView: View {
     let beatIndex: Int
 
     @Environment(\.standardTheme) private var theme
+    @State private var columnWidth: CGFloat = 500
 
     private var beat: ChapterInteractiveBeat { beats[beatIndex] }
     private var isUnlocked: Bool { PatternedChapterGates.isUnlocked(beat, reading: reading, store: store) }
@@ -33,7 +34,7 @@ struct PatternedChapterStepView: View {
                     BookKitComicStripView(
                         strip: PatternedBook.openerStrip(for: chapter, manifest: manifest),
                         emblem: manifest.resolvedAtelierIdentity.emblem,
-                        availableWidth: 680
+                        availableWidth: max(280, columnWidth)
                     )
                 }
                 WonderQuestion(heading)
@@ -157,7 +158,7 @@ struct PatternedChapterStepView: View {
                         nextChapterTitle: nextChapter?.title
                     ),
                     emblem: manifest.resolvedAtelierIdentity.emblem,
-                    availableWidth: 680,
+                    availableWidth: max(280, columnWidth),
                     continuationTitle: nextChapter.map { "Turn to Ch \($0.number) · \($0.title)" },
                     onContinue: nextChapter.map { target in
                         { reading.open(chapter: target.number, store: store) }
@@ -167,6 +168,7 @@ struct PatternedChapterStepView: View {
 
             wayOn
         }
+        .readWidth($columnWidth)
     }
 
     // MARK: Words

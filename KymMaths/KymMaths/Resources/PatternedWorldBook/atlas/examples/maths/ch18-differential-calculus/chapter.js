@@ -1,6 +1,7 @@
 // Ch 18 · Secant-to-Tangent Limit (h → 0), Power Rule dx² & Stationary Optimisation — 3D Interactive Mathematics Atlas chapter.
 import { SUBJECT } from '../subject.js';
 import * as EKit from '../../../engine/math_kit.js';
+import { BYRNE_THEME } from '../../../engine/theme.js';
 import * as M from './model.js';
 
 export const PAGES = [
@@ -96,6 +97,7 @@ function buildWorld(rawE) {
     pStat.add(E.curveTube({ fn: u => { const x = -0.8 + 3.4 * u; return [x - 0.8, 0.35 * (x * x - 2 * x) - 0.3, -0.2]; }, radius: 0.028, color: E.MATH_COL.proof }));
 
     return {
+      pSec, sqCore,
       at(s, p, pageIdx) {
         const x0 = p.x0;
         const y0 = f(x0);
@@ -120,7 +122,12 @@ function buildWorld(rawE) {
     });
   });
   return {
-    labels: [],
+    labels: [
+      { text: () => `Tangent at x₀ = ${(CHAPTER.params || CHAPTER.defaultParams).x0.toFixed(1)}`, cls: 'board', at: () => built.pSec.position.clone().add(new THREE.Vector3(0, 0.1, 0.14)), leader: [-22, -20], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `Secant (h = ${(CHAPTER.params || CHAPTER.defaultParams).stepH.toFixed(2)})`, cls: 'board', at: () => built.pSec.position.clone().add(new THREE.Vector3(0.45, 0.1, 0.14)), leader: [24, 18], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `Δ(x²) = 2x·h + h²`, cls: 'board', at: () => built.sqCore.position.clone().add(new THREE.Vector3(0, 0.45, 0)), leader: [18, -20], on: () => (CHAPTER._pageIdx || 0) === 1 },
+      { text: () => `f'(x) = 0 at x = 0, 2`, cls: 'board', at: () => new THREE.Vector3(0.4, -0.35, -0.2), leader: [24, 22], on: () => (CHAPTER._pageIdx || 0) === 2 },
+    ],
     update(s, look) {
       const p = CHAPTER.params || CHAPTER.defaultParams;
       const pageIdx = CHAPTER._pageIdx || 0;
@@ -137,6 +144,9 @@ export const CHAPTER = {
   subject: SUBJECT,
   no: 18,
   title: 'Ch 18 · Secant-to-Tangent Limit (h → 0), Power Rule dx² & Stationary Optimisation',
+  theme: BYRNE_THEME,
+  medium: 'pencil-wash',
+  quirk: 'slightly-quirky',
   PAGES,
   pages: PAGES,
   PLATES,
@@ -167,9 +177,9 @@ export const CHAPTER = {
     return `<b>Stationary Points</b> · f'(x) = x² − 2x = 0 at <b>x = 0 (max, y = 2)</b> and <b>x = 2 (min, y = 2/3)</b> · Current f''(${s.cc.x0.toFixed(1)}) = <b>${s.cc.secondDeriv.toFixed(2)}</b>.`;
   },
   sonify(ctx, s, pageIdx = 0, p = CHAPTER.defaultParams) {
-    const firstKey = Object.keys(p || CHAPTER.defaultParams)[0];
-    const v = Number((p || CHAPTER.defaultParams)[firstKey]) || 1;
-    EKit.playTone(ctx, { freq: 220 + (Math.abs(v) % 20) * 18, dur: 0.06, type: 'sine', gain: 0.03 });
+    if (!s?.cc) return;
+    const ratio = Math.abs(s.cc.tangentSlope) > 0.05 ? s.cc.secantSlope / s.cc.tangentSlope : 1 - Math.abs(s.cc.secantSlope - s.cc.tangentSlope);
+    EKit.playHarmonic(ctx, { ratio, targetRatio: 1, baseFreq: 293.66, gain: 0.032 });
   },
   buildWorld,
   build: buildWorld,

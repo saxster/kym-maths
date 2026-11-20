@@ -1,6 +1,7 @@
 // Ch 20 · 2×2 Matrix Basis Grid, Determinant Area Scaling & Eigenvector Axes — 3D Interactive Mathematics Atlas chapter.
 import { SUBJECT } from '../subject.js';
 import * as EKit from '../../../engine/math_kit.js';
+import { BYRNE_THEME } from '../../../engine/theme.js';
 import * as M from './model.js';
 
 export const PAGES = [
@@ -90,6 +91,7 @@ function buildWorld(rawE) {
     pEigen.add(E.vectorArrow({ from: [-1.4, 1.4, 0.04], to: [1.4, -1.4, 0.04], color: E.MATH_COL.proof, radius: 0.03 }));
 
     return {
+      quad,
       at(s, p) {
         const u = p.blendT;
         const a = 1 + u * (p.matA - 1);
@@ -114,7 +116,12 @@ function buildWorld(rawE) {
     });
   });
   return {
-    labels: [],
+    labels: [
+      { text: () => `î' = (${(CHAPTER.params || CHAPTER.defaultParams).matA.toFixed(1)}, ${(CHAPTER.params || CHAPTER.defaultParams).matB.toFixed(1)})`, cls: 'board', at: () => new THREE.Vector3(1.4, 0.7, 0.1), leader: [22, -16], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `ĵ' = (${(CHAPTER.params || CHAPTER.defaultParams).matB.toFixed(1)}, ${(CHAPTER.params || CHAPTER.defaultParams).matA.toFixed(1)})`, cls: 'board', at: () => new THREE.Vector3(0.7, 1.4, 0.1), leader: [-22, -18], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `det(A) = a² − b²`, cls: 'board', at: () => built.quad.position.clone().add(new THREE.Vector3(0, 0, 0.12)), leader: [24, -18], on: () => (CHAPTER._pageIdx || 0) === 1 },
+      { text: () => `Av₁ = λ₁v₁ (along 1,1)`, cls: 'board', at: () => new THREE.Vector3(1.1, 1.1, 0.1), leader: [22, -18], on: () => (CHAPTER._pageIdx || 0) === 2 },
+    ],
     update(s, look) {
       const p = CHAPTER.params || CHAPTER.defaultParams;
       const pageIdx = CHAPTER._pageIdx || 0;
@@ -131,6 +138,9 @@ export const CHAPTER = {
   subject: SUBJECT,
   no: 20,
   title: 'Ch 20 · 2×2 Matrix Basis Grid, Determinant Area Scaling & Eigenvector Axes',
+  theme: BYRNE_THEME,
+  medium: 'pencil-wash',
+  quirk: 'slightly-quirky',
   PAGES,
   pages: PAGES,
   PLATES,
@@ -161,9 +171,12 @@ export const CHAPTER = {
     return `<b>Eigenvectors (Av = λv)</b> · Axis v₁ = (1, 1) stretches by <b>λ₁ = ${s.me.lambda1.toFixed(2)}×</b> · Axis v₂ = (1, −1) stretches by <b>λ₂ = ${s.me.lambda2.toFixed(2)}×</b> · Notice <b>λ₁·λ₂ = ${s.me.prodEigen.toFixed(2)} = det(A)</b>!`;
   },
   sonify(ctx, s, pageIdx = 0, p = CHAPTER.defaultParams) {
-    const firstKey = Object.keys(p || CHAPTER.defaultParams)[0];
-    const v = Number((p || CHAPTER.defaultParams)[firstKey]) || 1;
-    EKit.playTone(ctx, { freq: 220 + (Math.abs(v) % 20) * 18, dur: 0.06, type: 'sine', gain: 0.03 });
+    if (!s?.me) return;
+    if (Math.abs(s.me.det) < 0.08) {
+      EKit.playInvariantSnap(ctx, { satisfied: false, strength: 1.8, gain: 0.04 });
+    } else {
+      EKit.playHarmonic(ctx, { ratio: s.me.prodEigen, targetRatio: s.me.det, baseFreq: 246.94 + Math.min(220, Math.abs(s.me.det) * 35), gain: 0.032 });
+    }
   },
   buildWorld,
   build: buildWorld,

@@ -37,6 +37,7 @@ struct QuestionProofPracticeView: View {
     @State private var handInGate = HandInGate()
     @State private var openWalkBack: WalkBack?
     @State private var showStuckSheet = false
+    @State private var consecutiveMisses = 0
 
     /// The boxes whose words are handed in.
     private enum TypingBox: Hashable { case working, answer, thinking }
@@ -103,6 +104,9 @@ struct QuestionProofPracticeView: View {
         .pageSizedSheet()
         .onAppear {
             cpaState = CPAManipulativeEngine.initialState(for: question)
+        }
+        .onChange(of: question.id) { _, _ in
+            consecutiveMisses = 0
         }
         .onChange(of: store.deepLinkTail, initial: true) { _, tail in
             // `proof/<unit>/scratch` opens the scratchpad over the studio.
@@ -414,6 +418,7 @@ struct QuestionProofPracticeView: View {
                         answerText = ""
                         finalAnswer = ""
                         evaluation = nil
+                        consecutiveMisses = 0
                     }
                     .buttonStyle(TextLinkButtonStyle(arrow: false))
                 }
@@ -438,7 +443,7 @@ struct QuestionProofPracticeView: View {
 
     private func markAttempt() {
         guard walkBack == nil else { return }
-        evaluation = store.submitQuestionAttempt(
+        let eval = store.submitQuestionAttempt(
             question: question,
             answerText: submission,
             usedAssistance: usedAssistanceInSession,
@@ -447,9 +452,9 @@ struct QuestionProofPracticeView: View {
             declinedToGuess: declinedToGuess,
             thinkingTrace: thinkingTrace
         )
-        graduatedFeedback = evaluation.map {
-            SocraticFeedbackEngine.evaluate(studentAnswer: submission, question: question, marked: $0)
-        }
+        evaluation = eval
+        consecutiveMisses = eval.isPass ? 0 : (declinedToGuess ? consecutiveMisses : consecutiveMisses + 1)
+        graduatedFeedback = SocraticFeedbackEngine.evaluate(studentAnswer: submission, question: question, marked: eval)
     }
 
     // MARK: Help that counts
@@ -747,6 +752,16 @@ struct QuestionProofPracticeView: View {
                     .foregroundStyle(theme.patterned.assistedColor)
             }
 
+            if walkBack == nil,
+               let diff = AttemptMismatchDiff.compare(
+                   consecutiveMisses: consecutiveMisses,
+                   submission: submission,
+                   evaluation: eval,
+                   question: question
+               ) {
+                mismatchDiffBlock(diff)
+            }
+
             if eval.diagnosticCell == .committedMisconception, eval.mistake == nil {
                 spotTheFlaw
             }
@@ -767,13 +782,49 @@ struct QuestionProofPracticeView: View {
                     .patternedType(.readingSmall)
                     .foregroundStyle(theme.mute(theme.ink))
                     .fixedSize(horizontal: false, vertical: true)
-                if walkBack == nil, question.stuck != nil {
-                    Button("Try a smaller one first") { showStuckSheet = true }
-                        .buttonStyle(TextLinkButtonStyle())
+                FlowLayout(spacing: StandardSpacing.sm) {
+                    if walkBack == nil, question.stuck != nil {
+                        Button("Try a smaller one first") { showStuckSheet = true }
+                            .buttonStyle(TextLinkButtonStyle())
+                    }
+                    Button("Test this on the figure") {
+                        store.openLab(with: StagePresetCatalog.preset(for: question))
+                        dismiss()
+                    }
+                    .buttonStyle(OutlineButtonStyle())
                 }
             }
         }
         .paperCard()
+    }
+
+    private func mismatchDiffBlock(_ diff: AttemptMismatchComparison) -> some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.xs) {
+            Kicker("What you wrote · What the question asks")
+            Text("Your line: \(diff.yourAnswer)")
+                .standardType(.uiHeadline)
+                .foregroundStyle(theme.ink)
+                .fixedSize(horizontal: false, vertical: true)
+            HStack(alignment: .firstTextBaseline, spacing: StandardSpacing.xs) {
+                StatusTag(.proven, label: "Right so far")
+                Text(diff.whatMatches)
+                    .patternedType(.readingSmall)
+                    .foregroundStyle(theme.ink)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            Text(diff.whereItSplits)
+                .patternedType(.readingSmall)
+                .foregroundStyle(theme.patterned.assistedColor)
+                .fixedSize(horizontal: false, vertical: true)
+            Text(diff.tryNext)
+                .patternedType(.readingSmall)
+                .foregroundStyle(theme.mute(theme.ink))
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(StandardSpacing.sm)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous).fill(theme.patterned.sunkColor))
+        .overlay(RoundedRectangle(cornerRadius: StandardRadius.lg, style: .continuous).strokeBorder(theme.hairline(), lineWidth: 1))
     }
 
     private func walkBackBlock(_ walkBack: WalkBack) -> some View {
@@ -784,8 +835,17 @@ struct QuestionProofPracticeView: View {
                 .patternedType(.readingDefault)
                 .foregroundStyle(theme.ink)
                 .fixedSize(horizontal: false, vertical: true)
-            Button("Check the step underneath") { openWalkBack = walkBack }
-                .buttonStyle(OutlineButtonStyle())
+            FlowLayout(spacing: StandardSpacing.sm) {
+                Button("Check the step underneath") { openWalkBack = walkBack }
+                    .buttonStyle(OutlineButtonStyle())
+                if let preset = StagePresetCatalog.preset(forFooting: walkBack.footing.id) {
+                    Button("See this step on a figure") {
+                        store.openLab(with: preset)
+                        dismiss()
+                    }
+                    .buttonStyle(TextLinkButtonStyle())
+                }
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 // Ch 19 · Riemann Slabs, Fundamental Theorem dA/dx = f(x) & Solids of Revolution — 3D Interactive Mathematics Atlas chapter.
 import { SUBJECT } from '../subject.js';
 import * as EKit from '../../../engine/math_kit.js';
+import { BYRNE_THEME } from '../../../engine/theme.js';
 import * as M from './model.js';
 
 export const PAGES = [
@@ -134,7 +135,11 @@ function buildWorld(rawE) {
     });
   });
   return {
-    labels: [],
+    labels: [
+      { text: () => `Riemann slabs`, cls: 'board', at: () => new THREE.Vector3(-0.35, 0.15, 0.1), leader: [-16, -16], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `dA = f(x)dx`, cls: 'board', at: () => new THREE.Vector3(0.75, 0.25, 0.1), leader: [16, -16], on: () => (CHAPTER._pageIdx || 0) === 1 },
+      { text: () => `πr² dx coins`, cls: 'board', at: () => new THREE.Vector3(0, -0.45, 0.25), leader: [0, 16], on: () => (CHAPTER._pageIdx || 0) === 2 },
+    ],
     update(s, look) {
       const p = CHAPTER.params || CHAPTER.defaultParams;
       const pageIdx = CHAPTER._pageIdx || 0;
@@ -151,6 +156,9 @@ export const CHAPTER = {
   subject: SUBJECT,
   no: 19,
   title: 'Ch 19 · Riemann Slabs, Fundamental Theorem dA/dx = f(x) & Solids of Revolution',
+  theme: BYRNE_THEME,
+  medium: 'pencil-wash',
+  quirk: 'slightly-quirky',
   PAGES,
   pages: PAGES,
   PLATES,
@@ -181,9 +189,9 @@ export const CHAPTER = {
     return `<b>Solid of Revolution</b> · Revolving f(x) around the x-axis stacks ${s.im.n} coins of radius R = f(x) → <b>V = ∫ π[f(x)]² dx ≈ ${s.im.discVolSum.toFixed(2)}</b>.`;
   },
   sonify(ctx, s, pageIdx = 0, p = CHAPTER.defaultParams) {
-    const firstKey = Object.keys(p || CHAPTER.defaultParams)[0];
-    const v = Number((p || CHAPTER.defaultParams)[firstKey]) || 1;
-    EKit.playTone(ctx, { freq: 220 + (Math.abs(v) % 20) * 18, dur: 0.06, type: 'sine', gain: 0.03 });
+    if (!s?.im) return;
+    const ratio = s.im.exactArea ? s.im.midpointSum / s.im.exactArea : 1;
+    EKit.playHarmonic(ctx, { ratio, targetRatio: 1, baseFreq: 261.63, gain: 0.032 });
   },
   buildWorld,
   build: buildWorld,

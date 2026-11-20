@@ -5,6 +5,7 @@ import * as rawPrims from './prims.js';
 import * as K from './kinematics.js';
 import * as motion from './motion.js';
 export * from './cad_kit.js';
+export { playBoop, playClick, playKnock, playHarmonic, playInvariantSnap } from './sound.js';
 
 export function arrow(parent, palOrOpts = 'red', opts = {}) {
   if (palOrOpts && typeof palOrOpts === 'object') {
@@ -136,13 +137,14 @@ export const MATH_COL = {
 };
 
 function makeMat(color = 0x2e66b8, opacity = 1.0) {
-  return new THREE.MeshStandardMaterial({
-    color,
-    roughness: 0.38,
-    metalness: 0.08,
-    transparent: opacity < 0.99,
-    opacity,
-  });
+  const base = new THREE.Color(color);
+  const paper = new THREE.Color('#f4efe2');
+  const ink = new THREE.Color('#1b1917');
+  const m = shadeMat('paper', { opacity }).clone();
+  m.uniforms.uTop.value.copy(base).lerp(paper, 0.24);
+  m.uniforms.uLight.value.copy(base);
+  m.uniforms.uDark.value.copy(base).lerp(ink, 0.26);
+  return m;
 }
 
 export function algebraTile({ width = 1, height = 1, depth = 0.16, color = MATH_COL.setB, opacity = 1.0 } = {}) {

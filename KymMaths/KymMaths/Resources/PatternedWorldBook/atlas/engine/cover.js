@@ -5,8 +5,24 @@
 // On both pages, a classic script in <head>, so it is listening before the first frame.
 (() => {
   const html = document.documentElement, $ = id => document.getElementById(id);
-  // a recorded (?render) or embedded (?embed) figure has no book to open: drop any page transition at once
-  if (/[?&](render|embed)\b/.test(location.search)) { addEventListener('pagereveal', e => e.viewTransition?.skipTransition()); return; }
+  // a recorded (?render) or embedded (?embed / iframe) figure has no book to open: drop any page transition at once
+  if (/[?&](render|embed)\b/.test(location.search) || window.self !== window.top) {
+    const noop = () => {};
+    const dropVT = e => {
+      const vtObj = e?.viewTransition;
+      if (!vtObj) return;
+      vtObj.ready?.catch?.(noop);
+      vtObj.finished?.catch?.(noop);
+      vtObj.updateCallbackDone?.catch?.(noop);
+      try { vtObj.skipTransition?.(); } catch (_) {}
+    };
+    addEventListener('pagereveal', dropVT);
+    addEventListener('pageswap', dropVT);
+    return;
+  }
+  const vtStyle = document.createElement('style');
+  vtStyle.textContent = '@view-transition { navigation: auto; } @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }';
+  document.head?.appendChild(vtStyle);
   const wide = () => !matchMedia('(max-width: 900px), (max-height: 520px), (prefers-reduced-motion: reduce)').matches;
   const path = url => new URL(url, location).pathname;
   const T = { duration: 900, easing: 'cubic-bezier(.65,0,.35,1)', fill: 'both' }, P = 'perspective(2600px)';

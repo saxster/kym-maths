@@ -1,6 +1,7 @@
 // Ch 9 · Compass Loci, 3-Figure Bearings & 3D Polyhedra — 3D Interactive Mathematics Atlas chapter.
 import { SUBJECT } from '../subject.js';
 import * as EKit from '../../../engine/math_kit.js';
+import { BYRNE_THEME } from '../../../engine/theme.js';
 import * as M from './model.js';
 
 export const PAGES = [
@@ -125,7 +126,12 @@ function buildWorld(rawE) {
     });
   });
   return {
-    labels: [],
+    labels: [
+      { text: () => `Arc centre A`, cls: 'board', at: () => new THREE.Vector3(-0.8, 0.35, 0.1), leader: [-18, -14], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `90° bisector`, cls: 'board', at: () => new THREE.Vector3(0, 0.65, 0.1), leader: [0, -18], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `3-fig bearing`, cls: 'board', at: () => new THREE.Vector3(0.4, 0.35, 0.1), leader: [16, -16], on: () => (CHAPTER._pageIdx || 0) === 1 },
+      { text: () => `V − E + F = 2`, cls: 'board', at: () => new THREE.Vector3(0, 0.6, 0.1), leader: [0, -18], on: () => (CHAPTER._pageIdx || 0) === 2 },
+    ],
     update(s, look) {
       const p = CHAPTER.params || CHAPTER.defaultParams;
       const pageIdx = CHAPTER._pageIdx || 0;
@@ -142,6 +148,9 @@ export const CHAPTER = {
   subject: SUBJECT,
   no: 9,
   title: 'Ch 9 · Compass Loci, 3-Figure Bearings & 3D Polyhedra',
+  theme: BYRNE_THEME,
+  medium: 'pencil-wash',
+  quirk: 'slightly-quirky',
   PAGES,
   pages: PAGES,
   PLATES,
@@ -173,9 +182,13 @@ export const CHAPTER = {
     return `<b>Euler's Polyhedron Theorem</b> · Cube net fold = ${(s.foldNet * 100).toFixed(0)}% · Vertices V = 8, Edges E = 12, Faces F = 6 → <b>V − E + F = 8 − 12 + 6 = 2</b>.`;
   },
   sonify(ctx, s, pageIdx = 0, p = CHAPTER.defaultParams) {
-    const firstKey = Object.keys(p || CHAPTER.defaultParams)[0];
-    const v = Number((p || CHAPTER.defaultParams)[firstKey]) || 1;
-    EKit.playTone(ctx, { freq: 220 + (Math.abs(v) % 20) * 18, dur: 0.06, type: 'sine', gain: 0.03 });
+    if (pageIdx === 1 && s?.bb) {
+      const diff = Math.abs(s.bb.backDeg - s.bb.forwardDeg);
+      EKit.playInvariantSnap(ctx, { satisfied: Math.abs(diff - 180) < 1, strength: 1.0, gain: 0.032 });
+    } else {
+      const angle = s?.br?.angleDeg ?? 90;
+      EKit.playInvariantSnap(ctx, { satisfied: Math.abs(angle - 90) < 0.5, strength: 1.1, gain: 0.032 });
+    }
   },
   buildWorld,
   build: buildWorld,

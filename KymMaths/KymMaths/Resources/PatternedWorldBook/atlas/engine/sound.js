@@ -148,6 +148,30 @@ export function createHum(ctx, { baseFreq = 55, maxBoost = 75, maxGain = 0.06 } 
 }
 
 // Muted-by-default Sound toggle pill for standalone figures (never plays in ?render or without explicit click).
+export function playHarmonic(ctx, { ratio = 1, targetRatio = 1, baseFreq = 261.63, gain = 0.036, pan = 0 } = {}) {
+  if (!readyCtx(ctx)) return;
+  const safeTarget = Math.max(0.15, Math.abs(targetRatio));
+  const err = Math.min(1, Math.abs(ratio - targetRatio) / safeTarget);
+  if (err < 0.04) {
+    playTone(ctx, { freq: baseFreq, dur: 0.11, type: 'sine', gain, pan });
+    playTone(ctx, { freq: baseFreq * 1.5, dur: 0.11, type: 'triangle', gain: gain * 0.72, pan });
+  } else {
+    const detuned = baseFreq * (1.5 + err * 0.28);
+    playTone(ctx, { freq: baseFreq, dur: 0.08, type: 'sine', gain: gain * 0.7, pan });
+    playTone(ctx, { freq: detuned, dur: 0.08, type: 'triangle', gain: gain * 0.55, pan });
+  }
+}
+
+export function playInvariantSnap(ctx, { satisfied = true, strength = 1, gain = 0.045, pan = 0 } = {}) {
+  if (!readyCtx(ctx)) return;
+  if (satisfied) {
+    const s = Math.max(0.75, Math.min(1.5, strength));
+    playTone(ctx, { freq: 392 * s, slideTo: 523.25 * s, dur: 0.09, type: 'triangle', gain, pan });
+  } else {
+    playKnock(ctx, { velocity: Math.max(0.6, Math.min(3.2, 1.2 + strength)), gain: gain * 1.4, pan });
+  }
+}
+
 export function mountSoundToggle(anchorEl, { onToggle = null, place = 'after', label = 'Sound' } = {}) {
   if (!anchorEl || typeof document === 'undefined') return null;
   if (typeof location !== 'undefined' && /[?&]render\b/.test(location.search)) return null;

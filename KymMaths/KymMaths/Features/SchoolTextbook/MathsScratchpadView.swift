@@ -11,6 +11,7 @@ enum MathsScratchpadStamp: String, CaseIterable, Identifiable, Sendable {
     case primeTree = "prime_tree"
     case truthTable = "truth_table"
     case matrixGrid = "matrix_grid"
+    case doubleNumberLine = "double_number_line"
 
     var id: String { rawValue }
 
@@ -24,6 +25,7 @@ enum MathsScratchpadStamp: String, CaseIterable, Identifiable, Sendable {
         case .truthTable: return "Truth table"
         case .matrixGrid: return "2×2 matrix"
         case .numberLine: return "Number line"
+        case .doubleNumberLine: return "Double line"
         }
     }
 
@@ -38,6 +40,7 @@ enum MathsScratchpadStamp: String, CaseIterable, Identifiable, Sendable {
         case .truthTable: return "Truth table: P | Q | P ∧ Q | P ∨ Q, one row for each case."
         case .matrixGrid: return "2×2 matrix: det = ad − bc, and the trace is a + d."
         case .numberLine: return "Number line: an open ○ for < and >, a filled ● for ≤ and ≥."
+        case .doubleNumberLine: return "Double number line: line up 0 on both rails. Scale both rails by the same factor to find 1 unit."
         }
     }
 }
@@ -483,6 +486,39 @@ struct MathsStampBlueprintCanvas: View {
                     var tick = Path(); tick.move(to: CGPoint(x: tx, y: y - 6)); tick.addLine(to: CGPoint(x: tx, y: y + 6))
                     context.stroke(tick, with: .color(cBlue.opacity(0.7)), lineWidth: 1.5)
                     context.draw(Text("\(i)").font(MathsFigureType.axisTick).foregroundStyle(cBlue), at: CGPoint(x: tx, y: y + 16))
+                }
+
+            case .doubleNumberLine?:
+                let x0 = w * 0.44, x1 = w * 0.94
+                let yTop = h * 0.38, yBot = h * 0.66
+                var topRail = Path()
+                topRail.move(to: CGPoint(x: x0, y: yTop)); topRail.addLine(to: CGPoint(x: x1, y: yTop))
+                context.stroke(topRail, with: .color(cRed.opacity(0.75)), lineWidth: 2.0)
+                var botRail = Path()
+                botRail.move(to: CGPoint(x: x0, y: yBot)); botRail.addLine(to: CGPoint(x: x1, y: yBot))
+                context.stroke(botRail, with: .color(cBlue.opacity(0.75)), lineWidth: 2.0)
+
+                var zeroAnchor = Path()
+                zeroAnchor.move(to: CGPoint(x: x0, y: yTop - 12)); zeroAnchor.addLine(to: CGPoint(x: x0, y: yBot + 12))
+                context.stroke(zeroAnchor, with: .color(cAmber.opacity(0.85)), lineWidth: 2.0)
+
+                let labels = ["0", "1u", "2u", "3u", "4u"]
+                for i in 0...4 {
+                    let tx = x0 + CGFloat(i) / 4.0 * (x1 - x0)
+                    if i > 0 {
+                        var guide = Path()
+                        guide.move(to: CGPoint(x: tx, y: yTop)); guide.addLine(to: CGPoint(x: tx, y: yBot))
+                        context.stroke(guide, with: .color(theme.hairline()), style: StrokeStyle(lineWidth: 1.0, dash: [4, 3]))
+                    }
+                    var topTick = Path()
+                    topTick.move(to: CGPoint(x: tx, y: yTop - 6)); topTick.addLine(to: CGPoint(x: tx, y: yTop + 6))
+                    context.stroke(topTick, with: .color(cRed.opacity(0.8)), lineWidth: 1.5)
+                    context.draw(Text(labels[i]).font(MathsFigureType.axisTick).foregroundStyle(cRed), at: CGPoint(x: tx, y: yTop - 15))
+
+                    var botTick = Path()
+                    botTick.move(to: CGPoint(x: tx, y: yBot - 6)); botTick.addLine(to: CGPoint(x: tx, y: yBot + 6))
+                    context.stroke(botTick, with: .color(cBlue.opacity(0.8)), lineWidth: 1.5)
+                    context.draw(Text(labels[i]).font(MathsFigureType.axisTick).foregroundStyle(cBlue), at: CGPoint(x: tx, y: yBot + 15))
                 }
             }
 

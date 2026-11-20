@@ -286,6 +286,7 @@ struct PatternedChapterView: View {
         ForEach(Array(notes.enumerated()), id: \.element.id) { offset, note in
             MarginNote(.sidenote(offset + 1), "\(note.title). \(note.body)")
         }
+        MarginNote(.sidenote(notes.count + 1), "What this picture leaves out. \(ModelSimplificationsCatalog.note(forChapter: chapter.number))")
         if let own = reading.readingThoughtsByChapter[chapter.number].flatMap({ $0.isEmpty ? nil : $0 })
             ?? PatternedBook.latestOwnWords(in: [chapter.number], responses: store.calloutResponses) {
             MarginNote(.hand, own)
@@ -379,7 +380,15 @@ struct PatternedChapterView: View {
                     Button("Send") {
                         let q = deskQuietDraft.trimmingCharacters(in: .whitespacesAndNewlines)
                         guard !q.isEmpty else { return }
-                        deskTutorReply = "Let's test “\(q)” against what stays fixed in \(chapter.title): \(chapter.intuitionToFormula.ahaInvariant) Where does \(chapter.intuitionToFormula.formulaDisplay) show that on the figure?"
+                        let stageSnippet: String
+                        if let telemetry = store.latestStageTelemetry,
+                           telemetry.chapterNumber == chapter.number,
+                           !telemetry.voicing.context.isEmpty {
+                            stageSnippet = " On the figure right now: \(telemetry.voicing.context)."
+                        } else {
+                            stageSnippet = ""
+                        }
+                        deskTutorReply = "Let's test “\(q)” against what stays fixed in \(chapter.title): \(chapter.intuitionToFormula.ahaInvariant)\(stageSnippet) Where does \(chapter.intuitionToFormula.formulaDisplay) show that on the figure?"
                         deskQuietDraft = ""
                     }
                     .buttonStyle(OutlineButtonStyle())

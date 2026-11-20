@@ -1,6 +1,7 @@
 // Ch 10 · Archimedes' πr² Sector Comb, Trapezium Shear & 3D Volumes — 3D Interactive Mathematics Atlas chapter.
 import { SUBJECT } from '../subject.js';
 import * as EKit from '../../../engine/math_kit.js';
+import { BYRNE_THEME } from '../../../engine/theme.js';
 import * as M from './model.js';
 
 export const PAGES = [
@@ -138,7 +139,11 @@ function buildWorld(rawE) {
     });
   });
   return {
-    labels: [],
+    labels: [
+      { text: () => `πr × r strip`, cls: 'board', at: () => new THREE.Vector3(0, 0.65, 0.1), leader: [0, -18], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `½(a + b)h`, cls: 'board', at: () => new THREE.Vector3(0, -0.75, 0.1), leader: [0, 16], on: () => (CHAPTER._pageIdx || 0) === 1 },
+      { text: () => `Cavalieri rings`, cls: 'board', at: () => new THREE.Vector3(0.4, -0.2, 0.35), leader: [16, -16], on: () => (CHAPTER._pageIdx || 0) === 2 },
+    ],
     update(s, look) {
       const p = CHAPTER.params || CHAPTER.defaultParams;
       const pageIdx = CHAPTER._pageIdx || 0;
@@ -155,6 +160,9 @@ export const CHAPTER = {
   subject: SUBJECT,
   no: 10,
   title: "Ch 10 · Archimedes' πr² Sector Comb, Trapezium Shear & 3D Volumes",
+  theme: BYRNE_THEME,
+  medium: 'pencil-wash',
+  quirk: 'slightly-quirky',
   PAGES,
   pages: PAGES,
   PLATES,
@@ -186,9 +194,8 @@ export const CHAPTER = {
     return `<b>Cavalieri Cross-Sections</b> · Base radius r = ${s.cc.r.toFixed(1)} m → Semicircular slices integrate to <b>V = ⅔πr³ = ${s.hemiV.toFixed(2)} m³</b>.`;
   },
   sonify(ctx, s, pageIdx = 0, p = CHAPTER.defaultParams) {
-    const firstKey = Object.keys(p || CHAPTER.defaultParams)[0];
-    const v = Number((p || CHAPTER.defaultParams)[firstKey]) || 1;
-    EKit.playTone(ctx, { freq: 220 + (Math.abs(v) % 20) * 18, dur: 0.06, type: 'sine', gain: 0.03 });
+    const areaRatio = s?.cc?.exactArea ? (s.cc.combBase * s.cc.combHeight) / s.cc.exactArea : 1;
+    EKit.playHarmonic(ctx, { ratio: areaRatio, targetRatio: 1, baseFreq: 261.63, gain: 0.032 });
   },
   buildWorld,
   build: buildWorld,

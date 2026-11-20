@@ -1,6 +1,7 @@
 // Ch 3 · Singapore Ratio Bar Models & Exponential Compounding — 3D Interactive Mathematics Atlas chapter.
 import { SUBJECT } from '../subject.js';
 import * as EKit from '../../../engine/math_kit.js';
+import { BYRNE_THEME } from '../../../engine/theme.js';
 import * as M from './model.js';
 
 export const PAGES = [
@@ -132,7 +133,11 @@ function buildWorld(rawE) {
     });
   });
   return {
-    labels: [],
+    labels: [
+      { text: () => `Parts A`, cls: 'board', at: () => new THREE.Vector3(-0.7, 0.65, 0.1), leader: [-16, -14], on: () => (CHAPTER._pageIdx || 0) <= 1 },
+      { text: () => `Parts B`, cls: 'board', at: () => new THREE.Vector3(-0.7, 0.15, 0.1), leader: [-16, 14], on: () => (CHAPTER._pageIdx || 0) <= 1 },
+      { text: () => `(1 + r)ⁿ`, cls: 'board', at: () => new THREE.Vector3(0.5, 0.55, 0.15), leader: [16, -18], on: () => (CHAPTER._pageIdx || 0) === 2 },
+    ],
     update(s, look) {
       const p = CHAPTER.params || CHAPTER.defaultParams;
       const pageIdx = CHAPTER._pageIdx || 0;
@@ -149,6 +154,9 @@ export const CHAPTER = {
   subject: SUBJECT,
   no: 3,
   title: 'Ch 3 · Singapore Ratio Bar Models & Exponential Compounding',
+  theme: BYRNE_THEME,
+  medium: 'pencil-wash',
+  quirk: 'slightly-quirky',
   PAGES,
   pages: PAGES,
   PLATES,
@@ -180,9 +188,12 @@ export const CHAPTER = {
     return `<b>20-Year Growth at ${s.cs.ratePct}%</b> · Simple interest = ₹${s.cs.simpleTotal.toFixed(0)} vs Compound P(1+r)²⁰ = <b>₹${s.cs.compoundTotal.toFixed(0)}</b> (+₹${s.cs.extraCompound.toFixed(0)} extra from interest-on-interest!).`;
   },
   sonify(ctx, s, pageIdx = 0, p = CHAPTER.defaultParams) {
-    const firstKey = Object.keys(p || CHAPTER.defaultParams)[0];
-    const v = Number((p || CHAPTER.defaultParams)[firstKey]) || 1;
-    EKit.playTone(ctx, { freq: 220 + (Math.abs(v) % 20) * 18, dur: 0.06, type: 'sine', gain: 0.03 });
+    if (pageIdx === 2 && s?.cs) {
+      const spread = Math.min(1.5, s.cs.compoundTotal / Math.max(1, s.cs.simpleTotal));
+      EKit.playTone(ctx, { freq: 240, slideTo: 240 * spread, dur: 0.09, type: 'triangle', gain: 0.032 });
+    } else if (s?.rp) {
+      EKit.playHarmonic(ctx, { ratio: s.rp.partsA / Math.max(1, s.rp.partsB), targetRatio: 0.6, baseFreq: 261.63, gain: 0.034 });
+    }
   },
   buildWorld,
   build: buildWorld,

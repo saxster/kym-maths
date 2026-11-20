@@ -3,8 +3,8 @@
 // stage (stage.js); the book is everything around it: pages, the leaf turning, practice, the top bar, Play.
 // From kym_physics' port (source/spread/): a Pause button, every page's parts as buttons so a breakdown opens from
 // the keyboard, focus back where it was after Esc, Still mode, and calm: nothing moves until the reader asks.
-import { createStage, smooth, ease, clamp01, mountShareButton } from './stage.js';
-import { bindProse } from './prose.js';
+import { createStage, bindPlaybackLifecycle, smooth, ease, clamp01, mountShareButton, sharedAnchorDelta } from './stage.js';
+import { bindProse, foilCard } from './prose.js';
 import { mountSoundToggle, playBoop, playClick } from './sound.js';
 import { renderComicStripHTML } from './comic.js';
 
@@ -37,11 +37,26 @@ export function startBook(chapter) {
     for (; i < N - 1 && t >= TOUR[i]; i++) t -= TOUR[i];
     return i + (t <= dwell(i) ? 0 : ease((t - dwell(i)) / TURN));
   }
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches || !!chapter.still?.();
   const Q = new URLSearchParams(location.search);
   // ?embed&page=i: only the figure, held on page i (an iframe or a book's widget). Calm unless &auto.
   // ?render: no clock of its own; window.seek(t) draws the page tour at time t, so any frame can be drawn in any order
   const EMBED = Q.has('embed'), RENDER = Q.has('render');
+  let S = null, playB = null, raf = 0, frameReady = false, last = 0, last0 = 0;
+  const life = RENDER ? { reduced: false, hidden: false, visible: true, active: true, destroy() {} } : bindPlaybackLifecycle({
+    targetEl: EMBED ? $('gl') : null,
+    getReducedExtra: () => !!chapter.still?.(),
+    onChange(st) {
+      S?.setReduced?.(st.reduced);
+      if (playB) playB.hidden = st.reduced;
+      if (!frameReady) return;
+      const shouldDraw = !st.hidden && st.visible;
+      if (!shouldDraw && raf) { cancelAnimationFrame(raf); raf = 0; }
+      if (shouldDraw && !raf) {
+        last = performance.now(); last0 = last;
+        raf = requestAnimationFrame(frame);
+      }
+    },
+  });
   const params = { ...(chapter.params || {}) };
   for (const k of Object.keys(params)) if (Q.has(k)) params[k] = Number.isNaN(+Q.get(k)) ? Q.get(k) : +Q.get(k);
   const calm = !RENDER && (chapter.calm ?? chapter.subject?.calm ?? (Q.has('calm') || (EMBED && !Q.has('auto'))));
@@ -60,13 +75,14 @@ export function startBook(chapter) {
   let PRACTICE = {}, lastState = null;
   // practice questions live beside the chapter (practice.js: { pageIndex: [question, ...] }); a chapter may have none
   import(new URL('practice.js', location.href).href).then(m => { PRACTICE = m.PRACTICE || {}; shown = leafFor = -1; }, () => {});
-  const numHtml = q => q.numeric ? `<div class="numrow"><input type="number" step="any" class="numin" placeholder="${esc(q.numeric.placeholder || 'Type a number…')}" aria-label="Numeric answer">${q.numeric.unit ? `<span class="numunit">${q.numeric.unit}</span>` : ''}<button type="button" class="numcheck">Check</button><span class="numstatus" aria-live="polite"></span></div>` : '';
+  const numHtml = q => q.numeric ? `<div class="numrow"><input type="number" step="any" inputmode="decimal" enterkeyhint="done" class="numin" placeholder="${esc(q.numeric.placeholder || 'Type a number…')}" aria-label="Numeric answer">${q.numeric.unit ? `<span class="numunit">${q.numeric.unit}</span>` : ''}<button type="button" class="numcheck">Check</button><span class="numstatus" aria-live="polite"></span></div>` : '';
   const targetHtml = q => q.target ? `<div class="targetrow"><button type="button" class="targetcheck">${q.target.label || 'Check figure position'}</button><span class="targetstatus" aria-live="polite">${q.target.hint || 'Drag the point in the 3D figure, then check'}</span></div>` : '';
   const pickHtml = q => q.pickPart ? `<div class="targetrow"><button type="button" class="targetcheck pickbtn">${q.pickPart.label || 'Locate on the figure'}</button><span class="targetstatus pickstatus" aria-live="polite">${q.pickPart.hint || 'Click to arm, then tap the matching part in 3D'}</span></div>` : '';
   const practiceHtml = i => {
     const qs = PRACTICE[i] || [];
     if (!qs.length) return '';
-    return `<section class="practice"><div class="kicker">Practice</div>${qs.map((q, n) => `<div class="q" data-q="${n}">
+    const holes = qs.map((_, n) => `<i class="p-hole" data-hole="${n}" aria-hidden="true"></i>`).join('');
+    return `<section class="practice"><div class="practice-head"><div class="kicker">Practice</div><span class="practice-stamps" title="Punch card progress">${holes}</span></div>${qs.map((q, n) => `<div class="q" data-q="${n}">
       <p class="qtext"><span class="qn">${n + 1}</span>${q.q}</p>
       ${targetHtml(q)}${pickHtml(q)}${numHtml(q)}${q.choices ? `<ol class="choices">${q.choices.map((c, k) => `<li><button type="button" data-c="${k}"><span class="letter">${'ABCDE'[k]}</span><span>${c}</span></button></li>`).join('')}</ol>`
         : (!q.numeric && !q.target && !q.pickPart ? '<button type="button" class="reveal">Show the solution</button>' : '')}
@@ -81,7 +97,7 @@ export function startBook(chapter) {
       return `<p><a href="${d === DIR ? '' : `../../${d}/`}#${k}">${other}${label} →</a> ${note}</p>`; }).join('')}</aside>`;
   };
   // the parts of this page's figure, as buttons: the keyboard's way into a breakdown
-  const partsOf = i => (PAGES[i].parts || (PAGES[i].lit ? [PAGES[i].lit] : [])).filter(k => PLATES[k] && E.ASM[k]);
+  const partsOf = i => [...new Set((PAGES[i]?.parts || (PAGES[i]?.lit ? [PAGES[i].lit] : [])).filter(k => PLATES[k] && E.ASM[k]))];
   const partsHtml = i => {
     const ks = partsOf(i);
     if (!ks.length) return '';
@@ -160,10 +176,13 @@ export function startBook(chapter) {
   const prologueHtml = i => (i === 0 && chapter.PROLOGUE_STRIP) ? renderComicStripHTML(chapter.PROLOGUE_STRIP) : '';
   const openerHtml = i => PAGES[i].openerStrip ? renderComicStripHTML(PAGES[i].openerStrip) : '';
   const closerHtml = i => PAGES[i].closerStrip ? renderComicStripHTML(PAGES[i].closerStrip) : '';
-  const sheetHtml = i => { const p = PAGES[i]; return `${prologueHtml(i)}<div class="kicker">${p.kicker}</div><h1>${p.title}</h1>${openerHtml(i)}<div class="sub">${p.sub}</div>${moleculeHtml(i)}${specimenHtml(i)}${p.body}${partsHtml(i)}${xrefHtml(i)}${practiceHtml(i)}${closerHtml(i)}${turnHtml(i)}`; };
+  const foilHtml = i => PAGES[i].foil ? foilCard(PAGES[i].foil, { currentDir: DIR }) : '';
+  const sheetHtml = i => { const p = PAGES[i]; return `${prologueHtml(i)}<div class="kicker">${p.kicker ?? p.fig ?? ''}</div><h1>${p.title ?? p.tab ?? ''}</h1>${openerHtml(i)}<div class="sub">${p.sub ?? p.alt ?? ''}</div>${moleculeHtml(i)}${specimenHtml(i)}${p.body ?? ''}${partsHtml(i)}${foilHtml(i)}${xrefHtml(i)}${practiceHtml(i)}${closerHtml(i)}${turnHtml(i)}`; };
   // answering: click a choice, check a numeric answer, or check a dragged 3D target position
   const markRight = (q, item) => {
     q.classList.add('done');
+    const hole = q.closest('.practice')?.querySelector(`.p-hole[data-hole="${q.dataset.q}"]`);
+    if (hole) hole.classList.add('stamped');
     q.querySelectorAll('[data-c]').forEach(c => { c.disabled = true; c.classList.toggle('right', +c.dataset.c === item.answer); });
     q.querySelector('.why').hidden = false;
   };
@@ -245,24 +264,38 @@ export function startBook(chapter) {
       if (q) checkNumeric(q, PRACTICE[shown][+q.dataset.q]);
     }
   });
-  let shown = -1, leafFor = -1;
+  let shown = -1, leafFor = -1, lastHandoff = null;
   // the leaf's back is the next left page: the same folio at its foot
   $('leaf')?.setAttribute('aria-hidden', 'true');
   const leafFolio = $('folio').parentNode.cloneNode(true); leafFolio.lastElementChild.removeAttribute('id');
   document.querySelector('.leaf-back').append(leafFolio);
   function showPage(i) {
     if (i === shown) return;
+    const prevShown = shown;
     shown = i;
     disarmPick();
     closeMolecule();
     $('sheet').innerHTML = sheetHtml(i);
+    const prevParts = prevShown >= 0 ? partsOf(prevShown) : [];
+    const currParts = partsOf(i);
+    lastHandoff = sharedAnchorDelta(prevParts, currParts);
+    if ($('sheet')) {
+      $('sheet').dataset.anchorStatus = lastHandoff.status;
+      $('sheet').dataset.sharedAnchor = lastHandoff.anchor || '';
+      if (lastHandoff.stay.length) {
+        const staySet = new Set(lastHandoff.stay);
+        $('sheet').querySelectorAll('.parts button[data-part]').forEach(btn => {
+          if (staySet.has(btn.dataset.part)) {
+            btn.classList.add('shared-anchor');
+            btn.dataset.handoff = 'stay';
+          }
+        });
+      }
+    }
     $('left').scrollTop = 0;
     $('pagenum').textContent = `${i + 1} / ${N}`;
-    const bookEl = $('book');
-    if (bookEl) {
-      bookEl.style.setProperty('--left-stack', (N > 1 ? i / (N - 1) : 0).toFixed(3));
-      bookEl.style.setProperty('--right-stack', (N > 1 ? 1 - i / (N - 1) : 0).toFixed(3));
-    }
+    $('left')?.style.setProperty('--left-stack', (N > 1 ? i / (N - 1) : 0).toFixed(3));
+    $('right')?.style.setProperty('--right-stack', (N > 1 ? 1 - i / (N - 1) : 0).toFixed(3));
     // the address names the page, so it can be bookmarked or linked: kinematics/#3
     history.replaceState(null, '', i ? `#${i}` : location.pathname);
     $('folio').textContent = i + 1;
@@ -271,19 +304,20 @@ export function startBook(chapter) {
     if (partsOf(i).length) $('gl').setAttribute('aria-label', `Figure ${chapter.no}${i ? '.' + i : ''}: ${PAGES[i].fig}. ${PAGES[i].alt || ''} The buttons under the text take it apart.`);
     [...$('dots').children].forEach((b, k) => b.setAttribute('aria-current', k === i));
   }
-  const goto = (i, now) => (now || begin(), scrollTo({ top: Math.max(0, Math.min(N - 1, i)) * pageH, behavior: reduced || now ? 'auto' : 'smooth' }));
+  const goto = (i, now) => (now || begin(), scrollTo({ top: Math.max(0, Math.min(N - 1, i)) * pageH, behavior: life.reduced || now ? 'auto' : 'smooth' }));
   const fromHash = () => { const m = /^#(\d+)$/.exec(location.hash); return m && +m[1] < N ? +m[1] : null; };
   history.scrollRestoration = 'manual';
   addEventListener('hashchange', () => { const k = fromHash(); if (k !== null) goto(k); });
   // a compact pager for small screens, where a row of dots would not fit
   const { links: barLinks = [], source } = chapter.subject || {};
   $('dots').insertAdjacentHTML('afterend', '<span class="pager"><button type="button" aria-label="Previous page">‹</button><span id="pagenum"></span><button type="button" aria-label="Next page">›</button></span>'
-    + (reduced ? '' : '<button type="button" class="playbtn" id="play" aria-pressed="false">Play</button>')
+    + '<button type="button" class="playbtn" id="play" aria-pressed="false">Play</button>'
     + barLinks.map(l => `<a class="${l.cls || ''}" href="${l.href}">${l.label}</a>`).join('')
     + (source ? `<a class="gh" href="${source}" aria-label="Source on GitHub"><svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>` : ''));
   // Play / Pause. Calm chapters start still: the reader's scrolling, a key, a tap or Play starts them; a deep link doesn't
   let started = !calm, userPaused = false;
-  const playB = $('play');
+  playB = $('play');
+  if (playB) playB.hidden = life.reduced;
   if (EMBED && playB) { playB.classList.add('playbtn-embed'); $('gl').parentElement.appendChild(playB); }   // no top bar in an embed
   const syncPlay = () => {
     if (!playB) return;
@@ -306,7 +340,7 @@ export function startBook(chapter) {
 
   // ---------- scene ----------
   const stageChapter = { ...chapter, state: (c, r) => chapter.state(c, r, params) };
-  const S = createStage($('gl'), $('labels'), stageChapter, { reduced, touch, dprCap: touch ? 1.5 : 2 });
+  S = createStage($('gl'), $('labels'), stageChapter, { reduced: life.reduced, touch, dprCap: touch ? 1.5 : 2 });
   const E = S.E;
   let soundCtl = null;
   if (!EMBED && chapter.sonify) {
@@ -366,7 +400,8 @@ export function startBook(chapter) {
   // ---------- frame ----------
   // resolution follows the device: if frames run slow for two seconds running, draw fewer pixels
   // ponytail: only ever steps down (to 1 px per CSS px); stepping back up would need hysteresis
-  let last0 = performance.now(), slow = 0, win = [], dprCap = touch ? 1.5 : 2;
+  last0 = performance.now();
+  let slow = 0, win = [], dprCap = touch ? 1.5 : 2;
   function adapt(ms) {
     win.push(ms);
     if (win.length < 120) return;
@@ -376,10 +411,11 @@ export function startBook(chapter) {
     slow = avg > 1000 / 45 ? slow + 1 : 0;
     if (slow >= 2 && dprCap > 1) { dprCap = Math.max(1, dprCap - 0.25); E.setDprCap(dprCap); slow = 0; }
   }
-  let last = performance.now();
+  last = performance.now();
   const EMBED_PAGE = Math.min(Math.max(+Q.get('page') || 0, 0), N - 1);
-  let tourT = 0;
+  let tourT = 0, lastDwell = '', lastShade = '';
   function frame(now) {
+    raf = 0;
     const dt = RENDER ? 1 / 60 : Math.min(Math.max((now - last) / 1000, 0), 1 / 20); last = now;   // a frame stamp can predate setup
     const s = RENDER ? tourAt(tourT) : EMBED ? EMBED_PAGE : Math.min(Math.max(scrollY / pageH, 0), N - 1);
     const i = Math.min(Math.floor(s), N - 1), f = s - i, j = Math.min(i + 1, N - 1);
@@ -395,33 +431,70 @@ export function startBook(chapter) {
       if (leafFor !== j) {
         leafFor = j;
         $('leafsheet').innerHTML = sheetHtml(j);
-        $('leafsheet').querySelectorAll('[id]').forEach(e => e.removeAttribute('id'));
-        $('leafsheet').querySelectorAll('[aria-labelledby]').forEach(e => e.removeAttribute('aria-labelledby'));
+        // Preserve & namespace SVG-internal IDs (<filter>, <pattern>, <clipPath>, <title>, <desc>) so filtered/clipped SVGs
+        // remain visible during the 1.4s leaf turn without colliding with #sheet IDs.
+        $('leafsheet').querySelectorAll('svg').forEach(svg => {
+          const map = new Map();
+          svg.querySelectorAll('[id]').forEach(el => {
+            const oldId = el.getAttribute('id');
+            const newId = `leaf-${oldId}`;
+            map.set(oldId, newId);
+            el.setAttribute('id', newId);
+          });
+          if (map.size) {
+            for (const el of [svg, ...svg.querySelectorAll('*')]) {
+              for (const attr of ['filter', 'clip-path', 'fill', 'stroke', 'mask']) {
+                const v = el.getAttribute(attr);
+                if (v && v.includes('url(#')) {
+                  el.setAttribute(attr, v.replace(/url\(#([^)]+)\)/g, (m, k) => (map.has(k) ? `url(#${map.get(k)})` : m)));
+                }
+              }
+              for (const hrefAttr of ['href', 'xlink:href']) {
+                const hv = el.getAttribute(hrefAttr);
+                if (hv && hv.startsWith('#') && map.has(hv.slice(1))) {
+                  el.setAttribute(hrefAttr, `#${map.get(hv.slice(1))}`);
+                }
+              }
+              for (const idrefAttr of ['aria-labelledby', 'aria-describedby']) {
+                const aria = el.getAttribute(idrefAttr);
+                if (aria) {
+                  el.setAttribute(idrefAttr, aria.split(/\s+/).map(k => map.get(k) || k).join(' '));
+                }
+              }
+            }
+          }
+        });
+        $('leafsheet').querySelectorAll('[id]:not(svg [id])').forEach(e => e.removeAttribute('id'));
+        $('leafsheet').querySelectorAll('[aria-labelledby]:not(svg):not(svg *), [aria-describedby]:not(svg):not(svg *)').forEach(e => { e.removeAttribute('aria-labelledby'); e.removeAttribute('aria-describedby'); });
         $('leafnext').textContent = PAGES[j].fig;
         leafFolio.lastElementChild.textContent = j + 1;
       }
       leaf.style.visibility = 'visible';
       leaf.style.transform = `rotateY(${-180 * flip}deg)`;
       leaf.querySelector('.leaf-front').style.opacity = 0.25 + 0.6 * smooth(0.15, 0.5, flip);
-      leaf.style.setProperty('--shade', (0.10 * Math.sin(flip * Math.PI)).toFixed(3));
+      const shadeStr = Math.sin(flip * Math.PI).toFixed(3);
+      if (shadeStr !== lastShade) { lastShade = shadeStr; leaf.style.setProperty('--shade-u', shadeStr); }
     } else leaf.style.visibility = 'hidden';
     $('cue').style.opacity = s < 0.05 ? 1 : 0;
-    $('folio')?.parentElement?.style?.setProperty('--dwell', clamp01(f / 0.5).toFixed(3));
+    const dwellStr = clamp01(f / 0.5).toFixed(3);
+    if (dwellStr !== lastDwell) { lastDwell = dwellStr; $('folio')?.parentElement?.style?.setProperty('--dwell', dwellStr); }
 
     // the figure: camera, time, world, labels (stage.js); time pauses while something is pointed at or open
     const state = S.step({ now, dt, s, litPage: shown, running: started && !userPaused, narrow: narrow(), narrowZoom: chapter.narrowZoom ?? 1,
       clockAt: RENDER ? (chapter.clock0 || 0) + tourT : undefined });
     lastState = state;
-    paused.classList.toggle('on', !reduced && started && !userPaused && !!(S.selected || S.hovered));
+    paused.classList.toggle('on', !life.reduced && started && !userPaused && !!(S.selected || S.hovered));
 
-    $('readout').textContent = chapter.readout(state, PAGES[shown]);
+    const rawReadout = chapter.readout(state, PAGES[shown], shown) || '';
+    const firstSeg = rawReadout.replace(/<[^>]+>/g, '').split('·')[0].trim();
+    $('readout').textContent = firstSeg.length > 30 ? firstSeg.slice(0, 29).trimEnd() + '…' : firstSeg;
     prose.sync(state, params);
     if (soundCtl?.on && soundCtl.ctx && chapter.sonify) {
       try { chapter.sonify(soundCtl.ctx, state, shown, params); } catch {}
     }
     if (chapter.onFrame) chapter.onFrame(state, [$('sheet'), $('leafsheet')]);
     if (S.selected && $('facts')) $('facts').innerHTML = PLATES[S.selected].facts(state).map(([a, b]) => `<tr><td>${a}</td><td>${b}</td></tr>`).join('');
-    if (!RENDER) requestAnimationFrame(frame);
+    if (!RENDER && !life.hidden && life.visible) raf = requestAnimationFrame(frame);
   }
   S.relight();
   if (Q.has('t') && !RENDER) S.clock = +Q.get('t');
@@ -434,13 +507,21 @@ export function startBook(chapter) {
   };
   if (!EMBED) mountShareButton(playB || document.querySelector('.pager'), shareUrl, 'playbtn sharebtn');
   // the first frame drawn: the book can open now (cover.js)
-  document.fonts.ready.then(() => requestAnimationFrame(t => { frame(RENDER ? 0 : t); dispatchEvent(new Event('bookready')); }));
-  window.__atlas = { E, S, select, goto, N, shareUrl, labelReport: S.labelReport, sceneReport: S.sceneReport, get started() { return started; }, get clock() { return S.clock; } };
+  document.fonts.ready.then(() => requestAnimationFrame(t => { frameReady = true; frame(RENDER ? 0 : t); dispatchEvent(new Event('bookready')); }));
+  window.__atlas = { E, S, select, goto, N, shareUrl, labelReport: S.labelReport, sceneReport: S.sceneReport, lifecycle: life, get started() { return started; }, get clock() { return S.clock; }, get lastHandoff() { return lastHandoff; } };
   if (RENDER) {
     // every frame is a pure function of t: the page from the tour, the clock from t, the sway from t
     window.DURATION = DURATION;
-    window.__atlas.tour = { dwells: PAGES.map((_, i) => dwell(i)), turn: TURN };
-    window.__atlas.events = chapter.events || [];
+    const dwells = PAGES.map((_, i) => dwell(i));
+    window.__atlas.tour = { dwells, turn: TURN };
+    const turnEvents = [];
+    let acc = 0;
+    for (let i = 0; i < N - 1; i++) {
+      const tStart = acc + dwells[i];
+      turnEvents.push(tStart, tStart + TURN * 0.25, tStart + TURN * 0.5, tStart + TURN * 0.75, tStart + TURN);
+      acc = tStart + TURN;
+    }
+    window.__atlas.events = [...(chapter.events || []), ...turnEvents];
     window.seek = t => { tourT = Math.min(Math.max(t, 0), DURATION); frame(tourT * 1000); return tourT; };
   }
 }

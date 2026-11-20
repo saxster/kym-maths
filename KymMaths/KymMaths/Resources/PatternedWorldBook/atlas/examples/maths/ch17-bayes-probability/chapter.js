@@ -1,6 +1,7 @@
 // Ch 17 · Bayes Unit-Square Eikosogram, Probability Trees & Expected Value Fulcrum — 3D Interactive Mathematics Atlas chapter.
 import { SUBJECT } from '../subject.js';
 import * as EKit from '../../../engine/math_kit.js';
+import { BYRNE_THEME } from '../../../engine/theme.js';
 import * as M from './model.js';
 
 export const PAGES = [
@@ -113,7 +114,12 @@ function buildWorld(rawE) {
     });
   });
   return {
-    labels: [],
+    labels: [
+      { text: () => `True alarm TP`, cls: 'board', at: () => new THREE.Vector3(-0.85, -0.1, 0.15), leader: [-18, -14], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `False alarm FP`, cls: 'board', at: () => new THREE.Vector3(0.2, -0.55, 0.12), leader: [16, -14], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `Branch tree`, cls: 'board', at: () => new THREE.Vector3(0, 0.5, 0.1), leader: [0, -16], on: () => (CHAPTER._pageIdx || 0) === 1 },
+      { text: () => `μ = E[X] pivot`, cls: 'board', at: () => new THREE.Vector3(0, -0.4, 0.1), leader: [0, 16], on: () => (CHAPTER._pageIdx || 0) === 2 },
+    ],
     update(s, look) {
       const p = CHAPTER.params || CHAPTER.defaultParams;
       const pageIdx = CHAPTER._pageIdx || 0;
@@ -130,6 +136,9 @@ export const CHAPTER = {
   subject: SUBJECT,
   no: 17,
   title: 'Ch 17 · Bayes Unit-Square Eikosogram, Probability Trees & Expected Value Fulcrum',
+  theme: BYRNE_THEME,
+  medium: 'pencil-wash',
+  quirk: 'slightly-quirky',
   PAGES,
   pages: PAGES,
   PLATES,
@@ -160,9 +169,8 @@ export const CHAPTER = {
     return `<b>Expected Value Fulcrum</b> · Placing probability weights pᵢ at positions xᵢ balances at <b>μ = E[X] = Σ xᵢ pᵢ</b> where net torque is zero.`;
   },
   sonify(ctx, s, pageIdx = 0, p = CHAPTER.defaultParams) {
-    const firstKey = Object.keys(p || CHAPTER.defaultParams)[0];
-    const v = Number((p || CHAPTER.defaultParams)[firstKey]) || 1;
-    EKit.playTone(ctx, { freq: 220 + (Math.abs(v) % 20) * 18, dur: 0.06, type: 'sine', gain: 0.03 });
+    const post = s?.by?.posterior ?? 0.5;
+    EKit.playHarmonic(ctx, { ratio: post, targetRatio: 0.5, baseFreq: 246.94, gain: 0.032 });
   },
   buildWorld,
   build: buildWorld,

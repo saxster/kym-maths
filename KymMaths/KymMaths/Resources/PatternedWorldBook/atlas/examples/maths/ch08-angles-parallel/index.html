@@ -140,6 +140,24 @@
       const p = parseInt(location.hash.replace('#', ''), 10);
       if (!isNaN(p)) widget.setPage(p);
     });
+    const initQuirk = Q.get('quirk');
+    const initMedium = Q.get('medium');
+    if (initQuirk) {
+      document.documentElement.setAttribute('data-quirk', initQuirk);
+      widget.setQuirk?.(initQuirk);
+    }
+    if (initMedium) {
+      document.documentElement.setAttribute('data-medium', initMedium);
+      widget.setMedium?.(initMedium);
+    }
+    window.__atlasSetQuirk = q => {
+      document.documentElement.setAttribute('data-quirk', q);
+      widget.setQuirk?.(q);
+    };
+    window.__atlasSetMedium = m => {
+      document.documentElement.setAttribute('data-medium', m);
+      widget.setMedium?.(m);
+    };
     window.__host = { api, widget, setPlaying };
   </script>
 </body>

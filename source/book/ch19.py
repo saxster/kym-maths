@@ -75,7 +75,7 @@ def build(k):
                 {"symbol": "a · b", "visualPart": "How much one vector points along the other", "colorRole": "amber",
                  "meaning": "Zero when the two vectors meet at a right angle (90°)"},
             ],
-            "atlasFigureRef": "maths/ch15-linear-graphs-inequalities/index.html",
+            "atlasFigureRef": "maths/multivariable/index.html#2",
         },
         "sections": [
             {

@@ -44,6 +44,7 @@ struct EuclidSpineMapView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .readWidth($width)
                 MotifsStrip(store: store)
+                QuadrilateralLabStrip(store: store)
             }
             .onChange(of: detailRequests) {
                 guard isStacked else { return }
@@ -535,6 +536,73 @@ private struct MotifsStrip: View {
         } else {
             StatusTag(.locked, label: "Coming next")
         }
+    }
+}
+
+/// Interactive PhET-inspired quadrilateral hierarchy lab entry below the motifs shelf.
+private struct QuadrilateralLabStrip: View {
+    @Environment(\.standardTheme) private var theme
+    @Bindable var store: AppStore
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: StandardSpacing.sm) {
+            FlowLayout(spacing: StandardSpacing.sm) {
+                Kicker("Shape family")
+                Text("Drag any corner to test which properties hold and which family names still fit.")
+                    .standardType(.uiCaption)
+                    .foregroundStyle(theme.mute(theme.ink))
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            Button {
+                store.openEuclid(.quadrilateral)
+            } label: {
+                HStack(alignment: .center, spacing: StandardSpacing.md) {
+                    QuadrilateralThumbnail()
+                        .frame(width: 76, height: 48)
+                    VStack(alignment: .leading, spacing: StandardSpacing.xxs) {
+                        Text("Quadrilateral family")
+                            .standardType(.uiHeadline)
+                            .foregroundStyle(theme.ink)
+                        Text("Drag corners A–D to see why every square is also a rectangle, rhombus, parallelogram and kite.")
+                            .standardType(.uiCaption)
+                            .foregroundStyle(theme.mute(theme.ink))
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    Spacer(minLength: StandardSpacing.xs)
+                    Image(systemName: "arrow.right")
+                        .foregroundStyle(theme.mute(theme.ink))
+                        .accessibilityHidden(true)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .paperCard(padding: StandardSpacing.md)
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityHint("Opens the interactive quadrilateral family explorer")
+        }
+        .padding(.top, StandardSpacing.xs)
+    }
+}
+
+private struct QuadrilateralThumbnail: View {
+    @Environment(\.standardTheme) private var theme
+
+    var body: some View {
+        Canvas { context, size in
+            let pts = [
+                CGPoint(x: size.width * 0.22, y: size.height * 0.20),
+                CGPoint(x: size.width * 0.82, y: size.height * 0.24),
+                CGPoint(x: size.width * 0.72, y: size.height * 0.82),
+                CGPoint(x: size.width * 0.14, y: size.height * 0.78),
+            ]
+            let poly = BoardPaths.polygon(pts)
+            context.fill(poly, with: .color(theme.patterned.wash(.stays)))
+            context.stroke(poly, with: .color(theme.ink), style: StrokeStyle(lineWidth: 1.5, lineCap: .round, lineJoin: .round))
+            for pt in pts {
+                context.fill(BoardPaths.circle(pt, radius: 2.5), with: .color(theme.patterned.color(.moves)))
+            }
+        }
+        .accessibilityHidden(true)
     }
 }
 

@@ -13,10 +13,11 @@
 //   readout(state, params) → corner text, chips: [{ label, value: (state, params) → text }],
 //   chart?(state, params) → svg markup, PLATES?, narrowZoom? (camera distance factor on phones), frameAspect? (as machine.js)
 // }
-import { createStage, mountShareButton, mountMediumBar } from './stage.js';
+import { createStage, bindPlaybackLifecycle, mountShareButton, mountMediumBar } from './stage.js';
 import { speedLabel } from './machine.js';
 import { bindProse } from './prose.js';
 import { mountSoundToggle, playClick, playBoop } from './sound.js';
+import { renderControl, updateControl, bindControls, mountControlModeBar } from './diegetic.js';
 
 function applyChartSlot(el, res, state, params) {
   if (!el || !res) return;
@@ -35,9 +36,17 @@ const END = 1.5;
 export function startExplorer(figure) {
   const touch = matchMedia('(pointer: coarse)').matches;
   const narrowQ = matchMedia('(max-width: 900px)');
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const Q = new URLSearchParams(location.search), RENDER = Q.has('render');
   if (RENDER) document.documentElement.classList.add('render');
+  let S = null, raf = 0, frameReady = false, last = performance.now();
+  const life = RENDER ? { reduced: false, hidden: false, visible: true, active: true, destroy() {} } : bindPlaybackLifecycle({
+    onChange(st) {
+      S?.setReduced?.(st.reduced);
+      if (!frameReady) return;
+      if (st.hidden && raf) { cancelAnimationFrame(raf); raf = 0; }
+      else if (!st.hidden && !raf) { last = performance.now(); raf = requestAnimationFrame(frame); }
+    },
+  });
   const params = { ...figure.params };
   let hasParamQuery = false;
   for (const c of figure.controls || []) if (Q.has(c.key)) { params[c.key] = +Q.get(c.key); hasParamQuery = true; }   // ?p=0.7 opens it so
@@ -45,7 +54,7 @@ export function startExplorer(figure) {
   document.title = `${figure.title} · Atlas`;
   $('figtitle').textContent = figure.title; $('figno').textContent = `Fig. ${figure.no}`;
   $('question').textContent = figure.question; $('bigidea').innerHTML = `<b>The big idea:</b> ${figure.bigIdea}`;
-  $('chips').innerHTML = (figure.chips || []).map((c, i) => `<div class="chip" data-i="${i}"><span class="v">–</span><span class="l">${c.label}</span></div>`).join('');
+  $('chips').innerHTML = (figure.chips || []).map((c, i) => `<div class="chip${c.tone === 'ink' ? ' chip-ink' : ''}" data-i="${i}"><span class="v">${c.led ? `<i class="ink-led" aria-hidden="true"></i>` : ''}–</span><span class="l">${c.label}</span></div>`).join('');
   const chipEls = [...document.querySelectorAll('#chips .chip .v')];
 
   // ---------- predict first ----------
@@ -58,7 +67,7 @@ export function startExplorer(figure) {
       const b = e.target.closest('[data-c]'); if (!b || predicted) return;
       guess = +b.dataset.c; predicted = true; b.classList.add('picked');
       $('predict').querySelectorAll('[data-c]').forEach(x => x.disabled = true);
-      $('run').disabled = false; $('controls').querySelectorAll('input').forEach(x => x.disabled = false); $('run').focus();
+      $('run').disabled = false; $('controls').querySelectorAll('input, button.dg-hit').forEach(x => x.disabled = false); $('run').focus();
     });
   } else $('predict').hidden = true;
   // the answer and its reason go under Run, not under the choices, so nothing the reader is pointing at moves
@@ -74,18 +83,55 @@ export function startExplorer(figure) {
 
   // ---------- controls ----------
   const fmt = c => (c.fmt || (v => String(v)))(params[c.key]);
-  $('controls').innerHTML = (figure.controls || []).map(c => `<label class="slider"><span class="name">${c.label}</span>
-    <input type="range" data-key="${c.key}" min="${c.min}" max="${c.max}" step="${c.step}" value="${params[c.key]}"><output>${fmt(c)}</output></label>`).join('');
+  const hasDiegetic = (figure.controls || []).some(c => c.ui?.kind);
+  let ctlMode = Q.get('controls') === 'creative' ? 'creative' : (Q.get('controls') === 'standard' ? 'standard' : (figure.controlMode || 'standard'));
+  const drawControls = () => {
+    $('controls').innerHTML = (figure.controls || []).map(c =>
+      renderControl(c, params[c.key], { mode: ctlMode, disabled: !predicted, idPrefix: `exp-${figure.no || 'fig'}` })
+    ).join('');
+    if (!predicted) $('controls').querySelectorAll('input, button.dg-hit').forEach(x => x.disabled = true);
+  };
+  drawControls();
+  const applyParam = (key, val) => {
+    const c = (figure.controls || []).find(x => x.key === key); if (!c) return;
+    params[key] = +val;
+    if (ctlMode === 'creative' && c.ui?.kind) drawControls();
+    else {
+      const inp = $('controls')?.querySelector(`input[data-key="${key}"]`);
+      const out = inp?.closest('[data-ctl]')?.querySelector('[data-out]') || inp?.nextElementSibling;
+      if (inp) inp.value = params[key];
+      if (out) out.textContent = fmt(c);
+      updateControl($('controls'), c, params[key]);
+    }
+    if (c.rebuild) build();
+    reset();
+    syncUrl();
+  };
   $('controls').addEventListener('input', e => {
     const key = e.target.dataset.key; if (!key) return;
-    const c = figure.controls.find(x => x.key === key); params[key] = +e.target.value; e.target.nextElementSibling.textContent = fmt(c);
+    const c = figure.controls.find(x => x.key === key); if (!c) return;
+    params[key] = +e.target.value;
+    const out = e.target.closest('[data-ctl]')?.querySelector('[data-out]') || e.target.nextElementSibling;
+    if (out) out.textContent = fmt(c);
+    updateControl($('controls'), c, params[key]);
     if (c.rebuild) build();
     reset();
     syncUrl();
   });
+  bindControls($('controls'), {
+    getParams: () => params,
+    setParam: (k, v) => { if (predicted) applyParam(k, v); },
+  });
+  if (hasDiegetic) {
+    mountControlModeBar($('controls'), {
+      initialMode: ctlMode,
+      place: 'before',
+      onChange: m => { ctlMode = m; drawControls(); syncUrl(); },
+    });
+  }
   // the prediction is about the board as it first stands: the sliders wait until it is made
   $('run').textContent = figure.run.label; $('run').disabled = !predicted;
-  if (!predicted) $('controls').querySelectorAll('input').forEach(x => x.disabled = true);
+  if (!predicted) $('controls').querySelectorAll('input, button.dg-hit').forEach(x => x.disabled = true);
   const duration = () => figure.run.duration(params);
   let clock = hasTimeQuery ? Math.min(Math.max(+Q.get('t') || 0, 0), duration()) : 0, running = false;
   if (hasTimeQuery && clock >= duration()) { ran = true; $('run').textContent = 'Run it again'; }
@@ -102,7 +148,7 @@ export function startExplorer(figure) {
     if (clock >= duration()) clock = 0;
     running = true; $('run').textContent = 'Pause';
     // on a phone the figure sits above the controls: bring it into view to watch the run
-    if (narrowQ.matches) document.querySelector('.figure').scrollIntoView({ block: 'start', behavior: reduced ? 'auto' : 'smooth' });
+    if (narrowQ.matches) document.querySelector('.figure').scrollIntoView({ block: 'start', behavior: life.reduced ? 'auto' : 'smooth' });
   };
   $('again').onclick = () => reset();
   mountShareButton($('again'), shareUrl, 'again sharebtn', syncUrl);
@@ -116,17 +162,13 @@ export function startExplorer(figure) {
   const soundCtl = figure.sonify ? mountSoundToggle($('again'), { label: 'Sound' }) : null;
 
   // ---------- the figure ----------
-  let S = null;
   const proseRoot = document.querySelector('main') || document.body;
   const prose = bindProse(proseRoot, {
     getStage: () => S,
     getParams: () => params,
     setParam: (k, v) => {
-      params[k] = v;
-      const inp = $('controls')?.querySelector(`input[data-key="${k}"]`);
-      const c = (figure.controls || []).find(x => x.key === k);
-      if (inp && c) { inp.value = v; inp.nextElementSibling.textContent = fmt(c); if (c.rebuild) build(); }
-      reset();
+      if (!predicted) return;
+      applyParam(k, v);
     },
     formatters: figure.proseFormat || figure.formatters || {},
     onSound: (kind, dir) => { if (soundCtl?.on && soundCtl.ctx) (kind === 'scrub' ? playClick : playBoop)(soundCtl.ctx, { dir }); },
@@ -138,7 +180,7 @@ export function startExplorer(figure) {
       S.destroy();
       const fresh = document.createElement('canvas'); fresh.id = 'gl'; $('gl').replaceWith(fresh);   // a disposed context can't be reused
     }
-    S = createStage($('gl'), $('labels'), fig(), { reduced, touch, dprCap: touch ? 1.5 : 2 });
+    S = createStage($('gl'), $('labels'), fig(), { reduced: life.reduced, touch, dprCap: touch ? 1.5 : 2 });
     S.hooks.onHover = key => { prose.highlightPart(key); };
     S.hooks.onSelect = key => {
       const pl = $('plate');
@@ -167,18 +209,18 @@ export function startExplorer(figure) {
     const sp = running && figure.run.real ? speedLabel(figure.run.real(params), duration()) : '';
     $('speed').textContent = sp; $('speed').hidden = !sp;
   }
-  let last = performance.now();
   function frame(now) {
     const dt = Math.min(Math.max((now - last) / 1000, 0), 1 / 20); last = now;
     if (running) {
-      clock = reduced ? duration() : Math.min(clock + dt, duration());
+      clock = life.reduced ? duration() : Math.min(clock + dt, duration());
       if (clock >= duration()) { running = false; ran = true; $('run').textContent = 'Run it again'; reveal(); syncUrl(); }
     }
     draw(now, dt, clock);
-    if (!RENDER) requestAnimationFrame(frame);
+    if (!RENDER && !life.hidden) raf = requestAnimationFrame(frame);
+    else raf = 0;
   }
-  document.fonts.ready.then(() => requestAnimationFrame(t => { if (RENDER) draw(0, 0, 0); else frame(t); }));
-  window.__atlas = { E: S.E, S, N: 1, labelReport: S.labelReport, sceneReport: S.sceneReport, params, reset, shareUrl,
+  document.fonts.ready.then(() => requestAnimationFrame(t => { frameReady = true; last = t; if (RENDER) draw(0, 0, 0); else frame(t); }));
+  window.__atlas = { E: S.E, S, N: 1, labelReport: S.labelReport, sceneReport: S.sceneReport, lifecycle: life, params, reset, shareUrl,
     get state() { return { clock, running, predicted, ran }; }, get clock() { return S.clock; } };
   if (RENDER) {
     const D = duration() + END;

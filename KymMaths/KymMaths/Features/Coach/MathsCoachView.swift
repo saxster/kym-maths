@@ -223,12 +223,17 @@ struct MathsCoachView: View {
             if connected {
                 liveVoiceController.isMicrophoneMuted.toggle()
             } else {
+                let stagePart = store.latestStageTelemetry.map { "Live figure: \($0.voicing.context)" }
+                let combinedSummary = [store.activePracticeQuestion?.prompt, stagePart]
+                    .compactMap { $0?.trimmingCharacters(in: .whitespacesAndNewlines) }
+                    .filter { !$0.isEmpty }
+                    .joined(separator: " | ")
                 liveVoiceController.startSession(
                     topic: topic,
                     soulID: store.selectedSoulId,
                     overrides: store.soulParentOverrides,
                     guidanceStyle: store.requestedGuidanceStyle,
-                    mathContextSummary: store.activePracticeQuestion?.prompt
+                    mathContextSummary: combinedSummary.isEmpty ? nil : combinedSummary
                 )
             }
         } label: {

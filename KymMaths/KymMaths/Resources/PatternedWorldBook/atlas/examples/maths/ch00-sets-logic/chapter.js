@@ -1,6 +1,7 @@
 // Ch 0 · Sets, Venn Regions & De Morgan's Laws — 3D Interactive Mathematics Atlas chapter.
 import { SUBJECT } from '../subject.js';
 import * as EKit from '../../../engine/math_kit.js';
+import { BYRNE_THEME } from '../../../engine/theme.js';
 import * as M from './model.js';
 
 export const PAGES = [
@@ -136,7 +137,13 @@ function buildWorld(rawE) {
     });
   });
   return {
-    labels: [],
+    labels: [
+      { text: () => `Set A`, cls: 'board', at: () => new THREE.Vector3(-0.65, 0.55, 0.1), leader: [-18, -16], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `A ∩ B`, cls: 'board', at: () => new THREE.Vector3(0, 0.55, 0.18), leader: [0, -20], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `Set B`, cls: 'board', at: () => new THREE.Vector3(0.65, 0.55, 0.1), leader: [18, -16], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `(A ∪ B)′`, cls: 'board', at: () => new THREE.Vector3(0, 0.65, 0.05), leader: [0, -18], on: () => (CHAPTER._pageIdx || 0) === 1 },
+      { text: () => `2³ = 8 subsets`, cls: 'board', at: () => new THREE.Vector3(0, -0.55, 0.2), leader: [0, -16], on: () => (CHAPTER._pageIdx || 0) === 2 },
+    ],
     update(s, look) {
       const p = CHAPTER.params || CHAPTER.defaultParams;
       const pageIdx = CHAPTER._pageIdx || 0;
@@ -153,6 +160,9 @@ export const CHAPTER = {
   subject: SUBJECT,
   no: 0,
   title: "Ch 0 · Sets, Venn Regions & De Morgan's Laws",
+  theme: BYRNE_THEME,
+  medium: 'pencil-wash',
+  quirk: 'slightly-quirky',
   PAGES,
   pages: PAGES,
   PLATES,
@@ -185,9 +195,8 @@ export const CHAPTER = {
     return `<b>Truth Table & Power Set</b> · ¬(P ∨ Q) ⇔ ¬P ∧ ¬Q verified across all 4 states · For n = 3 elements, binary choices build a 3D cube of <b>2³ = ${s.pCount} subsets</b>.`;
   },
   sonify(ctx, s, pageIdx = 0, p = CHAPTER.defaultParams) {
-    const firstKey = Object.keys(p || CHAPTER.defaultParams)[0];
-    const v = Number((p || CHAPTER.defaultParams)[firstKey]) || 1;
-    EKit.playTone(ctx, { freq: 220 + (Math.abs(v) % 20) * 18, dur: 0.06, type: 'sine', gain: 0.03 });
+    const overlapFrac = s?.v?.union ? s.v.inter / s.v.union : 0.25;
+    EKit.playHarmonic(ctx, { ratio: overlapFrac, targetRatio: 0.25, baseFreq: 262, gain: 0.032 });
   },
   buildWorld,
   build: buildWorld,

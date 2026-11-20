@@ -1,6 +1,7 @@
 // Ch 12 · Singapore Bar Models, Simultaneous Elimination & Balance Scales — 3D Interactive Mathematics Atlas chapter.
 import { SUBJECT } from '../subject.js';
 import * as EKit from '../../../engine/math_kit.js';
+import { BYRNE_THEME } from '../../../engine/theme.js';
 import * as M from './model.js';
 
 export const PAGES = [
@@ -121,7 +122,11 @@ function buildWorld(rawE) {
     });
   });
   return {
-    labels: [],
+    labels: [
+      { text: () => `3 equal x-bars`, cls: 'board', at: () => new THREE.Vector3(-0.35, 0.72, 0.1), leader: [-16, -16], on: () => (CHAPTER._pageIdx || 0) === 0 },
+      { text: () => `Total bar`, cls: 'board', at: () => new THREE.Vector3(0.2, 0.18, 0.1), leader: [16, -14], on: () => (CHAPTER._pageIdx || 0) <= 1 },
+      { text: () => `Cancels y-bar`, cls: 'board', at: () => new THREE.Vector3(-0.35, -0.45, 0.1), leader: [0, 16], on: () => (CHAPTER._pageIdx || 0) === 1 },
+    ],
     update(s, look) {
       const p = CHAPTER.params || CHAPTER.defaultParams;
       const pageIdx = CHAPTER._pageIdx || 0;
@@ -138,6 +143,9 @@ export const CHAPTER = {
   subject: SUBJECT,
   no: 12,
   title: 'Ch 12 · Singapore Bar Models, Simultaneous Elimination & Balance Scales',
+  theme: BYRNE_THEME,
+  medium: 'pencil-wash',
+  quirk: 'slightly-quirky',
   PAGES,
   pages: PAGES,
   PLATES,
@@ -168,9 +176,8 @@ export const CHAPTER = {
     return `<b>Balance Scale Invariant</b> · Removing ${s.sb.c} from both pans preserves equilibrium: 3x = ${s.sb.remainder} → dividing into 3 equal groups gives <b>x = ${s.sb.solvedX}</b>.`;
   },
   sonify(ctx, s, pageIdx = 0, p = CHAPTER.defaultParams) {
-    const firstKey = Object.keys(p || CHAPTER.defaultParams)[0];
-    const v = Number((p || CHAPTER.defaultParams)[firstKey]) || 1;
-    EKit.playTone(ctx, { freq: 220 + (Math.abs(v) % 20) * 18, dur: 0.06, type: 'sine', gain: 0.03 });
+    const balanced = s?.sb ? Math.abs(s.sb.solvedX - s.sb.x) < 1e-6 : true;
+    EKit.playInvariantSnap(ctx, { satisfied: balanced, strength: 1.0, gain: 0.032 });
   },
   buildWorld,
   build: buildWorld,

@@ -1,6 +1,7 @@
 // Prose, breakdowns, and SVG charts for Chapter 6: Multivariable Calculus (6 pages).
 import * as M from './model.js';
 import { at } from './world.js';
+import { shadeMat } from '../../../engine/parts.js';
 
 export const PAGES = [
   {
@@ -79,10 +80,9 @@ export const PAGES = [
           pos.setXYZ(i, x, 0.35 * (x * x - y * y), y);
         }
         geo.computeVertexNormals();
-        const mesh = new THREE.Mesh(
-          geo,
-          new THREE.MeshStandardMaterial({ color: 0x3b6ea8, roughness: 0.38, metalness: 0.05, side: THREE.DoubleSide }),
-        );
+        const saddleMat = shadeMat('blue', { headlight: 0.35 });
+        saddleMat.side = THREE.DoubleSide;
+        const mesh = new THREE.Mesh(geo, saddleMat);
         mesh.name = 'saddle_specimen';
         g.add(mesh);
         return g;
